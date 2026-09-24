@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="theme-color" content="#FFF0F5">
+  <title>Mochi's Home 💖 - Our Shared Tamagotchi</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    html, body { height: 100%; overflow-x: hidden; }
+    body {
+      font-family: 'Quicksand', sans-serif;
+      background: linear-gradient(180deg, #FFE5EC 0%, #FFC2D1 40%, #FFB3C6 100%);
+      min-height: 100vh; min-height: 100dvh;
+      color: #5C3A4E;
+      padding: 12px;
+      display: flex; justify-content: center; align-items: flex-start;
+      overflow-y: auto; -webkit-overflow-scrolling: touch;
+    }
+    .bg-floats { position: fixed; inset: 0; pointer-events: none; overflow: hidden; z-index: 0; }
+    .bg-floats span { position: absolute; font-size: 1.2rem; opacity: 0; animation: bgFloat linear infinite; }
+    @keyframes bgFloat {
+      0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+      10% { opacity: 0.7; } 90% { opacity: 0.7; }
+      100% { transform: translateY(-100px) rotate(360deg); opacity: 0; }
+    }
+    #app { width: 100%; max-width: 480px; position: relative; z-index: 1; }
+
+    .pin-screen {
+      background: #FFF9FB; border-radius: 30px; padding: 30px 25px; text-align: center;
+      box-shadow: 0 15px 40px rgba(255, 143, 177, 0.35), inset 0 1px 0 rgba(255,255,255,0.9);
+      border: 3px solid #FFD6E5;
+    }
+    .pin-screen h1 { font-family: 'Fredoka', sans-serif; font-size: 1.8rem; color: #FF6B95; margin-bottom: 8px; }
+    .pin-screen .subtitle { font-size: 0.9rem; color: #A67C8F; margin-bottom: 22px; font-weight: 600; }
+    .big-emoji { font-size: 4.5rem; line-height: 1; margin-bottom: 15px; animation: bob 2s ease-in-out infinite; display: inline-block; }
+    @keyframes bob { 0%, 100% { transform: translateY(0) rotate(-3deg); } 50% { transform: translateY(-10px) rotate(3deg); } }
+    .pin-input {
+      width: 100%; padding: 16px 20px; font-size: 1.4rem; font-family: 'Fredoka', sans-serif;
+      font-weight: 600; text-align: center; letter-spacing: 12px;
+      border-radius: 18px; border: 3px solid #FFB3C6; background: #FFF9FB; color: #5C3A4E;
+      outline: none; transition: all 0.2s; margin-bottom: 15px;
+    }
+    .pin-input:focus { border-color: #FF6B95; box-shadow: 0 0 0 6px rgba(255, 107, 149, 0.15); }
+    .pin-input::placeholder { letter-spacing: 2px; font-size: 1rem; color: #C9A7B5; }
+    .role-pick { display: flex; gap: 10px; margin-bottom: 15px; }
+    .role-btn {
+      flex: 1; padding: 14px 10px; border-radius: 18px; border: 3px solid #FFD6E5;
+      background: #FFF9FB; font-family: 'Fredoka', sans-serif; font-weight: 600; font-size: 0.95rem;
+      color: #A67C8F; cursor: pointer; transition: all 0.2s;
+    }
+    .role-btn.selected { background: #FFE5EC; border-color: #FF6B95; color: #FF6B95; transform: scale(1.03); box-shadow: 0 6px 15px rgba(255, 107, 149, 0.25); }
+    .role-btn:active { transform: scale(0.97); }
+
+    .btn {
+      background: linear-gradient(135deg, #FF9BB3, #FF6B95); color: white; border: none;
+      padding: 15px 28px; font-size: 1rem; font-family: 'Fredoka', sans-serif; font-weight: 600;
+      border-radius: 20px; cursor: pointer; box-shadow: 0 6px 18px rgba(255, 107, 149, 0.4);
+      transition: all 0.2s; width: 100%; min-height: 52px;
+    }
+    .btn:active { transform: scale(0.97); box-shadow: 0 3px 10px rgba(255, 107, 149, 0.5); }
+    #gameScreen { display: none; }
+    .top-bar {
+      display: flex; justify-content: space-between; align-items: center;
+      background: #FFF9FB; border-radius: 18px; padding: 10px 15px; margin-bottom: 12px;
+      box-shadow: 0 4px 12px rgba(255, 143, 177, 0.2); border: 2px solid #FFE5EC;
+    }
+    .streak-display, .days-display {
+      display: flex; align-items: center; gap: 5px;
+      font-family: 'Fredoka', sans-serif; font-weight: 600; font-size: 0.85rem; color: #FF6B95;
+    }
+    .who-am-i { font-size: 0.8rem; font-weight: 700; color: #A67C8F; }
+    .pet-card {
+      background: #FFF9FB; border-radius: 28px; padding: 20px 18px; text-align: center;
+      box-shadow: 0 10px 30px rgba(255, 143, 177, 0.25), inset 0 1px 0 rgba(255,255,255,0.9);
+      border: 3px solid #FFE5EC; margin-bottom: 12px; position: relative; overflow: hidden;
+    }
+    .pet-stage {
+      font-size: 5.5rem; line-height: 1; margin-bottom: 5px;
+      animation: petIdle 3s ease-in-out infinite; display: inline-block;
+      transition: all 0.3s; position: relative; z-index: 2;
+    }
+    @keyframes petIdle {
+      0%, 100% { transform: translateY(0) scale(1); }
+      50% { transform: translateY(-8px) scale(1.03); }
+    }
+    .pet-stage.happy { animation: petHappy 0.6s ease-in-out infinite; }
+    @keyframes petHappy {
+      0%, 100% { transform: translateY(0) rotate(-5deg); }
+      50% { transform: translateY(-12px) rotate(5deg); }
+    }
+    .pet-stage.sad { animation: petSad 2s ease-in-out infinite; filter: grayscale(0.3); }
+    @keyframes petSad {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(2px) rotate(-2deg); }
+    }
+    .pet-name { font-family: 'Fredoka', sans-serif; font-size: 1.6rem; color: #FF6B95; margin-bottom: 4px; }
+    .pet-level {
+      display: inline-block; background: linear-gradient(135deg, #FFE5EC, #FFD6E5);
+      color: #FF6B95; font-family: 'Fredoka', sans-serif; font-weight: 600;
+      font-size: 0.8rem; padding: 4px 12px; border-radius: 20px;
+      margin-bottom: 12px; border: 1px solid #FFB3C6;
+    }
+    .stats { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 12px; }
+    .stat { background: #FFF0F5; border-radius: 14px; padding: 10px 12px; text-align: left; border: 2px solid #FFD6E5; }
+    .stat-header {
+      display: flex; justify-content: space-between; align-items: center;
+      font-size: 0.8rem; font-weight: 700; color: #A67C8F; margin-bottom: 5px;
+    }
+    .stat-icon { font-size: 1rem; margin-right: 3px; }
+    .stat-value { font-family: 'Fredoka', sans-serif; font-size: 0.85rem; color: #FF6B95; font-weight: 600; }
+    .stat-bar { height: 8px; background: #FFE5EC; border-radius: 10px; overflow: hidden; }
+    .stat-bar-fill {
+      height: 100%; border-radius: 10px;
+      transition: width 0.6s cubic-bezier(0.34, 1.56, 0.64, 1), background-color 0.4s;
+    }
+    .stat-bar-fill.good { background: linear-gradient(90deg, #A8E6CF, #7DD3A3); }
+    .stat-bar-fill.medium { background: linear-gradient(90deg, #FFD3A5, #FFB677); }
+    .stat-bar-fill.low { background: linear-gradient(90deg, #FFA8B5, #FF6B95); animation: lowPulse 1.5s infinite; }
+    @keyframes lowPulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.6; } }
+
+    .actions { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 12px; }
+    .action-btn {
+      background: #FFF9FB; border: 3px solid #FFD6E5; border-radius: 20px; padding: 14px 6px;
+      cursor: pointer; transition: all 0.15s; display: flex; flex-direction: column;
+      align-items: center; gap: 4px; font-family: 'Fredoka', sans-serif; font-weight: 600;
+      color: #5C3A4E; min-height: 78px; justify-content: center;
+    }
+    .action-btn:active { transform: scale(0.94); background: #FFE5EC; }
+    .action-btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
+    .action-btn .emoji { font-size: 1.6rem; line-height: 1; }
+    .action-btn .label { font-size: 0.7rem; color: #A67C8F; }
+
+    .diary-card {
+      background: #FFF9FB; border-radius: 20px; padding: 15px; border: 3px solid #FFE5EC;
+      box-shadow: 0 6px 18px rgba(255, 143, 177, 0.15); margin-bottom: 12px;
+    }
+    .diary-title {
+      font-family: 'Fredoka', sans-serif; font-weight: 600; font-size: 0.95rem;
+      color: #FF6B95; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center;
+    }
+    .diary-scroll { max-height: 130px; overflow-y: auto; scrollbar-width: thin; }
+    .diary-scroll::-webkit-scrollbar { width: 5px; }
+    .diary-scroll::-webkit-scrollbar-thumb { background: #FFB3C6; border-radius: 5px; }
+    .diary-entry {
+      font-size: 0.8rem; padding: 7px 10px; border-radius: 10px; margin-bottom: 5px;
+      line-height: 1.35; color: #7A5568; background: #FFF0F5; border-left: 3px solid #FFB3C6;
+      animation: diarySlide 0.3s ease-out;
+    }
+    @keyframes diarySlide { from { opacity: 0; transform: translateX(-8px); } to { opacity: 1; transform: translateX(0); } }
+    .diary-entry.by-her { border-left-color: #FF6B95; background: #FFE5EC; }
+    .diary-entry.by-you { border-left-color: #9BC1FF; background: #E5F0FF; }
+    .diary-entry .time { font-size: 0.7rem; color: #A67C8F; margin-right: 5px; font-weight: 600; }
+
+    .welcome-back {
+      background: #FFF9FB; border-radius: 20px; padding: 16px; border: 3px dashed #FFB3C6;
+      margin-bottom: 12px; text-align: center;
+      animation: welcomePop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    @keyframes welcomePop { 0% { transform: scale(0.8); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
+    .welcome-back h3 { font-family: 'Fredoka', sans-serif; color: #FF6B95; font-size: 1.05rem; margin-bottom: 8px; }
+    .welcome-back p { font-size: 0.85rem; color: #A67C8F; line-height: 1.5; margin-bottom: 4px; }
+    .welcome-back .dismiss {
+      background: none; border: none; color: #C9A7B5; font-size: 0.75rem;
+      margin-top: 8px; cursor: pointer; font-weight: 600; padding: 5px 10px;
+    }
+    .action-float { position: fixed; font-size: 2rem; pointer-events: none; z-index: 999; animation: actionFloat 1.5s ease-out forwards; }
+    @keyframes actionFloat {
+      0% { opacity: 1; transform: translate(0, 0) scale(0.5); }
+      100% { opacity: 0; transform: translate(var(--tx), var(--ty)) scale(1.5) rotate(30deg); }
+    }
+    .toast {
+      position: fixed; top: 20px; left: 50%;
+      transform: translateX(-50%) translateY(-100px);
+      background: #FF6B95; color: white; padding: 12px 20px; border-radius: 25px;
+      font-family: 'Fredoka', sans-serif; font-weight: 600; font-size: 0.9rem;
+      box-shadow: 0 8px 25px rgba(255, 107, 149, 0.4); z-index: 1000;
+      transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); white-space: nowrap;
+    }
+    .toast.show { transform: translateX(-50%) translateY(0); }
+    @media (max-width: 380px) {
+      .pin-screen h1 { font-size: 1.5rem; }
+      .big-emoji { font-size: 3.5rem; }
+      .pet-stage { font-size: 4.5rem; }
+      .action-btn { padding: 10px 4px; min-height: 68px; }
+      .action-btn .emoji { font-size: 1.4rem; }
+      .action-btn .label { font-size: 0.65rem; }
+      .stat { padding: 8px 10px; }
+    }
+    @media (max-height: 700px) {
+      .pet-stage { font-size: 4.5rem; }
+      .diary-scroll { max-height: 90px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="bg-floats" id="bgFloats"></div>
+
+  <div id="app">
+    <!-- PIN SCREEN -->
+    <div class="pin-screen" id="pinScreen">
+      <div class="big-emoji" id="welcomeEmoji">🥚</div>
+      <h1>Mochi's Home</h1>
+      <p class="subtitle">A tiny pet we take care of together 💖</p>
+      <div class="role-pick">
+        <button class="role-btn" data-role="you">💙 Me</button>
+        <button class="role-btn" data-role="her">💖 Mahal</button>
+      </div>
+      <input type="tel" class="pin-input" id="pinInput" placeholder="PIN" maxlength="4" inputmode="numeric" pattern="[0-9]*">
+      <button class="btn" id="loginBtn">Come In 💕</button>
+      <p style="font-size: 0.72rem; color: #C9A7B5; margin-top: 15px; line-height: 1.4;">
+        First time? Pick who you are and make a 4-digit PIN.<br>
+        <span style="font-size: 0.68rem;">Both of you use the same webpage — each picks their own role.</span>
+      </p>
+    </div>
+
+    <!-- GAME SCREEN -->
+    <div id="gameScreen">
+      <div class="top-bar">
+        <div class="streak-display"><span>🔥</span><span id="streakCount">0</span></div>
+        <div class="who-am-i" id="whoAmI">💙 Me</div>
+        <div class="days-display"><span>💕</span><span id="daysCount">0</span></div>
+      </div>
+
+      <div class="welcome-back" id="welcomeBack" style="display:none;">
+        <h3 id="welcomeTitle">Welcome back! 💖</h3>
+        <div id="welcomeBody"></div>
+        <button class="dismiss" id="dismissWelcome">Hide this →</button>
+      </div>
+
+      <div class="pet-card">
+        <div class="pet-stage" id="petStage">🥚</div>
+        <div class="pet-name" id="petName">Mochi</div>
+        <div class="pet-level" id="petLevel">Lv 1 · Egg</div>
+        <div class="stats">
+          <div class="stat">
+            <div class="stat-header"><span><span class="stat-icon">🍕</span>Hunger</span><span class="stat-value" id="hungerVal">100</span></div>
+            <div class="stat-bar"><div class="stat-bar-fill good" id="hungerBar" style="width:100%"></div></div>
+          </div>
+          <div class="stat">
+            <div class="stat-header"><span><span class="stat-icon">🎮</span>Happy</span><span class="stat-value" id="happyVal">100</span></div>
+            <div class="stat-bar"><div class="stat-bar-fill good" id="happyBar" style="width:100%"></div></div>
+          </div>
+          <div class="stat">
+            <div class="stat-header"><span><span class="stat-icon">😴</span>Energy</span><span class="stat-value" id="energyVal">100</span></div>
+            <div class="stat-bar"><div class="stat-bar-fill good" id="energyBar" style="width:100%"></div></div>
+          </div>
+          <div class="stat">
+            <div class="stat-header"><span><span class="stat-icon">🛁</span>Clean</span><span class="stat-value" id="cleanVal">100</span></div>
+            <div class="stat-bar"><div class="stat-bar-fill good" id="cleanBar" style="width:100%"></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="actions">
+        <button class="action-btn" data-action="feed"><span class="emoji">🍕</span><span class="label">Feed</span></button>
+        <button class="action-btn" data-action="play"><span class="emoji">🎮</span><span class="label">Play</span></button>
+        <button class="action-btn" data-action="sleep"><span class="emoji">😴</span><span class="label">Sleep</span></button>
+        <button class="action-btn" data-action="bath"><span class="emoji">🛁</span><span class="label">Bath</span></button>
+        <button class="action-btn" data-action="pet"><span class="emoji">🤚</span><span class="label">Pet</span></button>
+        <button class="action-btn" data-action="treat"><span class="emoji">🍪</span><span class="label">Treat</span></button>
+      </div>
+
+      <div class="diary-card">
+        <div class="diary-title">
+          <span>📖 Mochi's Diary</span>
+          <span style="font-size: 0.7rem; color: #C9A7B5;" id="diaryCount">0 events</span>
+        </div>
+        <div class="diary-scroll" id="diaryScroll">
+          <div style="text-align: center; color: #C9A7B5; font-size: 0.8rem; padding: 10px;">Nothing yet! Take care of Mochi together 💕</div>
+        </div>
+      </div>
+
+      <button class="btn" id="logoutBtn" style="background: linear-gradient(135deg, #D6C7D0, #A67C8F); font-size: 0.9rem; padding: 12px;">Switch User</button>
+      <p style="text-align: center; font-size: 0.7rem; color: #C9A7B5; margin: 10px 0 20px;">Made with 💖 for Mochi</p>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyCpxlMZiAcJwI2RuNTJ14jSaHhV-nBcW7A",
+      authDomain: "mochigotchi.firebaseapp.com",
+      databaseURL: "https://mochigotchi-default-rtdb.asia-southeast1.firebasedatabase.app",
+      projectId: "mochigotchi",
+      storageBucket: "mochigotchi.firebasestorage.app",
+      messagingSenderId: "441429859962",
+      appId: "1:441429859962:web:d0a5e1af080bb394a725c3"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.database();
+
+    // ============================================================
+    // GAME CONSTANTS
+    // ============================================================
+    const DECAY_PER_MINUTE = 0.15;
+    const OFFLINE_CAP_HOURS = 8;
+    const MAX_DIARY = 40;
+    const COOLDOWN_MS = 3000;
+
+    const STAGES = [
+      { level: 1,  name: 'Egg',     emoji: '🥚' },
+      { level: 3,  name: 'Baby',    emoji: '🐣' },
+      { level: 6,  name: 'Toddler', emoji: '🐥' },
+      { level: 12, name: 'Child',   emoji: '🐤' },
+      { level: 20, name: 'Teen',    emoji: '🐦' },
+      { level: 35, name: 'Adult',   emoji: '🦜' },
+      { level: 50, name: 'Mystic',  emoji: '🦚' },
+      { level: 75, name: 'Legend',  emoji: '🦅' }
+    ];
+
+    const ACTIONS = {
+      feed:  { stat: 'hunger', amount: 25, xp: 2, verb: 'fed', emoji: '🍕' },
+      play:  { stat: 'happy',  amount: 20, xp: 3, verb: 'played with', emoji: '🎮', cost: { energy: 10 } },
+      sleep: { stat: 'energy', amount: 30, xp: 1, verb: 'tucked in', emoji: '😴' },
+      bath:  { stat: 'clean',  amount: 30, xp: 2, verb: 'bathed', emoji: '🛁' },
+      pet:   { stat: 'happy',  amount: 8,  xp: 1, verb: 'petted', emoji: '🤚' },
+      treat: { stat: 'happy',  amount: 15, xp: 2, verb: 'gave a treat to', emoji: '🍪', cost: { hunger: 5 } }
+    };
+
+    // ============================================================
+    // STATE
+    // ============================================================
+    let me = 'you';
+    let myPin = '';
+    let gameData = null;
+    let myLastSeen = 0;
+    let hasShownWelcome = false;
+    let lastActionAt = 0;
+
+    const $ = (id) => document.getElementById(id);
+
+    // ============================================================
+    // BACKGROUND FLOATERS
+    // ============================================================
+    (function () {
+      const c = $('bgFloats');
+      const emojis = ['💖', '🌸', '✨', '💕', '⭐', '🌷', '💗', '🦋'];
+      for (let i = 0; i < 12; i++) {
+        const s = document.createElement('span');
+        s.textContent = emojis[i % emojis.length];
+        s.style.left = Math.random() * 100 + '%';
+        s.style.animationDuration = (14 + Math.random() * 12) + 's';
+        s.style.animationDelay = (Math.random() * 15) + 's';
+        s.style.fontSize = (0.9 + Math.random() * 0.9) + 'rem';
+        c.appendChild(s);
+      }
+    })();
+
+    // ============================================================
+    // TOAST
+    // ============================================================
+    let toastT;
+    function showToast(msg) {
+      const t = $('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      clearTimeout(toastT);
+      toastT = setTimeout(() => t.classList.remove('show'), 2200);
+    }
+
+    // ============================================================
+    // ROLE PICK
+    // ============================================================
+    let selectedRole = null;
+    document.querySelectorAll('.role-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.role-btn').forEach(b => b.classList.remove('selected'));
+        btn.classList.add('selected');
+        selectedRole = btn.dataset.role;
+        $('welcomeEmoji').textContent = selectedRole === 'you' ? '💙' : '💖';
+      });
+    });
+
+    const savedRole = localStorage.getItem('mochi_role');
+    const savedPin = localStorage.getItem('mochi_pin');
+    if (savedRole && savedPin) {
+      selectedRole = savedRole;
+      $('pinInput').value = savedPin;
+      document.querySelectorAll('.role-btn').forEach(b => {
+        if (b.dataset.role === savedRole) b.classList.add('selected');
+      });
+      $('welcomeEmoji').textContent = savedRole === 'you' ? '💙' : '💖';
+    }
+
+    // ============================================================
+    // LOGIN
+    // ============================================================
+    $('loginBtn').addEventListener('click', () => {
+      const pin = $('pinInput').value.trim();
+      if (!selectedRole) return showToast('Pick who you are first 💕');
+      if (!/^\d{4}$/.test(pin)) return showToast('PIN must be 4 digits 🔢');
+      
+      me = selectedRole;
+      myPin = pin;
+      localStorage.setItem('mochi_role', me);
+      localStorage.setItem('mochi_pin', myPin);
+      myLastSeen = parseInt(localStorage.getItem('mochi_last_' + me)) || 0;
+      
+      $('pinScreen').style.display = 'none';
+      $('gameScreen').style.display = 'block';
+      $('whoAmI').textContent = me === 'you' ? '💙 Me' : '💖 Mahal';
+      
+      listenToGame();
+    });
+
+    // ============================================================
+    // FIREBASE
+    // ============================================================
+    function listenToGame() {
+      const ref = db.ref('tamagotchi');
+      ref.once('value').then(snap => {
+        if (!snap.exists()) {
+          const now = Date.now();
+          ref.set({
+            name: 'Mochi',
+            createdAt: now,
+            lastUpdate: now,
+            hunger: 100, happy: 100, energy: 100, clean: 100,
+            xp: 0, level: 1,
+            streak: 0, lastStreakDate: '',
+            youLastSeen: now, herLastSeen: 0,
+            diary: {}
+          }).then(() => ref.on('value', handleUpdate));
+        } else {
+          ref.on('value', handleUpdate);
+        }
+      });
+    }
+
+    function handleUpdate(snap) {
+      const data = snap.val();
+      if (!data) return;
+
+      const now = Date.now();
+      const lastUpdate = data.lastUpdate || now;
+      const minutesOffline = Math.min((now - lastUpdate) / 60000, OFFLINE_CAP_HOURS * 60);
+      const decay = minutesOffline * DECAY_PER_MINUTE;
+
+      const prevSnapshot = { ...data };
+
+      data.hunger = Math.max(0, (data.hunger ?? 100) - decay);
+      data.happy  = Math.max(0, (data.happy  ?? 100) - decay);
+      data.energy = Math.max(0, (data.energy ?? 100) - decay);
+      data.clean  = Math.max(0, (data.clean  ?? 100) - decay);
+
+      gameData = data;
+      updateLevel();
+
+      // Write decay back so the server is up-to-date
+      if (minutesOffline > 1) {
+        gameData.lastUpdate = now;
+        db.ref('tamagotchi').update({
+          hunger: data.hunger,
+          happy: data.happy,
+          energy: data.energy,
+          clean: data.clean,
+          lastUpdate: now
+        });
+      }
+
+      renderPet();
+      renderDiary();
+      updateStreakAndDays();
+      checkStreak();
+
+      // Welcome back summary (once per session, only if away > 5 min)
+      if (!hasShownWelcome && myLastSeen > 0 && now - myLastSeen > 5 * 60 * 1000) {
+        showWelcomeBack(prevSnapshot, data, myLastSeen);
+      }
+      hasShownWelcome = true;
+
+      // Save last seen
+      myLastSeen = now;
+      localStorage.setItem('mochi_last_' + me, now);
+      db.ref('tamagotchi/' + (me === 'you' ? 'youLastSeen' : 'herLastSeen')).set(now);
+    }
+
+    // ============================================================
+    // LEVELS
+    // ============================================================
+    function xpForLevel(level) {
+      // Increasing XP requirement
+      return Math.floor(50 + (level - 1) * 25 + Math.pow(level - 1, 1.6) * 10);
+    }
+
+    function updateLevel() {
+      let lvl = 1;
+      let remainingXp = gameData.xp || 0;
+      while (remainingXp >= xpForLevel(lvl) && lvl < 100) {
+        remainingXp -= xpForLevel(lvl);
+        lvl++;
+      }
+      gameData.level = lvl;
+    }
+
+    function currentStage() {
+      let s = STAGES[0];
+      for (const st of STAGES) {
+        if (gameData.level >= st.level) s = st;
+      }
+      return s;
+    }
+
+    // ============================================================
+    // RENDER
+    // ============================================================
+    function renderPet() {
+      const stage = currentStage();
+      $('petStage').textContent = stage.emoji;
+      $('petName').textContent = gameData.name || 'Mochi';
+
+      const avgStat = (gameData.hunger + gameData.happy + gameData.energy + gameData.clean) / 4;
+      let mood = '';
+      if (avgStat < 30) mood = 'sad';
+      else if (avgStat > 75) mood = 'happy';
+      $('petStage').className = 'pet-stage ' + mood;
+
+      const xpInLevel = gameData.xp - Math.sumOfXpBeforeLevel(gameData.level);
+      $('petLevel').textContent = `Lv ${gameData.level} · ${stage.name}`;
+
+      setStat('hunger', gameData.hunger);
+      setStat('happy', gameData.happy);
+      setStat('energy', gameData.energy);
+      setStat('clean', gameData.clean);
+    }
+
+    // Helper to precompute XP threshold
+    Math.sumOfXpBeforeLevel = function (level) {
+      let sum = 0;
+      for (let i = 1; i < level; i++) sum += xpForLevel(i);
+      return sum;
+    };
+
+    function setStat(name, val) {
+      val = Math.round(val);
+      $('${name}Val'.replace('${name}', name)).textContent = val;
+      const bar = $(name + 'Bar');
+      bar.style.width = val + '%';
+      bar.className = 'stat-bar-fill ' + (val > 60 ? 'good' : val > 30 ? 'medium' : 'low');
+    }
+
+    function renderDiary() {
+      const diary = gameData.diary || {};
+      const entries = Object.values(diary).sort((a, b) => b.time - a.time).slice(0, MAX_DIARY);
+      
+      const scroll = $('diaryScroll');
+      scroll.innerHTML = '';
+      
+      if (entries.length === 0) {
+        scroll.innerHTML = '<div style="text-align:center; color:#C9A7B5; font-size:0.8rem; padding:10px;">Nothing yet! Take care of Mochi together 💕</div>';
+      } else {
+        entries.forEach(e => {
+          const div = document.createElement('div');
+          div.className = 'diary-entry by-' + e.by;
+          const t = new Date(e.time);
+          const timeStr = t.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
+          const who = e.by === 'you' ? '💙 You' : '💖 Mahal';
+          div.innerHTML = `<span class="time">${timeStr}</span>${who} ${e.text}`;
+          scroll.appendChild(div);
+        });
+      }
+      
+      $('diaryCount').textContent = entries.length + ' event' + (entries.length === 1 ? '' : 's');
+    }
+
+    function updateStreakAndDays() {
+      const daysSinceCreated = Math.floor((Date.now() - gameData.createdAt) / (1000 * 60 * 60 * 24)) + 1;
+      $('daysCount').textContent = daysSinceCreated;
+      $('streakCount').textContent = gameData.streak || 0;
+    }
+
+    function checkStreak() {
+      const today = new Date().toISOString().slice(0, 10);
+      const lastDate = gameData.lastStreakDate || '';
+      if (lastDate === today) return;
+      
+      const yesterday = new Date(Date.now() - 86400000).toISOString().slice(0, 10);
+      let newStreak = (lastDate === yesterday) ? (gameData.streak || 0) + 1 : 1;
+      
+      gameData.streak = newStreak;
+      gameData.lastStreakDate = today;
+      db.ref('tamagotchi').update({ streak: newStreak, lastStreakDate: today });
+    }
+
+    // ============================================================
+    // ACTIONS
+    // ============================================================
+    document.querySelectorAll('.action-btn').forEach(btn => {
+      btn.addEventListener('click', () => doAction(btn.dataset.action, btn));
+    });
+
+    function doAction(actionName, btn) {
+      if (!gameData) return showToast('Loading Mochi... 💕');
+      if (Date.now() - lastActionAt < COOLDOWN_MS) {
+        return showToast('Slow down, Mahal 💕');
+      }
+      lastActionAt = Date.now();
+
+      const action = ACTIONS[actionName];
+      if (!action) return;
+
+      // Check cost
+      if (action.cost) {
+        for (const [stat, amount] of Object.entries(action.cost)) {
+          if (gameData[stat] < amount) {
+            return showToast(`Not enough ${stat}! 💤`);
+          }
+        }
+      }
+
+      const updates = {};
+      updates[action.stat] = Math.min(100, gameData[action.stat] + action.amount);
+      
+      if (action.cost) {
+        for (const [stat, amount] of Object.entries(action.cost)) {
+          updates[stat] = Math.max(0, gameData[stat] - amount);
+        }
+      }
+
+      // XP
+      updates.xp = (gameData.xp || 0) + action.xp;
+      updates.lastUpdate = Date.now();
+
+      // Diary entry
+      const diaryEntry = {
+        by: me,
+        text: `${action.verb} Mochi`,
+        time: Date.now()
+      };
+      const diaryKey = 'diary/' + Date.now() + '_' + Math.random().toString(36).slice(2, 6);
+      updates[diaryKey] = diaryEntry;
+
+      // Trim diary to MAX_DIARY
+      const diary = gameData.diary || {};
+      const keys = Object.keys(diary).sort();
+      if (keys.length >= MAX_DIARY) {
+        const toRemove = keys.slice(0, keys.length - MAX_DIARY + 1);
+        toRemove.forEach(k => {
+          updates['diary/' + k] = null;
+        });
+      }
+
+      db.ref('tamagotchi').update(updates);
+
+      // Animation feedback
+      spawnActionFloat(btn, action.emoji);
+      btn.style.transform = 'scale(0.9)';
+      setTimeout(() => btn.style.transform = '', 150);
+    }
+
+    function spawnActionFloat(btn, emoji) {
+      const rect = btn.getBoundingClientRect();
+      const el = document.createElement('div');
+      el.className = 'action-float';
+      el.textContent = emoji;
+      el.style.left = (rect.left + rect.width / 2 - 15) + 'px';
+      el.style.top = (rect.top + rect.height / 2 - 15) + 'px';
+      el.style.setProperty('--tx', (Math.random() - 0.5) * 120 + 'px');
+      el.style.setProperty('--ty', '-100px');
+      document.body.appendChild(el);
+      setTimeout(() => el.remove(), 1600);
+    }
+
+    // ============================================================
+    // WELCOME BACK
+    // ============================================================
+    function showWelcomeBack(prev, curr, lastSeenTime) {
+      const hoursAway = (Date.now() - lastSeenTime) / 3600000;
+      let summary = '';
+      
+      if (hoursAway > 24) {
+        summary = `I missed you so much! You were away for ${Math.floor(hoursAway / 24)} day(s). `;
+      } else if (hoursAway > 1) {
+        summary = `You were away for ${Math.floor(hoursAway)} hour(s). `;
+      } else {
+        summary = `Welcome back! `;
+      }
+
+      // Check what the OTHER person did (from diary since lastSeen)
+      const otherRole = me === 'you' ? 'her' : 'you';
+      const diary = curr.diary || {};
+      const recentOtherActions = Object.values(diary)
+        .filter(e => e.by === otherRole && e.time > lastSeenTime)
+        .sort((a, b) => a.time - b.time);
+
+      if (recentOtherActions.length > 0) {
+        const otherName = otherRole === 'you' ? '💙 Me' : '💖 Mahal';
+        summary += `<strong>${otherName}</strong> took care of Mochi ${recentOtherActions.length} time${recentOtherActions.length > 1 ? 's' : ''} while you were away!`;
+      } else {
+        summary += `Mochi was waiting for you! 💕`;
+      }
+
+      $('welcomeTitle').textContent = `Hi ${me === 'you' ? 'love' : 'Mahal'}! 💖`;
+      $('welcomeBody').innerHTML = `<p>${summary}</p>`;
+      $('welcomeBack').style.display = 'block';
+    }
+
+    $('dismissWelcome').addEventListener('click', () => {
+      $('welcomeBack').style.display = 'none';
+    });
+
+    // ============================================================
+    // LOGOUT
+    // ============================================================
+    $('logoutBtn').addEventListener('click', () => {
+      localStorage.removeItem('mochi_role');
+      localStorage.removeItem('mochi_pin');
+      location.reload();
+    });
+  </script>
+</body>
+</html>
