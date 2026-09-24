@@ -18,185 +18,166 @@
       display: flex; justify-content: center; align-items: flex-start;
       overflow-y: auto; -webkit-overflow-scrolling: touch;
     }
-
     #app { width: 100%; max-width: 480px; position: relative; z-index: 1; }
 
-    /* ============================================ */
-    /* LOGIN SCREEN - pixel style                    */
-    /* ============================================ */
+    /* LOGIN */
     .pin-screen {
-      background: #FDF6EE;
-      border: 4px solid #8B6F5E;
-      border-radius: 8px;
-      padding: 28px 22px 24px;
-      text-align: center;
+      background: #FDF6EE; border: 4px solid #8B6F5E; border-radius: 8px;
+      padding: 28px 22px 24px; text-align: center;
       box-shadow: 0 6px 0 #8B6F5E;
     }
     .pin-screen h1 {
-      font-family: 'Press Start 2P', monospace;
-      font-size: 1.1rem;
-      color: #8B6F5E;
-      margin-bottom: 8px;
-      letter-spacing: 0;
-      line-height: 1.4;
+      font-family: 'Press Start 2P', monospace; font-size: 1.1rem;
+      color: #8B6F5E; margin-bottom: 8px; line-height: 1.4;
     }
-    .pin-screen .subtitle {
-      font-size: 0.85rem;
-      color: #A89080;
-      margin-bottom: 20px;
-      font-weight: 500;
-    }
+    .pin-screen .subtitle { font-size: 0.85rem; color: #A89080; margin-bottom: 20px; }
     .big-emoji {
-      font-size: 4rem;
-      line-height: 1;
-      margin-bottom: 12px;
-      animation: bob 2.4s ease-in-out infinite;
-      display: inline-block;
-      image-rendering: pixelated;
+      font-size: 4rem; line-height: 1; margin-bottom: 12px;
+      animation: bob 2.4s ease-in-out infinite; display: inline-block;
     }
     @keyframes bob {
       0%, 100% { transform: translateY(0); }
       50% { transform: translateY(-8px); }
     }
-
     .pin-input {
-      width: 100%;
-      padding: 14px 18px;
-      font-size: 1.3rem;
-      font-family: 'Press Start 2P', monospace;
-      font-weight: 400;
-      text-align: center;
-      letter-spacing: 8px;
-      border: 3px solid #C9B0A0;
-      background: #FFFDF9;
-      color: #4A3F3A;
-      outline: none;
-      margin-bottom: 12px;
+      width: 100%; padding: 14px 18px; font-size: 1.3rem;
+      font-family: 'Press Start 2P', monospace; text-align: center;
+      letter-spacing: 8px; border: 3px solid #C9B0A0;
+      background: #FFFDF9; color: #4A3F3A; outline: none; margin-bottom: 12px;
     }
-    .pin-input:focus {
-      border-color: #8B6F5E;
-      background: #FFFFFF;
-    }
-    .pin-input::placeholder {
-      letter-spacing: 2px;
-      font-size: 0.75rem;
-      color: #C9B0A0;
-    }
-
+    .pin-input:focus { border-color: #8B6F5E; }
+    .pin-input::placeholder { letter-spacing: 2px; font-size: 0.75rem; color: #C9B0A0; }
     .role-pick { display: flex; gap: 8px; margin-bottom: 12px; }
     .role-btn {
-      flex: 1;
-      padding: 13px 8px;
-      border: 3px solid #C9B0A0;
-      background: #FFFDF9;
-      font-family: 'Fredoka', sans-serif;
-      font-weight: 600;
-      font-size: 0.9rem;
-      color: #8B6F5E;
-      cursor: pointer;
-      transition: all 0.15s;
+      flex: 1; padding: 13px 8px; border: 3px solid #C9B0A0;
+      background: #FFFDF9; font-family: 'Fredoka', sans-serif;
+      font-weight: 600; font-size: 0.9rem; color: #8B6F5E;
+      cursor: pointer; transition: all 0.15s;
     }
     .role-btn.selected {
-      background: #F4D9C8;
-      border-color: #8B6F5E;
-      color: #4A3F3A;
+      background: #F4D9C8; border-color: #8B6F5E; color: #4A3F3A;
       box-shadow: 0 3px 0 #8B6F5E;
     }
     .role-btn:active { transform: translateY(2px); box-shadow: none; }
-
     .btn {
-      background: #8B6F5E;
-      color: white;
-      border: none;
-      padding: 15px 26px;
-      font-size: 0.95rem;
-      font-family: 'Fredoka', sans-serif;
-      font-weight: 600;
-      border-radius: 6px;
-      cursor: pointer;
-      box-shadow: 0 4px 0 #6B4F3E;
-      transition: all 0.1s;
-      width: 100%;
-      min-height: 52px;
+      background: #8B6F5E; color: white; border: none;
+      padding: 15px 26px; font-size: 0.95rem;
+      font-family: 'Fredoka', sans-serif; font-weight: 600;
+      border-radius: 6px; cursor: pointer;
+      box-shadow: 0 4px 0 #6B4F3E; transition: all 0.1s;
+      width: 100%; min-height: 52px;
     }
-    .btn:active {
-      transform: translateY(3px);
-      box-shadow: 0 1px 0 #6B4F3E;
-    }
+    .btn:active { transform: translateY(3px); box-shadow: 0 1px 0 #6B4F3E; }
+    .btn.small { padding: 10px 16px; font-size: 0.8rem; min-height: 40px; }
 
-    /* ============================================ */
-    /* GAME SCREEN                                   */
-    /* ============================================ */
+    /* GAME */
     #gameScreen { display: none; }
 
     .top-bar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      background: #FDF6EE;
-      border: 3px solid #C9B0A0;
-      border-radius: 8px;
-      padding: 8px 12px;
-      margin-bottom: 8px;
+      display: flex; justify-content: space-between; align-items: center;
+      background: #FDF6EE; border: 3px solid #C9B0A0; border-radius: 8px;
+      padding: 8px 12px; margin-bottom: 8px;
     }
     .streak-display, .days-display {
-      display: flex;
-      align-items: center;
-      gap: 4px;
-      font-family: 'Press Start 2P', monospace;
-      font-size: 0.65rem;
-      color: #8B6F5E;
-      padding: 4px 8px;
-      background: #F4E9DE;
-      border-radius: 4px;
+      display: flex; align-items: center; gap: 4px;
+      font-family: 'Press Start 2P', monospace; font-size: 0.65rem;
+      color: #8B6F5E; padding: 4px 8px;
+      background: #F4E9DE; border-radius: 4px;
     }
     .streak-display.hot {
-      background: #F4D9C8;
-      animation: streakPulse 1.5s infinite;
+      background: #F4D9C8; animation: streakPulse 1.5s infinite;
     }
     @keyframes streakPulse {
       0%, 100% { box-shadow: 0 0 0 0 rgba(244, 217, 200, 0.8); }
       50% { box-shadow: 0 0 0 6px rgba(244, 217, 200, 0); }
     }
-    .who-am-i {
-      font-family: 'Press Start 2P', monospace;
-      font-size: 0.6rem;
-      color: #4A3F3A;
+    .who-am-i { font-family: 'Press Start 2P', monospace; font-size: 0.6rem; color: #4A3F3A; }
+
+    /* NAV TABS */
+    .nav-tabs {
+      display: flex; gap: 4px; margin-bottom: 8px;
+    }
+    .nav-tab {
+      flex: 1; padding: 8px 4px; text-align: center;
+      background: #FDF6EE; border: 3px solid #C9B0A0; border-radius: 6px;
+      font-family: 'Press Start 2P', monospace; font-size: 0.5rem;
+      color: #8B6F5E; cursor: pointer;
+      transition: all 0.15s; position: relative;
+    }
+    .nav-tab.active {
+      background: #F4D9C8; border-color: #8B6F5E; color: #4A3F3A;
+    }
+    .nav-tab .badge {
+      position: absolute; top: -6px; right: -4px;
+      background: #C9302C; color: white;
+      font-size: 0.45rem; padding: 2px 5px;
+      border-radius: 8px; font-family: 'Press Start 2P', monospace;
+      animation: badgePulse 1.5s infinite;
+    }
+    @keyframes badgePulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.15); }
     }
 
-    /* ============================================ */
-    /* ROOM SCENE                                    */
-    /* ============================================ */
+    /* VIEW CONTAINERS */
+    .view { display: none; }
+    .view.active { display: block; }
+
+    /* ROOM SCENE */
     .room {
-      background: #FDF6EE;
-      border: 4px solid #8B6F5E;
-      border-radius: 8px;
-      margin-bottom: 8px;
-      position: relative;
-      overflow: hidden;
+      background: #FDF6EE; border: 4px solid #8B6F5E; border-radius: 8px;
+      margin-bottom: 8px; position: relative; overflow: hidden;
       box-shadow: 0 6px 0 #8B6F5E;
     }
-
-    /* Wall */
     .room-wall {
       height: 180px;
-      background:
-        linear-gradient(180deg, #F4D9C8 0%, #F4D9C8 60%, #E8C9B8 60%, #E8C9B8 100%);
-      position: relative;
-      overflow: hidden;
+      background: linear-gradient(180deg, #F4D9C8 0%, #F4D9C8 60%, #E8C9B8 60%, #E8C9B8 100%);
+      position: relative; overflow: hidden;
     }
-    /* Pixel wallpaper pattern */
     .room-wall::before {
-      content: '';
-      position: absolute;
-      inset: 0;
+      content: ''; position: absolute; inset: 0;
       background-image:
         radial-gradient(circle at 20px 20px, #E8BBA8 2px, transparent 2px),
         radial-gradient(circle at 60px 60px, #E8BBA8 2px, transparent 2px);
-      background-size: 40px 40px;
-      opacity: 0.4;
+      background-size: 40px 40px; opacity: 0.4;
     }
-    /* Night mode for room */
+    /* Room variants */
+    .room.kitchen .room-wall {
+      background: linear-gradient(180deg, #F4E4C8 0%, #F4E4C8 60%, #E8D4B8 60%, #E8D4B8 100%);
+    }
+    .room.kitchen .room-wall::before {
+      background-image:
+        radial-gradient(circle at 20px 20px, #D4B484 3px, transparent 3px),
+        radial-gradient(circle at 60px 60px, #D4B484 3px, transparent 3px);
+    }
+    .room.garden .room-wall {
+      background: linear-gradient(180deg, #C8E4C8 0%, #C8E4C8 40%, #A8D4A8 40%, #A8D4A8 100%);
+    }
+    .room.garden .room-wall::before {
+      background-image:
+        radial-gradient(circle at 20px 20px, #7DAF6B 3px, transparent 3px),
+        radial-gradient(circle at 60px 60px, #7DAF6B 3px, transparent 3px);
+    }
+    .room.playroom .room-wall {
+      background: linear-gradient(180deg, #E8D4E8 0%, #E8D4E8 60%, #D8C4D8 60%, #D8C4D8 100%);
+    }
+    .room.playroom .room-wall::before {
+      background-image:
+        radial-gradient(circle at 20px 20px, #C9A0C9 3px, transparent 3px),
+        radial-gradient(circle at 60px 60px, #C9A0C9 3px, transparent 3px);
+    }
+    .room.observatory .room-wall {
+      background: linear-gradient(180deg, #3A3458 0%, #3A3458 60%, #2A2438 60%, #2A2438 100%);
+    }
+    .room.observatory .room-wall::before {
+      background-image:
+        radial-gradient(circle at 20px 20px, #FFF9EE 1px, transparent 1px),
+        radial-gradient(circle at 60px 60px, #FFF9EE 1px, transparent 1px),
+        radial-gradient(circle at 100px 80px, #FFF9EE 1px, transparent 1px);
+      background-size: 80px 80px, 80px 80px, 80px 80px;
+      opacity: 0.8;
+    }
+    .room.observatory .room-window { background: #1A1428; }
     .room.night .room-wall {
       background: linear-gradient(180deg, #2A2438 0%, #2A2438 60%, #3A3448 60%, #3A3448 100%);
     }
@@ -205,99 +186,100 @@
         radial-gradient(circle at 20px 20px, #4A4458 2px, transparent 2px),
         radial-gradient(circle at 60px 60px, #4A4458 2px, transparent 2px);
     }
-
-    /* Window */
-    .room-window {
-      position: absolute;
-      top: 20px;
-      right: 20px;
-      width: 50px;
-      height: 50px;
-      background: #B8D8E8;
-      border: 4px solid #8B6F5E;
-      border-radius: 4px;
-      box-shadow: 0 3px 0 #6B4F3E;
-      z-index: 5;
-    }
-    .room-window::before {
-      content: '';
-      position: absolute;
-      top: 50%; left: 0; right: 0;
-      height: 3px;
-      background: #8B6F5E;
-      transform: translateY(-50%);
-    }
-    .room-window::after {
-      content: '';
-      position: absolute;
-      left: 50%; top: 0; bottom: 0;
-      width: 3px;
-      background: #8B6F5E;
-      transform: translateX(-50%);
-    }
     .room.night .room-window { background: #1A1428; }
 
-    /* Floor */
+    .room-window {
+      position: absolute; top: 20px; right: 20px;
+      width: 50px; height: 50px; background: #B8D8E8;
+      border: 4px solid #8B6F5E; border-radius: 4px;
+      box-shadow: 0 3px 0 #6B4F3E; z-index: 5;
+    }
+    .room-window::before {
+      content: ''; position: absolute; top: 50%; left: 0; right: 0;
+      height: 3px; background: #8B6F5E; transform: translateY(-50%);
+    }
+    .room-window::after {
+      content: ''; position: absolute; left: 50%; top: 0; bottom: 0;
+      width: 3px; background: #8B6F5E; transform: translateX(-50%);
+    }
+
+    /* Room name badge */
+    .room-badge {
+      position: absolute; top: 12px; left: 12px;
+      background: #FDF6EE; border: 3px solid #8B6F5E;
+      padding: 4px 10px;
+      font-family: 'Press Start 2P', monospace; font-size: 0.5rem;
+      color: #8B6F5E; border-radius: 4px;
+      z-index: 6;
+    }
+
     .room-floor {
       height: 60px;
-      background:
-        repeating-linear-gradient(90deg, #D9B8A8 0px, #D9B8A8 20px, #C9A898 20px, #C9A898 40px);
-      border-top: 3px solid #8B6F5E;
-      position: relative;
+      background: repeating-linear-gradient(90deg, #D9B8A8 0px, #D9B8A8 20px, #C9A898 20px, #C9A898 40px);
+      border-top: 3px solid #8B6F5E; position: relative;
     }
     .room.night .room-floor {
-      background:
-        repeating-linear-gradient(90deg, #3A3448 0px, #3A3448 20px, #2A2438 20px, #2A2438 40px);
+      background: repeating-linear-gradient(90deg, #3A3448 0px, #3A3448 20px, #2A2438 20px, #2A2438 40px);
+    }
+    .room.garden .room-floor {
+      background: repeating-linear-gradient(90deg, #A8C898 0px, #A8C898 20px, #98B888 20px, #98B888 40px);
+    }
+    .room.observatory .room-floor {
+      background: repeating-linear-gradient(90deg, #2A2438 0px, #2A2438 20px, #3A3448 20px, #3A3448 40px);
     }
 
-    /* ============================================ */
-    /* THE PET                                       */
-    /* ============================================ */
+    /* WANTS BUBBLE */
+    .want-bubble {
+      position: absolute; top: 75px; left: 50%;
+      transform: translateX(-50%);
+      background: #FFF9C8; border: 3px solid #C9A044;
+      padding: 6px 12px;
+      font-family: 'Press Start 2P', monospace; font-size: 0.5rem;
+      color: #6B4F0E; border-radius: 6px;
+      z-index: 8; white-space: nowrap;
+      animation: wantPulse 2s ease-in-out infinite;
+      cursor: pointer;
+    }
+    @keyframes wantPulse {
+      0%, 100% { transform: translateX(-50%) scale(1); }
+      50% { transform: translateX(-50%) scale(1.05); }
+    }
+    .want-bubble::after {
+      content: ''; position: absolute; bottom: -8px; left: 50%;
+      transform: translateX(-50%); width: 0; height: 0;
+      border-left: 6px solid transparent;
+      border-right: 6px solid transparent;
+      border-top: 8px solid #C9A044;
+    }
+
+    /* PET */
     .pet-area {
-      position: absolute;
-      left: 0;
-      right: 0;
-      bottom: 10px;
-      height: 140px;
-      z-index: 10;
+      position: absolute; left: 0; right: 0; bottom: 10px;
+      height: 140px; z-index: 10;
     }
-
     .pet {
-      position: absolute;
-      font-size: 3.5rem;
-      line-height: 1;
-      transition: left 1.5s cubic-bezier(0.4, 0, 0.2, 1), transform 0.4s;
-      image-rendering: pixelated;
+      position: absolute; font-size: 3.5rem; line-height: 1;
+      transition: left 1.5s cubic-bezier(0.4, 0, 0.2, 1);
       filter: drop-shadow(0 4px 0 rgba(139, 111, 94, 0.4));
-      z-index: 20;
-      left: 50%;
+      z-index: 20; left: 50%;
       transform: translateX(-50%);
     }
-    .pet.walking {
-      animation: walk 0.6s steps(2) infinite;
-    }
+    .pet.walking { animation: walk 0.6s steps(2) infinite; }
     @keyframes walk {
       0%, 100% { transform: translateX(-50%) translateY(0); }
       50% { transform: translateX(-50%) translateY(-4px); }
     }
-    .pet.idle {
-      animation: idle 3s ease-in-out infinite;
-    }
+    .pet.idle { animation: idle 3s ease-in-out infinite; }
     @keyframes idle {
       0%, 100% { transform: translateX(-50%) translateY(0); }
       50% { transform: translateX(-50%) translateY(-6px); }
     }
-    .pet.happy {
-      animation: happyJump 0.5s ease-in-out infinite;
-    }
+    .pet.happy { animation: happyJump 0.5s ease-in-out infinite; }
     @keyframes happyJump {
       0%, 100% { transform: translateX(-50%) translateY(0) scale(1); }
       50% { transform: translateX(-50%) translateY(-12px) scale(1.05); }
     }
-    .pet.sleeping {
-      animation: sleepBreath 3s ease-in-out infinite;
-      opacity: 0.9;
-    }
+    .pet.sleeping { animation: sleepBreath 3s ease-in-out infinite; opacity: 0.9; }
     @keyframes sleepBreath {
       0%, 100% { transform: translateX(-50%) scale(1); }
       50% { transform: translateX(-50%) scale(1.04); }
@@ -312,33 +294,17 @@
       75% { transform: translateX(-50%) rotate(3deg); }
     }
 
-    /* Scene props */
     .scene-prop {
-      position: absolute;
-      font-size: 1.8rem;
-      z-index: 15;
-      image-rendering: pixelated;
-      transition: opacity 0.3s;
+      position: absolute; font-size: 1.8rem; z-index: 15;
       pointer-events: none;
     }
-    .prop-bowl {
-      left: 20%;
-      bottom: 15px;
-    }
-    .prop-bed {
-      right: 15%;
-      bottom: 10px;
-      font-size: 2.4rem;
-    }
+    .prop-bed { right: 15%; bottom: 10px; font-size: 2.4rem; }
     .prop-tub {
-      left: 50%;
-      bottom: 20px;
-      transform: translateX(-50%);
-      font-size: 2.4rem;
+      left: 50%; bottom: 20px;
+      transform: translateX(-50%); font-size: 2.4rem;
     }
     .prop-ball {
-      right: 25%;
-      bottom: 30px;
+      right: 25%; bottom: 30px;
       animation: ballBounce 1s ease-in-out infinite;
     }
     @keyframes ballBounce {
@@ -346,12 +312,8 @@
       50% { transform: translateY(-20px); }
     }
 
-    /* Poop */
     .poop {
-      position: absolute;
-      font-size: 1.4rem;
-      bottom: 20px;
-      z-index: 12;
+      position: absolute; font-size: 1.4rem; bottom: 20px; z-index: 12;
       animation: poopIn 0.3s ease-out;
     }
     @keyframes poopIn {
@@ -359,21 +321,14 @@
       100% { transform: scale(1); }
     }
 
-    /* Action text bubbles */
     .speech-bubble {
-      position: absolute;
-      top: -20px;
-      left: 50%;
+      position: absolute; top: -20px; left: 50%;
       transform: translateX(-50%);
-      background: white;
-      border: 3px solid #8B6F5E;
+      background: white; border: 3px solid #8B6F5E;
       padding: 6px 12px;
-      font-family: 'Press Start 2P', monospace;
-      font-size: 0.55rem;
-      color: #4A3F3A;
-      border-radius: 6px;
-      white-space: nowrap;
-      z-index: 30;
+      font-family: 'Press Start 2P', monospace; font-size: 0.55rem;
+      color: #4A3F3A; border-radius: 6px;
+      white-space: nowrap; z-index: 30;
       animation: bubbleIn 0.3s ease-out;
     }
     @keyframes bubbleIn {
@@ -381,22 +336,15 @@
       100% { opacity: 1; transform: translateX(-50%) translateY(0); }
     }
     .speech-bubble::after {
-      content: '';
-      position: absolute;
-      bottom: -8px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 0; height: 0;
+      content: ''; position: absolute; bottom: -8px; left: 50%;
+      transform: translateX(-50%); width: 0; height: 0;
       border-left: 6px solid transparent;
       border-right: 6px solid transparent;
       border-top: 8px solid #8B6F5E;
     }
 
-    /* Floating hearts */
     .heart-float {
-      position: absolute;
-      font-size: 1rem;
-      z-index: 25;
+      position: absolute; font-size: 1rem; z-index: 25;
       pointer-events: none;
       animation: heartFloat 1.5s ease-out forwards;
     }
@@ -405,14 +353,11 @@
       100% { opacity: 0; transform: translateY(-60px) scale(1.2); }
     }
 
-    /* Zzz sleep */
     .zzz {
       position: absolute;
       font-family: 'Press Start 2P', monospace;
-      color: #8B6F5E;
-      font-size: 0.7rem;
-      z-index: 30;
-      pointer-events: none;
+      color: #8B6F5E; font-size: 0.7rem;
+      z-index: 30; pointer-events: none;
       animation: zzzFloat 2.5s ease-out infinite;
     }
     @keyframes zzzFloat {
@@ -421,14 +366,11 @@
       100% { opacity: 0; transform: translate(25px, -50px) scale(1.1); }
     }
 
-    /* Bubbles bath */
     .bubble {
-      position: absolute;
-      border-radius: 50%;
+      position: absolute; border-radius: 50%;
       background: radial-gradient(circle at 30% 30%, #FFFFFF, #B8D8E8);
       border: 2px solid #8B6F5E;
-      z-index: 25;
-      pointer-events: none;
+      z-index: 25; pointer-events: none;
       animation: bubbleRise 2s ease-out infinite;
     }
     @keyframes bubbleRise {
@@ -437,36 +379,24 @@
       100% { opacity: 0; transform: translateY(-70px) scale(1); }
     }
 
-    /* ============================================ */
-    /* STATS - pixel style                           */
-    /* ============================================ */
-    .pet-info {
-      padding: 10px 12px 12px;
-      background: #FDF6EE;
-    }
+    /* PET INFO */
+    .pet-info { padding: 10px 12px 12px; background: #FDF6EE; }
     .pet-name-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+      display: flex; justify-content: space-between; align-items: center;
       margin-bottom: 8px;
     }
     .pet-name {
       font-family: 'Press Start 2P', monospace;
-      font-size: 0.7rem;
-      color: #4A3F3A;
+      font-size: 0.7rem; color: #4A3F3A;
     }
     .pet-stage-badge {
       font-family: 'Press Start 2P', monospace;
-      font-size: 0.5rem;
-      color: #A89080;
-      padding: 3px 8px;
-      background: #F4E9DE;
-      border: 2px solid #C9B0A0;
-      border-radius: 4px;
+      font-size: 0.5rem; color: #A89080;
+      padding: 3px 8px; background: #F4E9DE;
+      border: 2px solid #C9B0A0; border-radius: 4px;
     }
     .pet-stage-badge.level-up {
-      background: #F4D9C8;
-      color: #8B6F5E;
+      background: #F4D9C8; color: #8B6F5E;
       animation: levelUpPulse 1s ease;
     }
     @keyframes levelUpPulse {
@@ -475,117 +405,76 @@
     }
 
     .stats {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 6px;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 6px;
     }
     .stat {
-      background: #F4E9DE;
-      border: 2px solid #C9B0A0;
-      padding: 6px 8px;
-      border-radius: 4px;
+      background: #F4E9DE; border: 2px solid #C9B0A0;
+      padding: 6px 8px; border-radius: 4px;
     }
     .stat-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+      display: flex; justify-content: space-between; align-items: center;
       font-family: 'Press Start 2P', monospace;
-      font-size: 0.5rem;
-      color: #8B6F5E;
-      margin-bottom: 4px;
+      font-size: 0.5rem; color: #8B6F5E; margin-bottom: 4px;
     }
     .stat-bar {
-      height: 6px;
-      background: #E8D9C8;
-      border: 2px solid #8B6F5E;
-      border-radius: 3px;
-      overflow: hidden;
+      height: 6px; background: #E8D9C8;
+      border: 2px solid #8B6F5E; border-radius: 3px; overflow: hidden;
     }
-    .stat-bar-fill {
-      height: 100%;
-      transition: width 0.5s;
-    }
+    .stat-bar-fill { height: 100%; transition: width 0.5s; }
     .stat-bar-fill.good { background: #8FB87D; }
     .stat-bar-fill.medium { background: #D4B472; }
     .stat-bar-fill.low { background: #D18F73; }
 
-    /* ============================================ */
-    /* ACTIONS - pixel buttons                       */
-    /* ============================================ */
+    /* ACTIONS */
     .actions {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 6px;
-      padding: 0 12px 12px;
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 6px; padding: 0 12px 12px;
     }
     .action-btn {
-      background: #FFFDF9;
-      border: 3px solid #C9B0A0;
-      border-radius: 4px;
-      padding: 10px 4px;
-      cursor: pointer;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 3px;
-      box-shadow: 0 3px 0 #C9B0A0;
-      transition: all 0.1s;
-      min-height: 70px;
-      justify-content: center;
+      background: #FFFDF9; border: 3px solid #C9B0A0;
+      border-radius: 4px; padding: 10px 4px; cursor: pointer;
+      display: flex; flex-direction: column; align-items: center; gap: 3px;
+      box-shadow: 0 3px 0 #C9B0A0; transition: all 0.1s;
+      min-height: 70px; justify-content: center;
     }
-    .action-btn:active {
-      transform: translateY(3px);
-      box-shadow: none;
-    }
-    .action-btn:disabled {
-      opacity: 0.5;
-      cursor: not-allowed;
-    }
-    .action-btn .emoji {
-      font-size: 1.5rem;
-      line-height: 1;
-      image-rendering: pixelated;
-    }
+    .action-btn:active { transform: translateY(3px); box-shadow: none; }
+    .action-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+    .action-btn .emoji { font-size: 1.5rem; line-height: 1; }
     .action-btn .label {
       font-family: 'Press Start 2P', monospace;
-      font-size: 0.45rem;
-      color: #8B6F5E;
+      font-size: 0.45rem; color: #8B6F5E;
+    }
+    .action-btn.want-highlight {
+      border-color: #C9A044;
+      background: #FFF9C8;
+      animation: wantHighlight 1.2s infinite;
+    }
+    @keyframes wantHighlight {
+      0%, 100% { box-shadow: 0 3px 0 #C9A044; }
+      50% { box-shadow: 0 3px 0 #C9A044, 0 0 12px rgba(201, 160, 68, 0.6); }
     }
 
-    /* ============================================ */
-    /* DIARY                                         */
-    /* ============================================ */
+    /* DIARY */
     .diary {
-      background: #FDF6EE;
-      border: 3px solid #C9B0A0;
-      border-radius: 6px;
-      padding: 10px;
-      margin: 0 12px 12px;
+      background: #FDF6EE; border: 3px solid #C9B0A0;
+      border-radius: 6px; padding: 10px; margin: 0 12px 12px;
     }
     .diary-title {
       font-family: 'Press Start 2P', monospace;
-      font-size: 0.55rem;
-      color: #8B6F5E;
-      margin-bottom: 8px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+      font-size: 0.55rem; color: #8B6F5E;
+      margin-bottom: 8px; display: flex;
+      justify-content: space-between; align-items: center;
     }
     .diary-scroll {
-      max-height: 100px;
-      overflow-y: auto;
+      max-height: 100px; overflow-y: auto;
       scrollbar-width: thin;
     }
     .diary-scroll::-webkit-scrollbar { width: 4px; }
     .diary-scroll::-webkit-scrollbar-thumb { background: #C9B0A0; border-radius: 2px; }
     .diary-entry {
-      font-size: 0.72rem;
-      padding: 5px 8px;
-      margin-bottom: 3px;
-      background: #F4E9DE;
-      border-left: 3px solid #C9B0A0;
-      border-radius: 3px;
-      color: #6B5F4D;
+      font-size: 0.72rem; padding: 5px 8px; margin-bottom: 3px;
+      background: #F4E9DE; border-left: 3px solid #C9B0A0;
+      border-radius: 3px; color: #6B5F4D;
       animation: diarySlide 0.3s;
     }
     @keyframes diarySlide {
@@ -595,41 +484,222 @@
     .diary-entry.by-koy { border-left-color: #8B6F5E; }
     .diary-entry.by-metz { border-left-color: #C9A0A0; }
     .diary-entry .time {
-      font-size: 0.6rem;
-      color: #A89080;
-      margin-right: 4px;
+      font-size: 0.6rem; color: #A89080; margin-right: 4px;
       font-family: 'Press Start 2P', monospace;
     }
 
-    /* Toast */
+    /* ACHIEVEMENTS */
+    .ach-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 8px; padding: 0 12px 12px;
+    }
+    .ach-card {
+      background: #F4E9DE; border: 3px solid #C9B0A0;
+      border-radius: 6px; padding: 10px;
+      display: flex; align-items: center; gap: 8px;
+      transition: all 0.2s;
+    }
+    .ach-card.unlocked {
+      background: #FFF9C8; border-color: #C9A044;
+    }
+    .ach-card .ach-icon {
+      font-size: 1.8rem; line-height: 1;
+      filter: grayscale(1) opacity(0.4);
+    }
+    .ach-card.unlocked .ach-icon { filter: none; }
+    .ach-card .ach-info { flex: 1; min-width: 0; }
+    .ach-card .ach-name {
+      font-family: 'Press Start 2P', monospace;
+      font-size: 0.5rem; color: #8B6F5E;
+      margin-bottom: 3px; line-height: 1.4;
+      word-break: break-word;
+    }
+    .ach-card.unlocked .ach-name { color: #6B4F0E; }
+    .ach-card .ach-desc {
+      font-size: 0.65rem; color: #A89080;
+      line-height: 1.3;
+    }
+    .ach-card.unlocked .ach-desc { color: #8B6F5E; }
+
+    .section-header {
+      padding: 12px 12px 8px;
+      font-family: 'Press Start 2P', monospace;
+      font-size: 0.7rem; color: #8B6F5E;
+      text-align: center;
+    }
+
+    /* NOTES */
+    .notes-container {
+      padding: 0 12px 12px;
+    }
+    .note-input-area {
+      display: flex; gap: 6px; margin-bottom: 12px;
+    }
+    .note-input {
+      flex: 1; padding: 12px 14px;
+      border: 3px solid #C9B0A0; background: #FFFDF9;
+      font-family: 'Fredoka', sans-serif; font-size: 0.9rem;
+      color: #4A3F3A; outline: none; border-radius: 6px;
+    }
+    .note-input:focus { border-color: #8B6F5E; }
+    .note-send {
+      background: #8B6F5E; color: white; border: none;
+      padding: 0 16px; cursor: pointer;
+      font-family: 'Press Start 2P', monospace;
+      font-size: 0.55rem; border-radius: 6px;
+      box-shadow: 0 3px 0 #6B4F3E;
+      transition: all 0.1s;
+    }
+    .note-send:active {
+      transform: translateY(2px); box-shadow: 0 1px 0 #6B4F3E;
+    }
+    .notes-wall {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+    .sticky-note {
+      padding: 12px 10px; border-radius: 4px;
+      font-size: 0.8rem; line-height: 1.4;
+      color: #4A3F3A; min-height: 90px;
+      position: relative; word-break: break-word;
+      box-shadow: 2px 3px 0 rgba(139, 111, 94, 0.3);
+      transform: rotate(-1deg);
+      animation: notePin 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .sticky-note:nth-child(even) { transform: rotate(1deg); }
+    @keyframes notePin {
+      0% { transform: scale(0.7) rotate(-10deg); opacity: 0; }
+      100% { transform: scale(1) rotate(-1deg); opacity: 1; }
+    }
+    .sticky-note.by-koy { background: #F4D9C8; }
+    .sticky-note.by-metz { background: #F0D8E8; }
+    .sticky-note .note-sender {
+      font-family: 'Press Start 2P', monospace;
+      font-size: 0.45rem; color: #8B6F5E;
+      margin-bottom: 6px; display: block;
+    }
+    .sticky-note .note-time {
+      position: absolute; bottom: 6px; right: 8px;
+      font-size: 0.6rem; color: #A89080;
+    }
+    .sticky-note .note-delete {
+      position: absolute; top: 6px; right: 6px;
+      background: none; border: none;
+      font-size: 0.9rem; cursor: pointer;
+      opacity: 0.4; padding: 2px 6px;
+    }
+    .sticky-note .note-delete:active { opacity: 1; }
+
+    /* ALBUM */
+    .album-container {
+      padding: 0 12px 12px;
+    }
+    .album-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+    .album-card {
+      background: #FDF6EE; border: 3px solid #C9B0A0;
+      border-radius: 6px; padding: 12px 8px;
+      text-align: center;
+      box-shadow: 0 3px 0 #C9B0A0;
+    }
+    .album-card .album-emoji { font-size: 2.4rem; margin-bottom: 4px; }
+    .album-card .album-level {
+      font-family: 'Press Start 2P', monospace;
+      font-size: 0.55rem; color: #8B6F5E;
+      margin-bottom: 4px;
+    }
+    .album-card .album-date {
+      font-size: 0.65rem; color: #A89080;
+    }
+    .album-card .album-note {
+      font-size: 0.7rem; color: #8B6F5E;
+      margin-top: 6px; line-height: 1.3;
+    }
+
+    /* ROOMS TAB */
+    .rooms-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 8px; padding: 0 12px 12px;
+    }
+    .room-card {
+      background: #F4E9DE; border: 3px solid #C9B0A0;
+      border-radius: 6px; padding: 14px 10px;
+      text-align: center; cursor: pointer;
+      transition: all 0.2s; position: relative;
+    }
+    .room-card.unlocked { background: #FDF6EE; }
+    .room-card.active {
+      border-color: #8B6F5E; background: #F4D9C8;
+      box-shadow: 0 3px 0 #8B6F5E;
+    }
+    .room-card.locked {
+      opacity: 0.6; cursor: not-allowed;
+    }
+    .room-card .room-emoji { font-size: 2rem; margin-bottom: 4px; }
+    .room-card .room-name {
+      font-family: 'Press Start 2P', monospace;
+      font-size: 0.55rem; color: #8B6F5E;
+      margin-bottom: 4px;
+    }
+    .room-card .room-req {
+      font-size: 0.65rem; color: #A89080;
+    }
+    .room-card.active .room-req {
+      color: #4A3F3A; font-weight: 600;
+    }
+
+    /* TOAST */
     .toast {
-      position: fixed;
-      top: 15px;
-      left: 50%;
+      position: fixed; top: 15px; left: 50%;
       transform: translateX(-50%) translateY(-80px);
-      background: #8B6F5E;
-      color: white;
+      background: #8B6F5E; color: white;
       padding: 10px 18px;
       font-family: 'Press Start 2P', monospace;
-      font-size: 0.55rem;
-      border-radius: 4px;
-      z-index: 1000;
-      transition: transform 0.3s;
-      max-width: 90vw;
-      text-align: center;
-      line-height: 1.5;
+      font-size: 0.55rem; border-radius: 4px;
+      z-index: 1000; transition: transform 0.3s;
+      max-width: 90vw; text-align: center; line-height: 1.5;
     }
     .toast.show { transform: translateX(-50%) translateY(0); }
 
-    /* Level up overlay */
+    /* ACHIEVEMENT POPUP */
+    .ach-popup {
+      position: fixed; top: 50%; left: 50%;
+      transform: translate(-50%, -50%) scale(0);
+      background: #FFF9C8; border: 4px solid #C9A044;
+      border-radius: 12px; padding: 24px 32px;
+      z-index: 2000; text-align: center;
+      box-shadow: 0 8px 0 #C9A044;
+      animation: achPop 2.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+    }
+    @keyframes achPop {
+      0% { transform: translate(-50%, -50%) scale(0); }
+      15% { transform: translate(-50%, -50%) scale(1.1); }
+      25% { transform: translate(-50%, -50%) scale(1); }
+      85% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+      100% { transform: translate(-50%, -50%) scale(1); opacity: 0; }
+    }
+    .ach-popup .ach-popup-icon { font-size: 3rem; margin-bottom: 8px; }
+    .ach-popup .ach-popup-title {
+      font-family: 'Press Start 2P', monospace;
+      font-size: 0.6rem; color: #C9A044;
+      margin-bottom: 6px;
+    }
+    .ach-popup .ach-popup-name {
+      font-family: 'Press Start 2P', monospace;
+      font-size: 0.75rem; color: #6B4F0E;
+      margin-bottom: 6px; line-height: 1.4;
+    }
+    .ach-popup .ach-popup-desc {
+      font-size: 0.75rem; color: #8B6F5E;
+      line-height: 1.4;
+    }
+
     .levelup-overlay {
-      position: fixed;
-      inset: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      pointer-events: none;
-      z-index: 1000;
+      position: fixed; inset: 0;
+      display: flex; align-items: center; justify-content: center;
+      pointer-events: none; z-index: 1000;
       animation: levelupFade 2s ease-out forwards;
     }
     @keyframes levelupFade {
@@ -639,23 +709,16 @@
       100% { opacity: 0; transform: scale(1.1); }
     }
     .levelup-badge {
-      background: #8B6F5E;
-      color: white;
-      padding: 20px 28px;
-      border: 4px solid #FFFDF9;
+      background: #8B6F5E; color: white;
+      padding: 20px 28px; border: 4px solid #FFFDF9;
       border-radius: 8px;
       font-family: 'Press Start 2P', monospace;
-      font-size: 0.75rem;
-      text-align: center;
-      line-height: 1.6;
+      font-size: 0.75rem; text-align: center; line-height: 1.6;
     }
 
-    /* Footer */
     .footer {
-      text-align: center;
-      font-size: 0.65rem;
-      color: #A89080;
-      margin: 8px 0 20px;
+      text-align: center; font-size: 0.65rem;
+      color: #A89080; margin: 8px 0 20px;
     }
 
     @media (max-width: 380px) {
@@ -663,6 +726,7 @@
       .room-wall { height: 160px; }
       .action-btn { min-height: 64px; }
       .action-btn .emoji { font-size: 1.3rem; }
+      .nav-tab { font-size: 0.42rem; padding: 6px 2px; }
     }
   </style>
 </head>
@@ -705,70 +769,113 @@
         </div>
       </div>
 
-      <!-- THE ROOM -->
-      <div class="room" id="room">
-        <div class="room-wall">
-          <div class="room-window"></div>
+      <!-- Navigation tabs -->
+      <div class="nav-tabs">
+        <div class="nav-tab active" data-view="home">🏠 HOME</div>
+        <div class="nav-tab" data-view="rooms">🚪 ROOMS</div>
+        <div class="nav-tab" data-view="notes">💌 NOTES<span class="badge" id="notesBadge" style="display:none;">!</span></div>
+        <div class="nav-tab" data-view="ach">🏆 TROPHY</div>
+        <div class="nav-tab" data-view="album">📸 ALBUM</div>
+      </div>
 
-          <!-- Pet area inside room -->
-          <div class="pet-area" id="petArea">
-            <div class="pet idle" id="pet" style="left: 50%;">🥚</div>
+      <!-- ============ HOME VIEW ============ -->
+      <div class="view active" id="view-home">
+
+        <div class="room" id="room">
+          <div class="room-wall">
+            <div class="room-badge" id="roomBadge">🌿 BEDROOM</div>
+            <div class="room-window"></div>
+
+            <div class="want-bubble" id="wantBubble" style="display:none;"></div>
+
+            <div class="pet-area" id="petArea">
+              <div class="pet idle" id="pet" style="left: 50%;">🥚</div>
+            </div>
+          </div>
+          <div class="room-floor"></div>
+
+          <div class="pet-info">
+            <div class="pet-name-row">
+              <div class="pet-name" id="petName">Mochi</div>
+              <div class="pet-stage-badge" id="petStageBadge">EGG</div>
+            </div>
+
+            <div class="stats">
+              <div class="stat">
+                <div class="stat-header"><span>🍚 FOOD</span><span id="hungerVal">100</span></div>
+                <div class="stat-bar"><div class="stat-bar-fill good" id="hungerBar" style="width:100%"></div></div>
+              </div>
+              <div class="stat">
+                <div class="stat-header"><span>☀️ JOY</span><span id="happyVal">100</span></div>
+                <div class="stat-bar"><div class="stat-bar-fill good" id="happyBar" style="width:100%"></div></div>
+              </div>
+              <div class="stat">
+                <div class="stat-header"><span>🌙 REST</span><span id="energyVal">100</span></div>
+                <div class="stat-bar"><div class="stat-bar-fill good" id="energyBar" style="width:100%"></div></div>
+              </div>
+              <div class="stat">
+                <div class="stat-header"><span>💧 CLEAN</span><span id="cleanVal">100</span></div>
+                <div class="stat-bar"><div class="stat-bar-fill good" id="cleanBar" style="width:100%"></div></div>
+              </div>
+            </div>
           </div>
         </div>
-        <div class="room-floor"></div>
 
-        <!-- Pet info below room -->
-        <div class="pet-info">
-          <div class="pet-name-row">
-            <div class="pet-name" id="petName">Mochi</div>
-            <div class="pet-stage-badge" id="petStageBadge">EGG</div>
+        <div class="actions">
+          <button class="action-btn" data-action="feed"><span class="emoji">🍚</span><span class="label">FEED</span></button>
+          <button class="action-btn" data-action="play"><span class="emoji">🎈</span><span class="label">PLAY</span></button>
+          <button class="action-btn" data-action="sleep"><span class="emoji">🌙</span><span class="label">SLEEP</span></button>
+          <button class="action-btn" data-action="bath"><span class="emoji">💧</span><span class="label">BATH</span></button>
+          <button class="action-btn" data-action="pet"><span class="emoji">🤲</span><span class="label">PET</span></button>
+          <button class="action-btn" data-action="clean"><span class="emoji">🧹</span><span class="label">CLEAN</span></button>
+        </div>
+
+        <div class="diary">
+          <div class="diary-title">
+            <span>📖 MOCHI'S DIARY</span>
+            <span id="diaryCount">0</span>
           </div>
-
-          <div class="stats">
-            <div class="stat">
-              <div class="stat-header"><span>🍚 FOOD</span><span id="hungerVal">100</span></div>
-              <div class="stat-bar"><div class="stat-bar-fill good" id="hungerBar" style="width:100%"></div></div>
-            </div>
-            <div class="stat">
-              <div class="stat-header"><span>☀️ JOY</span><span id="happyVal">100</span></div>
-              <div class="stat-bar"><div class="stat-bar-fill good" id="happyBar" style="width:100%"></div></div>
-            </div>
-            <div class="stat">
-              <div class="stat-header"><span>🌙 REST</span><span id="energyVal">100</span></div>
-              <div class="stat-bar"><div class="stat-bar-fill good" id="energyBar" style="width:100%"></div></div>
-            </div>
-            <div class="stat">
-              <div class="stat-header"><span>💧 CLEAN</span><span id="cleanVal">100</span></div>
-              <div class="stat-bar"><div class="stat-bar-fill good" id="cleanBar" style="width:100%"></div></div>
+          <div class="diary-scroll" id="diaryScroll">
+            <div style="text-align:center; color:#C9B0A0; font-size:0.7rem; padding:8px;">
+              Nothing yet! 🌿
             </div>
           </div>
         </div>
       </div>
 
-      <!-- Actions -->
-      <div class="actions">
-        <button class="action-btn" data-action="feed"><span class="emoji">🍚</span><span class="label">FEED</span></button>
-        <button class="action-btn" data-action="play"><span class="emoji">🎈</span><span class="label">PLAY</span></button>
-        <button class="action-btn" data-action="sleep"><span class="emoji">🌙</span><span class="label">SLEEP</span></button>
-        <button class="action-btn" data-action="bath"><span class="emoji">💧</span><span class="label">BATH</span></button>
-        <button class="action-btn" data-action="pet"><span class="emoji">🤲</span><span class="label">PET</span></button>
-        <button class="action-btn" data-action="clean"><span class="emoji">🧹</span><span class="label">CLEAN</span></button>
+      <!-- ============ ROOMS VIEW ============ -->
+      <div class="view" id="view-rooms">
+        <div class="section-header">🚪 ROOMS TO EXPLORE</div>
+        <div class="rooms-grid" id="roomsGrid"></div>
       </div>
 
-      <!-- Diary -->
-      <div class="diary">
-        <div class="diary-title">
-          <span>📖 MOCHI'S DIARY</span>
-          <span id="diaryCount">0</span>
-        </div>
-        <div class="diary-scroll" id="diaryScroll">
-          <div style="text-align:center; color:#C9B0A0; font-size:0.7rem; padding:8px;">
-            Nothing yet! 🌿
+      <!-- ============ NOTES VIEW ============ -->
+      <div class="view" id="view-notes">
+        <div class="section-header">💌 LOVE NOTES</div>
+        <div class="notes-container">
+          <div class="note-input-area">
+            <input type="text" class="note-input" id="noteInput" placeholder="Leave a note..." maxlength="80">
+            <button class="note-send" id="noteSendBtn">PIN</button>
           </div>
+          <div class="notes-wall" id="notesWall"></div>
         </div>
       </div>
 
-      <button class="btn" id="logoutBtn" style="background:#B8A898; box-shadow:0 4px 0 #8B6F5E; margin:0 12px 8px; font-size:0.85rem; padding:12px;">SWITCH USER</button>
+      <!-- ============ ACHIEVEMENTS VIEW ============ -->
+      <div class="view" id="view-ach">
+        <div class="section-header" id="achHeader">🏆 ACHIEVEMENTS (0/24)</div>
+        <div class="ach-grid" id="achGrid"></div>
+      </div>
+
+      <!-- ============ ALBUM VIEW ============ -->
+      <div class="view" id="view-album">
+        <div class="section-header">📸 MOCHI'S ALBUM</div>
+        <div class="album-container">
+          <div class="album-grid" id="albumGrid"></div>
+        </div>
+      </div>
+
+      <button class="btn small" id="logoutBtn" style="background:#B8A898; box-shadow:0 4px 0 #8B6F5E; margin:0 12px 8px; font-size:0.75rem;">SWITCH USER</button>
       <p class="footer">Made with care for Mochi 🌿</p>
     </div>
 
@@ -799,9 +906,10 @@
     const OFFLINE_CAP_HOURS = 6;
     const MAX_DIARY = 40;
     const DAILY_GOAL = 5;
-    const ANIMATION_DURATION = 3000;
     const NIGHT_START = 22;
     const NIGHT_END = 7;
+    const WANT_DURATION_MS = 4 * 60 * 60 * 1000; // 4 hours per want
+    const WANT_XP_MULTIPLIER = 3;
 
     const STAGES = [
       { level: 1,  name: 'EGG',      emoji: '🥚' },
@@ -814,21 +922,58 @@
       { level: 75, name: 'ETERNAL',  emoji: '🌿' }
     ];
 
+    const ROOMS = [
+      { id: 'bedroom',     name: 'BEDROOM',     emoji: '🛏️', reqLevel: 1,  desc: 'A cozy place to rest' },
+      { id: 'kitchen',     name: 'KITCHEN',     emoji: '🍳', reqLevel: 5,  desc: 'Where food is made' },
+      { id: 'garden',      name: 'GARDEN',      emoji: '🌷', reqLevel: 15, desc: 'Fresh air & flowers' },
+      { id: 'playroom',    name: 'PLAYROOM',    emoji: '🎨', reqLevel: 30, desc: 'Toys & games' },
+      { id: 'observatory', name: 'OBSERVATORY', emoji: '🔭', reqLevel: 50, desc: 'Stargazing together' }
+    ];
+
     const ACTIONS = {
-      feed:  { stat: 'hunger', amount: 25, xp: 2, verb: 'fed',             emoji: '🍚' },
-      play:  { stat: 'happy',  amount: 22, xp: 3, verb: 'played with',     emoji: '🎈', cost: { energy: 8 } },
-      sleep: { stat: 'energy', amount: 30, xp: 2, verb: 'tucked in',       emoji: '🌙' },
-      bath:  { stat: 'clean',  amount: 30, xp: 2, verb: 'bathed',          emoji: '💧' },
-      pet:   { stat: 'happy',  amount: 8,  xp: 1, verb: 'petted',          emoji: '🤲' },
-      clean: { stat: 'clean',  amount: 15, xp: 2, verb: 'cleaned up after', emoji: '🧹' }
+      feed:  { stat: 'hunger', amount: 25, xp: 2, verb: 'fed',               emoji: '🍚' },
+      play:  { stat: 'happy',  amount: 22, xp: 3, verb: 'played with',       emoji: '🎈', cost: { energy: 8 } },
+      sleep: { stat: 'energy', amount: 30, xp: 2, verb: 'tucked in',         emoji: '🌙' },
+      bath:  { stat: 'clean',  amount: 30, xp: 2, verb: 'bathed',            emoji: '💧' },
+      pet:   { stat: 'happy',  amount: 8,  xp: 1, verb: 'petted',            emoji: '🤲' },
+      clean: { stat: 'clean',  amount: 15, xp: 2, verb: 'cleaned up after',  emoji: '🧹' }
     };
 
-    const MOODS = {
-      happy:  ['feeling wonderful 🌸', 'bouncing with joy ✨', 'so content 🌿', 'purring softly 💫'],
-      ok:     ['doing just fine 🌱', 'quietly content 🍃', 'cozy and calm 🕊️'],
-      low:    ['feeling a little tired 💤', 'missing you a bit 🌧️', 'hoping you come back soon 🌙'],
-      sad:    ['really needs you 💧', 'feeling lonely 🌫️', 'please come back soon 🌧️']
-    };
+    const WANTS = [
+      { id: 'feed',  emoji: '🍚', text: 'Mochi wants food!',   action: 'feed' },
+      { id: 'play',  emoji: '🎈', text: 'Mochi wants to play!', action: 'play' },
+      { id: 'sleep', emoji: '🌙', text: 'Mochi is sleepy',      action: 'sleep' },
+      { id: 'bath',  emoji: '💧', text: 'Mochi wants a bath!',  action: 'bath' },
+      { id: 'pet',   emoji: '🤲', text: 'Mochi wants cuddles!', action: 'pet' },
+      { id: 'clean', emoji: '🧹', text: 'Mochi wants tidying!', action: 'clean' }
+    ];
+
+    const ACHIEVEMENTS = [
+      { id: 'first_feed',    emoji: '🍚', name: 'FIRST MEAL',       desc: 'Feed Mochi for the first time',       check: (d) => (d.stats?.feeds || 0) >= 1 },
+      { id: 'feed_50',       emoji: '🍱', name: 'MASTER CHEF',      desc: 'Feed Mochi 50 times',                check: (d) => (d.stats?.feeds || 0) >= 50 },
+      { id: 'pet_50',        emoji: '🤲', name: 'BEST FRIENDS',     desc: 'Pet Mochi 50 times',                 check: (d) => (d.stats?.pets || 0) >= 50 },
+      { id: 'bath_20',       emoji: '🛁', name: 'SQUEAKY CLEAN',    desc: 'Bath Mochi 20 times',                check: (d) => (d.stats?.baths || 0) >= 20 },
+      { id: 'play_30',       emoji: '🎮', name: 'PLAY BUDDIES',     desc: 'Play with Mochi 30 times',           check: (d) => (d.stats?.plays || 0) >= 30 },
+      { id: 'sleep_30',      emoji: '💤', name: 'SLEEP TRAINER',    desc: 'Tuck in Mochi 30 times',             check: (d) => (d.stats?.sleeps || 0) >= 30 },
+      { id: 'clean_20',      emoji: '🧹', name: 'TIDY HEART',       desc: 'Clean up after Mochi 20 times',      check: (d) => (d.stats?.cleans || 0) >= 20 },
+      { id: 'streak_3',      emoji: '🔥', name: 'WARMING UP',       desc: '3-day streak',                       check: (d) => (d.streak || 0) >= 3 },
+      { id: 'streak_7',      emoji: '🔥', name: 'WEEK WARRIORS',    desc: '7-day streak',                       check: (d) => (d.streak || 0) >= 7 },
+      { id: 'streak_30',     emoji: '🌟', name: 'MONTH OF LOVE',    desc: '30-day streak',                      check: (d) => (d.streak || 0) >= 30 },
+      { id: 'level_5',       emoji: '🌱', name: 'GROWING UP',       desc: 'Reach Level 5',                      check: (d) => (d.level || 0) >= 5 },
+      { id: 'level_12',      emoji: '🌿', name: 'SAPLING STAGE',    desc: 'Reach Level 12',                     check: (d) => (d.level || 0) >= 12 },
+      { id: 'level_20',      emoji: '🌸', name: 'IN BLOOM',         desc: 'Reach Level 20',                     check: (d) => (d.level || 0) >= 20 },
+      { id: 'level_35',      emoji: '🦚', name: 'GUARDIAN',         desc: 'Reach Level 35',                     check: (d) => (d.level || 0) >= 35 },
+      { id: 'no_poop',       emoji: '✨', name: 'SPOTLESS',         desc: 'Keep Mochi above 90% clean for a day', check: (d) => (d.cleanliness_streak || 0) >= 1 },
+      { id: 'night_owl',     emoji: '🦉', name: 'NIGHT OWL',        desc: 'Care for Mochi between 2-4 AM',      check: (d) => d.achievementFlags?.nightOwl === true },
+      { id: 'early_bird',    emoji: '🐦', name: 'EARLY BIRD',       desc: 'Care for Mochi between 5-7 AM',      check: (d) => d.achievementFlags?.earlyBird === true },
+      { id: 'both_care',     emoji: '💞', name: 'TOGETHER',         desc: 'Both of you care within 10 minutes', check: (d) => d.achievementFlags?.bothClose === true },
+      { id: 'first_note',    emoji: '💌', name: 'LOVE NOTE',        desc: 'Pin your first note',                check: (d) => Object.keys(d.notes || {}).length >= 1 },
+      { id: 'five_notes',    emoji: '💝', name: 'SWEET TALKER',     desc: 'Pin 5 notes together',               check: (d) => Object.keys(d.notes || {}).length >= 5 },
+      { id: 'first_want',    emoji: '⭐', name: 'GOOD LISTENER',    desc: 'Fulfill Mochi\'s first want',        check: (d) => (d.stats?.wantsFulfilled || 0) >= 1 },
+      { id: 'want_20',       emoji: '🌟', name: 'ATTENTIVE',        desc: 'Fulfill 20 wants',                   check: (d) => (d.stats?.wantsFulfilled || 0) >= 20 },
+      { id: 'kitchen_unlock',emoji: '🍳', name: 'HOME COOKIN\'',   desc: 'Unlock the Kitchen',                 check: (d) => (d.level || 0) >= 5 },
+      { id: 'garden_unlock', emoji: '🌷', name: 'GREEN THUMB',      desc: 'Unlock the Garden',                  check: (d) => (d.level || 0) >= 15 }
+    ];
 
     // ============================================================
     // STATE
@@ -840,8 +985,9 @@
     let lastActionAt = 0;
     let lastLevel = 1;
     let isAnimating = false;
-    let animationTimeout = null;
-    let poops = [];
+    let currentRoomId = 'bedroom';
+    let currentView = 'home';
+    let noteUnread = false;
 
     const $ = (id) => document.getElementById(id);
 
@@ -899,6 +1045,33 @@
     });
 
     // ============================================================
+    // NAVIGATION
+    // ============================================================
+    document.querySelectorAll('.nav-tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        switchView(tab.dataset.view);
+      });
+    });
+
+    function switchView(view) {
+      currentView = view;
+      document.querySelectorAll('.nav-tab').forEach(t => {
+        t.classList.toggle('active', t.dataset.view === view);
+      });
+      document.querySelectorAll('.view').forEach(v => {
+        v.classList.toggle('active', v.id === 'view-' + view);
+      });
+      if (view === 'ach') renderAchievements();
+      if (view === 'album') renderAlbum();
+      if (view === 'notes') {
+        noteUnread = false;
+        updateNotesBadge();
+        renderNotes();
+      }
+      if (view === 'rooms') renderRooms();
+    }
+
+    // ============================================================
     // FIREBASE
     // ============================================================
     function listenToGame() {
@@ -917,10 +1090,34 @@
             koyLastSeen: now, metzLastSeen: 0,
             todayActions: { koy: 0, metz: 0 },
             todayDate: '',
-            diary: {}
+            diary: {},
+            notes: {},
+            achievements: {},
+            album: [],
+            currentWant: null,
+            stats: { feeds: 0, plays: 0, sleeps: 0, baths: 0, pets: 0, cleans: 0, wantsFulfilled: 0 },
+            achievementFlags: {},
+            lastActions: {},
+            cleanliness_streak: 0
           }).then(() => ref.on('value', handleUpdate));
         } else {
-          ref.on('value', handleUpdate);
+          // Migration: add missing fields
+          const data = snap.val();
+          const missing = {};
+          if (!data.notes) missing.notes = {};
+          if (!data.achievements) missing.achievements = {};
+          if (!data.album) missing.album = [];
+          if (!data.stats) missing.stats = { feeds: 0, plays: 0, sleeps: 0, baths: 0, pets: 0, cleans: 0, wantsFulfilled: 0 };
+          if (!data.achievementFlags) missing.achievementFlags = {};
+          if (!data.lastActions) missing.lastActions = {};
+          if (data.poops === undefined) missing.poops = 0;
+          if (data.cleanliness_streak === undefined) missing.cleanliness_streak = 0;
+          if (data.currentWant === undefined) missing.currentWant = null;
+          if (Object.keys(missing).length > 0) {
+            ref.update(missing).then(() => ref.on('value', handleUpdate));
+          } else {
+            ref.on('value', handleUpdate);
+          }
         }
       });
     }
@@ -961,11 +1158,22 @@
         });
       }
 
+      // Check for a new want
+      checkWantGeneration();
+
+      // Check achievements
+      checkAchievements();
+
+      // Check for unread notes (new notes since last check)
+      checkUnreadNotes();
+
       if (!isAnimating) renderPet(prev);
       renderDiary();
       updateStreakAndDays();
       checkStreak();
       updateDayNight();
+      renderWantBubble();
+      updateNotesBadge();
 
       if (!hasShownWelcome && myLastSeen > 0 && now - myLastSeen > 5 * 60 * 1000) {
         showWelcomeBack(prev, data, myLastSeen);
@@ -988,7 +1196,10 @@
       while (lvl < 100 && xp >= xpForLevel(lvl)) { xp -= xpForLevel(lvl); lvl++; }
       gameData.level = lvl;
       if (lvl > lastLevel && lastLevel !== 0) {
-        setTimeout(() => showLevelUp(lvl), 400);
+        setTimeout(() => {
+          showLevelUp(lvl);
+          addAlbumEntry(lvl);
+        }, 400);
       }
       lastLevel = lvl;
     }
@@ -1012,6 +1223,255 @@
     }
 
     // ============================================================
+    // WANTS SYSTEM
+    // ============================================================
+    function checkWantGeneration() {
+      const now = Date.now();
+      const currentWant = gameData.currentWant;
+      if (!currentWant || (now - currentWant.createdAt) > WANT_DURATION_MS) {
+        // Generate a new want
+        const randomWant = WANTS[Math.floor(Math.random() * WANTS.length)];
+        const newWant = {
+          ...randomWant,
+          createdAt: now,
+          id: randomWant.id + '_' + now
+        };
+        db.ref('tamagotchi/currentWant').set(newWant);
+      }
+    }
+
+    function renderWantBubble() {
+      const want = gameData.currentWant;
+      const bubble = $('wantBubble');
+      if (want) {
+        bubble.style.display = 'block';
+        bubble.textContent = want.emoji + ' ' + want.text;
+        // Highlight the corresponding action button
+        document.querySelectorAll('.action-btn').forEach(b => {
+          b.classList.toggle('want-highlight', b.dataset.action === want.action);
+        });
+      } else {
+        bubble.style.display = 'none';
+        document.querySelectorAll('.action-btn').forEach(b => b.classList.remove('want-highlight'));
+      }
+    }
+
+    // ============================================================
+    // ACHIEVEMENTS
+    // ============================================================
+    function checkAchievements() {
+      const unlocked = gameData.achievements || {};
+      const newUnlocks = [];
+      ACHIEVEMENTS.forEach(ach => {
+        if (!unlocked[ach.id] && ach.check(gameData)) {
+          newUnlocks.push(ach);
+        }
+      });
+      if (newUnlocks.length > 0) {
+        const updates = {};
+        newUnlocks.forEach(a => {
+          updates['achievements/' + a.id] = Date.now();
+        });
+        db.ref('tamagotchi').update(updates);
+        // Show popup for the first unlock
+        newUnlocks.forEach((a, i) => {
+          setTimeout(() => showAchievementPopup(a), i * 2800);
+        });
+      }
+    }
+
+    function showAchievementPopup(ach) {
+      const popup = document.createElement('div');
+      popup.className = 'ach-popup';
+      popup.innerHTML = `
+        <div class="ach-popup-icon">${ach.emoji}</div>
+        <div class="ach-popup-title">🏆 ACHIEVEMENT UNLOCKED</div>
+        <div class="ach-popup-name">${ach.name}</div>
+        <div class="ach-popup-desc">${ach.desc}</div>
+      `;
+      document.body.appendChild(popup);
+      setTimeout(() => popup.remove(), 2700);
+    }
+
+    function renderAchievements() {
+      const unlocked = gameData.achievements || {};
+      const count = Object.keys(unlocked).length;
+      $('achHeader').textContent = `🏆 ACHIEVEMENTS (${count}/${ACHIEVEMENTS.length})`;
+      const grid = $('achGrid');
+      grid.innerHTML = '';
+      ACHIEVEMENTS.forEach(ach => {
+        const isUnlocked = !!unlocked[ach.id];
+        const card = document.createElement('div');
+        card.className = 'ach-card' + (isUnlocked ? ' unlocked' : '');
+        card.innerHTML = `
+          <div class="ach-icon">${ach.emoji}</div>
+          <div class="ach-info">
+            <div class="ach-name">${ach.name}</div>
+            <div class="ach-desc">${isUnlocked ? ach.desc : '???'}</div>
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+    }
+
+    // ============================================================
+    // NOTES
+    // ============================================================
+    let lastCheckedNotes = 0;
+    function checkUnreadNotes() {
+      const notes = gameData.notes || {};
+      const noteCount = Object.keys(notes).length;
+      if (noteCount > lastCheckedNotes && lastCheckedNotes !== 0) {
+        const other = me === 'koy' ? 'metz' : 'koy';
+        const hasNewFromOther = Object.values(notes).some(n => n.by === other && n.time > (lastCheckedNotesTime || 0));
+        if (hasNewFromOther && currentView !== 'notes') {
+          noteUnread = true;
+        }
+      }
+      lastCheckedNotes = noteCount;
+      lastCheckedNotesTime = Date.now();
+    }
+
+    let lastCheckedNotesTime = 0;
+
+    function updateNotesBadge() {
+      const badge = $('notesBadge');
+      if (noteUnread) badge.style.display = 'inline-block';
+      else badge.style.display = 'none';
+    }
+
+    function renderNotes() {
+      const notes = gameData.notes || {};
+      const wall = $('notesWall');
+      wall.innerHTML = '';
+      const entries = Object.values(notes).sort((a, b) => b.time - a.time);
+      if (entries.length === 0) {
+        wall.innerHTML = '<div style="grid-column: 1 / -1; text-align: center; color: #A89080; padding: 20px; font-size: 0.8rem;">No notes yet. Leave something sweet for each other! 💌</div>';
+        return;
+      }
+      entries.forEach(note => {
+        const div = document.createElement('div');
+        div.className = 'sticky-note by-' + note.by;
+        const senderName = note.by === 'koy' ? '🌿 Koy' : '🌸 Metz';
+        const time = new Date(note.time).toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+        div.innerHTML = `
+          <button class="note-delete" data-key="${note.key}">×</button>
+          <span class="note-sender">${senderName}</span>
+          ${note.text}
+          <span class="note-time">${time}</span>
+        `;
+        wall.appendChild(div);
+      });
+      wall.querySelectorAll('.note-delete').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const key = btn.dataset.key;
+          if (confirm('Delete this note?')) {
+            db.ref('tamagotchi/notes/' + key).remove();
+          }
+        });
+      });
+    }
+
+    $('noteSendBtn').addEventListener('click', sendNote);
+    $('noteInput').addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') sendNote();
+    });
+
+    function sendNote() {
+      const text = $('noteInput').value.trim();
+      if (!text) return showToast('Write something first 💌');
+      const key = 'note_' + Date.now() + '_' + Math.random().toString(36).slice(2, 6);
+      db.ref('tamagotchi/notes/' + key).set({
+        by: me,
+        text: text,
+        time: Date.now(),
+        key: key
+      });
+      $('noteInput').value = '';
+      showToast('Note pinned! 💌');
+    }
+
+    // ============================================================
+    // ALBUM
+    // ============================================================
+    function addAlbumEntry(level) {
+      const stage = STAGES.reduce((acc, s) => (level >= s.level ? s : acc), STAGES[0]);
+      const entry = {
+        level: level,
+        emoji: stage.emoji,
+        stageName: stage.name,
+        date: Date.now(),
+        id: 'album_' + level + '_' + Date.now()
+      };
+      const album = gameData.album || [];
+      if (!album.some(a => a.level === level)) {
+        album.push(entry);
+        db.ref('tamagotchi/album').set(album);
+      }
+    }
+
+    function renderAlbum() {
+      const album = gameData.album || [];
+      const grid = $('albumGrid');
+      grid.innerHTML = '';
+      if (album.length === 0) {
+        grid.innerHTML = '<div style="grid-column: 1 / -1; text-align: center; color: #A89080; padding: 20px; font-size: 0.8rem;">Mochi\\'s album will appear here as you level up! 📸</div>';
+        return;
+      }
+      album.sort((a, b) => b.level - a.level).forEach(entry => {
+        const card = document.createElement('div');
+        card.className = 'album-card';
+        const dateStr = new Date(entry.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+        card.innerHTML = `
+          <div class="album-emoji">${entry.emoji}</div>
+          <div class="album-level">LV ${entry.level}</div>
+          <div class="album-date">${dateStr}</div>
+          <div class="album-note">${entry.stageName}</div>
+        `;
+        grid.appendChild(card);
+      });
+    }
+
+    // ============================================================
+    // ROOMS
+    // ============================================================
+    function renderRooms() {
+      const grid = $('roomsGrid');
+      grid.innerHTML = '';
+      const level = gameData.level || 1;
+      ROOMS.forEach(room => {
+        const unlocked = level >= room.reqLevel;
+        const isActive = room.id === currentRoomId;
+        const card = document.createElement('div');
+        card.className = 'room-card' + (unlocked ? ' unlocked' : ' locked') + (isActive ? ' active' : '');
+        card.innerHTML = `
+          <div class="room-emoji">${room.emoji}</div>
+          <div class="room-name">${room.name}</div>
+          <div class="room-req">${unlocked ? room.desc : 'Unlock at Lv ' + room.reqLevel}</div>
+        `;
+        if (unlocked) {
+          card.addEventListener('click', () => {
+            currentRoomId = room.id;
+            applyRoom();
+            renderRooms();
+            showToast('Mochi is now in the ' + room.name.toLowerCase() + '!');
+          });
+        }
+        grid.appendChild(card);
+      });
+    }
+
+    function applyRoom() {
+      const roomEl = $('room');
+      roomEl.className = 'room';
+      if (currentRoomId !== 'bedroom') roomEl.classList.add(currentRoomId);
+      if (isNightTime()) roomEl.classList.add('night');
+      const roomInfo = ROOMS.find(r => r.id === currentRoomId);
+      $('roomBadge').textContent = roomInfo.emoji + ' ' + roomInfo.name;
+    }
+
+    // ============================================================
     // RENDER PET
     // ============================================================
     function renderPet(prev = {}) {
@@ -1026,15 +1486,11 @@
       if (avg < 25) moodClass = 'sad';
       else if (avg < 50) moodClass = 'sad';
       else if (avg > 75) moodClass = 'happy';
-
-      // Night = sleeping pose
       if (isNightTime() && !isAnimating) moodClass = 'sleeping';
 
       pet.className = 'pet ' + moodClass;
 
-      // Render poops
       renderPoops();
-
       setStat('hunger', gameData.hunger, prev.hunger);
       setStat('happy', gameData.happy, prev.happy);
       setStat('energy', gameData.energy, prev.energy);
@@ -1043,7 +1499,6 @@
 
     function renderPoops() {
       const area = $('petArea');
-      // Remove existing
       area.querySelectorAll('.poop').forEach(p => p.remove());
       const count = gameData.poops || 0;
       for (let i = 0; i < Math.min(count, 3); i++) {
@@ -1131,7 +1586,6 @@
 
     function floatHearts(count = 5) {
       const area = $('petArea');
-      const pet = $('pet');
       for (let i = 0; i < count; i++) {
         setTimeout(() => {
           const h = document.createElement('div');
@@ -1159,112 +1613,103 @@
     function playActionAnimation(name) {
       const pet = $('pet');
       return new Promise(async (resolve) => {
-        switch(name) {
-          case 'feed': {
-            // Create bowl
-            const bowl = addProp('🍚', 'prop-bowl', { left: '20%', bottom: '15px' });
-            // Walk to bowl
-            pet.className = 'pet walking';
-            await movePetTo(28, 1200);
-            // Eat
-            pet.className = 'pet happy';
-            for (let i = 0; i < 3; i++) {
-              setTimeout(() => floatHearts(1), i * 400);
+        try {
+          switch(name) {
+            case 'feed': {
+              const bowl = addProp('🍚', '', { left: '20%', bottom: '15px' });
+              pet.className = 'pet walking';
+              await movePetTo(28, 1200);
+              pet.className = 'pet happy';
+              for (let i = 0; i < 3; i++) setTimeout(() => floatHearts(1), i * 400);
+              showBubble('nom nom!', '🍚');
+              await new Promise(r => setTimeout(r, 1500));
+              pet.className = 'pet walking';
+              await movePetTo(50, 1200);
+              bowl.remove();
+              pet.className = 'pet idle';
+              break;
             }
-            showBubble('nom nom!', '🍚');
-            await new Promise(r => setTimeout(r, 1500));
-            // Walk back
-            pet.className = 'pet walking';
-            await movePetTo(50, 1200);
-            bowl.remove();
-            pet.className = 'pet idle';
-            resolve();
-            break;
-          }
-          case 'play': {
-            const ball = addProp('🎈', 'prop-ball', { right: '25%' });
-            pet.className = 'pet happy';
-            showBubble('wheee!', '🎈');
-            floatHearts(6);
-            await new Promise(r => setTimeout(r, 2000));
-            ball.remove();
-            pet.className = 'pet idle';
-            resolve();
-            break;
-          }
-          case 'sleep': {
-            const bed = addProp('🛏️', 'prop-bed', { right: '15%' });
-            pet.className = 'pet walking';
-            await movePetTo(70, 1200);
-            pet.className = 'pet sleeping';
-            // Zzz
-            for (let i = 0; i < 4; i++) {
-              setTimeout(() => {
-                const z = document.createElement('div');
-                z.className = 'zzz';
-                z.textContent = 'Z';
-                z.style.left = '65%';
-                z.style.bottom = '90px';
-                z.style.fontSize = (0.6 + i * 0.1) + 'rem';
-                $('petArea').appendChild(z);
-                setTimeout(() => z.remove(), 2500);
-              }, i * 600);
+            case 'play': {
+              const ball = addProp('🎈', 'prop-ball', { right: '25%' });
+              pet.className = 'pet happy';
+              showBubble('wheee!', '🎈');
+              floatHearts(6);
+              await new Promise(r => setTimeout(r, 2000));
+              ball.remove();
+              pet.className = 'pet idle';
+              break;
             }
-            showBubble('Zzz...', '💤');
-            await new Promise(r => setTimeout(r, 2200));
-            pet.className = 'pet walking';
-            await movePetTo(50, 1000);
-            bed.remove();
-            pet.className = 'pet idle';
-            resolve();
-            break;
-          }
-          case 'bath': {
-            const tub = addProp('🛁', 'prop-tub', { left: '50%', bottom: '15px' });
-            pet.className = 'pet walking';
-            await movePetTo(50, 800);
-            // Bubbles
-            for (let i = 0; i < 8; i++) {
-              setTimeout(() => {
-                const b = document.createElement('div');
-                b.className = 'bubble';
-                const size = 8 + Math.random() * 14;
-                b.style.width = size + 'px';
-                b.style.height = size + 'px';
-                b.style.left = (35 + Math.random() * 30) + '%';
-                b.style.bottom = '70px';
-                $('petArea').appendChild(b);
-                setTimeout(() => b.remove(), 2000);
-              }, i * 150);
+            case 'sleep': {
+              const bed = addProp('🛏️', 'prop-bed', { right: '15%' });
+              pet.className = 'pet walking';
+              await movePetTo(70, 1200);
+              pet.className = 'pet sleeping';
+              for (let i = 0; i < 4; i++) {
+                setTimeout(() => {
+                  const z = document.createElement('div');
+                  z.className = 'zzz';
+                  z.textContent = 'Z';
+                  z.style.left = '65%';
+                  z.style.bottom = '90px';
+                  z.style.fontSize = (0.6 + i * 0.1) + 'rem';
+                  $('petArea').appendChild(z);
+                  setTimeout(() => z.remove(), 2500);
+                }, i * 600);
+              }
+              showBubble('Zzz...', '💤');
+              await new Promise(r => setTimeout(r, 2200));
+              pet.className = 'pet walking';
+              await movePetTo(50, 1000);
+              bed.remove();
+              pet.className = 'pet idle';
+              break;
             }
-            pet.className = 'pet happy';
-            showBubble('splash!', '💧');
-            await new Promise(r => setTimeout(r, 1800));
-            tub.remove();
-            pet.className = 'pet idle';
-            resolve();
-            break;
+            case 'bath': {
+              const tub = addProp('🛁', 'prop-tub', { left: '50%', bottom: '15px' });
+              pet.className = 'pet walking';
+              await movePetTo(50, 800);
+              for (let i = 0; i < 8; i++) {
+                setTimeout(() => {
+                  const b = document.createElement('div');
+                  b.className = 'bubble';
+                  const size = 8 + Math.random() * 14;
+                  b.style.width = size + 'px';
+                  b.style.height = size + 'px';
+                  b.style.left = (35 + Math.random() * 30) + '%';
+                  b.style.bottom = '70px';
+                  $('petArea').appendChild(b);
+                  setTimeout(() => b.remove(), 2000);
+                }, i * 150);
+              }
+              pet.className = 'pet happy';
+              showBubble('splash!', '💧');
+              await new Promise(r => setTimeout(r, 1800));
+              tub.remove();
+              pet.className = 'pet idle';
+              break;
+            }
+            case 'pet': {
+              pet.className = 'pet happy';
+              showBubble('happy!', '💚');
+              floatHearts(8);
+              await new Promise(r => setTimeout(r, 1800));
+              pet.className = 'pet idle';
+              break;
+            }
+            case 'clean': {
+              pet.className = 'pet walking';
+              await movePetTo(25, 700);
+              showBubble('all clean!', '🧹');
+              await new Promise(r => setTimeout(r, 800));
+              await movePetTo(50, 700);
+              pet.className = 'pet idle';
+              break;
+            }
           }
-          case 'pet': {
-            pet.className = 'pet happy';
-            showBubble('happy!', '💚');
-            floatHearts(8);
-            await new Promise(r => setTimeout(r, 1800));
-            pet.className = 'pet idle';
-            resolve();
-            break;
-          }
-          case 'clean': {
-            pet.className = 'pet walking';
-            await movePetTo(25, 700);
-            showBubble('all clean!', '🧹');
-            await new Promise(r => setTimeout(r, 800));
-            await movePetTo(50, 700);
-            pet.className = 'pet idle';
-            resolve();
-            break;
-          }
+        } catch(e) {
+          console.error('Animation error:', e);
         }
+        resolve();
       });
     }
 
@@ -1293,7 +1738,6 @@
       isAnimating = true;
       document.querySelectorAll('.action-btn').forEach(b => b.disabled = true);
 
-      // Poop check: if feeding and there's poop, add more poop
       let addPoop = false;
       if (name === 'feed' && (gameData.poops || 0) < 3) addPoop = true;
       if (name === 'play' && Math.random() < 0.3 && (gameData.poops || 0) < 3) addPoop = true;
@@ -1302,6 +1746,7 @@
         applyActionEffects(name, addPoop);
         isAnimating = false;
         document.querySelectorAll('.action-btn').forEach(b => b.disabled = false);
+        renderPet();
       });
     }
 
@@ -1314,18 +1759,58 @@
           updates[s] = Math.max(0, gameData[s] - amt);
         }
       }
-      updates.xp = (gameData.xp || 0) + action.xp;
+
+      // Check if this fulfills a want
+      const want = gameData.currentWant;
+      let xpEarned = action.xp;
+      let fulfilledWant = false;
+      if (want && want.action === name) {
+        xpEarned = action.xp * WANT_XP_MULTIPLIER;
+        fulfilledWant = true;
+        updates.currentWant = null;
+      }
+
+      updates.xp = (gameData.xp || 0) + xpEarned;
       updates.lastUpdate = Date.now();
 
+      // Track action stats
+      const statsField = { feed: 'feeds', play: 'plays', sleep: 'sleeps', bath: 'baths', pet: 'pets', clean: 'cleans' }[name];
+      if (statsField) {
+        updates['stats/' + statsField] = (gameData.stats?.[statsField] || 0) + 1;
+      }
+      if (fulfilledWant) {
+        updates['stats/wantsFulfilled'] = (gameData.stats?.wantsFulfilled || 0) + 1;
+      }
+
+      // Time-based achievement flags
+      const hour = new Date().getHours();
+      if (hour >= 2 && hour < 4) updates['achievementFlags/nightOwl'] = true;
+      if (hour >= 5 && hour < 7) updates['achievementFlags/earlyBird'] = true;
+
+      // Check if both were close
+      const other = me === 'koy' ? 'metz' : 'koy';
+      const otherLastAction = gameData.lastActions?.[other] || 0;
+      if (Date.now() - otherLastAction < 10 * 60 * 1000) {
+        updates['achievementFlags/bothClose'] = true;
+      }
+      updates['lastActions/' + me] = Date.now();
+
+      // Poop
       if (addPoop) {
         updates.poops = Math.min(3, (gameData.poops || 0) + 1);
       }
-
       if (name === 'clean') {
         updates.poops = 0;
-        updates[action.stat] = Math.min(100, gameData[action.stat] + action.amount);
       }
 
+      // Cleanliness streak
+      if (gameData.clean > 90) {
+        updates.cleanliness_streak = (gameData.cleanliness_streak || 0) + 1;
+      } else {
+        updates.cleanliness_streak = 0;
+      }
+
+      // Daily actions
       const today = new Date().toISOString().slice(0, 10);
       const todayActions = { ...(gameData.todayActions || { koy: 0, metz: 0 }) };
       if (gameData.todayDate !== today) {
@@ -1340,6 +1825,7 @@
         setTimeout(() => showToast('✨ Daily goal complete! +10 XP'), 500);
       }
 
+      // Diary
       const entry = { by: me, text: `${action.verb} Mochi`, time: Date.now() };
       const key = 'diary/' + Date.now() + '_' + Math.random().toString(36).slice(2, 6);
       updates[key] = entry;
@@ -1351,6 +1837,10 @@
       }
 
       db.ref('tamagotchi').update(updates);
+
+      if (fulfilledWant) {
+        setTimeout(() => showToast('⭐ Want fulfilled! +' + xpEarned + ' XP'), 700);
+      }
     }
 
     function showLevelUp(newLevel) {
@@ -1373,8 +1863,8 @@
     function showWelcomeBack(prev, curr, lastSeenTime) {
       const hoursAway = (Date.now() - lastSeenTime) / 3600000;
       let msg = '';
-      if (hoursAway > 24) msg = `Away for ${Math.floor(hoursAway / 24)}d. `;
-      else if (hoursAway > 1) msg = `Away for ${Math.floor(hoursAway)}h. `;
+      if (hoursAway > 24) msg = `Away ${Math.floor(hoursAway / 24)}d. `;
+      else if (hoursAway > 1) msg = `Away ${Math.floor(hoursAway)}h. `;
       else msg = `Welcome back! `;
 
       const other = me === 'koy' ? 'metz' : 'koy';
