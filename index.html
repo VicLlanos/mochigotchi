@@ -3,196 +3,660 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-  <meta name="theme-color" content="#FFF0F5">
-  <title>Mochi's Home 💖 - Our Shared Tamagotchi</title>
+  <meta name="theme-color" content="#F5F1E8">
+  <title>Mochi's Home 🌿 - Koy & Metz</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
     html, body { height: 100%; overflow-x: hidden; }
     body {
       font-family: 'Quicksand', sans-serif;
-      background: linear-gradient(180deg, #FFE5EC 0%, #FFC2D1 40%, #FFB3C6 100%);
+      background: linear-gradient(180deg, #F5F1E8 0%, #EDE5D8 50%, #E4D9C7 100%);
       min-height: 100vh; min-height: 100dvh;
-      color: #5C3A4E;
+      color: #4A4239;
       padding: 12px;
       display: flex; justify-content: center; align-items: flex-start;
       overflow-y: auto; -webkit-overflow-scrolling: touch;
     }
+
     .bg-floats { position: fixed; inset: 0; pointer-events: none; overflow: hidden; z-index: 0; }
-    .bg-floats span { position: absolute; font-size: 1.2rem; opacity: 0; animation: bgFloat linear infinite; }
+    .bg-floats span { position: absolute; font-size: 1.1rem; opacity: 0; animation: bgFloat linear infinite; }
     @keyframes bgFloat {
       0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
-      10% { opacity: 0.7; } 90% { opacity: 0.7; }
+      10% { opacity: 0.5; } 90% { opacity: 0.5; }
       100% { transform: translateY(-100px) rotate(360deg); opacity: 0; }
     }
+
     #app { width: 100%; max-width: 480px; position: relative; z-index: 1; }
 
+    /* LOGIN */
     .pin-screen {
-      background: #FFF9FB; border-radius: 30px; padding: 30px 25px; text-align: center;
-      box-shadow: 0 15px 40px rgba(255, 143, 177, 0.35), inset 0 1px 0 rgba(255,255,255,0.9);
-      border: 3px solid #FFD6E5;
+      background: #FDFBF7;
+      border-radius: 28px;
+      padding: 32px 24px 26px;
+      text-align: center;
+      box-shadow: 0 12px 32px rgba(122, 108, 90, 0.12), inset 0 1px 0 rgba(255,255,255,0.9);
+      border: 2px solid #E8DECB;
+      animation: screenIn 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
-    .pin-screen h1 { font-family: 'Fredoka', sans-serif; font-size: 1.8rem; color: #FF6B95; margin-bottom: 8px; }
-    .pin-screen .subtitle { font-size: 0.9rem; color: #A67C8F; margin-bottom: 22px; font-weight: 600; }
-    .big-emoji { font-size: 4.5rem; line-height: 1; margin-bottom: 15px; animation: bob 2s ease-in-out infinite; display: inline-block; }
-    @keyframes bob { 0%, 100% { transform: translateY(0) rotate(-3deg); } 50% { transform: translateY(-10px) rotate(3deg); } }
+    @keyframes screenIn {
+      0% { transform: scale(0.9); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+    .pin-screen h1 {
+      font-family: 'Fredoka', sans-serif;
+      font-size: 1.75rem;
+      color: #7A6C5A;
+      margin-bottom: 6px;
+      font-weight: 600;
+    }
+    .pin-screen .subtitle {
+      font-size: 0.88rem;
+      color: #9B8F7E;
+      margin-bottom: 24px;
+      font-weight: 500;
+    }
+    .big-emoji {
+      font-size: 4.2rem;
+      line-height: 1;
+      margin-bottom: 14px;
+      animation: bob 2.4s ease-in-out infinite;
+      display: inline-block;
+      filter: drop-shadow(0 6px 12px rgba(122, 108, 90, 0.15));
+    }
+    @keyframes bob {
+      0%, 100% { transform: translateY(0) rotate(-4deg); }
+      50% { transform: translateY(-12px) rotate(4deg); }
+    }
+
     .pin-input {
-      width: 100%; padding: 16px 20px; font-size: 1.4rem; font-family: 'Fredoka', sans-serif;
-      font-weight: 600; text-align: center; letter-spacing: 12px;
-      border-radius: 18px; border: 3px solid #FFB3C6; background: #FFF9FB; color: #5C3A4E;
-      outline: none; transition: all 0.2s; margin-bottom: 15px;
+      width: 100%; padding: 16px 20px; font-size: 1.3rem;
+      font-family: 'Fredoka', sans-serif; font-weight: 600;
+      text-align: center; letter-spacing: 10px; border-radius: 16px;
+      border: 2px solid #E0D4BF; background: #FBF8F2; color: #4A4239;
+      outline: none; transition: all 0.25s; margin-bottom: 14px;
     }
-    .pin-input:focus { border-color: #FF6B95; box-shadow: 0 0 0 6px rgba(255, 107, 149, 0.15); }
-    .pin-input::placeholder { letter-spacing: 2px; font-size: 1rem; color: #C9A7B5; }
-    .role-pick { display: flex; gap: 10px; margin-bottom: 15px; }
+    .pin-input:focus {
+      border-color: #A89578; background: #FFFFFF;
+      box-shadow: 0 0 0 5px rgba(168, 149, 120, 0.12);
+    }
+    .pin-input::placeholder { letter-spacing: 2px; font-size: 0.95rem; color: #B8AC98; }
+
+    .role-pick { display: flex; gap: 10px; margin-bottom: 14px; }
     .role-btn {
-      flex: 1; padding: 14px 10px; border-radius: 18px; border: 3px solid #FFD6E5;
-      background: #FFF9FB; font-family: 'Fredoka', sans-serif; font-weight: 600; font-size: 0.95rem;
-      color: #A67C8F; cursor: pointer; transition: all 0.2s;
+      flex: 1; padding: 15px 10px; border-radius: 16px;
+      border: 2px solid #E0D4BF; background: #FBF8F2;
+      font-family: 'Fredoka', sans-serif; font-weight: 600;
+      font-size: 0.95rem; color: #7A6C5A; cursor: pointer;
+      transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
-    .role-btn.selected { background: #FFE5EC; border-color: #FF6B95; color: #FF6B95; transform: scale(1.03); box-shadow: 0 6px 15px rgba(255, 107, 149, 0.25); }
+    .role-btn.selected {
+      background: #F0E8D8; border-color: #A89578; color: #5C4F3D;
+      transform: scale(1.04); box-shadow: 0 6px 16px rgba(122, 108, 90, 0.15);
+    }
     .role-btn:active { transform: scale(0.97); }
 
     .btn {
-      background: linear-gradient(135deg, #FF9BB3, #FF6B95); color: white; border: none;
-      padding: 15px 28px; font-size: 1rem; font-family: 'Fredoka', sans-serif; font-weight: 600;
-      border-radius: 20px; cursor: pointer; box-shadow: 0 6px 18px rgba(255, 107, 149, 0.4);
-      transition: all 0.2s; width: 100%; min-height: 52px;
+      background: linear-gradient(135deg, #A89578, #8B7A5E);
+      color: white; border: none; padding: 16px 28px;
+      font-size: 1rem; font-family: 'Fredoka', sans-serif; font-weight: 600;
+      border-radius: 18px; cursor: pointer;
+      box-shadow: 0 6px 18px rgba(139, 122, 94, 0.3);
+      transition: all 0.2s; width: 100%; min-height: 54px;
     }
-    .btn:active { transform: scale(0.97); box-shadow: 0 3px 10px rgba(255, 107, 149, 0.5); }
-    #gameScreen { display: none; }
+    .btn:active { transform: scale(0.97); box-shadow: 0 3px 10px rgba(139, 122, 94, 0.4); }
+
+    #gameScreen { display: none; animation: screenIn 0.5s ease-out; }
+
     .top-bar {
       display: flex; justify-content: space-between; align-items: center;
-      background: #FFF9FB; border-radius: 18px; padding: 10px 15px; margin-bottom: 12px;
-      box-shadow: 0 4px 12px rgba(255, 143, 177, 0.2); border: 2px solid #FFE5EC;
+      background: #FDFBF7; border-radius: 16px; padding: 10px 14px;
+      margin-bottom: 10px; box-shadow: 0 4px 12px rgba(122, 108, 90, 0.08);
+      border: 2px solid #EDE5D8;
     }
     .streak-display, .days-display {
       display: flex; align-items: center; gap: 5px;
-      font-family: 'Fredoka', sans-serif; font-weight: 600; font-size: 0.85rem; color: #FF6B95;
+      font-family: 'Fredoka', sans-serif; font-weight: 600;
+      font-size: 0.85rem; color: #8B7A5E;
+      padding: 4px 10px; background: #F5EFE0; border-radius: 10px;
     }
-    .who-am-i { font-size: 0.8rem; font-weight: 700; color: #A67C8F; }
+    .streak-display.hot {
+      background: linear-gradient(135deg, #F8E5C8, #F0D5A8);
+      animation: streakPulse 2s infinite;
+    }
+    @keyframes streakPulse {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(240, 213, 168, 0.6); }
+      50% { box-shadow: 0 0 0 6px rgba(240, 213, 168, 0); }
+    }
+    .who-am-i { font-size: 0.8rem; font-weight: 700; color: #7A6C5A; font-family: 'Fredoka', sans-serif; }
+
+    .welcome-back {
+      background: #FDFBF7; border-radius: 18px; padding: 16px;
+      border: 2px dashed #C9BBA0; margin-bottom: 10px; text-align: center;
+      animation: welcomePop 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    @keyframes welcomePop {
+      0% { transform: scale(0.85) translateY(-10px); opacity: 0; }
+      100% { transform: scale(1) translateY(0); opacity: 1; }
+    }
+    .welcome-back h3 {
+      font-family: 'Fredoka', sans-serif; color: #7A6C5A;
+      font-size: 1rem; margin-bottom: 8px; font-weight: 600;
+    }
+    .welcome-back p { font-size: 0.85rem; color: #9B8F7E; line-height: 1.55; margin-bottom: 4px; }
+    .welcome-back .dismiss {
+      background: none; border: none; color: #B8AC98;
+      font-size: 0.72rem; margin-top: 8px; cursor: pointer;
+      font-weight: 600; padding: 5px 10px;
+    }
+
+    .daily-goal {
+      background: #FDFBF7; border-radius: 16px; padding: 12px 14px;
+      margin-bottom: 10px; border: 2px solid #EDE5D8;
+      box-shadow: 0 3px 10px rgba(122, 108, 90, 0.06);
+    }
+    .daily-goal-header {
+      display: flex; justify-content: space-between; align-items: center;
+      font-size: 0.78rem; font-weight: 700; color: #8B7A5E;
+      margin-bottom: 8px; font-family: 'Fredoka', sans-serif;
+    }
+    .daily-goal-progress { display: flex; align-items: center; gap: 8px; }
+    .daily-goal-bar {
+      flex: 1; height: 8px; background: #F0E8D8;
+      border-radius: 10px; overflow: hidden;
+    }
+    .daily-goal-fill {
+      height: 100%; background: linear-gradient(90deg, #C9BA9A, #A89578);
+      border-radius: 10px; transition: width 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+      width: 0%;
+    }
+    .daily-goal-fill.done { background: linear-gradient(90deg, #A8C89A, #7DAF6B); }
+    .daily-goal-count {
+      font-family: 'Fredoka', sans-serif; font-size: 0.75rem;
+      font-weight: 700; color: #8B7A5E; min-width: 40px; text-align: right;
+    }
+
+    /* ============================================ */
+    /* PET CARD - the stage                          */
+    /* ============================================ */
     .pet-card {
-      background: #FFF9FB; border-radius: 28px; padding: 20px 18px; text-align: center;
-      box-shadow: 0 10px 30px rgba(255, 143, 177, 0.25), inset 0 1px 0 rgba(255,255,255,0.9);
-      border: 3px solid #FFE5EC; margin-bottom: 12px; position: relative; overflow: hidden;
+      background: #FDFBF7; border-radius: 26px;
+      padding: 22px 18px 18px; text-align: center;
+      box-shadow: 0 10px 28px rgba(122, 108, 90, 0.12), inset 0 1px 0 rgba(255,255,255,0.9);
+      border: 2px solid #EDE5D8; margin-bottom: 10px;
+      position: relative; overflow: hidden;
+      min-height: 260px;
+      transition: background 0.6s ease;
     }
+    .pet-card.sleep-mode {
+      background: linear-gradient(180deg, #EAE5DA 0%, #DCD3C2 100%);
+    }
+    .pet-card.bath-mode {
+      background: linear-gradient(180deg, #F5EFE0 0%, #E4DDD0 100%);
+    }
+
+    .pet-card::before {
+      content: '';
+      position: absolute; top: 15%; left: 50%;
+      transform: translateX(-50%); width: 200px; height: 200px;
+      background: radial-gradient(circle, rgba(232, 220, 190, 0.5) 0%, transparent 70%);
+      z-index: 0; pointer-events: none;
+      animation: ambientPulse 4s ease-in-out infinite;
+    }
+    @keyframes ambientPulse {
+      0%, 100% { transform: translateX(-50%) scale(1); opacity: 0.6; }
+      50% { transform: translateX(-50%) scale(1.15); opacity: 0.9; }
+    }
+
+    .mood-aura {
+      position: absolute; top: 15%; left: 50%;
+      transform: translateX(-50%); width: 180px; height: 180px;
+      border-radius: 50%; z-index: 0; pointer-events: none;
+      transition: all 1s ease; opacity: 0;
+    }
+    .mood-aura.happy {
+      background: radial-gradient(circle, rgba(255, 235, 180, 0.6) 0%, transparent 65%);
+      opacity: 1; animation: happyGlow 3s ease-in-out infinite;
+    }
+    .mood-aura.sad {
+      background: radial-gradient(circle, rgba(180, 190, 210, 0.5) 0%, transparent 65%);
+      opacity: 1;
+    }
+    @keyframes happyGlow {
+      0%, 100% { transform: translateX(-50%) scale(1); }
+      50% { transform: translateX(-50%) scale(1.1); }
+    }
+
+    /* ============================================ */
+    /* STAGE / SCENE                                 */
+    /* ============================================ */
+    .stage {
+      position: relative;
+      height: 170px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1;
+    }
+
     .pet-stage {
-      font-size: 5.5rem; line-height: 1; margin-bottom: 5px;
-      animation: petIdle 3s ease-in-out infinite; display: inline-block;
-      transition: all 0.3s; position: relative; z-index: 2;
+      font-size: 5.5rem;
+      line-height: 1;
+      transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+      position: relative;
+      z-index: 2;
+      filter: drop-shadow(0 8px 16px rgba(122, 108, 90, 0.2));
+      user-select: none;
+      animation: petIdle 3.2s ease-in-out infinite;
     }
     @keyframes petIdle {
       0%, 100% { transform: translateY(0) scale(1); }
-      50% { transform: translateY(-8px) scale(1.03); }
+      50% { transform: translateY(-9px) scale(1.03); }
     }
-    .pet-stage.happy { animation: petHappy 0.6s ease-in-out infinite; }
+    .pet-stage.happy { animation: petHappy 0.8s ease-in-out infinite; }
     @keyframes petHappy {
-      0%, 100% { transform: translateY(0) rotate(-5deg); }
-      50% { transform: translateY(-12px) rotate(5deg); }
+      0%, 100% { transform: translateY(0) rotate(-6deg) scale(1); }
+      50% { transform: translateY(-14px) rotate(6deg) scale(1.05); }
     }
-    .pet-stage.sad { animation: petSad 2s ease-in-out infinite; filter: grayscale(0.3); }
+    .pet-stage.sad {
+      animation: petSad 2.6s ease-in-out infinite;
+      filter: drop-shadow(0 8px 16px rgba(122, 108, 90, 0.15)) saturate(0.6);
+    }
     @keyframes petSad {
       0%, 100% { transform: translateY(0) rotate(0deg); }
-      50% { transform: translateY(2px) rotate(-2deg); }
+      50% { transform: translateY(3px) rotate(-3deg); }
     }
-    .pet-name { font-family: 'Fredoka', sans-serif; font-size: 1.6rem; color: #FF6B95; margin-bottom: 4px; }
+
+    /* ============================================ */
+    /* ACTION ANIMATION STATES                       */
+    /* ============================================ */
+
+    /* EATING */
+    .pet-stage.eating {
+      animation: eatingBounce 0.5s ease-in-out infinite;
+    }
+    @keyframes eatingBounce {
+      0%, 100% { transform: translateY(0) scale(1); }
+      30% { transform: translateY(-6px) scale(1.05); }
+      60% { transform: translateY(0) scale(0.97); }
+    }
+
+    .food-item {
+      position: absolute;
+      font-size: 2.2rem;
+      z-index: 3;
+      pointer-events: none;
+      animation: foodAppear 2.5s ease-in-out forwards;
+    }
+    @keyframes foodAppear {
+      0% { opacity: 0; transform: scale(0.3) translateY(-20px); }
+      15% { opacity: 1; transform: scale(1.2) translateY(0); }
+      20% { transform: scale(1); }
+      70% { opacity: 1; transform: scale(1) rotate(0deg); }
+      90% { opacity: 0.8; transform: scale(0.6) rotate(20deg); }
+      100% { opacity: 0; transform: scale(0.3) rotate(45deg); }
+    }
+
+    .nom-text {
+      position: absolute;
+      font-family: 'Fredoka', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #7A6C5A;
+      z-index: 5;
+      pointer-events: none;
+      animation: nomFloat 0.9s ease-out infinite;
+    }
+    @keyframes nomFloat {
+      0% { opacity: 0; transform: translateY(0) scale(0.8); }
+      30% { opacity: 1; transform: translateY(-8px) scale(1); }
+      100% { opacity: 0; transform: translateY(-30px) scale(0.9); }
+    }
+
+    /* PLAYING */
+    .pet-stage.playing {
+      animation: playBounce 0.6s ease-in-out infinite;
+    }
+    @keyframes playBounce {
+      0%, 100% { transform: translateY(0) rotate(-4deg); }
+      50% { transform: translateY(-18px) rotate(4deg); }
+    }
+
+    .toy-item {
+      position: absolute;
+      font-size: 2rem;
+      z-index: 3;
+      pointer-events: none;
+      animation: toyBounce 1.2s ease-in-out infinite;
+    }
+    @keyframes toyBounce {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(-30px) rotate(180deg); }
+    }
+
+    .heart-play {
+      position: absolute;
+      font-size: 1.2rem;
+      z-index: 4;
+      pointer-events: none;
+      animation: heartPlayFloat 2s ease-out infinite;
+    }
+    @keyframes heartPlayFloat {
+      0% { opacity: 0; transform: translateY(0) scale(0.5); }
+      20% { opacity: 1; }
+      100% { opacity: 0; transform: translateY(-60px) scale(1.2); }
+    }
+
+    /* SLEEPING */
+    .pet-stage.sleeping {
+      animation: breathing 3s ease-in-out infinite;
+      opacity: 0.85;
+    }
+    @keyframes breathing {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.04); }
+    }
+
+    .bed-item {
+      position: absolute;
+      font-size: 2.4rem;
+      z-index: 1;
+      bottom: 20px;
+      animation: bedAppear 0.5s ease-out forwards;
+    }
+    @keyframes bedAppear {
+      0% { opacity: 0; transform: scale(0.5) translateY(20px); }
+      100% { opacity: 1; transform: scale(1) translateY(0); }
+    }
+
+    .zzz {
+      position: absolute;
+      font-family: 'Fredoka', sans-serif;
+      color: #8B7A5E;
+      font-size: 1.1rem;
+      font-weight: 700;
+      z-index: 5;
+      pointer-events: none;
+      animation: zzzFloat 2.5s ease-in-out infinite;
+    }
+    @keyframes zzzFloat {
+      0% { opacity: 0; transform: translate(0, 0) scale(0.7) rotate(-5deg); }
+      25% { opacity: 1; }
+      100% { opacity: 0; transform: translate(30px, -60px) scale(1.2) rotate(10deg); }
+    }
+
+    /* BATHING */
+    .pet-stage.bathing {
+      animation: bathWiggle 0.5s ease-in-out infinite;
+    }
+    @keyframes bathWiggle {
+      0%, 100% { transform: rotate(-4deg) translateY(0); }
+      50% { transform: rotate(4deg) translateY(-4px); }
+    }
+
+    .bubble {
+      position: absolute;
+      border-radius: 50%;
+      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.95), rgba(220, 230, 235, 0.7));
+      box-shadow: inset -2px -2px 6px rgba(180, 190, 200, 0.4), 0 2px 4px rgba(0,0,0,0.05);
+      pointer-events: none;
+      z-index: 3;
+      animation: bubbleRise 3s ease-out infinite;
+    }
+    @keyframes bubbleRise {
+      0% { opacity: 0; transform: translateY(0) scale(0.4); }
+      15% { opacity: 1; }
+      100% { opacity: 0; transform: translateY(-80px) scale(1); }
+    }
+
+    /* PETTING */
+    .pet-stage.petting {
+      animation: pettingLean 0.8s ease-in-out infinite;
+    }
+    @keyframes pettingLean {
+      0%, 100% { transform: rotate(-3deg) scale(1.02); }
+      50% { transform: rotate(3deg) scale(1.05); }
+    }
+
+    .hand-item {
+      position: absolute;
+      font-size: 2.2rem;
+      z-index: 5;
+      pointer-events: none;
+      animation: handPat 0.9s ease-in-out infinite;
+      top: 15%;
+    }
+    @keyframes handPat {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(-8px) rotate(-8deg); }
+    }
+
+    .pet-heart {
+      position: absolute;
+      font-size: 1.1rem;
+      z-index: 4;
+      pointer-events: none;
+      animation: petHeartFloat 1.6s ease-out infinite;
+    }
+    @keyframes petHeartFloat {
+      0% { opacity: 0; transform: translateY(0) scale(0.4); }
+      25% { opacity: 1; }
+      100% { opacity: 0; transform: translateY(-70px) scale(1.1); }
+    }
+
+    /* TREAT */
+    .pet-stage.treating {
+      animation: treatNibble 0.4s ease-in-out infinite;
+    }
+    @keyframes treatNibble {
+      0%, 100% { transform: scale(1) rotate(0deg); }
+      50% { transform: scale(1.05) rotate(2deg); }
+    }
+
+    /* ============================================ */
+    /* PET INFO                                      */
+    /* ============================================ */
+    .pet-name {
+      font-family: 'Fredoka', sans-serif;
+      font-size: 1.5rem; color: #7A6C5A; margin-bottom: 4px;
+      position: relative; z-index: 2; font-weight: 600;
+    }
     .pet-level {
-      display: inline-block; background: linear-gradient(135deg, #FFE5EC, #FFD6E5);
-      color: #FF6B95; font-family: 'Fredoka', sans-serif; font-weight: 600;
-      font-size: 0.8rem; padding: 4px 12px; border-radius: 20px;
-      margin-bottom: 12px; border: 1px solid #FFB3C6;
+      display: inline-block; background: #F0E8D8; color: #8B7A5E;
+      font-family: 'Fredoka', sans-serif; font-weight: 600;
+      font-size: 0.78rem; padding: 5px 14px; border-radius: 20px;
+      margin-bottom: 8px; border: 1px solid #E0D4BF;
+      position: relative; z-index: 2; transition: all 0.3s;
     }
-    .stats { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 12px; }
-    .stat { background: #FFF0F5; border-radius: 14px; padding: 10px 12px; text-align: left; border: 2px solid #FFD6E5; }
+    .pet-level.level-up {
+      background: linear-gradient(135deg, #C9BA9A, #A89578);
+      color: white; animation: levelUpPulse 1s ease;
+    }
+    @keyframes levelUpPulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.15); box-shadow: 0 0 20px rgba(168, 149, 120, 0.6); }
+    }
+    .pet-mood {
+      font-size: 0.75rem; color: #9B8F7E; font-style: italic;
+      margin-bottom: 12px; position: relative; z-index: 2;
+      min-height: 16px; transition: opacity 0.3s;
+    }
+
+    .stats {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 8px; margin-top: 6px; position: relative; z-index: 2;
+    }
+    .stat {
+      background: #FBF8F2; border-radius: 14px; padding: 10px 12px;
+      text-align: left; border: 2px solid #EDE5D8; transition: all 0.3s;
+    }
+    .stat.bump { animation: statBump 0.5s cubic-bezier(0.34, 1.56, 0.64, 1); }
+    @keyframes statBump {
+      0% { transform: scale(1); }
+      40% { transform: scale(1.06); border-color: #A89578; }
+      100% { transform: scale(1); }
+    }
     .stat-header {
       display: flex; justify-content: space-between; align-items: center;
-      font-size: 0.8rem; font-weight: 700; color: #A67C8F; margin-bottom: 5px;
+      font-size: 0.78rem; font-weight: 700; color: #8B7A5E; margin-bottom: 5px;
     }
-    .stat-icon { font-size: 1rem; margin-right: 3px; }
-    .stat-value { font-family: 'Fredoka', sans-serif; font-size: 0.85rem; color: #FF6B95; font-weight: 600; }
-    .stat-bar { height: 8px; background: #FFE5EC; border-radius: 10px; overflow: hidden; }
+    .stat-icon { font-size: 0.95rem; margin-right: 3px; }
+    .stat-value {
+      font-family: 'Fredoka', sans-serif; font-size: 0.82rem;
+      color: #7A6C5A; font-weight: 600;
+    }
+    .stat-bar { height: 8px; background: #F0E8D8; border-radius: 10px; overflow: hidden; position: relative; }
     .stat-bar-fill {
       height: 100%; border-radius: 10px;
-      transition: width 0.6s cubic-bezier(0.34, 1.56, 0.64, 1), background-color 0.4s;
+      transition: width 0.7s cubic-bezier(0.34, 1.56, 0.64, 1), background 0.4s;
+      position: relative; overflow: hidden;
     }
-    .stat-bar-fill.good { background: linear-gradient(90deg, #A8E6CF, #7DD3A3); }
-    .stat-bar-fill.medium { background: linear-gradient(90deg, #FFD3A5, #FFB677); }
-    .stat-bar-fill.low { background: linear-gradient(90deg, #FFA8B5, #FF6B95); animation: lowPulse 1.5s infinite; }
-    @keyframes lowPulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.6; } }
+    .stat-bar-fill::after {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.5), transparent);
+      animation: barShine 3s infinite;
+    }
+    @keyframes barShine {
+      0% { transform: translateX(-100%); }
+      100% { transform: translateX(100%); }
+    }
+    .stat-bar-fill.good { background: linear-gradient(90deg, #B4CDA6, #8FB87D); }
+    .stat-bar-fill.medium { background: linear-gradient(90deg, #E5CFA0, #D4B472); }
+    .stat-bar-fill.low {
+      background: linear-gradient(90deg, #E5B3A0, #D18F73);
+      animation: lowPulse 2s infinite;
+    }
+    @keyframes lowPulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.65; }
+    }
 
-    .actions { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 12px; }
+    /* ACTIONS */
+    .actions {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 8px; margin-bottom: 10px;
+    }
     .action-btn {
-      background: #FFF9FB; border: 3px solid #FFD6E5; border-radius: 20px; padding: 14px 6px;
-      cursor: pointer; transition: all 0.15s; display: flex; flex-direction: column;
-      align-items: center; gap: 4px; font-family: 'Fredoka', sans-serif; font-weight: 600;
-      color: #5C3A4E; min-height: 78px; justify-content: center;
+      background: #FDFBF7; border: 2px solid #EDE5D8; border-radius: 18px;
+      padding: 14px 6px; cursor: pointer;
+      transition: all 0.15s cubic-bezier(0.34, 1.56, 0.64, 1);
+      display: flex; flex-direction: column; align-items: center; gap: 4px;
+      font-family: 'Fredoka', sans-serif; font-weight: 600;
+      color: #4A4239; min-height: 82px; justify-content: center;
+      position: relative; overflow: hidden;
     }
-    .action-btn:active { transform: scale(0.94); background: #FFE5EC; }
-    .action-btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
-    .action-btn .emoji { font-size: 1.6rem; line-height: 1; }
-    .action-btn .label { font-size: 0.7rem; color: #A67C8F; }
+    .action-btn:active { transform: scale(0.92); background: #F5EFE0; border-color: #C9BBA0; }
+    .action-btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none; filter: grayscale(0.5); }
+    .action-btn .emoji { font-size: 1.7rem; line-height: 1; transition: transform 0.2s; }
+    .action-btn:active .emoji { transform: scale(1.15) rotate(-8deg); }
+    .action-btn .label { font-size: 0.7rem; color: #9B8F7E; font-weight: 600; }
 
+    /* DIARY */
     .diary-card {
-      background: #FFF9FB; border-radius: 20px; padding: 15px; border: 3px solid #FFE5EC;
-      box-shadow: 0 6px 18px rgba(255, 143, 177, 0.15); margin-bottom: 12px;
+      background: #FDFBF7; border-radius: 20px; padding: 14px 15px;
+      border: 2px solid #EDE5D8; box-shadow: 0 6px 18px rgba(122, 108, 90, 0.08);
+      margin-bottom: 10px;
     }
     .diary-title {
-      font-family: 'Fredoka', sans-serif; font-weight: 600; font-size: 0.95rem;
-      color: #FF6B95; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center;
+      font-family: 'Fredoka', sans-serif; font-weight: 600;
+      font-size: 0.92rem; color: #7A6C5A; margin-bottom: 10px;
+      display: flex; justify-content: space-between; align-items: center;
     }
-    .diary-scroll { max-height: 130px; overflow-y: auto; scrollbar-width: thin; }
-    .diary-scroll::-webkit-scrollbar { width: 5px; }
-    .diary-scroll::-webkit-scrollbar-thumb { background: #FFB3C6; border-radius: 5px; }
+    .diary-scroll {
+      max-height: 130px; overflow-y: auto;
+      scrollbar-width: thin; padding-right: 3px;
+    }
+    .diary-scroll::-webkit-scrollbar { width: 4px; }
+    .diary-scroll::-webkit-scrollbar-thumb { background: #D4C7AE; border-radius: 5px; }
     .diary-entry {
-      font-size: 0.8rem; padding: 7px 10px; border-radius: 10px; margin-bottom: 5px;
-      line-height: 1.35; color: #7A5568; background: #FFF0F5; border-left: 3px solid #FFB3C6;
-      animation: diarySlide 0.3s ease-out;
+      font-size: 0.78rem; padding: 8px 10px; border-radius: 10px;
+      margin-bottom: 5px; line-height: 1.4; color: #6B5F4D;
+      background: #FBF8F2; border-left: 3px solid #D4C7AE;
+      animation: diarySlide 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
-    @keyframes diarySlide { from { opacity: 0; transform: translateX(-8px); } to { opacity: 1; transform: translateX(0); } }
-    .diary-entry.by-her { border-left-color: #FF6B95; background: #FFE5EC; }
-    .diary-entry.by-you { border-left-color: #9BC1FF; background: #E5F0FF; }
-    .diary-entry .time { font-size: 0.7rem; color: #A67C8F; margin-right: 5px; font-weight: 600; }
+    @keyframes diarySlide {
+      from { opacity: 0; transform: translateX(-10px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+    .diary-entry.by-koy { border-left-color: #A89578; background: #F5EFE0; }
+    .diary-entry.by-metz { border-left-color: #C9A0A0; background: #F8EEE8; }
+    .diary-entry .time {
+      font-size: 0.68rem; color: #B8AC98;
+      margin-right: 5px; font-weight: 600;
+    }
 
-    .welcome-back {
-      background: #FFF9FB; border-radius: 20px; padding: 16px; border: 3px dashed #FFB3C6;
-      margin-bottom: 12px; text-align: center;
-      animation: welcomePop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+    /* FLOATS */
+    .action-float {
+      position: fixed; font-size: 2rem;
+      pointer-events: none; z-index: 999;
+      animation: actionFloat 1.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
     }
-    @keyframes welcomePop { 0% { transform: scale(0.8); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
-    .welcome-back h3 { font-family: 'Fredoka', sans-serif; color: #FF6B95; font-size: 1.05rem; margin-bottom: 8px; }
-    .welcome-back p { font-size: 0.85rem; color: #A67C8F; line-height: 1.5; margin-bottom: 4px; }
-    .welcome-back .dismiss {
-      background: none; border: none; color: #C9A7B5; font-size: 0.75rem;
-      margin-top: 8px; cursor: pointer; font-weight: 600; padding: 5px 10px;
-    }
-    .action-float { position: fixed; font-size: 2rem; pointer-events: none; z-index: 999; animation: actionFloat 1.5s ease-out forwards; }
     @keyframes actionFloat {
-      0% { opacity: 1; transform: translate(0, 0) scale(0.5); }
-      100% { opacity: 0; transform: translate(var(--tx), var(--ty)) scale(1.5) rotate(30deg); }
+      0% { opacity: 1; transform: translate(0, 0) scale(0.4) rotate(0deg); }
+      40% { opacity: 1; transform: translate(var(--tx1), var(--ty1)) scale(1.4) rotate(15deg); }
+      100% { opacity: 0; transform: translate(var(--tx2), var(--ty2)) scale(0.8) rotate(-15deg); }
     }
+
+    /* Level up */
+    .levelup-overlay {
+      position: fixed; inset: 0;
+      display: flex; align-items: center; justify-content: center;
+      pointer-events: none; z-index: 1000;
+      animation: levelupFade 2s ease-out forwards;
+    }
+    @keyframes levelupFade {
+      0% { opacity: 0; transform: scale(0.8); }
+      20% { opacity: 1; transform: scale(1.05); }
+      80% { opacity: 1; transform: scale(1); }
+      100% { opacity: 0; transform: scale(1.1); }
+    }
+    .levelup-badge {
+      background: linear-gradient(135deg, #C9BA9A, #A89578);
+      color: white; padding: 20px 32px; border-radius: 24px;
+      font-family: 'Fredoka', sans-serif; font-size: 1.3rem;
+      font-weight: 600; text-align: center;
+      box-shadow: 0 12px 40px rgba(168, 149, 120, 0.5);
+      border: 3px solid #FFF9EE;
+    }
+    .levelup-badge .big { display: block; font-size: 2.2rem; margin-bottom: 6px; }
+
+    /* Toast */
     .toast {
       position: fixed; top: 20px; left: 50%;
       transform: translateX(-50%) translateY(-100px);
-      background: #FF6B95; color: white; padding: 12px 20px; border-radius: 25px;
-      font-family: 'Fredoka', sans-serif; font-weight: 600; font-size: 0.9rem;
-      box-shadow: 0 8px 25px rgba(255, 107, 149, 0.4); z-index: 1000;
-      transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); white-space: nowrap;
+      background: #7A6C5A; color: white;
+      padding: 12px 22px; border-radius: 24px;
+      font-family: 'Fredoka', sans-serif; font-weight: 600;
+      font-size: 0.88rem; box-shadow: 0 8px 25px rgba(122, 108, 90, 0.35);
+      z-index: 1000; transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+      white-space: nowrap; max-width: 90vw; overflow: hidden; text-overflow: ellipsis;
     }
     .toast.show { transform: translateX(-50%) translateY(0); }
+
+    .footer-note {
+      text-align: center; font-size: 0.7rem;
+      color: #B8AC98; margin: 10px 0 20px; font-style: italic;
+    }
+
+    /* RESPONSIVE */
     @media (max-width: 380px) {
       .pin-screen h1 { font-size: 1.5rem; }
-      .big-emoji { font-size: 3.5rem; }
-      .pet-stage { font-size: 4.5rem; }
-      .action-btn { padding: 10px 4px; min-height: 68px; }
-      .action-btn .emoji { font-size: 1.4rem; }
+      .big-emoji { font-size: 3.4rem; }
+      .pet-stage { font-size: 4.6rem; }
+      .stage { height: 145px; }
+      .action-btn { padding: 10px 4px; min-height: 72px; }
+      .action-btn .emoji { font-size: 1.5rem; }
       .action-btn .label { font-size: 0.65rem; }
       .stat { padding: 8px 10px; }
+      .pet-name { font-size: 1.3rem; }
     }
     @media (max-height: 700px) {
-      .pet-stage { font-size: 4.5rem; }
-      .diary-scroll { max-height: 90px; }
+      .pet-stage { font-size: 4.4rem; }
+      .stage { height: 140px; }
+      .diary-scroll { max-height: 80px; }
+      .pet-card { padding: 16px 14px 14px; min-height: 220px; }
     }
   </style>
 </head>
@@ -201,83 +665,116 @@
   <div class="bg-floats" id="bgFloats"></div>
 
   <div id="app">
-    <!-- PIN SCREEN -->
+
+    <!-- LOGIN -->
     <div class="pin-screen" id="pinScreen">
       <div class="big-emoji" id="welcomeEmoji">🥚</div>
       <h1>Mochi's Home</h1>
-      <p class="subtitle">A tiny pet we take care of together 💖</p>
+      <p class="subtitle">A tiny life we care for together 🌿</p>
+
       <div class="role-pick">
-        <button class="role-btn" data-role="you">💙 Me</button>
-        <button class="role-btn" data-role="her">💖 Mahal</button>
+        <button class="role-btn" data-role="koy">🌿 Koy</button>
+        <button class="role-btn" data-role="metz">🌸 Metz</button>
       </div>
+
       <input type="tel" class="pin-input" id="pinInput" placeholder="PIN" maxlength="4" inputmode="numeric" pattern="[0-9]*">
-      <button class="btn" id="loginBtn">Come In 💕</button>
-      <p style="font-size: 0.72rem; color: #C9A7B5; margin-top: 15px; line-height: 1.4;">
-        First time? Pick who you are and make a 4-digit PIN.<br>
-        <span style="font-size: 0.68rem;">Both of you use the same webpage — each picks their own role.</span>
+
+      <button class="btn" id="loginBtn">Come In 💫</button>
+
+      <p style="font-size: 0.72rem; color: #B8AC98; margin-top: 16px; line-height: 1.5;">
+        First time? Pick who you are and create a 4-digit PIN.<br>
+        Both of you use this same page — each picks their own role.
       </p>
     </div>
 
-    <!-- GAME SCREEN -->
+    <!-- GAME -->
     <div id="gameScreen">
+
       <div class="top-bar">
-        <div class="streak-display"><span>🔥</span><span id="streakCount">0</span></div>
-        <div class="who-am-i" id="whoAmI">💙 Me</div>
-        <div class="days-display"><span>💕</span><span id="daysCount">0</span></div>
+        <div class="streak-display" id="streakBox">
+          <span>🔥</span><span id="streakCount">0</span>
+        </div>
+        <div class="who-am-i" id="whoAmI">🌿 Koy</div>
+        <div class="days-display">
+          <span>🌱</span><span id="daysCount">0</span>
+        </div>
       </div>
 
       <div class="welcome-back" id="welcomeBack" style="display:none;">
-        <h3 id="welcomeTitle">Welcome back! 💖</h3>
+        <h3 id="welcomeTitle">Welcome back! 🌿</h3>
         <div id="welcomeBody"></div>
-        <button class="dismiss" id="dismissWelcome">Hide this →</button>
+        <button class="dismiss" id="dismissWelcome">Hide →</button>
       </div>
 
-      <div class="pet-card">
-        <div class="pet-stage" id="petStage">🥚</div>
+      <div class="daily-goal">
+        <div class="daily-goal-header">
+          <span>✨ Today's care goal</span>
+          <span id="goalReward">+10 XP</span>
+        </div>
+        <div class="daily-goal-progress">
+          <div class="daily-goal-bar">
+            <div class="daily-goal-fill" id="goalFill"></div>
+          </div>
+          <div class="daily-goal-count" id="goalCount">0/5</div>
+        </div>
+      </div>
+
+      <div class="pet-card" id="petCard">
+        <div class="mood-aura" id="moodAura"></div>
+
+        <div class="stage" id="stage">
+          <div class="pet-stage" id="petStage">🥚</div>
+        </div>
+
         <div class="pet-name" id="petName">Mochi</div>
         <div class="pet-level" id="petLevel">Lv 1 · Egg</div>
+        <div class="pet-mood" id="petMood">sleeping peacefully...</div>
+
         <div class="stats">
-          <div class="stat">
-            <div class="stat-header"><span><span class="stat-icon">🍕</span>Hunger</span><span class="stat-value" id="hungerVal">100</span></div>
+          <div class="stat" id="statHunger">
+            <div class="stat-header"><span><span class="stat-icon">🍚</span>Hunger</span><span class="stat-value" id="hungerVal">100</span></div>
             <div class="stat-bar"><div class="stat-bar-fill good" id="hungerBar" style="width:100%"></div></div>
           </div>
-          <div class="stat">
-            <div class="stat-header"><span><span class="stat-icon">🎮</span>Happy</span><span class="stat-value" id="happyVal">100</span></div>
+          <div class="stat" id="statHappy">
+            <div class="stat-header"><span><span class="stat-icon">☀️</span>Happy</span><span class="stat-value" id="happyVal">100</span></div>
             <div class="stat-bar"><div class="stat-bar-fill good" id="happyBar" style="width:100%"></div></div>
           </div>
-          <div class="stat">
-            <div class="stat-header"><span><span class="stat-icon">😴</span>Energy</span><span class="stat-value" id="energyVal">100</span></div>
+          <div class="stat" id="statEnergy">
+            <div class="stat-header"><span><span class="stat-icon">🌙</span>Energy</span><span class="stat-value" id="energyVal">100</span></div>
             <div class="stat-bar"><div class="stat-bar-fill good" id="energyBar" style="width:100%"></div></div>
           </div>
-          <div class="stat">
-            <div class="stat-header"><span><span class="stat-icon">🛁</span>Clean</span><span class="stat-value" id="cleanVal">100</span></div>
+          <div class="stat" id="statClean">
+            <div class="stat-header"><span><span class="stat-icon">💧</span>Clean</span><span class="stat-value" id="cleanVal">100</span></div>
             <div class="stat-bar"><div class="stat-bar-fill good" id="cleanBar" style="width:100%"></div></div>
           </div>
         </div>
       </div>
 
       <div class="actions">
-        <button class="action-btn" data-action="feed"><span class="emoji">🍕</span><span class="label">Feed</span></button>
-        <button class="action-btn" data-action="play"><span class="emoji">🎮</span><span class="label">Play</span></button>
-        <button class="action-btn" data-action="sleep"><span class="emoji">😴</span><span class="label">Sleep</span></button>
-        <button class="action-btn" data-action="bath"><span class="emoji">🛁</span><span class="label">Bath</span></button>
-        <button class="action-btn" data-action="pet"><span class="emoji">🤚</span><span class="label">Pet</span></button>
+        <button class="action-btn" data-action="feed"><span class="emoji">🍚</span><span class="label">Feed</span></button>
+        <button class="action-btn" data-action="play"><span class="emoji">🎈</span><span class="label">Play</span></button>
+        <button class="action-btn" data-action="sleep"><span class="emoji">🌙</span><span class="label">Sleep</span></button>
+        <button class="action-btn" data-action="bath"><span class="emoji">💧</span><span class="label">Bath</span></button>
+        <button class="action-btn" data-action="pet"><span class="emoji">🤲</span><span class="label">Pet</span></button>
         <button class="action-btn" data-action="treat"><span class="emoji">🍪</span><span class="label">Treat</span></button>
       </div>
 
       <div class="diary-card">
         <div class="diary-title">
           <span>📖 Mochi's Diary</span>
-          <span style="font-size: 0.7rem; color: #C9A7B5;" id="diaryCount">0 events</span>
+          <span style="font-size: 0.7rem; color: #B8AC98;" id="diaryCount">0 events</span>
         </div>
         <div class="diary-scroll" id="diaryScroll">
-          <div style="text-align: center; color: #C9A7B5; font-size: 0.8rem; padding: 10px;">Nothing yet! Take care of Mochi together 💕</div>
+          <div style="text-align: center; color: #B8AC98; font-size: 0.8rem; padding: 12px;">
+            Nothing yet! Take care of Mochi together 🌿
+          </div>
         </div>
       </div>
 
-      <button class="btn" id="logoutBtn" style="background: linear-gradient(135deg, #D6C7D0, #A67C8F); font-size: 0.9rem; padding: 12px;">Switch User</button>
-      <p style="text-align: center; font-size: 0.7rem; color: #C9A7B5; margin: 10px 0 20px;">Made with 💖 for Mochi</p>
+      <button class="btn" id="logoutBtn" style="background: linear-gradient(135deg, #B8AC98, #9B8F7E); font-size: 0.88rem; padding: 12px; margin-bottom: 10px;">Switch User</button>
+      <p class="footer-note">Made with care for Mochi 🌿</p>
     </div>
+
   </div>
 
   <div class="toast" id="toast"></div>
@@ -295,63 +792,74 @@
       messagingSenderId: "441429859962",
       appId: "1:441429859962:web:d0a5e1af080bb394a725c3"
     };
-
     firebase.initializeApp(firebaseConfig);
     const db = firebase.database();
 
     // ============================================================
-    // GAME CONSTANTS
+    // CONSTANTS
     // ============================================================
-    const DECAY_PER_MINUTE = 0.15;
-    const OFFLINE_CAP_HOURS = 8;
+    const DECAY_PER_MINUTE = 0.12;
+    const OFFLINE_CAP_HOURS = 6;
     const MAX_DIARY = 40;
-    const COOLDOWN_MS = 3000;
+    const COOLDOWN_MS = 2500;
+    const DAILY_GOAL = 5;
+    const ANIMATION_DURATION = 2600;
 
     const STAGES = [
-      { level: 1,  name: 'Egg',     emoji: '🥚' },
-      { level: 3,  name: 'Baby',    emoji: '🐣' },
-      { level: 6,  name: 'Toddler', emoji: '🐥' },
-      { level: 12, name: 'Child',   emoji: '🐤' },
-      { level: 20, name: 'Teen',    emoji: '🐦' },
-      { level: 35, name: 'Adult',   emoji: '🦜' },
-      { level: 50, name: 'Mystic',  emoji: '🦚' },
-      { level: 75, name: 'Legend',  emoji: '🦅' }
+      { level: 1,  name: 'Egg',      emoji: '🥚' },
+      { level: 3,  name: 'Hatchling',emoji: '🐣' },
+      { level: 6,  name: 'Sprout',   emoji: '🐥' },
+      { level: 12, name: 'Sapling',  emoji: '🐤' },
+      { level: 20, name: 'Bloom',    emoji: '🦜' },
+      { level: 35, name: 'Guardian', emoji: '🦚' },
+      { level: 50, name: 'Mystic',   emoji: '🦅' },
+      { level: 75, name: 'Eternal',  emoji: '🌿' }
     ];
 
     const ACTIONS = {
-      feed:  { stat: 'hunger', amount: 25, xp: 2, verb: 'fed', emoji: '🍕' },
-      play:  { stat: 'happy',  amount: 20, xp: 3, verb: 'played with', emoji: '🎮', cost: { energy: 10 } },
-      sleep: { stat: 'energy', amount: 30, xp: 1, verb: 'tucked in', emoji: '😴' },
-      bath:  { stat: 'clean',  amount: 30, xp: 2, verb: 'bathed', emoji: '🛁' },
-      pet:   { stat: 'happy',  amount: 8,  xp: 1, verb: 'petted', emoji: '🤚' },
-      treat: { stat: 'happy',  amount: 15, xp: 2, verb: 'gave a treat to', emoji: '🍪', cost: { hunger: 5 } }
+      feed:  { stat: 'hunger', amount: 25, xp: 2, verb: 'fed',             emoji: '🍚' },
+      play:  { stat: 'happy',  amount: 22, xp: 3, verb: 'played with',     emoji: '🎈', cost: { energy: 8 } },
+      sleep: { stat: 'energy', amount: 30, xp: 2, verb: 'tucked in',       emoji: '🌙' },
+      bath:  { stat: 'clean',  amount: 30, xp: 2, verb: 'bathed',          emoji: '💧' },
+      pet:   { stat: 'happy',  amount: 8,  xp: 1, verb: 'petted',          emoji: '🤲' },
+      treat: { stat: 'happy',  amount: 18, xp: 3, verb: 'gave a treat to', emoji: '🍪', cost: { hunger: 5 } }
+    };
+
+    const MOODS = {
+      happy:  ['feeling wonderful 🌸', 'bouncing with joy ✨', 'so content 🌿', 'purring softly 💫', 'radiating warmth ☀️'],
+      ok:     ['doing just fine 🌱', 'quietly content 🍃', 'relaxing warmly 🌾', 'cozy and calm 🕊️'],
+      low:    ['feeling a little tired 💤', 'missing you a bit 🌧️', 'wishing for a hug 🤍', 'hoping you come back soon 🌙'],
+      sad:    ['really needs you 💧', 'feeling lonely 🌫️', 'waiting for your care 🤍', 'please come back soon 🌧️']
     };
 
     // ============================================================
     // STATE
     // ============================================================
-    let me = 'you';
+    let me = 'koy';
     let myPin = '';
     let gameData = null;
     let myLastSeen = 0;
     let hasShownWelcome = false;
     let lastActionAt = 0;
+    let lastLevel = 1;
+    let isAnimating = false;
+    let animationTimeout = null;
 
     const $ = (id) => document.getElementById(id);
 
     // ============================================================
-    // BACKGROUND FLOATERS
+    // BACKGROUND FLOATS
     // ============================================================
-    (function () {
+    (function initFloats() {
       const c = $('bgFloats');
-      const emojis = ['💖', '🌸', '✨', '💕', '⭐', '🌷', '💗', '🦋'];
-      for (let i = 0; i < 12; i++) {
+      const emojis = ['🌿', '🍃', '✨', '🌸', '☁️', '🍂', '🌱', '💫'];
+      for (let i = 0; i < 10; i++) {
         const s = document.createElement('span');
         s.textContent = emojis[i % emojis.length];
         s.style.left = Math.random() * 100 + '%';
-        s.style.animationDuration = (14 + Math.random() * 12) + 's';
-        s.style.animationDelay = (Math.random() * 15) + 's';
-        s.style.fontSize = (0.9 + Math.random() * 0.9) + 'rem';
+        s.style.animationDuration = (16 + Math.random() * 14) + 's';
+        s.style.animationDelay = (Math.random() * 18) + 's';
+        s.style.fontSize = (0.9 + Math.random() * 0.8) + 'rem';
         c.appendChild(s);
       }
     })();
@@ -365,11 +873,11 @@
       t.textContent = msg;
       t.classList.add('show');
       clearTimeout(toastT);
-      toastT = setTimeout(() => t.classList.remove('show'), 2200);
+      toastT = setTimeout(() => t.classList.remove('show'), 2400);
     }
 
     // ============================================================
-    // ROLE PICK
+    // LOGIN
     // ============================================================
     let selectedRole = null;
     document.querySelectorAll('.role-btn').forEach(btn => {
@@ -377,7 +885,7 @@
         document.querySelectorAll('.role-btn').forEach(b => b.classList.remove('selected'));
         btn.classList.add('selected');
         selectedRole = btn.dataset.role;
-        $('welcomeEmoji').textContent = selectedRole === 'you' ? '💙' : '💖';
+        $('welcomeEmoji').textContent = selectedRole === 'koy' ? '🌿' : '🌸';
       });
     });
 
@@ -389,27 +897,24 @@
       document.querySelectorAll('.role-btn').forEach(b => {
         if (b.dataset.role === savedRole) b.classList.add('selected');
       });
-      $('welcomeEmoji').textContent = savedRole === 'you' ? '💙' : '💖';
+      $('welcomeEmoji').textContent = savedRole === 'koy' ? '🌿' : '🌸';
     }
 
-    // ============================================================
-    // LOGIN
-    // ============================================================
     $('loginBtn').addEventListener('click', () => {
       const pin = $('pinInput').value.trim();
-      if (!selectedRole) return showToast('Pick who you are first 💕');
+      if (!selectedRole) return showToast('Pick who you are first 🌿');
       if (!/^\d{4}$/.test(pin)) return showToast('PIN must be 4 digits 🔢');
-      
+
       me = selectedRole;
       myPin = pin;
       localStorage.setItem('mochi_role', me);
       localStorage.setItem('mochi_pin', myPin);
       myLastSeen = parseInt(localStorage.getItem('mochi_last_' + me)) || 0;
-      
+
       $('pinScreen').style.display = 'none';
       $('gameScreen').style.display = 'block';
-      $('whoAmI').textContent = me === 'you' ? '💙 Me' : '💖 Mahal';
-      
+      $('whoAmI').textContent = me === 'koy' ? '🌿 Koy' : '🌸 Metz';
+
       listenToGame();
     });
 
@@ -428,7 +933,9 @@
             hunger: 100, happy: 100, energy: 100, clean: 100,
             xp: 0, level: 1,
             streak: 0, lastStreakDate: '',
-            youLastSeen: now, herLastSeen: 0,
+            koyLastSeen: now, metzLastSeen: 0,
+            todayActions: { koy: 0, metz: 0 },
+            todayDate: '',
             diary: {}
           }).then(() => ref.on('value', handleUpdate));
         } else {
@@ -446,147 +953,194 @@
       const minutesOffline = Math.min((now - lastUpdate) / 60000, OFFLINE_CAP_HOURS * 60);
       const decay = minutesOffline * DECAY_PER_MINUTE;
 
-      const prevSnapshot = { ...data };
+      const prev = { ...data };
 
       data.hunger = Math.max(0, (data.hunger ?? 100) - decay);
       data.happy  = Math.max(0, (data.happy  ?? 100) - decay);
       data.energy = Math.max(0, (data.energy ?? 100) - decay);
       data.clean  = Math.max(0, (data.clean  ?? 100) - decay);
 
+      const today = new Date().toISOString().slice(0, 10);
+      if (data.todayDate !== today) {
+        data.todayActions = { koy: 0, metz: 0 };
+        data.todayDate = today;
+      } else if (!data.todayActions) {
+        data.todayActions = { koy: 0, metz: 0 };
+      }
+
       gameData = data;
       updateLevel();
 
-      // Write decay back so the server is up-to-date
-      if (minutesOffline > 1) {
+      if (minutesOffline > 0.5) {
         gameData.lastUpdate = now;
         db.ref('tamagotchi').update({
-          hunger: data.hunger,
-          happy: data.happy,
-          energy: data.energy,
-          clean: data.clean,
-          lastUpdate: now
+          hunger: data.hunger, happy: data.happy,
+          energy: data.energy, clean: data.clean,
+          lastUpdate: now,
+          todayActions: data.todayActions,
+          todayDate: data.todayDate
         });
       }
 
-      renderPet();
+      // Only re-render stats if we're not currently animating (to avoid overwriting visuals)
+      if (!isAnimating) {
+        renderPet(prev);
+      } else {
+        // Still update the mood aura + level text quietly
+        updateLevelOnly();
+      }
+
       renderDiary();
+      renderDailyGoal();
       updateStreakAndDays();
       checkStreak();
 
-      // Welcome back summary (once per session, only if away > 5 min)
       if (!hasShownWelcome && myLastSeen > 0 && now - myLastSeen > 5 * 60 * 1000) {
-        showWelcomeBack(prevSnapshot, data, myLastSeen);
+        showWelcomeBack(prev, data, myLastSeen);
       }
       hasShownWelcome = true;
 
-      // Save last seen
       myLastSeen = now;
       localStorage.setItem('mochi_last_' + me, now);
-      db.ref('tamagotchi/' + (me === 'you' ? 'youLastSeen' : 'herLastSeen')).set(now);
+      db.ref('tamagotchi/' + (me === 'koy' ? 'koyLastSeen' : 'metzLastSeen')).set(now);
     }
 
     // ============================================================
     // LEVELS
     // ============================================================
     function xpForLevel(level) {
-      // Increasing XP requirement
-      return Math.floor(50 + (level - 1) * 25 + Math.pow(level - 1, 1.6) * 10);
+      return Math.floor(60 + (level - 1) * 35 + Math.pow(level - 1, 1.7) * 12);
     }
-
+    function totalXpForLevel(level) {
+      let s = 0;
+      for (let i = 1; i < level; i++) s += xpForLevel(i);
+      return s;
+    }
     function updateLevel() {
       let lvl = 1;
-      let remainingXp = gameData.xp || 0;
-      while (remainingXp >= xpForLevel(lvl) && lvl < 100) {
-        remainingXp -= xpForLevel(lvl);
+      let xp = gameData.xp || 0;
+      while (lvl < 100 && xp >= xpForLevel(lvl)) {
+        xp -= xpForLevel(lvl);
         lvl++;
       }
+      const prevLvl = gameData.level || 1;
       gameData.level = lvl;
+      if (lvl > lastLevel && lastLevel !== 0) {
+        setTimeout(() => showLevelUp(lvl), 400);
+      }
+      lastLevel = lvl;
     }
 
     function currentStage() {
       let s = STAGES[0];
-      for (const st of STAGES) {
-        if (gameData.level >= st.level) s = st;
-      }
+      for (const st of STAGES) if (gameData.level >= st.level) s = st;
       return s;
+    }
+
+    function updateLevelOnly() {
+      const stage = currentStage();
+      $('petName').textContent = gameData.name || 'Mochi';
+      $('petLevel').textContent = `Lv ${gameData.level} · ${stage.name}`;
     }
 
     // ============================================================
     // RENDER
     // ============================================================
-    function renderPet() {
+    function renderPet(prev = {}) {
       const stage = currentStage();
       $('petStage').textContent = stage.emoji;
       $('petName').textContent = gameData.name || 'Mochi';
 
-      const avgStat = (gameData.hunger + gameData.happy + gameData.energy + gameData.clean) / 4;
-      let mood = '';
-      if (avgStat < 30) mood = 'sad';
-      else if (avgStat > 75) mood = 'happy';
-      $('petStage').className = 'pet-stage ' + mood;
+      const avg = (gameData.hunger + gameData.happy + gameData.energy + gameData.clean) / 4;
+      let moodClass = '';
+      let moodPool = MOODS.ok;
+      if (avg < 25) { moodClass = 'sad'; moodPool = MOODS.sad; }
+      else if (avg < 50) { moodClass = 'sad'; moodPool = MOODS.low; }
+      else if (avg > 75) { moodClass = 'happy'; moodPool = MOODS.happy; }
 
-      const xpInLevel = gameData.xp - Math.sumOfXpBeforeLevel(gameData.level);
+      const pet = $('petStage');
+      pet.className = 'pet-stage ' + moodClass;
+
+      const moodKey = Math.floor(Date.now() / 3600000) % moodPool.length;
+      $('petMood').textContent = moodPool[moodKey];
+
+      const aura = $('moodAura');
+      aura.className = 'mood-aura ' + (moodClass === 'happy' ? 'happy' : moodClass === 'sad' ? 'sad' : '');
+
       $('petLevel').textContent = `Lv ${gameData.level} · ${stage.name}`;
 
-      setStat('hunger', gameData.hunger);
-      setStat('happy', gameData.happy);
-      setStat('energy', gameData.energy);
-      setStat('clean', gameData.clean);
+      setStat('hunger', gameData.hunger, prev.hunger);
+      setStat('happy', gameData.happy, prev.happy);
+      setStat('energy', gameData.energy, prev.energy);
+      setStat('clean', gameData.clean, prev.clean);
     }
 
-    // Helper to precompute XP threshold
-    Math.sumOfXpBeforeLevel = function (level) {
-      let sum = 0;
-      for (let i = 1; i < level; i++) sum += xpForLevel(i);
-      return sum;
-    };
-
-    function setStat(name, val) {
+    function setStat(name, val, prev) {
       val = Math.round(val);
-      $('${name}Val'.replace('${name}', name)).textContent = val;
+      $(name + 'Val').textContent = val;
       const bar = $(name + 'Bar');
       bar.style.width = val + '%';
       bar.className = 'stat-bar-fill ' + (val > 60 ? 'good' : val > 30 ? 'medium' : 'low');
+      if (prev !== undefined && Math.abs(val - Math.round(prev)) >= 3) {
+        const stat = $('stat' + name.charAt(0).toUpperCase() + name.slice(1));
+        stat.classList.remove('bump');
+        void stat.offsetWidth;
+        stat.classList.add('bump');
+        setTimeout(() => stat.classList.remove('bump'), 600);
+      }
     }
 
     function renderDiary() {
       const diary = gameData.diary || {};
       const entries = Object.values(diary).sort((a, b) => b.time - a.time).slice(0, MAX_DIARY);
-      
       const scroll = $('diaryScroll');
       scroll.innerHTML = '';
-      
       if (entries.length === 0) {
-        scroll.innerHTML = '<div style="text-align:center; color:#C9A7B5; font-size:0.8rem; padding:10px;">Nothing yet! Take care of Mochi together 💕</div>';
+        scroll.innerHTML = '<div style="text-align:center; color:#B8AC98; font-size:0.8rem; padding:12px;">Nothing yet! Take care of Mochi together 🌿</div>';
       } else {
         entries.forEach(e => {
           const div = document.createElement('div');
           div.className = 'diary-entry by-' + e.by;
           const t = new Date(e.time);
           const timeStr = t.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
-          const who = e.by === 'you' ? '💙 You' : '💖 Mahal';
+          const who = e.by === 'koy' ? '🌿 Koy' : '🌸 Metz';
           div.innerHTML = `<span class="time">${timeStr}</span>${who} ${e.text}`;
           scroll.appendChild(div);
         });
       }
-      
       $('diaryCount').textContent = entries.length + ' event' + (entries.length === 1 ? '' : 's');
     }
 
+    function renderDailyGoal() {
+      const actions = gameData.todayActions || { koy: 0, metz: 0 };
+      const myCount = actions[me] || 0;
+      const pct = Math.min(100, (myCount / DAILY_GOAL) * 100);
+      $('goalFill').style.width = pct + '%';
+      $('goalCount').textContent = `${myCount}/${DAILY_GOAL}`;
+      if (myCount >= DAILY_GOAL) {
+        $('goalFill').classList.add('done');
+        $('goalReward').textContent = '✅ Done!';
+      } else {
+        $('goalFill').classList.remove('done');
+        $('goalReward').textContent = '+10 XP';
+      }
+    }
+
     function updateStreakAndDays() {
-      const daysSinceCreated = Math.floor((Date.now() - gameData.createdAt) / (1000 * 60 * 60 * 24)) + 1;
-      $('daysCount').textContent = daysSinceCreated;
+      const days = Math.floor((Date.now() - gameData.createdAt) / (1000 * 60 * 60 * 24)) + 1;
+      $('daysCount').textContent = days;
       $('streakCount').textContent = gameData.streak || 0;
+      const box = $('streakBox');
+      if ((gameData.streak || 0) >= 3) box.classList.add('hot');
+      else box.classList.remove('hot');
     }
 
     function checkStreak() {
       const today = new Date().toISOString().slice(0, 10);
-      const lastDate = gameData.lastStreakDate || '';
-      if (lastDate === today) return;
-      
-      const yesterday = new Date(Date.now() - 86400000).toISOString().slice(0, 10);
-      let newStreak = (lastDate === yesterday) ? (gameData.streak || 0) + 1 : 1;
-      
+      const last = gameData.lastStreakDate || '';
+      if (last === today) return;
+      const yest = new Date(Date.now() - 86400000).toISOString().slice(0, 10);
+      const newStreak = (last === yest) ? (gameData.streak || 0) + 1 : 1;
       gameData.streak = newStreak;
       gameData.lastStreakDate = today;
       db.ref('tamagotchi').update({ streak: newStreak, lastStreakDate: today });
@@ -599,63 +1153,251 @@
       btn.addEventListener('click', () => doAction(btn.dataset.action, btn));
     });
 
-    function doAction(actionName, btn) {
-      if (!gameData) return showToast('Loading Mochi... 💕');
-      if (Date.now() - lastActionAt < COOLDOWN_MS) {
-        return showToast('Slow down, Mahal 💕');
-      }
+    function doAction(name, btn) {
+      if (!gameData) return showToast('Loading Mochi... 🌿');
+      if (isAnimating) return showToast('Let Mochi finish 🌿');
+      if (Date.now() - lastActionAt < COOLDOWN_MS) return showToast('A moment between care 🌿');
       lastActionAt = Date.now();
 
-      const action = ACTIONS[actionName];
+      const action = ACTIONS[name];
       if (!action) return;
 
-      // Check cost
       if (action.cost) {
-        for (const [stat, amount] of Object.entries(action.cost)) {
-          if (gameData[stat] < amount) {
-            return showToast(`Not enough ${stat}! 💤`);
-          }
+        for (const [s, amt] of Object.entries(action.cost)) {
+          if (gameData[s] < amt) return showToast(`Mochi needs more ${s} first 💤`);
         }
       }
 
-      const updates = {};
-      updates[action.stat] = Math.min(100, gameData[action.stat] + action.amount);
-      
-      if (action.cost) {
-        for (const [stat, amount] of Object.entries(action.cost)) {
-          updates[stat] = Math.max(0, gameData[stat] - amount);
-        }
-      }
+      // Lock interaction during animation
+      isAnimating = true;
+      document.querySelectorAll('.action-btn').forEach(b => b.disabled = true);
 
-      // XP
-      updates.xp = (gameData.xp || 0) + action.xp;
-      updates.lastUpdate = Date.now();
+      // Start the visual animation
+      playActionAnimation(name);
 
-      // Diary entry
-      const diaryEntry = {
-        by: me,
-        text: `${action.verb} Mochi`,
-        time: Date.now()
-      };
-      const diaryKey = 'diary/' + Date.now() + '_' + Math.random().toString(36).slice(2, 6);
-      updates[diaryKey] = diaryEntry;
+      // After the animation plays, apply the stat changes + diary
+      clearTimeout(animationTimeout);
+      animationTimeout = setTimeout(() => {
+        applyActionEffects(name);
+        isAnimating = false;
+        document.querySelectorAll('.action-btn').forEach(b => b.disabled = false);
+      }, ANIMATION_DURATION);
 
-      // Trim diary to MAX_DIARY
-      const diary = gameData.diary || {};
-      const keys = Object.keys(diary).sort();
-      if (keys.length >= MAX_DIARY) {
-        const toRemove = keys.slice(0, keys.length - MAX_DIARY + 1);
-        toRemove.forEach(k => {
-          updates['diary/' + k] = null;
-        });
-      }
-
-      db.ref('tamagotchi').update(updates);
-
-      // Animation feedback
+      // Move the button visual (tapping feedback)
       spawnActionFloat(btn, action.emoji);
       btn.style.transform = 'scale(0.9)';
       setTimeout(() => btn.style.transform = '', 150);
+    }
+
+    function playActionAnimation(name) {
+      const stage = $('stage');
+      const pet = $('petStage');
+      const petCard = $('petCard');
+
+      // Reset pet classes but keep mood class
+      const moodClass = pet.className.includes('sad') ? 'sad' :
+                        pet.className.includes('happy') ? 'happy' : '';
+
+      // Small helper to create scene elements that auto-remove
+      const addTemp = (el, ms) => {
+        stage.appendChild(el);
+        setTimeout(() => { if (el.parentNode) el.parentNode.removeChild(el); }, ms);
+      };
+
+      switch(name) {
+        case 'feed': {
+          pet.className = 'pet-stage eating';
+          // Bowl of food appears in front
+          const bowl = document.createElement('div');
+          bowl.className = 'food-item';
+          bowl.textContent = '🍚';
+          bowl.style.bottom = '8px';
+          bowl.style.left = '32%';
+          addTemp(bowl, ANIMATION_DURATION);
+
+          // Secondary food
+          const food = document.createElement('div');
+          food.className = 'food-item';
+          food.textContent = '🍲';
+          food.style.bottom = '8px';
+          food.style.left = '58%';
+          food.style.animationDelay = '0.3s';
+          addTemp(food, ANIMATION_DURATION - 300);
+
+          // Nom nom text
+          for (let i = 0; i < 3; i++) {
+            const nom = document.createElement('div');
+            nom.className = 'nom-text';
+            nom.textContent = ['nom', 'nom nom', 'yum!'][i];
+            nom.style.bottom = (80 + i * 15) + 'px';
+            nom.style.left = (35 + i * 12) + '%';
+            nom.style.animationDelay = (i * 0.7) + 's';
+            addTemp(nom, ANIMATION_DURATION - i * 700);
+          }
+          break;
+        }
+        case 'play': {
+          pet.className = 'pet-stage playing';
+          // Ball bouncing
+          const ball = document.createElement('div');
+          ball.className = 'toy-item';
+          ball.textContent = '🎈';
+          ball.style.left = '20%';
+          ball.style.top = '40%';
+          addTemp(ball, ANIMATION_DURATION);
+
+          const ball2 = document.createElement('div');
+          ball2.className = 'toy-item';
+          ball2.textContent = '⚽';
+          ball2.style.right = '20%';
+          ball2.style.top = '45%';
+          ball2.style.animationDelay = '0.4s';
+          addTemp(ball2, ANIMATION_DURATION - 400);
+
+          // Hearts floating
+          for (let i = 0; i < 5; i++) {
+            const h = document.createElement('div');
+            h.className = 'heart-play';
+            h.textContent = ['💖','✨','💫','⭐','🌟'][i];
+            h.style.left = (25 + Math.random() * 50) + '%';
+            h.style.top = '50%';
+            h.style.animationDelay = (i * 0.4) + 's';
+            addTemp(h, ANIMATION_DURATION - i * 300);
+          }
+          break;
+        }
+        case 'sleep': {
+          petCard.classList.add('sleep-mode');
+          pet.className = 'pet-stage sleeping';
+          // Bed appears
+          const bed = document.createElement('div');
+          bed.className = 'bed-item';
+          bed.textContent = '🛏️';
+          bed.style.left = 'calc(50% - 35px)';
+          addTemp(bed, ANIMATION_DURATION);
+          // Zzz floating
+          for (let i = 0; i < 4; i++) {
+            const z = document.createElement('div');
+            z.className = 'zzz';
+            z.textContent = 'Z';
+            z.style.left = '60%';
+            z.style.top = '30%';
+            z.style.animationDelay = (i * 0.6) + 's';
+            z.style.fontSize = (1 + i * 0.15) + 'rem';
+            addTemp(z, ANIMATION_DURATION - i * 400);
+          }
+          setTimeout(() => petCard.classList.remove('sleep-mode'), ANIMATION_DURATION - 200);
+          break;
+        }
+        case 'bath': {
+          petCard.classList.add('bath-mode');
+          pet.className = 'pet-stage bathing';
+          // Bubbles rising
+          for (let i = 0; i < 12; i++) {
+            const b = document.createElement('div');
+            b.className = 'bubble';
+            const size = 10 + Math.random() * 20;
+            b.style.width = size + 'px';
+            b.style.height = size + 'px';
+            b.style.left = (20 + Math.random() * 60) + '%';
+            b.style.bottom = '20%';
+            b.style.animationDelay = (i * 0.15) + 's';
+            addTemp(b, ANIMATION_DURATION);
+          }
+          setTimeout(() => petCard.classList.remove('bath-mode'), ANIMATION_DURATION - 200);
+          break;
+        }
+        case 'pet': {
+          pet.className = 'pet-stage petting';
+          // Hand above
+          const hand = document.createElement('div');
+          hand.className = 'hand-item';
+          hand.textContent = '🤲';
+          hand.style.left = 'calc(50% - 20px)';
+          addTemp(hand, ANIMATION_DURATION);
+
+          // Hearts floating up
+          for (let i = 0; i < 6; i++) {
+            const h = document.createElement('div');
+            h.className = 'pet-heart';
+            h.textContent = ['💗','💕','💖','💞','🌸','✨'][i];
+            h.style.left = (30 + Math.random() * 40) + '%';
+            h.style.top = '55%';
+            h.style.animationDelay = (i * 0.3) + 's';
+            addTemp(h, ANIMATION_DURATION - i * 250);
+          }
+          break;
+        }
+        case 'treat': {
+          pet.className = 'pet-stage treating';
+          // Cookie
+          const cookie = document.createElement('div');
+          cookie.className = 'food-item';
+          cookie.textContent = '🍪';
+          cookie.style.bottom = '20px';
+          cookie.style.left = 'calc(50% - 20px)';
+          addTemp(cookie, ANIMATION_DURATION);
+
+          // Sparkles
+          for (let i = 0; i < 4; i++) {
+            const s = document.createElement('div');
+            s.className = 'nom-text';
+            s.textContent = '✨';
+            s.style.fontSize = '1.3rem';
+            s.style.bottom = '80px';
+            s.style.left = (30 + i * 15) + '%';
+            s.style.animationDelay = (i * 0.4) + 's';
+            addTemp(s, ANIMATION_DURATION - i * 400);
+          }
+          break;
+        }
+      }
+
+      // After animation, restore to mood state
+      setTimeout(() => {
+        renderPet();
+      }, ANIMATION_DURATION + 100);
+    }
+
+    function applyActionEffects(name) {
+      const action = ACTIONS[name];
+      if (!action) return;
+
+      const updates = {};
+      updates[action.stat] = Math.min(100, gameData[action.stat] + action.amount);
+      if (action.cost) {
+        for (const [s, amt] of Object.entries(action.cost)) {
+          updates[s] = Math.max(0, gameData[s] - amt);
+        }
+      }
+      updates.xp = (gameData.xp || 0) + action.xp;
+      updates.lastUpdate = Date.now();
+
+      const today = new Date().toISOString().slice(0, 10);
+      const todayActions = { ...(gameData.todayActions || { koy: 0, metz: 0 }) };
+      if (gameData.todayDate !== today) {
+        todayActions.koy = 0; todayActions.metz = 0;
+        updates.todayDate = today;
+      }
+      todayActions[me] = (todayActions[me] || 0) + 1;
+      updates.todayActions = todayActions;
+
+      if (todayActions[me] === DAILY_GOAL) {
+        updates.xp += 10;
+        setTimeout(() => showToast('✨ Daily goal complete! +10 XP'), 500);
+      }
+
+      const entry = { by: me, text: `${action.verb} Mochi`, time: Date.now() };
+      const key = 'diary/' + Date.now() + '_' + Math.random().toString(36).slice(2, 6);
+      updates[key] = entry;
+
+      const diary = gameData.diary || {};
+      const keys = Object.keys(diary).sort();
+      if (keys.length >= MAX_DIARY) {
+        keys.slice(0, keys.length - MAX_DIARY + 1).forEach(k => updates['diary/' + k] = null);
+      }
+
+      db.ref('tamagotchi').update(updates);
     }
 
     function spawnActionFloat(btn, emoji) {
@@ -665,43 +1407,53 @@
       el.textContent = emoji;
       el.style.left = (rect.left + rect.width / 2 - 15) + 'px';
       el.style.top = (rect.top + rect.height / 2 - 15) + 'px';
-      el.style.setProperty('--tx', (Math.random() - 0.5) * 120 + 'px');
-      el.style.setProperty('--ty', '-100px');
+      el.style.setProperty('--tx1', (Math.random() - 0.5) * 60 + 'px');
+      el.style.setProperty('--ty1', '-60px');
+      el.style.setProperty('--tx2', (Math.random() - 0.5) * 140 + 'px');
+      el.style.setProperty('--ty2', '-140px');
       document.body.appendChild(el);
-      setTimeout(() => el.remove(), 1600);
+      setTimeout(() => el.remove(), 1700);
     }
 
-    // ============================================================
-    // WELCOME BACK
-    // ============================================================
+    function showLevelUp(newLevel) {
+      const stage = STAGES.reduce((acc, s) => (newLevel >= s.level ? s : acc), STAGES[0]);
+      const overlay = document.createElement('div');
+      overlay.className = 'levelup-overlay';
+      overlay.innerHTML = `
+        <div class="levelup-badge">
+          <span class="big">✨ ${stage.emoji} ✨</span>
+          Level ${newLevel}!
+          <div style="font-size: 0.85rem; margin-top: 6px; opacity: 0.9;">${stage.name}</div>
+        </div>
+      `;
+      document.body.appendChild(overlay);
+      setTimeout(() => overlay.remove(), 2200);
+      $('petLevel').classList.add('level-up');
+      setTimeout(() => $('petLevel').classList.remove('level-up'), 1500);
+    }
+
     function showWelcomeBack(prev, curr, lastSeenTime) {
       const hoursAway = (Date.now() - lastSeenTime) / 3600000;
-      let summary = '';
-      
-      if (hoursAway > 24) {
-        summary = `I missed you so much! You were away for ${Math.floor(hoursAway / 24)} day(s). `;
-      } else if (hoursAway > 1) {
-        summary = `You were away for ${Math.floor(hoursAway)} hour(s). `;
-      } else {
-        summary = `Welcome back! `;
-      }
+      let msg = '';
+      if (hoursAway > 24) msg = `You were away for ${Math.floor(hoursAway / 24)} day(s). `;
+      else if (hoursAway > 1) msg = `You were away for ${Math.floor(hoursAway)} hour(s). `;
+      else msg = `Welcome back! `;
 
-      // Check what the OTHER person did (from diary since lastSeen)
-      const otherRole = me === 'you' ? 'her' : 'you';
+      const other = me === 'koy' ? 'metz' : 'koy';
+      const otherName = other === 'koy' ? '🌿 Koy' : '🌸 Metz';
       const diary = curr.diary || {};
-      const recentOtherActions = Object.values(diary)
-        .filter(e => e.by === otherRole && e.time > lastSeenTime)
+      const otherActs = Object.values(diary)
+        .filter(e => e.by === other && e.time > lastSeenTime)
         .sort((a, b) => a.time - b.time);
 
-      if (recentOtherActions.length > 0) {
-        const otherName = otherRole === 'you' ? '💙 Me' : '💖 Mahal';
-        summary += `<strong>${otherName}</strong> took care of Mochi ${recentOtherActions.length} time${recentOtherActions.length > 1 ? 's' : ''} while you were away!`;
+      if (otherActs.length > 0) {
+        msg += `<strong>${otherName}</strong> cared for Mochi ${otherActs.length} time${otherActs.length > 1 ? 's' : ''} while you were away.`;
       } else {
-        summary += `Mochi was waiting for you! 💕`;
+        msg += `Mochi was waiting for you 🌿`;
       }
 
-      $('welcomeTitle').textContent = `Hi ${me === 'you' ? 'love' : 'Mahal'}! 💖`;
-      $('welcomeBody').innerHTML = `<p>${summary}</p>`;
+      $('welcomeTitle').textContent = `Hi ${me === 'koy' ? 'Koy' : 'Metz'} 🌿`;
+      $('welcomeBody').innerHTML = `<p>${msg}</p>`;
       $('welcomeBack').style.display = 'block';
     }
 
@@ -709,9 +1461,6 @@
       $('welcomeBack').style.display = 'none';
     });
 
-    // ============================================================
-    // LOGOUT
-    // ============================================================
     $('logoutBtn').addEventListener('click', () => {
       localStorage.removeItem('mochi_role');
       localStorage.removeItem('mochi_pin');
