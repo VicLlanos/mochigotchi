@@ -3,607 +3,633 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-  <meta name="theme-color" content="#F5F1E8">
-  <title>Mochi's Home 🌿 - Koy & Metz</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <meta name="theme-color" content="#F4D9C8">
+  <title>Mochi's Room 🌿 - Koy & Metz</title>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Fredoka:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
     html, body { height: 100%; overflow-x: hidden; }
     body {
-      font-family: 'Quicksand', sans-serif;
-      background: linear-gradient(180deg, #F5F1E8 0%, #EDE5D8 50%, #E4D9C7 100%);
+      font-family: 'Fredoka', sans-serif;
+      background: linear-gradient(180deg, #F4D9C8 0%, #E8C9B8 50%, #D9B8A8 100%);
       min-height: 100vh; min-height: 100dvh;
-      color: #4A4239;
-      padding: 12px;
+      color: #4A3F3A;
+      padding: 10px;
       display: flex; justify-content: center; align-items: flex-start;
       overflow-y: auto; -webkit-overflow-scrolling: touch;
     }
 
-    .bg-floats { position: fixed; inset: 0; pointer-events: none; overflow: hidden; z-index: 0; }
-    .bg-floats span { position: absolute; font-size: 1.1rem; opacity: 0; animation: bgFloat linear infinite; }
-    @keyframes bgFloat {
-      0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
-      10% { opacity: 0.5; } 90% { opacity: 0.5; }
-      100% { transform: translateY(-100px) rotate(360deg); opacity: 0; }
-    }
-
     #app { width: 100%; max-width: 480px; position: relative; z-index: 1; }
 
-    /* LOGIN */
+    /* ============================================ */
+    /* LOGIN SCREEN - pixel style                    */
+    /* ============================================ */
     .pin-screen {
-      background: #FDFBF7;
-      border-radius: 28px;
-      padding: 32px 24px 26px;
+      background: #FDF6EE;
+      border: 4px solid #8B6F5E;
+      border-radius: 8px;
+      padding: 28px 22px 24px;
       text-align: center;
-      box-shadow: 0 12px 32px rgba(122, 108, 90, 0.12), inset 0 1px 0 rgba(255,255,255,0.9);
-      border: 2px solid #E8DECB;
-      animation: screenIn 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
-    }
-    @keyframes screenIn {
-      0% { transform: scale(0.9); opacity: 0; }
-      100% { transform: scale(1); opacity: 1; }
+      box-shadow: 0 6px 0 #8B6F5E;
     }
     .pin-screen h1 {
-      font-family: 'Fredoka', sans-serif;
-      font-size: 1.75rem;
-      color: #7A6C5A;
-      margin-bottom: 6px;
-      font-weight: 600;
+      font-family: 'Press Start 2P', monospace;
+      font-size: 1.1rem;
+      color: #8B6F5E;
+      margin-bottom: 8px;
+      letter-spacing: 0;
+      line-height: 1.4;
     }
     .pin-screen .subtitle {
-      font-size: 0.88rem;
-      color: #9B8F7E;
-      margin-bottom: 24px;
+      font-size: 0.85rem;
+      color: #A89080;
+      margin-bottom: 20px;
       font-weight: 500;
     }
     .big-emoji {
-      font-size: 4.2rem;
+      font-size: 4rem;
       line-height: 1;
-      margin-bottom: 14px;
+      margin-bottom: 12px;
       animation: bob 2.4s ease-in-out infinite;
       display: inline-block;
-      filter: drop-shadow(0 6px 12px rgba(122, 108, 90, 0.15));
+      image-rendering: pixelated;
     }
     @keyframes bob {
-      0%, 100% { transform: translateY(0) rotate(-4deg); }
-      50% { transform: translateY(-12px) rotate(4deg); }
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
     }
 
     .pin-input {
-      width: 100%; padding: 16px 20px; font-size: 1.3rem;
-      font-family: 'Fredoka', sans-serif; font-weight: 600;
-      text-align: center; letter-spacing: 10px; border-radius: 16px;
-      border: 2px solid #E0D4BF; background: #FBF8F2; color: #4A4239;
-      outline: none; transition: all 0.25s; margin-bottom: 14px;
+      width: 100%;
+      padding: 14px 18px;
+      font-size: 1.3rem;
+      font-family: 'Press Start 2P', monospace;
+      font-weight: 400;
+      text-align: center;
+      letter-spacing: 8px;
+      border: 3px solid #C9B0A0;
+      background: #FFFDF9;
+      color: #4A3F3A;
+      outline: none;
+      margin-bottom: 12px;
     }
     .pin-input:focus {
-      border-color: #A89578; background: #FFFFFF;
-      box-shadow: 0 0 0 5px rgba(168, 149, 120, 0.12);
+      border-color: #8B6F5E;
+      background: #FFFFFF;
     }
-    .pin-input::placeholder { letter-spacing: 2px; font-size: 0.95rem; color: #B8AC98; }
+    .pin-input::placeholder {
+      letter-spacing: 2px;
+      font-size: 0.75rem;
+      color: #C9B0A0;
+    }
 
-    .role-pick { display: flex; gap: 10px; margin-bottom: 14px; }
+    .role-pick { display: flex; gap: 8px; margin-bottom: 12px; }
     .role-btn {
-      flex: 1; padding: 15px 10px; border-radius: 16px;
-      border: 2px solid #E0D4BF; background: #FBF8F2;
-      font-family: 'Fredoka', sans-serif; font-weight: 600;
-      font-size: 0.95rem; color: #7A6C5A; cursor: pointer;
-      transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+      flex: 1;
+      padding: 13px 8px;
+      border: 3px solid #C9B0A0;
+      background: #FFFDF9;
+      font-family: 'Fredoka', sans-serif;
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: #8B6F5E;
+      cursor: pointer;
+      transition: all 0.15s;
     }
     .role-btn.selected {
-      background: #F0E8D8; border-color: #A89578; color: #5C4F3D;
-      transform: scale(1.04); box-shadow: 0 6px 16px rgba(122, 108, 90, 0.15);
+      background: #F4D9C8;
+      border-color: #8B6F5E;
+      color: #4A3F3A;
+      box-shadow: 0 3px 0 #8B6F5E;
     }
-    .role-btn:active { transform: scale(0.97); }
+    .role-btn:active { transform: translateY(2px); box-shadow: none; }
 
     .btn {
-      background: linear-gradient(135deg, #A89578, #8B7A5E);
-      color: white; border: none; padding: 16px 28px;
-      font-size: 1rem; font-family: 'Fredoka', sans-serif; font-weight: 600;
-      border-radius: 18px; cursor: pointer;
-      box-shadow: 0 6px 18px rgba(139, 122, 94, 0.3);
-      transition: all 0.2s; width: 100%; min-height: 54px;
+      background: #8B6F5E;
+      color: white;
+      border: none;
+      padding: 15px 26px;
+      font-size: 0.95rem;
+      font-family: 'Fredoka', sans-serif;
+      font-weight: 600;
+      border-radius: 6px;
+      cursor: pointer;
+      box-shadow: 0 4px 0 #6B4F3E;
+      transition: all 0.1s;
+      width: 100%;
+      min-height: 52px;
     }
-    .btn:active { transform: scale(0.97); box-shadow: 0 3px 10px rgba(139, 122, 94, 0.4); }
+    .btn:active {
+      transform: translateY(3px);
+      box-shadow: 0 1px 0 #6B4F3E;
+    }
 
-    #gameScreen { display: none; animation: screenIn 0.5s ease-out; }
+    /* ============================================ */
+    /* GAME SCREEN                                   */
+    /* ============================================ */
+    #gameScreen { display: none; }
 
     .top-bar {
-      display: flex; justify-content: space-between; align-items: center;
-      background: #FDFBF7; border-radius: 16px; padding: 10px 14px;
-      margin-bottom: 10px; box-shadow: 0 4px 12px rgba(122, 108, 90, 0.08);
-      border: 2px solid #EDE5D8;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #FDF6EE;
+      border: 3px solid #C9B0A0;
+      border-radius: 8px;
+      padding: 8px 12px;
+      margin-bottom: 8px;
     }
     .streak-display, .days-display {
-      display: flex; align-items: center; gap: 5px;
-      font-family: 'Fredoka', sans-serif; font-weight: 600;
-      font-size: 0.85rem; color: #8B7A5E;
-      padding: 4px 10px; background: #F5EFE0; border-radius: 10px;
-    }
-    .streak-display.hot {
-      background: linear-gradient(135deg, #F8E5C8, #F0D5A8);
-      animation: streakPulse 2s infinite;
-    }
-    @keyframes streakPulse {
-      0%, 100% { box-shadow: 0 0 0 0 rgba(240, 213, 168, 0.6); }
-      50% { box-shadow: 0 0 0 6px rgba(240, 213, 168, 0); }
-    }
-    .who-am-i { font-size: 0.8rem; font-weight: 700; color: #7A6C5A; font-family: 'Fredoka', sans-serif; }
-
-    .welcome-back {
-      background: #FDFBF7; border-radius: 18px; padding: 16px;
-      border: 2px dashed #C9BBA0; margin-bottom: 10px; text-align: center;
-      animation: welcomePop 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
-    }
-    @keyframes welcomePop {
-      0% { transform: scale(0.85) translateY(-10px); opacity: 0; }
-      100% { transform: scale(1) translateY(0); opacity: 1; }
-    }
-    .welcome-back h3 {
-      font-family: 'Fredoka', sans-serif; color: #7A6C5A;
-      font-size: 1rem; margin-bottom: 8px; font-weight: 600;
-    }
-    .welcome-back p { font-size: 0.85rem; color: #9B8F7E; line-height: 1.55; margin-bottom: 4px; }
-    .welcome-back .dismiss {
-      background: none; border: none; color: #B8AC98;
-      font-size: 0.72rem; margin-top: 8px; cursor: pointer;
-      font-weight: 600; padding: 5px 10px;
-    }
-
-    .daily-goal {
-      background: #FDFBF7; border-radius: 16px; padding: 12px 14px;
-      margin-bottom: 10px; border: 2px solid #EDE5D8;
-      box-shadow: 0 3px 10px rgba(122, 108, 90, 0.06);
-    }
-    .daily-goal-header {
-      display: flex; justify-content: space-between; align-items: center;
-      font-size: 0.78rem; font-weight: 700; color: #8B7A5E;
-      margin-bottom: 8px; font-family: 'Fredoka', sans-serif;
-    }
-    .daily-goal-progress { display: flex; align-items: center; gap: 8px; }
-    .daily-goal-bar {
-      flex: 1; height: 8px; background: #F0E8D8;
-      border-radius: 10px; overflow: hidden;
-    }
-    .daily-goal-fill {
-      height: 100%; background: linear-gradient(90deg, #C9BA9A, #A89578);
-      border-radius: 10px; transition: width 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
-      width: 0%;
-    }
-    .daily-goal-fill.done { background: linear-gradient(90deg, #A8C89A, #7DAF6B); }
-    .daily-goal-count {
-      font-family: 'Fredoka', sans-serif; font-size: 0.75rem;
-      font-weight: 700; color: #8B7A5E; min-width: 40px; text-align: right;
-    }
-
-    /* ============================================ */
-    /* PET CARD - the stage                          */
-    /* ============================================ */
-    .pet-card {
-      background: #FDFBF7; border-radius: 26px;
-      padding: 22px 18px 18px; text-align: center;
-      box-shadow: 0 10px 28px rgba(122, 108, 90, 0.12), inset 0 1px 0 rgba(255,255,255,0.9);
-      border: 2px solid #EDE5D8; margin-bottom: 10px;
-      position: relative; overflow: hidden;
-      min-height: 260px;
-      transition: background 0.6s ease;
-    }
-    .pet-card.sleep-mode {
-      background: linear-gradient(180deg, #EAE5DA 0%, #DCD3C2 100%);
-    }
-    .pet-card.bath-mode {
-      background: linear-gradient(180deg, #F5EFE0 0%, #E4DDD0 100%);
-    }
-
-    .pet-card::before {
-      content: '';
-      position: absolute; top: 15%; left: 50%;
-      transform: translateX(-50%); width: 200px; height: 200px;
-      background: radial-gradient(circle, rgba(232, 220, 190, 0.5) 0%, transparent 70%);
-      z-index: 0; pointer-events: none;
-      animation: ambientPulse 4s ease-in-out infinite;
-    }
-    @keyframes ambientPulse {
-      0%, 100% { transform: translateX(-50%) scale(1); opacity: 0.6; }
-      50% { transform: translateX(-50%) scale(1.15); opacity: 0.9; }
-    }
-
-    .mood-aura {
-      position: absolute; top: 15%; left: 50%;
-      transform: translateX(-50%); width: 180px; height: 180px;
-      border-radius: 50%; z-index: 0; pointer-events: none;
-      transition: all 1s ease; opacity: 0;
-    }
-    .mood-aura.happy {
-      background: radial-gradient(circle, rgba(255, 235, 180, 0.6) 0%, transparent 65%);
-      opacity: 1; animation: happyGlow 3s ease-in-out infinite;
-    }
-    .mood-aura.sad {
-      background: radial-gradient(circle, rgba(180, 190, 210, 0.5) 0%, transparent 65%);
-      opacity: 1;
-    }
-    @keyframes happyGlow {
-      0%, 100% { transform: translateX(-50%) scale(1); }
-      50% { transform: translateX(-50%) scale(1.1); }
-    }
-
-    /* ============================================ */
-    /* STAGE / SCENE                                 */
-    /* ============================================ */
-    .stage {
-      position: relative;
-      height: 170px;
       display: flex;
       align-items: center;
-      justify-content: center;
-      z-index: 1;
+      gap: 4px;
+      font-family: 'Press Start 2P', monospace;
+      font-size: 0.65rem;
+      color: #8B6F5E;
+      padding: 4px 8px;
+      background: #F4E9DE;
+      border-radius: 4px;
+    }
+    .streak-display.hot {
+      background: #F4D9C8;
+      animation: streakPulse 1.5s infinite;
+    }
+    @keyframes streakPulse {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(244, 217, 200, 0.8); }
+      50% { box-shadow: 0 0 0 6px rgba(244, 217, 200, 0); }
+    }
+    .who-am-i {
+      font-family: 'Press Start 2P', monospace;
+      font-size: 0.6rem;
+      color: #4A3F3A;
     }
 
-    .pet-stage {
-      font-size: 5.5rem;
-      line-height: 1;
-      transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    /* ============================================ */
+    /* ROOM SCENE                                    */
+    /* ============================================ */
+    .room {
+      background: #FDF6EE;
+      border: 4px solid #8B6F5E;
+      border-radius: 8px;
+      margin-bottom: 8px;
       position: relative;
-      z-index: 2;
-      filter: drop-shadow(0 8px 16px rgba(122, 108, 90, 0.2));
-      user-select: none;
-      animation: petIdle 3.2s ease-in-out infinite;
-    }
-    @keyframes petIdle {
-      0%, 100% { transform: translateY(0) scale(1); }
-      50% { transform: translateY(-9px) scale(1.03); }
-    }
-    .pet-stage.happy { animation: petHappy 0.8s ease-in-out infinite; }
-    @keyframes petHappy {
-      0%, 100% { transform: translateY(0) rotate(-6deg) scale(1); }
-      50% { transform: translateY(-14px) rotate(6deg) scale(1.05); }
-    }
-    .pet-stage.sad {
-      animation: petSad 2.6s ease-in-out infinite;
-      filter: drop-shadow(0 8px 16px rgba(122, 108, 90, 0.15)) saturate(0.6);
-    }
-    @keyframes petSad {
-      0%, 100% { transform: translateY(0) rotate(0deg); }
-      50% { transform: translateY(3px) rotate(-3deg); }
+      overflow: hidden;
+      box-shadow: 0 6px 0 #8B6F5E;
     }
 
-    /* ============================================ */
-    /* ACTION ANIMATION STATES                       */
-    /* ============================================ */
-
-    /* EATING */
-    .pet-stage.eating {
-      animation: eatingBounce 0.5s ease-in-out infinite;
+    /* Wall */
+    .room-wall {
+      height: 180px;
+      background:
+        linear-gradient(180deg, #F4D9C8 0%, #F4D9C8 60%, #E8C9B8 60%, #E8C9B8 100%);
+      position: relative;
+      overflow: hidden;
     }
-    @keyframes eatingBounce {
-      0%, 100% { transform: translateY(0) scale(1); }
-      30% { transform: translateY(-6px) scale(1.05); }
-      60% { transform: translateY(0) scale(0.97); }
-    }
-
-    .food-item {
+    /* Pixel wallpaper pattern */
+    .room-wall::before {
+      content: '';
       position: absolute;
-      font-size: 2.2rem;
-      z-index: 3;
-      pointer-events: none;
-      animation: foodAppear 2.5s ease-in-out forwards;
+      inset: 0;
+      background-image:
+        radial-gradient(circle at 20px 20px, #E8BBA8 2px, transparent 2px),
+        radial-gradient(circle at 60px 60px, #E8BBA8 2px, transparent 2px);
+      background-size: 40px 40px;
+      opacity: 0.4;
     }
-    @keyframes foodAppear {
-      0% { opacity: 0; transform: scale(0.3) translateY(-20px); }
-      15% { opacity: 1; transform: scale(1.2) translateY(0); }
-      20% { transform: scale(1); }
-      70% { opacity: 1; transform: scale(1) rotate(0deg); }
-      90% { opacity: 0.8; transform: scale(0.6) rotate(20deg); }
-      100% { opacity: 0; transform: scale(0.3) rotate(45deg); }
+    /* Night mode for room */
+    .room.night .room-wall {
+      background: linear-gradient(180deg, #2A2438 0%, #2A2438 60%, #3A3448 60%, #3A3448 100%);
+    }
+    .room.night .room-wall::before {
+      background-image:
+        radial-gradient(circle at 20px 20px, #4A4458 2px, transparent 2px),
+        radial-gradient(circle at 60px 60px, #4A4458 2px, transparent 2px);
     }
 
-    .nom-text {
+    /* Window */
+    .room-window {
       position: absolute;
-      font-family: 'Fredoka', sans-serif;
-      font-size: 1.1rem;
-      font-weight: 700;
-      color: #7A6C5A;
+      top: 20px;
+      right: 20px;
+      width: 50px;
+      height: 50px;
+      background: #B8D8E8;
+      border: 4px solid #8B6F5E;
+      border-radius: 4px;
+      box-shadow: 0 3px 0 #6B4F3E;
       z-index: 5;
-      pointer-events: none;
-      animation: nomFloat 0.9s ease-out infinite;
     }
-    @keyframes nomFloat {
-      0% { opacity: 0; transform: translateY(0) scale(0.8); }
-      30% { opacity: 1; transform: translateY(-8px) scale(1); }
-      100% { opacity: 0; transform: translateY(-30px) scale(0.9); }
-    }
-
-    /* PLAYING */
-    .pet-stage.playing {
-      animation: playBounce 0.6s ease-in-out infinite;
-    }
-    @keyframes playBounce {
-      0%, 100% { transform: translateY(0) rotate(-4deg); }
-      50% { transform: translateY(-18px) rotate(4deg); }
-    }
-
-    .toy-item {
+    .room-window::before {
+      content: '';
       position: absolute;
-      font-size: 2rem;
-      z-index: 3;
-      pointer-events: none;
-      animation: toyBounce 1.2s ease-in-out infinite;
+      top: 50%; left: 0; right: 0;
+      height: 3px;
+      background: #8B6F5E;
+      transform: translateY(-50%);
     }
-    @keyframes toyBounce {
-      0%, 100% { transform: translateY(0) rotate(0deg); }
-      50% { transform: translateY(-30px) rotate(180deg); }
+    .room-window::after {
+      content: '';
+      position: absolute;
+      left: 50%; top: 0; bottom: 0;
+      width: 3px;
+      background: #8B6F5E;
+      transform: translateX(-50%);
+    }
+    .room.night .room-window { background: #1A1428; }
+
+    /* Floor */
+    .room-floor {
+      height: 60px;
+      background:
+        repeating-linear-gradient(90deg, #D9B8A8 0px, #D9B8A8 20px, #C9A898 20px, #C9A898 40px);
+      border-top: 3px solid #8B6F5E;
+      position: relative;
+    }
+    .room.night .room-floor {
+      background:
+        repeating-linear-gradient(90deg, #3A3448 0px, #3A3448 20px, #2A2438 20px, #2A2438 40px);
     }
 
-    .heart-play {
+    /* ============================================ */
+    /* THE PET                                       */
+    /* ============================================ */
+    .pet-area {
       position: absolute;
-      font-size: 1.2rem;
-      z-index: 4;
-      pointer-events: none;
-      animation: heartPlayFloat 2s ease-out infinite;
+      left: 0;
+      right: 0;
+      bottom: 10px;
+      height: 140px;
+      z-index: 10;
     }
-    @keyframes heartPlayFloat {
-      0% { opacity: 0; transform: translateY(0) scale(0.5); }
-      20% { opacity: 1; }
+
+    .pet {
+      position: absolute;
+      font-size: 3.5rem;
+      line-height: 1;
+      transition: left 1.5s cubic-bezier(0.4, 0, 0.2, 1), transform 0.4s;
+      image-rendering: pixelated;
+      filter: drop-shadow(0 4px 0 rgba(139, 111, 94, 0.4));
+      z-index: 20;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+    .pet.walking {
+      animation: walk 0.6s steps(2) infinite;
+    }
+    @keyframes walk {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50% { transform: translateX(-50%) translateY(-4px); }
+    }
+    .pet.idle {
+      animation: idle 3s ease-in-out infinite;
+    }
+    @keyframes idle {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50% { transform: translateX(-50%) translateY(-6px); }
+    }
+    .pet.happy {
+      animation: happyJump 0.5s ease-in-out infinite;
+    }
+    @keyframes happyJump {
+      0%, 100% { transform: translateX(-50%) translateY(0) scale(1); }
+      50% { transform: translateX(-50%) translateY(-12px) scale(1.05); }
+    }
+    .pet.sleeping {
+      animation: sleepBreath 3s ease-in-out infinite;
+      opacity: 0.9;
+    }
+    @keyframes sleepBreath {
+      0%, 100% { transform: translateX(-50%) scale(1); }
+      50% { transform: translateX(-50%) scale(1.04); }
+    }
+    .pet.sad {
+      animation: sadShake 2s ease-in-out infinite;
+      filter: drop-shadow(0 4px 0 rgba(139, 111, 94, 0.4)) grayscale(0.4);
+    }
+    @keyframes sadShake {
+      0%, 100% { transform: translateX(-50%) rotate(0deg); }
+      25% { transform: translateX(-50%) rotate(-3deg); }
+      75% { transform: translateX(-50%) rotate(3deg); }
+    }
+
+    /* Scene props */
+    .scene-prop {
+      position: absolute;
+      font-size: 1.8rem;
+      z-index: 15;
+      image-rendering: pixelated;
+      transition: opacity 0.3s;
+      pointer-events: none;
+    }
+    .prop-bowl {
+      left: 20%;
+      bottom: 15px;
+    }
+    .prop-bed {
+      right: 15%;
+      bottom: 10px;
+      font-size: 2.4rem;
+    }
+    .prop-tub {
+      left: 50%;
+      bottom: 20px;
+      transform: translateX(-50%);
+      font-size: 2.4rem;
+    }
+    .prop-ball {
+      right: 25%;
+      bottom: 30px;
+      animation: ballBounce 1s ease-in-out infinite;
+    }
+    @keyframes ballBounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-20px); }
+    }
+
+    /* Poop */
+    .poop {
+      position: absolute;
+      font-size: 1.4rem;
+      bottom: 20px;
+      z-index: 12;
+      animation: poopIn 0.3s ease-out;
+    }
+    @keyframes poopIn {
+      0% { transform: scale(0); }
+      100% { transform: scale(1); }
+    }
+
+    /* Action text bubbles */
+    .speech-bubble {
+      position: absolute;
+      top: -20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: white;
+      border: 3px solid #8B6F5E;
+      padding: 6px 12px;
+      font-family: 'Press Start 2P', monospace;
+      font-size: 0.55rem;
+      color: #4A3F3A;
+      border-radius: 6px;
+      white-space: nowrap;
+      z-index: 30;
+      animation: bubbleIn 0.3s ease-out;
+    }
+    @keyframes bubbleIn {
+      0% { opacity: 0; transform: translateX(-50%) translateY(5px); }
+      100% { opacity: 1; transform: translateX(-50%) translateY(0); }
+    }
+    .speech-bubble::after {
+      content: '';
+      position: absolute;
+      bottom: -8px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 0; height: 0;
+      border-left: 6px solid transparent;
+      border-right: 6px solid transparent;
+      border-top: 8px solid #8B6F5E;
+    }
+
+    /* Floating hearts */
+    .heart-float {
+      position: absolute;
+      font-size: 1rem;
+      z-index: 25;
+      pointer-events: none;
+      animation: heartFloat 1.5s ease-out forwards;
+    }
+    @keyframes heartFloat {
+      0% { opacity: 1; transform: translateY(0) scale(0.5); }
       100% { opacity: 0; transform: translateY(-60px) scale(1.2); }
     }
 
-    /* SLEEPING */
-    .pet-stage.sleeping {
-      animation: breathing 3s ease-in-out infinite;
-      opacity: 0.85;
-    }
-    @keyframes breathing {
-      0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.04); }
-    }
-
-    .bed-item {
-      position: absolute;
-      font-size: 2.4rem;
-      z-index: 1;
-      bottom: 20px;
-      animation: bedAppear 0.5s ease-out forwards;
-    }
-    @keyframes bedAppear {
-      0% { opacity: 0; transform: scale(0.5) translateY(20px); }
-      100% { opacity: 1; transform: scale(1) translateY(0); }
-    }
-
+    /* Zzz sleep */
     .zzz {
       position: absolute;
-      font-family: 'Fredoka', sans-serif;
-      color: #8B7A5E;
-      font-size: 1.1rem;
-      font-weight: 700;
-      z-index: 5;
+      font-family: 'Press Start 2P', monospace;
+      color: #8B6F5E;
+      font-size: 0.7rem;
+      z-index: 30;
       pointer-events: none;
-      animation: zzzFloat 2.5s ease-in-out infinite;
+      animation: zzzFloat 2.5s ease-out infinite;
     }
     @keyframes zzzFloat {
-      0% { opacity: 0; transform: translate(0, 0) scale(0.7) rotate(-5deg); }
+      0% { opacity: 0; transform: translate(0, 0) scale(0.6); }
       25% { opacity: 1; }
-      100% { opacity: 0; transform: translate(30px, -60px) scale(1.2) rotate(10deg); }
+      100% { opacity: 0; transform: translate(25px, -50px) scale(1.1); }
     }
 
-    /* BATHING */
-    .pet-stage.bathing {
-      animation: bathWiggle 0.5s ease-in-out infinite;
-    }
-    @keyframes bathWiggle {
-      0%, 100% { transform: rotate(-4deg) translateY(0); }
-      50% { transform: rotate(4deg) translateY(-4px); }
-    }
-
+    /* Bubbles bath */
     .bubble {
       position: absolute;
       border-radius: 50%;
-      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.95), rgba(220, 230, 235, 0.7));
-      box-shadow: inset -2px -2px 6px rgba(180, 190, 200, 0.4), 0 2px 4px rgba(0,0,0,0.05);
+      background: radial-gradient(circle at 30% 30%, #FFFFFF, #B8D8E8);
+      border: 2px solid #8B6F5E;
+      z-index: 25;
       pointer-events: none;
-      z-index: 3;
-      animation: bubbleRise 3s ease-out infinite;
+      animation: bubbleRise 2s ease-out infinite;
     }
     @keyframes bubbleRise {
-      0% { opacity: 0; transform: translateY(0) scale(0.4); }
-      15% { opacity: 1; }
-      100% { opacity: 0; transform: translateY(-80px) scale(1); }
-    }
-
-    /* PETTING */
-    .pet-stage.petting {
-      animation: pettingLean 0.8s ease-in-out infinite;
-    }
-    @keyframes pettingLean {
-      0%, 100% { transform: rotate(-3deg) scale(1.02); }
-      50% { transform: rotate(3deg) scale(1.05); }
-    }
-
-    .hand-item {
-      position: absolute;
-      font-size: 2.2rem;
-      z-index: 5;
-      pointer-events: none;
-      animation: handPat 0.9s ease-in-out infinite;
-      top: 15%;
-    }
-    @keyframes handPat {
-      0%, 100% { transform: translateY(0) rotate(0deg); }
-      50% { transform: translateY(-8px) rotate(-8deg); }
-    }
-
-    .pet-heart {
-      position: absolute;
-      font-size: 1.1rem;
-      z-index: 4;
-      pointer-events: none;
-      animation: petHeartFloat 1.6s ease-out infinite;
-    }
-    @keyframes petHeartFloat {
-      0% { opacity: 0; transform: translateY(0) scale(0.4); }
-      25% { opacity: 1; }
-      100% { opacity: 0; transform: translateY(-70px) scale(1.1); }
-    }
-
-    /* TREAT */
-    .pet-stage.treating {
-      animation: treatNibble 0.4s ease-in-out infinite;
-    }
-    @keyframes treatNibble {
-      0%, 100% { transform: scale(1) rotate(0deg); }
-      50% { transform: scale(1.05) rotate(2deg); }
+      0% { opacity: 0; transform: translateY(0) scale(0.3); }
+      20% { opacity: 1; }
+      100% { opacity: 0; transform: translateY(-70px) scale(1); }
     }
 
     /* ============================================ */
-    /* PET INFO                                      */
+    /* STATS - pixel style                           */
     /* ============================================ */
+    .pet-info {
+      padding: 10px 12px 12px;
+      background: #FDF6EE;
+    }
+    .pet-name-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+    }
     .pet-name {
-      font-family: 'Fredoka', sans-serif;
-      font-size: 1.5rem; color: #7A6C5A; margin-bottom: 4px;
-      position: relative; z-index: 2; font-weight: 600;
+      font-family: 'Press Start 2P', monospace;
+      font-size: 0.7rem;
+      color: #4A3F3A;
     }
-    .pet-level {
-      display: inline-block; background: #F0E8D8; color: #8B7A5E;
-      font-family: 'Fredoka', sans-serif; font-weight: 600;
-      font-size: 0.78rem; padding: 5px 14px; border-radius: 20px;
-      margin-bottom: 8px; border: 1px solid #E0D4BF;
-      position: relative; z-index: 2; transition: all 0.3s;
+    .pet-stage-badge {
+      font-family: 'Press Start 2P', monospace;
+      font-size: 0.5rem;
+      color: #A89080;
+      padding: 3px 8px;
+      background: #F4E9DE;
+      border: 2px solid #C9B0A0;
+      border-radius: 4px;
     }
-    .pet-level.level-up {
-      background: linear-gradient(135deg, #C9BA9A, #A89578);
-      color: white; animation: levelUpPulse 1s ease;
+    .pet-stage-badge.level-up {
+      background: #F4D9C8;
+      color: #8B6F5E;
+      animation: levelUpPulse 1s ease;
     }
     @keyframes levelUpPulse {
       0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.15); box-shadow: 0 0 20px rgba(168, 149, 120, 0.6); }
-    }
-    .pet-mood {
-      font-size: 0.75rem; color: #9B8F7E; font-style: italic;
-      margin-bottom: 12px; position: relative; z-index: 2;
-      min-height: 16px; transition: opacity 0.3s;
+      50% { transform: scale(1.15); }
     }
 
     .stats {
-      display: grid; grid-template-columns: 1fr 1fr;
-      gap: 8px; margin-top: 6px; position: relative; z-index: 2;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px;
     }
     .stat {
-      background: #FBF8F2; border-radius: 14px; padding: 10px 12px;
-      text-align: left; border: 2px solid #EDE5D8; transition: all 0.3s;
-    }
-    .stat.bump { animation: statBump 0.5s cubic-bezier(0.34, 1.56, 0.64, 1); }
-    @keyframes statBump {
-      0% { transform: scale(1); }
-      40% { transform: scale(1.06); border-color: #A89578; }
-      100% { transform: scale(1); }
+      background: #F4E9DE;
+      border: 2px solid #C9B0A0;
+      padding: 6px 8px;
+      border-radius: 4px;
     }
     .stat-header {
-      display: flex; justify-content: space-between; align-items: center;
-      font-size: 0.78rem; font-weight: 700; color: #8B7A5E; margin-bottom: 5px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: 'Press Start 2P', monospace;
+      font-size: 0.5rem;
+      color: #8B6F5E;
+      margin-bottom: 4px;
     }
-    .stat-icon { font-size: 0.95rem; margin-right: 3px; }
-    .stat-value {
-      font-family: 'Fredoka', sans-serif; font-size: 0.82rem;
-      color: #7A6C5A; font-weight: 600;
+    .stat-bar {
+      height: 6px;
+      background: #E8D9C8;
+      border: 2px solid #8B6F5E;
+      border-radius: 3px;
+      overflow: hidden;
     }
-    .stat-bar { height: 8px; background: #F0E8D8; border-radius: 10px; overflow: hidden; position: relative; }
     .stat-bar-fill {
-      height: 100%; border-radius: 10px;
-      transition: width 0.7s cubic-bezier(0.34, 1.56, 0.64, 1), background 0.4s;
-      position: relative; overflow: hidden;
+      height: 100%;
+      transition: width 0.5s;
     }
-    .stat-bar-fill::after {
-      content: ''; position: absolute; inset: 0;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.5), transparent);
-      animation: barShine 3s infinite;
-    }
-    @keyframes barShine {
-      0% { transform: translateX(-100%); }
-      100% { transform: translateX(100%); }
-    }
-    .stat-bar-fill.good { background: linear-gradient(90deg, #B4CDA6, #8FB87D); }
-    .stat-bar-fill.medium { background: linear-gradient(90deg, #E5CFA0, #D4B472); }
-    .stat-bar-fill.low {
-      background: linear-gradient(90deg, #E5B3A0, #D18F73);
-      animation: lowPulse 2s infinite;
-    }
-    @keyframes lowPulse {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.65; }
-    }
+    .stat-bar-fill.good { background: #8FB87D; }
+    .stat-bar-fill.medium { background: #D4B472; }
+    .stat-bar-fill.low { background: #D18F73; }
 
-    /* ACTIONS */
+    /* ============================================ */
+    /* ACTIONS - pixel buttons                       */
+    /* ============================================ */
     .actions {
-      display: grid; grid-template-columns: repeat(3, 1fr);
-      gap: 8px; margin-bottom: 10px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 6px;
+      padding: 0 12px 12px;
     }
     .action-btn {
-      background: #FDFBF7; border: 2px solid #EDE5D8; border-radius: 18px;
-      padding: 14px 6px; cursor: pointer;
-      transition: all 0.15s cubic-bezier(0.34, 1.56, 0.64, 1);
-      display: flex; flex-direction: column; align-items: center; gap: 4px;
-      font-family: 'Fredoka', sans-serif; font-weight: 600;
-      color: #4A4239; min-height: 82px; justify-content: center;
-      position: relative; overflow: hidden;
+      background: #FFFDF9;
+      border: 3px solid #C9B0A0;
+      border-radius: 4px;
+      padding: 10px 4px;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3px;
+      box-shadow: 0 3px 0 #C9B0A0;
+      transition: all 0.1s;
+      min-height: 70px;
+      justify-content: center;
     }
-    .action-btn:active { transform: scale(0.92); background: #F5EFE0; border-color: #C9BBA0; }
-    .action-btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none; filter: grayscale(0.5); }
-    .action-btn .emoji { font-size: 1.7rem; line-height: 1; transition: transform 0.2s; }
-    .action-btn:active .emoji { transform: scale(1.15) rotate(-8deg); }
-    .action-btn .label { font-size: 0.7rem; color: #9B8F7E; font-weight: 600; }
+    .action-btn:active {
+      transform: translateY(3px);
+      box-shadow: none;
+    }
+    .action-btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+    .action-btn .emoji {
+      font-size: 1.5rem;
+      line-height: 1;
+      image-rendering: pixelated;
+    }
+    .action-btn .label {
+      font-family: 'Press Start 2P', monospace;
+      font-size: 0.45rem;
+      color: #8B6F5E;
+    }
 
-    /* DIARY */
-    .diary-card {
-      background: #FDFBF7; border-radius: 20px; padding: 14px 15px;
-      border: 2px solid #EDE5D8; box-shadow: 0 6px 18px rgba(122, 108, 90, 0.08);
-      margin-bottom: 10px;
+    /* ============================================ */
+    /* DIARY                                         */
+    /* ============================================ */
+    .diary {
+      background: #FDF6EE;
+      border: 3px solid #C9B0A0;
+      border-radius: 6px;
+      padding: 10px;
+      margin: 0 12px 12px;
     }
     .diary-title {
-      font-family: 'Fredoka', sans-serif; font-weight: 600;
-      font-size: 0.92rem; color: #7A6C5A; margin-bottom: 10px;
-      display: flex; justify-content: space-between; align-items: center;
+      font-family: 'Press Start 2P', monospace;
+      font-size: 0.55rem;
+      color: #8B6F5E;
+      margin-bottom: 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
     }
     .diary-scroll {
-      max-height: 130px; overflow-y: auto;
-      scrollbar-width: thin; padding-right: 3px;
+      max-height: 100px;
+      overflow-y: auto;
+      scrollbar-width: thin;
     }
     .diary-scroll::-webkit-scrollbar { width: 4px; }
-    .diary-scroll::-webkit-scrollbar-thumb { background: #D4C7AE; border-radius: 5px; }
+    .diary-scroll::-webkit-scrollbar-thumb { background: #C9B0A0; border-radius: 2px; }
     .diary-entry {
-      font-size: 0.78rem; padding: 8px 10px; border-radius: 10px;
-      margin-bottom: 5px; line-height: 1.4; color: #6B5F4D;
-      background: #FBF8F2; border-left: 3px solid #D4C7AE;
-      animation: diarySlide 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+      font-size: 0.72rem;
+      padding: 5px 8px;
+      margin-bottom: 3px;
+      background: #F4E9DE;
+      border-left: 3px solid #C9B0A0;
+      border-radius: 3px;
+      color: #6B5F4D;
+      animation: diarySlide 0.3s;
     }
     @keyframes diarySlide {
-      from { opacity: 0; transform: translateX(-10px); }
+      from { opacity: 0; transform: translateX(-6px); }
       to { opacity: 1; transform: translateX(0); }
     }
-    .diary-entry.by-koy { border-left-color: #A89578; background: #F5EFE0; }
-    .diary-entry.by-metz { border-left-color: #C9A0A0; background: #F8EEE8; }
+    .diary-entry.by-koy { border-left-color: #8B6F5E; }
+    .diary-entry.by-metz { border-left-color: #C9A0A0; }
     .diary-entry .time {
-      font-size: 0.68rem; color: #B8AC98;
-      margin-right: 5px; font-weight: 600;
+      font-size: 0.6rem;
+      color: #A89080;
+      margin-right: 4px;
+      font-family: 'Press Start 2P', monospace;
     }
 
-    /* FLOATS */
-    .action-float {
-      position: fixed; font-size: 2rem;
-      pointer-events: none; z-index: 999;
-      animation: actionFloat 1.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+    /* Toast */
+    .toast {
+      position: fixed;
+      top: 15px;
+      left: 50%;
+      transform: translateX(-50%) translateY(-80px);
+      background: #8B6F5E;
+      color: white;
+      padding: 10px 18px;
+      font-family: 'Press Start 2P', monospace;
+      font-size: 0.55rem;
+      border-radius: 4px;
+      z-index: 1000;
+      transition: transform 0.3s;
+      max-width: 90vw;
+      text-align: center;
+      line-height: 1.5;
     }
-    @keyframes actionFloat {
-      0% { opacity: 1; transform: translate(0, 0) scale(0.4) rotate(0deg); }
-      40% { opacity: 1; transform: translate(var(--tx1), var(--ty1)) scale(1.4) rotate(15deg); }
-      100% { opacity: 0; transform: translate(var(--tx2), var(--ty2)) scale(0.8) rotate(-15deg); }
-    }
+    .toast.show { transform: translateX(-50%) translateY(0); }
 
-    /* Level up */
+    /* Level up overlay */
     .levelup-overlay {
-      position: fixed; inset: 0;
-      display: flex; align-items: center; justify-content: center;
-      pointer-events: none; z-index: 1000;
+      position: fixed;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      pointer-events: none;
+      z-index: 1000;
       animation: levelupFade 2s ease-out forwards;
     }
     @keyframes levelupFade {
@@ -613,63 +639,41 @@
       100% { opacity: 0; transform: scale(1.1); }
     }
     .levelup-badge {
-      background: linear-gradient(135deg, #C9BA9A, #A89578);
-      color: white; padding: 20px 32px; border-radius: 24px;
-      font-family: 'Fredoka', sans-serif; font-size: 1.3rem;
-      font-weight: 600; text-align: center;
-      box-shadow: 0 12px 40px rgba(168, 149, 120, 0.5);
-      border: 3px solid #FFF9EE;
-    }
-    .levelup-badge .big { display: block; font-size: 2.2rem; margin-bottom: 6px; }
-
-    /* Toast */
-    .toast {
-      position: fixed; top: 20px; left: 50%;
-      transform: translateX(-50%) translateY(-100px);
-      background: #7A6C5A; color: white;
-      padding: 12px 22px; border-radius: 24px;
-      font-family: 'Fredoka', sans-serif; font-weight: 600;
-      font-size: 0.88rem; box-shadow: 0 8px 25px rgba(122, 108, 90, 0.35);
-      z-index: 1000; transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-      white-space: nowrap; max-width: 90vw; overflow: hidden; text-overflow: ellipsis;
-    }
-    .toast.show { transform: translateX(-50%) translateY(0); }
-
-    .footer-note {
-      text-align: center; font-size: 0.7rem;
-      color: #B8AC98; margin: 10px 0 20px; font-style: italic;
+      background: #8B6F5E;
+      color: white;
+      padding: 20px 28px;
+      border: 4px solid #FFFDF9;
+      border-radius: 8px;
+      font-family: 'Press Start 2P', monospace;
+      font-size: 0.75rem;
+      text-align: center;
+      line-height: 1.6;
     }
 
-    /* RESPONSIVE */
+    /* Footer */
+    .footer {
+      text-align: center;
+      font-size: 0.65rem;
+      color: #A89080;
+      margin: 8px 0 20px;
+    }
+
     @media (max-width: 380px) {
-      .pin-screen h1 { font-size: 1.5rem; }
-      .big-emoji { font-size: 3.4rem; }
-      .pet-stage { font-size: 4.6rem; }
-      .stage { height: 145px; }
-      .action-btn { padding: 10px 4px; min-height: 72px; }
-      .action-btn .emoji { font-size: 1.5rem; }
-      .action-btn .label { font-size: 0.65rem; }
-      .stat { padding: 8px 10px; }
-      .pet-name { font-size: 1.3rem; }
-    }
-    @media (max-height: 700px) {
-      .pet-stage { font-size: 4.4rem; }
-      .stage { height: 140px; }
-      .diary-scroll { max-height: 80px; }
-      .pet-card { padding: 16px 14px 14px; min-height: 220px; }
+      .pet { font-size: 3rem; }
+      .room-wall { height: 160px; }
+      .action-btn { min-height: 64px; }
+      .action-btn .emoji { font-size: 1.3rem; }
     }
   </style>
 </head>
 <body>
 
-  <div class="bg-floats" id="bgFloats"></div>
-
   <div id="app">
 
-    <!-- LOGIN -->
+    <!-- ==================== LOGIN ==================== -->
     <div class="pin-screen" id="pinScreen">
       <div class="big-emoji" id="welcomeEmoji">🥚</div>
-      <h1>Mochi's Home</h1>
+      <h1>MOCHI'S ROOM</h1>
       <p class="subtitle">A tiny life we care for together 🌿</p>
 
       <div class="role-pick">
@@ -679,100 +683,93 @@
 
       <input type="tel" class="pin-input" id="pinInput" placeholder="PIN" maxlength="4" inputmode="numeric" pattern="[0-9]*">
 
-      <button class="btn" id="loginBtn">Come In 💫</button>
+      <button class="btn" id="loginBtn">ENTER ROOM</button>
 
-      <p style="font-size: 0.72rem; color: #B8AC98; margin-top: 16px; line-height: 1.5;">
-        First time? Pick who you are and create a 4-digit PIN.<br>
-        Both of you use this same page — each picks their own role.
+      <p style="font-size: 0.7rem; color: #C9B0A0; margin-top: 14px; line-height: 1.5;">
+        Pick who you are and create a 4-digit PIN.<br>
+        You both use this same page.
       </p>
     </div>
 
-    <!-- GAME -->
+    <!-- ==================== GAME ==================== -->
     <div id="gameScreen">
 
+      <!-- Top bar -->
       <div class="top-bar">
         <div class="streak-display" id="streakBox">
           <span>🔥</span><span id="streakCount">0</span>
         </div>
-        <div class="who-am-i" id="whoAmI">🌿 Koy</div>
+        <div class="who-am-i" id="whoAmI">🌿 KOY</div>
         <div class="days-display">
           <span>🌱</span><span id="daysCount">0</span>
         </div>
       </div>
 
-      <div class="welcome-back" id="welcomeBack" style="display:none;">
-        <h3 id="welcomeTitle">Welcome back! 🌿</h3>
-        <div id="welcomeBody"></div>
-        <button class="dismiss" id="dismissWelcome">Hide →</button>
-      </div>
+      <!-- THE ROOM -->
+      <div class="room" id="room">
+        <div class="room-wall">
+          <div class="room-window"></div>
 
-      <div class="daily-goal">
-        <div class="daily-goal-header">
-          <span>✨ Today's care goal</span>
-          <span id="goalReward">+10 XP</span>
+          <!-- Pet area inside room -->
+          <div class="pet-area" id="petArea">
+            <div class="pet idle" id="pet" style="left: 50%;">🥚</div>
+          </div>
         </div>
-        <div class="daily-goal-progress">
-          <div class="daily-goal-bar">
-            <div class="daily-goal-fill" id="goalFill"></div>
-          </div>
-          <div class="daily-goal-count" id="goalCount">0/5</div>
-        </div>
-      </div>
+        <div class="room-floor"></div>
 
-      <div class="pet-card" id="petCard">
-        <div class="mood-aura" id="moodAura"></div>
-
-        <div class="stage" id="stage">
-          <div class="pet-stage" id="petStage">🥚</div>
-        </div>
-
-        <div class="pet-name" id="petName">Mochi</div>
-        <div class="pet-level" id="petLevel">Lv 1 · Egg</div>
-        <div class="pet-mood" id="petMood">sleeping peacefully...</div>
-
-        <div class="stats">
-          <div class="stat" id="statHunger">
-            <div class="stat-header"><span><span class="stat-icon">🍚</span>Hunger</span><span class="stat-value" id="hungerVal">100</span></div>
-            <div class="stat-bar"><div class="stat-bar-fill good" id="hungerBar" style="width:100%"></div></div>
+        <!-- Pet info below room -->
+        <div class="pet-info">
+          <div class="pet-name-row">
+            <div class="pet-name" id="petName">Mochi</div>
+            <div class="pet-stage-badge" id="petStageBadge">EGG</div>
           </div>
-          <div class="stat" id="statHappy">
-            <div class="stat-header"><span><span class="stat-icon">☀️</span>Happy</span><span class="stat-value" id="happyVal">100</span></div>
-            <div class="stat-bar"><div class="stat-bar-fill good" id="happyBar" style="width:100%"></div></div>
-          </div>
-          <div class="stat" id="statEnergy">
-            <div class="stat-header"><span><span class="stat-icon">🌙</span>Energy</span><span class="stat-value" id="energyVal">100</span></div>
-            <div class="stat-bar"><div class="stat-bar-fill good" id="energyBar" style="width:100%"></div></div>
-          </div>
-          <div class="stat" id="statClean">
-            <div class="stat-header"><span><span class="stat-icon">💧</span>Clean</span><span class="stat-value" id="cleanVal">100</span></div>
-            <div class="stat-bar"><div class="stat-bar-fill good" id="cleanBar" style="width:100%"></div></div>
+
+          <div class="stats">
+            <div class="stat">
+              <div class="stat-header"><span>🍚 FOOD</span><span id="hungerVal">100</span></div>
+              <div class="stat-bar"><div class="stat-bar-fill good" id="hungerBar" style="width:100%"></div></div>
+            </div>
+            <div class="stat">
+              <div class="stat-header"><span>☀️ JOY</span><span id="happyVal">100</span></div>
+              <div class="stat-bar"><div class="stat-bar-fill good" id="happyBar" style="width:100%"></div></div>
+            </div>
+            <div class="stat">
+              <div class="stat-header"><span>🌙 REST</span><span id="energyVal">100</span></div>
+              <div class="stat-bar"><div class="stat-bar-fill good" id="energyBar" style="width:100%"></div></div>
+            </div>
+            <div class="stat">
+              <div class="stat-header"><span>💧 CLEAN</span><span id="cleanVal">100</span></div>
+              <div class="stat-bar"><div class="stat-bar-fill good" id="cleanBar" style="width:100%"></div></div>
+            </div>
           </div>
         </div>
       </div>
 
+      <!-- Actions -->
       <div class="actions">
-        <button class="action-btn" data-action="feed"><span class="emoji">🍚</span><span class="label">Feed</span></button>
-        <button class="action-btn" data-action="play"><span class="emoji">🎈</span><span class="label">Play</span></button>
-        <button class="action-btn" data-action="sleep"><span class="emoji">🌙</span><span class="label">Sleep</span></button>
-        <button class="action-btn" data-action="bath"><span class="emoji">💧</span><span class="label">Bath</span></button>
-        <button class="action-btn" data-action="pet"><span class="emoji">🤲</span><span class="label">Pet</span></button>
-        <button class="action-btn" data-action="treat"><span class="emoji">🍪</span><span class="label">Treat</span></button>
+        <button class="action-btn" data-action="feed"><span class="emoji">🍚</span><span class="label">FEED</span></button>
+        <button class="action-btn" data-action="play"><span class="emoji">🎈</span><span class="label">PLAY</span></button>
+        <button class="action-btn" data-action="sleep"><span class="emoji">🌙</span><span class="label">SLEEP</span></button>
+        <button class="action-btn" data-action="bath"><span class="emoji">💧</span><span class="label">BATH</span></button>
+        <button class="action-btn" data-action="pet"><span class="emoji">🤲</span><span class="label">PET</span></button>
+        <button class="action-btn" data-action="clean"><span class="emoji">🧹</span><span class="label">CLEAN</span></button>
       </div>
 
-      <div class="diary-card">
+      <!-- Diary -->
+      <div class="diary">
         <div class="diary-title">
-          <span>📖 Mochi's Diary</span>
-          <span style="font-size: 0.7rem; color: #B8AC98;" id="diaryCount">0 events</span>
+          <span>📖 MOCHI'S DIARY</span>
+          <span id="diaryCount">0</span>
         </div>
         <div class="diary-scroll" id="diaryScroll">
-          <div style="text-align: center; color: #B8AC98; font-size: 0.8rem; padding: 12px;">
-            Nothing yet! Take care of Mochi together 🌿
+          <div style="text-align:center; color:#C9B0A0; font-size:0.7rem; padding:8px;">
+            Nothing yet! 🌿
           </div>
         </div>
       </div>
 
-      <button class="btn" id="logoutBtn" style="background: linear-gradient(135deg, #B8AC98, #9B8F7E); font-size: 0.88rem; padding: 12px; margin-bottom: 10px;">Switch User</button>
-      <p class="footer-note">Made with care for Mochi 🌿</p>
+      <button class="btn" id="logoutBtn" style="background:#B8A898; box-shadow:0 4px 0 #8B6F5E; margin:0 12px 8px; font-size:0.85rem; padding:12px;">SWITCH USER</button>
+      <p class="footer">Made with care for Mochi 🌿</p>
     </div>
 
   </div>
@@ -801,19 +798,20 @@
     const DECAY_PER_MINUTE = 0.12;
     const OFFLINE_CAP_HOURS = 6;
     const MAX_DIARY = 40;
-    const COOLDOWN_MS = 2500;
     const DAILY_GOAL = 5;
-    const ANIMATION_DURATION = 2600;
+    const ANIMATION_DURATION = 3000;
+    const NIGHT_START = 22;
+    const NIGHT_END = 7;
 
     const STAGES = [
-      { level: 1,  name: 'Egg',      emoji: '🥚' },
-      { level: 3,  name: 'Hatchling',emoji: '🐣' },
-      { level: 6,  name: 'Sprout',   emoji: '🐥' },
-      { level: 12, name: 'Sapling',  emoji: '🐤' },
-      { level: 20, name: 'Bloom',    emoji: '🦜' },
-      { level: 35, name: 'Guardian', emoji: '🦚' },
-      { level: 50, name: 'Mystic',   emoji: '🦅' },
-      { level: 75, name: 'Eternal',  emoji: '🌿' }
+      { level: 1,  name: 'EGG',      emoji: '🥚' },
+      { level: 3,  name: 'HATCHLING',emoji: '🐣' },
+      { level: 6,  name: 'SPROUT',   emoji: '🐥' },
+      { level: 12, name: 'SAPLING',  emoji: '🐤' },
+      { level: 20, name: 'BLOOM',    emoji: '🦜' },
+      { level: 35, name: 'GUARDIAN', emoji: '🦚' },
+      { level: 50, name: 'MYSTIC',   emoji: '🦅' },
+      { level: 75, name: 'ETERNAL',  emoji: '🌿' }
     ];
 
     const ACTIONS = {
@@ -822,21 +820,20 @@
       sleep: { stat: 'energy', amount: 30, xp: 2, verb: 'tucked in',       emoji: '🌙' },
       bath:  { stat: 'clean',  amount: 30, xp: 2, verb: 'bathed',          emoji: '💧' },
       pet:   { stat: 'happy',  amount: 8,  xp: 1, verb: 'petted',          emoji: '🤲' },
-      treat: { stat: 'happy',  amount: 18, xp: 3, verb: 'gave a treat to', emoji: '🍪', cost: { hunger: 5 } }
+      clean: { stat: 'clean',  amount: 15, xp: 2, verb: 'cleaned up after', emoji: '🧹' }
     };
 
     const MOODS = {
-      happy:  ['feeling wonderful 🌸', 'bouncing with joy ✨', 'so content 🌿', 'purring softly 💫', 'radiating warmth ☀️'],
-      ok:     ['doing just fine 🌱', 'quietly content 🍃', 'relaxing warmly 🌾', 'cozy and calm 🕊️'],
-      low:    ['feeling a little tired 💤', 'missing you a bit 🌧️', 'wishing for a hug 🤍', 'hoping you come back soon 🌙'],
-      sad:    ['really needs you 💧', 'feeling lonely 🌫️', 'waiting for your care 🤍', 'please come back soon 🌧️']
+      happy:  ['feeling wonderful 🌸', 'bouncing with joy ✨', 'so content 🌿', 'purring softly 💫'],
+      ok:     ['doing just fine 🌱', 'quietly content 🍃', 'cozy and calm 🕊️'],
+      low:    ['feeling a little tired 💤', 'missing you a bit 🌧️', 'hoping you come back soon 🌙'],
+      sad:    ['really needs you 💧', 'feeling lonely 🌫️', 'please come back soon 🌧️']
     };
 
     // ============================================================
     // STATE
     // ============================================================
     let me = 'koy';
-    let myPin = '';
     let gameData = null;
     let myLastSeen = 0;
     let hasShownWelcome = false;
@@ -844,25 +841,9 @@
     let lastLevel = 1;
     let isAnimating = false;
     let animationTimeout = null;
+    let poops = [];
 
     const $ = (id) => document.getElementById(id);
-
-    // ============================================================
-    // BACKGROUND FLOATS
-    // ============================================================
-    (function initFloats() {
-      const c = $('bgFloats');
-      const emojis = ['🌿', '🍃', '✨', '🌸', '☁️', '🍂', '🌱', '💫'];
-      for (let i = 0; i < 10; i++) {
-        const s = document.createElement('span');
-        s.textContent = emojis[i % emojis.length];
-        s.style.left = Math.random() * 100 + '%';
-        s.style.animationDuration = (16 + Math.random() * 14) + 's';
-        s.style.animationDelay = (Math.random() * 18) + 's';
-        s.style.fontSize = (0.9 + Math.random() * 0.8) + 'rem';
-        c.appendChild(s);
-      }
-    })();
 
     // ============================================================
     // TOAST
@@ -903,17 +884,16 @@
     $('loginBtn').addEventListener('click', () => {
       const pin = $('pinInput').value.trim();
       if (!selectedRole) return showToast('Pick who you are first 🌿');
-      if (!/^\d{4}$/.test(pin)) return showToast('PIN must be 4 digits 🔢');
+      if (!/^\d{4}$/.test(pin)) return showToast('PIN must be 4 digits');
 
       me = selectedRole;
-      myPin = pin;
       localStorage.setItem('mochi_role', me);
-      localStorage.setItem('mochi_pin', myPin);
+      localStorage.setItem('mochi_pin', pin);
       myLastSeen = parseInt(localStorage.getItem('mochi_last_' + me)) || 0;
 
       $('pinScreen').style.display = 'none';
       $('gameScreen').style.display = 'block';
-      $('whoAmI').textContent = me === 'koy' ? '🌿 Koy' : '🌸 Metz';
+      $('whoAmI').textContent = me === 'koy' ? '🌿 KOY' : '🌸 METZ';
 
       listenToGame();
     });
@@ -933,6 +913,7 @@
             hunger: 100, happy: 100, energy: 100, clean: 100,
             xp: 0, level: 1,
             streak: 0, lastStreakDate: '',
+            poops: 0,
             koyLastSeen: now, metzLastSeen: 0,
             todayActions: { koy: 0, metz: 0 },
             todayDate: '',
@@ -964,8 +945,6 @@
       if (data.todayDate !== today) {
         data.todayActions = { koy: 0, metz: 0 };
         data.todayDate = today;
-      } else if (!data.todayActions) {
-        data.todayActions = { koy: 0, metz: 0 };
       }
 
       gameData = data;
@@ -982,18 +961,11 @@
         });
       }
 
-      // Only re-render stats if we're not currently animating (to avoid overwriting visuals)
-      if (!isAnimating) {
-        renderPet(prev);
-      } else {
-        // Still update the mood aura + level text quietly
-        updateLevelOnly();
-      }
-
+      if (!isAnimating) renderPet(prev);
       renderDiary();
-      renderDailyGoal();
       updateStreakAndDays();
       checkStreak();
+      updateDayNight();
 
       if (!hasShownWelcome && myLastSeen > 0 && now - myLastSeen > 5 * 60 * 1000) {
         showWelcomeBack(prev, data, myLastSeen);
@@ -1011,68 +983,76 @@
     function xpForLevel(level) {
       return Math.floor(60 + (level - 1) * 35 + Math.pow(level - 1, 1.7) * 12);
     }
-    function totalXpForLevel(level) {
-      let s = 0;
-      for (let i = 1; i < level; i++) s += xpForLevel(i);
-      return s;
-    }
     function updateLevel() {
-      let lvl = 1;
-      let xp = gameData.xp || 0;
-      while (lvl < 100 && xp >= xpForLevel(lvl)) {
-        xp -= xpForLevel(lvl);
-        lvl++;
-      }
-      const prevLvl = gameData.level || 1;
+      let lvl = 1, xp = gameData.xp || 0;
+      while (lvl < 100 && xp >= xpForLevel(lvl)) { xp -= xpForLevel(lvl); lvl++; }
       gameData.level = lvl;
       if (lvl > lastLevel && lastLevel !== 0) {
         setTimeout(() => showLevelUp(lvl), 400);
       }
       lastLevel = lvl;
     }
-
     function currentStage() {
       let s = STAGES[0];
       for (const st of STAGES) if (gameData.level >= st.level) s = st;
       return s;
     }
 
-    function updateLevelOnly() {
-      const stage = currentStage();
-      $('petName').textContent = gameData.name || 'Mochi';
-      $('petLevel').textContent = `Lv ${gameData.level} · ${stage.name}`;
+    // ============================================================
+    // DAY / NIGHT
+    // ============================================================
+    function isNightTime() {
+      const h = new Date().getHours();
+      return h >= NIGHT_START || h < NIGHT_END;
+    }
+    function updateDayNight() {
+      const room = $('room');
+      if (isNightTime()) room.classList.add('night');
+      else room.classList.remove('night');
     }
 
     // ============================================================
-    // RENDER
+    // RENDER PET
     // ============================================================
     function renderPet(prev = {}) {
       const stage = currentStage();
-      $('petStage').textContent = stage.emoji;
+      const pet = $('pet');
+      pet.textContent = stage.emoji;
       $('petName').textContent = gameData.name || 'Mochi';
+      $('petStageBadge').textContent = stage.name;
 
       const avg = (gameData.hunger + gameData.happy + gameData.energy + gameData.clean) / 4;
-      let moodClass = '';
-      let moodPool = MOODS.ok;
-      if (avg < 25) { moodClass = 'sad'; moodPool = MOODS.sad; }
-      else if (avg < 50) { moodClass = 'sad'; moodPool = MOODS.low; }
-      else if (avg > 75) { moodClass = 'happy'; moodPool = MOODS.happy; }
+      let moodClass = 'idle';
+      if (avg < 25) moodClass = 'sad';
+      else if (avg < 50) moodClass = 'sad';
+      else if (avg > 75) moodClass = 'happy';
 
-      const pet = $('petStage');
-      pet.className = 'pet-stage ' + moodClass;
+      // Night = sleeping pose
+      if (isNightTime() && !isAnimating) moodClass = 'sleeping';
 
-      const moodKey = Math.floor(Date.now() / 3600000) % moodPool.length;
-      $('petMood').textContent = moodPool[moodKey];
+      pet.className = 'pet ' + moodClass;
 
-      const aura = $('moodAura');
-      aura.className = 'mood-aura ' + (moodClass === 'happy' ? 'happy' : moodClass === 'sad' ? 'sad' : '');
-
-      $('petLevel').textContent = `Lv ${gameData.level} · ${stage.name}`;
+      // Render poops
+      renderPoops();
 
       setStat('hunger', gameData.hunger, prev.hunger);
       setStat('happy', gameData.happy, prev.happy);
       setStat('energy', gameData.energy, prev.energy);
       setStat('clean', gameData.clean, prev.clean);
+    }
+
+    function renderPoops() {
+      const area = $('petArea');
+      // Remove existing
+      area.querySelectorAll('.poop').forEach(p => p.remove());
+      const count = gameData.poops || 0;
+      for (let i = 0; i < Math.min(count, 3); i++) {
+        const p = document.createElement('div');
+        p.className = 'poop';
+        p.textContent = '💩';
+        p.style.left = (20 + i * 20) + '%';
+        area.appendChild(p);
+      }
     }
 
     function setStat(name, val, prev) {
@@ -1081,13 +1061,6 @@
       const bar = $(name + 'Bar');
       bar.style.width = val + '%';
       bar.className = 'stat-bar-fill ' + (val > 60 ? 'good' : val > 30 ? 'medium' : 'low');
-      if (prev !== undefined && Math.abs(val - Math.round(prev)) >= 3) {
-        const stat = $('stat' + name.charAt(0).toUpperCase() + name.slice(1));
-        stat.classList.remove('bump');
-        void stat.offsetWidth;
-        stat.classList.add('bump');
-        setTimeout(() => stat.classList.remove('bump'), 600);
-      }
     }
 
     function renderDiary() {
@@ -1096,7 +1069,7 @@
       const scroll = $('diaryScroll');
       scroll.innerHTML = '';
       if (entries.length === 0) {
-        scroll.innerHTML = '<div style="text-align:center; color:#B8AC98; font-size:0.8rem; padding:12px;">Nothing yet! Take care of Mochi together 🌿</div>';
+        scroll.innerHTML = '<div style="text-align:center; color:#C9B0A0; font-size:0.7rem; padding:8px;">Nothing yet! 🌿</div>';
       } else {
         entries.forEach(e => {
           const div = document.createElement('div');
@@ -1108,22 +1081,7 @@
           scroll.appendChild(div);
         });
       }
-      $('diaryCount').textContent = entries.length + ' event' + (entries.length === 1 ? '' : 's');
-    }
-
-    function renderDailyGoal() {
-      const actions = gameData.todayActions || { koy: 0, metz: 0 };
-      const myCount = actions[me] || 0;
-      const pct = Math.min(100, (myCount / DAILY_GOAL) * 100);
-      $('goalFill').style.width = pct + '%';
-      $('goalCount').textContent = `${myCount}/${DAILY_GOAL}`;
-      if (myCount >= DAILY_GOAL) {
-        $('goalFill').classList.add('done');
-        $('goalReward').textContent = '✅ Done!';
-      } else {
-        $('goalFill').classList.remove('done');
-        $('goalReward').textContent = '+10 XP';
-      }
+      $('diaryCount').textContent = entries.length;
     }
 
     function updateStreakAndDays() {
@@ -1147,6 +1105,170 @@
     }
 
     // ============================================================
+    // ANIMATION ENGINE
+    // ============================================================
+    function movePetTo(percent, duration) {
+      return new Promise(resolve => {
+        const pet = $('pet');
+        pet.style.transition = `left ${duration}ms cubic-bezier(0.4, 0, 0.2, 1)`;
+        pet.style.left = percent + '%';
+        setTimeout(resolve, duration);
+      });
+    }
+
+    function showBubble(text, emoji) {
+      const area = $('petArea');
+      const pet = $('pet');
+      const bubble = document.createElement('div');
+      bubble.className = 'speech-bubble';
+      bubble.textContent = emoji + ' ' + text;
+      bubble.style.top = '-40px';
+      bubble.style.left = pet.style.left || '50%';
+      bubble.style.transform = 'translateX(-50%)';
+      area.appendChild(bubble);
+      setTimeout(() => bubble.remove(), 2200);
+    }
+
+    function floatHearts(count = 5) {
+      const area = $('petArea');
+      const pet = $('pet');
+      for (let i = 0; i < count; i++) {
+        setTimeout(() => {
+          const h = document.createElement('div');
+          h.className = 'heart-float';
+          h.textContent = ['💚', '💖', '✨', '💫', '🌟'][i % 5];
+          h.style.left = (35 + Math.random() * 30) + '%';
+          h.style.bottom = '80px';
+          h.style.animationDelay = (i * 0.15) + 's';
+          area.appendChild(h);
+          setTimeout(() => h.remove(), 1800);
+        }, i * 120);
+      }
+    }
+
+    function addProp(emoji, className, style) {
+      const area = $('petArea');
+      const prop = document.createElement('div');
+      prop.className = 'scene-prop ' + className;
+      prop.textContent = emoji;
+      Object.assign(prop.style, style);
+      area.appendChild(prop);
+      return prop;
+    }
+
+    function playActionAnimation(name) {
+      const pet = $('pet');
+      return new Promise(async (resolve) => {
+        switch(name) {
+          case 'feed': {
+            // Create bowl
+            const bowl = addProp('🍚', 'prop-bowl', { left: '20%', bottom: '15px' });
+            // Walk to bowl
+            pet.className = 'pet walking';
+            await movePetTo(28, 1200);
+            // Eat
+            pet.className = 'pet happy';
+            for (let i = 0; i < 3; i++) {
+              setTimeout(() => floatHearts(1), i * 400);
+            }
+            showBubble('nom nom!', '🍚');
+            await new Promise(r => setTimeout(r, 1500));
+            // Walk back
+            pet.className = 'pet walking';
+            await movePetTo(50, 1200);
+            bowl.remove();
+            pet.className = 'pet idle';
+            resolve();
+            break;
+          }
+          case 'play': {
+            const ball = addProp('🎈', 'prop-ball', { right: '25%' });
+            pet.className = 'pet happy';
+            showBubble('wheee!', '🎈');
+            floatHearts(6);
+            await new Promise(r => setTimeout(r, 2000));
+            ball.remove();
+            pet.className = 'pet idle';
+            resolve();
+            break;
+          }
+          case 'sleep': {
+            const bed = addProp('🛏️', 'prop-bed', { right: '15%' });
+            pet.className = 'pet walking';
+            await movePetTo(70, 1200);
+            pet.className = 'pet sleeping';
+            // Zzz
+            for (let i = 0; i < 4; i++) {
+              setTimeout(() => {
+                const z = document.createElement('div');
+                z.className = 'zzz';
+                z.textContent = 'Z';
+                z.style.left = '65%';
+                z.style.bottom = '90px';
+                z.style.fontSize = (0.6 + i * 0.1) + 'rem';
+                $('petArea').appendChild(z);
+                setTimeout(() => z.remove(), 2500);
+              }, i * 600);
+            }
+            showBubble('Zzz...', '💤');
+            await new Promise(r => setTimeout(r, 2200));
+            pet.className = 'pet walking';
+            await movePetTo(50, 1000);
+            bed.remove();
+            pet.className = 'pet idle';
+            resolve();
+            break;
+          }
+          case 'bath': {
+            const tub = addProp('🛁', 'prop-tub', { left: '50%', bottom: '15px' });
+            pet.className = 'pet walking';
+            await movePetTo(50, 800);
+            // Bubbles
+            for (let i = 0; i < 8; i++) {
+              setTimeout(() => {
+                const b = document.createElement('div');
+                b.className = 'bubble';
+                const size = 8 + Math.random() * 14;
+                b.style.width = size + 'px';
+                b.style.height = size + 'px';
+                b.style.left = (35 + Math.random() * 30) + '%';
+                b.style.bottom = '70px';
+                $('petArea').appendChild(b);
+                setTimeout(() => b.remove(), 2000);
+              }, i * 150);
+            }
+            pet.className = 'pet happy';
+            showBubble('splash!', '💧');
+            await new Promise(r => setTimeout(r, 1800));
+            tub.remove();
+            pet.className = 'pet idle';
+            resolve();
+            break;
+          }
+          case 'pet': {
+            pet.className = 'pet happy';
+            showBubble('happy!', '💚');
+            floatHearts(8);
+            await new Promise(r => setTimeout(r, 1800));
+            pet.className = 'pet idle';
+            resolve();
+            break;
+          }
+          case 'clean': {
+            pet.className = 'pet walking';
+            await movePetTo(25, 700);
+            showBubble('all clean!', '🧹');
+            await new Promise(r => setTimeout(r, 800));
+            await movePetTo(50, 700);
+            pet.className = 'pet idle';
+            resolve();
+            break;
+          }
+        }
+      });
+    }
+
+    // ============================================================
     // ACTIONS
     // ============================================================
     document.querySelectorAll('.action-btn').forEach(btn => {
@@ -1156,7 +1278,7 @@
     function doAction(name, btn) {
       if (!gameData) return showToast('Loading Mochi... 🌿');
       if (isAnimating) return showToast('Let Mochi finish 🌿');
-      if (Date.now() - lastActionAt < COOLDOWN_MS) return showToast('A moment between care 🌿');
+      if (Date.now() - lastActionAt < 2500) return showToast('A moment between care 🌿');
       lastActionAt = Date.now();
 
       const action = ACTIONS[name];
@@ -1168,201 +1290,23 @@
         }
       }
 
-      // Lock interaction during animation
       isAnimating = true;
       document.querySelectorAll('.action-btn').forEach(b => b.disabled = true);
 
-      // Start the visual animation
-      playActionAnimation(name);
+      // Poop check: if feeding and there's poop, add more poop
+      let addPoop = false;
+      if (name === 'feed' && (gameData.poops || 0) < 3) addPoop = true;
+      if (name === 'play' && Math.random() < 0.3 && (gameData.poops || 0) < 3) addPoop = true;
 
-      // After the animation plays, apply the stat changes + diary
-      clearTimeout(animationTimeout);
-      animationTimeout = setTimeout(() => {
-        applyActionEffects(name);
+      playActionAnimation(name).then(() => {
+        applyActionEffects(name, addPoop);
         isAnimating = false;
         document.querySelectorAll('.action-btn').forEach(b => b.disabled = false);
-      }, ANIMATION_DURATION);
-
-      // Move the button visual (tapping feedback)
-      spawnActionFloat(btn, action.emoji);
-      btn.style.transform = 'scale(0.9)';
-      setTimeout(() => btn.style.transform = '', 150);
+      });
     }
 
-    function playActionAnimation(name) {
-      const stage = $('stage');
-      const pet = $('petStage');
-      const petCard = $('petCard');
-
-      // Reset pet classes but keep mood class
-      const moodClass = pet.className.includes('sad') ? 'sad' :
-                        pet.className.includes('happy') ? 'happy' : '';
-
-      // Small helper to create scene elements that auto-remove
-      const addTemp = (el, ms) => {
-        stage.appendChild(el);
-        setTimeout(() => { if (el.parentNode) el.parentNode.removeChild(el); }, ms);
-      };
-
-      switch(name) {
-        case 'feed': {
-          pet.className = 'pet-stage eating';
-          // Bowl of food appears in front
-          const bowl = document.createElement('div');
-          bowl.className = 'food-item';
-          bowl.textContent = '🍚';
-          bowl.style.bottom = '8px';
-          bowl.style.left = '32%';
-          addTemp(bowl, ANIMATION_DURATION);
-
-          // Secondary food
-          const food = document.createElement('div');
-          food.className = 'food-item';
-          food.textContent = '🍲';
-          food.style.bottom = '8px';
-          food.style.left = '58%';
-          food.style.animationDelay = '0.3s';
-          addTemp(food, ANIMATION_DURATION - 300);
-
-          // Nom nom text
-          for (let i = 0; i < 3; i++) {
-            const nom = document.createElement('div');
-            nom.className = 'nom-text';
-            nom.textContent = ['nom', 'nom nom', 'yum!'][i];
-            nom.style.bottom = (80 + i * 15) + 'px';
-            nom.style.left = (35 + i * 12) + '%';
-            nom.style.animationDelay = (i * 0.7) + 's';
-            addTemp(nom, ANIMATION_DURATION - i * 700);
-          }
-          break;
-        }
-        case 'play': {
-          pet.className = 'pet-stage playing';
-          // Ball bouncing
-          const ball = document.createElement('div');
-          ball.className = 'toy-item';
-          ball.textContent = '🎈';
-          ball.style.left = '20%';
-          ball.style.top = '40%';
-          addTemp(ball, ANIMATION_DURATION);
-
-          const ball2 = document.createElement('div');
-          ball2.className = 'toy-item';
-          ball2.textContent = '⚽';
-          ball2.style.right = '20%';
-          ball2.style.top = '45%';
-          ball2.style.animationDelay = '0.4s';
-          addTemp(ball2, ANIMATION_DURATION - 400);
-
-          // Hearts floating
-          for (let i = 0; i < 5; i++) {
-            const h = document.createElement('div');
-            h.className = 'heart-play';
-            h.textContent = ['💖','✨','💫','⭐','🌟'][i];
-            h.style.left = (25 + Math.random() * 50) + '%';
-            h.style.top = '50%';
-            h.style.animationDelay = (i * 0.4) + 's';
-            addTemp(h, ANIMATION_DURATION - i * 300);
-          }
-          break;
-        }
-        case 'sleep': {
-          petCard.classList.add('sleep-mode');
-          pet.className = 'pet-stage sleeping';
-          // Bed appears
-          const bed = document.createElement('div');
-          bed.className = 'bed-item';
-          bed.textContent = '🛏️';
-          bed.style.left = 'calc(50% - 35px)';
-          addTemp(bed, ANIMATION_DURATION);
-          // Zzz floating
-          for (let i = 0; i < 4; i++) {
-            const z = document.createElement('div');
-            z.className = 'zzz';
-            z.textContent = 'Z';
-            z.style.left = '60%';
-            z.style.top = '30%';
-            z.style.animationDelay = (i * 0.6) + 's';
-            z.style.fontSize = (1 + i * 0.15) + 'rem';
-            addTemp(z, ANIMATION_DURATION - i * 400);
-          }
-          setTimeout(() => petCard.classList.remove('sleep-mode'), ANIMATION_DURATION - 200);
-          break;
-        }
-        case 'bath': {
-          petCard.classList.add('bath-mode');
-          pet.className = 'pet-stage bathing';
-          // Bubbles rising
-          for (let i = 0; i < 12; i++) {
-            const b = document.createElement('div');
-            b.className = 'bubble';
-            const size = 10 + Math.random() * 20;
-            b.style.width = size + 'px';
-            b.style.height = size + 'px';
-            b.style.left = (20 + Math.random() * 60) + '%';
-            b.style.bottom = '20%';
-            b.style.animationDelay = (i * 0.15) + 's';
-            addTemp(b, ANIMATION_DURATION);
-          }
-          setTimeout(() => petCard.classList.remove('bath-mode'), ANIMATION_DURATION - 200);
-          break;
-        }
-        case 'pet': {
-          pet.className = 'pet-stage petting';
-          // Hand above
-          const hand = document.createElement('div');
-          hand.className = 'hand-item';
-          hand.textContent = '🤲';
-          hand.style.left = 'calc(50% - 20px)';
-          addTemp(hand, ANIMATION_DURATION);
-
-          // Hearts floating up
-          for (let i = 0; i < 6; i++) {
-            const h = document.createElement('div');
-            h.className = 'pet-heart';
-            h.textContent = ['💗','💕','💖','💞','🌸','✨'][i];
-            h.style.left = (30 + Math.random() * 40) + '%';
-            h.style.top = '55%';
-            h.style.animationDelay = (i * 0.3) + 's';
-            addTemp(h, ANIMATION_DURATION - i * 250);
-          }
-          break;
-        }
-        case 'treat': {
-          pet.className = 'pet-stage treating';
-          // Cookie
-          const cookie = document.createElement('div');
-          cookie.className = 'food-item';
-          cookie.textContent = '🍪';
-          cookie.style.bottom = '20px';
-          cookie.style.left = 'calc(50% - 20px)';
-          addTemp(cookie, ANIMATION_DURATION);
-
-          // Sparkles
-          for (let i = 0; i < 4; i++) {
-            const s = document.createElement('div');
-            s.className = 'nom-text';
-            s.textContent = '✨';
-            s.style.fontSize = '1.3rem';
-            s.style.bottom = '80px';
-            s.style.left = (30 + i * 15) + '%';
-            s.style.animationDelay = (i * 0.4) + 's';
-            addTemp(s, ANIMATION_DURATION - i * 400);
-          }
-          break;
-        }
-      }
-
-      // After animation, restore to mood state
-      setTimeout(() => {
-        renderPet();
-      }, ANIMATION_DURATION + 100);
-    }
-
-    function applyActionEffects(name) {
+    function applyActionEffects(name, addPoop) {
       const action = ACTIONS[name];
-      if (!action) return;
-
       const updates = {};
       updates[action.stat] = Math.min(100, gameData[action.stat] + action.amount);
       if (action.cost) {
@@ -1372,6 +1316,15 @@
       }
       updates.xp = (gameData.xp || 0) + action.xp;
       updates.lastUpdate = Date.now();
+
+      if (addPoop) {
+        updates.poops = Math.min(3, (gameData.poops || 0) + 1);
+      }
+
+      if (name === 'clean') {
+        updates.poops = 0;
+        updates[action.stat] = Math.min(100, gameData[action.stat] + action.amount);
+      }
 
       const today = new Date().toISOString().slice(0, 10);
       const todayActions = { ...(gameData.todayActions || { koy: 0, metz: 0 }) };
@@ -1400,43 +1353,28 @@
       db.ref('tamagotchi').update(updates);
     }
 
-    function spawnActionFloat(btn, emoji) {
-      const rect = btn.getBoundingClientRect();
-      const el = document.createElement('div');
-      el.className = 'action-float';
-      el.textContent = emoji;
-      el.style.left = (rect.left + rect.width / 2 - 15) + 'px';
-      el.style.top = (rect.top + rect.height / 2 - 15) + 'px';
-      el.style.setProperty('--tx1', (Math.random() - 0.5) * 60 + 'px');
-      el.style.setProperty('--ty1', '-60px');
-      el.style.setProperty('--tx2', (Math.random() - 0.5) * 140 + 'px');
-      el.style.setProperty('--ty2', '-140px');
-      document.body.appendChild(el);
-      setTimeout(() => el.remove(), 1700);
-    }
-
     function showLevelUp(newLevel) {
       const stage = STAGES.reduce((acc, s) => (newLevel >= s.level ? s : acc), STAGES[0]);
       const overlay = document.createElement('div');
       overlay.className = 'levelup-overlay';
       overlay.innerHTML = `
         <div class="levelup-badge">
-          <span class="big">✨ ${stage.emoji} ✨</span>
-          Level ${newLevel}!
-          <div style="font-size: 0.85rem; margin-top: 6px; opacity: 0.9;">${stage.name}</div>
+          ${stage.emoji}<br>
+          LV ${newLevel}<br>
+          ${stage.name}
         </div>
       `;
       document.body.appendChild(overlay);
       setTimeout(() => overlay.remove(), 2200);
-      $('petLevel').classList.add('level-up');
-      setTimeout(() => $('petLevel').classList.remove('level-up'), 1500);
+      $('petStageBadge').classList.add('level-up');
+      setTimeout(() => $('petStageBadge').classList.remove('level-up'), 1500);
     }
 
     function showWelcomeBack(prev, curr, lastSeenTime) {
       const hoursAway = (Date.now() - lastSeenTime) / 3600000;
       let msg = '';
-      if (hoursAway > 24) msg = `You were away for ${Math.floor(hoursAway / 24)} day(s). `;
-      else if (hoursAway > 1) msg = `You were away for ${Math.floor(hoursAway)} hour(s). `;
+      if (hoursAway > 24) msg = `Away for ${Math.floor(hoursAway / 24)}d. `;
+      else if (hoursAway > 1) msg = `Away for ${Math.floor(hoursAway)}h. `;
       else msg = `Welcome back! `;
 
       const other = me === 'koy' ? 'metz' : 'koy';
@@ -1447,20 +1385,17 @@
         .sort((a, b) => a.time - b.time);
 
       if (otherActs.length > 0) {
-        msg += `<strong>${otherName}</strong> cared for Mochi ${otherActs.length} time${otherActs.length > 1 ? 's' : ''} while you were away.`;
+        msg += `${otherName} cared for Mochi ${otherActs.length} time${otherActs.length > 1 ? 's' : ''}.`;
       } else {
         msg += `Mochi was waiting for you 🌿`;
       }
 
-      $('welcomeTitle').textContent = `Hi ${me === 'koy' ? 'Koy' : 'Metz'} 🌿`;
-      $('welcomeBody').innerHTML = `<p>${msg}</p>`;
-      $('welcomeBack').style.display = 'block';
+      showToast(`Hi ${me === 'koy' ? 'Koy' : 'Metz'}! ${msg}`);
     }
 
-    $('dismissWelcome').addEventListener('click', () => {
-      $('welcomeBack').style.display = 'none';
-    });
-
+    // ============================================================
+    // LOGOUT
+    // ============================================================
     $('logoutBtn').addEventListener('click', () => {
       localStorage.removeItem('mochi_role');
       localStorage.removeItem('mochi_pin');
