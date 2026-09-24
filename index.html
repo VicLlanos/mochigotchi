@@ -13,8 +13,7 @@
       font-family: 'Fredoka', sans-serif;
       background: linear-gradient(180deg, #F4D9C8 0%, #E8C9B8 50%, #D9B8A8 100%);
       min-height: 100vh; min-height: 100dvh;
-      color: #4A3F3A;
-      padding: 10px;
+      color: #4A3F3A; padding: 10px;
       display: flex; justify-content: center; align-items: flex-start;
       overflow-y: auto; -webkit-overflow-scrolling: touch;
     }
@@ -70,7 +69,6 @@
     .btn:active { transform: translateY(3px); box-shadow: 0 1px 0 #6B4F3E; }
     .btn.small { padding: 10px 16px; font-size: 0.8rem; min-height: 40px; }
 
-    /* GAME */
     #gameScreen { display: none; }
 
     .top-bar {
@@ -84,19 +82,14 @@
       color: #8B6F5E; padding: 4px 8px;
       background: #F4E9DE; border-radius: 4px;
     }
-    .streak-display.hot {
-      background: #F4D9C8; animation: streakPulse 1.5s infinite;
-    }
+    .streak-display.hot { background: #F4D9C8; animation: streakPulse 1.5s infinite; }
     @keyframes streakPulse {
       0%, 100% { box-shadow: 0 0 0 0 rgba(244, 217, 200, 0.8); }
       50% { box-shadow: 0 0 0 6px rgba(244, 217, 200, 0); }
     }
     .who-am-i { font-family: 'Press Start 2P', monospace; font-size: 0.6rem; color: #4A3F3A; }
 
-    /* NAV TABS */
-    .nav-tabs {
-      display: flex; gap: 4px; margin-bottom: 8px;
-    }
+    .nav-tabs { display: flex; gap: 4px; margin-bottom: 8px; }
     .nav-tab {
       flex: 1; padding: 8px 4px; text-align: center;
       background: #FDF6EE; border: 3px solid #C9B0A0; border-radius: 6px;
@@ -104,9 +97,7 @@
       color: #8B6F5E; cursor: pointer;
       transition: all 0.15s; position: relative;
     }
-    .nav-tab.active {
-      background: #F4D9C8; border-color: #8B6F5E; color: #4A3F3A;
-    }
+    .nav-tab.active { background: #F4D9C8; border-color: #8B6F5E; color: #4A3F3A; }
     .nav-tab .badge {
       position: absolute; top: -6px; right: -4px;
       background: #C9302C; color: white;
@@ -119,149 +110,44 @@
       50% { transform: scale(1.15); }
     }
 
-    /* VIEW CONTAINERS */
     .view { display: none; }
     .view.active { display: block; }
 
-    /* ROOM SCENE */
+    /* ============================================================ */
+    /* ROOM - detailed CSS environment                              */
+    /* ============================================================ */
     .room {
       background: #FDF6EE; border: 4px solid #8B6F5E; border-radius: 8px;
       margin-bottom: 8px; position: relative; overflow: hidden;
       box-shadow: 0 6px 0 #8B6F5E;
+      height: 260px;
     }
+
+    /* Wall & floor are absolute-positioned layers */
     .room-wall {
-      height: 180px;
-      background: linear-gradient(180deg, #F4D9C8 0%, #F4D9C8 60%, #E8C9B8 60%, #E8C9B8 100%);
-      position: relative; overflow: hidden;
+      position: absolute; top: 0; left: 0; right: 0;
+      height: 62%; overflow: hidden;
+      transition: background 0.5s ease;
     }
-    .room-wall::before {
-      content: ''; position: absolute; inset: 0;
-      background-image:
-        radial-gradient(circle at 20px 20px, #E8BBA8 2px, transparent 2px),
-        radial-gradient(circle at 60px 60px, #E8BBA8 2px, transparent 2px);
-      background-size: 40px 40px; opacity: 0.4;
-    }
-    /* Room variants */
-    .room.kitchen .room-wall {
-      background: linear-gradient(180deg, #F4E4C8 0%, #F4E4C8 60%, #E8D4B8 60%, #E8D4B8 100%);
-    }
-    .room.kitchen .room-wall::before {
-      background-image:
-        radial-gradient(circle at 20px 20px, #D4B484 3px, transparent 3px),
-        radial-gradient(circle at 60px 60px, #D4B484 3px, transparent 3px);
-    }
-    .room.garden .room-wall {
-      background: linear-gradient(180deg, #C8E4C8 0%, #C8E4C8 40%, #A8D4A8 40%, #A8D4A8 100%);
-    }
-    .room.garden .room-wall::before {
-      background-image:
-        radial-gradient(circle at 20px 20px, #7DAF6B 3px, transparent 3px),
-        radial-gradient(circle at 60px 60px, #7DAF6B 3px, transparent 3px);
-    }
-    .room.playroom .room-wall {
-      background: linear-gradient(180deg, #E8D4E8 0%, #E8D4E8 60%, #D8C4D8 60%, #D8C4D8 100%);
-    }
-    .room.playroom .room-wall::before {
-      background-image:
-        radial-gradient(circle at 20px 20px, #C9A0C9 3px, transparent 3px),
-        radial-gradient(circle at 60px 60px, #C9A0C9 3px, transparent 3px);
-    }
-    .room.observatory .room-wall {
-      background: linear-gradient(180deg, #3A3458 0%, #3A3458 60%, #2A2438 60%, #2A2438 100%);
-    }
-    .room.observatory .room-wall::before {
-      background-image:
-        radial-gradient(circle at 20px 20px, #FFF9EE 1px, transparent 1px),
-        radial-gradient(circle at 60px 60px, #FFF9EE 1px, transparent 1px),
-        radial-gradient(circle at 100px 80px, #FFF9EE 1px, transparent 1px);
-      background-size: 80px 80px, 80px 80px, 80px 80px;
-      opacity: 0.8;
-    }
-    .room.observatory .room-window { background: #1A1428; }
-    .room.night .room-wall {
-      background: linear-gradient(180deg, #2A2438 0%, #2A2438 60%, #3A3448 60%, #3A3448 100%);
-    }
-    .room.night .room-wall::before {
-      background-image:
-        radial-gradient(circle at 20px 20px, #4A4458 2px, transparent 2px),
-        radial-gradient(circle at 60px 60px, #4A4458 2px, transparent 2px);
-    }
-    .room.night .room-window { background: #1A1428; }
-
-    .room-window {
-      position: absolute; top: 20px; right: 20px;
-      width: 50px; height: 50px; background: #B8D8E8;
-      border: 4px solid #8B6F5E; border-radius: 4px;
-      box-shadow: 0 3px 0 #6B4F3E; z-index: 5;
-    }
-    .room-window::before {
-      content: ''; position: absolute; top: 50%; left: 0; right: 0;
-      height: 3px; background: #8B6F5E; transform: translateY(-50%);
-    }
-    .room-window::after {
-      content: ''; position: absolute; left: 50%; top: 0; bottom: 0;
-      width: 3px; background: #8B6F5E; transform: translateX(-50%);
-    }
-
-    /* Room name badge */
-    .room-badge {
-      position: absolute; top: 12px; left: 12px;
-      background: #FDF6EE; border: 3px solid #8B6F5E;
-      padding: 4px 10px;
-      font-family: 'Press Start 2P', monospace; font-size: 0.5rem;
-      color: #8B6F5E; border-radius: 4px;
-      z-index: 6;
-    }
-
     .room-floor {
-      height: 60px;
-      background: repeating-linear-gradient(90deg, #D9B8A8 0px, #D9B8A8 20px, #C9A898 20px, #C9A898 40px);
-      border-top: 3px solid #8B6F5E; position: relative;
-    }
-    .room.night .room-floor {
-      background: repeating-linear-gradient(90deg, #3A3448 0px, #3A3448 20px, #2A2438 20px, #2A2438 40px);
-    }
-    .room.garden .room-floor {
-      background: repeating-linear-gradient(90deg, #A8C898 0px, #A8C898 20px, #98B888 20px, #98B888 40px);
-    }
-    .room.observatory .room-floor {
-      background: repeating-linear-gradient(90deg, #2A2438 0px, #2A2438 20px, #3A3448 20px, #3A3448 40px);
+      position: absolute; bottom: 0; left: 0; right: 0;
+      height: 38%; overflow: hidden;
+      transition: background 0.5s ease;
+      border-top: 3px solid #8B6F5E;
     }
 
-    /* WANTS BUBBLE */
-    .want-bubble {
-      position: absolute; top: 75px; left: 50%;
-      transform: translateX(-50%);
-      background: #FFF9C8; border: 3px solid #C9A044;
-      padding: 6px 12px;
-      font-family: 'Press Start 2P', monospace; font-size: 0.5rem;
-      color: #6B4F0E; border-radius: 6px;
-      z-index: 8; white-space: nowrap;
-      animation: wantPulse 2s ease-in-out infinite;
-      cursor: pointer;
-    }
-    @keyframes wantPulse {
-      0%, 100% { transform: translateX(-50%) scale(1); }
-      50% { transform: translateX(-50%) scale(1.05); }
-    }
-    .want-bubble::after {
-      content: ''; position: absolute; bottom: -8px; left: 50%;
-      transform: translateX(-50%); width: 0; height: 0;
-      border-left: 6px solid transparent;
-      border-right: 6px solid transparent;
-      border-top: 8px solid #C9A044;
-    }
-
-    /* PET */
+    /* ==== PET AREA (absolute over the room) ==== */
     .pet-area {
-      position: absolute; left: 0; right: 0; bottom: 10px;
-      height: 140px; z-index: 10;
+      position: absolute; left: 0; right: 0; bottom: 0;
+      height: 100%; z-index: 10; pointer-events: none;
     }
+    .pet-area > * { pointer-events: auto; }
+
     .pet {
-      position: absolute; font-size: 3.5rem; line-height: 1;
+      position: absolute; font-size: 3rem; line-height: 1;
       transition: left 1.5s cubic-bezier(0.4, 0, 0.2, 1);
       filter: drop-shadow(0 4px 0 rgba(139, 111, 94, 0.4));
-      z-index: 20; left: 50%;
+      z-index: 20; left: 50%; bottom: 12%;
       transform: translateX(-50%);
     }
     .pet.walking { animation: walk 0.6s steps(2) infinite; }
@@ -289,19 +175,570 @@
       filter: drop-shadow(0 4px 0 rgba(139, 111, 94, 0.4)) grayscale(0.4);
     }
     @keyframes sadShake {
-      0%, 100% { transform: translateX(-50%) rotate(0deg); }
-      25% { transform: translateX(-50%) rotate(-3deg); }
-      75% { transform: translateX(-50%) rotate(3deg); }
+      0%, 25%, 75%, 100% { transform: translateX(-50%) rotate(0deg); }
+      50% { transform: translateX(-50%) rotate(-3deg); }
     }
 
-    .scene-prop {
-      position: absolute; font-size: 1.8rem; z-index: 15;
+    /* ============================================ */
+    /* BEDROOM ENVIRONMENT                          */
+    /* ============================================ */
+    .room.bedroom .room-wall {
+      background:
+        linear-gradient(180deg, #F4D9C8 0%, #F4D9C8 100%);
+    }
+    .room.bedroom .room-wall::before {
+      content: '';
+      position: absolute; inset: 0;
+      background-image:
+        radial-gradient(circle at 15px 15px, rgba(232, 187, 168, 0.6) 1.5px, transparent 2px),
+        radial-gradient(circle at 45px 45px, rgba(232, 187, 168, 0.6) 1.5px, transparent 2px);
+      background-size: 30px 30px;
+    }
+    /* Wallpaper stripe */
+    .room.bedroom .room-wall::after {
+      content: '';
+      position: absolute; top: 0; bottom: 0; left: 12%;
+      width: 6px; background: rgba(232, 187, 168, 0.7);
+      box-shadow: 20px 0 0 rgba(232, 187, 168, 0.7),
+                  40px 0 0 rgba(232, 187, 168, 0.7);
+    }
+
+    .room.bedroom .room-floor {
+      background: repeating-linear-gradient(90deg,
+        #C9A898 0px, #C9A898 22px,
+        #B89888 22px, #B89888 24px);
+    }
+
+    /* Window with curtains */
+    .bd-window {
+      position: absolute; top: 18px; right: 22px;
+      width: 52px; height: 52px;
+      background: linear-gradient(180deg, #B8D8E8 0%, #D8E8F0 100%);
+      border: 4px solid #8B6F5E; border-radius: 3px;
+      box-shadow: 0 3px 0 #6B4F3E;
+      z-index: 5;
+    }
+    .bd-window::before {
+      content: ''; position: absolute;
+      top: 50%; left: 0; right: 0; height: 3px;
+      background: #8B6F5E; transform: translateY(-50%);
+    }
+    .bd-window::after {
+      content: ''; position: absolute;
+      left: 50%; top: 0; bottom: 0; width: 3px;
+      background: #8B6F5E; transform: translateX(-50%);
+    }
+    .bd-curtain-l, .bd-curtain-r {
+      position: absolute; top: 12px; width: 14px; height: 58px;
+      background: linear-gradient(180deg, #C97C8C 0%, #B86A7C 100%);
+      border: 2px solid #8B6F5E; border-radius: 2px;
+      z-index: 6;
+    }
+    .bd-curtain-l { right: 68px; }
+    .bd-curtain-r { right: 10px; }
+
+    /* Picture frame */
+    .bd-frame {
+      position: absolute; top: 22px; left: 18px;
+      width: 38px; height: 42px;
+      background: linear-gradient(135deg, #E8D9C8, #FDF6EE);
+      border: 3px solid #8B6F5E; border-radius: 2px;
+      z-index: 4;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.2rem;
+      box-shadow: 0 3px 0 #6B4F3E;
+    }
+
+    /* Wall shelf */
+    .bd-shelf {
+      position: absolute; top: 90px; left: 20px;
+      width: 60px; height: 4px; background: #8B6F5E;
+      border-radius: 2px; z-index: 5;
+      box-shadow: 0 2px 0 #6B4F3E;
+    }
+    .bd-shelf::before {
+      content: '📚'; position: absolute;
+      font-size: 0.9rem; top: -14px; left: 4px;
+      filter: drop-shadow(0 2px 0 rgba(0,0,0,0.15));
+    }
+    .bd-shelf::after {
+      content: '🕯️'; position: absolute;
+      font-size: 0.9rem; top: -14px; right: 4px;
+      filter: drop-shadow(0 2px 0 rgba(0,0,0,0.15));
+    }
+
+    /* Bed */
+    .bd-bed {
+      position: absolute; bottom: 8px; left: 10%;
+      width: 90px; height: 46px;
+      background: linear-gradient(180deg, #C97C8C 0%, #B86A7C 100%);
+      border: 3px solid #8B6F5E; border-radius: 6px 6px 3px 3px;
+      z-index: 3;
+      box-shadow: 0 4px 0 #6B4F3E;
+    }
+    .bd-bed::before {
+      content: ''; position: absolute;
+      top: -10px; left: 6px; width: 30px; height: 16px;
+      background: #FDF6EE; border: 3px solid #8B6F5E;
+      border-radius: 6px 6px 0 0;
+    }
+    .bd-bed::after {
+      content: ''; position: absolute;
+      top: 6px; right: 4px; width: 40px; height: 24px;
+      background: #FDF6EE; border-radius: 4px;
+      border: 2px solid #8B6F5E;
+    }
+
+    /* Nightstand with lamp */
+    .bd-nightstand {
+      position: absolute; bottom: 8px; left: calc(10% + 100px);
+      width: 34px; height: 30px;
+      background: #A89080; border: 3px solid #8B6F5E;
+      border-radius: 3px; z-index: 3;
+      box-shadow: 0 3px 0 #6B4F3E;
+    }
+    .bd-nightstand::after {
+      content: '💡'; position: absolute;
+      font-size: 1rem; top: -18px; left: 50%;
+      transform: translateX(-50%);
+      filter: drop-shadow(0 0 4px rgba(255, 230, 150, 0.8));
+    }
+
+    /* Rug */
+    .bd-rug {
+      position: absolute; bottom: 12px; left: 50%;
+      transform: translateX(-50%);
+      width: 120px; height: 18px;
+      background: radial-gradient(ellipse at center, #E8C9B8 0%, #D9B8A8 70%, transparent 100%);
+      border-radius: 50%;
+      opacity: 0.7;
+      z-index: 2;
+    }
+
+    /* ============================================ */
+    /* KITCHEN ENVIRONMENT                          */
+    /* ============================================ */
+    .room.kitchen .room-wall {
+      background: linear-gradient(180deg,
+        #F4E4C8 0%, #F4E4C8 55%,
+        #E8D4B8 55%, #E8D4B8 62%,
+        #D4B898 62%, #D4B898 100%);
+    }
+    /* Wall tile pattern */
+    .room.kitchen .room-wall::before {
+      content: ''; position: absolute; inset: 0;
+      background-image:
+        linear-gradient(90deg, rgba(139, 111, 94, 0.2) 1px, transparent 1px),
+        linear-gradient(0deg, rgba(139, 111, 94, 0.2) 1px, transparent 1px);
+      background-size: 24px 24px;
+      background-position: 0 0;
+    }
+    /* Upper cabinets */
+    .room.kitchen .room-wall::after {
+      content: '';
+      position: absolute; top: 15px; left: 15px; right: 15px;
+      height: 35px;
+      background: linear-gradient(180deg, #B89060 0%, #A8804A 100%);
+      border: 3px solid #6B4F3E;
+      border-radius: 4px;
+      box-shadow: inset 0 -6px 0 rgba(0,0,0,0.1);
+    }
+
+    .room.kitchen .room-floor {
+      background: repeating-conic-gradient(#C9B0A0 0% 25%, #F4E4C8 0% 50%) 50% / 20px 20px;
+    }
+
+    /* Counter (mid wall) */
+    .kt-counter {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 22px;
+      background: linear-gradient(180deg, #E8D4B8 0%, #D4B898 100%);
+      border-top: 3px solid #6B4F3E;
+      z-index: 3;
+    }
+    /* Sink */
+    .kt-sink {
+      position: absolute; bottom: 4px; left: 8%;
+      width: 40px; height: 14px;
+      background: #A8B8C0; border: 3px solid #6B4F3E;
+      border-radius: 3px; z-index: 4;
+    }
+    .kt-sink::after {
+      content: '';
+      position: absolute; top: -14px; left: 50%;
+      transform: translateX(-50%);
+      width: 3px; height: 14px; background: #6B4F3E;
+    }
+
+    /* Stove */
+    .kt-stove {
+      position: absolute; bottom: 4px; left: 45%;
+      width: 44px; height: 14px;
+      background: #4A3F3A; border: 3px solid #6B4F3E;
+      border-radius: 3px; z-index: 4;
+    }
+    .kt-stove::before, .kt-stove::after {
+      content: '';
+      position: absolute; top: -5px;
+      width: 10px; height: 10px;
+      background: radial-gradient(circle, #C9302C 0%, #6B2F2A 80%);
+      border-radius: 50%;
+    }
+    .kt-stove::before { left: 3px; }
+    .kt-stove::after { right: 3px; }
+
+    /* Fridge */
+    .kt-fridge {
+      position: absolute; bottom: 4px; right: 8%;
+      width: 32px; height: 60px;
+      background: linear-gradient(180deg, #F0F0F0 0%, #D8D8D8 100%);
+      border: 3px solid #6B4F3E; border-radius: 3px;
+      z-index: 4;
+    }
+    .kt-fridge::before {
+      content: '';
+      position: absolute; top: 22px; left: 0; right: 0;
+      height: 2px; background: #6B4F3E;
+    }
+    .kt-fridge::after {
+      content: '';
+      position: absolute; top: 8px; right: 3px;
+      width: 3px; height: 10px;
+      background: #6B4F3E; border-radius: 2px;
+      box-shadow: 0 22px 0 #6B4F3E;
+    }
+
+    /* Hanging pots */
+    .kt-pots {
+      position: absolute; top: 55px; right: 30px;
+      display: flex; gap: 6px; z-index: 5;
+    }
+    .kt-pots span { font-size: 1rem; }
+
+    /* ============================================ */
+    /* GARDEN ENVIRONMENT                           */
+    /* ============================================ */
+    .room.garden .room-wall {
+      background: linear-gradient(180deg,
+        #A8D4E8 0%, #C8E4F0 45%,
+        #C8E4C8 45%, #A8D4A8 100%);
+    }
+    /* Sun */
+    .room.garden .room-wall::before {
+      content: ''; position: absolute;
+      top: 12px; right: 25px;
+      width: 34px; height: 34px;
+      background: radial-gradient(circle, #FFF9C8 30%, #FFE88C 100%);
+      border-radius: 50%;
+      box-shadow: 0 0 20px rgba(255, 232, 140, 0.7);
+    }
+    /* Cloud */
+    .room.garden .room-wall::after {
+      content: ''; position: absolute;
+      top: 20px; left: 20px;
+      width: 32px; height: 12px;
+      background: white; border-radius: 12px;
+      box-shadow: 0 0 0 3px rgba(255,255,255,0.5);
+    }
+
+    .room.garden .room-floor {
+      background: linear-gradient(180deg, #A8C898 0%, #8FB87D 50%, #6FA05D 100%);
+      position: relative;
+    }
+    /* Grass blades */
+    .room.garden .room-floor::before {
+      content: '';
+      position: absolute; inset: 0;
+      background-image:
+        repeating-linear-gradient(80deg, transparent 0, transparent 6px, rgba(60,120,50,0.35) 6px, rgba(60,120,50,0.35) 8px),
+        repeating-linear-gradient(100deg, transparent 0, transparent 10px, rgba(60,120,50,0.25) 10px, rgba(60,120,50,0.25) 12px);
+    }
+    /* Flowers */
+    .gd-flower {
+      position: absolute; bottom: 15px;
+      font-size: 1rem; z-index: 3;
+      animation: flowerSway 3s ease-in-out infinite;
+    }
+    @keyframes flowerSway {
+      0%, 100% { transform: rotate(-3deg); }
+      50% { transform: rotate(3deg); }
+    }
+
+    /* Tree */
+    .gd-tree {
+      position: absolute; bottom: 0; right: 8%;
+      width: 12px; height: 50px;
+      background: #8B6F5E;
+      z-index: 3;
+      border-radius: 3px;
+    }
+    .gd-tree::before {
+      content: '';
+      position: absolute; top: -40px; left: 50%;
+      transform: translateX(-50%);
+      width: 60px; height: 60px;
+      background: radial-gradient(circle, #8FB87D 0%, #6FA05D 100%);
+      border-radius: 50%;
+      box-shadow: inset -5px -5px 0 rgba(0,0,0,0.1);
+    }
+    .gd-tree::after {
+      content: '';
+      position: absolute; top: -50px; left: 50%;
+      transform: translateX(-60%);
+      width: 40px; height: 40px;
+      background: radial-gradient(circle, #A8C898 0%, #8FB87D 100%);
+      border-radius: 50%;
+    }
+
+    /* Fence */
+    .gd-fence {
+      position: absolute; bottom: 20px; left: 0; right: 0;
+      height: 24px;
+      display: flex; justify-content: space-around;
+      z-index: 4;
       pointer-events: none;
     }
-    .prop-bed { right: 15%; bottom: 10px; font-size: 2.4rem; }
+    .gd-fence::before, .gd-fence::after {
+      content: '';
+      position: absolute; top: 10px; left: 0; right: 0;
+      height: 3px; background: #FDF6EE;
+      border-top: 2px solid #8B6F5E;
+      border-bottom: 2px solid #8B6F5E;
+    }
+    .gd-fence::before { top: 3px; }
+    .gd-fence::after { top: 15px; }
+    .gd-picket {
+      width: 6px; height: 24px;
+      background: #FDF6EE; border: 2px solid #8B6F5E;
+      border-radius: 2px 2px 0 0;
+      position: relative;
+      margin-top: 0;
+      align-self: flex-end;
+    }
+    .gd-picket::after {
+      content: '';
+      position: absolute; top: -3px; left: 50%;
+      transform: translateX(-50%) rotate(45deg);
+      width: 6px; height: 6px;
+      background: #FDF6EE; border-top: 2px solid #8B6F5E;
+      border-left: 2px solid #8B6F5E;
+    }
+
+    /* Butterfly */
+    .gd-butterfly {
+      position: absolute;
+      font-size: 0.9rem;
+      animation: butterfly 8s linear infinite;
+      z-index: 5;
+    }
+    @keyframes butterfly {
+      0% { left: 10%; top: 40%; }
+      25% { left: 40%; top: 20%; }
+      50% { left: 70%; top: 35%; }
+      75% { left: 50%; top: 15%; }
+      100% { left: 10%; top: 40%; }
+    }
+
+    /* ============================================ */
+    /* PLAYROOM ENVIRONMENT                         */
+    /* ============================================ */
+    .room.playroom .room-wall {
+      background: linear-gradient(180deg, #E8D4E8 0%, #D8C4D8 100%);
+    }
+    /* Playful dot pattern */
+    .room.playroom .room-wall::before {
+      content: ''; position: absolute; inset: 0;
+      background-image:
+        radial-gradient(circle at 20px 20px, rgba(201, 160, 201, 0.6) 4px, transparent 5px),
+        radial-gradient(circle at 60px 60px, rgba(244, 217, 200, 0.7) 4px, transparent 5px),
+        radial-gradient(circle at 100px 20px, rgba(160, 200, 200, 0.6) 4px, transparent 5px);
+      background-size: 80px 80px, 80px 80px, 120px 120px;
+    }
+    /* Shelf with toys */
+    .room.playroom .room-wall::after {
+      content: '';
+      position: absolute; top: 30px; left: 15px; right: 15px;
+      height: 4px;
+      background: #8B6F5E;
+      border-radius: 2px;
+      box-shadow: 0 2px 0 #6B4F3E;
+    }
+
+    .room.playroom .room-floor {
+      background: repeating-linear-gradient(45deg,
+        #F4D9C8 0px, #F4D9C8 12px,
+        #E8C9B8 12px, #E8C9B8 24px);
+    }
+
+    /* Toy blocks on floor */
+    .pr-block {
+      position: absolute;
+      width: 16px; height: 16px;
+      border: 2px solid #6B4F3E;
+      border-radius: 2px;
+      z-index: 3;
+    }
+    .pr-block.blue { background: #A8C8E8; }
+    .pr-block.pink { background: #E8B8D0; }
+    .pr-block.yellow { background: #F0D888; }
+
+    /* Ball pit corner */
+    .pr-pit {
+      position: absolute; bottom: 4px; left: 4%;
+      width: 70px; height: 24px;
+      background: rgba(200, 220, 240, 0.5);
+      border: 3px solid #6B4F3E;
+      border-radius: 6px;
+      z-index: 3;
+    }
+    .pr-pit::before {
+      content: '⚽🏀🎈';
+      position: absolute;
+      top: -12px; left: 50%; transform: translateX(-50%);
+      font-size: 0.8rem;
+      white-space: nowrap;
+    }
+
+    /* Toys on shelf */
+    .pr-shelf-toys {
+      position: absolute; top: 18px; left: 20px; right: 20px;
+      display: flex; justify-content: space-around;
+      font-size: 1.1rem;
+      z-index: 5;
+    }
+
+    /* ============================================ */
+    /* OBSERVATORY ENVIRONMENT                      */
+    /* ============================================ */
+    .room.observatory .room-wall {
+      background: linear-gradient(180deg,
+        #1A1428 0%, #2A2438 60%, #3A3458 100%);
+    }
+    /* Stars */
+    .room.observatory .room-wall::before {
+      content: ''; position: absolute; inset: 0;
+      background-image:
+        radial-gradient(circle at 20px 25px, white 1px, transparent 2px),
+        radial-gradient(circle at 80px 15px, white 1.5px, transparent 2px),
+        radial-gradient(circle at 50px 60px, #FFF9C8 1px, transparent 2px),
+        radial-gradient(circle at 120px 40px, white 1px, transparent 2px),
+        radial-gradient(circle at 150px 80px, white 1px, transparent 2px),
+        radial-gradient(circle at 30px 90px, #B8D8E8 1px, transparent 2px);
+      background-size: 200px 120px;
+      animation: twinkle 4s ease-in-out infinite alternate;
+    }
+    @keyframes twinkle {
+      0% { opacity: 0.7; }
+      100% { opacity: 1; }
+    }
+    /* Moon */
+    .room.observatory .room-wall::after {
+      content: ''; position: absolute;
+      top: 20px; right: 30px;
+      width: 30px; height: 30px;
+      background: radial-gradient(circle at 30% 30%, #FFF9E8 0%, #E8E0C0 100%);
+      border-radius: 50%;
+      box-shadow: inset -5px -3px 0 rgba(0,0,0,0.15),
+                  0 0 20px rgba(255, 249, 232, 0.6);
+    }
+
+    .room.observatory .room-floor {
+      background: radial-gradient(ellipse at top, #3A3458 0%, #1A1428 70%);
+    }
+
+    /* Telescope */
+    .ob-telescope {
+      position: absolute;
+      bottom: 8px; right: 15%;
+      width: 60px; height: 50px;
+      z-index: 5;
+    }
+    .ob-telescope::before {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 50%;
+      transform: translateX(-50%);
+      width: 4px; height: 30px;
+      background: #6B4F3E;
+      border-radius: 2px;
+    }
+    .ob-telescope::after {
+      content: '';
+      position: absolute;
+      bottom: 25px; left: 50%;
+      transform: translateX(-60%) rotate(-25deg);
+      width: 40px; height: 12px;
+      background: linear-gradient(180deg, #8B6F5E 0%, #6B4F3E 100%);
+      border-radius: 6px;
+      border: 2px solid #4A3F3A;
+    }
+
+    /* Constellation chart */
+    .ob-chart {
+      position: absolute;
+      top: 15px; left: 15px;
+      width: 40px; height: 50px;
+      background: rgba(255, 249, 200, 0.1);
+      border: 2px solid #6B4F3E;
+      border-radius: 2px;
+      z-index: 5;
+    }
+    .ob-chart::before {
+      content: '✦ ✧\n  ✦\n✧ ✦';
+      position: absolute; inset: 0;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.6rem; color: #FFF9C8;
+      text-align: center;
+      line-height: 1.4;
+      white-space: pre;
+    }
+
+    /* ============================================ */
+    /* PET AREA OVERLAY                             */
+    /* ============================================ */
+
+    /* Want bubble */
+    .want-bubble {
+      position: absolute; top: 12px; left: 50%;
+      transform: translateX(-50%);
+      background: #FFF9C8; border: 3px solid #C9A044;
+      padding: 6px 12px;
+      font-family: 'Press Start 2P', monospace; font-size: 0.5rem;
+      color: #6B4F0E; border-radius: 6px;
+      z-index: 30; white-space: nowrap;
+      animation: wantPulse 2s ease-in-out infinite;
+      cursor: pointer;
+    }
+    @keyframes wantPulse {
+      0%, 100% { transform: translateX(-50%) scale(1); }
+      50% { transform: translateX(-50%) scale(1.05); }
+    }
+    .want-bubble::after {
+      content: ''; position: absolute; bottom: -8px; left: 50%;
+      transform: translateX(-50%); width: 0; height: 0;
+      border-left: 6px solid transparent;
+      border-right: 6px solid transparent;
+      border-top: 8px solid #C9A044;
+    }
+
+    /* Room badge */
+    .room-badge {
+      position: absolute; top: 8px; left: 8px;
+      background: rgba(253, 246, 238, 0.95);
+      border: 3px solid #8B6F5E;
+      padding: 3px 8px;
+      font-family: 'Press Start 2P', monospace; font-size: 0.45rem;
+      color: #8B6F5E; border-radius: 4px;
+      z-index: 30;
+    }
+
+    /* Props & animations (unchanged logic) */
+    .scene-prop { position: absolute; font-size: 1.8rem; z-index: 15; pointer-events: none; }
+    .prop-bed { right: 15%; bottom: 10px; font-size: 2rem; }
     .prop-tub {
-      left: 50%; bottom: 20px;
-      transform: translateX(-50%); font-size: 2.4rem;
+      left: 50%; bottom: 20px; transform: translateX(-50%);
+      font-size: 2rem;
     }
     .prop-ball {
       right: 25%; bottom: 30px;
@@ -312,10 +749,7 @@
       50% { transform: translateY(-20px); }
     }
 
-    .poop {
-      position: absolute; font-size: 1.4rem; bottom: 20px; z-index: 12;
-      animation: poopIn 0.3s ease-out;
-    }
+    .poop { position: absolute; font-size: 1.2rem; bottom: 20px; z-index: 12; animation: poopIn 0.3s ease-out; }
     @keyframes poopIn {
       0% { transform: scale(0); }
       100% { transform: scale(1); }
@@ -379,19 +813,12 @@
       100% { opacity: 0; transform: translateY(-70px) scale(1); }
     }
 
-    /* PET INFO */
+    /* Pet info below room */
     .pet-info { padding: 10px 12px 12px; background: #FDF6EE; }
-    .pet-name-row {
-      display: flex; justify-content: space-between; align-items: center;
-      margin-bottom: 8px;
-    }
-    .pet-name {
-      font-family: 'Press Start 2P', monospace;
-      font-size: 0.7rem; color: #4A3F3A;
-    }
+    .pet-name-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+    .pet-name { font-family: 'Press Start 2P', monospace; font-size: 0.7rem; color: #4A3F3A; }
     .pet-stage-badge {
-      font-family: 'Press Start 2P', monospace;
-      font-size: 0.5rem; color: #A89080;
+      font-family: 'Press Start 2P', monospace; font-size: 0.5rem; color: #A89080;
       padding: 3px 8px; background: #F4E9DE;
       border: 2px solid #C9B0A0; border-radius: 4px;
     }
@@ -404,35 +831,23 @@
       50% { transform: scale(1.15); }
     }
 
-    .stats {
-      display: grid; grid-template-columns: 1fr 1fr; gap: 6px;
-    }
-    .stat {
-      background: #F4E9DE; border: 2px solid #C9B0A0;
-      padding: 6px 8px; border-radius: 4px;
-    }
+    .stats { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+    .stat { background: #F4E9DE; border: 2px solid #C9B0A0; padding: 6px 8px; border-radius: 4px; }
     .stat-header {
       display: flex; justify-content: space-between; align-items: center;
       font-family: 'Press Start 2P', monospace;
       font-size: 0.5rem; color: #8B6F5E; margin-bottom: 4px;
     }
-    .stat-bar {
-      height: 6px; background: #E8D9C8;
-      border: 2px solid #8B6F5E; border-radius: 3px; overflow: hidden;
-    }
+    .stat-bar { height: 6px; background: #E8D9C8; border: 2px solid #8B6F5E; border-radius: 3px; overflow: hidden; }
     .stat-bar-fill { height: 100%; transition: width 0.5s; }
     .stat-bar-fill.good { background: #8FB87D; }
     .stat-bar-fill.medium { background: #D4B472; }
     .stat-bar-fill.low { background: #D18F73; }
 
-    /* ACTIONS */
-    .actions {
-      display: grid; grid-template-columns: repeat(3, 1fr);
-      gap: 6px; padding: 0 12px 12px;
-    }
+    .actions { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; padding: 0 12px 12px; }
     .action-btn {
-      background: #FFFDF9; border: 3px solid #C9B0A0;
-      border-radius: 4px; padding: 10px 4px; cursor: pointer;
+      background: #FFFDF9; border: 3px solid #C9B0A0; border-radius: 4px;
+      padding: 10px 4px; cursor: pointer;
       display: flex; flex-direction: column; align-items: center; gap: 3px;
       box-shadow: 0 3px 0 #C9B0A0; transition: all 0.1s;
       min-height: 70px; justify-content: center;
@@ -440,13 +855,9 @@
     .action-btn:active { transform: translateY(3px); box-shadow: none; }
     .action-btn:disabled { opacity: 0.5; cursor: not-allowed; }
     .action-btn .emoji { font-size: 1.5rem; line-height: 1; }
-    .action-btn .label {
-      font-family: 'Press Start 2P', monospace;
-      font-size: 0.45rem; color: #8B6F5E;
-    }
+    .action-btn .label { font-family: 'Press Start 2P', monospace; font-size: 0.45rem; color: #8B6F5E; }
     .action-btn.want-highlight {
-      border-color: #C9A044;
-      background: #FFF9C8;
+      border-color: #C9A044; background: #FFF9C8;
       animation: wantHighlight 1.2s infinite;
     }
     @keyframes wantHighlight {
@@ -454,28 +865,18 @@
       50% { box-shadow: 0 3px 0 #C9A044, 0 0 12px rgba(201, 160, 68, 0.6); }
     }
 
-    /* DIARY */
-    .diary {
-      background: #FDF6EE; border: 3px solid #C9B0A0;
-      border-radius: 6px; padding: 10px; margin: 0 12px 12px;
-    }
+    .diary { background: #FDF6EE; border: 3px solid #C9B0A0; border-radius: 6px; padding: 10px; margin: 0 12px 12px; }
     .diary-title {
-      font-family: 'Press Start 2P', monospace;
-      font-size: 0.55rem; color: #8B6F5E;
-      margin-bottom: 8px; display: flex;
-      justify-content: space-between; align-items: center;
+      font-family: 'Press Start 2P', monospace; font-size: 0.55rem; color: #8B6F5E;
+      margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center;
     }
-    .diary-scroll {
-      max-height: 100px; overflow-y: auto;
-      scrollbar-width: thin;
-    }
+    .diary-scroll { max-height: 100px; overflow-y: auto; scrollbar-width: thin; }
     .diary-scroll::-webkit-scrollbar { width: 4px; }
     .diary-scroll::-webkit-scrollbar-thumb { background: #C9B0A0; border-radius: 2px; }
     .diary-entry {
       font-size: 0.72rem; padding: 5px 8px; margin-bottom: 3px;
       background: #F4E9DE; border-left: 3px solid #C9B0A0;
-      border-radius: 3px; color: #6B5F4D;
-      animation: diarySlide 0.3s;
+      border-radius: 3px; color: #6B5F4D; animation: diarySlide 0.3s;
     }
     @keyframes diarySlide {
       from { opacity: 0; transform: translateX(-6px); }
@@ -488,75 +889,46 @@
       font-family: 'Press Start 2P', monospace;
     }
 
-    /* ACHIEVEMENTS */
-    .ach-grid {
-      display: grid; grid-template-columns: 1fr 1fr;
-      gap: 8px; padding: 0 12px 12px;
-    }
+    .ach-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; padding: 0 12px 12px; }
     .ach-card {
-      background: #F4E9DE; border: 3px solid #C9B0A0;
-      border-radius: 6px; padding: 10px;
-      display: flex; align-items: center; gap: 8px;
-      transition: all 0.2s;
+      background: #F4E9DE; border: 3px solid #C9B0A0; border-radius: 6px;
+      padding: 10px; display: flex; align-items: center; gap: 8px;
     }
-    .ach-card.unlocked {
-      background: #FFF9C8; border-color: #C9A044;
-    }
-    .ach-card .ach-icon {
-      font-size: 1.8rem; line-height: 1;
-      filter: grayscale(1) opacity(0.4);
-    }
+    .ach-card.unlocked { background: #FFF9C8; border-color: #C9A044; }
+    .ach-card .ach-icon { font-size: 1.8rem; line-height: 1; filter: grayscale(1) opacity(0.4); }
     .ach-card.unlocked .ach-icon { filter: none; }
     .ach-card .ach-info { flex: 1; min-width: 0; }
     .ach-card .ach-name {
-      font-family: 'Press Start 2P', monospace;
-      font-size: 0.5rem; color: #8B6F5E;
-      margin-bottom: 3px; line-height: 1.4;
+      font-family: 'Press Start 2P', monospace; font-size: 0.5rem;
+      color: #8B6F5E; margin-bottom: 3px; line-height: 1.4;
       word-break: break-word;
     }
     .ach-card.unlocked .ach-name { color: #6B4F0E; }
-    .ach-card .ach-desc {
-      font-size: 0.65rem; color: #A89080;
-      line-height: 1.3;
-    }
+    .ach-card .ach-desc { font-size: 0.65rem; color: #A89080; line-height: 1.3; }
     .ach-card.unlocked .ach-desc { color: #8B6F5E; }
 
     .section-header {
       padding: 12px 12px 8px;
       font-family: 'Press Start 2P', monospace;
-      font-size: 0.7rem; color: #8B6F5E;
-      text-align: center;
+      font-size: 0.7rem; color: #8B6F5E; text-align: center;
     }
 
-    /* NOTES */
-    .notes-container {
-      padding: 0 12px 12px;
-    }
-    .note-input-area {
-      display: flex; gap: 6px; margin-bottom: 12px;
-    }
+    .notes-container { padding: 0 12px 12px; }
+    .note-input-area { display: flex; gap: 6px; margin-bottom: 12px; }
     .note-input {
-      flex: 1; padding: 12px 14px;
-      border: 3px solid #C9B0A0; background: #FFFDF9;
-      font-family: 'Fredoka', sans-serif; font-size: 0.9rem;
-      color: #4A3F3A; outline: none; border-radius: 6px;
+      flex: 1; padding: 12px 14px; border: 3px solid #C9B0A0;
+      background: #FFFDF9; font-family: 'Fredoka', sans-serif;
+      font-size: 0.9rem; color: #4A3F3A; outline: none; border-radius: 6px;
     }
     .note-input:focus { border-color: #8B6F5E; }
     .note-send {
       background: #8B6F5E; color: white; border: none;
       padding: 0 16px; cursor: pointer;
-      font-family: 'Press Start 2P', monospace;
-      font-size: 0.55rem; border-radius: 6px;
-      box-shadow: 0 3px 0 #6B4F3E;
-      transition: all 0.1s;
+      font-family: 'Press Start 2P', monospace; font-size: 0.55rem;
+      border-radius: 6px; box-shadow: 0 3px 0 #6B4F3E;
     }
-    .note-send:active {
-      transform: translateY(2px); box-shadow: 0 1px 0 #6B4F3E;
-    }
-    .notes-wall {
-      display: grid; grid-template-columns: 1fr 1fr;
-      gap: 8px;
-    }
+    .note-send:active { transform: translateY(2px); box-shadow: 0 1px 0 #6B4F3E; }
+    .notes-wall { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
     .sticky-note {
       padding: 12px 10px; border-radius: 4px;
       font-size: 0.8rem; line-height: 1.4;
@@ -578,10 +950,7 @@
       font-size: 0.45rem; color: #8B6F5E;
       margin-bottom: 6px; display: block;
     }
-    .sticky-note .note-time {
-      position: absolute; bottom: 6px; right: 8px;
-      font-size: 0.6rem; color: #A89080;
-    }
+    .sticky-note .note-time { position: absolute; bottom: 6px; right: 8px; font-size: 0.6rem; color: #A89080; }
     .sticky-note .note-delete {
       position: absolute; top: 6px; right: 6px;
       background: none; border: none;
@@ -590,39 +959,22 @@
     }
     .sticky-note .note-delete:active { opacity: 1; }
 
-    /* ALBUM */
-    .album-container {
-      padding: 0 12px 12px;
-    }
-    .album-grid {
-      display: grid; grid-template-columns: 1fr 1fr;
-      gap: 8px;
-    }
+    .album-container { padding: 0 12px 12px; }
+    .album-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
     .album-card {
       background: #FDF6EE; border: 3px solid #C9B0A0;
       border-radius: 6px; padding: 12px 8px;
-      text-align: center;
-      box-shadow: 0 3px 0 #C9B0A0;
+      text-align: center; box-shadow: 0 3px 0 #C9B0A0;
     }
     .album-card .album-emoji { font-size: 2.4rem; margin-bottom: 4px; }
     .album-card .album-level {
       font-family: 'Press Start 2P', monospace;
-      font-size: 0.55rem; color: #8B6F5E;
-      margin-bottom: 4px;
+      font-size: 0.55rem; color: #8B6F5E; margin-bottom: 4px;
     }
-    .album-card .album-date {
-      font-size: 0.65rem; color: #A89080;
-    }
-    .album-card .album-note {
-      font-size: 0.7rem; color: #8B6F5E;
-      margin-top: 6px; line-height: 1.3;
-    }
+    .album-card .album-date { font-size: 0.65rem; color: #A89080; }
+    .album-card .album-note { font-size: 0.7rem; color: #8B6F5E; margin-top: 6px; line-height: 1.3; }
 
-    /* ROOMS TAB */
-    .rooms-grid {
-      display: grid; grid-template-columns: 1fr 1fr;
-      gap: 8px; padding: 0 12px 12px;
-    }
+    .rooms-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; padding: 0 12px 12px; }
     .room-card {
       background: #F4E9DE; border: 3px solid #C9B0A0;
       border-radius: 6px; padding: 14px 10px;
@@ -634,23 +986,15 @@
       border-color: #8B6F5E; background: #F4D9C8;
       box-shadow: 0 3px 0 #8B6F5E;
     }
-    .room-card.locked {
-      opacity: 0.6; cursor: not-allowed;
-    }
+    .room-card.locked { opacity: 0.6; cursor: not-allowed; }
     .room-card .room-emoji { font-size: 2rem; margin-bottom: 4px; }
     .room-card .room-name {
       font-family: 'Press Start 2P', monospace;
-      font-size: 0.55rem; color: #8B6F5E;
-      margin-bottom: 4px;
+      font-size: 0.55rem; color: #8B6F5E; margin-bottom: 4px;
     }
-    .room-card .room-req {
-      font-size: 0.65rem; color: #A89080;
-    }
-    .room-card.active .room-req {
-      color: #4A3F3A; font-weight: 600;
-    }
+    .room-card .room-req { font-size: 0.65rem; color: #A89080; }
+    .room-card.active .room-req { color: #4A3F3A; font-weight: 600; }
 
-    /* TOAST */
     .toast {
       position: fixed; top: 15px; left: 50%;
       transform: translateX(-50%) translateY(-80px);
@@ -663,7 +1007,6 @@
     }
     .toast.show { transform: translateX(-50%) translateY(0); }
 
-    /* ACHIEVEMENT POPUP */
     .ach-popup {
       position: fixed; top: 50%; left: 50%;
       transform: translate(-50%, -50%) scale(0);
@@ -683,18 +1026,14 @@
     .ach-popup .ach-popup-icon { font-size: 3rem; margin-bottom: 8px; }
     .ach-popup .ach-popup-title {
       font-family: 'Press Start 2P', monospace;
-      font-size: 0.6rem; color: #C9A044;
-      margin-bottom: 6px;
+      font-size: 0.6rem; color: #C9A044; margin-bottom: 6px;
     }
     .ach-popup .ach-popup-name {
       font-family: 'Press Start 2P', monospace;
       font-size: 0.75rem; color: #6B4F0E;
       margin-bottom: 6px; line-height: 1.4;
     }
-    .ach-popup .ach-popup-desc {
-      font-size: 0.75rem; color: #8B6F5E;
-      line-height: 1.4;
-    }
+    .ach-popup .ach-popup-desc { font-size: 0.75rem; color: #8B6F5E; line-height: 1.4; }
 
     .levelup-overlay {
       position: fixed; inset: 0;
@@ -716,14 +1055,11 @@
       font-size: 0.75rem; text-align: center; line-height: 1.6;
     }
 
-    .footer {
-      text-align: center; font-size: 0.65rem;
-      color: #A89080; margin: 8px 0 20px;
-    }
+    .footer { text-align: center; font-size: 0.65rem; color: #A89080; margin: 8px 0 20px; }
 
     @media (max-width: 380px) {
-      .pet { font-size: 3rem; }
-      .room-wall { height: 160px; }
+      .pet { font-size: 2.6rem; }
+      .room { height: 230px; }
       .action-btn { min-height: 64px; }
       .action-btn .emoji { font-size: 1.3rem; }
       .nav-tab { font-size: 0.42rem; padding: 6px 2px; }
@@ -734,7 +1070,7 @@
 
   <div id="app">
 
-    <!-- ==================== LOGIN ==================== -->
+    <!-- LOGIN -->
     <div class="pin-screen" id="pinScreen">
       <div class="big-emoji" id="welcomeEmoji">🥚</div>
       <h1>MOCHI'S ROOM</h1>
@@ -755,10 +1091,9 @@
       </p>
     </div>
 
-    <!-- ==================== GAME ==================== -->
+    <!-- GAME -->
     <div id="gameScreen">
 
-      <!-- Top bar -->
       <div class="top-bar">
         <div class="streak-display" id="streakBox">
           <span>🔥</span><span id="streakCount">0</span>
@@ -769,7 +1104,6 @@
         </div>
       </div>
 
-      <!-- Navigation tabs -->
       <div class="nav-tabs">
         <div class="nav-tab active" data-view="home">🏠 HOME</div>
         <div class="nav-tab" data-view="rooms">🚪 ROOMS</div>
@@ -778,45 +1112,54 @@
         <div class="nav-tab" data-view="album">📸 ALBUM</div>
       </div>
 
-      <!-- ============ HOME VIEW ============ -->
+      <!-- HOME VIEW -->
       <div class="view active" id="view-home">
 
-        <div class="room" id="room">
-          <div class="room-wall">
-            <div class="room-badge" id="roomBadge">🌿 BEDROOM</div>
-            <div class="room-window"></div>
-
-            <div class="want-bubble" id="wantBubble" style="display:none;"></div>
-
-            <div class="pet-area" id="petArea">
-              <div class="pet idle" id="pet" style="left: 50%;">🥚</div>
-            </div>
+        <div class="room bedroom" id="room">
+          <!-- Room environment layers (JS injects appropriate ones) -->
+          <div class="room-wall" id="roomWall">
+            <div class="bd-window"></div>
+            <div class="bd-curtain-l"></div>
+            <div class="bd-curtain-r"></div>
+            <div class="bd-frame">🖼️</div>
+            <div class="bd-shelf"></div>
           </div>
-          <div class="room-floor"></div>
+          <div class="room-floor" id="roomFloor">
+            <div class="bd-bed"></div>
+            <div class="bd-nightstand"></div>
+            <div class="bd-rug"></div>
+          </div>
 
-          <div class="pet-info">
-            <div class="pet-name-row">
-              <div class="pet-name" id="petName">Mochi</div>
-              <div class="pet-stage-badge" id="petStageBadge">EGG</div>
+          <!-- Interactive overlays -->
+          <div class="room-badge" id="roomBadge">🛏️ BEDROOM</div>
+          <div class="want-bubble" id="wantBubble" style="display:none;"></div>
+
+          <div class="pet-area" id="petArea">
+            <div class="pet idle" id="pet" style="left: 50%;">🥚</div>
+          </div>
+        </div>
+
+        <div class="pet-info">
+          <div class="pet-name-row">
+            <div class="pet-name" id="petName">Mochi</div>
+            <div class="pet-stage-badge" id="petStageBadge">EGG</div>
+          </div>
+          <div class="stats">
+            <div class="stat">
+              <div class="stat-header"><span>🍚 FOOD</span><span id="hungerVal">100</span></div>
+              <div class="stat-bar"><div class="stat-bar-fill good" id="hungerBar" style="width:100%"></div></div>
             </div>
-
-            <div class="stats">
-              <div class="stat">
-                <div class="stat-header"><span>🍚 FOOD</span><span id="hungerVal">100</span></div>
-                <div class="stat-bar"><div class="stat-bar-fill good" id="hungerBar" style="width:100%"></div></div>
-              </div>
-              <div class="stat">
-                <div class="stat-header"><span>☀️ JOY</span><span id="happyVal">100</span></div>
-                <div class="stat-bar"><div class="stat-bar-fill good" id="happyBar" style="width:100%"></div></div>
-              </div>
-              <div class="stat">
-                <div class="stat-header"><span>🌙 REST</span><span id="energyVal">100</span></div>
-                <div class="stat-bar"><div class="stat-bar-fill good" id="energyBar" style="width:100%"></div></div>
-              </div>
-              <div class="stat">
-                <div class="stat-header"><span>💧 CLEAN</span><span id="cleanVal">100</span></div>
-                <div class="stat-bar"><div class="stat-bar-fill good" id="cleanBar" style="width:100%"></div></div>
-              </div>
+            <div class="stat">
+              <div class="stat-header"><span>☀️ JOY</span><span id="happyVal">100</span></div>
+              <div class="stat-bar"><div class="stat-bar-fill good" id="happyBar" style="width:100%"></div></div>
+            </div>
+            <div class="stat">
+              <div class="stat-header"><span>🌙 REST</span><span id="energyVal">100</span></div>
+              <div class="stat-bar"><div class="stat-bar-fill good" id="energyBar" style="width:100%"></div></div>
+            </div>
+            <div class="stat">
+              <div class="stat-header"><span>💧 CLEAN</span><span id="cleanVal">100</span></div>
+              <div class="stat-bar"><div class="stat-bar-fill good" id="cleanBar" style="width:100%"></div></div>
             </div>
           </div>
         </div>
@@ -836,20 +1179,18 @@
             <span id="diaryCount">0</span>
           </div>
           <div class="diary-scroll" id="diaryScroll">
-            <div style="text-align:center; color:#C9B0A0; font-size:0.7rem; padding:8px;">
-              Nothing yet! 🌿
-            </div>
+            <div style="text-align:center; color:#C9B0A0; font-size:0.7rem; padding:8px;">Nothing yet! 🌿</div>
           </div>
         </div>
       </div>
 
-      <!-- ============ ROOMS VIEW ============ -->
+      <!-- ROOMS VIEW -->
       <div class="view" id="view-rooms">
         <div class="section-header">🚪 ROOMS TO EXPLORE</div>
         <div class="rooms-grid" id="roomsGrid"></div>
       </div>
 
-      <!-- ============ NOTES VIEW ============ -->
+      <!-- NOTES VIEW -->
       <div class="view" id="view-notes">
         <div class="section-header">💌 LOVE NOTES</div>
         <div class="notes-container">
@@ -861,13 +1202,13 @@
         </div>
       </div>
 
-      <!-- ============ ACHIEVEMENTS VIEW ============ -->
+      <!-- ACHIEVEMENTS VIEW -->
       <div class="view" id="view-ach">
         <div class="section-header" id="achHeader">🏆 ACHIEVEMENTS (0/24)</div>
         <div class="ach-grid" id="achGrid"></div>
       </div>
 
-      <!-- ============ ALBUM VIEW ============ -->
+      <!-- ALBUM VIEW -->
       <div class="view" id="view-album">
         <div class="section-header">📸 MOCHI'S ALBUM</div>
         <div class="album-container">
@@ -899,16 +1240,13 @@
     firebase.initializeApp(firebaseConfig);
     const db = firebase.database();
 
-    // ============================================================
-    // CONSTANTS
-    // ============================================================
     const DECAY_PER_MINUTE = 0.12;
     const OFFLINE_CAP_HOURS = 6;
     const MAX_DIARY = 40;
     const DAILY_GOAL = 5;
     const NIGHT_START = 22;
     const NIGHT_END = 7;
-    const WANT_DURATION_MS = 4 * 60 * 60 * 1000; // 4 hours per want
+    const WANT_DURATION_MS = 4 * 60 * 60 * 1000;
     const WANT_XP_MULTIPLIER = 3;
 
     const STAGES = [
@@ -923,11 +1261,11 @@
     ];
 
     const ROOMS = [
-      { id: 'bedroom',     name: 'BEDROOM',     emoji: '🛏️', reqLevel: 1,  desc: 'A cozy place to rest' },
-      { id: 'kitchen',     name: 'KITCHEN',     emoji: '🍳', reqLevel: 5,  desc: 'Where food is made' },
-      { id: 'garden',      name: 'GARDEN',      emoji: '🌷', reqLevel: 15, desc: 'Fresh air & flowers' },
-      { id: 'playroom',    name: 'PLAYROOM',    emoji: '🎨', reqLevel: 30, desc: 'Toys & games' },
-      { id: 'observatory', name: 'OBSERVATORY', emoji: '🔭', reqLevel: 50, desc: 'Stargazing together' }
+      { id: 'bedroom',     name: 'BEDROOM',     emoji: '🛏️', reqLevel: 1 },
+      { id: 'kitchen',     name: 'KITCHEN',     emoji: '🍳', reqLevel: 5 },
+      { id: 'garden',      name: 'GARDEN',      emoji: '🌷', reqLevel: 15 },
+      { id: 'playroom',    name: 'PLAYROOM',    emoji: '🎨', reqLevel: 30 },
+      { id: 'observatory', name: 'OBSERVATORY', emoji: '🔭', reqLevel: 50 }
     ];
 
     const ACTIONS = {
@@ -963,7 +1301,7 @@
       { id: 'level_12',      emoji: '🌿', name: 'SAPLING STAGE',    desc: 'Reach Level 12',                     check: (d) => (d.level || 0) >= 12 },
       { id: 'level_20',      emoji: '🌸', name: 'IN BLOOM',         desc: 'Reach Level 20',                     check: (d) => (d.level || 0) >= 20 },
       { id: 'level_35',      emoji: '🦚', name: 'GUARDIAN',         desc: 'Reach Level 35',                     check: (d) => (d.level || 0) >= 35 },
-      { id: 'no_poop',       emoji: '✨', name: 'SPOTLESS',         desc: 'Keep Mochi above 90% clean for a day', check: (d) => (d.cleanliness_streak || 0) >= 1 },
+      { id: 'no_poop',       emoji: '✨', name: 'SPOTLESS',         desc: 'Keep Mochi clean above 90% often',   check: (d) => (d.cleanliness_streak || 0) >= 20 },
       { id: 'night_owl',     emoji: '🦉', name: 'NIGHT OWL',        desc: 'Care for Mochi between 2-4 AM',      check: (d) => d.achievementFlags?.nightOwl === true },
       { id: 'early_bird',    emoji: '🐦', name: 'EARLY BIRD',       desc: 'Care for Mochi between 5-7 AM',      check: (d) => d.achievementFlags?.earlyBird === true },
       { id: 'both_care',     emoji: '💞', name: 'TOGETHER',         desc: 'Both of you care within 10 minutes', check: (d) => d.achievementFlags?.bothClose === true },
@@ -975,9 +1313,6 @@
       { id: 'garden_unlock', emoji: '🌷', name: 'GREEN THUMB',      desc: 'Unlock the Garden',                  check: (d) => (d.level || 0) >= 15 }
     ];
 
-    // ============================================================
-    // STATE
-    // ============================================================
     let me = 'koy';
     let gameData = null;
     let myLastSeen = 0;
@@ -988,12 +1323,11 @@
     let currentRoomId = 'bedroom';
     let currentView = 'home';
     let noteUnread = false;
+    let lastCheckedNotes = 0;
+    let lastCheckedNotesTime = Date.now();
 
     const $ = (id) => document.getElementById(id);
 
-    // ============================================================
-    // TOAST
-    // ============================================================
     let toastT;
     function showToast(msg) {
       const t = $('toast');
@@ -1003,9 +1337,7 @@
       toastT = setTimeout(() => t.classList.remove('show'), 2400);
     }
 
-    // ============================================================
-    // LOGIN
-    // ============================================================
+    /* LOGIN */
     let selectedRole = null;
     document.querySelectorAll('.role-btn').forEach(btn => {
       btn.addEventListener('click', () => {
@@ -1044,36 +1376,22 @@
       listenToGame();
     });
 
-    // ============================================================
-    // NAVIGATION
-    // ============================================================
+    /* NAV */
     document.querySelectorAll('.nav-tab').forEach(tab => {
-      tab.addEventListener('click', () => {
-        switchView(tab.dataset.view);
-      });
+      tab.addEventListener('click', () => switchView(tab.dataset.view));
     });
 
     function switchView(view) {
       currentView = view;
-      document.querySelectorAll('.nav-tab').forEach(t => {
-        t.classList.toggle('active', t.dataset.view === view);
-      });
-      document.querySelectorAll('.view').forEach(v => {
-        v.classList.toggle('active', v.id === 'view-' + view);
-      });
+      document.querySelectorAll('.nav-tab').forEach(t => t.classList.toggle('active', t.dataset.view === view));
+      document.querySelectorAll('.view').forEach(v => v.classList.toggle('active', v.id === 'view-' + view));
       if (view === 'ach') renderAchievements();
       if (view === 'album') renderAlbum();
-      if (view === 'notes') {
-        noteUnread = false;
-        updateNotesBadge();
-        renderNotes();
-      }
+      if (view === 'notes') { noteUnread = false; updateNotesBadge(); renderNotes(); }
       if (view === 'rooms') renderRooms();
     }
 
-    // ============================================================
-    // FIREBASE
-    // ============================================================
+    /* FIREBASE */
     function listenToGame() {
       const ref = db.ref('tamagotchi');
       ref.once('value').then(snap => {
@@ -1101,7 +1419,6 @@
             cleanliness_streak: 0
           }).then(() => ref.on('value', handleUpdate));
         } else {
-          // Migration: add missing fields
           const data = snap.val();
           const missing = {};
           if (!data.notes) missing.notes = {};
@@ -1146,6 +1463,9 @@
 
       gameData = data;
       updateLevel();
+      checkWantGeneration();
+      checkAchievements();
+      checkUnreadNotes();
 
       if (minutesOffline > 0.5) {
         gameData.lastUpdate = now;
@@ -1158,20 +1478,11 @@
         });
       }
 
-      // Check for a new want
-      checkWantGeneration();
-
-      // Check achievements
-      checkAchievements();
-
-      // Check for unread notes (new notes since last check)
-      checkUnreadNotes();
-
       if (!isAnimating) renderPet(prev);
       renderDiary();
       updateStreakAndDays();
       checkStreak();
-      updateDayNight();
+      applyRoom();
       renderWantBubble();
       updateNotesBadge();
 
@@ -1185,9 +1496,7 @@
       db.ref('tamagotchi/' + (me === 'koy' ? 'koyLastSeen' : 'metzLastSeen')).set(now);
     }
 
-    // ============================================================
-    // LEVELS
-    // ============================================================
+    /* LEVELS */
     function xpForLevel(level) {
       return Math.floor(60 + (level - 1) * 35 + Math.pow(level - 1, 1.7) * 12);
     }
@@ -1196,10 +1505,7 @@
       while (lvl < 100 && xp >= xpForLevel(lvl)) { xp -= xpForLevel(lvl); lvl++; }
       gameData.level = lvl;
       if (lvl > lastLevel && lastLevel !== 0) {
-        setTimeout(() => {
-          showLevelUp(lvl);
-          addAlbumEntry(lvl);
-        }, 400);
+        setTimeout(() => { showLevelUp(lvl); addAlbumEntry(lvl); }, 400);
       }
       lastLevel = lvl;
     }
@@ -1209,33 +1515,122 @@
       return s;
     }
 
-    // ============================================================
-    // DAY / NIGHT
-    // ============================================================
+    /* DAY / NIGHT */
     function isNightTime() {
       const h = new Date().getHours();
       return h >= NIGHT_START || h < NIGHT_END;
     }
-    function updateDayNight() {
-      const room = $('room');
-      if (isNightTime()) room.classList.add('night');
-      else room.classList.remove('night');
+
+    /* ROOM RENDERING - inject proper environment */
+    function applyRoom() {
+      const roomEl = $('room');
+      const wallEl = $('roomWall');
+      const floorEl = $('roomFloor');
+
+      // Set room class
+      roomEl.className = 'room ' + currentRoomId;
+
+      // Preserve the interactive overlays (wantBubble, petArea) by moving them out temporarily
+      const wantBubble = $('wantBubble');
+      const petArea = $('petArea');
+      const roomBadge = $('roomBadge');
+
+      // Rebuild the wall content based on room
+      wallEl.innerHTML = '';
+      floorEl.innerHTML = '';
+
+      switch(currentRoomId) {
+        case 'bedroom':
+          wallEl.innerHTML = `
+            <div class="bd-window"></div>
+            <div class="bd-curtain-l"></div>
+            <div class="bd-curtain-r"></div>
+            <div class="bd-frame">🖼️</div>
+            <div class="bd-shelf"></div>
+          `;
+          floorEl.innerHTML = `
+            <div class="bd-bed"></div>
+            <div class="bd-nightstand"></div>
+            <div class="bd-rug"></div>
+          `;
+          $('roomBadge').textContent = '🛏️ BEDROOM';
+          break;
+        case 'kitchen':
+          wallEl.innerHTML = `
+            <div class="kt-pots">
+              <span>🍳</span><span>🥘</span><span>🍲</span>
+            </div>
+          `;
+          floorEl.innerHTML = `
+            <div class="kt-counter"></div>
+            <div class="kt-sink"></div>
+            <div class="kt-stove"></div>
+            <div class="kt-fridge"></div>
+          `;
+          $('roomBadge').textContent = '🍳 KITCHEN';
+          break;
+        case 'garden':
+          wallEl.innerHTML = ``;
+          floorEl.innerHTML = `
+            <div class="gd-tree"></div>
+            <div class="gd-fence">
+              <div class="gd-picket"></div>
+              <div class="gd-picket"></div>
+              <div class="gd-picket"></div>
+              <div class="gd-picket"></div>
+              <div class="gd-picket"></div>
+              <div class="gd-picket"></div>
+              <div class="gd-picket"></div>
+              <div class="gd-picket"></div>
+              <div class="gd-picket"></div>
+              <div class="gd-picket"></div>
+            </div>
+            <div class="gd-flower" style="left: 15%;">🌷</div>
+            <div class="gd-flower" style="left: 30%; animation-delay: 0.5s;">🌻</div>
+            <div class="gd-flower" style="left: 60%; animation-delay: 1s;">🌼</div>
+            <div class="gd-flower" style="left: 75%; animation-delay: 1.5s;">🌺</div>
+            <div class="gd-butterfly">🦋</div>
+          `;
+          $('roomBadge').textContent = '🌷 GARDEN';
+          break;
+        case 'playroom':
+          wallEl.innerHTML = `
+            <div class="pr-shelf-toys">
+              <span>🧸</span><span>🚗</span><span>🎮</span><span>🪀</span>
+            </div>
+          `;
+          floorEl.innerHTML = `
+            <div class="pr-pit"></div>
+            <div class="pr-block blue" style="left: 30%; bottom: 15px;"></div>
+            <div class="pr-block pink" style="left: 45%; bottom: 25px;"></div>
+            <div class="pr-block yellow" style="left: 60%; bottom: 12px;"></div>
+            <div class="pr-block blue" style="left: 70%; bottom: 22px;"></div>
+            <div class="pr-block pink" style="left: 25%; bottom: 30px;"></div>
+          `;
+          $('roomBadge').textContent = '🎨 PLAYROOM';
+          break;
+        case 'observatory':
+          wallEl.innerHTML = ``;
+          floorEl.innerHTML = `
+            <div class="ob-telescope"></div>
+            <div class="ob-chart"></div>
+          `;
+          $('roomBadge').textContent = '🔭 OBSERVATORY';
+          break;
+      }
+
+      // Re-attach the overlays (in case they were inside removed content)
+      // They're currently in wallEl? No—they're direct children of room.
+      // Nothing to reattach because we only cleared wallEl and floorEl.
     }
 
-    // ============================================================
-    // WANTS SYSTEM
-    // ============================================================
+    /* WANTS */
     function checkWantGeneration() {
       const now = Date.now();
       const currentWant = gameData.currentWant;
       if (!currentWant || (now - currentWant.createdAt) > WANT_DURATION_MS) {
-        // Generate a new want
         const randomWant = WANTS[Math.floor(Math.random() * WANTS.length)];
-        const newWant = {
-          ...randomWant,
-          createdAt: now,
-          id: randomWant.id + '_' + now
-        };
+        const newWant = { ...randomWant, createdAt: now, id: randomWant.id + '_' + now };
         db.ref('tamagotchi/currentWant').set(newWant);
       }
     }
@@ -1246,7 +1641,6 @@
       if (want) {
         bubble.style.display = 'block';
         bubble.textContent = want.emoji + ' ' + want.text;
-        // Highlight the corresponding action button
         document.querySelectorAll('.action-btn').forEach(b => {
           b.classList.toggle('want-highlight', b.dataset.action === want.action);
         });
@@ -1256,27 +1650,18 @@
       }
     }
 
-    // ============================================================
-    // ACHIEVEMENTS
-    // ============================================================
+    /* ACHIEVEMENTS */
     function checkAchievements() {
       const unlocked = gameData.achievements || {};
       const newUnlocks = [];
       ACHIEVEMENTS.forEach(ach => {
-        if (!unlocked[ach.id] && ach.check(gameData)) {
-          newUnlocks.push(ach);
-        }
+        if (!unlocked[ach.id] && ach.check(gameData)) newUnlocks.push(ach);
       });
       if (newUnlocks.length > 0) {
         const updates = {};
-        newUnlocks.forEach(a => {
-          updates['achievements/' + a.id] = Date.now();
-        });
+        newUnlocks.forEach(a => { updates['achievements/' + a.id] = Date.now(); });
         db.ref('tamagotchi').update(updates);
-        // Show popup for the first unlock
-        newUnlocks.forEach((a, i) => {
-          setTimeout(() => showAchievementPopup(a), i * 2800);
-        });
+        newUnlocks.forEach((a, i) => setTimeout(() => showAchievementPopup(a), i * 2800));
       }
     }
 
@@ -1314,30 +1699,21 @@
       });
     }
 
-    // ============================================================
-    // NOTES
-    // ============================================================
-    let lastCheckedNotes = 0;
+    /* NOTES */
     function checkUnreadNotes() {
       const notes = gameData.notes || {};
       const noteCount = Object.keys(notes).length;
       if (noteCount > lastCheckedNotes && lastCheckedNotes !== 0) {
         const other = me === 'koy' ? 'metz' : 'koy';
-        const hasNewFromOther = Object.values(notes).some(n => n.by === other && n.time > (lastCheckedNotesTime || 0));
-        if (hasNewFromOther && currentView !== 'notes') {
-          noteUnread = true;
-        }
+        const hasNewFromOther = Object.values(notes).some(n => n.by === other && n.time > lastCheckedNotesTime);
+        if (hasNewFromOther && currentView !== 'notes') noteUnread = true;
       }
       lastCheckedNotes = noteCount;
       lastCheckedNotesTime = Date.now();
     }
 
-    let lastCheckedNotesTime = 0;
-
     function updateNotesBadge() {
-      const badge = $('notesBadge');
-      if (noteUnread) badge.style.display = 'inline-block';
-      else badge.style.display = 'none';
+      $('notesBadge').style.display = noteUnread ? 'inline-block' : 'none';
     }
 
     function renderNotes() {
@@ -1365,44 +1741,29 @@
       wall.querySelectorAll('.note-delete').forEach(btn => {
         btn.addEventListener('click', (e) => {
           e.stopPropagation();
-          const key = btn.dataset.key;
-          if (confirm('Delete this note?')) {
-            db.ref('tamagotchi/notes/' + key).remove();
-          }
+          if (confirm('Delete this note?')) db.ref('tamagotchi/notes/' + btn.dataset.key).remove();
         });
       });
     }
 
     $('noteSendBtn').addEventListener('click', sendNote);
-    $('noteInput').addEventListener('keydown', (e) => {
-      if (e.key === 'Enter') sendNote();
-    });
+    $('noteInput').addEventListener('keydown', (e) => { if (e.key === 'Enter') sendNote(); });
 
     function sendNote() {
       const text = $('noteInput').value.trim();
       if (!text) return showToast('Write something first 💌');
       const key = 'note_' + Date.now() + '_' + Math.random().toString(36).slice(2, 6);
-      db.ref('tamagotchi/notes/' + key).set({
-        by: me,
-        text: text,
-        time: Date.now(),
-        key: key
-      });
+      db.ref('tamagotchi/notes/' + key).set({ by: me, text, time: Date.now(), key });
       $('noteInput').value = '';
       showToast('Note pinned! 💌');
     }
 
-    // ============================================================
-    // ALBUM
-    // ============================================================
+    /* ALBUM */
     function addAlbumEntry(level) {
       const stage = STAGES.reduce((acc, s) => (level >= s.level ? s : acc), STAGES[0]);
       const entry = {
-        level: level,
-        emoji: stage.emoji,
-        stageName: stage.name,
-        date: Date.now(),
-        id: 'album_' + level + '_' + Date.now()
+        level, emoji: stage.emoji, stageName: stage.name,
+        date: Date.now(), id: 'album_' + level + '_' + Date.now()
       };
       const album = gameData.album || [];
       if (!album.some(a => a.level === level)) {
@@ -1416,7 +1777,7 @@
       const grid = $('albumGrid');
       grid.innerHTML = '';
       if (album.length === 0) {
-        grid.innerHTML = '<div style="grid-column: 1 / -1; text-align: center; color: #A89080; padding: 20px; font-size: 0.8rem;">Mochi\\'s album will appear here as you level up! 📸</div>';
+        grid.innerHTML = '<div style="grid-column: 1 / -1; text-align: center; color: #A89080; padding: 20px; font-size: 0.8rem;">Mochi\'s album will appear here as you level up! 📸</div>';
         return;
       }
       album.sort((a, b) => b.level - a.level).forEach(entry => {
@@ -1433,9 +1794,7 @@
       });
     }
 
-    // ============================================================
-    // ROOMS
-    // ============================================================
+    /* ROOMS GRID */
     function renderRooms() {
       const grid = $('roomsGrid');
       grid.innerHTML = '';
@@ -1448,7 +1807,7 @@
         card.innerHTML = `
           <div class="room-emoji">${room.emoji}</div>
           <div class="room-name">${room.name}</div>
-          <div class="room-req">${unlocked ? room.desc : 'Unlock at Lv ' + room.reqLevel}</div>
+          <div class="room-req">${unlocked ? (isActive ? 'Currently here' : 'Tap to visit') : 'Unlock at Lv ' + room.reqLevel}</div>
         `;
         if (unlocked) {
           card.addEventListener('click', () => {
@@ -1462,18 +1821,7 @@
       });
     }
 
-    function applyRoom() {
-      const roomEl = $('room');
-      roomEl.className = 'room';
-      if (currentRoomId !== 'bedroom') roomEl.classList.add(currentRoomId);
-      if (isNightTime()) roomEl.classList.add('night');
-      const roomInfo = ROOMS.find(r => r.id === currentRoomId);
-      $('roomBadge').textContent = roomInfo.emoji + ' ' + roomInfo.name;
-    }
-
-    // ============================================================
-    // RENDER PET
-    // ============================================================
+    /* RENDER PET */
     function renderPet(prev = {}) {
       const stage = currentStage();
       const pet = $('pet');
@@ -1489,7 +1837,6 @@
       if (isNightTime() && !isAnimating) moodClass = 'sleeping';
 
       pet.className = 'pet ' + moodClass;
-
       renderPoops();
       setStat('hunger', gameData.hunger, prev.hunger);
       setStat('happy', gameData.happy, prev.happy);
@@ -1543,9 +1890,7 @@
       const days = Math.floor((Date.now() - gameData.createdAt) / (1000 * 60 * 60 * 24)) + 1;
       $('daysCount').textContent = days;
       $('streakCount').textContent = gameData.streak || 0;
-      const box = $('streakBox');
-      if ((gameData.streak || 0) >= 3) box.classList.add('hot');
-      else box.classList.remove('hot');
+      $('streakBox').classList.toggle('hot', (gameData.streak || 0) >= 3);
     }
 
     function checkStreak() {
@@ -1559,9 +1904,7 @@
       db.ref('tamagotchi').update({ streak: newStreak, lastStreakDate: today });
     }
 
-    // ============================================================
-    // ANIMATION ENGINE
-    // ============================================================
+    /* ANIMATION ENGINE */
     function movePetTo(percent, duration) {
       return new Promise(resolve => {
         const pet = $('pet');
@@ -1706,16 +2049,12 @@
               break;
             }
           }
-        } catch(e) {
-          console.error('Animation error:', e);
-        }
+        } catch(e) { console.error('Animation error:', e); }
         resolve();
       });
     }
 
-    // ============================================================
-    // ACTIONS
-    // ============================================================
+    /* ACTIONS */
     document.querySelectorAll('.action-btn').forEach(btn => {
       btn.addEventListener('click', () => doAction(btn.dataset.action, btn));
     });
@@ -1760,7 +2099,6 @@
         }
       }
 
-      // Check if this fulfills a want
       const want = gameData.currentWant;
       let xpEarned = action.xp;
       let fulfilledWant = false;
@@ -1773,44 +2111,28 @@
       updates.xp = (gameData.xp || 0) + xpEarned;
       updates.lastUpdate = Date.now();
 
-      // Track action stats
       const statsField = { feed: 'feeds', play: 'plays', sleep: 'sleeps', bath: 'baths', pet: 'pets', clean: 'cleans' }[name];
-      if (statsField) {
-        updates['stats/' + statsField] = (gameData.stats?.[statsField] || 0) + 1;
-      }
-      if (fulfilledWant) {
-        updates['stats/wantsFulfilled'] = (gameData.stats?.wantsFulfilled || 0) + 1;
-      }
+      if (statsField) updates['stats/' + statsField] = (gameData.stats?.[statsField] || 0) + 1;
+      if (fulfilledWant) updates['stats/wantsFulfilled'] = (gameData.stats?.wantsFulfilled || 0) + 1;
 
-      // Time-based achievement flags
       const hour = new Date().getHours();
       if (hour >= 2 && hour < 4) updates['achievementFlags/nightOwl'] = true;
       if (hour >= 5 && hour < 7) updates['achievementFlags/earlyBird'] = true;
 
-      // Check if both were close
       const other = me === 'koy' ? 'metz' : 'koy';
       const otherLastAction = gameData.lastActions?.[other] || 0;
-      if (Date.now() - otherLastAction < 10 * 60 * 1000) {
-        updates['achievementFlags/bothClose'] = true;
-      }
+      if (Date.now() - otherLastAction < 10 * 60 * 1000) updates['achievementFlags/bothClose'] = true;
       updates['lastActions/' + me] = Date.now();
 
-      // Poop
-      if (addPoop) {
-        updates.poops = Math.min(3, (gameData.poops || 0) + 1);
-      }
-      if (name === 'clean') {
-        updates.poops = 0;
-      }
+      if (addPoop) updates.poops = Math.min(3, (gameData.poops || 0) + 1);
+      if (name === 'clean') updates.poops = 0;
 
-      // Cleanliness streak
       if (gameData.clean > 90) {
         updates.cleanliness_streak = (gameData.cleanliness_streak || 0) + 1;
       } else {
         updates.cleanliness_streak = 0;
       }
 
-      // Daily actions
       const today = new Date().toISOString().slice(0, 10);
       const todayActions = { ...(gameData.todayActions || { koy: 0, metz: 0 }) };
       if (gameData.todayDate !== today) {
@@ -1825,7 +2147,6 @@
         setTimeout(() => showToast('✨ Daily goal complete! +10 XP'), 500);
       }
 
-      // Diary
       const entry = { by: me, text: `${action.verb} Mochi`, time: Date.now() };
       const key = 'diary/' + Date.now() + '_' + Math.random().toString(36).slice(2, 6);
       updates[key] = entry;
@@ -1838,9 +2159,7 @@
 
       db.ref('tamagotchi').update(updates);
 
-      if (fulfilledWant) {
-        setTimeout(() => showToast('⭐ Want fulfilled! +' + xpEarned + ' XP'), 700);
-      }
+      if (fulfilledWant) setTimeout(() => showToast('⭐ Want fulfilled! +' + xpEarned + ' XP'), 700);
     }
 
     function showLevelUp(newLevel) {
@@ -1870,22 +2189,16 @@
       const other = me === 'koy' ? 'metz' : 'koy';
       const otherName = other === 'koy' ? '🌿 Koy' : '🌸 Metz';
       const diary = curr.diary || {};
-      const otherActs = Object.values(diary)
-        .filter(e => e.by === other && e.time > lastSeenTime)
-        .sort((a, b) => a.time - b.time);
+      const otherActs = Object.values(diary).filter(e => e.by === other && e.time > lastSeenTime);
 
       if (otherActs.length > 0) {
         msg += `${otherName} cared for Mochi ${otherActs.length} time${otherActs.length > 1 ? 's' : ''}.`;
       } else {
         msg += `Mochi was waiting for you 🌿`;
       }
-
       showToast(`Hi ${me === 'koy' ? 'Koy' : 'Metz'}! ${msg}`);
     }
 
-    // ============================================================
-    // LOGOUT
-    // ============================================================
     $('logoutBtn').addEventListener('click', () => {
       localStorage.removeItem('mochi_role');
       localStorage.removeItem('mochi_pin');
