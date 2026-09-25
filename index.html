@@ -362,7 +362,7 @@
   .pet[data-stage="eternal"] .pet-body { width: 50px; height: 44px; }
   .pet[data-stage="eternal"] .pet-halo { display: block; }
 
-  /* ============ PET ACCESSORIES (equipped shop items) ============ */
+  /* ============ PET ACCESSORIES ============ */
   .pet-accessories {
     position: absolute; inset: 0; pointer-events: none; z-index: 22;
   }
@@ -400,7 +400,7 @@
     50% { opacity: 1; transform: scale(1.15) rotate(20deg); }
   }
 
-  /* ============ ROOM DECORATIONS (from shop) ============ */
+  /* ============ ROOM DECORATIONS (permanent upgrades) ============ */
   .room-decorations {
     position: absolute; inset: 0; pointer-events: none; z-index: 12;
   }
@@ -468,32 +468,83 @@
     100% { opacity: 0; transform: translate(30px, -20px) scale(1.6); }
   }
 
-  /* ============ CONSUMABLE EFFECT PROPS ============ */
-  .consumable-fx {
+  /* ============ PLACED ROOM ITEMS (from consumable purchases) ============ */
+  .room-items {
+    position: absolute; inset: 0; pointer-events: none; z-index: 14;
+  }
+  .room-item {
     position: absolute;
     font-size: 1.6rem;
-    z-index: 18;
+    cursor: pointer;
+    pointer-events: auto;
+    filter: drop-shadow(0 3px 2px rgba(0,0,0,0.25));
+    animation: itemDrop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+    transition: transform 0.2s;
+    user-select: none;
+  }
+  .room-item:active { transform: scale(1.15); }
+  @keyframes itemDrop {
+    0% { opacity: 0; transform: scale(0.2) translateY(-40px) rotate(-30deg); }
+    60% { opacity: 1; transform: scale(1.15) translateY(6px) rotate(8deg); }
+    100% { opacity: 1; transform: scale(1) translateY(0) rotate(0deg); }
+  }
+  .room-item.consuming {
+    animation: itemConsume 0.8s ease-in forwards;
     pointer-events: none;
-    animation: consumablePop 1.8s ease-out forwards;
-    filter: drop-shadow(0 3px 3px rgba(0,0,0,0.2));
   }
-  @keyframes consumablePop {
-    0% { opacity: 0; transform: scale(0.2) translateY(20px) rotate(-30deg); }
-    25% { opacity: 1; transform: scale(1.2) translateY(-10px) rotate(10deg); }
-    50% { opacity: 1; transform: scale(1) translateY(-20px) rotate(-5deg); }
-    100% { opacity: 0; transform: scale(0.8) translateY(-50px) rotate(20deg); }
+  @keyframes itemConsume {
+    0% { transform: scale(1) rotate(0deg); opacity: 1; }
+    40% { transform: scale(1.4) rotate(15deg); opacity: 1; }
+    100% { transform: scale(0) rotate(-30deg); opacity: 0; }
   }
-  .sparkle-fx {
+  .room-item::after {
+    content: '';
     position: absolute;
-    font-size: 1rem;
-    z-index: 19;
-    pointer-events: none;
-    animation: sparkleBurst 1.2s ease-out forwards;
+    bottom: -6px; left: 50%;
+    transform: translateX(-50%);
+    width: 26px; height: 6px;
+    background: radial-gradient(ellipse at center, rgba(74,63,58,0.3) 0%, transparent 70%);
+    border-radius: 50%;
+    z-index: -1;
   }
-  @keyframes sparkleBurst {
-    0% { opacity: 1; transform: scale(0.4); }
-    50% { opacity: 1; transform: scale(1.3); }
-    100% { opacity: 0; transform: scale(0.6) translateY(-30px); }
+  .room-item .item-tooltip {
+    position: absolute;
+    bottom: 110%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #FFF9C8;
+    border: 2px solid #C9A044;
+    padding: 3px 6px;
+    font-family: 'Press Start 2P', monospace;
+    font-size: 0.4rem;
+    color: #6B4F0E;
+    border-radius: 3px;
+    white-space: nowrap;
+    opacity: 0;
+    transition: opacity 0.2s;
+    pointer-events: none;
+  }
+  .room-item:hover .item-tooltip { opacity: 1; }
+  .room-item.placed-treat { animation: itemDrop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), treatBob 2s ease-in-out infinite 0.5s; }
+  @keyframes treatBob {
+    0%, 100% { transform: translateY(0) rotate(-3deg); }
+    50% { transform: translateY(-3px) rotate(3deg); }
+  }
+  .room-item.placed-toy { animation: itemDrop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), toyWiggle 3s ease-in-out infinite 0.5s; }
+  @keyframes toyWiggle {
+    0%, 90%, 100% { transform: rotate(0deg); }
+    93% { transform: rotate(-8deg); }
+    96% { transform: rotate(8deg); }
+  }
+  .room-item.placed-pillow { animation: itemDrop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), pillowBreathe 3.5s ease-in-out infinite 0.5s; }
+  @keyframes pillowBreathe {
+    0%, 100% { transform: scale(1, 1); }
+    50% { transform: scale(1.05, 0.95); }
+  }
+  .room-item.placed-soap { animation: itemDrop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), soapShine 2.4s ease-in-out infinite 0.5s; }
+  @keyframes soapShine {
+    0%, 100% { filter: drop-shadow(0 3px 2px rgba(0,0,0,0.25)) brightness(1); }
+    50% { filter: drop-shadow(0 3px 2px rgba(0,0,0,0.25)) brightness(1.2); }
   }
 
   /* ============ NEED INDICATORS ============ */
@@ -928,6 +979,10 @@
     font-family: 'Press Start 2P', monospace;
     font-size: 0.4rem; color: #6FA05D; margin-top: -2px;
   }
+  .shop-card .place-count {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 0.42rem; color: #C9A044; margin-top: -2px;
+  }
 
   /* ============ TOASTS / POPUPS ============ */
   .toast {
@@ -1053,6 +1108,7 @@
         <div class="room-wall" id="roomWall"></div>
         <div class="room-floor" id="roomFloor"></div>
         <div class="room-decorations" id="roomDecorations"></div>
+        <div class="room-items" id="roomItems"></div>
         <div class="room-badge" id="roomBadge">🛏️ BEDROOM</div>
         <div class="want-bubble" id="wantBubble" style="display:none;"></div>
 
@@ -1156,7 +1212,7 @@
     <!-- SHOP -->
     <div class="view" id="view-shop">
       <div class="section-header">🛒 MOCHI SHOP</div>
-      <p style="text-align:center; font-size:0.7rem; color:#A89080; margin-bottom:8px;">Earn coins from care & mini-games 🪙</p>
+      <p style="text-align:center; font-size:0.7rem; color:#A89080; margin-bottom:8px;">Earn coins from care & mini-games 🪙<br>Consumables appear in the room — tap them to use!</p>
       <div class="shop-grid" id="shopGrid"></div>
     </div>
 
@@ -1228,6 +1284,7 @@ const COIN_PER_ACTION = 3;
 const COIN_PER_WANT = 15;
 const COIN_PER_DAILY_GOAL = 20;
 const MINIGAME_DURATION = 30;
+const MAX_ROOM_ITEMS = 6;
 
 const STAGES = [
   { level: 1,  name: 'EGG',       emoji: '🥚', key: 'egg' },
@@ -1301,15 +1358,68 @@ const AMBIENT_BEHAVIORS = {
   ]
 };
 
+/* Consumable -> visual + effect mapping.
+   These items STAY in the room as clickable props. */
+const CONSUMABLE_DEFS = {
+  treat: {
+    emoji: '🍬',
+    stat: 'hunger',
+    amount: 15,
+    placeClass: 'placed-treat',
+    tooltip: 'TAP TO EAT',
+    consumeVerb: 'ate',
+    consumeEmoji: '🍚',
+    consumeBubble: 'nom nom!',
+    defaultX: 72,
+    defaultBottom: 12
+  },
+  toy: {
+    emoji: '🧸',
+    stat: 'happy',
+    amount: 20,
+    placeClass: 'placed-toy',
+    tooltip: 'TAP TO PLAY',
+    consumeVerb: 'played with toy',
+    consumeEmoji: '🎈',
+    consumeBubble: 'wheee!',
+    defaultX: 22,
+    defaultBottom: 10
+  },
+  pillow: {
+    emoji: '🛏️',
+    stat: 'energy',
+    amount: 25,
+    placeClass: 'placed-pillow',
+    tooltip: 'TAP TO REST',
+    consumeVerb: 'rested on pillow',
+    consumeEmoji: '💤',
+    consumeBubble: 'cozy...',
+    defaultX: 62,
+    defaultBottom: 8
+  },
+  soap: {
+    emoji: '🧼',
+    stat: 'clean',
+    amount: 25,
+    placeClass: 'placed-soap',
+    tooltip: 'TAP TO WASH',
+    consumeVerb: 'used soap',
+    consumeEmoji: '💧',
+    consumeBubble: 'splash!',
+    defaultX: 40,
+    defaultBottom: 14
+  }
+};
+
 const SHOP_ITEMS = [
-  { id: 'treat',     emoji: '🍬', name: 'SWEET TREAT',  desc: '+15 food instantly (visual effect)',   cost: 20,  consumable: true },
-  { id: 'toy',       emoji: '🧸', name: 'PLUSH TOY',    desc: '+20 joy instantly (visual effect)',    cost: 30,  consumable: true },
-  { id: 'pillow',    emoji: '🛏️', name: 'FLUFFY PILLOW',desc: '+25 rest instantly (visual effect)',   cost: 35,  consumable: true },
-  { id: 'soap',      emoji: '🧼', name: 'FANCY SOAP',   desc: '+25 clean instantly (visual effect)',  cost: 25,  consumable: true },
-  { id: 'decoration',emoji: '🎀', name: 'BOW DECOR',    desc: '+5% XP — pink bow worn by Mochi',      cost: 100, consumable: false },
-  { id: 'lucky',     emoji: '🍀', name: 'LUCKY CHARM',  desc: '+1 coin/action — floating clover',     cost: 150, consumable: false },
-  { id: 'xpboost',   emoji: '⭐', name: 'STAR SHARD',   desc: '+15% XP — sparkle star above Mochi',   cost: 200, consumable: false },
-  { id: 'autoclean', emoji: '✨', name: 'CLEANING SPIRIT',desc: 'Auto-cleans — friendly spirit ghost',cost: 300, consumable: false }
+  { id: 'treat',     emoji: '🍬', name: 'SWEET TREAT',  desc: 'Place a treat — tap to feed Mochi (+15 food)',  cost: 20,  consumable: true },
+  { id: 'toy',       emoji: '🧸', name: 'PLUSH TOY',    desc: 'Place a toy — tap to play (+20 joy)',            cost: 30,  consumable: true },
+  { id: 'pillow',    emoji: '🛏️', name: 'FLUFFY PILLOW',desc: 'Place a pillow — tap to rest (+25 rest)',        cost: 35,  consumable: true },
+  { id: 'soap',      emoji: '🧼', name: 'FANCY SOAP',   desc: 'Place a soap — tap to wash (+25 clean)',         cost: 25,  consumable: true },
+  { id: 'decoration',emoji: '🎀', name: 'BOW DECOR',    desc: 'Pink bow worn by Mochi (+5% XP)',                cost: 100, consumable: false },
+  { id: 'lucky',     emoji: '🍀', name: 'LUCKY CHARM',  desc: 'Floating clover (+1 coin/action)',               cost: 150, consumable: false },
+  { id: 'xpboost',   emoji: '⭐', name: 'STAR SHARD',   desc: 'Sparkle star above Mochi (+15% XP)',             cost: 200, consumable: false },
+  { id: 'autoclean', emoji: '✨', name: 'CLEANING SPIRIT',desc: 'Auto-removes poops every 5 min',               cost: 300, consumable: false }
 ];
 
 const ACHIEVEMENTS = [
@@ -1367,13 +1477,13 @@ const renderCache = {
   diaryHash: '', notesHash: '', achCount: -1,
   daysCount: -1, streakCount: -1, coinCount: -1,
   level: -1, xp: -1, poops: -1,
-  decorationsHash: '', accessoriesHash: ''
+  decorationsHash: '', accessoriesHash: '', roomItemsHash: ''
 };
 
 const $ = (id) => document.getElementById(id);
 
 /* ============================================================
-   SOUND (Web Audio API)
+   SOUND
    ============================================================ */
 let audioCtx = null;
 function ensureAudio() {
@@ -1527,6 +1637,7 @@ function listenToGame() {
         poops: 0,
         coins: 50,
         inventory: {},
+        roomItems: {},
         koyLastSeen: now, metzLastSeen: 0,
         todayActions: { koy: 0, metz: 0 },
         todayDate: '',
@@ -1556,6 +1667,7 @@ function listenToGame() {
       if (data.currentWant === undefined) missing.currentWant = null;
       if (data.coins === undefined) missing.coins = 50;
       if (!data.inventory) missing.inventory = {};
+      if (!data.roomItems) missing.roomItems = {};
       if (Object.keys(missing).length > 0) {
         ref.update(missing).then(() => applyDecayAndListen());
       } else {
@@ -1635,6 +1747,7 @@ function processUpdate(snap) {
   updateStatWarnings();
   renderPetAccessories();
   renderRoomDecorations();
+  renderRoomItems();
 
   if (!hasShownWelcome && myLastSeen > 0 && Date.now() - myLastSeen > 5 * 60 * 1000) {
     showWelcomeBack(prev, data, myLastSeen);
@@ -1785,7 +1898,7 @@ function applyRoom(force) {
 }
 
 /* ============================================================
-   PET ACCESSORIES — shows equipped shop items on Mochi
+   PET ACCESSORIES
    ============================================================ */
 function renderPetAccessories() {
   if (!gameData) return;
@@ -1793,7 +1906,6 @@ function renderPetAccessories() {
   const container = $('petAccessories');
   if (!container) return;
 
-  // Build a hash so we only re-render when ownership changes
   const hash = ['decoration', 'lucky', 'xpboost'].map(k => inv[k] ? '1' : '0').join('');
   if (renderCache.accessoriesHash === hash) return;
   renderCache.accessoriesHash = hash;
@@ -1820,7 +1932,7 @@ function renderPetAccessories() {
 }
 
 /* ============================================================
-   ROOM DECORATIONS — shows owned permanent items in the room
+   ROOM DECORATIONS
    ============================================================ */
 function renderRoomDecorations() {
   if (!gameData) return;
@@ -1857,7 +1969,6 @@ function renderRoomDecorations() {
     d.textContent = '✨';
     container.appendChild(d);
 
-    // Spirit trailing particles
     for (let i = 0; i < 3; i++) {
       const trail = document.createElement('div');
       trail.className = 'room-deco spirit-trail';
@@ -1867,6 +1978,205 @@ function renderRoomDecorations() {
       container.appendChild(trail);
     }
   }
+}
+
+/* ============================================================
+   ROOM ITEMS (placed consumables)
+   ============================================================ */
+function renderRoomItems() {
+  if (!gameData) return;
+  const items = gameData.roomItems || {};
+  const container = $('roomItems');
+  if (!container) return;
+
+  // Build hash from keys + positions so we re-render when anything changes
+  const entries = Object.values(items).sort((a, b) => a.placedAt - b.placedAt);
+  const hash = entries.map(i => i.id).join(',');
+  if (renderCache.roomItemsHash === hash) return;
+  renderCache.roomItemsHash = hash;
+
+  container.innerHTML = '';
+  entries.forEach(item => {
+    const def = CONSUMABLE_DEFS[item.type];
+    if (!def) return;
+
+    const el = document.createElement('div');
+    el.className = 'room-item ' + def.placeClass;
+    el.dataset.id = item.id;
+    el.style.left = item.x + '%';
+    el.style.bottom = item.bottom + '%';
+    el.textContent = def.emoji;
+
+    const tooltip = document.createElement('div');
+    tooltip.className = 'item-tooltip';
+    tooltip.textContent = def.tooltip;
+    el.appendChild(tooltip);
+
+    el.addEventListener('click', (e) => {
+      e.stopPropagation();
+      useRoomItem(item.id);
+    });
+
+    container.appendChild(el);
+  });
+}
+
+/* ============================================================
+   PLACE CONSUMABLE INTO ROOM
+   ============================================================ */
+function placeRoomItem(type) {
+  if (!gameData) return;
+  const def = CONSUMABLE_DEFS[type];
+  if (!def) return;
+
+  const items = { ...(gameData.roomItems || {}) };
+  const existing = Object.values(items);
+
+  if (existing.length >= MAX_ROOM_ITEMS) {
+    showToast('Room is full! Use items first 🌿');
+    return false;
+  }
+
+  // Slightly randomize position around the default to avoid overlap
+  const jitterX = (Math.random() * 14 - 7);
+  const jitterB = (Math.random() * 6 - 3);
+  const x = Math.max(8, Math.min(88, def.defaultX + jitterX));
+  const bottom = Math.max(6, Math.min(24, def.defaultBottom + jitterB));
+
+  const id = 'ri_' + Date.now() + '_' + Math.random().toString(36).slice(2, 6);
+  items[id] = { id, type, x, bottom, placedAt: Date.now(), placedBy: me };
+
+  db.ref('tamagotchi/roomItems').set(items);
+  return true;
+}
+
+/* ============================================================
+   USE A PLACED ROOM ITEM
+   ============================================================ */
+async function useRoomItem(itemId) {
+  if (!gameData) return;
+  if (isAnimating) return showToast('Let Mochi finish 🌿');
+
+  const items = gameData.roomItems || {};
+  const item = items[itemId];
+  if (!item) return;
+
+  const def = CONSUMABLE_DEFS[item.type];
+  if (!def) return;
+
+  isAnimating = true;
+  document.querySelectorAll('.action-btn').forEach(b => b.disabled = true);
+
+  const pet = $('pet');
+  const targetX = item.x;
+
+  try {
+    // Mochi walks over
+    pet.className = 'pet walking';
+    await movePetTo(Math.max(10, Math.min(85, targetX)), 1100);
+
+    // Animate item consuming
+    const el = document.querySelector('.room-item[data-id="' + itemId + '"]');
+    if (el) el.classList.add('consuming');
+
+    // Do the consume animation
+    if (item.type === 'treat') {
+      pet.className = 'pet happy eating';
+      showBubble(def.consumeBubble, def.consumeEmoji);
+      for (let i = 0; i < 3; i++) setTimeout(() => floatHearts(1), i * 350);
+    } else if (item.type === 'toy') {
+      pet.className = 'pet happy';
+      showBubble(def.consumeBubble, def.consumeEmoji);
+      floatHearts(6);
+    } else if (item.type === 'pillow') {
+      pet.className = 'pet sleeping';
+      showBubble(def.consumeBubble, def.consumeEmoji);
+      for (let i = 0; i < 3; i++) {
+        setTimeout(() => {
+          const z = document.createElement('div');
+          z.className = 'zzz';
+          z.textContent = 'Z';
+          z.style.left = targetX + '%';
+          z.style.bottom = '90px';
+          z.style.fontSize = (0.6 + i * 0.1) + 'rem';
+          $('petArea').appendChild(z);
+          setTimeout(() => z.remove(), 2500);
+        }, i * 550);
+      }
+    } else if (item.type === 'soap') {
+      pet.className = 'pet happy';
+      showBubble(def.consumeBubble, def.consumeEmoji);
+      for (let i = 0; i < 6; i++) {
+        setTimeout(() => {
+          const b = document.createElement('div');
+          b.className = 'bubble';
+          const size = 8 + Math.random() * 14;
+          b.style.width = size + 'px';
+          b.style.height = size + 'px';
+          b.style.left = (targetX - 15 + Math.random() * 30) + '%';
+          b.style.bottom = '70px';
+          b.style.setProperty('--wobble', (Math.random() * 16 - 8) + 'px');
+          $('petArea').appendChild(b);
+          setTimeout(() => b.remove(), 2000);
+        }, i * 150);
+      }
+    }
+
+    await new Promise(r => setTimeout(r, 1600));
+
+    pet.className = 'pet walking';
+    await movePetTo(50, 900);
+    pet.className = 'pet idle';
+
+    // Apply effect + remove from Firebase
+    applyConsumableEffect(item, def);
+
+    // Remove the specific item from roomItems
+    const updated = { ...(gameData.roomItems || {}) };
+    delete updated[itemId];
+    db.ref('tamagotchi/roomItems').set(updated);
+
+  } catch(e) {
+    console.error('Use room item error:', e);
+    pet.className = 'pet idle';
+  }
+
+  isAnimating = false;
+  document.querySelectorAll('.action-btn').forEach(b => b.disabled = false);
+  renderCache.petMood = '';
+  renderPet();
+  startAmbientLoop();
+}
+
+function applyConsumableEffect(item, def) {
+  if (!gameData) return;
+  const inv = gameData.inventory || {};
+  let xpMult = 1;
+  if (inv.decoration) xpMult += 0.05;
+  if (inv.xpboost) xpMult += 0.15;
+
+  const updates = {};
+  updates[def.stat] = Math.min(100, (gameData[def.stat] || 0) + def.amount);
+
+  // Small XP reward for using
+  const xpGain = Math.floor(3 * xpMult);
+  updates.xp = (gameData.xp || 0) + xpGain;
+  updates.lastUpdate = Date.now();
+
+  // Diary entry
+  const entry = { by: me, text: `${def.consumeVerb} (from shop)`, time: Date.now() };
+  const key = 'diary/' + Date.now() + '_' + Math.random().toString(36).slice(2, 6);
+  updates[key] = entry;
+
+  const diary = gameData.diary || {};
+  const keys = Object.keys(diary).sort();
+  if (keys.length >= MAX_DIARY) {
+    keys.slice(0, keys.length - MAX_DIARY + 1).forEach(k => updates['diary/' + k] = null);
+  }
+
+  db.ref('tamagotchi').update(updates);
+  sfxGood();
+  showToast(def.consumeEmoji + ' ' + def.consumeVerb + '! +' + def.amount + ' ' + def.stat);
 }
 
 /* ============================================================
@@ -2109,18 +2419,28 @@ function renderShop() {
   grid.innerHTML = '';
   const inv = gameData.inventory || {};
   const coins = gameData.coins || 0;
+  const roomItems = gameData.roomItems || {};
+  const placedCounts = {};
+  Object.values(roomItems).forEach(it => {
+    placedCounts[it.type] = (placedCounts[it.type] || 0) + 1;
+  });
 
   SHOP_ITEMS.forEach(item => {
     const owned = !item.consumable && inv[item.id];
     const canAfford = coins >= item.cost;
+    const placed = item.consumable ? (placedCounts[item.id] || 0) : 0;
+    const roomFull = Object.keys(roomItems).length >= MAX_ROOM_ITEMS;
+    const disabled = !canAfford || owned || (item.consumable && roomFull);
+
     const card = document.createElement('div');
     card.className = 'shop-card' + (owned ? ' owned' : '');
     card.innerHTML = `
       <div class="shop-emoji">${item.emoji}</div>
       <div class="shop-name">${item.name}</div>
       <div class="shop-desc">${item.desc}</div>
-      ${owned ? '<div class="owned-tag">IN USE IN ROOM</div>' : ''}
-      <button class="shop-buy" data-id="${item.id}" ${(!canAfford || owned) ? 'disabled' : ''}>
+      ${owned ? '<div class="owned-tag">IN USE</div>' : ''}
+      ${placed > 0 ? '<div class="place-count">' + placed + ' IN ROOM</div>' : ''}
+      <button class="shop-buy" data-id="${item.id}" ${disabled ? 'disabled' : ''}>
         ${owned ? '✓ OWNED' : '🪙 ' + item.cost}
       </button>
     `;
@@ -2139,76 +2459,48 @@ function buyItem(id) {
   const coins = gameData.coins || 0;
   if (coins < item.cost) return showToast('Not enough coins 🪙');
 
-  const updates = { coins: coins - item.cost };
-  const inv = { ...(gameData.inventory || {}) };
-
   if (item.consumable) {
-    // Show a visual consumable effect in the room
-    showConsumableFx(item.id);
-    switch(item.id) {
-      case 'treat': updates.hunger = Math.min(100, (gameData.hunger || 0) + 15); break;
-      case 'toy': updates.happy = Math.min(100, (gameData.happy || 0) + 20); break;
-      case 'pillow': updates.energy = Math.min(100, (gameData.energy || 0) + 25); break;
-      case 'soap': updates.clean = Math.min(100, (gameData.clean || 0) + 25); break;
+    // Check room capacity first — do NOT deduct coins if room full
+    const roomItemCount = Object.keys(gameData.roomItems || {}).length;
+    if (roomItemCount >= MAX_ROOM_ITEMS) {
+      return showToast('Room is full! Use items first 🌿');
     }
-    showToast(item.emoji + ' ' + item.name + ' used!');
-  } else {
-    inv[id] = true;
-    updates.inventory = inv;
-    showToast(item.emoji + ' ' + item.name + ' purchased! Visible now in room!');
 
-    // Force re-render of decorations/accessories immediately
+    // Deduct coins
+    db.ref('tamagotchi').update({ coins: coins - item.cost });
+
+    // Place in room
+    const success = placeRoomItem(item.id);
+    if (!success) {
+      // Refund if placement failed (shouldn't happen since we checked)
+      db.ref('tamagotchi').update({ coins: gameData.coins || 0 });
+      return;
+    }
+
+    showToast(item.emoji + ' ' + item.name + ' placed in room! Tap it!');
+    sfxGood();
+    spawnConfetti(6);
+  } else {
+    // Permanent item
+    const inv = { ...(gameData.inventory || {}) };
+    inv[id] = true;
+    db.ref('tamagotchi').update({
+      coins: coins - item.cost,
+      inventory: inv
+    });
+    showToast(item.emoji + ' ' + item.name + ' purchased!');
     renderCache.decorationsHash = '';
     renderCache.accessoriesHash = '';
     setTimeout(() => {
       renderRoomDecorations();
       renderPetAccessories();
     }, 100);
+    sfxGood();
+    spawnConfetti(8);
   }
-  db.ref('tamagotchi').update(updates);
-  sfxGood();
-  spawnConfetti(8);
-}
 
-/* ============================================================
-   CONSUMABLE VISUAL EFFECT
-   ============================================================ */
-function showConsumableFx(itemId) {
-  const area = $('petArea');
-  if (!area) return;
-
-  const fxMap = {
-    treat: { emoji: '🍬', count: 3 },
-    toy: { emoji: '🧸', count: 3 },
-    pillow: { emoji: '🛏️', count: 2 },
-    soap: { emoji: '🧼', count: 3 }
-  };
-  const cfg = fxMap[itemId] || { emoji: '✨', count: 3 };
-
-  const pet = $('pet');
-  const petLeft = pet ? pet.style.left || '50%' : '50%';
-
-  for (let i = 0; i < cfg.count; i++) {
-    setTimeout(() => {
-      const fx = document.createElement('div');
-      fx.className = 'consumable-fx';
-      fx.textContent = cfg.emoji;
-      fx.style.left = `calc(${petLeft} + ${(Math.random() * 40 - 20)}px)`;
-      fx.style.bottom = (60 + Math.random() * 30) + 'px';
-      fx.style.animationDelay = (i * 0.1) + 's';
-      area.appendChild(fx);
-      setTimeout(() => fx.remove(), 2000);
-
-      // Sparkles
-      const sp = document.createElement('div');
-      sp.className = 'sparkle-fx';
-      sp.textContent = ['✨', '💫', '⭐'][i % 3];
-      sp.style.left = `calc(${petLeft} + ${(Math.random() * 50 - 25)}px)`;
-      sp.style.bottom = (70 + Math.random() * 20) + 'px';
-      area.appendChild(sp);
-      setTimeout(() => sp.remove(), 1300);
-    }, i * 150);
-  }
+  // Force shop to re-render with new coin count / placed counts
+  setTimeout(renderShop, 150);
 }
 
 /* ============================================================
@@ -2915,7 +3207,7 @@ function showWelcomeBack(prev, curr, lastSeenTime) {
 }
 
 /* ============================================================
-   AUTO-CLEAN (if owned)
+   AUTO-CLEAN
    ============================================================ */
 function startAutoCleanLoop() {
   if (autoCleanIntervalId) clearInterval(autoCleanIntervalId);
