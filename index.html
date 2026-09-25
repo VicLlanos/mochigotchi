@@ -614,21 +614,8 @@
   /* ============================================================
      3D FURNITURE — ALL FURNITURE SITS ON THE FLOOR PLANE
      ============================================================ */
-  .room-scene {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    z-index: 4;
-    transform-style: preserve-3d;
-  }
+  .room-scene { position: absolute; inset: 0; pointer-events: none; z-index: 4; transform-style: preserve-3d; }
 
-  /*
-     Keep furniture percentages relative to the full room, not to an
-     accidentally shrink-wrapped scene. Every furniture item below uses
-     left/right percentages, so the scene must always span the entire room.
-  */
   .room-scene .furniture {
     position: absolute;
     pointer-events: auto;
@@ -650,6 +637,20 @@
     z-index: -1;
   }
   .room-scene .furniture:active { transform: scale(0.97); }
+  .room-scene .furniture {
+    touch-action: none;
+    user-select: none;
+    -webkit-user-select: none;
+    cursor: grab;
+  }
+  .room-scene .furniture.dragging {
+    z-index: 50 !important;
+    opacity: 0.9;
+    cursor: grabbing;
+    transition: none !important;
+    filter: brightness(1.08) drop-shadow(0 4px 8px rgba(0,0,0,0.35));
+  }
+  .room-scene .furniture.dragging .furniture-label { opacity: 0; }
 
   /* Depth layers: back (wall items), mid (behind sofa), front (foreground) */
   .furniture.depth-back {
@@ -1180,7 +1181,7 @@
      ============================================================ */
 
   /* Sink — mid-right between counter and fridge */
-  .f-room-sink { bottom: 8%; left: 48%; width: 58px; height: 66px; }
+  .f-room-sink { bottom: 8%; left: 38%; width: 58px; height: 66px; }
   .f-room-sink .sink-basin {
     position: absolute; inset: 0;
     background: linear-gradient(180deg, #E8E8E8 0%, #C8C8C8 100%);
@@ -1234,7 +1235,7 @@
   .f-room-sink.running .sink-knob { transform: rotate(90deg); }
 
   /* Trash can — center between counter and sink */
-  .f-room-trash { bottom: 8%; left: 30%; width: 42px; height: 58px; }
+  .f-room-trash { bottom: 8%; left: 22%; width: 42px; height: 58px; }
   .f-room-trash .trash-body {
     position: absolute; inset: 0;
     background: linear-gradient(180deg, #8FB87D 0%, #6B9F5D 100%);
@@ -2175,9 +2176,6 @@
     }
   }
   @media (max-width: 380px) {
-    .room-scene { width: 100%; height: 100%; }
-    .f-room-sink { left: 46%; }
-    .f-room-trash { left: 27%; }
     .pet { font-size: 2.6rem; }
     .room { height: 280px; }
     .action-btn { min-height: 64px; }
@@ -3105,6 +3103,7 @@ function processUpdate(snap) {
   updateStreakAndDays();
   checkStreak();
   applyRoom();
+  renderRoomScene(); // re-apply furniture positions (including remote moves)
   renderWantBubble();
   updateNotesBadge();
   renderXPBar();
@@ -3292,35 +3291,113 @@ function renderRoomScene() {
   const roomKey = currentRoomId;
   const inv = gameData?.inventory || {};
   const invHash = Object.keys(inv).filter(k => inv[k]).sort().join(',');
-  const hashKey = roomKey + '|' + invHash;
+  const posHash = JSON.stringify(gameData?.furniturePositions?.[roomKey] || {});
+  const hashKey = roomKey + '|' + invHash + '|' + posHash;
   if (renderCache.sceneHash === hashKey) return;
   renderCache.sceneHash = hashKey;
 
   scene.innerHTML = '';
 
-  const makeFurniture = (className, html, label, onClick, depth = 'front') => {
+  const makeFurniture = (fid, className, html, label, onClick, depth = 'front') => {
     const el = document.createElement('div');
     el.className = 'furniture ' + className + ' depth-' + depth;
+    el.dataset.fid = fid;
     el.innerHTML = html + (label ? `<div class="furniture-label">${label}</div>` : '');
-    if (onClick) {
-      el.addEventListener('click', (e) => {
-        e.stopPropagation();
-        onClick();
-      });
+
+    // Apply saved position if any (works for every room, locked or not)
+    const saved = gameData?.furniturePositions?.[roomKey]?.[fid];
+    if (saved && typeof saved.left === 'number' && typeof saved.top === 'number') {
+      el.style.left = saved.left + '%';
+      el.style.top = saved.top + '%';
+      el.style.right = 'auto';
+      el.style.bottom = 'auto';
     }
+
+    // Drag-to-reposition (pointer events for mouse + touch)
+    let dragMoved = false;
+    let dragStartX = 0, dragStartY = 0, originLeft = 0, originTop = 0;
+    const DRAG_THRESHOLD = 6;
+
+    el.addEventListener('pointerdown', (e) => {
+      if (isAnimating || mgActive) return;
+      if (e.button !== undefined && e.button !== 0) return;
+      e.preventDefault();
+      e.stopPropagation();
+      const room = $('room');
+      if (!room) return;
+      const roomRect = room.getBoundingClientRect();
+      const elRect = el.getBoundingClientRect();
+      dragStartX = e.clientX;
+      dragStartY = e.clientY;
+      originLeft = ((elRect.left - roomRect.left) / roomRect.width) * 100;
+      originTop = ((elRect.top - roomRect.top) / roomRect.height) * 100;
+      dragMoved = false;
+      el.classList.add('dragging');
+      try { el.setPointerCapture(e.pointerId); } catch (_) {}
+
+      const onMove = (ev) => {
+        const dx = ev.clientX - dragStartX;
+        const dy = ev.clientY - dragStartY;
+        if (!dragMoved && (Math.abs(dx) > DRAG_THRESHOLD || Math.abs(dy) > DRAG_THRESHOLD)) {
+          dragMoved = true;
+        }
+        if (!dragMoved) return;
+        const newLeft = originLeft + (dx / roomRect.width) * 100;
+        const newTop = originTop + (dy / roomRect.height) * 100;
+        // Clamp so furniture stays mostly inside the room
+        const clampedLeft = Math.max(-5, Math.min(95, newLeft));
+        const clampedTop = Math.max(-5, Math.min(90, newTop));
+        el.style.left = clampedLeft + '%';
+        el.style.top = clampedTop + '%';
+        el.style.right = 'auto';
+        el.style.bottom = 'auto';
+      };
+
+      const onUp = (ev) => {
+        el.classList.remove('dragging');
+        try { el.releasePointerCapture(ev.pointerId); } catch (_) {}
+        el.removeEventListener('pointermove', onMove);
+        el.removeEventListener('pointerup', onUp);
+        el.removeEventListener('pointercancel', onUp);
+
+        if (dragMoved) {
+          // Persist new position for this room + furniture (syncs across devices)
+          const left = parseFloat(el.style.left) || 0;
+          const top = parseFloat(el.style.top) || 0;
+          if (gameData) {
+            const path = `furniturePositions/${roomKey}/${fid}`;
+            db.ref('tamagotchi/' + path).set({ left: Math.round(left * 10) / 10, top: Math.round(top * 10) / 10 });
+            // Keep local cache in sync immediately
+            if (!gameData.furniturePositions) gameData.furniturePositions = {};
+            if (!gameData.furniturePositions[roomKey]) gameData.furniturePositions[roomKey] = {};
+            gameData.furniturePositions[roomKey][fid] = { left: Math.round(left * 10) / 10, top: Math.round(top * 10) / 10 };
+            renderCache.sceneHash = ''; // force re-hash next time
+          }
+          showToast('📍 Furniture moved!');
+        } else if (onClick) {
+          // Treat as a normal interaction (no drag)
+          onClick();
+        }
+      };
+
+      el.addEventListener('pointermove', onMove);
+      el.addEventListener('pointerup', onUp);
+      el.addEventListener('pointercancel', onUp);
+    });
+
     scene.appendChild(el);
     return el;
   };
 
   if (roomKey === 'bedroom') {
-    makeFurniture('f-bed', `
+    makeFurniture('bed', 'f-bed', `
       <div class="bed-frame"></div>
       <div class="bed-mattress"></div>
       <div class="bed-blanket"></div>
       <div class="bed-pillow"></div>
     `, 'SLEEP', () => furnitureInteraction('bed'), 'front');
 
-    makeFurniture('f-nightstand', `
+    makeFurniture('nightstand', 'f-nightstand', `
       <div class="ns-top"></div>
       <div class="ns-front">
         <div class="ns-drawer"></div>
@@ -3331,19 +3408,19 @@ function renderRoomScene() {
       <div class="ns-glow"></div>
     `, 'LAMP', () => furnitureInteraction('lamp'), 'front');
 
-    makeFurniture('f-frame', `
+    makeFurniture('frame', 'f-frame', `
       <div class="frame-outer"></div>
       <div class="frame-inner">🖼️</div>
     `, 'LOOK', () => furnitureInteraction('frame'), 'back');
 
-    makeFurniture('f-shelf', `
+    makeFurniture('shelf', 'f-shelf', `
       <div class="shelf-top"></div>
       <span class="shelf-item" style="left:8px;">📚</span>
       <span class="shelf-item" style="left:38px;">🕯️</span>
       <span class="shelf-item" style="left:62px;">🏺</span>
     `, 'CHECK', () => furnitureInteraction('shelf'), 'back');
 
-    makeFurniture('f-window', `
+    makeFurniture('window', 'f-window', `
       <div class="win-frame"></div>
       <div class="win-glass"><div class="win-cloud"></div></div>
       <div class="win-curtain win-curtain-l"></div>
@@ -3352,7 +3429,7 @@ function renderRoomScene() {
 
   } else if (roomKey === 'kitchen') {
     /* Counter left */
-    makeFurniture('f-kitchen-counter', `
+    makeFurniture('counter', 'f-kitchen-counter', `
       <div class="counter-top"></div>
       <div class="counter-front"></div>
       <div class="counter-sink"></div>
@@ -3360,7 +3437,7 @@ function renderRoomScene() {
     `, 'COOK', () => furnitureInteraction('counter'), 'front');
 
     /* Fridge right */
-    makeFurniture('f-fridge', `
+    makeFurniture('fridge', 'f-fridge', `
       <div class="fridge-top"></div>
       <div class="fridge-body">
         <div class="fridge-shelves" id="fridgeShelves"></div>
@@ -3372,31 +3449,31 @@ function renderRoomScene() {
     `, 'FRIDGE', () => furnitureInteraction('fridge'), 'front');
 
   } else if (roomKey === 'garden') {
-    makeFurniture('f-tree', `
+    makeFurniture('tree', 'f-tree', `
       <div class="tree-trunk"></div>
       <div class="tree-leaves"></div>
       <div class="tree-fruit">🍎</div>
     `, 'SHAKE', () => furnitureInteraction('tree'), 'front');
 
-    makeFurniture('f-flowers', `
+    makeFurniture('flowers', 'f-flowers', `
       <span>🌷</span><span>🌻</span><span>🌼</span><span>🌺</span>
     `, 'SNIFF', () => furnitureInteraction('flowers'), 'front');
 
   } else if (roomKey === 'playroom') {
-    makeFurniture('f-toybox', `
+    makeFurniture('toybox', 'f-toybox', `
       <div class="toybox-top"></div>
       <div class="toybox-front">🧸</div>
       <div class="toybox-items">🎈 ⚽ 🪀</div>
     `, 'OPEN', () => furnitureInteraction('toybox'), 'front');
 
-    makeFurniture('f-blocks', `
+    makeFurniture('blocks', 'f-blocks', `
       <div class="block b1"></div>
       <div class="block b2"></div>
       <div class="block b3"></div>
       <div class="block b4"></div>
     `, 'STACK', () => furnitureInteraction('blocks'), 'back');
 
-    makeFurniture('f-ballpit', `
+    makeFurniture('ballpit', 'f-ballpit', `
       <div class="pit-back">
         <div class="pit-balls">
           <div class="pit-ball" style="background:radial-gradient(circle at 30% 30%, #F4D9C8, #C9A898);"></div>
@@ -3408,12 +3485,12 @@ function renderRoomScene() {
     `, 'JUMP IN', () => furnitureInteraction('ballpit'), 'front');
 
   } else if (roomKey === 'observatory') {
-    makeFurniture('f-telescope', `
+    makeFurniture('telescope', 'f-telescope', `
       <div class="tel-tripod"></div>
       <div class="tel-tube"></div>
     `, 'PEEK', () => furnitureInteraction('telescope'), 'front');
 
-    makeFurniture('f-starchart', `
+    makeFurniture('starchart', 'f-starchart', `
       <div class="chart-frame">✦ ✧<br>✦ ✧<br>✦ ✧</div>
     `, 'STUDY', () => furnitureInteraction('starchart'), 'back');
   }
@@ -3422,7 +3499,7 @@ function renderRoomScene() {
      ROOM-SPECIFIC SHOP ITEMS (positioned to fill empty space)
      ============================================================ */
   if (roomKey === 'kitchen' && inv.kitchen_sink) {
-    makeFurniture('f-room-sink', `
+    makeFurniture('kitchen_sink', 'f-room-sink', `
       <div class="sink-basin"><div class="sink-bowl"></div></div>
       <div class="sink-faucet"></div>
       <div class="sink-water"></div>
@@ -3430,14 +3507,14 @@ function renderRoomScene() {
     `, 'TAP WATER', () => furnitureInteraction('room_sink'), 'front');
   }
   if (roomKey === 'kitchen' && inv.kitchen_trash) {
-    makeFurniture('f-room-trash', `
+    makeFurniture('kitchen_trash', 'f-room-trash', `
       <div class="trash-lid"></div>
       <div class="trash-body">🗑️</div>
       <div class="trash-items">🍌 🍎 🥬</div>
     `, 'OPEN', () => furnitureInteraction('room_trash'), 'front');
   }
   if (roomKey === 'bedroom' && inv.bedroom_bookshelf) {
-    makeFurniture('f-room-bookshelf', `
+    makeFurniture('bedroom_bookshelf', 'f-room-bookshelf', `
       <div class="bs-body">
         <div class="bs-shelf"><span class="bs-book pull">📕</span><span class="bs-book">📗</span><span class="bs-book">📘</span></div>
         <div class="bs-shelf"><span class="bs-book">📙</span><span class="bs-book">📓</span><span class="bs-book">📔</span></div>
@@ -3446,13 +3523,13 @@ function renderRoomScene() {
     `, 'READ', () => furnitureInteraction('room_bookshelf'), 'front');
   }
   if (roomKey === 'bedroom' && inv.bedroom_mirror) {
-    makeFurniture('f-room-mirror', `
+    makeFurniture('bedroom_mirror', 'f-room-mirror', `
       <div class="mirror-frame"></div>
       <div class="mirror-glass"></div>
     `, 'LOOK', () => furnitureInteraction('room_mirror'), 'back');
   }
   if (roomKey === 'bedroom' && inv.bedroom_clock) {
-    makeFurniture('f-room-clock', `
+    makeFurniture('bedroom_clock', 'f-room-clock', `
       <div class="clock-frame"></div>
       <div class="clock-hand hour"></div>
       <div class="clock-hand minute"></div>
@@ -3461,7 +3538,7 @@ function renderRoomScene() {
     `, 'WATCH', () => furnitureInteraction('room_clock'), 'back');
   }
   if (roomKey === 'garden' && inv.garden_fountain) {
-    makeFurniture('f-room-fountain', `
+    makeFurniture('garden_fountain', 'f-room-fountain', `
       <div class="fount-base"></div>
       <div class="fount-column"></div>
       <div class="fount-basin"></div>
@@ -3471,7 +3548,7 @@ function renderRoomScene() {
     `, 'SPLASH', () => furnitureInteraction('room_fountain'), 'front');
   }
   if (roomKey === 'garden' && inv.garden_feeder) {
-    makeFurniture('f-room-feeder', `
+    makeFurniture('garden_feeder', 'f-room-feeder', `
       <div class="feeder-pole"></div>
       <div class="feeder-house"></div>
       <div class="feeder-seeds">🌾</div>
@@ -3479,14 +3556,14 @@ function renderRoomScene() {
     `, 'WATCH', () => furnitureInteraction('room_feeder'), 'back');
   }
   if (roomKey === 'garden' && inv.garden_plant) {
-    makeFurniture('f-room-plant', `
+    makeFurniture('garden_plant', 'f-room-plant', `
       <div class="plant-pot"></div>
       <div class="plant-leaves">🌿</div>
       <div class="plant-water"></div>
     `, 'WATER', () => furnitureInteraction('room_plant'), 'front');
   }
   if (roomKey === 'playroom' && inv.playroom_easel) {
-    makeFurniture('f-room-easel', `
+    makeFurniture('playroom_easel', 'f-room-easel', `
       <div class="easel-leg-l"></div>
       <div class="easel-leg-r"></div>
       <div class="easel-canvas" data-splats="0">
@@ -3497,7 +3574,7 @@ function renderRoomScene() {
     `, 'PAINT', () => furnitureInteraction('room_easel'), 'front');
   }
   if (roomKey === 'playroom' && inv.playroom_piano) {
-    makeFurniture('f-room-piano', `
+    makeFurniture('playroom_piano', 'f-room-piano', `
       <div class="piano-body"></div>
       <div class="piano-keys">
         <div class="piano-key" data-note="261"></div>
@@ -3518,7 +3595,7 @@ function renderRoomScene() {
       const y = Math.random() * 44 + 2;
       starsHtml += `<span class="globe-star" style="top:${y}px; left:${x}px;"></span>`;
     }
-    makeFurniture('f-room-globe', `
+    makeFurniture('observatory_globe', 'f-room-globe', `
       <div class="globe-base"></div>
       <div class="globe-stand"></div>
       <div class="globe-orb">${starsHtml}</div>
