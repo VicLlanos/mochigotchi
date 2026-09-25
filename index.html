@@ -1690,6 +1690,288 @@
     box-shadow: 0 0 4px rgba(255,255,255,0.9);
   }
   .f-room-globe.spinning .globe-orb { animation: globeSpin 3s linear; }
+
+  /* ============================================================
+     FOREST + FARM + EXTRA ROOM FURNITURE
+     ============================================================ */
+  .f-mushroom { bottom: 10%; left: 8%; width: 48px; height: 52px; }
+  .f-mushroom .mush-stem {
+    position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
+    width: 14px; height: 22px; background: #F4E9DE; border: 3px solid #8B6F5E; border-radius: 4px;
+  }
+  .f-mushroom .mush-cap {
+    position: absolute; bottom: 16px; left: 50%; transform: translateX(-50%);
+    width: 42px; height: 28px; background: radial-gradient(circle at 40% 40%, #E87878, #C05050);
+    border: 3px solid #8B3F3F; border-radius: 50% 50% 40% 40%;
+    box-shadow: inset -4px -4px 0 rgba(0,0,0,0.15);
+  }
+  .f-mushroom .mush-cap::after {
+    content: ''; position: absolute; top: 8px; left: 8px; width: 6px; height: 6px;
+    background: rgba(255,255,255,0.7); border-radius: 50%;
+    box-shadow: 12px 4px 0 rgba(255,255,255,0.5), 6px 12px 0 rgba(255,255,255,0.4);
+  }
+  .f-mushroom.glow .mush-cap { filter: brightness(1.15) drop-shadow(0 0 8px rgba(232,120,120,0.6)); }
+
+  .f-stump { bottom: 8%; right: 10%; width: 56px; height: 40px; }
+  .f-stump .stump-body {
+    position: absolute; inset: 0;
+    background: linear-gradient(180deg, #A87850 0%, #8B5E3C 100%);
+    border: 3px solid #5A3A20; border-radius: 6px 6px 4px 4px;
+    box-shadow: inset 0 4px 0 rgba(255,255,255,0.15), 0 5px 0 rgba(0,0,0,0.25);
+  }
+  .f-stump .stump-rings {
+    position: absolute; top: 6px; left: 50%; transform: translateX(-50%);
+    width: 28px; height: 16px; border: 2px solid rgba(90,58,32,0.45); border-radius: 50%;
+  }
+  .f-stump .stump-rings::after {
+    content: ''; position: absolute; inset: 4px;
+    border: 2px solid rgba(90,58,32,0.35); border-radius: 50%;
+  }
+
+  .f-fireflies { top: 18%; left: 40%; width: 70px; height: 50px; pointer-events: auto; }
+  .f-fireflies .ff {
+    position: absolute; width: 5px; height: 5px; background: #FFF9C8; border-radius: 50%;
+    box-shadow: 0 0 8px #FFE88C; animation: ffFloat 2.4s ease-in-out infinite;
+  }
+  .f-fireflies .ff:nth-child(1) { left: 10%; top: 40%; animation-delay: 0s; }
+  .f-fireflies .ff:nth-child(2) { left: 45%; top: 15%; animation-delay: 0.5s; }
+  .f-fireflies .ff:nth-child(3) { left: 70%; top: 50%; animation-delay: 1s; }
+  .f-fireflies .ff:nth-child(4) { left: 30%; top: 65%; animation-delay: 1.4s; }
+  @keyframes ffFloat {
+    0%, 100% { transform: translateY(0) scale(1); opacity: 0.7; }
+    50% { transform: translateY(-10px) scale(1.3); opacity: 1; }
+  }
+
+  .f-crops { bottom: 10%; left: 12%; width: 90px; height: 48px; }
+  .f-crops .crop-row {
+    position: absolute; bottom: 0; left: 0; right: 0; height: 18px;
+    background: #8B6F3E; border: 2px solid #5A4A28; border-radius: 3px;
+  }
+  .f-crops .crop-plant {
+    position: absolute; bottom: 14px; font-size: 1.1rem; line-height: 1;
+    animation: cropBob 2.8s ease-in-out infinite;
+  }
+  .f-crops .crop-plant:nth-child(2) { left: 8px; animation-delay: 0.2s; }
+  .f-crops .crop-plant:nth-child(3) { left: 32px; animation-delay: 0.5s; }
+  .f-crops .crop-plant:nth-child(4) { left: 56px; animation-delay: 0.8s; }
+  @keyframes cropBob {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-3px); }
+  }
+  .f-crops.harvested .crop-plant { opacity: 0.35; transform: scale(0.7); }
+
+  .f-chicken { bottom: 12%; right: 18%; width: 40px; height: 36px; font-size: 1.8rem; line-height: 1;
+    display: flex; align-items: flex-end; justify-content: center;
+  }
+  .f-chicken.pecking { animation: chickenPeck 0.6s ease-in-out 3; }
+  @keyframes chickenPeck {
+    0%, 100% { transform: rotate(0deg); }
+    50% { transform: rotate(18deg) translateY(3px); }
+  }
+
+  .f-room-campfire { bottom: 10%; left: 42%; width: 54px; height: 48px; }
+  .f-room-campfire .cf-logs {
+    position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
+    width: 40px; height: 14px; background: #8B5E3C; border: 3px solid #5A3A20; border-radius: 4px;
+  }
+  .f-room-campfire .cf-flame {
+    position: absolute; bottom: 10px; left: 50%; transform: translateX(-50%);
+    font-size: 1.6rem; line-height: 1;
+    animation: flameFlicker 0.5s ease-in-out infinite alternate;
+  }
+  @keyframes flameFlicker {
+    0% { transform: translateX(-50%) scale(1) rotate(-3deg); }
+    100% { transform: translateX(-50%) scale(1.08) rotate(3deg); }
+  }
+
+  .f-room-tent { bottom: 8%; right: 8%; width: 70px; height: 58px; }
+  .f-room-tent .tent-body {
+    position: absolute; inset: 0;
+    background: linear-gradient(180deg, #E8C070 0%, #C9A044 100%);
+    border: 3px solid #8B6F3E; border-radius: 50% 50% 4px 4px / 60% 60% 4px 4px;
+    clip-path: polygon(50% 0%, 100% 100%, 0% 100%);
+  }
+  .f-room-tent .tent-flap {
+    position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
+    width: 18px; height: 22px; background: #5A4A28; border-radius: 4px 4px 0 0;
+  }
+
+  .f-room-logseat { bottom: 10%; left: 10%; width: 50px; height: 28px; }
+  .f-room-logseat .log-body {
+    position: absolute; inset: 0;
+    background: linear-gradient(180deg, #A87850, #7A4E30);
+    border: 3px solid #5A3A20; border-radius: 12px;
+    box-shadow: inset 0 3px 0 rgba(255,255,255,0.12);
+  }
+
+  .f-room-barn { bottom: 8%; left: 6%; width: 72px; height: 64px; }
+  .f-room-barn .barn-body {
+    position: absolute; inset: 0;
+    background: linear-gradient(180deg, #D87860 0%, #B85840 100%);
+    border: 3px solid #6B3A2A; border-radius: 4px 4px 2px 2px;
+    box-shadow: inset -5px -5px 0 rgba(0,0,0,0.12), 0 5px 0 rgba(0,0,0,0.25);
+  }
+  .f-room-barn .barn-roof {
+    position: absolute; top: -14px; left: -4px; right: -4px; height: 22px;
+    background: #6B4F3E; border: 3px solid #4A3A28;
+    clip-path: polygon(0% 100%, 50% 0%, 100% 100%);
+  }
+  .f-room-barn .barn-door {
+    position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
+    width: 22px; height: 28px; background: #8B5E3C; border: 2px solid #5A3A20; border-radius: 2px 2px 0 0;
+  }
+  .f-room-barn.open .barn-door { transform: translateX(-50%) scaleX(0.3); transform-origin: left center; }
+
+  .f-room-scarecrow { bottom: 8%; right: 12%; width: 44px; height: 70px; }
+  .f-room-scarecrow .sc-pole {
+    position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
+    width: 6px; height: 50px; background: #8B6F5E; border: 2px solid #5A4A3A;
+  }
+  .f-room-scarecrow .sc-head {
+    position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+    font-size: 1.4rem; line-height: 1;
+  }
+  .f-room-scarecrow .sc-arms {
+    position: absolute; top: 28px; left: 50%; transform: translateX(-50%);
+    width: 40px; height: 4px; background: #8B6F5E; border: 2px solid #5A4A3A;
+  }
+  .f-room-scarecrow.wave .sc-arms { animation: scWave 0.5s ease-in-out 2; }
+  @keyframes scWave {
+    0%, 100% { transform: translateX(-50%) rotate(0deg); }
+    50% { transform: translateX(-50%) rotate(-12deg); }
+  }
+
+  .f-room-well { bottom: 10%; left: 40%; width: 52px; height: 50px; }
+  .f-room-well .well-base {
+    position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
+    width: 40px; height: 28px; background: #A8A8A8; border: 3px solid #5A5A5A; border-radius: 4px;
+  }
+  .f-room-well .well-rim {
+    position: absolute; bottom: 24px; left: 50%; transform: translateX(-50%);
+    width: 46px; height: 10px; background: #C8C8C8; border: 3px solid #5A5A5A; border-radius: 50%;
+  }
+  .f-room-well .well-bucket {
+    position: absolute; top: 4px; left: 50%; transform: translateX(-50%);
+    font-size: 0.9rem; transition: top 0.5s;
+  }
+  .f-room-well.pulling .well-bucket { top: 18px; }
+
+  .f-room-rug { bottom: 18%; left: 28%; width: 70px; height: 36px; }
+  .f-room-rug .rug-mat {
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse, #E8A0A0 0%, #C07070 100%);
+    border: 3px solid #8B4A4A; border-radius: 50%;
+    box-shadow: inset 0 0 0 4px rgba(255,255,255,0.2);
+  }
+
+  .f-room-wardrobe { bottom: 8%; right: 4%; width: 48px; height: 80px; }
+  .f-room-wardrobe .wd-body {
+    position: absolute; inset: 0;
+    background: linear-gradient(180deg, #C9A078 0%, #A87850 100%);
+    border: 3px solid #6B4A2A; border-radius: 3px;
+    box-shadow: inset -5px -5px 0 rgba(0,0,0,0.12), 0 5px 0 rgba(0,0,0,0.25);
+  }
+  .f-room-wardrobe .wd-door-l, .f-room-wardrobe .wd-door-r {
+    position: absolute; top: 6px; bottom: 6px; width: 40%;
+    background: linear-gradient(180deg, #D4B090, #B88860);
+    border: 2px solid #6B4A2A; transition: transform 0.4s;
+  }
+  .f-room-wardrobe .wd-door-l { left: 4px; }
+  .f-room-wardrobe .wd-door-r { right: 4px; }
+  .f-room-wardrobe.open .wd-door-l { transform: perspective(80px) rotateY(55deg); transform-origin: left; }
+  .f-room-wardrobe.open .wd-door-r { transform: perspective(80px) rotateY(-55deg); transform-origin: right; }
+
+  .f-room-table { bottom: 10%; left: 48%; width: 64px; height: 40px; }
+  .f-room-table .tbl-top {
+    position: absolute; top: 0; left: 0; right: 0; height: 12px;
+    background: #C9A078; border: 3px solid #6B4A2A; border-radius: 3px;
+  }
+  .f-room-table .tbl-leg {
+    position: absolute; bottom: 0; width: 6px; height: 28px;
+    background: #8B6F5E; border: 2px solid #5A4A3A;
+  }
+  .f-room-table .tbl-leg.l { left: 6px; }
+  .f-room-table .tbl-leg.r { right: 6px; }
+
+  .f-room-spices { top: 22%; left: 42%; width: 48px; height: 36px; }
+  .f-room-spices .sp-shelf {
+    position: absolute; bottom: 0; left: 0; right: 0; height: 8px;
+    background: #8B6F5E; border: 2px solid #5A4A3A; border-radius: 2px;
+  }
+  .f-room-spices .sp-jar {
+    position: absolute; bottom: 8px; width: 10px; height: 16px;
+    background: #E8D4A8; border: 2px solid #8B6F5E; border-radius: 2px 2px 1px 1px;
+    font-size: 0.45rem; display: flex; align-items: center; justify-content: center;
+  }
+  .f-room-spices .sp-jar:nth-child(2) { left: 4px; background: #E8A0A0; }
+  .f-room-spices .sp-jar:nth-child(3) { left: 18px; background: #A0C8A0; }
+  .f-room-spices .sp-jar:nth-child(4) { left: 32px; background: #E8D080; }
+
+  .f-room-bench { bottom: 10%; left: 48%; width: 70px; height: 32px; }
+  .f-room-bench .bn-seat {
+    position: absolute; top: 0; left: 0; right: 0; height: 10px;
+    background: #A87850; border: 3px solid #5A3A20; border-radius: 3px;
+  }
+  .f-room-bench .bn-leg {
+    position: absolute; bottom: 0; width: 6px; height: 22px; background: #8B5E3C; border: 2px solid #5A3A20;
+  }
+  .f-room-bench .bn-leg.l { left: 8px; } .f-room-bench .bn-leg.r { right: 8px; }
+
+  .f-room-lantern { top: 20%; right: 18%; width: 28px; height: 40px; }
+  .f-room-lantern .ln-body {
+    position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
+    width: 20px; height: 28px; background: #C9A044; border: 3px solid #8B6F3E; border-radius: 3px;
+    box-shadow: 0 0 12px rgba(255,200,80,0.5);
+  }
+  .f-room-lantern .ln-top {
+    position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+    width: 16px; height: 8px; background: #8B6F5E; border: 2px solid #5A4A3A; border-radius: 2px;
+  }
+  .f-room-lantern.lit .ln-body { animation: lanternGlow 1.5s ease-in-out infinite alternate; }
+  @keyframes lanternGlow {
+    0% { box-shadow: 0 0 8px rgba(255,200,80,0.4); }
+    100% { box-shadow: 0 0 18px rgba(255,200,80,0.9); }
+  }
+
+  .f-room-train { bottom: 12%; left: 36%; width: 64px; height: 32px; font-size: 1.5rem; line-height: 1;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .f-room-train.chugging { animation: trainChug 1.2s ease-in-out; }
+  @keyframes trainChug {
+    0% { transform: translateX(0); }
+    40% { transform: translateX(18px); }
+    80% { transform: translateX(-8px); }
+    100% { transform: translateX(0); }
+  }
+
+  .f-room-playmat { bottom: 16%; right: 20%; width: 60px; height: 40px; }
+  .f-room-playmat .pm-mat {
+    position: absolute; inset: 0;
+    background: repeating-conic-gradient(#E8B0C0 0% 25%, #B0D0E8 0% 50%) 50% / 16px 16px;
+    border: 3px solid #8B6F5E; border-radius: 6px;
+  }
+
+  .f-room-cushions { bottom: 10%; left: 38%; width: 56px; height: 28px; }
+  .f-room-cushions .cush {
+    position: absolute; bottom: 0; width: 28px; height: 20px;
+    background: #7A6BB0; border: 3px solid #4A3A70; border-radius: 8px;
+  }
+  .f-room-cushions .cush:nth-child(1) { left: 0; background: #7A6BB0; }
+  .f-room-cushions .cush:nth-child(2) { left: 20px; background: #9A7BC0; bottom: 4px; }
+
+  .f-room-meteor { top: 12%; right: 20%; width: 50px; height: 24px; }
+  .f-room-meteor .met-streak {
+    position: absolute; inset: 0;
+    background: linear-gradient(90deg, transparent, #FFF9C8 40%, #FFE88C 100%);
+    border-radius: 50%; opacity: 0.85;
+    clip-path: polygon(0% 40%, 100% 0%, 100% 100%, 0% 60%);
+    animation: metPulse 2s ease-in-out infinite;
+  }
+  @keyframes metPulse {
+    0%, 100% { opacity: 0.5; transform: translateX(0); }
+    50% { opacity: 1; transform: translateX(4px); }
+  }
+
   @keyframes globeSpin {
     0% { transform: translateX(-50%) rotateY(0deg); }
     100% { transform: translateX(-50%) rotateY(360deg); }
@@ -2551,7 +2833,9 @@ const ROOMS = [
   { id: 'bedroom',     name: 'BEDROOM',     emoji: '🛏️', reqLevel: 1 },
   { id: 'kitchen',     name: 'KITCHEN',     emoji: '🍳', reqLevel: 5 },
   { id: 'garden',      name: 'GARDEN',      emoji: '🌷', reqLevel: 15 },
+  { id: 'forest',      name: 'FOREST',      emoji: '🌲', reqLevel: 25 },
   { id: 'playroom',    name: 'PLAYROOM',    emoji: '🎨', reqLevel: 30 },
+  { id: 'farm',        name: 'FARM',        emoji: '🌾', reqLevel: 40 },
   { id: 'observatory', name: 'OBSERVATORY', emoji: '🔭', reqLevel: 50 }
 ];
 
@@ -2605,6 +2889,18 @@ const AMBIENT_BEHAVIORS = {
     { cls: 'watching', dur: 3, bubble: 'counting stars', emoji: '⭐' },
     { cls: 'sleeping', dur: 3, bubble: 'dreaming', emoji: '🌙' },
     { cls: 'walking', dur: 2 }
+  ],
+  forest: [
+    { cls: 'sniffing', dur: 2, bubble: 'mossy...', emoji: '🍄' },
+    { cls: 'watching', dur: 3, bubble: 'fireflies!', emoji: '✨' },
+    { cls: 'hopping', dur: 1.4, bubble: 'adventure!', emoji: '🌲' },
+    { cls: 'walking', dur: 2.2, bubble: 'crunch crunch', emoji: '🍂' }
+  ],
+  farm: [
+    { cls: 'sniffing', dur: 2, bubble: 'fresh hay!', emoji: '🌾' },
+    { cls: 'watching', dur: 3, bubble: 'hello chicken!', emoji: '🐔' },
+    { cls: 'hopping', dur: 1.3, bubble: 'harvest!', emoji: '🥕' },
+    { cls: 'walking', dur: 2, bubble: 'farm day~', emoji: '☀️' }
   ]
 };
 
@@ -2649,7 +2945,25 @@ const SHOP_ITEMS = [
   { id: 'playroom_easel', emoji: '🎨', name: 'EASEL',         desc: 'Mochi paints on the canvas!',                  cost: 120, consumable: false, scope: 'playroom', furniture: 'f-room-easel' },
   { id: 'playroom_piano', emoji: '🎹', name: 'TOY PIANO',     desc: 'Keys play music — Mochi dances',               cost: 140, consumable: false, scope: 'playroom', furniture: 'f-room-piano' },
 
-  { id: 'observatory_globe', emoji: '🌌', name: 'STAR GLOBE', desc: 'Rotates with glowing constellations',          cost: 180, consumable: false, scope: 'observatory', furniture: 'f-room-globe' }
+  { id: 'observatory_globe', emoji: '🌌', name: 'STAR GLOBE', desc: 'Rotates with glowing constellations',          cost: 180, consumable: false, scope: 'observatory', furniture: 'f-room-globe' },
+
+  { id: 'bedroom_rug',       emoji: '🧶', name: 'COZY RUG',       desc: 'Soft floor rug — Mochi rolls on it',           cost: 75,  consumable: false, scope: 'bedroom', furniture: 'f-room-rug' },
+  { id: 'bedroom_wardrobe',  emoji: '👗', name: 'WARDROBE',       desc: 'Opens to show cute outfits',                   cost: 130, consumable: false, scope: 'bedroom', furniture: 'f-room-wardrobe' },
+  { id: 'kitchen_table',     emoji: '🪑', name: 'DINING TABLE',   desc: 'Mochi sits and waits for a meal',              cost: 95,  consumable: false, scope: 'kitchen', furniture: 'f-room-table' },
+  { id: 'kitchen_spices',    emoji: '🧂', name: 'SPICE RACK',     desc: 'Shake for a yummy smell boost',                cost: 55,  consumable: false, scope: 'kitchen', furniture: 'f-room-spices' },
+  { id: 'garden_bench',      emoji: '🪵', name: 'GARDEN BENCH',   desc: 'Rest under the flowers',                      cost: 100, consumable: false, scope: 'garden',  furniture: 'f-room-bench' },
+  { id: 'garden_lantern',    emoji: '🏮', name: 'LANTERN',        desc: 'Soft evening glow for the garden',             cost: 80,  consumable: false, scope: 'garden',  furniture: 'f-room-lantern' },
+  { id: 'playroom_train',    emoji: '🚂', name: 'TOY TRAIN',      desc: 'Chugs across the floor!',                      cost: 110, consumable: false, scope: 'playroom', furniture: 'f-room-train' },
+  { id: 'playroom_rug',      emoji: '🧩', name: 'PLAY MAT',       desc: 'Colorful mat for tumbling',                    cost: 70,  consumable: false, scope: 'playroom', furniture: 'f-room-playmat' },
+  { id: 'observatory_cushions', emoji: '🛋️', name: 'STAR CUSHIONS', desc: 'Comfy seat for stargazing',                 cost: 95,  consumable: false, scope: 'observatory', furniture: 'f-room-cushions' },
+  { id: 'observatory_meteor', emoji: '☄️', name: 'METEOR LAMP',   desc: 'Soft streak of light across the room',         cost: 160, consumable: false, scope: 'observatory', furniture: 'f-room-meteor' },
+
+  { id: 'forest_campfire',  emoji: '🔥', name: 'CAMPFIRE',      desc: 'Warm glow — Mochi toasts a marshmallow',       cost: 140, consumable: false, scope: 'forest', furniture: 'f-room-campfire' },
+  { id: 'forest_tent',      emoji: '⛺', name: 'TINY TENT',     desc: 'A cozy hideout in the woods',                   cost: 160, consumable: false, scope: 'forest', furniture: 'f-room-tent' },
+  { id: 'forest_logseat',   emoji: '🪵', name: 'LOG SEAT',      desc: 'Sit and listen to the forest',                 cost: 70,  consumable: false, scope: 'forest', furniture: 'f-room-logseat' },
+  { id: 'farm_barn',        emoji: '🏚️', name: 'MINI BARN',    desc: 'Peek inside — a friend might peek back',       cost: 170, consumable: false, scope: 'farm', furniture: 'f-room-barn' },
+  { id: 'farm_scarecrow',   emoji: '🎃', name: 'SCARECROW',     desc: 'Protects the crops (and waves hello)',          cost: 120, consumable: false, scope: 'farm', furniture: 'f-room-scarecrow' },
+  { id: 'farm_well',        emoji: '🪣', name: 'WATER WELL',    desc: 'Splash! Pull up a bucket of water',             cost: 135, consumable: false, scope: 'farm', furniture: 'f-room-well' }
 ];
 
 const ACHIEVEMENTS = [
@@ -2679,6 +2993,10 @@ const ACHIEVEMENTS = [
   { id: 'want_20',       emoji: '🌟', name: 'ATTENTIVE',        desc: 'Fulfill 20 wants',                   check: (d) => (d.stats?.wantsFulfilled || 0) >= 20 },
   { id: 'kitchen_unlock',emoji: '🍳', name: 'HOME COOKIN\'',   desc: 'Unlock the Kitchen',                 check: (d) => (d.level || 0) >= 5 },
   { id: 'garden_unlock', emoji: '🌷', name: 'GREEN THUMB',      desc: 'Unlock the Garden',                  check: (d) => (d.level || 0) >= 15 },
+  { id: 'forest_unlock', emoji: '🌲', name: 'WOODLAND WALK',    desc: 'Unlock the Forest',                  check: (d) => (d.level || 0) >= 25 },
+  { id: 'playroom_unlock', emoji: '🎨', name: 'PLAY TIME',     desc: 'Unlock the Playroom',                check: (d) => (d.level || 0) >= 30 },
+  { id: 'farm_unlock',   emoji: '🌾', name: 'FARMHAND',         desc: 'Unlock the Farm',                    check: (d) => (d.level || 0) >= 40 },
+  { id: 'observatory_unlock', emoji: '🔭', name: 'STARGAZER', desc: 'Unlock the Observatory',              check: (d) => (d.level || 0) >= 50 },
   { id: 'minigame_10',   emoji: '🫧', name: 'BUBBLE MASTER',    desc: 'Score 10+ in Bubble Pop',            check: (d) => (d.stats?.bestMinigame || 0) >= 10 },
   { id: 'minigame_25',   emoji: '🏅', name: 'BUBBLE LEGEND',    desc: 'Score 25+ in Bubble Pop',            check: (d) => (d.stats?.bestMinigame || 0) >= 25 },
   { id: 'daily_7',       emoji: '🎁', name: 'GIFT COLLECTOR',   desc: 'Claim 7 daily gifts in a row',       check: (d) => (d.dailyReward?.day || 0) >= 7 }
@@ -3358,6 +3676,24 @@ function applyRoom(force) {
         floorEl.style.background = 'radial-gradient(ellipse at top, #3A3458 0%, #1A1428 70%)';
         $('roomBadge').textContent = '🔭 OBSERVATORY';
         break;
+      case 'forest':
+        wallEl.style.background = 'linear-gradient(180deg, #6B9F7A 0%, #4A7A5A 40%, #3A5A40 100%)';
+        wallEl.innerHTML = `<div style="position:absolute;inset:0;background-image:
+          radial-gradient(ellipse at 20% 80%, rgba(40,60,40,0.5) 0%, transparent 40%),
+          radial-gradient(ellipse at 70% 90%, rgba(30,50,30,0.45) 0%, transparent 35%);"></div>
+          <div style="position:absolute;top:10px;left:18px;width:18px;height:18px;background:radial-gradient(circle,#FFF9C8,#FFE88C);border-radius:50%;box-shadow:0 0 16px rgba(255,232,140,0.6);opacity:0.7;"></div>
+          <div style="position:absolute;top:28px;right:40px;width:6px;height:6px;background:#FFF9C8;border-radius:50%;box-shadow:0 0 8px #FFF9C8;animation:twinkle 2s ease-in-out infinite;"></div>
+          <div style="position:absolute;top:48px;right:70px;width:4px;height:4px;background:#E8F0C8;border-radius:50%;box-shadow:0 0 6px #E8F0C8;animation:twinkle 3s ease-in-out infinite alternate;"></div>`;
+        floorEl.style.background = 'linear-gradient(180deg, #5A8A4A 0%, #4A7040 50%, #3A5A30 100%)';
+        $('roomBadge').textContent = '🌲 FOREST';
+        break;
+      case 'farm':
+        wallEl.style.background = 'linear-gradient(180deg, #87CEEB 0%, #B8D8E8 50%, #E8D4A8 100%)';
+        wallEl.innerHTML = `<div style="position:absolute;top:14px;right:28px;width:38px;height:38px;background:radial-gradient(circle,#FFF9C8 30%,#FFE08C 100%);border-radius:50%;box-shadow:0 0 20px rgba(255,224,100,0.75);"></div>
+          <div style="position:absolute;bottom:0;left:0;right:0;height:28%;background:linear-gradient(180deg, transparent, rgba(168,180,100,0.35));"></div>`;
+        floorEl.style.background = 'repeating-linear-gradient(90deg, #C9B078 0px, #C9B078 18px, #B89860 18px, #B89860 20px)';
+        $('roomBadge').textContent = '🌾 FARM';
+        break;
     }
     roomEl.dataset.rendered = '1';
     renderRoomScene();
@@ -3576,6 +3912,31 @@ function renderRoomScene() {
     makeFurniture('starchart', 'f-starchart', `
       <div class="chart-frame">✦ ✧<br>✦ ✧<br>✦ ✧</div>
     `, 'STUDY', () => furnitureInteraction('starchart'), 'back');
+
+  } else if (roomKey === 'forest') {
+    makeFurniture('mushroom', 'f-mushroom', `
+      <div class="mush-stem"></div>
+      <div class="mush-cap"></div>
+    `, 'TOUCH', () => furnitureInteraction('mushroom'), 'front');
+
+    makeFurniture('stump', 'f-stump', `
+      <div class="stump-body"></div>
+      <div class="stump-rings"></div>
+    `, 'SIT', () => furnitureInteraction('stump'), 'front');
+
+    makeFurniture('fireflies', 'f-fireflies', `
+      <div class="ff"></div><div class="ff"></div><div class="ff"></div><div class="ff"></div>
+    `, 'WATCH', () => furnitureInteraction('fireflies'), 'back');
+
+  } else if (roomKey === 'farm') {
+    makeFurniture('crops', 'f-crops', `
+      <div class="crop-row"></div>
+      <span class="crop-plant">🥕</span>
+      <span class="crop-plant">🌽</span>
+      <span class="crop-plant">🥬</span>
+    `, 'HARVEST', () => furnitureInteraction('crops'), 'front');
+
+    makeFurniture('chicken', 'f-chicken', `🐔`, 'PET', () => furnitureInteraction('chicken'), 'front');
   }
 
   /* ============================================================
@@ -3684,6 +4045,94 @@ function renderRoomScene() {
       <div class="globe-orb">${starsHtml}</div>
     `, 'SPIN', () => furnitureInteraction('room_globe'), 'front');
   }
+  if (roomKey === 'bedroom' && inv.bedroom_rug) {
+    makeFurniture('bedroom_rug', 'f-room-rug', `<div class="rug-mat"></div>`, 'ROLL', () => furnitureInteraction('room_rug'), 'front');
+  }
+  if (roomKey === 'bedroom' && inv.bedroom_wardrobe) {
+    makeFurniture('bedroom_wardrobe', 'f-room-wardrobe', `
+      <div class="wd-body"></div>
+      <div class="wd-door-l"></div>
+      <div class="wd-door-r"></div>
+    `, 'OPEN', () => furnitureInteraction('room_wardrobe'), 'front');
+  }
+  if (roomKey === 'kitchen' && inv.kitchen_table) {
+    makeFurniture('kitchen_table', 'f-room-table', `
+      <div class="tbl-top"></div>
+      <div class="tbl-leg l"></div>
+      <div class="tbl-leg r"></div>
+    `, 'SIT', () => furnitureInteraction('room_table'), 'front');
+  }
+  if (roomKey === 'kitchen' && inv.kitchen_spices) {
+    makeFurniture('kitchen_spices', 'f-room-spices', `
+      <div class="sp-shelf"></div>
+      <div class="sp-jar">🧂</div>
+      <div class="sp-jar">🌿</div>
+      <div class="sp-jar">🌶️</div>
+    `, 'SHAKE', () => furnitureInteraction('room_spices'), 'back');
+  }
+  if (roomKey === 'garden' && inv.garden_bench) {
+    makeFurniture('garden_bench', 'f-room-bench', `
+      <div class="bn-seat"></div>
+      <div class="bn-leg l"></div>
+      <div class="bn-leg r"></div>
+    `, 'REST', () => furnitureInteraction('room_bench'), 'front');
+  }
+  if (roomKey === 'garden' && inv.garden_lantern) {
+    makeFurniture('garden_lantern', 'f-room-lantern', `
+      <div class="ln-top"></div>
+      <div class="ln-body"></div>
+    `, 'LIGHT', () => furnitureInteraction('room_lantern'), 'back');
+  }
+  if (roomKey === 'playroom' && inv.playroom_train) {
+    makeFurniture('playroom_train', 'f-room-train', `🚂`, 'CHOO', () => furnitureInteraction('room_train'), 'front');
+  }
+  if (roomKey === 'playroom' && inv.playroom_rug) {
+    makeFurniture('playroom_rug', 'f-room-playmat', `<div class="pm-mat"></div>`, 'TUMBLE', () => furnitureInteraction('room_playmat'), 'front');
+  }
+  if (roomKey === 'observatory' && inv.observatory_cushions) {
+    makeFurniture('observatory_cushions', 'f-room-cushions', `
+      <div class="cush"></div><div class="cush"></div>
+    `, 'SIT', () => furnitureInteraction('room_cushions'), 'front');
+  }
+  if (roomKey === 'observatory' && inv.observatory_meteor) {
+    makeFurniture('observatory_meteor', 'f-room-meteor', `<div class="met-streak"></div>`, 'WISH', () => furnitureInteraction('room_meteor'), 'back');
+  }
+  if (roomKey === 'forest' && inv.forest_campfire) {
+    makeFurniture('forest_campfire', 'f-room-campfire', `
+      <div class="cf-logs"></div>
+      <div class="cf-flame">🔥</div>
+    `, 'TOAST', () => furnitureInteraction('room_campfire'), 'front');
+  }
+  if (roomKey === 'forest' && inv.forest_tent) {
+    makeFurniture('forest_tent', 'f-room-tent', `
+      <div class="tent-body"></div>
+      <div class="tent-flap"></div>
+    `, 'HIDE', () => furnitureInteraction('room_tent'), 'front');
+  }
+  if (roomKey === 'forest' && inv.forest_logseat) {
+    makeFurniture('forest_logseat', 'f-room-logseat', `<div class="log-body"></div>`, 'SIT', () => furnitureInteraction('room_logseat'), 'front');
+  }
+  if (roomKey === 'farm' && inv.farm_barn) {
+    makeFurniture('farm_barn', 'f-room-barn', `
+      <div class="barn-roof"></div>
+      <div class="barn-body"></div>
+      <div class="barn-door"></div>
+    `, 'PEEK', () => furnitureInteraction('room_barn'), 'front');
+  }
+  if (roomKey === 'farm' && inv.farm_scarecrow) {
+    makeFurniture('farm_scarecrow', 'f-room-scarecrow', `
+      <div class="sc-head">🎃</div>
+      <div class="sc-arms"></div>
+      <div class="sc-pole"></div>
+    `, 'WAVE', () => furnitureInteraction('room_scarecrow'), 'front');
+  }
+  if (roomKey === 'farm' && inv.farm_well) {
+    makeFurniture('farm_well', 'f-room-well', `
+      <div class="well-bucket">🪣</div>
+      <div class="well-rim"></div>
+      <div class="well-base"></div>
+    `, 'DRAW', () => furnitureInteraction('room_well'), 'front');
+  }
 
   if (roomKey === 'kitchen') renderFridgeContents();
 }
@@ -3768,6 +4217,27 @@ async function furnitureInteraction(type) {
       case 'room_easel': await interactRoomEasel(pet); break;
       case 'room_piano': await interactRoomPiano(pet); break;
       case 'room_globe': await interactRoomGlobe(pet); break;
+      case 'mushroom': await interactMushroom(pet); break;
+      case 'stump': await interactStump(pet); break;
+      case 'fireflies': await interactFireflies(pet); break;
+      case 'crops': await interactCrops(pet); break;
+      case 'chicken': await interactChicken(pet); break;
+      case 'room_rug': await interactRoomRug(pet); break;
+      case 'room_wardrobe': await interactRoomWardrobe(pet); break;
+      case 'room_table': await interactRoomTable(pet); break;
+      case 'room_spices': await interactRoomSpices(pet); break;
+      case 'room_bench': await interactRoomBench(pet); break;
+      case 'room_lantern': await interactRoomLantern(pet); break;
+      case 'room_train': await interactRoomTrain(pet); break;
+      case 'room_playmat': await interactRoomPlaymat(pet); break;
+      case 'room_cushions': await interactRoomCushions(pet); break;
+      case 'room_meteor': await interactRoomMeteor(pet); break;
+      case 'room_campfire': await interactRoomCampfire(pet); break;
+      case 'room_tent': await interactRoomTent(pet); break;
+      case 'room_logseat': await interactRoomLogseat(pet); break;
+      case 'room_barn': await interactRoomBarn(pet); break;
+      case 'room_scarecrow': await interactRoomScarecrow(pet); break;
+      case 'room_well': await interactRoomWell(pet); break;
     }
   } catch(e) {
     console.error('[furniture]', e);
@@ -4693,6 +5163,381 @@ async function interactRoomGlobe(pet) {
     lastUpdate: Date.now()
   });
   showToast('🌌 Watched the globe spin! +7 XP +4 ☀️');
+}
+
+/* ---- New room & extra furniture interactions ---- */
+async function interactMushroom(pet) {
+  const el = document.querySelector('.f-mushroom');
+  if (!el) return;
+  const pos = getFurniturePos(el, 18);
+  pet.className = 'pet walking';
+  await movePetTo(pos.x, 900, pos.bottom, pos.scale);
+  el.classList.add('glow');
+  pet.className = 'pet sniffing';
+  showBubble('soft...', '🍄');
+  sfxPop();
+  await new Promise(r => setTimeout(r, 1800));
+  el.classList.remove('glow');
+  pet.className = 'pet walking';
+  await movePetTo(50, 800, 15, 1);
+  pet.className = 'pet ' + computeMood().cls;
+  db.ref('tamagotchi').update({ xp: (gameData.xp || 0) + 4, happy: Math.min(100, (gameData.happy || 0) + 3), lastUpdate: Date.now() });
+  showToast('🍄 Touched a glowing mushroom! +4 XP');
+}
+
+async function interactStump(pet) {
+  const el = document.querySelector('.f-stump');
+  if (!el) return;
+  const pos = getFurniturePos(el, 78);
+  pet.className = 'pet walking';
+  await movePetTo(pos.x, 900, pos.bottom, pos.scale);
+  pet.className = 'pet idle';
+  showBubble('comfy log', '🪵');
+  sfxOpen();
+  await new Promise(r => setTimeout(r, 2000));
+  pet.className = 'pet walking';
+  await movePetTo(50, 800, 15, 1);
+  pet.className = 'pet ' + computeMood().cls;
+  db.ref('tamagotchi').update({ xp: (gameData.xp || 0) + 3, energy: Math.min(100, (gameData.energy || 0) + 2), lastUpdate: Date.now() });
+  showToast('🪵 Rested on a stump! +3 XP');
+}
+
+async function interactFireflies(pet) {
+  const el = document.querySelector('.f-fireflies');
+  if (!el) return;
+  const pos = getFurniturePos(el, 45);
+  pet.className = 'pet walking';
+  await movePetTo(pos.x, 900, pos.bottom, pos.scale);
+  pet.className = 'pet looking-up';
+  showBubble('twinkle!', '✨');
+  sfxGood();
+  await new Promise(r => setTimeout(r, 2200));
+  pet.className = 'pet walking';
+  await movePetTo(50, 800, 15, 1);
+  pet.className = 'pet ' + computeMood().cls;
+  db.ref('tamagotchi').update({ xp: (gameData.xp || 0) + 5, happy: Math.min(100, (gameData.happy || 0) + 4), lastUpdate: Date.now() });
+  showToast('✨ Watched fireflies! +5 XP');
+}
+
+async function interactCrops(pet) {
+  const el = document.querySelector('.f-crops');
+  if (!el) return;
+  const pos = getFurniturePos(el, 20);
+  pet.className = 'pet walking';
+  await movePetTo(pos.x, 900, pos.bottom, pos.scale);
+  el.classList.add('harvested');
+  pet.className = 'pet happy';
+  showBubble('veggies!', '🥕');
+  sfxPop();
+  await new Promise(r => setTimeout(r, 1800));
+  el.classList.remove('harvested');
+  pet.className = 'pet walking';
+  await movePetTo(50, 800, 15, 1);
+  pet.className = 'pet ' + computeMood().cls;
+  db.ref('tamagotchi').update({ xp: (gameData.xp || 0) + 5, hunger: Math.min(100, (gameData.hunger || 0) + 4), lastUpdate: Date.now() });
+  showToast('🌾 Harvested some crops! +5 XP');
+}
+
+async function interactChicken(pet) {
+  const el = document.querySelector('.f-chicken');
+  if (!el) return;
+  const pos = getFurniturePos(el, 75);
+  pet.className = 'pet walking';
+  await movePetTo(pos.x, 900, pos.bottom, pos.scale);
+  el.classList.add('pecking');
+  pet.className = 'pet happy';
+  showBubble('cluck!', '🐔');
+  sfxPop();
+  await new Promise(r => setTimeout(r, 1800));
+  el.classList.remove('pecking');
+  pet.className = 'pet walking';
+  await movePetTo(50, 800, 15, 1);
+  pet.className = 'pet ' + computeMood().cls;
+  db.ref('tamagotchi').update({ xp: (gameData.xp || 0) + 4, happy: Math.min(100, (gameData.happy || 0) + 5), lastUpdate: Date.now() });
+  showToast('🐔 Said hi to the chicken! +4 XP');
+}
+
+async function interactRoomRug(pet) {
+  const el = document.querySelector('.f-room-rug');
+  if (!el) return;
+  const pos = getFurniturePos(el, 40);
+  pet.className = 'pet walking';
+  await movePetTo(pos.x, 900, pos.bottom, pos.scale);
+  pet.className = 'pet spinning';
+  showBubble('floof!', '🧶');
+  sfxOpen();
+  await new Promise(r => setTimeout(r, 1600));
+  pet.className = 'pet walking';
+  await movePetTo(50, 800, 15, 1);
+  pet.className = 'pet ' + computeMood().cls;
+  db.ref('tamagotchi').update({ xp: (gameData.xp || 0) + 3, happy: Math.min(100, (gameData.happy || 0) + 3), lastUpdate: Date.now() });
+  showToast('🧶 Rolled on the rug! +3 XP');
+}
+
+async function interactRoomWardrobe(pet) {
+  const el = document.querySelector('.f-room-wardrobe');
+  if (!el) return;
+  const pos = getFurniturePos(el, 82);
+  pet.className = 'pet walking';
+  await movePetTo(pos.x, 900, pos.bottom, pos.scale);
+  el.classList.add('open');
+  pet.className = 'pet watching';
+  showBubble('cute outfits!', '👗');
+  sfxPop();
+  await new Promise(r => setTimeout(r, 2000));
+  el.classList.remove('open');
+  pet.className = 'pet walking';
+  await movePetTo(50, 800, 15, 1);
+  pet.className = 'pet ' + computeMood().cls;
+  db.ref('tamagotchi').update({ xp: (gameData.xp || 0) + 4, happy: Math.min(100, (gameData.happy || 0) + 2), lastUpdate: Date.now() });
+  showToast('👗 Peeked in the wardrobe! +4 XP');
+}
+
+async function interactRoomTable(pet) {
+  const el = document.querySelector('.f-room-table');
+  if (!el) return;
+  const pos = getFurniturePos(el, 55);
+  pet.className = 'pet walking';
+  await movePetTo(pos.x, 900, pos.bottom, pos.scale);
+  pet.className = 'pet idle';
+  showBubble('waiting for food...', '🍽️');
+  sfxOpen();
+  await new Promise(r => setTimeout(r, 1800));
+  pet.className = 'pet walking';
+  await movePetTo(50, 800, 15, 1);
+  pet.className = 'pet ' + computeMood().cls;
+  db.ref('tamagotchi').update({ xp: (gameData.xp || 0) + 3, lastUpdate: Date.now() });
+  showToast('🪑 Sat at the table! +3 XP');
+}
+
+async function interactRoomSpices(pet) {
+  const el = document.querySelector('.f-room-spices');
+  if (!el) return;
+  const pos = getFurniturePos(el, 48);
+  pet.className = 'pet walking';
+  await movePetTo(pos.x, 900, pos.bottom, pos.scale);
+  pet.className = 'pet sniffing';
+  showBubble('mmm spices!', '🧂');
+  sfxPop();
+  await new Promise(r => setTimeout(r, 1600));
+  pet.className = 'pet walking';
+  await movePetTo(50, 800, 15, 1);
+  pet.className = 'pet ' + computeMood().cls;
+  db.ref('tamagotchi').update({ xp: (gameData.xp || 0) + 3, happy: Math.min(100, (gameData.happy || 0) + 2), lastUpdate: Date.now() });
+  showToast('🧂 Sniffed the spice rack! +3 XP');
+}
+
+async function interactRoomBench(pet) {
+  const el = document.querySelector('.f-room-bench');
+  if (!el) return;
+  const pos = getFurniturePos(el, 55);
+  pet.className = 'pet walking';
+  await movePetTo(pos.x, 900, pos.bottom, pos.scale);
+  pet.className = 'pet idle';
+  showBubble('garden rest~', '🪵');
+  sfxOpen();
+  await new Promise(r => setTimeout(r, 2000));
+  pet.className = 'pet walking';
+  await movePetTo(50, 800, 15, 1);
+  pet.className = 'pet ' + computeMood().cls;
+  db.ref('tamagotchi').update({ xp: (gameData.xp || 0) + 3, energy: Math.min(100, (gameData.energy || 0) + 3), lastUpdate: Date.now() });
+  showToast('🪵 Rested on the bench! +3 XP');
+}
+
+async function interactRoomLantern(pet) {
+  const el = document.querySelector('.f-room-lantern');
+  if (!el) return;
+  const pos = getFurniturePos(el, 70);
+  pet.className = 'pet walking';
+  await movePetTo(pos.x, 900, pos.bottom, pos.scale);
+  el.classList.toggle('lit');
+  pet.className = 'pet watching';
+  showBubble(el.classList.contains('lit') ? 'warm light!' : 'lights out', '🏮');
+  sfxPop();
+  await new Promise(r => setTimeout(r, 1600));
+  pet.className = 'pet walking';
+  await movePetTo(50, 800, 15, 1);
+  pet.className = 'pet ' + computeMood().cls;
+  db.ref('tamagotchi').update({ xp: (gameData.xp || 0) + 3, lastUpdate: Date.now() });
+  showToast('🏮 Toggled the lantern! +3 XP');
+}
+
+async function interactRoomTrain(pet) {
+  const el = document.querySelector('.f-room-train');
+  if (!el) return;
+  const pos = getFurniturePos(el, 42);
+  pet.className = 'pet walking';
+  await movePetTo(pos.x, 900, pos.bottom, pos.scale);
+  el.classList.add('chugging');
+  pet.className = 'pet hopping';
+  showBubble('choo choo!', '🚂');
+  sfxPop();
+  await new Promise(r => setTimeout(r, 1400));
+  el.classList.remove('chugging');
+  pet.className = 'pet walking';
+  await movePetTo(50, 800, 15, 1);
+  pet.className = 'pet ' + computeMood().cls;
+  db.ref('tamagotchi').update({ xp: (gameData.xp || 0) + 5, happy: Math.min(100, (gameData.happy || 0) + 5), lastUpdate: Date.now() });
+  showToast('🚂 Played with the train! +5 XP');
+}
+
+async function interactRoomPlaymat(pet) {
+  const el = document.querySelector('.f-room-playmat');
+  if (!el) return;
+  const pos = getFurniturePos(el, 70);
+  pet.className = 'pet walking';
+  await movePetTo(pos.x, 900, pos.bottom, pos.scale);
+  pet.className = 'pet spinning';
+  showBubble('tumble!', '🧩');
+  sfxOpen();
+  await new Promise(r => setTimeout(r, 1500));
+  pet.className = 'pet walking';
+  await movePetTo(50, 800, 15, 1);
+  pet.className = 'pet ' + computeMood().cls;
+  db.ref('tamagotchi').update({ xp: (gameData.xp || 0) + 4, happy: Math.min(100, (gameData.happy || 0) + 4), lastUpdate: Date.now() });
+  showToast('🧩 Tumbled on the play mat! +4 XP');
+}
+
+async function interactRoomCushions(pet) {
+  const el = document.querySelector('.f-room-cushions');
+  if (!el) return;
+  const pos = getFurniturePos(el, 45);
+  pet.className = 'pet walking';
+  await movePetTo(pos.x, 900, pos.bottom, pos.scale);
+  pet.className = 'pet sleeping';
+  showBubble('star nap...', '🛋️');
+  sfxOpen();
+  await new Promise(r => setTimeout(r, 2200));
+  pet.className = 'pet walking';
+  await movePetTo(50, 800, 15, 1);
+  pet.className = 'pet ' + computeMood().cls;
+  db.ref('tamagotchi').update({ xp: (gameData.xp || 0) + 4, energy: Math.min(100, (gameData.energy || 0) + 5), lastUpdate: Date.now() });
+  showToast('🛋️ Rested on star cushions! +4 XP');
+}
+
+async function interactRoomMeteor(pet) {
+  const el = document.querySelector('.f-room-meteor');
+  if (!el) return;
+  const pos = getFurniturePos(el, 70);
+  pet.className = 'pet walking';
+  await movePetTo(pos.x, 900, pos.bottom, pos.scale);
+  pet.className = 'pet looking-up';
+  showBubble('make a wish!', '☄️');
+  sfxGood();
+  await new Promise(r => setTimeout(r, 2000));
+  pet.className = 'pet walking';
+  await movePetTo(50, 800, 15, 1);
+  pet.className = 'pet ' + computeMood().cls;
+  db.ref('tamagotchi').update({ xp: (gameData.xp || 0) + 6, happy: Math.min(100, (gameData.happy || 0) + 3), lastUpdate: Date.now() });
+  showToast('☄️ Wished on a meteor! +6 XP');
+}
+
+async function interactRoomCampfire(pet) {
+  const el = document.querySelector('.f-room-campfire');
+  if (!el) return;
+  const pos = getFurniturePos(el, 48);
+  pet.className = 'pet walking';
+  await movePetTo(pos.x, 900, pos.bottom, pos.scale);
+  pet.className = 'pet watching';
+  showBubble('toasty!', '🔥');
+  sfxOpen();
+  await new Promise(r => setTimeout(r, 2000));
+  pet.className = 'pet walking';
+  await movePetTo(50, 800, 15, 1);
+  pet.className = 'pet ' + computeMood().cls;
+  db.ref('tamagotchi').update({ xp: (gameData.xp || 0) + 5, energy: Math.min(100, (gameData.energy || 0) + 3), lastUpdate: Date.now() });
+  showToast('🔥 Warmed up by the campfire! +5 XP');
+}
+
+async function interactRoomTent(pet) {
+  const el = document.querySelector('.f-room-tent');
+  if (!el) return;
+  const pos = getFurniturePos(el, 80);
+  pet.className = 'pet walking';
+  await movePetTo(pos.x, 900, pos.bottom, pos.scale);
+  pet.className = 'pet idle';
+  showBubble('hideout!', '⛺');
+  sfxOpen();
+  await new Promise(r => setTimeout(r, 1800));
+  pet.className = 'pet walking';
+  await movePetTo(50, 800, 15, 1);
+  pet.className = 'pet ' + computeMood().cls;
+  db.ref('tamagotchi').update({ xp: (gameData.xp || 0) + 4, happy: Math.min(100, (gameData.happy || 0) + 3), lastUpdate: Date.now() });
+  showToast('⛺ Hid in the tent! +4 XP');
+}
+
+async function interactRoomLogseat(pet) {
+  const el = document.querySelector('.f-room-logseat');
+  if (!el) return;
+  const pos = getFurniturePos(el, 18);
+  pet.className = 'pet walking';
+  await movePetTo(pos.x, 900, pos.bottom, pos.scale);
+  pet.className = 'pet idle';
+  showBubble('forest quiet~', '🌲');
+  sfxOpen();
+  await new Promise(r => setTimeout(r, 2000));
+  pet.className = 'pet walking';
+  await movePetTo(50, 800, 15, 1);
+  pet.className = 'pet ' + computeMood().cls;
+  db.ref('tamagotchi').update({ xp: (gameData.xp || 0) + 3, energy: Math.min(100, (gameData.energy || 0) + 2), lastUpdate: Date.now() });
+  showToast('🪵 Sat on a log! +3 XP');
+}
+
+async function interactRoomBarn(pet) {
+  const el = document.querySelector('.f-room-barn');
+  if (!el) return;
+  const pos = getFurniturePos(el, 15);
+  pet.className = 'pet walking';
+  await movePetTo(pos.x, 900, pos.bottom, pos.scale);
+  el.classList.add('open');
+  pet.className = 'pet watching';
+  showBubble('anyone home?', '🏚️');
+  sfxPop();
+  await new Promise(r => setTimeout(r, 2000));
+  el.classList.remove('open');
+  pet.className = 'pet walking';
+  await movePetTo(50, 800, 15, 1);
+  pet.className = 'pet ' + computeMood().cls;
+  db.ref('tamagotchi').update({ xp: (gameData.xp || 0) + 5, happy: Math.min(100, (gameData.happy || 0) + 3), lastUpdate: Date.now() });
+  showToast('🏚️ Peeked in the barn! +5 XP');
+}
+
+async function interactRoomScarecrow(pet) {
+  const el = document.querySelector('.f-room-scarecrow');
+  if (!el) return;
+  const pos = getFurniturePos(el, 80);
+  pet.className = 'pet walking';
+  await movePetTo(pos.x, 900, pos.bottom, pos.scale);
+  el.classList.add('wave');
+  pet.className = 'pet happy';
+  showBubble('hello!', '🎃');
+  sfxPop();
+  await new Promise(r => setTimeout(r, 1600));
+  el.classList.remove('wave');
+  pet.className = 'pet walking';
+  await movePetTo(50, 800, 15, 1);
+  pet.className = 'pet ' + computeMood().cls;
+  db.ref('tamagotchi').update({ xp: (gameData.xp || 0) + 4, happy: Math.min(100, (gameData.happy || 0) + 4), lastUpdate: Date.now() });
+  showToast('🎃 Waved at the scarecrow! +4 XP');
+}
+
+async function interactRoomWell(pet) {
+  const el = document.querySelector('.f-room-well');
+  if (!el) return;
+  const pos = getFurniturePos(el, 48);
+  pet.className = 'pet walking';
+  await movePetTo(pos.x, 900, pos.bottom, pos.scale);
+  el.classList.add('pulling');
+  pet.className = 'pet watching';
+  showBubble('splash!', '🪣');
+  sfxPop();
+  await new Promise(r => setTimeout(r, 1800));
+  el.classList.remove('pulling');
+  pet.className = 'pet walking';
+  await movePetTo(50, 800, 15, 1);
+  pet.className = 'pet ' + computeMood().cls;
+  db.ref('tamagotchi').update({ xp: (gameData.xp || 0) + 5, clean: Math.min(100, (gameData.clean || 0) + 3), lastUpdate: Date.now() });
+  showToast('🪣 Drew water from the well! +5 XP');
 }
 
 /* ============================================================
