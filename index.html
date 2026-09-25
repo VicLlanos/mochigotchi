@@ -400,7 +400,7 @@
     50% { opacity: 1; transform: scale(1.15) rotate(20deg); }
   }
 
-  /* ============ ROOM DECORATIONS (permanent upgrades) ============ */
+  /* ============ ROOM DECORATIONS ============ */
   .room-decorations {
     position: absolute; inset: 0; pointer-events: none; z-index: 12;
   }
@@ -468,7 +468,7 @@
     100% { opacity: 0; transform: translate(30px, -20px) scale(1.6); }
   }
 
-  /* ============ PLACED ROOM ITEMS (from consumable purchases) ============ */
+  /* ============ PLACED ROOM ITEMS ============ */
   .room-items {
     position: absolute; inset: 0; pointer-events: none; z-index: 14;
   }
@@ -1060,7 +1060,6 @@
 
 <div id="app">
 
-  <!-- ============ LOGIN ============ -->
   <div class="pin-screen" id="pinScreen">
     <div class="big-emoji" id="welcomeEmoji">🥚</div>
     <h1>MOCHI'S ROOM</h1>
@@ -1076,7 +1075,6 @@
     </p>
   </div>
 
-  <!-- ============ GAME ============ -->
   <div id="gameScreen">
 
     <div class="top-bar">
@@ -1101,7 +1099,6 @@
       <div class="nav-tab" data-view="album">📸</div>
     </div>
 
-    <!-- HOME -->
     <div class="view active" id="view-home">
 
       <div class="room bedroom" id="room">
@@ -1134,7 +1131,6 @@
           </div>
         </div>
 
-        <!-- MINI-GAME -->
         <div class="minigame-area" id="minigameArea">
           <div class="minigame-inner" id="minigameInner"></div>
           <div class="mg-hud" id="mgHud">SCORE: 0</div>
@@ -1148,7 +1144,6 @@
         </div>
       </div>
 
-      <!-- XP BAR -->
       <div class="xp-bar">
         <span>LV <span id="levelNum">1</span></span>
         <div class="xp-track"><div class="xp-fill" id="xpFill" style="width: 0%;"></div></div>
@@ -1203,20 +1198,17 @@
       </div>
     </div>
 
-    <!-- ROOMS -->
     <div class="view" id="view-rooms">
       <div class="section-header">🚪 ROOMS TO EXPLORE</div>
       <div class="rooms-grid" id="roomsGrid"></div>
     </div>
 
-    <!-- SHOP -->
     <div class="view" id="view-shop">
       <div class="section-header">🛒 MOCHI SHOP</div>
       <p style="text-align:center; font-size:0.7rem; color:#A89080; margin-bottom:8px;">Earn coins from care & mini-games 🪙<br>Consumables appear in the room — tap them to use!</p>
       <div class="shop-grid" id="shopGrid"></div>
     </div>
 
-    <!-- NOTES -->
     <div class="view" id="view-notes">
       <div class="section-header">💌 LOVE NOTES</div>
       <div class="notes-container">
@@ -1228,13 +1220,11 @@
       </div>
     </div>
 
-    <!-- ACHIEVEMENTS -->
     <div class="view" id="view-ach">
       <div class="section-header" id="achHeader">🏆 ACHIEVEMENTS (0/26)</div>
       <div class="ach-grid" id="achGrid"></div>
     </div>
 
-    <!-- ALBUM -->
     <div class="view" id="view-album">
       <div class="section-header">📸 MOCHI'S ALBUM</div>
       <div class="album-container">
@@ -1358,8 +1348,6 @@ const AMBIENT_BEHAVIORS = {
   ]
 };
 
-/* Consumable -> visual + effect mapping.
-   These items STAY in the room as clickable props. */
 const CONSUMABLE_DEFS = {
   treat: {
     emoji: '🍬',
@@ -1367,7 +1355,7 @@ const CONSUMABLE_DEFS = {
     amount: 15,
     placeClass: 'placed-treat',
     tooltip: 'TAP TO EAT',
-    consumeVerb: 'ate',
+    consumeVerb: 'ate a treat',
     consumeEmoji: '🍚',
     consumeBubble: 'nom nom!',
     defaultX: 72,
@@ -1477,7 +1465,7 @@ const renderCache = {
   diaryHash: '', notesHash: '', achCount: -1,
   daysCount: -1, streakCount: -1, coinCount: -1,
   level: -1, xp: -1, poops: -1,
-  decorationsHash: '', accessoriesHash: '', roomItemsHash: ''
+  decorationsHash: '', accessoriesHash: '', roomItemsHash: '', shopHash: ''
 };
 
 const $ = (id) => document.getElementById(id);
@@ -1748,6 +1736,7 @@ function processUpdate(snap) {
   renderPetAccessories();
   renderRoomDecorations();
   renderRoomItems();
+  if (currentView === 'shop') renderShop();
 
   if (!hasShownWelcome && myLastSeen > 0 && Date.now() - myLastSeen > 5 * 60 * 1000) {
     showWelcomeBack(prev, data, myLastSeen);
@@ -1989,7 +1978,6 @@ function renderRoomItems() {
   const container = $('roomItems');
   if (!container) return;
 
-  // Build hash from keys + positions so we re-render when anything changes
   const entries = Object.values(items).sort((a, b) => a.placedAt - b.placedAt);
   const hash = entries.map(i => i.id).join(',');
   if (renderCache.roomItemsHash === hash) return;
@@ -2025,29 +2013,25 @@ function renderRoomItems() {
    PLACE CONSUMABLE INTO ROOM
    ============================================================ */
 function placeRoomItem(type) {
-  if (!gameData) return;
+  if (!gameData) return null;
   const def = CONSUMABLE_DEFS[type];
-  if (!def) return;
+  if (!def) return null;
 
   const items = { ...(gameData.roomItems || {}) };
   const existing = Object.values(items);
 
-  if (existing.length >= MAX_ROOM_ITEMS) {
-    showToast('Room is full! Use items first 🌿');
-    return false;
-  }
+  if (existing.length >= MAX_ROOM_ITEMS) return null;
 
-  // Slightly randomize position around the default to avoid overlap
   const jitterX = (Math.random() * 14 - 7);
   const jitterB = (Math.random() * 6 - 3);
   const x = Math.max(8, Math.min(88, def.defaultX + jitterX));
   const bottom = Math.max(6, Math.min(24, def.defaultBottom + jitterB));
 
   const id = 'ri_' + Date.now() + '_' + Math.random().toString(36).slice(2, 6);
-  items[id] = { id, type, x, bottom, placedAt: Date.now(), placedBy: me };
+  const newItem = { id, type, x, bottom, placedAt: Date.now(), placedBy: me };
+  items[id] = newItem;
 
-  db.ref('tamagotchi/roomItems').set(items);
-  return true;
+  return { items, newItem };
 }
 
 /* ============================================================
@@ -2071,15 +2055,12 @@ async function useRoomItem(itemId) {
   const targetX = item.x;
 
   try {
-    // Mochi walks over
     pet.className = 'pet walking';
     await movePetTo(Math.max(10, Math.min(85, targetX)), 1100);
 
-    // Animate item consuming
     const el = document.querySelector('.room-item[data-id="' + itemId + '"]');
     if (el) el.classList.add('consuming');
 
-    // Do the consume animation
     if (item.type === 'treat') {
       pet.className = 'pet happy eating';
       showBubble(def.consumeBubble, def.consumeEmoji);
@@ -2128,13 +2109,10 @@ async function useRoomItem(itemId) {
     await movePetTo(50, 900);
     pet.className = 'pet idle';
 
-    // Apply effect + remove from Firebase
     applyConsumableEffect(item, def);
 
-    // Remove the specific item from roomItems
-    const updated = { ...(gameData.roomItems || {}) };
-    delete updated[itemId];
-    db.ref('tamagotchi/roomItems').set(updated);
+    // SAFE REMOVAL: remove only this specific item — do not overwrite the whole map
+    db.ref('tamagotchi/roomItems/' + itemId).remove();
 
   } catch(e) {
     console.error('Use room item error:', e);
@@ -2158,12 +2136,10 @@ function applyConsumableEffect(item, def) {
   const updates = {};
   updates[def.stat] = Math.min(100, (gameData[def.stat] || 0) + def.amount);
 
-  // Small XP reward for using
   const xpGain = Math.floor(3 * xpMult);
   updates.xp = (gameData.xp || 0) + xpGain;
   updates.lastUpdate = Date.now();
 
-  // Diary entry
   const entry = { by: me, text: `${def.consumeVerb} (from shop)`, time: Date.now() };
   const key = 'diary/' + Date.now() + '_' + Math.random().toString(36).slice(2, 6);
   updates[key] = entry;
@@ -2416,7 +2392,8 @@ function renderRooms() {
 function renderShop() {
   if (!gameData) return;
   const grid = $('shopGrid');
-  grid.innerHTML = '';
+  if (!grid) return;
+
   const inv = gameData.inventory || {};
   const coins = gameData.coins || 0;
   const roomItems = gameData.roomItems || {};
@@ -2425,11 +2402,17 @@ function renderShop() {
     placedCounts[it.type] = (placedCounts[it.type] || 0) + 1;
   });
 
+  const roomFull = Object.keys(roomItems).length >= MAX_ROOM_ITEMS;
+  const hash = coins + '|' + JSON.stringify(inv) + '|' + JSON.stringify(placedCounts) + '|' + roomFull;
+  if (renderCache.shopHash === hash) return;
+  renderCache.shopHash = hash;
+
+  grid.innerHTML = '';
+
   SHOP_ITEMS.forEach(item => {
     const owned = !item.consumable && inv[item.id];
     const canAfford = coins >= item.cost;
     const placed = item.consumable ? (placedCounts[item.id] || 0) : 0;
-    const roomFull = Object.keys(roomItems).length >= MAX_ROOM_ITEMS;
     const disabled = !canAfford || owned || (item.consumable && roomFull);
 
     const card = document.createElement('div');
@@ -2452,6 +2435,9 @@ function renderShop() {
   });
 }
 
+/* ============================================================
+   BUY ITEM — single atomic update for consumables
+   ============================================================ */
 function buyItem(id) {
   if (!gameData) return;
   const item = SHOP_ITEMS.find(i => i.id === id);
@@ -2460,28 +2446,24 @@ function buyItem(id) {
   if (coins < item.cost) return showToast('Not enough coins 🪙');
 
   if (item.consumable) {
-    // Check room capacity first — do NOT deduct coins if room full
-    const roomItemCount = Object.keys(gameData.roomItems || {}).length;
-    if (roomItemCount >= MAX_ROOM_ITEMS) {
+    const placed = placeRoomItem(item.id);
+    if (!placed) {
       return showToast('Room is full! Use items first 🌿');
     }
 
-    // Deduct coins
-    db.ref('tamagotchi').update({ coins: coins - item.cost });
-
-    // Place in room
-    const success = placeRoomItem(item.id);
-    if (!success) {
-      // Refund if placement failed (shouldn't happen since we checked)
-      db.ref('tamagotchi').update({ coins: gameData.coins || 0 });
-      return;
-    }
+    // Single atomic update: deduct coins + write entire roomItems map
+    // (Because we now hold the freshly-merged map locally, no race with our own writes)
+    const updates = {
+      coins: coins - item.cost,
+      roomItems: placed.items
+    };
+    db.ref('tamagotchi').update(updates);
 
     showToast(item.emoji + ' ' + item.name + ' placed in room! Tap it!');
     sfxGood();
     spawnConfetti(6);
+
   } else {
-    // Permanent item
     const inv = { ...(gameData.inventory || {}) };
     inv[id] = true;
     db.ref('tamagotchi').update({
@@ -2499,8 +2481,9 @@ function buyItem(id) {
     spawnConfetti(8);
   }
 
-  // Force shop to re-render with new coin count / placed counts
-  setTimeout(renderShop, 150);
+  // Force shop re-render locally (will also happen via Firebase listener)
+  renderCache.shopHash = '';
+  renderShop();
 }
 
 /* ============================================================
