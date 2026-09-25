@@ -204,10 +204,10 @@
     width: 46px; height: 12px;
     background: radial-gradient(ellipse at center, rgba(74, 63, 58, 0.4) 0%, rgba(74, 63, 58, 0) 75%);
     border-radius: 50%; z-index: 9; pointer-events: none;
-    transform: translateX(-50%) scale(var(--pet-z, 1));
-    transform-origin: center center;
-    transition: left 1.5s cubic-bezier(0.4, 0, 0.2, 1), bottom 1.5s cubic-bezier(0.4, 0, 0.2, 1), width 0.3s, opacity 0.3s, transform 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+    transform: translateX(-50%);
+    transition: left 1.5s cubic-bezier(0.4, 0, 0.2, 1), bottom 1.5s cubic-bezier(0.4, 0, 0.2, 1), width 0.3s, opacity 0.3s;
     --pet-z: 1;
+    zoom: var(--pet-z, 1);
   }
 
   .pet {
@@ -215,20 +215,21 @@
     transition: left 1.5s cubic-bezier(0.4, 0, 0.2, 1), bottom 1.5s cubic-bezier(0.4, 0, 0.2, 1);
     filter: drop-shadow(0 4px 0 rgba(139, 111, 94, 0.4));
     z-index: 20; left: 50%; bottom: 15%;
-    transform: translateX(-50%) scale(var(--pet-z, 1));
-    transform-origin: center bottom;
+    transform: translateX(-50%);
     will-change: transform, left, bottom;
     width: 64px; height: 64px;
     image-rendering: pixelated;
     --pet-z: 1;
+    /* Depth (Z) via zoom — does not fight walk/idle transform animations */
+    zoom: var(--pet-z, 1);
   }
   .pet.walking { animation: walk 0.5s ease-in-out infinite; }
   @keyframes walk {
-    0%   { transform: translateX(-50%) translateY(0)    rotate(0deg)   scale(calc(var(--pet-z, 1) * 1), calc(var(--pet-z, 1) * 1)); }
-    25%  { transform: translateX(-50%) translateY(-7px) rotate(-4deg)  scale(calc(var(--pet-z, 1) * 0.97), calc(var(--pet-z, 1) * 1.04)); }
-    50%  { transform: translateX(-50%) translateY(0)    rotate(0deg)   scale(calc(var(--pet-z, 1) * 1.02), calc(var(--pet-z, 1) * 0.98)); }
-    75%  { transform: translateX(-50%) translateY(-7px) rotate(4deg)   scale(calc(var(--pet-z, 1) * 0.97), calc(var(--pet-z, 1) * 1.04)); }
-    100% { transform: translateX(-50%) translateY(0)    rotate(0deg)   scale(calc(var(--pet-z, 1) * 1), calc(var(--pet-z, 1) * 1)); }
+    0%   { transform: translateX(-50%) translateY(0)    rotate(0deg)   scale(1, 1); }
+    25%  { transform: translateX(-50%) translateY(-7px) rotate(-4deg)  scale(0.97, 1.04); }
+    50%  { transform: translateX(-50%) translateY(0)    rotate(0deg)   scale(1.02, 0.98); }
+    75%  { transform: translateX(-50%) translateY(-7px) rotate(4deg)   scale(0.97, 1.04); }
+    100% { transform: translateX(-50%) translateY(0)    rotate(0deg)   scale(1, 1); }
   }
   .pet.leaving {
     animation: walk 0.4s ease-in-out infinite;
@@ -236,68 +237,68 @@
   }
   .pet.arriving { animation: arriveIn 0.8s ease-out; }
   @keyframes arriveIn {
-    0% { opacity: 0; transform: translateX(-50%) scale(calc(var(--pet-z, 1) * 0.6)); }
-    60% { opacity: 1; transform: translateX(-50%) scale(calc(var(--pet-z, 1) * 1.1)); }
-    100% { opacity: 1; transform: translateX(-50%) scale(calc(var(--pet-z, 1) * 1)); }
+    0% { opacity: 0; transform: translateX(-50%) scale(0.6); }
+    60% { opacity: 1; transform: translateX(-50%) scale(1.1); }
+    100% { opacity: 1; transform: translateX(-50%) scale(1); }
   }
   .pet.idle { animation: idle 2.8s ease-in-out infinite; }
   @keyframes idle {
-    0%, 100% { transform: translateX(-50%) translateY(0)    scale(calc(var(--pet-z, 1) * 1), calc(var(--pet-z, 1) * 1)); }
-    45%      { transform: translateX(-50%) translateY(-5px) scale(calc(var(--pet-z, 1) * 1.015), calc(var(--pet-z, 1) * 0.985)); }
-    50%      { transform: translateX(-50%) translateY(-6px) scale(calc(var(--pet-z, 1) * 1.02), calc(var(--pet-z, 1) * 0.98)); }
-    55%      { transform: translateX(-50%) translateY(-5px) scale(calc(var(--pet-z, 1) * 1.015), calc(var(--pet-z, 1) * 0.985)); }
+    0%, 100% { transform: translateX(-50%) translateY(0)    scale(1, 1); }
+    45%      { transform: translateX(-50%) translateY(-5px) scale(1.015, 0.985); }
+    50%      { transform: translateX(-50%) translateY(-6px) scale(1.02, 0.98); }
+    55%      { transform: translateX(-50%) translateY(-5px) scale(1.015, 0.985); }
   }
   .pet.happy { animation: happyJump 0.45s ease-in-out infinite; }
   @keyframes happyJump {
-    0%, 100% { transform: translateX(-50%) translateY(0)     rotate(0deg)  scale(calc(var(--pet-z, 1) * 1), calc(var(--pet-z, 1) * 1)); }
-    40%      { transform: translateX(-50%) translateY(-14px) rotate(-6deg) scale(calc(var(--pet-z, 1) * 0.95), calc(var(--pet-z, 1) * 1.08)); }
-    60%      { transform: translateX(-50%) translateY(-14px) rotate(6deg)  scale(calc(var(--pet-z, 1) * 0.95), calc(var(--pet-z, 1) * 1.08)); }
+    0%, 100% { transform: translateX(-50%) translateY(0)     rotate(0deg)  scale(1, 1); }
+    40%      { transform: translateX(-50%) translateY(-14px) rotate(-6deg) scale(0.95, 1.08); }
+    60%      { transform: translateX(-50%) translateY(-14px) rotate(6deg)  scale(0.95, 1.08); }
   }
   .pet.sleeping { animation: sleepBreath 3s ease-in-out infinite; opacity: 0.92; }
   @keyframes sleepBreath {
-    0%, 100% { transform: translateX(-50%) scale(calc(var(--pet-z, 1) * 1), calc(var(--pet-z, 1) * 1)) rotate(0deg); }
-    50%      { transform: translateX(-50%) scale(calc(var(--pet-z, 1) * 1.04), calc(var(--pet-z, 1) * 0.97)) rotate(-1deg); }
+    0%, 100% { transform: translateX(-50%) scale(1, 1) rotate(0deg); }
+    50%      { transform: translateX(-50%) scale(1.04, 0.97) rotate(-1deg); }
   }
   .pet.sad {
     animation: sadShake 2.2s ease-in-out infinite;
     filter: drop-shadow(0 4px 0 rgba(139, 111, 94, 0.4)) grayscale(0.4) brightness(0.95);
   }
   @keyframes sadShake {
-    0%, 20%, 80%, 100% { transform: translateX(-50%) translateY(0) rotate(0deg) scale(var(--pet-z, 1)); }
-    40% { transform: translateX(-50%) translateY(2px) rotate(-4deg) scale(var(--pet-z, 1)); }
-    60% { transform: translateX(-50%) translateY(2px) rotate(3deg) scale(var(--pet-z, 1)); }
+    0%, 20%, 80%, 100% { transform: translateX(-50%) translateY(0) rotate(0deg); }
+    40% { transform: translateX(-50%) translateY(2px) rotate(-4deg); }
+    60% { transform: translateX(-50%) translateY(2px) rotate(3deg); }
   }
   .pet.watching { animation: watchBob 3s ease-in-out infinite; }
   @keyframes watchBob {
-    0%, 100% { transform: translateX(-50%) translateY(0) rotate(0deg) scale(var(--pet-z, 1)); }
-    50% { transform: translateX(-50%) translateY(-3px) rotate(0deg) scale(var(--pet-z, 1)); }
+    0%, 100% { transform: translateX(-50%) translateY(0) rotate(0deg); }
+    50% { transform: translateX(-50%) translateY(-3px) rotate(0deg); }
   }
   .pet.looking-up { animation: lookUp 2.6s ease-in-out infinite; }
   @keyframes lookUp {
-    0%, 100% { transform: translateX(-50%) rotate(0deg) scaleY(calc(var(--pet-z, 1) * 1)); }
-    50% { transform: translateX(-50%) rotate(-6deg) scaleY(calc(var(--pet-z, 1) * 1.02)); }
+    0%, 100% { transform: translateX(-50%) rotate(0deg) scaleY(1); }
+    50% { transform: translateX(-50%) rotate(-6deg) scaleY(1.02); }
   }
   .pet.stretching { animation: stretch 2s ease-in-out infinite; }
   @keyframes stretch {
-    0%, 100% { transform: translateX(-50%) scaleX(calc(var(--pet-z, 1) * 1)) scaleY(calc(var(--pet-z, 1) * 1)); }
-    50% { transform: translateX(-50%) scaleX(calc(var(--pet-z, 1) * 1.08)) scaleY(calc(var(--pet-z, 1) * 0.94)); }
+    0%, 100% { transform: translateX(-50%) scaleX(1) scaleY(1); }
+    50% { transform: translateX(-50%) scaleX(1.08) scaleY(0.94); }
   }
   .pet.hopping { animation: hop 0.6s ease-in-out infinite; }
   @keyframes hop {
-    0%, 100% { transform: translateX(-50%) translateY(0) scaleY(calc(var(--pet-z, 1) * 1)); }
-    40% { transform: translateX(-50%) translateY(-16px) scaleY(calc(var(--pet-z, 1) * 1.05)); }
-    70% { transform: translateX(-50%) translateY(0) scaleY(calc(var(--pet-z, 1) * 0.94)); }
+    0%, 100% { transform: translateX(-50%) translateY(0) scaleY(1); }
+    40% { transform: translateX(-50%) translateY(-16px) scaleY(1.05); }
+    70% { transform: translateX(-50%) translateY(0) scaleY(0.94); }
   }
   .pet.sniffing { animation: sniff 1.2s ease-in-out infinite; }
   @keyframes sniff {
-    0%, 100% { transform: translateX(-50%) translateY(0) rotate(0deg) scale(var(--pet-z, 1)); }
-    50% { transform: translateX(-50%) translateY(2px) rotate(-5deg) scale(var(--pet-z, 1)); }
+    0%, 100% { transform: translateX(-50%) translateY(0) rotate(0deg); }
+    50% { transform: translateX(-50%) translateY(2px) rotate(-5deg); }
   }
   .pet.spinning { animation: spinPet 1.2s ease-in-out infinite; }
   @keyframes spinPet {
-    0% { transform: translateX(-50%) rotate(0deg) scale(calc(var(--pet-z, 1) * 1)); }
-    50% { transform: translateX(-50%) rotate(180deg) scale(calc(var(--pet-z, 1) * 1.05)); }
-    100% { transform: translateX(-50%) rotate(360deg) scale(calc(var(--pet-z, 1) * 1)); }
+    0% { transform: translateX(-50%) rotate(0deg) scale(1); }
+    50% { transform: translateX(-50%) rotate(180deg) scale(1.05); }
+    100% { transform: translateX(-50%) rotate(360deg) scale(1); }
   }
 
   .pet.ecstatic {
@@ -305,30 +306,30 @@
     filter: drop-shadow(0 4px 0 rgba(139, 111, 94, 0.4)) drop-shadow(0 0 8px rgba(255, 220, 100, 0.7));
   }
   @keyframes ecstaticBounce {
-    0%, 100% { transform: translateX(-50%) translateY(0)     scale(calc(var(--pet-z, 1) * 1), calc(var(--pet-z, 1) * 1)); }
-    45%      { transform: translateX(-50%) translateY(-11px) scale(calc(var(--pet-z, 1) * 0.96), calc(var(--pet-z, 1) * 1.06)); }
-    70%      { transform: translateX(-50%) translateY(-3px)  scale(calc(var(--pet-z, 1) * 1.02), calc(var(--pet-z, 1) * 0.98)); }
+    0%, 100% { transform: translateX(-50%) translateY(0)     scale(1, 1); }
+    45%      { transform: translateX(-50%) translateY(-11px) scale(0.96, 1.06); }
+    70%      { transform: translateX(-50%) translateY(-3px)  scale(1.02, 0.98); }
   }
   .pet.bored {
     animation: boredSigh 3.4s ease-in-out infinite;
     filter: drop-shadow(0 4px 0 rgba(139, 111, 94, 0.4)) brightness(0.96);
   }
   @keyframes boredSigh {
-    0%, 100% { transform: translateX(-50%) translateY(0)     scale(calc(var(--pet-z, 1) * 1), calc(var(--pet-z, 1) * 1)) rotate(0deg); }
-    30%      { transform: translateX(-50%) translateY(-2px)  scale(calc(var(--pet-z, 1) * 1.02), calc(var(--pet-z, 1) * 0.97)) rotate(0deg); }
-    60%      { transform: translateX(-50%) translateY(-5px)  scale(calc(var(--pet-z, 1) * 0.98), calc(var(--pet-z, 1) * 1.03)) rotate(-3deg); }
-    70%      { transform: translateX(-50%) translateY(-5px)  scale(calc(var(--pet-z, 1) * 0.98), calc(var(--pet-z, 1) * 1.03)) rotate(-3deg); }
+    0%, 100% { transform: translateX(-50%) translateY(0)     scale(1, 1) rotate(0deg); }
+    30%      { transform: translateX(-50%) translateY(-2px)  scale(1.02, 0.97) rotate(0deg); }
+    60%      { transform: translateX(-50%) translateY(-5px)  scale(0.98, 1.03) rotate(-3deg); }
+    70%      { transform: translateX(-50%) translateY(-5px)  scale(0.98, 1.03) rotate(-3deg); }
   }
   .pet.grumpy {
     animation: grumpyStomp 1.2s ease-in-out infinite;
     filter: drop-shadow(0 4px 0 rgba(139, 111, 94, 0.4)) saturate(0.85) hue-rotate(-15deg) brightness(0.95);
   }
   @keyframes grumpyStomp {
-    0%, 100% { transform: translateX(-50%) translateY(0)    rotate(0deg)  scale(calc(var(--pet-z, 1) * 1), calc(var(--pet-z, 1) * 1)); }
-    20%      { transform: translateX(-50%) translateY(3px)  rotate(-6deg) scale(calc(var(--pet-z, 1) * 1.06), calc(var(--pet-z, 1) * 0.94)); }
-    40%      { transform: translateX(-50%) translateY(0)    rotate(0deg)  scale(calc(var(--pet-z, 1) * 1), calc(var(--pet-z, 1) * 1)); }
-    60%      { transform: translateX(-50%) translateY(3px)  rotate(6deg)  scale(calc(var(--pet-z, 1) * 1.06), calc(var(--pet-z, 1) * 0.94)); }
-    80%      { transform: translateX(-50%) translateY(0)    rotate(0deg)  scale(calc(var(--pet-z, 1) * 1), calc(var(--pet-z, 1) * 1)); }
+    0%, 100% { transform: translateX(-50%) translateY(0)    rotate(0deg)  scale(1, 1); }
+    20%      { transform: translateX(-50%) translateY(3px)  rotate(-6deg) scale(1.06, 0.94); }
+    40%      { transform: translateX(-50%) translateY(0)    rotate(0deg)  scale(1, 1); }
+    60%      { transform: translateX(-50%) translateY(3px)  rotate(6deg)  scale(1.06, 0.94); }
+    80%      { transform: translateX(-50%) translateY(0)    rotate(0deg)  scale(1, 1); }
   }
   .pet.sick {
     animation: sickShiver 1.6s ease-in-out infinite;
@@ -336,10 +337,10 @@
     opacity: 0.95;
   }
   @keyframes sickShiver {
-    0%, 100% { transform: translateX(-50%) translateY(0)    rotate(0deg)  scale(calc(var(--pet-z, 1) * 1), calc(var(--pet-z, 1) * 1)); }
-    25%      { transform: translateX(-50%) translateY(1px)  rotate(-2deg) scale(calc(var(--pet-z, 1) * 0.99), calc(var(--pet-z, 1) * 1.01)); }
-    50%      { transform: translateX(-50%) translateY(0)    rotate(0deg)  scale(calc(var(--pet-z, 1) * 1.01), calc(var(--pet-z, 1) * 0.99)); }
-    75%      { transform: translateX(-50%) translateY(1px)  rotate(2deg)  scale(calc(var(--pet-z, 1) * 0.99), calc(var(--pet-z, 1) * 1.01)); }
+    0%, 100% { transform: translateX(-50%) translateY(0)    rotate(0deg)  scale(1, 1); }
+    25%      { transform: translateX(-50%) translateY(1px)  rotate(-2deg) scale(0.99, 1.01); }
+    50%      { transform: translateX(-50%) translateY(0)    rotate(0deg)  scale(1.01, 0.99); }
+    75%      { transform: translateX(-50%) translateY(1px)  rotate(2deg)  scale(0.99, 1.01); }
   }
   .pet.sick .pet-eye { animation: none; height: 3px; background: transparent; border-radius: 0; box-shadow: none; }
   .pet.sick .pet-eye::before,
@@ -356,7 +357,7 @@
   }
   .pet.grumpy .pet-eye { height: 8px; }
   .pet.grumpy .pet-eye::after { display: block; }
-  .pet.grumpy .pet-mouth { height: 4px scale(var(--pet-z, 1)); width: 10px scale(var(--pet-z, 1)); border-radius: 6px 6px 0 0 scale(var(--pet-z, 1)); transform: translateX(-50%) rotate(180deg) scale(var(--pet-z, 1)); bottom: 12px scale(var(--pet-z, 1)); }
+  .pet.grumpy .pet-mouth { height: 4px; width: 10px; border-radius: 6px 6px 0 0; transform: translateX(-50%) rotate(180deg); bottom: 12px; }
   .pet.grumpy .pet-blush { opacity: 0; }
   .pet.bored .pet-eye { height: 5px; border-radius: 2px; animation: none; }
   .pet.bored .pet-eye::after { display: block; }
@@ -377,7 +378,7 @@
   }
 
   .pet-body {
-    position: absolute scale(var(--pet-z, 1)); left: 50% scale(var(--pet-z, 1)); bottom: 6px scale(var(--pet-z, 1)); transform: translateX(-50%) scale(var(--pet-z, 1));
+    position: absolute; left: 50%; bottom: 6px; transform: translateX(-50%);
     width: 44px; height: 42px;
     background: var(--pet-color, #F4E9DE);
     border: 3px solid var(--pet-color-dark, #C9B0A0);
@@ -402,7 +403,7 @@
   .pet-blush { position: absolute; bottom: 11px; width: 8px; height: 4px; background: rgba(201, 124, 140, 0.55); border-radius: 50%; transition: opacity 0.3s; }
   .pet-blush-l { left: 2px; } .pet-blush-r { right: 2px; }
   .pet-mouth {
-    position: absolute scale(var(--pet-z, 1)); bottom: 8px scale(var(--pet-z, 1)); left: 50% scale(var(--pet-z, 1)); transform: translateX(-50%) scale(var(--pet-z, 1));
+    position: absolute; bottom: 8px; left: 50%; transform: translateX(-50%);
     width: 9px; height: 4px; border-radius: 0 0 6px 6px;
     background: #3A2E28; opacity: 0.7;
     transition: all 0.3s;
@@ -414,7 +415,7 @@
   .pet.sleeping .pet-eye { height: 3px; border-radius: 3px; animation: none; }
   .pet.sleeping .pet-eye::after { display: none; }
   .pet.eating .pet-mouth { height: 6px; width: 8px; border-radius: 50%; animation: mouthChew 0.28s steps(1) infinite; }
-  @keyframes mouthChew { 0%, 49% { transform: translateX(-50%) scaleY(calc(var(--pet-z, 1) * 1)); } 50%, 100% { transform: translateX(-50%) scaleY(calc(var(--pet-z, 1) * 0.4)); } }
+  @keyframes mouthChew { 0%, 49% { transform: translateX(-50%) scaleY(1); } 50%, 100% { transform: translateX(-50%) scaleY(0.4); } }
 
   .pet-foot {
     position: absolute; bottom: -3px; width: 11px; height: 7px;
@@ -435,8 +436,8 @@
   @keyframes wingFlapL { 0%, 100% { transform: rotate(0deg); } 50% { transform: rotate(14deg); } }
   @keyframes wingFlapR { 0%, 100% { transform: rotate(0deg); } 50% { transform: rotate(-14deg); } }
 
-  .pet-horn { position: absolute scale(var(--pet-z, 1)); top: -12px scale(var(--pet-z, 1)); left: 50% scale(var(--pet-z, 1)); transform: translateX(-50%) scale(var(--pet-z, 1)); width: 0 scale(var(--pet-z, 1)); height: 0 scale(var(--pet-z, 1)); border-left: 5px solid transparent scale(var(--pet-z, 1)); border-right: 5px solid transparent scale(var(--pet-z, 1)); border-bottom: 14px solid var(--pet-color-dark, #4A8F95) scale(var(--pet-z, 1)); display: none scale(var(--pet-z, 1)); }
-  .pet-halo { position: absolute scale(var(--pet-z, 1)); top: -20px scale(var(--pet-z, 1)); left: 50% scale(var(--pet-z, 1)); transform: translateX(-50%) scale(var(--pet-z, 1)); width: 28px scale(var(--pet-z, 1)); height: 10px scale(var(--pet-z, 1)); border: 3px solid #D4AF37 scale(var(--pet-z, 1)); border-radius: 50% scale(var(--pet-z, 1)); opacity: 0.9 scale(var(--pet-z, 1)); display: none scale(var(--pet-z, 1)); animation: haloPulse 2.4s ease-in-out infinite scale(var(--pet-z, 1)); }
+  .pet-horn { position: absolute; top: -12px; left: 50%; transform: translateX(-50%); width: 0; height: 0; border-left: 5px solid transparent; border-right: 5px solid transparent; border-bottom: 14px solid var(--pet-color-dark, #4A8F95); display: none; }
+  .pet-halo { position: absolute; top: -20px; left: 50%; transform: translateX(-50%); width: 28px; height: 10px; border: 3px solid #D4AF37; border-radius: 50%; opacity: 0.9; display: none; animation: haloPulse 2.4s ease-in-out infinite; }
   @keyframes haloPulse { 0%, 100% { opacity: 0.75; } 50% { opacity: 1; box-shadow: 0 0 8px rgba(212, 175, 55, 0.6); } }
 
   .pet[data-stage="egg"] .pet-eye, .pet[data-stage="egg"] .pet-mouth, .pet[data-stage="egg"] .pet-foot { display: none; }
@@ -478,14 +479,14 @@
   .pet-accessories { position: absolute; inset: 0; pointer-events: none; z-index: 25; }
   .pet-accessory { position: absolute; pointer-events: none; filter: drop-shadow(0 2px 2px rgba(0,0,0,0.3)); line-height: 1; }
   .pet-accessory.bow {
-    top: 4px scale(var(--pet-z, 1)); left: 50% scale(var(--pet-z, 1)); transform: translateX(-50%) scale(var(--pet-z, 1));
+    top: 4px; left: 50%; transform: translateX(-50%);
     font-size: 1.15rem; z-index: 26;
     animation: bowBounce 2.6s ease-in-out infinite;
     transform-origin: center bottom;
   }
   @keyframes bowBounce {
-    0%, 100% { transform: translateX(-50%) translateY(0) rotate(-5deg) scale(var(--pet-z, 1)); }
-    50% { transform: translateX(-50%) translateY(-1px) rotate(5deg) scale(var(--pet-z, 1)); }
+    0%, 100% { transform: translateX(-50%) translateY(0) rotate(-5deg); }
+    50% { transform: translateX(-50%) translateY(-1px) rotate(5deg); }
   }
   .pet-accessory.lucky {
     top: 40%; left: 76%; transform: translate(-50%, -50%);
@@ -568,13 +569,13 @@
     100% { transform: scale(0) rotate(-30deg); opacity: 0; }
   }
   .room-item::after {
-    content: '' scale(var(--pet-z, 1)); position: absolute scale(var(--pet-z, 1)); bottom: -6px scale(var(--pet-z, 1)); left: 50% scale(var(--pet-z, 1)); transform: translateX(-50%) scale(var(--pet-z, 1));
+    content: ''; position: absolute; bottom: -6px; left: 50%; transform: translateX(-50%);
     width: 26px; height: 6px;
     background: radial-gradient(ellipse at center, rgba(74,63,58,0.3) 0%, transparent 70%);
     border-radius: 50%; z-index: -1;
   }
   .room-item .item-tooltip {
-    position: absolute scale(var(--pet-z, 1)); bottom: 110% scale(var(--pet-z, 1)); left: 50% scale(var(--pet-z, 1)); transform: translateX(-50%) scale(var(--pet-z, 1));
+    position: absolute; bottom: 110%; left: 50%; transform: translateX(-50%);
     background: #FFF9C8; border: 2px solid #C9A044;
     padding: 3px 6px;
     font-family: 'Press Start 2P', monospace; font-size: 0.4rem;
@@ -605,14 +606,14 @@
   }
 
   .need-indicator {
-    position: absolute scale(var(--pet-z, 1)); top: -22px scale(var(--pet-z, 1)); left: 50% scale(var(--pet-z, 1)); transform: translateX(-50%) scale(var(--pet-z, 1));
+    position: absolute; top: -22px; left: 50%; transform: translateX(-50%);
     font-size: 1.1rem; z-index: 25; pointer-events: none;
     animation: needBounce 1.2s ease-in-out infinite;
     filter: drop-shadow(0 2px 2px rgba(0,0,0,0.2));
   }
   @keyframes needBounce {
-    0%, 100% { transform: translateX(-50%) translateY(0) scale(var(--pet-z, 1)); }
-    50% { transform: translateX(-50%) translateY(-5px) scale(var(--pet-z, 1)); }
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    50% { transform: translateX(-50%) translateY(-5px); }
   }
 
   /* ============================================================
@@ -632,7 +633,7 @@
     content: '';
     position: absolute;
     left: 50%; bottom: -6px;
-    transform: translateX(-50%) scale(var(--pet-z, 1));
+    transform: translateX(-50%);
     width: 90%;
     height: 10px;
     background: radial-gradient(ellipse at center, rgba(74,63,58,0.42) 0%, rgba(74,63,58,0) 72%);
@@ -672,7 +673,7 @@
   }
 
   .furniture .furniture-label {
-    position: absolute scale(var(--pet-z, 1)); bottom: 105% scale(var(--pet-z, 1)); left: 50% scale(var(--pet-z, 1)); transform: translateX(-50%) scale(var(--pet-z, 1));
+    position: absolute; bottom: 105%; left: 50%; transform: translateX(-50%);
     background: #FFF9C8; border: 2px solid #C9A044;
     color: #6B4F0E;
     font-family: 'Press Start 2P', monospace; font-size: 0.4rem;
@@ -741,15 +742,15 @@
     content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
     width: 10px; height: 3px; background: #D4AF37; border-radius: 2px;
   }
-  .f-nightstand .ns-lamp { position: absolute scale(var(--pet-z, 1)); top: -34px scale(var(--pet-z, 1)); left: 50% scale(var(--pet-z, 1)); transform: translateX(-50%) scale(var(--pet-z, 1)); width: 36px scale(var(--pet-z, 1)); height: 34px scale(var(--pet-z, 1)); pointer-events: none scale(var(--pet-z, 1)); }
+  .f-nightstand .ns-lamp { position: absolute; top: -34px; left: 50%; transform: translateX(-50%); width: 36px; height: 34px; pointer-events: none; }
   .f-nightstand .ns-lamp::before {
-    content: '' scale(var(--pet-z, 1)); position: absolute scale(var(--pet-z, 1)); bottom: 0 scale(var(--pet-z, 1)); left: 50% scale(var(--pet-z, 1)); transform: translateX(-50%) scale(var(--pet-z, 1));
+    content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
     width: 4px; height: 16px;
     background: linear-gradient(180deg, #8B6F5E 0%, #6B4F3E 100%);
     border-radius: 2px;
   }
   .f-nightstand .ns-lamp-shade {
-    position: absolute scale(var(--pet-z, 1)); top: 0 scale(var(--pet-z, 1)); left: 50% scale(var(--pet-z, 1)); transform: translateX(-50%) scale(var(--pet-z, 1));
+    position: absolute; top: 0; left: 50%; transform: translateX(-50%);
     width: 32px; height: 20px;
     background: linear-gradient(180deg, #FFE8A0 0%, #E8C878 100%);
     border: 3px solid #8B6F5E;
@@ -768,7 +769,7 @@
   .f-nightstand.lamp-off .ns-lamp-shade { background: linear-gradient(180deg, #8B6F5E 0%, #6B4F3E 100%); }
   .f-nightstand.lamp-off .ns-lamp-shade::after { opacity: 0 !important; animation: none; }
   .f-nightstand .ns-glow {
-    position: absolute scale(var(--pet-z, 1)); top: -14px scale(var(--pet-z, 1)); left: 50% scale(var(--pet-z, 1)); transform: translateX(-50%) scale(var(--pet-z, 1));
+    position: absolute; top: -14px; left: 50%; transform: translateX(-50%);
     width: 60px; height: 60px;
     background: radial-gradient(circle, rgba(255,232,160,0.35) 0%, rgba(255,232,160,0) 70%);
     pointer-events: none; animation: lampGlow3D 3s ease-in-out infinite; z-index: -1;
@@ -829,7 +830,7 @@
   .f-window .win-glass::before,
   .f-window .win-glass::after { content: ''; position: absolute; background: #6B4F3E; }
   .f-window .win-glass::before { top: 50%; left: 0; right: 0; height: 3px; transform: translateY(-50%); }
-  .f-window .win-glass::after { left: 50% scale(var(--pet-z, 1)); top: 0 scale(var(--pet-z, 1)); bottom: 0 scale(var(--pet-z, 1)); width: 3px scale(var(--pet-z, 1)); transform: translateX(-50%) scale(var(--pet-z, 1)); }
+  .f-window .win-glass::after { left: 50%; top: 0; bottom: 0; width: 3px; transform: translateX(-50%); }
   .f-window .win-cloud {
     position: absolute; width: 20px; height: 6px;
     background: rgba(255,255,255,0.9); border-radius: 6px;
@@ -876,7 +877,7 @@
     box-shadow: inset 0 3px 0 rgba(0,0,0,0.3);
   }
   .f-kitchen-counter .counter-sink::after {
-    content: '' scale(var(--pet-z, 1)); position: absolute scale(var(--pet-z, 1)); top: -14px scale(var(--pet-z, 1)); left: 50% scale(var(--pet-z, 1)); transform: translateX(-50%) scale(var(--pet-z, 1));
+    content: ''; position: absolute; top: -14px; left: 50%; transform: translateX(-50%);
     width: 3px; height: 14px; background: #4A3F3A; border-radius: 2px;
   }
   .f-kitchen-counter .counter-stove {
@@ -967,14 +968,14 @@
      ============================================================ */
   .f-tree { bottom: 5%; right: 3%; width: 80px; height: 140px; }
   .f-tree .tree-trunk {
-    position: absolute scale(var(--pet-z, 1)); bottom: 0 scale(var(--pet-z, 1)); left: 50% scale(var(--pet-z, 1)); transform: translateX(-50%) scale(var(--pet-z, 1));
+    position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
     width: 20px; height: 60px;
     background: linear-gradient(90deg, #6B4F3E 0%, #8B6F5E 50%, #6B4F3E 100%);
     border: 3px solid #4A3F3A; border-radius: 4px;
     box-shadow: inset -4px 0 0 rgba(0,0,0,0.2);
   }
   .f-tree .tree-leaves {
-    position: absolute scale(var(--pet-z, 1)); bottom: 50px scale(var(--pet-z, 1)); left: 50% scale(var(--pet-z, 1)); transform: translateX(-50%) scale(var(--pet-z, 1));
+    position: absolute; bottom: 50px; left: 50%; transform: translateX(-50%);
     width: 80px; height: 80px; border-radius: 50%;
     background: radial-gradient(circle at 35% 30%, #A8D488 0%, #6FA05D 60%, #4A7040 100%);
     box-shadow: inset -10px -10px 0 rgba(0,0,0,0.15), inset 6px 6px 0 rgba(255,255,255,0.15),
@@ -985,9 +986,9 @@
   }
   .f-tree.shaking .tree-leaves { animation: treeShake 0.4s ease-in-out; }
   @keyframes treeShake {
-    0%, 100% { transform: translateX(-50%) rotate(0deg) scale(var(--pet-z, 1)); }
-    25% { transform: translateX(-50%) rotate(-8deg) scale(var(--pet-z, 1)); }
-    75% { transform: translateX(-50%) rotate(8deg) scale(var(--pet-z, 1)); }
+    0%, 100% { transform: translateX(-50%) rotate(0deg); }
+    25% { transform: translateX(-50%) rotate(-8deg); }
+    75% { transform: translateX(-50%) rotate(8deg); }
   }
   .f-tree .tree-leaves::before,
   .f-tree .tree-leaves::after {
@@ -997,19 +998,19 @@
   .f-tree .tree-leaves::before { top: -12px; left: -10px; width: 46px; height: 46px; }
   .f-tree .tree-leaves::after { top: -6px; right: -12px; width: 40px; height: 40px; }
   @keyframes treeSway3D {
-    0%, 100% { transform: translateX(-50%) rotate(-2deg) scale(var(--pet-z, 1)); }
-    50% { transform: translateX(-50%) rotate(2deg) scale(var(--pet-z, 1)); }
+    0%, 100% { transform: translateX(-50%) rotate(-2deg); }
+    50% { transform: translateX(-50%) rotate(2deg); }
   }
   .f-tree .tree-fruit {
-    position: absolute scale(var(--pet-z, 1)); top: 30px scale(var(--pet-z, 1)); left: 50% scale(var(--pet-z, 1)); transform: translateX(-50%) scale(var(--pet-z, 1));
+    position: absolute; top: 30px; left: 50%; transform: translateX(-50%);
     font-size: 1.3rem; opacity: 0; pointer-events: none;
     filter: drop-shadow(0 2px 2px rgba(0,0,0,0.2));
   }
   .f-tree.shaking .tree-fruit { animation: fruitDrop 1.2s ease-in forwards; }
   @keyframes fruitDrop {
-    0% { opacity: 0 scale(var(--pet-z, 1)); transform: translateX(-50%) translateY(-20px) scale(var(--pet-z, 1)); }
+    0% { opacity: 0; transform: translateX(-50%) translateY(-20px); }
     30% { opacity: 1; }
-    100% { opacity: 1 scale(var(--pet-z, 1)); transform: translateX(-50%) translateY(60px) scale(var(--pet-z, 1)); }
+    100% { opacity: 1; transform: translateX(-50%) translateY(60px); }
   }
   .f-flowers {
     bottom: 8%; left: 3%; width: 110px; height: 40px;
@@ -1128,7 +1129,7 @@
      ============================================================ */
   .f-telescope { bottom: 5%; left: 8%; width: 100px; height: 110px; }
   .f-telescope .tel-tripod {
-    position: absolute scale(var(--pet-z, 1)); bottom: 0 scale(var(--pet-z, 1)); left: 50% scale(var(--pet-z, 1)); transform: translateX(-50%) scale(var(--pet-z, 1));
+    position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
     width: 4px; height: 50px;
     background: linear-gradient(180deg, #8B6F5E 0%, #4A3F3A 100%);
     border-radius: 2px;
@@ -1139,8 +1140,8 @@
     width: 3px; height: 40px; background: #6B4F3E; border-radius: 2px;
     transform-origin: top center;
   }
-  .f-telescope .tel-tripod::before { transform: translateX(-50%) rotate(-20deg) scale(var(--pet-z, 1)); }
-  .f-telescope .tel-tripod::after { transform: translateX(-50%) rotate(20deg) scale(var(--pet-z, 1)); }
+  .f-telescope .tel-tripod::before { transform: translateX(-50%) rotate(-20deg); }
+  .f-telescope .tel-tripod::after { transform: translateX(-50%) rotate(20deg); }
   .f-telescope .tel-tube {
     position: absolute; bottom: 44px; left: 50%;
     transform: translateX(-60%) rotate(-25deg);
@@ -1201,21 +1202,21 @@
     box-shadow: inset 0 4px 0 rgba(0,0,0,0.3);
   }
   .f-room-sink .sink-faucet {
-    position: absolute scale(var(--pet-z, 1)); top: -12px scale(var(--pet-z, 1)); left: 50% scale(var(--pet-z, 1)); transform: translateX(-50%) scale(var(--pet-z, 1));
+    position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
     width: 8px; height: 16px;
     background: linear-gradient(180deg, #D4D4D4 0%, #A8A8A8 100%);
     border: 2px solid #4A3F3A; border-radius: 3px 3px 0 0;
     z-index: 3;
   }
   .f-room-sink .sink-faucet::after {
-    content: '' scale(var(--pet-z, 1)); position: absolute scale(var(--pet-z, 1)); bottom: -2px scale(var(--pet-z, 1)); left: 50% scale(var(--pet-z, 1)); transform: translateX(-50%) scale(var(--pet-z, 1));
+    content: ''; position: absolute; bottom: -2px; left: 50%; transform: translateX(-50%);
     width: 14px; height: 6px;
     background: #C8C8C8;
     border: 2px solid #4A3F3A; border-radius: 0 0 3px 3px;
   }
   .f-room-sink.running .sink-faucet::after { background: #A8D4E8; }
   .f-room-sink .sink-water {
-    position: absolute scale(var(--pet-z, 1)); top: 4px scale(var(--pet-z, 1)); left: 50% scale(var(--pet-z, 1)); transform: translateX(-50%) scale(var(--pet-z, 1));
+    position: absolute; top: 4px; left: 50%; transform: translateX(-50%);
     width: 4px; height: 22px;
     background: linear-gradient(180deg, rgba(168,212,232,0.9) 0%, rgba(168,212,232,0.4) 100%);
     border-radius: 2px;
@@ -1339,8 +1340,8 @@
     background: #4A3F3A;
     border-radius: 2px;
   }
-  .f-room-clock .clock-hand.hour { width: 2px scale(var(--pet-z, 1)); height: 10px scale(var(--pet-z, 1)); transform: translateX(-50%) rotate(0deg) scale(var(--pet-z, 1)); }
-  .f-room-clock .clock-hand.minute { width: 2px scale(var(--pet-z, 1)); height: 14px scale(var(--pet-z, 1)); transform: translateX(-50%) rotate(90deg) scale(var(--pet-z, 1)); }
+  .f-room-clock .clock-hand.hour { width: 2px; height: 10px; transform: translateX(-50%) rotate(0deg); }
+  .f-room-clock .clock-hand.minute { width: 2px; height: 14px; transform: translateX(-50%) rotate(90deg); }
   .f-room-clock .clock-center {
     position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
     width: 5px; height: 5px;
@@ -1351,7 +1352,7 @@
   }
   .f-room-clock .clock-pendulum {
     position: absolute; top: 100%; left: 50%; transform-origin: top center;
-    transform: translateX(-50%) scale(var(--pet-z, 1));
+    transform: translateX(-50%);
     width: 3px; height: 22px;
     background: #8B6F3E;
     border: 2px solid #4A3F3A;
@@ -1359,12 +1360,12 @@
     animation: pendulumSwing 2s ease-in-out infinite;
   }
   @keyframes pendulumSwing {
-    0%, 100% { transform: translateX(-50%) rotate(-20deg) scale(var(--pet-z, 1)); }
-    50% { transform: translateX(-50%) rotate(20deg) scale(var(--pet-z, 1)); }
+    0%, 100% { transform: translateX(-50%) rotate(-20deg); }
+    50% { transform: translateX(-50%) rotate(20deg); }
   }
   .f-room-clock .clock-pendulum::after {
     content: '';
-    position: absolute scale(var(--pet-z, 1)); bottom: -8px scale(var(--pet-z, 1)); left: 50% scale(var(--pet-z, 1)); transform: translateX(-50%) scale(var(--pet-z, 1));
+    position: absolute; bottom: -8px; left: 50%; transform: translateX(-50%);
     width: 10px; height: 10px;
     background: radial-gradient(circle at 30% 30%, #FFE8A0, #C9A044);
     border: 2px solid #4A3F3A;
@@ -1374,34 +1375,34 @@
   /* Garden items */
   .f-room-fountain { bottom: 6%; left: 34%; width: 90px; height: 70px; }
   .f-room-fountain .fount-base {
-    position: absolute scale(var(--pet-z, 1)); bottom: 0 scale(var(--pet-z, 1)); left: 50% scale(var(--pet-z, 1)); transform: translateX(-50%) scale(var(--pet-z, 1));
+    position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
     width: 80px; height: 22px;
     background: linear-gradient(180deg, #C8C8C8 0%, #989898 100%);
     border: 3px solid #4A3F3A; border-radius: 50% 50% 10px 10px / 30% 30% 10% 10%;
     box-shadow: inset -4px -4px 0 rgba(0,0,0,0.18), 0 5px 0 rgba(0,0,0,0.25);
   }
   .f-room-fountain .fount-basin {
-    position: absolute scale(var(--pet-z, 1)); bottom: 12px scale(var(--pet-z, 1)); left: 50% scale(var(--pet-z, 1)); transform: translateX(-50%) scale(var(--pet-z, 1));
+    position: absolute; bottom: 12px; left: 50%; transform: translateX(-50%);
     width: 70px; height: 14px;
     background: linear-gradient(180deg, #A8D4E8 0%, #7FB0D8 100%);
     border: 3px solid #4A3F3A; border-radius: 0 0 60% 60% / 0 0 80% 80%;
     box-shadow: inset 0 3px 0 rgba(255,255,255,0.4);
   }
   .f-room-fountain .fount-column {
-    position: absolute scale(var(--pet-z, 1)); bottom: 20px scale(var(--pet-z, 1)); left: 50% scale(var(--pet-z, 1)); transform: translateX(-50%) scale(var(--pet-z, 1));
+    position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%);
     width: 8px; height: 30px;
     background: linear-gradient(180deg, #C8C8C8 0%, #A8A8A8 100%);
     border: 3px solid #4A3F3A; border-radius: 4px;
   }
   .f-room-fountain .fount-top {
-    position: absolute scale(var(--pet-z, 1)); bottom: 46px scale(var(--pet-z, 1)); left: 50% scale(var(--pet-z, 1)); transform: translateX(-50%) scale(var(--pet-z, 1));
+    position: absolute; bottom: 46px; left: 50%; transform: translateX(-50%);
     width: 30px; height: 10px;
     background: radial-gradient(circle at 40% 30%, #E8E8E8, #A8A8A8);
     border: 3px solid #4A3F3A; border-radius: 50%;
     box-shadow: inset 0 3px 0 rgba(255,255,255,0.4);
   }
   .f-room-fountain .fount-jet {
-    position: absolute scale(var(--pet-z, 1)); bottom: 52px scale(var(--pet-z, 1)); left: 50% scale(var(--pet-z, 1)); transform: translateX(-50%) scale(var(--pet-z, 1));
+    position: absolute; bottom: 52px; left: 50%; transform: translateX(-50%);
     width: 4px; height: 30px;
     background: linear-gradient(180deg, rgba(168,212,232,0) 0%, rgba(168,212,232,0.9) 60%, rgba(168,212,232,0.4) 100%);
     border-radius: 2px;
@@ -1409,8 +1410,8 @@
   }
   .f-room-fountain.running .fount-jet { opacity: 1; animation: jetPulse 1.2s ease-in-out infinite; }
   @keyframes jetPulse {
-    0%, 100% { transform: translateX(-50%) scaleY(calc(var(--pet-z, 1) * 1)); }
-    50% { transform: translateX(-50%) scaleY(calc(var(--pet-z, 1) * 1.15)); }
+    0%, 100% { transform: translateX(-50%) scaleY(1); }
+    50% { transform: translateX(-50%) scaleY(1.15); }
   }
   .f-room-fountain .fount-spray {
     position: absolute; bottom: 60px; left: 50%;
@@ -1423,21 +1424,21 @@
     animation: sprayArc 1.5s ease-in-out infinite;
   }
   @keyframes sprayArc {
-    0% { transform: translateX(-50%) translateY(0) scale(calc(var(--pet-z, 1) * 0.6)); opacity: 0; }
+    0% { transform: translateX(-50%) translateY(0) scale(0.6); opacity: 0; }
     30% { opacity: 1; }
-    70% { transform: translateX(-50%) translateY(-20px) scale(calc(var(--pet-z, 1) * 1)); opacity: 1; }
-    100% { transform: translateX(-50%) translateY(-10px) scale(calc(var(--pet-z, 1) * 0.6)); opacity: 0; }
+    70% { transform: translateX(-50%) translateY(-20px) scale(1); opacity: 1; }
+    100% { transform: translateX(-50%) translateY(-10px) scale(0.6); opacity: 0; }
   }
 
   .f-room-feeder { top: 30%; left: 40%; width: 60px; height: 80px; }
   .f-room-feeder .feeder-pole {
-    position: absolute scale(var(--pet-z, 1)); bottom: 0 scale(var(--pet-z, 1)); left: 50% scale(var(--pet-z, 1)); transform: translateX(-50%) scale(var(--pet-z, 1));
+    position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
     width: 4px; height: 60px;
     background: #6B4F3E; border: 2px solid #4A3F3A;
     border-radius: 2px;
   }
   .f-room-feeder .feeder-house {
-    position: absolute scale(var(--pet-z, 1)); top: 0 scale(var(--pet-z, 1)); left: 50% scale(var(--pet-z, 1)); transform: translateX(-50%) scale(var(--pet-z, 1));
+    position: absolute; top: 0; left: 50%; transform: translateX(-50%);
     width: 40px; height: 30px;
     background: linear-gradient(180deg, #C97C8C 0%, #A8607C 100%);
     border: 3px solid #4A3F3A;
@@ -1446,35 +1447,35 @@
   }
   .f-room-feeder .feeder-house::after {
     content: '';
-    position: absolute scale(var(--pet-z, 1)); bottom: -4px scale(var(--pet-z, 1)); left: 50% scale(var(--pet-z, 1)); transform: translateX(-50%) scale(var(--pet-z, 1));
+    position: absolute; bottom: -4px; left: 50%; transform: translateX(-50%);
     width: 8px; height: 8px;
     background: #E8D8B8;
     border: 2px solid #4A3F3A;
     border-radius: 50%;
   }
   .f-room-feeder .feeder-seeds {
-    position: absolute scale(var(--pet-z, 1)); top: 12px scale(var(--pet-z, 1)); left: 50% scale(var(--pet-z, 1)); transform: translateX(-50%) scale(var(--pet-z, 1));
+    position: absolute; top: 12px; left: 50%; transform: translateX(-50%);
     font-size: 0.6rem;
   }
   .f-room-feeder .feeder-bird {
     position: absolute;
     top: -18px; left: 50%;
     font-size: 1.1rem;
-    transform: translateX(-50%) translateY(-30px) scale(var(--pet-z, 1));
+    transform: translateX(-50%) translateY(-30px);
     opacity: 0;
     pointer-events: none;
   }
   .f-room-feeder.visited .feeder-bird { animation: birdVisit 2.4s ease-in-out; }
   @keyframes birdVisit {
-    0% { opacity: 0; transform: translateX(-50%) translateY(-30px) scale(calc(var(--pet-z, 1) * 0.8)); }
-    20% { opacity: 1; transform: translateX(-50%) translateY(0) scale(calc(var(--pet-z, 1) * 1)); }
-    80% { opacity: 1; transform: translateX(-50%) translateY(0) scale(calc(var(--pet-z, 1) * 1)); }
-    100% { opacity: 0; transform: translateX(-50%) translateY(-30px) scale(calc(var(--pet-z, 1) * 0.8)); }
+    0% { opacity: 0; transform: translateX(-50%) translateY(-30px) scale(0.8); }
+    20% { opacity: 1; transform: translateX(-50%) translateY(0) scale(1); }
+    80% { opacity: 1; transform: translateX(-50%) translateY(0) scale(1); }
+    100% { opacity: 0; transform: translateX(-50%) translateY(-30px) scale(0.8); }
   }
 
   .f-room-plant { bottom: 10%; left: 20%; width: 40px; height: 50px; }
   .f-room-plant .plant-pot {
-    position: absolute scale(var(--pet-z, 1)); bottom: 0 scale(var(--pet-z, 1)); left: 50% scale(var(--pet-z, 1)); transform: translateX(-50%) scale(var(--pet-z, 1));
+    position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
     width: 32px; height: 24px;
     background: linear-gradient(180deg, #C97C8C 0%, #A8607C 100%);
     border: 3px solid #4A3F3A;
@@ -1482,16 +1483,16 @@
     box-shadow: inset -3px -3px 0 rgba(0,0,0,0.15);
   }
   .f-room-plant .plant-leaves {
-    position: absolute scale(var(--pet-z, 1)); bottom: 20px scale(var(--pet-z, 1)); left: 50% scale(var(--pet-z, 1)); transform: translateX(-50%) scale(var(--pet-z, 1));
+    position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%);
     font-size: 1.6rem;
     animation: plantSway 4s ease-in-out infinite;
   }
   @keyframes plantSway {
-    0%, 100% { transform: translateX(-50%) rotate(-3deg) scale(var(--pet-z, 1)); }
-    50% { transform: translateX(-50%) rotate(3deg) scale(var(--pet-z, 1)); }
+    0%, 100% { transform: translateX(-50%) rotate(-3deg); }
+    50% { transform: translateX(-50%) rotate(3deg); }
   }
   .f-room-plant .plant-water {
-    position: absolute scale(var(--pet-z, 1)); bottom: 24px scale(var(--pet-z, 1)); left: 50% scale(var(--pet-z, 1)); transform: translateX(-50%) scale(var(--pet-z, 1));
+    position: absolute; bottom: 24px; left: 50%; transform: translateX(-50%);
     width: 4px; height: 16px;
     background: linear-gradient(180deg, rgba(168,212,232,0.9) 0%, rgba(168,212,232,0) 100%);
     opacity: 0;
@@ -1517,7 +1518,7 @@
   .f-room-easel .easel-leg-l { left: 8px; transform: rotate(-6deg); }
   .f-room-easel .easel-leg-r { right: 8px; transform: rotate(6deg); }
   .f-room-easel .easel-canvas {
-    position: absolute scale(var(--pet-z, 1)); top: 0 scale(var(--pet-z, 1)); left: 50% scale(var(--pet-z, 1)); transform: translateX(-50%) scale(var(--pet-z, 1));
+    position: absolute; top: 0; left: 50%; transform: translateX(-50%);
     width: 60px; height: 50px;
     background: #FFF9E8;
     border: 3px solid #4A3F3A;
@@ -1576,7 +1577,7 @@
   /* Observatory globe */
   .f-room-globe { bottom: 10%; right: 28%; width: 60px; height: 60px; }
   .f-room-globe .globe-base {
-    position: absolute scale(var(--pet-z, 1)); bottom: 0 scale(var(--pet-z, 1)); left: 50% scale(var(--pet-z, 1)); transform: translateX(-50%) scale(var(--pet-z, 1));
+    position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
     width: 40px; height: 10px;
     background: linear-gradient(180deg, #A88F70 0%, #8B6F5E 100%);
     border: 2px solid #4A3F3A;
@@ -1584,13 +1585,13 @@
     box-shadow: 0 4px 0 rgba(0,0,0,0.3);
   }
   .f-room-globe .globe-stand {
-    position: absolute scale(var(--pet-z, 1)); bottom: 6px scale(var(--pet-z, 1)); left: 50% scale(var(--pet-z, 1)); transform: translateX(-50%) scale(var(--pet-z, 1));
+    position: absolute; bottom: 6px; left: 50%; transform: translateX(-50%);
     width: 4px; height: 12px;
     background: #6B4F3E; border: 2px solid #4A3F3A;
     border-radius: 2px;
   }
   .f-room-globe .globe-orb {
-    position: absolute scale(var(--pet-z, 1)); top: 0 scale(var(--pet-z, 1)); left: 50% scale(var(--pet-z, 1)); transform: translateX(-50%) scale(var(--pet-z, 1));
+    position: absolute; top: 0; left: 50%; transform: translateX(-50%);
     width: 50px; height: 50px;
     border-radius: 50%;
     background: radial-gradient(circle at 35% 30%, #6B4F7E 0%, #2A1F3A 100%);
@@ -1607,8 +1608,8 @@
   }
   .f-room-globe.spinning .globe-orb { animation: globeSpin 3s linear; }
   @keyframes globeSpin {
-    0% { transform: translateX(-50%) rotateY(0deg) scale(var(--pet-z, 1)); }
-    100% { transform: translateX(-50%) rotateY(360deg) scale(var(--pet-z, 1)); }
+    0% { transform: translateX(-50%) rotateY(0deg); }
+    100% { transform: translateX(-50%) rotateY(360deg); }
   }
 
   .scene-prop { position: absolute; font-size: 1.8rem; z-index: 15; pointer-events: none; }
@@ -1763,15 +1764,15 @@
   .f-fridge.has-food .fridge-full-badge { display: block; }
 
   .speech-bubble {
-    position: absolute scale(var(--pet-z, 1)); top: -20px scale(var(--pet-z, 1)); left: 50% scale(var(--pet-z, 1)); transform: translateX(-50%) scale(var(--pet-z, 1));
+    position: absolute; top: -20px; left: 50%; transform: translateX(-50%);
     background: white; border: 3px solid #8B6F5E;
     padding: 6px 12px;
     font-family: 'Press Start 2P', monospace; font-size: 0.55rem;
     color: #4A3F3A; border-radius: 6px; white-space: nowrap; z-index: 30;
     animation: bubbleIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
   }
-  @keyframes bubbleIn { 0% { opacity: 0; transform: translateX(-50%) translateY(8px) scale(calc(var(--pet-z, 1) * 0.8)); } 100% { opacity: 1; transform: translateX(-50%) translateY(0) scale(calc(var(--pet-z, 1) * 1)); } }
-  .speech-bubble::after { content: '' scale(var(--pet-z, 1)); position: absolute scale(var(--pet-z, 1)); bottom: -8px scale(var(--pet-z, 1)); left: 50% scale(var(--pet-z, 1)); transform: translateX(-50%) scale(var(--pet-z, 1)); width: 0 scale(var(--pet-z, 1)); height: 0 scale(var(--pet-z, 1)); border-left: 6px solid transparent scale(var(--pet-z, 1)); border-right: 6px solid transparent scale(var(--pet-z, 1)); border-top: 8px solid #8B6F5E scale(var(--pet-z, 1)); }
+  @keyframes bubbleIn { 0% { opacity: 0; transform: translateX(-50%) translateY(8px) scale(0.8); } 100% { opacity: 1; transform: translateX(-50%) translateY(0) scale(1); } }
+  .speech-bubble::after { content: ''; position: absolute; bottom: -8px; left: 50%; transform: translateX(-50%); width: 0; height: 0; border-left: 6px solid transparent; border-right: 6px solid transparent; border-top: 8px solid #8B6F5E; }
 
   .heart-float { position: absolute; font-size: 1rem; z-index: 25; pointer-events: none; animation: heartFloat 1.5s ease-out forwards; }
   @keyframes heartFloat { 0% { opacity: 1; transform: translateY(0) translateX(0) scale(0.5) rotate(0deg); } 100% { opacity: 0; transform: translateY(-60px) translateX(var(--drift, 0px)) scale(1.2) rotate(var(--spin, 0deg)); } }
@@ -1786,7 +1787,7 @@
   @keyframes confettiFall { 0% { opacity: 1; transform: translate(0, 0) rotate(0deg); } 100% { opacity: 0; transform: translate(var(--cx, 0px), var(--cy, 300px)) rotate(var(--cr, 360deg)); } }
 
   .want-bubble {
-    position: absolute scale(var(--pet-z, 1)); top: 12px scale(var(--pet-z, 1)); left: 50% scale(var(--pet-z, 1)); transform: translateX(-50%) scale(var(--pet-z, 1));
+    position: absolute; top: 12px; left: 50%; transform: translateX(-50%);
     background: #FFF9C8; border: 3px solid #C9A044;
     padding: 6px 12px;
     font-family: 'Press Start 2P', monospace; font-size: 0.5rem;
@@ -1795,8 +1796,8 @@
     animation: wantPulse 2s ease-in-out infinite;
     cursor: pointer;
   }
-  @keyframes wantPulse { 0%, 100% { transform: translateX(-50%) scale(calc(var(--pet-z, 1) * 1)); } 50% { transform: translateX(-50%) scale(calc(var(--pet-z, 1) * 1.05)); } }
-  .want-bubble::after { content: '' scale(var(--pet-z, 1)); position: absolute scale(var(--pet-z, 1)); bottom: -8px scale(var(--pet-z, 1)); left: 50% scale(var(--pet-z, 1)); transform: translateX(-50%) scale(var(--pet-z, 1)); width: 0 scale(var(--pet-z, 1)); height: 0 scale(var(--pet-z, 1)); border-left: 6px solid transparent scale(var(--pet-z, 1)); border-right: 6px solid transparent scale(var(--pet-z, 1)); border-top: 8px solid #C9A044 scale(var(--pet-z, 1)); }
+  @keyframes wantPulse { 0%, 100% { transform: translateX(-50%) scale(1); } 50% { transform: translateX(-50%) scale(1.05); } }
+  .want-bubble::after { content: ''; position: absolute; bottom: -8px; left: 50%; transform: translateX(-50%); width: 0; height: 0; border-left: 6px solid transparent; border-right: 6px solid transparent; border-top: 8px solid #C9A044; }
   .room-badge { position: absolute; top: 8px; left: 8px; background: rgba(253, 246, 238, 0.95); border: 3px solid #8B6F5E; padding: 3px 8px; font-family: 'Press Start 2P', monospace; font-size: 0.45rem; color: #8B6F5E; border-radius: 4px; z-index: 30; }
 
   .pet-mood-pill {
@@ -1903,7 +1904,7 @@
   .mg-bubble.popped { animation: mgPop 0.3s ease-out forwards; pointer-events: none; }
   @keyframes mgPop { 0% { transform: scale(1); } 100% { transform: scale(1.8); opacity: 0; } }
   .mg-hud {
-    position: absolute scale(var(--pet-z, 1)); top: 8px scale(var(--pet-z, 1)); left: 50% scale(var(--pet-z, 1)); transform: translateX(-50%) scale(var(--pet-z, 1));
+    position: absolute; top: 8px; left: 50%; transform: translateX(-50%);
     font-family: 'Press Start 2P', monospace; font-size: 0.7rem;
     color: white; text-shadow: 2px 2px 0 #4A3F3A;
     background: rgba(139, 111, 94, 0.8);
@@ -2103,7 +2104,7 @@
 
   .toast {
     position: fixed; top: 15px; left: 50%;
-    transform: translateX(-50%) translateY(-80px) scale(var(--pet-z, 1));
+    transform: translateX(-50%) translateY(-80px);
     background: #8B6F5E; color: white;
     padding: 10px 18px;
     font-family: 'Press Start 2P', monospace;
@@ -2111,7 +2112,7 @@
     z-index: 1000; transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
     max-width: 90vw; text-align: center; line-height: 1.5;
   }
-  .toast.show { transform: translateX(-50%) translateY(0) scale(var(--pet-z, 1)); }
+  .toast.show { transform: translateX(-50%) translateY(0); }
 
   .ach-popup {
     position: fixed; top: 50%; left: 50%;
@@ -2159,7 +2160,7 @@
   .door-transition {
     position: absolute;
     bottom: 20%; left: 50%;
-    transform: translateX(-50%) scale(var(--pet-z, 1));
+    transform: translateX(-50%);
     font-size: 1.4rem;
     pointer-events: none;
     z-index: 28;
@@ -2167,9 +2168,9 @@
     animation: doorFlash 0.9s ease-out;
   }
   @keyframes doorFlash {
-    0% { opacity: 0; transform: translateX(-50%) scale(calc(var(--pet-z, 1) * 0.6)); }
-    30% { opacity: 1; transform: translateX(-50%) scale(calc(var(--pet-z, 1) * 1.1)); }
-    100% { opacity: 0; transform: translateX(-50%) scale(calc(var(--pet-z, 1) * 1)); }
+    0% { opacity: 0; transform: translateX(-50%) scale(0.6); }
+    30% { opacity: 1; transform: translateX(-50%) scale(1.1); }
+    100% { opacity: 0; transform: translateX(-50%) scale(1); }
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -5509,12 +5510,14 @@ function checkStreak() {
    X = left %  |  Y = bottom %  |  Z = depth scale (smaller = further into the room) */
 function depthFromBottom(bottomPct, el) {
   const t = Math.max(0, Math.min(1, (bottomPct - 5) / 50));
-  let scale = 1.06 - t * 0.34; // ~1.06 front → ~0.72 back
-  let zIndex = Math.round(24 - t * 12);
+  // Mild depth scale so the sprite stays readable (front ~1.0, back ~0.85)
+  let scale = 1.0 - t * 0.15;
+  let zIndex = Math.round(22 - t * 10);
   if (el) {
-    if (el.classList.contains('depth-back')) { scale = Math.min(scale, 0.82); zIndex = Math.min(zIndex, 14); }
-    else if (el.classList.contains('depth-mid')) { scale = Math.min(scale, 0.92); zIndex = Math.min(zIndex, 18); }
+    if (el.classList.contains('depth-back')) { scale = Math.min(scale, 0.88); zIndex = Math.min(zIndex, 14); }
+    else if (el.classList.contains('depth-mid')) { scale = Math.min(scale, 0.94); zIndex = Math.min(zIndex, 18); }
   }
+  scale = Math.max(0.85, Math.min(1.05, scale));
   return { scale: Math.round(scale * 1000) / 1000, zIndex };
 }
 
