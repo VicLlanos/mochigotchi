@@ -99,7 +99,6 @@
   .coin-display { color: #C9A044; }
   .who-am-i { font-family: 'Press Start 2P', monospace; font-size: 0.6rem; color: #4A3F3A; }
 
-  /* presence dot */
   .presence-dot {
     display: inline-block; width: 8px; height: 8px; border-radius: 50%;
     background: #B8B0A8; margin-right: 4px; vertical-align: middle;
@@ -262,7 +261,7 @@
     100% { transform: translateX(-50%) rotate(360deg) scale(1); }
   }
 
-  /* ============ PET BODY (improved) ============ */
+  /* ============ PET BODY ============ */
   .pet-body {
     position: absolute; left: 50%; bottom: 6px; transform: translateX(-50%);
     width: 44px; height: 42px;
@@ -294,7 +293,6 @@
     background: #3A2E28; opacity: 0.7;
     transition: all 0.3s;
   }
-  /* mood face overrides */
   .pet.sad .pet-mouth { border-radius: 6px 6px 0 0; height: 4px; }
   .pet.sad .pet-blush { opacity: 0; }
   .pet.sad .pet-eye { transform: scaleY(0.7); }
@@ -363,6 +361,140 @@
   .pet[data-stage="eternal"] .pet-horn { display: block; }
   .pet[data-stage="eternal"] .pet-body { width: 50px; height: 44px; }
   .pet[data-stage="eternal"] .pet-halo { display: block; }
+
+  /* ============ PET ACCESSORIES (equipped shop items) ============ */
+  .pet-accessories {
+    position: absolute; inset: 0; pointer-events: none; z-index: 22;
+  }
+  .pet-accessory {
+    position: absolute;
+    font-size: 1.1rem;
+    filter: drop-shadow(0 2px 2px rgba(0,0,0,0.25));
+    pointer-events: none;
+  }
+  .pet-accessory.bow {
+    top: -18px; left: 50%; transform: translateX(-50%);
+    font-size: 1.3rem;
+    animation: bowBounce 2.6s ease-in-out infinite;
+  }
+  @keyframes bowBounce {
+    0%, 100% { transform: translateX(-50%) translateY(0) rotate(-6deg); }
+    50% { transform: translateX(-50%) translateY(-3px) rotate(6deg); }
+  }
+  .pet-accessory.lucky {
+    top: 4px; right: -14px;
+    font-size: 1rem;
+    animation: luckyTwirl 3s ease-in-out infinite;
+  }
+  @keyframes luckyTwirl {
+    0%, 100% { transform: rotate(-12deg) scale(1); }
+    50% { transform: rotate(12deg) scale(1.1); }
+  }
+  .pet-accessory.xpboost {
+    top: -24px; right: 4px;
+    font-size: 0.9rem;
+    animation: starShimmer 1.8s ease-in-out infinite;
+  }
+  @keyframes starShimmer {
+    0%, 100% { opacity: 0.7; transform: scale(0.9) rotate(0deg); }
+    50% { opacity: 1; transform: scale(1.15) rotate(20deg); }
+  }
+
+  /* ============ ROOM DECORATIONS (from shop) ============ */
+  .room-decorations {
+    position: absolute; inset: 0; pointer-events: none; z-index: 12;
+  }
+  .room-deco {
+    position: absolute;
+    font-size: 1.4rem;
+    filter: drop-shadow(0 2px 2px rgba(0,0,0,0.2));
+    animation: decoAppear 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  @keyframes decoAppear {
+    0% { opacity: 0; transform: scale(0.3) rotate(-20deg); }
+    70% { opacity: 1; transform: scale(1.15) rotate(8deg); }
+    100% { opacity: 1; transform: scale(1) rotate(0deg); }
+  }
+  .room-deco.bow-deco {
+    top: 12%; left: 8%;
+    font-size: 1.6rem;
+    animation: decoAppear 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), bowSway 4s ease-in-out infinite 0.6s;
+  }
+  @keyframes bowSway {
+    0%, 100% { transform: rotate(-4deg); }
+    50% { transform: rotate(4deg); }
+  }
+  .room-deco.lucky-deco {
+    bottom: 8%; right: 6%;
+    font-size: 1.6rem;
+    animation: decoAppear 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), luckyFloat 3.2s ease-in-out infinite 0.6s;
+  }
+  @keyframes luckyFloat {
+    0%, 100% { transform: translateY(0) rotate(-6deg); }
+    50% { transform: translateY(-6px) rotate(6deg); }
+  }
+  .room-deco.xpboost-deco {
+    top: 8%; right: 12%;
+    font-size: 1.5rem;
+    animation: decoAppear 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), starSpin 5s linear infinite 0.6s;
+  }
+  @keyframes starSpin {
+    0% { transform: rotate(0deg) scale(1); }
+    50% { transform: rotate(180deg) scale(1.2); }
+    100% { transform: rotate(360deg) scale(1); }
+  }
+  .room-deco.autoclean-deco {
+    bottom: 14%; left: 8%;
+    font-size: 1.6rem;
+    animation: decoAppear 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), spiritFloat 4s ease-in-out infinite 0.6s;
+  }
+  @keyframes spiritFloat {
+    0% { transform: translate(0, 0) rotate(-8deg); opacity: 0.85; }
+    25% { transform: translate(12px, -8px) rotate(4deg); opacity: 1; }
+    50% { transform: translate(20px, 0) rotate(-4deg); opacity: 0.9; }
+    75% { transform: translate(10px, -6px) rotate(8deg); opacity: 1; }
+    100% { transform: translate(0, 0) rotate(-8deg); opacity: 0.85; }
+  }
+  .room-deco.spirit-trail {
+    position: absolute;
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: radial-gradient(circle, #FFF9C8, transparent);
+    pointer-events: none;
+    animation: spiritTrail 1.6s ease-out infinite;
+  }
+  @keyframes spiritTrail {
+    0% { opacity: 0.9; transform: scale(0.5); }
+    100% { opacity: 0; transform: translate(30px, -20px) scale(1.6); }
+  }
+
+  /* ============ CONSUMABLE EFFECT PROPS ============ */
+  .consumable-fx {
+    position: absolute;
+    font-size: 1.6rem;
+    z-index: 18;
+    pointer-events: none;
+    animation: consumablePop 1.8s ease-out forwards;
+    filter: drop-shadow(0 3px 3px rgba(0,0,0,0.2));
+  }
+  @keyframes consumablePop {
+    0% { opacity: 0; transform: scale(0.2) translateY(20px) rotate(-30deg); }
+    25% { opacity: 1; transform: scale(1.2) translateY(-10px) rotate(10deg); }
+    50% { opacity: 1; transform: scale(1) translateY(-20px) rotate(-5deg); }
+    100% { opacity: 0; transform: scale(0.8) translateY(-50px) rotate(20deg); }
+  }
+  .sparkle-fx {
+    position: absolute;
+    font-size: 1rem;
+    z-index: 19;
+    pointer-events: none;
+    animation: sparkleBurst 1.2s ease-out forwards;
+  }
+  @keyframes sparkleBurst {
+    0% { opacity: 1; transform: scale(0.4); }
+    50% { opacity: 1; transform: scale(1.3); }
+    100% { opacity: 0; transform: scale(0.6) translateY(-30px); }
+  }
 
   /* ============ NEED INDICATORS ============ */
   .need-indicator {
@@ -792,6 +924,10 @@
   .shop-card .shop-buy:active { transform: translateY(2px); box-shadow: 0 1px 0 #6B4F3E; }
   .shop-card .shop-buy:disabled { opacity: 0.5; cursor: not-allowed; }
   .shop-card.owned .shop-buy { background: #8FB87D; box-shadow: 0 3px 0 #6FA05D; }
+  .shop-card .owned-tag {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 0.4rem; color: #6FA05D; margin-top: -2px;
+  }
 
   /* ============ TOASTS / POPUPS ============ */
   .toast {
@@ -916,12 +1052,14 @@
       <div class="room bedroom" id="room">
         <div class="room-wall" id="roomWall"></div>
         <div class="room-floor" id="roomFloor"></div>
+        <div class="room-decorations" id="roomDecorations"></div>
         <div class="room-badge" id="roomBadge">🛏️ BEDROOM</div>
         <div class="want-bubble" id="wantBubble" style="display:none;"></div>
 
         <div class="pet-area" id="petArea">
           <div class="pet-shadow" id="petShadow" style="left: 50%;"></div>
           <div class="pet idle" id="pet" data-stage="egg" style="left: 50%;">
+            <div class="pet-accessories" id="petAccessories"></div>
             <div class="pet-body">
               <div class="pet-blush pet-blush-l"></div>
               <div class="pet-blush pet-blush-r"></div>
@@ -1084,12 +1222,12 @@ const MAX_DIARY = 40;
 const DAILY_GOAL = 5;
 const NIGHT_START = 22;
 const NIGHT_END = 7;
-const WANT_DURATION_MS = 30 * 60 * 1000; // 30 min now (was 6h)
+const WANT_DURATION_MS = 30 * 60 * 1000;
 const WANT_XP_MULTIPLIER = 3;
 const COIN_PER_ACTION = 3;
 const COIN_PER_WANT = 15;
 const COIN_PER_DAILY_GOAL = 20;
-const MINIGAME_DURATION = 30; // seconds
+const MINIGAME_DURATION = 30;
 
 const STAGES = [
   { level: 1,  name: 'EGG',       emoji: '🥚', key: 'egg' },
@@ -1164,14 +1302,14 @@ const AMBIENT_BEHAVIORS = {
 };
 
 const SHOP_ITEMS = [
-  { id: 'treat',     emoji: '🍬', name: 'SWEET TREAT',  desc: '+15 food instantly',         cost: 20,  consumable: true },
-  { id: 'toy',       emoji: '🧸', name: 'PLUSH TOY',    desc: '+20 joy instantly',          cost: 30,  consumable: true },
-  { id: 'pillow',    emoji: '🛏️', name: 'FLUFFY PILLOW',desc: '+25 rest instantly',         cost: 35,  consumable: true },
-  { id: 'soap',      emoji: '🧼', name: 'FANCY SOAP',   desc: '+25 clean instantly',        cost: 25,  consumable: true },
-  { id: 'decoration',emoji: '🎀', name: 'BOW DECOR',    desc: '+5% XP from all actions',    cost: 100, consumable: false },
-  { id: 'lucky',     emoji: '🍀', name: 'LUCKY CHARM',  desc: '+1 coin per action',         cost: 150, consumable: false },
-  { id: 'xpboost',   emoji: '⭐', name: 'STAR SHARD',   desc: '+15% XP from all actions',   cost: 200, consumable: false },
-  { id: 'autoclean', emoji: '✨', name: 'CLEANING SPIRIT',desc: 'Auto-removes 1 poop/5min', cost: 300, consumable: false }
+  { id: 'treat',     emoji: '🍬', name: 'SWEET TREAT',  desc: '+15 food instantly (visual effect)',   cost: 20,  consumable: true },
+  { id: 'toy',       emoji: '🧸', name: 'PLUSH TOY',    desc: '+20 joy instantly (visual effect)',    cost: 30,  consumable: true },
+  { id: 'pillow',    emoji: '🛏️', name: 'FLUFFY PILLOW',desc: '+25 rest instantly (visual effect)',   cost: 35,  consumable: true },
+  { id: 'soap',      emoji: '🧼', name: 'FANCY SOAP',   desc: '+25 clean instantly (visual effect)',  cost: 25,  consumable: true },
+  { id: 'decoration',emoji: '🎀', name: 'BOW DECOR',    desc: '+5% XP — pink bow worn by Mochi',      cost: 100, consumable: false },
+  { id: 'lucky',     emoji: '🍀', name: 'LUCKY CHARM',  desc: '+1 coin/action — floating clover',     cost: 150, consumable: false },
+  { id: 'xpboost',   emoji: '⭐', name: 'STAR SHARD',   desc: '+15% XP — sparkle star above Mochi',   cost: 200, consumable: false },
+  { id: 'autoclean', emoji: '✨', name: 'CLEANING SPIRIT',desc: 'Auto-cleans — friendly spirit ghost',cost: 300, consumable: false }
 ];
 
 const ACHIEVEMENTS = [
@@ -1228,7 +1366,8 @@ const renderCache = {
   stage: '', petName: '', petMood: '', roomId: '',
   diaryHash: '', notesHash: '', achCount: -1,
   daysCount: -1, streakCount: -1, coinCount: -1,
-  level: -1, xp: -1, poops: -1
+  level: -1, xp: -1, poops: -1,
+  decorationsHash: '', accessoriesHash: ''
 };
 
 const $ = (id) => document.getElementById(id);
@@ -1426,7 +1565,6 @@ function listenToGame() {
   });
 }
 
-// apply offline decay ONCE, then attach live listener
 function applyDecayAndListen() {
   const ref = db.ref('tamagotchi');
   ref.once('value').then(snap => {
@@ -1495,6 +1633,8 @@ function processUpdate(snap) {
   renderCoins();
   renderPresence();
   updateStatWarnings();
+  renderPetAccessories();
+  renderRoomDecorations();
 
   if (!hasShownWelcome && myLastSeen > 0 && Date.now() - myLastSeen > 5 * 60 * 1000) {
     showWelcomeBack(prev, data, myLastSeen);
@@ -1504,15 +1644,11 @@ function processUpdate(snap) {
   myLastSeen = Date.now();
   localStorage.setItem('mochi_last_' + me, myLastSeen);
 
-  // Smooth decay ticker — only update display, don't write to DB
   if (!decayTickInterval) {
     decayTickInterval = setInterval(() => {
       if (!gameData || isAnimating) return;
       const elapsed = (Date.now() - lastUpdateReceived) / 60000;
       if (elapsed <= 0) return;
-      const d = elapsed * DECAY_PER_MINUTE;
-      // visual only — do not commit; Firebase listener will eventually send new values
-      // But if too long since update, refresh from DB
       if (elapsed > 5) {
         clearInterval(decayTickInterval);
         decayTickInterval = null;
@@ -1645,6 +1781,91 @@ function applyRoom(force) {
   else {
     roomEl.classList.add('room-fading');
     setTimeout(() => { rebuild(); roomEl.classList.remove('room-fading'); }, 220);
+  }
+}
+
+/* ============================================================
+   PET ACCESSORIES — shows equipped shop items on Mochi
+   ============================================================ */
+function renderPetAccessories() {
+  if (!gameData) return;
+  const inv = gameData.inventory || {};
+  const container = $('petAccessories');
+  if (!container) return;
+
+  // Build a hash so we only re-render when ownership changes
+  const hash = ['decoration', 'lucky', 'xpboost'].map(k => inv[k] ? '1' : '0').join('');
+  if (renderCache.accessoriesHash === hash) return;
+  renderCache.accessoriesHash = hash;
+
+  container.innerHTML = '';
+  if (inv.decoration) {
+    const bow = document.createElement('div');
+    bow.className = 'pet-accessory bow';
+    bow.textContent = '🎀';
+    container.appendChild(bow);
+  }
+  if (inv.lucky) {
+    const lucky = document.createElement('div');
+    lucky.className = 'pet-accessory lucky';
+    lucky.textContent = '🍀';
+    container.appendChild(lucky);
+  }
+  if (inv.xpboost) {
+    const star = document.createElement('div');
+    star.className = 'pet-accessory xpboost';
+    star.textContent = '⭐';
+    container.appendChild(star);
+  }
+}
+
+/* ============================================================
+   ROOM DECORATIONS — shows owned permanent items in the room
+   ============================================================ */
+function renderRoomDecorations() {
+  if (!gameData) return;
+  const inv = gameData.inventory || {};
+  const container = $('roomDecorations');
+  if (!container) return;
+
+  const hash = ['decoration', 'lucky', 'xpboost', 'autoclean'].map(k => inv[k] ? '1' : '0').join('');
+  if (renderCache.decorationsHash === hash) return;
+  renderCache.decorationsHash = hash;
+
+  container.innerHTML = '';
+  if (inv.decoration) {
+    const d = document.createElement('div');
+    d.className = 'room-deco bow-deco';
+    d.textContent = '🎀';
+    container.appendChild(d);
+  }
+  if (inv.lucky) {
+    const d = document.createElement('div');
+    d.className = 'room-deco lucky-deco';
+    d.textContent = '🍀';
+    container.appendChild(d);
+  }
+  if (inv.xpboost) {
+    const d = document.createElement('div');
+    d.className = 'room-deco xpboost-deco';
+    d.textContent = '⭐';
+    container.appendChild(d);
+  }
+  if (inv.autoclean) {
+    const d = document.createElement('div');
+    d.className = 'room-deco autoclean-deco';
+    d.textContent = '✨';
+    container.appendChild(d);
+
+    // Spirit trailing particles
+    for (let i = 0; i < 3; i++) {
+      const trail = document.createElement('div');
+      trail.className = 'room-deco spirit-trail';
+      trail.style.left = (8 + i * 2) + '%';
+      trail.style.bottom = (16 + i * 3) + '%';
+      trail.style.animationDelay = (i * 0.5) + 's';
+      container.appendChild(trail);
+    }
   }
 }
 
@@ -1898,6 +2119,7 @@ function renderShop() {
       <div class="shop-emoji">${item.emoji}</div>
       <div class="shop-name">${item.name}</div>
       <div class="shop-desc">${item.desc}</div>
+      ${owned ? '<div class="owned-tag">IN USE IN ROOM</div>' : ''}
       <button class="shop-buy" data-id="${item.id}" ${(!canAfford || owned) ? 'disabled' : ''}>
         ${owned ? '✓ OWNED' : '🪙 ' + item.cost}
       </button>
@@ -1921,6 +2143,8 @@ function buyItem(id) {
   const inv = { ...(gameData.inventory || {}) };
 
   if (item.consumable) {
+    // Show a visual consumable effect in the room
+    showConsumableFx(item.id);
     switch(item.id) {
       case 'treat': updates.hunger = Math.min(100, (gameData.hunger || 0) + 15); break;
       case 'toy': updates.happy = Math.min(100, (gameData.happy || 0) + 20); break;
@@ -1931,11 +2155,60 @@ function buyItem(id) {
   } else {
     inv[id] = true;
     updates.inventory = inv;
-    showToast(item.emoji + ' ' + item.name + ' purchased!');
+    showToast(item.emoji + ' ' + item.name + ' purchased! Visible now in room!');
+
+    // Force re-render of decorations/accessories immediately
+    renderCache.decorationsHash = '';
+    renderCache.accessoriesHash = '';
+    setTimeout(() => {
+      renderRoomDecorations();
+      renderPetAccessories();
+    }, 100);
   }
   db.ref('tamagotchi').update(updates);
   sfxGood();
   spawnConfetti(8);
+}
+
+/* ============================================================
+   CONSUMABLE VISUAL EFFECT
+   ============================================================ */
+function showConsumableFx(itemId) {
+  const area = $('petArea');
+  if (!area) return;
+
+  const fxMap = {
+    treat: { emoji: '🍬', count: 3 },
+    toy: { emoji: '🧸', count: 3 },
+    pillow: { emoji: '🛏️', count: 2 },
+    soap: { emoji: '🧼', count: 3 }
+  };
+  const cfg = fxMap[itemId] || { emoji: '✨', count: 3 };
+
+  const pet = $('pet');
+  const petLeft = pet ? pet.style.left || '50%' : '50%';
+
+  for (let i = 0; i < cfg.count; i++) {
+    setTimeout(() => {
+      const fx = document.createElement('div');
+      fx.className = 'consumable-fx';
+      fx.textContent = cfg.emoji;
+      fx.style.left = `calc(${petLeft} + ${(Math.random() * 40 - 20)}px)`;
+      fx.style.bottom = (60 + Math.random() * 30) + 'px';
+      fx.style.animationDelay = (i * 0.1) + 's';
+      area.appendChild(fx);
+      setTimeout(() => fx.remove(), 2000);
+
+      // Sparkles
+      const sp = document.createElement('div');
+      sp.className = 'sparkle-fx';
+      sp.textContent = ['✨', '💫', '⭐'][i % 3];
+      sp.style.left = `calc(${petLeft} + ${(Math.random() * 50 - 25)}px)`;
+      sp.style.bottom = (70 + Math.random() * 20) + 'px';
+      area.appendChild(sp);
+      setTimeout(() => sp.remove(), 1300);
+    }, i * 150);
+  }
 }
 
 /* ============================================================
@@ -2355,7 +2628,6 @@ let mgScore = 0;
 let mgTimeLeft = 0;
 let mgTimerInterval = null;
 let mgSpawnInterval = null;
-let mgEndTimeout = null;
 
 function startMinigame() {
   if (mgActive) return;
@@ -2374,23 +2646,19 @@ function startMinigame() {
   area.classList.add('active');
   $('mgHud').textContent = `SCORE: 0 · ${mgTimeLeft}s`;
 
-  // Stop ambient
   if (ambientTimeoutId) { clearTimeout(ambientTimeoutId); ambientTimeoutId = null; }
 
-  // Spawn loop
   mgSpawnInterval = setInterval(() => {
     if (!mgActive) return;
     spawnMgBubble(inner);
   }, 380);
 
-  // Timer
   mgTimerInterval = setInterval(() => {
     mgTimeLeft--;
     $('mgHud').textContent = `SCORE: ${mgScore} · ${mgTimeLeft}s`;
     if (mgTimeLeft <= 0) endMinigame();
   }, 1000);
 
-  // Spawn a few immediately
   for (let i = 0; i < 3; i++) setTimeout(() => mgActive && spawnMgBubble(inner), i * 200);
 }
 
