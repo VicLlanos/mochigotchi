@@ -2996,19 +2996,50 @@ const CONSUMABLE_DEFS = {
 };
 
 const RECIPES = {
-  rice:  { id: 'rice',  name: 'RICE BOWL',   emoji: '🍚', desc: 'Simple and warm', hunger: 30, joy: 5,  ingredients: ['🍚', '💧'],           xp: 8 },
-  soup:  { id: 'soup',  name: 'VEGGIE SOUP', emoji: '🍲', desc: 'Hearty & cozy',   hunger: 25, joy: 10, ingredients: ['🥕', '💧', '🍄'],     xp: 10 },
-  cake:  { id: 'cake',  name: 'HONEY CAKE',  emoji: '🍰', desc: 'Sweet treat!',    hunger: 15, joy: 25, ingredients: ['🍯', '🥚', '🌾'],     xp: 12 },
-  salad: { id: 'salad', name: 'FRESH SALAD', emoji: '🥗', desc: 'Healthy & light', hunger: 20, joy: 8,  ingredients: ['🥬', '🍅', '🥒'],     xp: 8 }
+  rice:  { id: 'rice',  name: 'RICE BOWL',    emoji: '🍚', desc: 'Simple and warm',     hunger: 28, joy: 4,  ingredients: ['🍚', '💧'],               xp: 6  },
+  salad: { id: 'salad', name: 'FRESH SALAD',  emoji: '🥗', desc: 'Healthy & light',     hunger: 22, joy: 8,  ingredients: ['🥬', '🍅', '🥒'],         xp: 10 },
+  soup:  { id: 'soup',  name: 'VEGGIE SOUP',  emoji: '🍲', desc: 'Hearty & cozy',       hunger: 30, joy: 12, ingredients: ['🥕', '💧', '🍄'],         xp: 14 },
+  cake:  { id: 'cake',  name: 'HONEY CAKE',   emoji: '🍰', desc: 'Sweet treat!',        hunger: 18, joy: 28, ingredients: ['🍯', '🥚', '🌾'],         xp: 20 },
+  stew:  { id: 'stew',  name: 'HEARTY STEW',  emoji: '🍛', desc: 'Filling farm stew',   hunger: 40, joy: 15, ingredients: ['🥕', '🍄', '🌾', '💧'],   xp: 24 },
+  feast: { id: 'feast', name: 'MOCHI FEAST',  emoji: '🍱', desc: 'Grand special meal!', hunger: 45, joy: 30, ingredients: ['🧀', '🍎', '🥚', '🍯', '🍚'], xp: 36 }
 };
 
 const FRIDGE_DEFAULT = ['🍚', '🥕', '🥬', '🍅', '🥚', '🍯', '💧', '🥒', '🍄', '🌾', '🧀', '🍎'];
+
+/* Shop-buyable ingredients → added straight into the fridge */
+const INGREDIENT_DEFS = [
+  { id: 'ing_rice',   emoji: '🍚', name: 'RICE',      cost: 6  },
+  { id: 'ing_water',  emoji: '💧', name: 'WATER',     cost: 3  },
+  { id: 'ing_carrot', emoji: '🥕', name: 'CARROT',    cost: 5  },
+  { id: 'ing_mushroom', emoji: '🍄', name: 'MUSHROOM', cost: 7  },
+  { id: 'ing_honey',  emoji: '🍯', name: 'HONEY',     cost: 10 },
+  { id: 'ing_egg',    emoji: '🥚', name: 'EGG',       cost: 8  },
+  { id: 'ing_wheat',  emoji: '🌾', name: 'WHEAT',     cost: 6  },
+  { id: 'ing_lettuce',emoji: '🥬', name: 'LETTUCE',   cost: 5  },
+  { id: 'ing_tomato', emoji: '🍅', name: 'TOMATO',    cost: 5  },
+  { id: 'ing_cucumber', emoji: '🥒', name: 'CUCUMBER', cost: 5  },
+  { id: 'ing_cheese', emoji: '🧀', name: 'CHEESE',    cost: 12 },
+  { id: 'ing_apple',  emoji: '🍎', name: 'APPLE',     cost: 7  }
+];
 
 const SHOP_ITEMS = [
   { id: 'treat',      emoji: '🍬', name: 'SWEET TREAT',       desc: 'Place a treat — tap to feed Mochi',           cost: 20,  consumable: true,  scope: 'global' },
   { id: 'toy',        emoji: '🧸', name: 'PLUSH TOY',         desc: 'Place a toy — tap to play',                   cost: 30,  consumable: true,  scope: 'global' },
   { id: 'pillow',     emoji: '🛏️', name: 'FLUFFY PILLOW',     desc: 'Place a pillow — tap to rest',                cost: 35,  consumable: true,  scope: 'global' },
   { id: 'soap',       emoji: '🧼', name: 'FANCY SOAP',        desc: 'Place a soap — tap to wash',                  cost: 25,  consumable: true,  scope: 'global' },
+
+  { id: 'ing_rice',     emoji: '🍚', name: 'RICE',      desc: 'Ingredient → goes in the fridge', cost: 6,  ingredient: true, scope: 'global' },
+  { id: 'ing_water',    emoji: '💧', name: 'WATER',     desc: 'Ingredient → goes in the fridge', cost: 3,  ingredient: true, scope: 'global' },
+  { id: 'ing_carrot',   emoji: '🥕', name: 'CARROT',    desc: 'Ingredient → goes in the fridge', cost: 5,  ingredient: true, scope: 'global' },
+  { id: 'ing_mushroom', emoji: '🍄', name: 'MUSHROOM',  desc: 'Ingredient → goes in the fridge', cost: 7,  ingredient: true, scope: 'global' },
+  { id: 'ing_honey',    emoji: '🍯', name: 'HONEY',     desc: 'Ingredient → goes in the fridge', cost: 10, ingredient: true, scope: 'global' },
+  { id: 'ing_egg',      emoji: '🥚', name: 'EGG',       desc: 'Ingredient → goes in the fridge', cost: 8,  ingredient: true, scope: 'global' },
+  { id: 'ing_wheat',    emoji: '🌾', name: 'WHEAT',     desc: 'Ingredient → goes in the fridge', cost: 6,  ingredient: true, scope: 'global' },
+  { id: 'ing_lettuce',  emoji: '🥬', name: 'LETTUCE',   desc: 'Ingredient → goes in the fridge', cost: 5,  ingredient: true, scope: 'global' },
+  { id: 'ing_tomato',   emoji: '🍅', name: 'TOMATO',    desc: 'Ingredient → goes in the fridge', cost: 5,  ingredient: true, scope: 'global' },
+  { id: 'ing_cucumber', emoji: '🥒', name: 'CUCUMBER',  desc: 'Ingredient → goes in the fridge', cost: 5,  ingredient: true, scope: 'global' },
+  { id: 'ing_cheese',   emoji: '🧀', name: 'CHEESE',    desc: 'Ingredient → goes in the fridge', cost: 12, ingredient: true, scope: 'global' },
+  { id: 'ing_apple',    emoji: '🍎', name: 'APPLE',     desc: 'Ingredient → goes in the fridge', cost: 7,  ingredient: true, scope: 'global' },
 
   { id: 'decoration', emoji: '🎀', name: 'BOW DECOR',         desc: 'Pink bow worn by Mochi (+5% XP)',             cost: 100, consumable: false, scope: 'global' },
   { id: 'lucky',      emoji: '🍀', name: 'LUCKY CHARM',       desc: 'Floating clover (+1 coin/action)',            cost: 150, consumable: false, scope: 'global' },
@@ -4475,7 +4506,7 @@ async function interactCounter(pet) {
   const options = Object.values(RECIPES).map(r => ({
     emoji: r.emoji,
     name: r.name,
-    desc: `+${r.hunger} 🍚 · +${r.joy} ☀️`,
+    desc: `+${r.hunger} 🍚 · +${r.joy} ☀️ · +${r.xp} XP`,
     value: r.id
   }));
 
@@ -4562,7 +4593,7 @@ async function interactCounter(pet) {
     title: recipe.emoji + ' ' + recipe.name,
     subtitle: 'What should Mochi do with it?',
     options: [
-      { emoji: '😋', name: 'EAT NOW', desc: `+${recipe.hunger} 🍚 · +${recipe.joy} ☀️`, value: 'eat' },
+      { emoji: '😋', name: 'EAT NOW', desc: `+${recipe.hunger} 🍚 · +${recipe.joy} ☀️ · +${recipe.xp} XP`, value: 'eat' },
       { emoji: '🧊', name: 'STORE IN FRIDGE', desc: 'Save for later', value: 'store' }
     ],
     cancelLabel: 'LEAVE IT'
@@ -6391,13 +6422,15 @@ function renderShop() {
   }
 
   visible.forEach(item => {
-    const owned = !item.consumable && inv[item.id];
+    const owned = !item.consumable && !item.ingredient && inv[item.id];
     const canAfford = coins >= item.cost;
     const placed = item.consumable ? (placedCounts[item.id] || 0) : 0;
     const disabled = !canAfford || owned || (item.consumable && roomFull);
 
     let roomTag = '';
-    if (item.scope !== 'global') {
+    if (item.ingredient) {
+      roomTag = `<div class="shop-room-tag">🥕 INGREDIENT</div>`;
+    } else if (item.scope !== 'global') {
       const r = ROOMS.find(rm => rm.id === item.scope);
       if (r) roomTag = `<div class="shop-room-tag">${r.emoji} ${r.name}</div>`;
     } else {
@@ -6431,6 +6464,21 @@ function buyItem(id) {
   if (!item) return;
   const coins = gameData.coins || 0;
   if (coins < item.cost) return showToast('Not enough coins 🪙');
+
+  if (item.ingredient) {
+    const fridge = [...(gameData.fridgeItems || FRIDGE_DEFAULT)];
+    fridge.push(item.emoji);
+    db.ref('tamagotchi').update({
+      coins: coins - item.cost,
+      fridgeItems: fridge
+    });
+    showToast(item.emoji + ' ' + item.name + ' added to the fridge!');
+    sfxGood();
+    renderCache.shopHash = '';
+    renderShop();
+    if (currentRoomId === 'kitchen') renderFridgeContents();
+    return;
+  }
 
   if (item.consumable) {
     const placed = placeRoomItem(item.id);
@@ -6547,14 +6595,26 @@ function renderPoops() {
   renderCache.poops = key;
   const area = $('petArea');
   area.querySelectorAll('.poop').forEach(p => p.remove());
-  // Poops appear in the bathroom (or anywhere if already there during cleanup)
-  if (currentRoomId !== 'bathroom' && count > 0) return;
+  // Poops only show in the bathroom, parked next to the toilet
+  if (currentRoomId !== 'bathroom' || count <= 0) return;
+
+  let baseLeft = 78;
+  let baseBottom = 14;
+  const toilet = document.querySelector('.f-toilet');
+  if (toilet && $('room')) {
+    const roomRect = $('room').getBoundingClientRect();
+    const tRect = toilet.getBoundingClientRect();
+    if (roomRect.width > 1) {
+      baseLeft = ((tRect.left + tRect.width / 2) - roomRect.left) / roomRect.width * 100 - 6;
+      baseBottom = ((roomRect.bottom - tRect.bottom) / roomRect.height) * 100 + 2;
+    }
+  }
   for (let i = 0; i < Math.min(count, 3); i++) {
     const p = document.createElement('div');
     p.className = 'poop';
     p.textContent = '💩';
-    p.style.left = (18 + i * 18) + '%';
-    p.style.bottom = '22px';
+    p.style.left = (baseLeft + i * 5) + '%';
+    p.style.bottom = (baseBottom + (i % 2) * 2) + '%';
     area.appendChild(p);
   }
 }
