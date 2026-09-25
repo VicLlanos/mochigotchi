@@ -145,7 +145,6 @@
     margin-bottom: 8px; position: relative; overflow: hidden;
     box-shadow: 0 6px 0 #8B6F5E;
     height: 260px;
-    perspective: 800px;
   }
   .room-wall {
     position: absolute; top: 0; left: 0; right: 0;
@@ -597,77 +596,44 @@
   .bd-shelf::before { content: '📚'; position: absolute; font-size: 0.9rem; top: -14px; left: 4px; filter: drop-shadow(0 2px 0 rgba(0,0,0,0.15)); }
   .bd-shelf::after { content: '🕯️'; position: absolute; font-size: 0.9rem; top: -14px; right: 4px; filter: drop-shadow(0 2px 0 rgba(0,0,0,0.15)); animation: candleFlicker 1.8s ease-in-out infinite; }
   @keyframes candleFlicker { 0%, 100% { opacity: 1; } 45% { opacity: 0.75; } 55% { opacity: 1; } 70% { opacity: 0.85; } }
-  
-  /* 3D Isometric / Orthographic Bed Container */
-  .bd-bed-container {
-    position: absolute; bottom: 8px; left: 6%; width: 145px; height: 110px;
-    z-index: 15; transform-style: preserve-3d;
-    transform: rotateX(28deg) rotateY(-18deg) rotateZ(2deg);
-    transition: transform 0.3s ease;
+  .bd-bed {
+    position: absolute; bottom: 8px; left: 10%; width: 90px; height: 46px;
+    background: linear-gradient(175deg, #E0A0AE 0%, #C97C8C 38%, #A85F70 100%);
+    border: 3px solid #6B4F3E; border-radius: 6px 6px 4px 4px; z-index: 3;
+    box-shadow:
+      0 5px 0 #5A4238,
+      0 8px 6px rgba(74,63,58,0.35),
+      inset 0 5px 0 rgba(255,255,255,0.35),
+      inset 0 -10px 10px rgba(90,66,56,0.3),
+      inset -6px 0 8px rgba(90,66,56,0.15);
   }
-  .bd-bed-container:hover {
-    transform: rotateX(24deg) rotateY(-12deg) rotateZ(1deg) scale(1.02);
+  .bd-bed::before {
+    content: ''; position: absolute; top: -12px; left: 6px; width: 30px; height: 18px;
+    background: linear-gradient(155deg, #FFFDF9 0%, #E4D3C0 100%);
+    border: 3px solid #6B4F3E; border-radius: 7px 7px 0 0;
+    box-shadow: inset 3px 3px 0 rgba(255,255,255,0.7), inset -3px -4px 0 rgba(139,111,94,0.2), 2px 2px 0 rgba(90,66,56,0.25);
   }
-  .bd-bed-3d {
-    position: absolute; inset: 0;
-    transform-style: preserve-3d;
+  .bd-bed::after {
+    content: ''; position: absolute; top: 5px; right: 4px; width: 40px; height: 25px;
+    background: radial-gradient(ellipse at 32% 28%, #FFFFFF 0%, #F4E9DE 55%, #DCC9B4 100%);
+    border-radius: 5px; border: 2px solid #6B4F3E;
+    box-shadow: inset -4px -5px 0 rgba(139,111,94,0.2), inset 4px 4px 0 rgba(255,255,255,0.75), 0 3px 0 rgba(90,66,56,0.25);
   }
-  /* Bed Frame / Base */
-  .bd-bed-base {
-    position: absolute; bottom: 0; left: 0; width: 100%; height: 70px;
-    background: linear-gradient(135deg, #A8836F 0%, #7A5B49 100%);
-    border-radius: 8px; border: 3px solid #4A3326;
-    box-shadow: -8px 12px 18px rgba(0,0,0,0.35), inset 0 3px 0 rgba(255,255,255,0.2);
+  .bd-blanket-fold {
+    position: absolute; top: 15px; left: 8px; right: 8px; height: 5px;
+    background: linear-gradient(180deg, rgba(90,66,56,0.28) 0%, transparent 100%);
+    border-radius: 3px; z-index: 1; pointer-events: none;
   }
-  /* Bed Headboard 3D */
-  .bd-bed-headboard {
-    position: absolute; top: -18px; left: -2px; width: 34px; height: 88px;
-    background: linear-gradient(180deg, #8C6A54 0%, #5E4332 100%);
-    border: 3px solid #3A261A; border-radius: 6px;
-    box-shadow: -4px 6px 10px rgba(0,0,0,0.3), inset 2px 2px 0 rgba(255,255,255,0.25);
-    z-index: 2;
+  .bd-bed-leg {
+    position: absolute; bottom: -7px; width: 6px; height: 9px;
+    background: linear-gradient(100deg, #9C8168 0%, #6B4F3E 100%);
+    border-radius: 0 0 2px 2px; z-index: -1;
+    box-shadow: 1px 2px 0 rgba(0,0,0,0.15);
   }
-  /* Mattress */
-  .bd-bed-mattress {
-    position: absolute; top: 8px; left: 24px; right: 6px; height: 54px;
-    background: linear-gradient(135deg, #FFFFFF 0%, #E6DEC9 100%);
-    border: 3px solid #7A6046; border-radius: 6px;
-    box-shadow: inset 0 2px 4px rgba(255,255,255,0.9), inset -4px -4px 6px rgba(0,0,0,0.1);
-  }
-  /* Pillows */
-  .bd-bed-pillow-3d {
-    position: absolute; top: 12px; left: 28px; width: 32px; height: 44px;
-    background: radial-gradient(ellipse at 35% 35%, #FFFFFF 0%, #EBF3F5 70%, #C4D6DC 100%);
-    border: 2px solid #68828A; border-radius: 8px;
-    box-shadow: 2px 4px 6px rgba(0,0,0,0.2), inset -2px -2px 4px rgba(0,0,0,0.1);
-    z-index: 3;
-  }
-  /* Blanket / Cover */
-  .bd-bed-blanket-3d {
-    position: absolute; top: 12px; left: 54px; right: 4px; height: 48px;
-    background: linear-gradient(135deg, #E08B9B 0%, #C96075 50%, #993B4E 100%);
-    border: 3px solid #591F2B; border-radius: 4px 8px 8px 4px;
-    box-shadow: inset 3px 3px 6px rgba(255,255,255,0.4), inset -4px -4px 8px rgba(0,0,0,0.25), -3px 4px 8px rgba(0,0,0,0.2);
-    z-index: 4;
-  }
-  .bd-bed-blanket-fold-3d {
-    position: absolute; top: 12px; left: 52px; width: 12px; height: 48px;
-    background: linear-gradient(180deg, #FDF6EE 0%, #D9C2B0 100%);
-    border: 2px solid #591F2B; border-radius: 4px 0 0 4px;
-    box-shadow: 2px 0 4px rgba(0,0,0,0.2);
-    z-index: 5;
-  }
-  .bd-bed-leg-3d {
-    position: absolute; width: 8px; height: 14px;
-    background: linear-gradient(180deg, #5E4332, #3A261A);
-    border-radius: 0 0 3px 3px; z-index: -1;
-  }
-  .bd-bed-leg-fl { bottom: -10px; left: 4px; }
-  .bd-bed-leg-fr { bottom: -10px; right: 10px; }
-  .bd-bed-leg-bl { top: -6px; left: 4px; }
+  .bd-bed-leg-l { left: 6px; } .bd-bed-leg-r { right: 6px; }
 
   .bd-nightstand {
-    position: absolute; bottom: 8px; left: calc(6% + 155px); width: 34px; height: 30px;
+    position: absolute; bottom: 8px; left: calc(10% + 100px); width: 34px; height: 30px;
     background: linear-gradient(160deg, #C7AC94 0%, #A88B6E 55%, #856C52 100%);
     border: 3px solid #6B4F3E; border-radius: 3px 3px 4px 4px; z-index: 3;
     box-shadow:
@@ -1144,7 +1110,7 @@
   }
   .ach-popup .ach-popup-icon { font-size: 3rem; margin-bottom: 8px; }
   .ach-popup .ach-popup-title { font-family: 'Press Start 2P', monospace; font-size: 0.6rem; color: #C9A044; margin-bottom: 6px; }
-  .ach-popup .ach-popup-name { font-family: 'Press Start 2P', monospace; font-size: 0.75rem; color: #6B4F0E; margin-bottom: 6px; line-height: 1.4; word-break: break-word; }
+  .ach-popup .ach-popup-name { font-family: 'Press Start 2P', monospace; font-size: 0.75rem; color: #6B4F0E; margin-bottom: 6px; line-height: 1.4; }
   .ach-popup .ach-popup-desc { font-size: 0.75rem; color: #8B6F5E; line-height: 1.4; }
 
   .levelup-overlay {
@@ -1238,1207 +1204,2148 @@
         <div class="room-badge" id="roomBadge">🛏️ BEDROOM</div>
         <div class="want-bubble" id="wantBubble" style="display:none;"></div>
 
-        <!-- 3D Bed Furniture Element -->
-        <div class="bd-bed-container" id="bedFurniture">
-          <div class="bd-bed-3d">
-            <div class="bd-bed-base"></div>
-            <div class="bd-bed-headboard"></div>
-            <div class="bd-bed-mattress"></div>
-            <div class="bd-bed-pillow-3d"></div>
-            <div class="bd-bed-blanket-fold-3d"></div>
-            <div class="bd-bed-blanket-3d"></div>
-            <div class="bd-bed-leg-3d bd-bed-leg-fl"></div>
-            <div class="bd-bed-leg-3d bd-bed-leg-fr"></div>
-            <div class="bd-bed-leg-3d bd-bed-leg-bl"></div>
-          </div>
-        </div>
-
         <div class="pet-area" id="petArea">
           <div class="pet-shadow" id="petShadow" style="left: 50%;"></div>
           <div class="pet idle" id="pet" data-stage="egg" style="left: 50%;">
-            <div class="pet-halo"></div>
-            <div class="pet-horn"></div>
-            <div class="pet-ear pet-ear-l"></div>
-            <div class="pet-ear pet-ear-r"></div>
-            <div class="pet-wing pet-wing-l"></div>
-            <div class="pet-wing pet-wing-r"></div>
+            <div class="pet-accessories" id="petAccessories"></div>
             <div class="pet-body">
-              <div class="pet-eye pet-eye-l"></div>
-              <div class="pet-eye pet-eye-r"></div>
               <div class="pet-blush pet-blush-l"></div>
               <div class="pet-blush pet-blush-r"></div>
+              <div class="pet-eye pet-eye-l"></div>
+              <div class="pet-eye pet-eye-r"></div>
               <div class="pet-mouth"></div>
-              <div class="pet-foot pet-foot-l"></div>
-              <div class="pet-foot pet-foot-r"></div>
+              <div class="pet-ear pet-ear-l"></div>
+              <div class="pet-ear pet-ear-r"></div>
+              <div class="pet-wing pet-wing-l"></div>
+              <div class="pet-wing pet-wing-r"></div>
+              <div class="pet-horn"></div>
+              <div class="pet-halo"></div>
             </div>
-            <div class="pet-accessories" id="petAccessories"></div>
+            <div class="pet-foot pet-foot-l"></div>
+            <div class="pet-foot pet-foot-r"></div>
           </div>
         </div>
 
         <div class="minigame-area" id="minigameArea">
-          <div class="mg-hud">BUBBLES POPPED: <span id="mgScore">0</span></div>
-          <button class="mg-close" id="mgClose">✕</button>
-          <div class="minigame-inner" id="mgInner"></div>
+          <div class="minigame-inner" id="minigameInner"></div>
+          <div class="mg-hud" id="mgHud">SCORE: 0</div>
+          <button class="mg-close" id="mgClose">×</button>
           <div class="mg-end" id="mgEnd">
-            <div class="mg-end-title">GREAT JOB!</div>
+            <div class="mg-end-title" id="mgEndTitle">TIME'S UP!</div>
             <div class="mg-end-score" id="mgEndScore">0</div>
-            <div class="mg-end-reward" id="mgEndReward">+0 coins</div>
-            <button class="btn small" id="mgRestart">PLAY AGAIN</button>
+            <div class="mg-end-reward" id="mgEndReward"></div>
+            <button class="btn small" id="mgAgainBtn" style="max-width: 160px;">PLAY AGAIN</button>
           </div>
         </div>
       </div>
 
       <div class="xp-bar">
-        <span>LVL <span id="petLevel">1</span></span>
-        <div class="xp-track">
-          <div class="xp-fill" id="xpFill" style="width: 0%;"></div>
-        </div>
-        <span class="xp-text" id="xpText">0/50 XP</span>
+        <span>LV <span id="levelNum">1</span></span>
+        <div class="xp-track"><div class="xp-fill" id="xpFill" style="width: 0%;"></div></div>
+        <span class="xp-text" id="xpText">0/60</span>
       </div>
 
       <div class="pet-info">
         <div class="pet-name-row">
-          <span class="pet-name" id="petName">MOCHI</span>
-          <span class="pet-stage-badge" id="petStageBadge">EGG</span>
+          <div class="pet-name" id="petName">Mochi</div>
+          <div class="pet-stage-badge" id="petStageBadge">EGG</div>
         </div>
         <div class="stats">
-          <div class="stat" id="statHunger">
-            <div class="stat-header"><span>HUNGER</span><span id="hungerVal">100%</span></div>
-            <div class="stat-bar"><div class="stat-bar-fill good" id="hungerBar" style="width:100%;"></div></div>
+          <div class="stat" id="stat-hunger">
+            <div class="stat-header"><span>🍚 FOOD</span><span id="hungerVal">100</span></div>
+            <div class="stat-bar"><div class="stat-bar-fill good" id="hungerBar" style="width:100%"></div></div>
           </div>
-          <div class="stat" id="statEnergy">
-            <div class="stat-header"><span>ENERGY</span><span id="energyVal">100%</span></div>
-            <div class="stat-bar"><div class="stat-bar-fill good" id="energyBar" style="width:100%;"></div></div>
+          <div class="stat" id="stat-happy">
+            <div class="stat-header"><span>☀️ JOY</span><span id="happyVal">100</span></div>
+            <div class="stat-bar"><div class="stat-bar-fill good" id="happyBar" style="width:100%"></div></div>
           </div>
-          <div class="stat" id="statHappiness">
-            <div class="stat-header"><span>HAPPY</span><span id="happyVal">100%</span></div>
-            <div class="stat-bar"><div class="stat-bar-fill good" id="happyBar" style="width:100%;"></div></div>
+          <div class="stat" id="stat-energy">
+            <div class="stat-header"><span>🌙 REST</span><span id="energyVal">100</span></div>
+            <div class="stat-bar"><div class="stat-bar-fill good" id="energyBar" style="width:100%"></div></div>
           </div>
-          <div class="stat" id="statClean">
-            <div class="stat-header"><span>CLEAN</span><span id="cleanVal">100%</span></div>
-            <div class="stat-bar"><div class="stat-bar-fill good" id="cleanBar" style="width:100%;"></div></div>
+          <div class="stat" id="stat-clean">
+            <div class="stat-header"><span>💧 CLEAN</span><span id="cleanVal">100</span></div>
+            <div class="stat-bar"><div class="stat-bar-fill good" id="cleanBar" style="width:100%"></div></div>
           </div>
         </div>
       </div>
 
       <div class="actions">
-        <button class="action-btn" id="btnFeed"><span class="emoji">🍎</span><span class="label">FEED</span></button>
-        <button class="action-btn" id="btnSleep"><span class="emoji">😴</span><span class="label">SLEEP</span></button>
-        <button class="action-btn" id="btnPlay"><span class="emoji">🎾</span><span class="label">PLAY</span></button>
-        <button class="action-btn" id="btnClean"><span class="emoji">🧼</span><span class="label">CLEAN</span></button>
-        <button class="action-btn" id="btnPet"><span class="emoji">💖</span><span class="label">PET</span></button>
-        <button class="action-btn" id="btnGame"><span class="emoji">🫧</span><span class="label">GAME</span></button>
+        <button class="action-btn" data-action="feed"><span class="emoji">🍚</span><span class="label">FEED</span></button>
+        <button class="action-btn" data-action="play"><span class="emoji">🎈</span><span class="label">PLAY</span></button>
+        <button class="action-btn" data-action="sleep"><span class="emoji">🌙</span><span class="label">SLEEP</span></button>
+        <button class="action-btn" data-action="bath"><span class="emoji">💧</span><span class="label">BATH</span></button>
+        <button class="action-btn" data-action="pet"><span class="emoji">🤲</span><span class="label">PET</span></button>
+        <button class="action-btn" data-action="clean"><span class="emoji">🧹</span><span class="label">CLEAN</span></button>
+        <button class="action-btn" data-action="minigame" style="grid-column: span 3; background: linear-gradient(180deg, #FFF9C8, #F0E0A0); border-color: #C9A044;">
+          <span class="emoji">🫧</span><span class="label">BUBBLE POP MINI-GAME</span>
+        </button>
       </div>
 
       <div class="diary">
         <div class="diary-title">
-          <span>📖 LIFE DIARY</span>
-          <span style="font-size:0.5rem; color:#A89080;" id="diaryCount">0 entries</span>
+          <span>📖 MOCHI'S DIARY</span>
+          <span id="diaryCount">0</span>
         </div>
-        <div class="diary-scroll" id="diaryScroll"></div>
+        <div class="diary-scroll" id="diaryScroll">
+          <div style="text-align:center; color:#C9B0A0; font-size:0.7rem; padding:8px;">Nothing yet! 🌿</div>
+        </div>
       </div>
-
     </div>
 
     <div class="view" id="view-rooms">
-      <div class="section-header">EXPLORE ROOMS</div>
+      <div class="section-header">🚪 ROOMS TO EXPLORE</div>
       <div class="rooms-grid" id="roomsGrid"></div>
     </div>
 
     <div class="view" id="view-shop">
-      <div class="section-header">SHOP & DECOR</div>
+      <div class="section-header">🛒 MOCHI SHOP</div>
+      <p style="text-align:center; font-size:0.7rem; color:#A89080; margin-bottom:8px;">Earn coins from care & mini-games 🪙<br>Consumables appear in the room — tap them to use!</p>
       <div class="shop-grid" id="shopGrid"></div>
     </div>
 
     <div class="view" id="view-notes">
-      <div class="section-header">LOVE NOTES</div>
+      <div class="section-header">💌 LOVE NOTES</div>
       <div class="notes-container">
         <div class="note-input-area">
-          <input type="text" class="note-input" id="noteInput" placeholder="Write a note..." maxlength="120">
-          <button class="note-send" id="noteSend">POST</button>
+          <input type="text" class="note-input" id="noteInput" placeholder="Leave a note..." maxlength="80">
+          <button class="note-send" id="noteSendBtn">PIN</button>
         </div>
         <div class="notes-wall" id="notesWall"></div>
       </div>
     </div>
 
     <div class="view" id="view-ach">
-      <div class="section-header">ACHIEVEMENTS</div>
+      <div class="section-header" id="achHeader">🏆 ACHIEVEMENTS (0/26)</div>
       <div class="ach-grid" id="achGrid"></div>
     </div>
 
     <div class="view" id="view-album">
-      <div class="section-header">GROWTH ALBUM</div>
+      <div class="section-header">📸 MOCHI'S ALBUM</div>
       <div class="album-container">
         <div class="album-grid" id="albumGrid"></div>
       </div>
     </div>
 
-    <div class="footer">Made with 💕 for Koy & Metz</div>
-
+    <button class="btn small" id="logoutBtn" style="background:#B8A898; box-shadow:0 4px 0 #8B6F5E; margin:0 12px 8px; font-size:0.75rem;">SWITCH USER</button>
+    <p class="footer" id="presenceFooter">Made with care for Mochi 🌿</p>
   </div>
 
 </div>
 
 <div class="toast" id="toast"></div>
 
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+
 <script>
-  /* ============ GAME STATE ============ */
-  const STAGES = ['egg', 'hatchling', 'sprout', 'sapling', 'bloom', 'guardian', 'mystic', 'eternal'];
-  const STAGE_NAMES = {
-    egg: 'EGG', hatchling: 'HATCHLING', sprout: 'SPROUT', sapling: 'SAPLING',
-    bloom: 'BLOOM', guardian: 'GUARDIAN', mystic: 'MYSTIC', eternal: 'ETERNAL'
-  };
-  const STAGE_EMOJIS = {
-    egg: '🥚', hatchling: '🐥', sprout: '🌱', sapling: '🌿',
-    bloom: '🌸', guardian: '🛡️', mystic: '🔮', eternal: '👑'
-  };
+/* ============================================================
+   FIREBASE
+   ============================================================ */
+const firebaseConfig = {
+  apiKey: "AIzaSyCpxlMZiAcJwI2RuNTJ14jSaHhV-nBcW7A",
+  authDomain: "mochigotchi.firebaseapp.com",
+  databaseURL: "https://mochigotchi-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "mochigotchi",
+  storageBucket: "mochigotchi.firebasestorage.app",
+  messagingSenderId: "441429859962",
+  appId: "1:441429859962:web:d0a5e1af080bb394a725c3"
+};
+firebase.initializeApp(firebaseConfig);
+const db = firebase.database();
 
-  const ITEMS = {
-    bow: { id: 'bow', name: 'Cute Bow', emoji: '🎀', price: 30, type: 'accessory', desc: 'Stylish bow for Mochi' },
-    lucky: { id: 'lucky', name: 'Lucky Charm', emoji: '🍀', price: 50, type: 'accessory', desc: '+20% Coins earned' },
-    xpboost: { id: 'xpboost', name: 'Star Crystal', emoji: '⭐', price: 75, type: 'accessory', desc: '+25% XP earned' },
-    autoclean: { id: 'autoclean', name: 'Spirit Broom', emoji: '🧹', price: 100, type: 'decor', desc: 'Keeps Mochi cleaner longer' },
-    treat: { id: 'treat', name: 'Tasty Treat', emoji: '🧁', price: 15, type: 'consumable', desc: 'Instantly maxes hunger' },
-    toy: { id: 'toy', name: 'Squeaky Toy', emoji: '🧸', price: 20, type: 'consumable', desc: 'Instantly maxes happy' },
-    pillow: { id: 'pillow', name: 'Cozy Pillow', emoji: '☁️', price: 25, type: 'consumable', desc: 'Instantly maxes energy' },
-    soap: { id: 'soap', name: 'Fancy Soap', emoji: '🧼', price: 15, type: 'consumable', desc: 'Instantly maxes clean' }
-  };
+/* ============================================================
+   CONSTANTS
+   ============================================================ */
+const DECAY_PER_MINUTE = 0.12;
+const OFFLINE_CAP_HOURS = 6;
+const MAX_DIARY = 40;
+const DAILY_GOAL = 5;
+const NIGHT_START = 22;
+const NIGHT_END = 7;
+const WANT_DURATION_MS = 30 * 60 * 1000;
+const WANT_XP_MULTIPLIER = 3;
+const COIN_PER_ACTION = 3;
+const COIN_PER_WANT = 15;
+const COIN_PER_DAILY_GOAL = 20;
+const MINIGAME_DURATION = 30;
+const MAX_ROOM_ITEMS = 6;
 
-  const ROOMS = {
-    bedroom: { id: 'bedroom', name: 'Bedroom', emoji: '🛏️', reqLvl: 1 },
-    kitchen: { id: 'kitchen', name: 'Kitchen', emoji: '🍳', reqLvl: 2 },
-    garden: { id: 'garden', name: 'Garden', emoji: '🌻', reqLvl: 3 },
-    playroom: { id: 'playroom', name: 'Playroom', emoji: '🧸', reqLvl: 4 },
-    observatory: { id: 'observatory', name: 'Observatory', emoji: '🔭', reqLvl: 5 }
-  };
+const STAGES = [
+  { level: 1,  name: 'EGG',       emoji: '🥚', key: 'egg' },
+  { level: 3,  name: 'HATCHLING', emoji: '🐣', key: 'hatchling' },
+  { level: 6,  name: 'SPROUT',    emoji: '🐥', key: 'sprout' },
+  { level: 12, name: 'SAPLING',   emoji: '🐤', key: 'sapling' },
+  { level: 20, name: 'BLOOM',     emoji: '🦜', key: 'bloom' },
+  { level: 35, name: 'GUARDIAN',  emoji: '🦚', key: 'guardian' },
+  { level: 50, name: 'MYSTIC',    emoji: '🦅', key: 'mystic' },
+  { level: 75, name: 'ETERNAL',   emoji: '🌿', key: 'eternal' }
+];
 
-  const ACHIEVEMENTS = [
-    { id: 'first_login', name: 'Welcome Home', desc: 'Entered Mochi\'s room for the first time', icon: '🏠' },
-    { id: 'hatch', name: 'New Life', desc: 'Hatched Mochi from the egg', icon: '🐣' },
-    { id: 'level_5', name: 'Growing Up', desc: 'Reached Level 5', icon: '🌟' },
-    { id: 'streak_3', name: 'Dedicated Care', desc: 'Maintained a 3-day care streak', icon: '🔥' },
-    { id: 'all_clean', name: 'Squeaky Clean', desc: 'Cleaned up 5 poops', icon: '✨' },
-    { id: 'notes_5', name: 'Love Letters', desc: 'Posted 5 notes on the wall', icon: '💌' },
-    { id: 'shop_1', name: 'Spoiled Pet', desc: 'Bought your first shop item', icon: '🛍️' },
-    { id: 'minigame_20', name: 'Bubble Master', desc: 'Popped 20 bubbles in one game', icon: '🫧' }
-  ];
+const ROOMS = [
+  { id: 'bedroom',     name: 'BEDROOM',     emoji: '🛏️', reqLevel: 1 },
+  { id: 'kitchen',     name: 'KITCHEN',     emoji: '🍳', reqLevel: 5 },
+  { id: 'garden',      name: 'GARDEN',      emoji: '🌷', reqLevel: 15 },
+  { id: 'playroom',    name: 'PLAYROOM',    emoji: '🎨', reqLevel: 30 },
+  { id: 'observatory', name: 'OBSERVATORY', emoji: '🔭', reqLevel: 50 }
+];
 
-  let state = {
-    role: null,
-    pin: null,
-    level: 1,
-    xp: 0,
-    coins: 50,
-    streak: 1,
-    days: 1,
-    lastActiveDate: null,
-    hunger: 100,
-    energy: 100,
-    happy: 100,
-    clean: 100,
-    isSleeping: false,
-    currentRoom: 'bedroom',
-    inventory: [],
-    placedItems: [],
-    notes: [],
-    diary: [],
-    achievements: [],
-    album: [],
-    poopCount: 0,
-    poopsInRoom: 0,
-    wantAction: null,
-    wantTimer: 0
-  };
+const ACTIONS = {
+  feed:  { stat: 'hunger', amount: 25, xp: 2, verb: 'fed',              emoji: '🍚' },
+  play:  { stat: 'happy',  amount: 22, xp: 3, verb: 'played with',      emoji: '🎈', cost: { energy: 8 } },
+  sleep: { stat: 'energy', amount: 30, xp: 2, verb: 'tucked in',        emoji: '🌙' },
+  bath:  { stat: 'clean',  amount: 30, xp: 2, verb: 'bathed',           emoji: '💧' },
+  pet:   { stat: 'happy',  amount: 8,  xp: 1, verb: 'petted',           emoji: '🤲' },
+  clean: { stat: 'clean',  amount: 15, xp: 2, verb: 'cleaned up after', emoji: '🧹' }
+};
 
-  /* ============ DOM ELEMENTS ============ */
-  const pinScreen = document.getElementById('pinScreen');
-  const gameScreen = document.getElementById('gameScreen');
-  const pinInput = document.getElementById('pinInput');
-  const loginBtn = document.getElementById('loginBtn');
-  const welcomeEmoji = document.getElementById('welcomeEmoji');
-  const roleBtns = document.querySelectorAll('.role-btn');
+const WANTS = [
+  { id: 'feed',  emoji: '🍚', text: 'wants food!',     action: 'feed' },
+  { id: 'play',  emoji: '🎈', text: 'wants to play!',  action: 'play' },
+  { id: 'sleep', emoji: '🌙', text: 'is sleepy',       action: 'sleep' },
+  { id: 'bath',  emoji: '💧', text: 'wants a bath!',   action: 'bath' },
+  { id: 'pet',   emoji: '🤲', text: 'wants cuddles!',  action: 'pet' },
+  { id: 'clean', emoji: '🧹', text: 'wants tidying!',  action: 'clean' }
+];
 
-  const whoAmI = document.getElementById('whoAmI');
-  const streakCount = document.getElementById('streakCount');
-  const streakBox = document.getElementById('streakBox');
-  const coinCount = document.getElementById('coinCount');
-  const daysCount = document.getElementById('daysCount');
+const AMBIENT_BEHAVIORS = {
+  bedroom: [
+    { cls: 'walking', dur: 2, bubble: 'hmm hmm~', emoji: '🎵' },
+    { cls: 'sleeping', dur: 3.5, bubble: 'nap time', emoji: '💤' },
+    { cls: 'watching', dur: 3, bubble: 'looking outside', emoji: '🪟' },
+    { cls: 'stretching', dur: 1.5 },
+    { cls: 'hopping', dur: 1.2, bubble: 'yay!', emoji: '✨' }
+  ],
+  kitchen: [
+    { cls: 'sniffing', dur: 2, bubble: 'smells good!', emoji: '🍲' },
+    { cls: 'watching', dur: 3, bubble: 'watching the stove', emoji: '🔥' },
+    { cls: 'hopping', dur: 1.2, bubble: 'snack!', emoji: '🍎' },
+    { cls: 'walking', dur: 2.5 }
+  ],
+  garden: [
+    { cls: 'hopping', dur: 1.5, bubble: 'flowers!', emoji: '🌷' },
+    { cls: 'sniffing', dur: 2, bubble: 'sniff sniff', emoji: '🌸' },
+    { cls: 'watching', dur: 3, bubble: 'butterfly!', emoji: '🦋' },
+    { cls: 'stretching', dur: 1.5, bubble: 'sunshine~', emoji: '☀️' },
+    { cls: 'walking', dur: 2 }
+  ],
+  playroom: [
+    { cls: 'spinning', dur: 1.5, bubble: 'wheee!', emoji: '🎡' },
+    { cls: 'hopping', dur: 1.2, bubble: 'bounce!', emoji: '⚽' },
+    { cls: 'happy', dur: 1.8, bubble: 'toys!', emoji: '🧸' },
+    { cls: 'walking', dur: 2 }
+  ],
+  observatory: [
+    { cls: 'looking-up', dur: 3, bubble: 'so pretty...', emoji: '✨' },
+    { cls: 'watching', dur: 3, bubble: 'counting stars', emoji: '⭐' },
+    { cls: 'sleeping', dur: 3, bubble: 'dreaming', emoji: '🌙' },
+    { cls: 'walking', dur: 2 }
+  ]
+};
 
-  const navTabs = document.querySelectorAll('.nav-tab');
-  const views = document.querySelectorAll('.view');
-  const notesBadge = document.getElementById('notesBadge');
+const CONSUMABLE_DEFS = {
+  treat: {
+    emoji: '🍬',
+    stat: 'hunger',
+    amount: 15,
+    placeClass: 'placed-treat',
+    tooltip: 'TAP TO EAT',
+    consumeVerb: 'ate a treat',
+    consumeEmoji: '🍚',
+    consumeBubble: 'nom nom!',
+    defaultX: 72,
+    defaultBottom: 12
+  },
+  toy: {
+    emoji: '🧸',
+    stat: 'happy',
+    amount: 20,
+    placeClass: 'placed-toy',
+    tooltip: 'TAP TO PLAY',
+    consumeVerb: 'played with toy',
+    consumeEmoji: '🎈',
+    consumeBubble: 'wheee!',
+    defaultX: 22,
+    defaultBottom: 10
+  },
+  pillow: {
+    emoji: '🛏️',
+    stat: 'energy',
+    amount: 25,
+    placeClass: 'placed-pillow',
+    tooltip: 'TAP TO REST',
+    consumeVerb: 'rested on pillow',
+    consumeEmoji: '💤',
+    consumeBubble: 'cozy...',
+    defaultX: 62,
+    defaultBottom: 8
+  },
+  soap: {
+    emoji: '🧼',
+    stat: 'clean',
+    amount: 25,
+    placeClass: 'placed-soap',
+    tooltip: 'TAP TO WASH',
+    consumeVerb: 'used soap',
+    consumeEmoji: '💧',
+    consumeBubble: 'splash!',
+    defaultX: 40,
+    defaultBottom: 14
+  }
+};
 
-  const roomEl = document.getElementById('room');
-  const roomBadge = document.getElementById('roomBadge');
-  const roomDecorations = document.getElementById('roomDecorations');
-  const roomItems = document.getElementById('roomItems');
-  const wantBubble = document.getElementById('wantBubble');
-  const bedFurniture = document.getElementById('bedFurniture');
+const SHOP_ITEMS = [
+  { id: 'treat',     emoji: '🍬', name: 'SWEET TREAT',  desc: 'Place a treat — tap to feed Mochi (+15 food)',  cost: 20,  consumable: true },
+  { id: 'toy',       emoji: '🧸', name: 'PLUSH TOY',    desc: 'Place a toy — tap to play (+20 joy)',            cost: 30,  consumable: true },
+  { id: 'pillow',    emoji: '🛏️', name: 'FLUFFY PILLOW',desc: 'Place a pillow — tap to rest (+25 rest)',        cost: 35,  consumable: true },
+  { id: 'soap',      emoji: '🧼', name: 'FANCY SOAP',   desc: 'Place a soap — tap to wash (+25 clean)',         cost: 25,  consumable: true },
+  { id: 'decoration',emoji: '🎀', name: 'BOW DECOR',    desc: 'Pink bow worn by Mochi (+5% XP)',                cost: 100, consumable: false },
+  { id: 'lucky',     emoji: '🍀', name: 'LUCKY CHARM',  desc: 'Floating clover (+1 coin/action)',               cost: 150, consumable: false },
+  { id: 'xpboost',   emoji: '⭐', name: 'STAR SHARD',   desc: 'Sparkle star above Mochi (+15% XP)',             cost: 200, consumable: false },
+  { id: 'autoclean', emoji: '✨', name: 'CLEANING SPIRIT',desc: 'Auto-removes poops every 5 min',               cost: 300, consumable: false }
+];
 
-  const pet = document.getElementById('pet');
-  const petShadow = document.getElementById('petShadow');
-  const petAccessories = document.getElementById('petAccessories');
-  const petLevel = document.getElementById('petLevel');
-  const petName = document.getElementById('petName');
-  const petStageBadge = document.getElementById('petStageBadge');
-  const xpFill = document.getElementById('xpFill');
-  const xpText = document.getElementById('xpText');
+const ACHIEVEMENTS = [
+  { id: 'first_feed',    emoji: '🍚', name: 'FIRST MEAL',       desc: 'Feed Mochi for the first time',       check: (d) => (d.stats?.feeds || 0) >= 1 },
+  { id: 'feed_50',       emoji: '🍱', name: 'MASTER CHEF',      desc: 'Feed Mochi 50 times',                check: (d) => (d.stats?.feeds || 0) >= 50 },
+  { id: 'pet_50',        emoji: '🤲', name: 'BEST FRIENDS',     desc: 'Pet Mochi 50 times',                 check: (d) => (d.stats?.pets || 0) >= 50 },
+  { id: 'bath_20',       emoji: '🛁', name: 'SQUEAKY CLEAN',    desc: 'Bath Mochi 20 times',                check: (d) => (d.stats?.baths || 0) >= 20 },
+  { id: 'play_30',       emoji: '🎮', name: 'PLAY BUDDIES',     desc: 'Play with Mochi 30 times',           check: (d) => (d.stats?.plays || 0) >= 30 },
+  { id: 'sleep_30',      emoji: '💤', name: 'SLEEP TRAINER',    desc: 'Tuck in Mochi 30 times',             check: (d) => (d.stats?.sleeps || 0) >= 30 },
+  { id: 'clean_20',      emoji: '🧹', name: 'TIDY HEART',       desc: 'Clean up after Mochi 20 times',      check: (d) => (d.stats?.cleans || 0) >= 20 },
+  { id: 'streak_3',      emoji: '🔥', name: 'WARMING UP',       desc: '3-day streak',                       check: (d) => (d.streak || 0) >= 3 },
+  { id: 'streak_7',      emoji: '🔥', name: 'WEEK WARRIORS',    desc: '7-day streak',                       check: (d) => (d.streak || 0) >= 7 },
+  { id: 'streak_30',     emoji: '🌟', name: 'MONTH OF LOVE',    desc: '30-day streak',                      check: (d) => (d.streak || 0) >= 30 },
+  { id: 'level_5',       emoji: '🌱', name: 'GROWING UP',       desc: 'Reach Level 5',                      check: (d) => (d.level || 0) >= 5 },
+  { id: 'level_12',      emoji: '🌿', name: 'SAPLING STAGE',    desc: 'Reach Level 12',                     check: (d) => (d.level || 0) >= 12 },
+  { id: 'level_20',      emoji: '🌸', name: 'IN BLOOM',         desc: 'Reach Level 20',                     check: (d) => (d.level || 0) >= 20 },
+  { id: 'level_35',      emoji: '🦚', name: 'GUARDIAN',         desc: 'Reach Level 35',                     check: (d) => (d.level || 0) >= 35 },
+  { id: 'no_poop',       emoji: '✨', name: 'SPOTLESS',         desc: 'Keep Mochi clean above 90% often',   check: (d) => (d.cleanliness_streak || 0) >= 20 },
+  { id: 'night_owl',     emoji: '🦉', name: 'NIGHT OWL',        desc: 'Care for Mochi between 2-4 AM',      check: (d) => d.achievementFlags?.nightOwl === true },
+  { id: 'early_bird',    emoji: '🐦', name: 'EARLY BIRD',       desc: 'Care for Mochi between 5-7 AM',      check: (d) => d.achievementFlags?.earlyBird === true },
+  { id: 'both_care',     emoji: '💞', name: 'TOGETHER',         desc: 'Both of you care within 10 minutes', check: (d) => d.achievementFlags?.bothClose === true },
+  { id: 'first_note',    emoji: '💌', name: 'LOVE NOTE',        desc: 'Pin your first note',                check: (d) => Object.keys(d.notes || {}).length >= 1 },
+  { id: 'five_notes',    emoji: '💝', name: 'SWEET TALKER',     desc: 'Pin 5 notes together',               check: (d) => Object.keys(d.notes || {}).length >= 5 },
+  { id: 'first_want',    emoji: '⭐', name: 'GOOD LISTENER',    desc: 'Fulfill Mochi\'s first want',        check: (d) => (d.stats?.wantsFulfilled || 0) >= 1 },
+  { id: 'want_20',       emoji: '🌟', name: 'ATTENTIVE',        desc: 'Fulfill 20 wants',                   check: (d) => (d.stats?.wantsFulfilled || 0) >= 20 },
+  { id: 'kitchen_unlock',emoji: '🍳', name: 'HOME COOKIN\'',   desc: 'Unlock the Kitchen',                 check: (d) => (d.level || 0) >= 5 },
+  { id: 'garden_unlock', emoji: '🌷', name: 'GREEN THUMB',      desc: 'Unlock the Garden',                  check: (d) => (d.level || 0) >= 15 },
+  { id: 'minigame_10',   emoji: '🫧', name: 'BUBBLE MASTER',    desc: 'Score 10+ in Bubble Pop',            check: (d) => (d.stats?.bestMinigame || 0) >= 10 },
+  { id: 'minigame_25',   emoji: '🏅', name: 'BUBBLE LEGEND',    desc: 'Score 25+ in Bubble Pop',            check: (d) => (d.stats?.bestMinigame || 0) >= 25 }
+];
 
-  const hungerBar = document.getElementById('hungerBar');
-  const energyBar = document.getElementById('energyBar');
-  const happyBar = document.getElementById('happyBar');
-  const cleanBar = document.getElementById('cleanBar');
-  const hungerVal = document.getElementById('hungerVal');
-  const energyVal = document.getElementById('energyVal');
-  const happyVal = document.getElementById('happyVal');
-  const cleanVal = document.getElementById('cleanVal');
+/* ============================================================
+   STATE
+   ============================================================ */
+let me = 'koy';
+let gameData = null;
+let myLastSeen = 0;
+let hasShownWelcome = false;
+let lastActionAt = 0;
+let lastLevel = 0;
+let isAnimating = false;
+let currentRoomId = 'bedroom';
+let currentView = 'home';
+let noteUnread = false;
+let lastCheckedNoteCount = 0;
+let lastCheckedNotesTime = 0;
+let ambientTimeoutId = null;
+let ambientPlaying = false;
+let autoCleanIntervalId = null;
+let presenceIntervalId = null;
+let lastRenderStats = { hunger: -1, happy: -1, energy: -1, clean: -1 };
 
-  const btnFeed = document.getElementById('btnFeed');
-  const btnSleep = document.getElementById('btnSleep');
-  const btnPlay = document.getElementById('btnPlay');
-  const btnClean = document.getElementById('btnClean');
-  const btnPet = document.getElementById('btnPet');
-  const btnGame = document.getElementById('btnGame');
+const renderCache = {
+  stage: '', petName: '', petMood: '', roomId: '',
+  diaryHash: '', notesHash: '', achCount: -1,
+  daysCount: -1, streakCount: -1, coinCount: -1,
+  level: -1, xp: -1, poops: -1,
+  decorationsHash: '', accessoriesHash: '', roomItemsHash: '', shopHash: ''
+};
 
-  const diaryScroll = document.getElementById('diaryScroll');
-  const diaryCount = document.getElementById('diaryCount');
-  const roomsGrid = document.getElementById('roomsGrid');
-  const shopGrid = document.getElementById('shopGrid');
-  const notesWall = document.getElementById('notesWall');
-  const noteInput = document.getElementById('noteInput');
-  const noteSend = document.getElementById('noteSend');
-  const achGrid = document.getElementById('achGrid');
-  const albumGrid = document.getElementById('albumGrid');
+const $ = (id) => document.getElementById(id);
 
-  const minigameArea = document.getElementById('minigameArea');
-  const mgInner = document.getElementById('mgInner');
-  const mgScore = document.getElementById('mgScore');
-  const mgClose = document.getElementById('mgClose');
-  const mgEnd = document.getElementById('mgEnd');
-  const mgEndScore = document.getElementById('mgEndScore');
-  const mgEndReward = document.getElementById('mgEndReward');
-  const mgRestart = document.getElementById('mgRestart');
-  const toast = document.getElementById('toast');
+/* ============================================================
+   SOUND
+   ============================================================ */
+let audioCtx = null;
+function ensureAudio() {
+  if (!audioCtx) {
+    try { audioCtx = new (window.AudioContext || window.webkitAudioContext)(); } catch(e) {}
+  }
+}
+function playTone(freq, duration, type = 'sine', volume = 0.06) {
+  ensureAudio();
+  if (!audioCtx) return;
+  if (audioCtx.state === 'suspended') audioCtx.resume();
+  const osc = audioCtx.createOscillator();
+  const gain = audioCtx.createGain();
+  osc.type = type;
+  osc.frequency.value = freq;
+  gain.gain.setValueAtTime(volume, audioCtx.currentTime);
+  gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + duration);
+  osc.connect(gain);
+  gain.connect(audioCtx.destination);
+  osc.start();
+  osc.stop(audioCtx.currentTime + duration);
+}
+function sfxClick() { playTone(800, 0.05, 'square', 0.03); }
+function sfxPop() { playTone(1200, 0.08, 'sine', 0.05); }
+function sfxGood() { playTone(660, 0.1, 'sine'); setTimeout(() => playTone(880, 0.12, 'sine'), 80); }
+function sfxLevelUp() {
+  [523, 659, 784, 1047].forEach((f, i) => setTimeout(() => playTone(f, 0.18, 'sine', 0.07), i * 90));
+}
+function sfxBad() { playTone(220, 0.2, 'sawtooth', 0.04); }
 
-  /* ============ INITIALIZATION ============ */
-  let selectedRole = null;
+/* ============================================================
+   TOAST
+   ============================================================ */
+let toastT;
+function showToast(msg) {
+  const t = $('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(toastT);
+  toastT = setTimeout(() => t.classList.remove('show'), 2400);
+}
 
-  roleBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      roleBtns.forEach(b => b.classList.remove('selected'));
-      btn.classList.add('selected');
-      selectedRole = btn.dataset.role;
+/* ============================================================
+   CONFETTI
+   ============================================================ */
+function spawnConfetti(count = 18) {
+  const colors = ['#8B6F5E', '#F4D9C8', '#C9A044', '#8FB87D', '#C97C8C', '#A8D4E8'];
+  const cx = window.innerWidth / 2;
+  const cy = window.innerHeight / 2;
+  for (let i = 0; i < count; i++) {
+    const piece = document.createElement('div');
+    piece.className = 'confetti-piece';
+    const angle = Math.random() * Math.PI * 2;
+    const dist = 80 + Math.random() * 160;
+    piece.style.setProperty('--cx', Math.cos(angle) * dist + 'px');
+    piece.style.setProperty('--cy', Math.sin(angle) * dist + 120 + 'px');
+    piece.style.setProperty('--cr', (Math.random() * 720 - 360) + 'deg');
+    piece.style.left = cx + 'px';
+    piece.style.top = cy + 'px';
+    piece.style.background = colors[i % colors.length];
+    piece.style.borderRadius = Math.random() > 0.5 ? '50%' : '2px';
+    const dur = 900 + Math.random() * 700;
+    piece.style.animationDuration = dur + 'ms';
+    document.body.appendChild(piece);
+    setTimeout(() => piece.remove(), dur + 50);
+  }
+}
+
+/* ============================================================
+   LOGIN
+   ============================================================ */
+let selectedRole = null;
+document.querySelectorAll('.role-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.role-btn').forEach(b => b.classList.remove('selected'));
+    btn.classList.add('selected');
+    selectedRole = btn.dataset.role;
+    $('welcomeEmoji').textContent = selectedRole === 'koy' ? '🌿' : '🌸';
+    sfxClick();
+  });
+});
+
+const savedRole = localStorage.getItem('mochi_role');
+const savedPin = localStorage.getItem('mochi_pin');
+if (savedRole && savedPin) {
+  selectedRole = savedRole;
+  $('pinInput').value = savedPin;
+  document.querySelectorAll('.role-btn').forEach(b => {
+    if (b.dataset.role === savedRole) b.classList.add('selected');
+  });
+  $('welcomeEmoji').textContent = savedRole === 'koy' ? '🌿' : '🌸';
+}
+
+$('loginBtn').addEventListener('click', () => {
+  const pin = $('pinInput').value.trim();
+  if (!selectedRole) return showToast('Pick who you are first 🌿');
+  if (!/^\d{4}$/.test(pin)) return showToast('PIN must be 4 digits');
+
+  ensureAudio();
+  sfxGood();
+
+  me = selectedRole;
+  localStorage.setItem('mochi_role', me);
+  localStorage.setItem('mochi_pin', pin);
+  myLastSeen = parseInt(localStorage.getItem('mochi_last_' + me)) || 0;
+
+  $('pinScreen').style.display = 'none';
+  $('gameScreen').style.display = 'block';
+  $('whoAmI').textContent = me === 'koy' ? '🌿 KOY' : '🌸 METZ';
+
+  applyRoom(true);
+  listenToGame();
+  startAmbientLoop();
+  startPresenceHeartbeat();
+  startAutoCleanLoop();
+});
+
+/* ============================================================
+   NAV
+   ============================================================ */
+document.querySelectorAll('.nav-tab').forEach(tab => {
+  tab.addEventListener('click', () => { sfxClick(); switchView(tab.dataset.view); });
+});
+
+function switchView(view) {
+  currentView = view;
+  document.querySelectorAll('.nav-tab').forEach(t => t.classList.toggle('active', t.dataset.view === view));
+  document.querySelectorAll('.view').forEach(v => v.classList.toggle('active', v.id === 'view-' + view));
+  if (view === 'ach' && gameData) renderAchievements();
+  if (view === 'album' && gameData) renderAlbum();
+  if (view === 'notes' && gameData) { noteUnread = false; updateNotesBadge(); renderNotes(); }
+  if (view === 'rooms' && gameData) renderRooms();
+  if (view === 'shop' && gameData) renderShop();
+}
+
+/* ============================================================
+   FIREBASE
+   ============================================================ */
+function listenToGame() {
+  const ref = db.ref('tamagotchi');
+  ref.once('value').then(snap => {
+    if (!snap.exists()) {
+      const now = Date.now();
+      ref.set({
+        name: 'Mochi',
+        createdAt: now,
+        lastUpdate: now,
+        hunger: 100, happy: 100, energy: 100, clean: 100,
+        xp: 0, level: 1,
+        streak: 0, lastStreakDate: '',
+        poops: 0,
+        coins: 50,
+        inventory: {},
+        roomItems: {},
+        koyLastSeen: now, metzLastSeen: 0,
+        todayActions: { koy: 0, metz: 0 },
+        todayDate: '',
+        diary: {},
+        notes: {},
+        achievements: {},
+        album: [],
+        currentWant: null,
+        stats: { feeds: 0, plays: 0, sleeps: 0, baths: 0, pets: 0, cleans: 0, wantsFulfilled: 0, bestMinigame: 0 },
+        achievementFlags: {},
+        lastActions: {},
+        cleanliness_streak: 0
+      }).then(() => {
+        applyDecayAndListen();
+      });
+    } else {
+      const data = snap.val();
+      const missing = {};
+      if (!data.notes) missing.notes = {};
+      if (!data.achievements) missing.achievements = {};
+      if (!data.album) missing.album = [];
+      if (!data.stats) missing.stats = { feeds: 0, plays: 0, sleeps: 0, baths: 0, pets: 0, cleans: 0, wantsFulfilled: 0, bestMinigame: 0 };
+      if (!data.achievementFlags) missing.achievementFlags = {};
+      if (!data.lastActions) missing.lastActions = {};
+      if (data.poops === undefined) missing.poops = 0;
+      if (data.cleanliness_streak === undefined) missing.cleanliness_streak = 0;
+      if (data.currentWant === undefined) missing.currentWant = null;
+      if (data.coins === undefined) missing.coins = 50;
+      if (!data.inventory) missing.inventory = {};
+      if (!data.roomItems) missing.roomItems = {};
+      if (Object.keys(missing).length > 0) {
+        ref.update(missing).then(() => applyDecayAndListen());
+      } else {
+        applyDecayAndListen();
+      }
+    }
+  });
+}
+
+function applyDecayAndListen() {
+  const ref = db.ref('tamagotchi');
+  ref.once('value').then(snap => {
+    const data = snap.val();
+    if (!data) return;
+    const now = Date.now();
+    const lastUpdate = data.lastUpdate || now;
+    const minutesOffline = Math.min((now - lastUpdate) / 60000, OFFLINE_CAP_HOURS * 60);
+    const decay = minutesOffline * DECAY_PER_MINUTE;
+
+    const today = new Date().toISOString().slice(0, 10);
+    const updates = { lastUpdate: now };
+    if (minutesOffline > 0.1) {
+      updates.hunger = Math.max(0, (data.hunger ?? 100) - decay);
+      updates.happy  = Math.max(0, (data.happy  ?? 100) - decay);
+      updates.energy = Math.max(0, (data.energy ?? 100) - decay);
+      updates.clean  = Math.max(0, (data.clean  ?? 100) - decay);
+    }
+    if (data.todayDate !== today) {
+      updates.todayDate = today;
+      updates.todayActions = { koy: 0, metz: 0 };
+    }
+    ref.update(updates).then(() => {
+      ref.on('value', handleUpdate);
     });
   });
+}
 
-  loginBtn.addEventListener('click', handleLogin);
-  pinInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') handleLogin(); });
+let updateDebounceTimer = null;
+let pendingSnap = null;
+function handleUpdate(snap) {
+  pendingSnap = snap;
+  if (updateDebounceTimer) return;
+  updateDebounceTimer = setTimeout(() => {
+    updateDebounceTimer = null;
+    const s = pendingSnap;
+    pendingSnap = null;
+    if (s) processUpdate(s);
+  }, 60);
+}
 
-  function handleLogin() {
-    const pin = pinInput.value.trim();
-    if (!selectedRole) { showToast('Pick who you are!'); return; }
-    if (pin.length !== 4 || isNaN(pin)) { showToast('Enter a 4-digit PIN'); return; }
+let lastUpdateReceived = 0;
+let decayTickInterval = null;
 
-    state.role = selectedRole;
-    state.pin = pin;
+function processUpdate(snap) {
+  const data = snap.val();
+  if (!data) return;
+  lastUpdateReceived = Date.now();
 
-    loadState();
-    initGame();
+  const prev = gameData ? { ...gameData } : { ...data };
+  gameData = data;
+
+  updateLevel();
+  checkWantGeneration();
+  checkAchievements();
+  checkUnreadNotes();
+
+  if (!isAnimating) renderPet(prev);
+  renderDiary();
+  updateStreakAndDays();
+  checkStreak();
+  applyRoom();
+  renderWantBubble();
+  updateNotesBadge();
+  renderXPBar();
+  renderCoins();
+  renderPresence();
+  updateStatWarnings();
+  renderPetAccessories();
+  renderRoomDecorations();
+  renderRoomItems();
+  if (currentView === 'shop') renderShop();
+
+  if (!hasShownWelcome && myLastSeen > 0 && Date.now() - myLastSeen > 5 * 60 * 1000) {
+    showWelcomeBack(prev, data, myLastSeen);
+  }
+  hasShownWelcome = true;
+
+  myLastSeen = Date.now();
+  localStorage.setItem('mochi_last_' + me, myLastSeen);
+
+  if (!decayTickInterval) {
+    decayTickInterval = setInterval(() => {
+      if (!gameData || isAnimating) return;
+      const elapsed = (Date.now() - lastUpdateReceived) / 60000;
+      if (elapsed <= 0) return;
+      if (elapsed > 5) {
+        clearInterval(decayTickInterval);
+        decayTickInterval = null;
+      }
+    }, 5000);
+  }
+}
+
+/* ============================================================
+   LEVELS
+   ============================================================ */
+function xpForLevel(level) {
+  return Math.floor(60 + (level - 1) * 35 + Math.pow(level - 1, 1.7) * 12);
+}
+function updateLevel() {
+  let lvl = 1, xp = gameData.xp || 0;
+  while (lvl < 100 && xp >= xpForLevel(lvl)) { xp -= xpForLevel(lvl); lvl++; }
+  gameData.level = lvl;
+  if (lvl > lastLevel && lastLevel !== 0) {
+    setTimeout(() => { showLevelUp(lvl); addAlbumEntry(lvl); }, 400);
+  }
+  lastLevel = lvl;
+}
+function currentStage() {
+  let s = STAGES[0];
+  for (const st of STAGES) if (gameData.level >= st.level) s = st;
+  return s;
+}
+
+/* ============================================================
+   DAY / NIGHT
+   ============================================================ */
+function isNightTime() {
+  const h = new Date().getHours();
+  return h >= NIGHT_START || h < NIGHT_END;
+}
+
+/* ============================================================
+   ROOM RENDERING
+   ============================================================ */
+function applyRoom(force) {
+  const roomEl = $('room');
+  const key = currentRoomId + (isNightTime() && currentRoomId !== 'observatory' ? '-n' : '-d');
+  if (!force && renderCache.roomId === key) return;
+  renderCache.roomId = key;
+
+  const wallEl = $('roomWall');
+  const floorEl = $('roomFloor');
+  const isFirstRender = !roomEl.dataset.rendered;
+
+  const rebuild = () => {
+    roomEl.className = 'room ' + currentRoomId + (isNightTime() && currentRoomId !== 'observatory' ? ' room-night-tint' : '');
+    wallEl.innerHTML = '';
+    floorEl.innerHTML = '';
+
+    switch(currentRoomId) {
+      case 'bedroom':
+        wallEl.innerHTML = `
+          <div class="bd-window"><div class="bd-window-cloud"></div></div>
+          <div class="bd-curtain-l"></div>
+          <div class="bd-curtain-r"></div>
+          <div class="bd-frame">🖼️</div>
+          <div class="bd-shelf"></div>
+        `;
+        floorEl.innerHTML = `
+          <div class="bd-bed">
+            <div class="bd-blanket-fold"></div>
+            <div class="bd-bed-leg bd-bed-leg-l"></div>
+            <div class="bd-bed-leg bd-bed-leg-r"></div>
+          </div>
+          <div class="bd-nightstand">
+            <div class="bd-nightstand-top"></div>
+            <div class="bd-nightstand-drawer"></div>
+            <div class="bd-nightstand-handle"></div>
+            <div class="bd-lamp">
+              <div class="bd-lamp-glow"></div>
+              <div class="bd-lamp-shade"></div>
+              <div class="bd-lamp-pole"></div>
+              <div class="bd-lamp-base"></div>
+            </div>
+          </div>
+          <div class="bd-rug"></div>
+        `;
+        $('roomBadge').textContent = '🛏️ BEDROOM';
+        break;
+      case 'kitchen':
+        wallEl.innerHTML = `<div class="kt-pots"><span>🍳</span><span>🥘</span><span>🍲</span></div>`;
+        floorEl.innerHTML = `
+          <div class="kt-counter"></div>
+          <div class="kt-sink"></div>
+          <div class="kt-stove"></div>
+          <div class="kt-fridge"></div>
+          <div class="kt-steam" style="left:44%; animation-delay:0s;"></div>
+          <div class="kt-steam" style="left:49%; animation-delay:0.8s;"></div>
+          <div class="kt-steam" style="left:47%; animation-delay:1.6s;"></div>
+        `;
+        $('roomBadge').textContent = '🍳 KITCHEN';
+        break;
+      case 'garden':
+        floorEl.innerHTML = `
+          <div class="gd-tree"></div>
+          <div class="gd-fence">
+            <div class="gd-picket"></div><div class="gd-picket"></div><div class="gd-picket"></div>
+            <div class="gd-picket"></div><div class="gd-picket"></div><div class="gd-picket"></div>
+            <div class="gd-picket"></div><div class="gd-picket"></div><div class="gd-picket"></div>
+            <div class="gd-picket"></div>
+          </div>
+          <div class="gd-flower" style="left: 15%;">🌷</div>
+          <div class="gd-flower" style="left: 30%; animation-delay: 0.5s;">🌻</div>
+          <div class="gd-flower" style="left: 60%; animation-delay: 1s;">🌼</div>
+          <div class="gd-flower" style="left: 75%; animation-delay: 1.5s;">🌺</div>
+          <div class="gd-butterfly">🦋</div>
+        `;
+        $('roomBadge').textContent = '🌷 GARDEN';
+        break;
+      case 'playroom':
+        wallEl.innerHTML = `
+          <div class="pr-shelf-toys"><span>🧸</span><span>🚗</span><span>🎮</span><span>🪀</span></div>
+          <div class="pr-sparkle" style="left:25%; top:10px;">✨</div>
+          <div class="pr-sparkle" style="left:70%; top:20px; animation-delay:1.1s;">✨</div>
+        `;
+        floorEl.innerHTML = `
+          <div class="pr-pit"></div>
+          <div class="pr-block blue" style="left: 30%; bottom: 15px;"></div>
+          <div class="pr-block pink" style="left: 45%; bottom: 25px;"></div>
+          <div class="pr-block yellow" style="left: 60%; bottom: 12px;"></div>
+          <div class="pr-block blue" style="left: 70%; bottom: 22px;"></div>
+        `;
+        $('roomBadge').textContent = '🎨 PLAYROOM';
+        break;
+      case 'observatory':
+        wallEl.innerHTML = `<div class="ob-shootingstar"></div>`;
+        floorEl.innerHTML = `
+          <div class="ob-telescope"></div>
+          <div class="ob-chart"></div>
+        `;
+        $('roomBadge').textContent = '🔭 OBSERVATORY';
+        break;
+    }
+    roomEl.dataset.rendered = '1';
+  };
+
+  if (isFirstRender || force) rebuild();
+  else {
+    roomEl.classList.add('room-fading');
+    setTimeout(() => { rebuild(); roomEl.classList.remove('room-fading'); }, 220);
+  }
+}
+
+/* ============================================================
+   PET ACCESSORIES
+   ============================================================ */
+function renderPetAccessories() {
+  if (!gameData) return;
+  const inv = gameData.inventory || {};
+  const container = $('petAccessories');
+  if (!container) return;
+
+  const hash = ['decoration', 'lucky', 'xpboost'].map(k => inv[k] ? '1' : '0').join('');
+  if (renderCache.accessoriesHash === hash) return;
+  renderCache.accessoriesHash = hash;
+
+  container.innerHTML = '';
+  if (inv.decoration) {
+    const bow = document.createElement('div');
+    bow.className = 'pet-accessory bow';
+    bow.textContent = '🎀';
+    container.appendChild(bow);
+  }
+  if (inv.lucky) {
+    const lucky = document.createElement('div');
+    lucky.className = 'pet-accessory lucky';
+    lucky.textContent = '🍀';
+    container.appendChild(lucky);
+  }
+  if (inv.xpboost) {
+    const star = document.createElement('div');
+    star.className = 'pet-accessory xpboost';
+    star.textContent = '⭐';
+    container.appendChild(star);
+  }
+}
+
+/* ============================================================
+   ROOM DECORATIONS
+   ============================================================ */
+function renderRoomDecorations() {
+  if (!gameData) return;
+  const inv = gameData.inventory || {};
+  const container = $('roomDecorations');
+  if (!container) return;
+
+  const hash = ['decoration', 'lucky', 'xpboost', 'autoclean'].map(k => inv[k] ? '1' : '0').join('');
+  if (renderCache.decorationsHash === hash) return;
+  renderCache.decorationsHash = hash;
+
+  container.innerHTML = '';
+  if (inv.decoration) {
+    const d = document.createElement('div');
+    d.className = 'room-deco bow-deco';
+    d.textContent = '🎀';
+    container.appendChild(d);
+  }
+  if (inv.lucky) {
+    const d = document.createElement('div');
+    d.className = 'room-deco lucky-deco';
+    d.textContent = '🍀';
+    container.appendChild(d);
+  }
+  if (inv.xpboost) {
+    const d = document.createElement('div');
+    d.className = 'room-deco xpboost-deco';
+    d.textContent = '⭐';
+    container.appendChild(d);
+  }
+  if (inv.autoclean) {
+    const d = document.createElement('div');
+    d.className = 'room-deco autoclean-deco';
+    d.textContent = '✨';
+    container.appendChild(d);
+
+    for (let i = 0; i < 3; i++) {
+      const trail = document.createElement('div');
+      trail.className = 'room-deco spirit-trail';
+      trail.style.left = (8 + i * 2) + '%';
+      trail.style.bottom = (16 + i * 3) + '%';
+      trail.style.animationDelay = (i * 0.5) + 's';
+      container.appendChild(trail);
+    }
+  }
+}
+
+/* ============================================================
+   ROOM ITEMS (placed consumables)
+   ============================================================ */
+function renderRoomItems() {
+  if (!gameData) return;
+  const items = gameData.roomItems || {};
+  const container = $('roomItems');
+  if (!container) return;
+
+  const entries = Object.values(items).sort((a, b) => a.placedAt - b.placedAt);
+  const hash = entries.map(i => i.id).join(',');
+  if (renderCache.roomItemsHash === hash) return;
+  renderCache.roomItemsHash = hash;
+
+  container.innerHTML = '';
+  entries.forEach(item => {
+    const def = CONSUMABLE_DEFS[item.type];
+    if (!def) return;
+
+    const el = document.createElement('div');
+    el.className = 'room-item ' + def.placeClass;
+    el.dataset.id = item.id;
+    el.style.left = item.x + '%';
+    el.style.bottom = item.bottom + '%';
+    el.textContent = def.emoji;
+
+    const tooltip = document.createElement('div');
+    tooltip.className = 'item-tooltip';
+    tooltip.textContent = def.tooltip;
+    el.appendChild(tooltip);
+
+    el.addEventListener('click', (e) => {
+      e.stopPropagation();
+      useRoomItem(item.id);
+    });
+
+    container.appendChild(el);
+  });
+}
+
+/* ============================================================
+   PLACE CONSUMABLE INTO ROOM
+   ============================================================ */
+function placeRoomItem(type) {
+  if (!gameData) return null;
+  const def = CONSUMABLE_DEFS[type];
+  if (!def) return null;
+
+  const items = { ...(gameData.roomItems || {}) };
+  const existing = Object.values(items);
+
+  if (existing.length >= MAX_ROOM_ITEMS) return null;
+
+  const jitterX = (Math.random() * 14 - 7);
+  const jitterB = (Math.random() * 6 - 3);
+  const x = Math.max(8, Math.min(88, def.defaultX + jitterX));
+  const bottom = Math.max(6, Math.min(24, def.defaultBottom + jitterB));
+
+  const id = 'ri_' + Date.now() + '_' + Math.random().toString(36).slice(2, 6);
+  const newItem = { id, type, x, bottom, placedAt: Date.now(), placedBy: me };
+  items[id] = newItem;
+
+  return { items, newItem };
+}
+
+/* ============================================================
+   USE A PLACED ROOM ITEM
+   ============================================================ */
+async function useRoomItem(itemId) {
+  if (!gameData) return;
+  if (isAnimating) return showToast('Let Mochi finish 🌿');
+
+  const items = gameData.roomItems || {};
+  const item = items[itemId];
+  if (!item) return;
+
+  const def = CONSUMABLE_DEFS[item.type];
+  if (!def) return;
+
+  isAnimating = true;
+  document.querySelectorAll('.action-btn').forEach(b => b.disabled = true);
+
+  const pet = $('pet');
+  const targetX = item.x;
+
+  try {
+    pet.className = 'pet walking';
+    await movePetTo(Math.max(10, Math.min(85, targetX)), 1100);
+
+    const el = document.querySelector('.room-item[data-id="' + itemId + '"]');
+    if (el) el.classList.add('consuming');
+
+    if (item.type === 'treat') {
+      pet.className = 'pet happy eating';
+      showBubble(def.consumeBubble, def.consumeEmoji);
+      for (let i = 0; i < 3; i++) setTimeout(() => floatHearts(1), i * 350);
+    } else if (item.type === 'toy') {
+      pet.className = 'pet happy';
+      showBubble(def.consumeBubble, def.consumeEmoji);
+      floatHearts(6);
+    } else if (item.type === 'pillow') {
+      pet.className = 'pet sleeping';
+      showBubble(def.consumeBubble, def.consumeEmoji);
+      for (let i = 0; i < 3; i++) {
+        setTimeout(() => {
+          const z = document.createElement('div');
+          z.className = 'zzz';
+          z.textContent = 'Z';
+          z.style.left = targetX + '%';
+          z.style.bottom = '90px';
+          z.style.fontSize = (0.6 + i * 0.1) + 'rem';
+          $('petArea').appendChild(z);
+          setTimeout(() => z.remove(), 2500);
+        }, i * 550);
+      }
+    } else if (item.type === 'soap') {
+      pet.className = 'pet happy';
+      showBubble(def.consumeBubble, def.consumeEmoji);
+      for (let i = 0; i < 6; i++) {
+        setTimeout(() => {
+          const b = document.createElement('div');
+          b.className = 'bubble';
+          const size = 8 + Math.random() * 14;
+          b.style.width = size + 'px';
+          b.style.height = size + 'px';
+          b.style.left = (targetX - 15 + Math.random() * 30) + '%';
+          b.style.bottom = '70px';
+          b.style.setProperty('--wobble', (Math.random() * 16 - 8) + 'px');
+          $('petArea').appendChild(b);
+          setTimeout(() => b.remove(), 2000);
+        }, i * 150);
+      }
+    }
+
+    await new Promise(r => setTimeout(r, 1600));
+
+    pet.className = 'pet walking';
+    await movePetTo(50, 900);
+    pet.className = 'pet idle';
+
+    applyConsumableEffect(item, def);
+
+    // SAFE REMOVAL: remove only this specific item — do not overwrite the whole map
+    db.ref('tamagotchi/roomItems/' + itemId).remove();
+
+  } catch(e) {
+    console.error('Use room item error:', e);
+    pet.className = 'pet idle';
   }
 
-  function loadState() {
-    const saved = localStorage.getItem('mochi_room_save_' + state.pin);
-    if (saved) {
-      try {
-        const parsed = JSON.parse(saved);
-        state = { ...state, ...parsed };
-      } catch (e) {}
+  isAnimating = false;
+  document.querySelectorAll('.action-btn').forEach(b => b.disabled = false);
+  renderCache.petMood = '';
+  renderPet();
+  startAmbientLoop();
+}
+
+function applyConsumableEffect(item, def) {
+  if (!gameData) return;
+  const inv = gameData.inventory || {};
+  let xpMult = 1;
+  if (inv.decoration) xpMult += 0.05;
+  if (inv.xpboost) xpMult += 0.15;
+
+  const updates = {};
+  updates[def.stat] = Math.min(100, (gameData[def.stat] || 0) + def.amount);
+
+  const xpGain = Math.floor(3 * xpMult);
+  updates.xp = (gameData.xp || 0) + xpGain;
+  updates.lastUpdate = Date.now();
+
+  const entry = { by: me, text: `${def.consumeVerb} (from shop)`, time: Date.now() };
+  const key = 'diary/' + Date.now() + '_' + Math.random().toString(36).slice(2, 6);
+  updates[key] = entry;
+
+  const diary = gameData.diary || {};
+  const keys = Object.keys(diary).sort();
+  if (keys.length >= MAX_DIARY) {
+    keys.slice(0, keys.length - MAX_DIARY + 1).forEach(k => updates['diary/' + k] = null);
+  }
+
+  db.ref('tamagotchi').update(updates);
+  sfxGood();
+  showToast(def.consumeEmoji + ' ' + def.consumeVerb + '! +' + def.amount + ' ' + def.stat);
+}
+
+/* ============================================================
+   WANTS
+   ============================================================ */
+function checkWantGeneration() {
+  if (!gameData) return;
+  const now = Date.now();
+  const cw = gameData.currentWant;
+  if (!cw || (now - cw.createdAt) > WANT_DURATION_MS) {
+    if (Math.random() < 0.7) {
+      const w = WANTS[Math.floor(Math.random() * WANTS.length)];
+      db.ref('tamagotchi/currentWant').set({ ...w, createdAt: now, id: w.id + '_' + now });
     } else {
-      addDiaryEntry('Welcome to Mochi\'s new home!');
-      unlockAchievement('first_login');
-      addAlbumEntry('egg', 'Mochi arrived as a tiny egg!');
-    }
-
-    const today = new Date().toDateString();
-    if (state.lastActiveDate !== today) {
-      if (state.lastActiveDate) {
-        const prev = new Date(state.lastActiveDate);
-        const curr = new Date();
-        const diffDays = Math.floor((curr - prev) / (1000 * 60 * 60 * 24));
-        if (diffDays === 1) state.streak++;
-        else if (diffDays > 1) state.streak = 1;
-        state.days++;
-      }
-      state.lastActiveDate = today;
-    }
-    saveState();
-  }
-
-  function saveState() {
-    if (state.pin) {
-      localStorage.setItem('mochi_room_save_' + state.pin, JSON.stringify(state));
+      db.ref('tamagotchi/currentWant').set({ content: true, createdAt: now, id: 'content_' + now });
     }
   }
+}
 
-  function initGame() {
-    pinScreen.style.display = 'none';
-    gameScreen.style.display = 'block';
-
-    whoAmI.textContent = state.role === 'koy' ? '🌿 KOY' : '🌸 METZ';
-    updateUI();
-    renderDecorations();
-    renderPlacedItems();
-    renderRooms();
-    renderShop();
-    renderNotes();
-    renderAchievements();
-    renderAlbum();
-    renderDiary();
-
-    if (state.streak >= 3) unlockAchievement('streak_3');
-
-    startLoop();
+function renderWantBubble() {
+  if (!gameData) return;
+  const want = gameData.currentWant;
+  const bubble = $('wantBubble');
+  if (want && !want.content) {
+    bubble.style.display = 'block';
+    bubble.textContent = want.emoji + ' Mochi ' + want.text;
+    document.querySelectorAll('.action-btn').forEach(b => {
+      b.classList.toggle('want-highlight', b.dataset.action === want.action);
+    });
+  } else {
+    bubble.style.display = 'none';
+    document.querySelectorAll('.action-btn').forEach(b => b.classList.remove('want-highlight'));
   }
+}
 
-  /* ============ GAME LOOP ============ */
-  function startLoop() {
-    setInterval(() => {
-      if (!state.isSleeping) {
-        state.hunger = Math.max(0, state.hunger - 0.5);
-        state.energy = Math.max(0, state.energy - 0.3);
-        state.happy = Math.max(0, state.happy - 0.4);
-
-        let cleanDecay = 0.3;
-        if (state.inventory.includes('autoclean')) cleanDecay = 0.15;
-        state.clean = Math.max(0, state.clean - cleanDecay);
-
-        if (Math.random() < 0.02 && state.poopsInRoom < 3) {
-          spawnPoop();
-        }
-      } else {
-        state.energy = Math.min(100, state.energy + 2);
-        if (state.energy >= 100) {
-          wakeUp();
-        }
-      }
-
-      state.wantTimer++;
-      if (state.wantTimer > 30) {
-        state.wantTimer = 0;
-        triggerRandomWant();
-      }
-
-      updateUI();
-      saveState();
-    }, 3000);
-
-    setInterval(() => {
-      if (!state.isSleeping && Math.random() < 0.4) {
-        wanderPet();
-      }
-    }, 4000);
+/* ============================================================
+   ACHIEVEMENTS
+   ============================================================ */
+function checkAchievements() {
+  if (!gameData) return;
+  const unlocked = gameData.achievements || {};
+  const newUnlocks = [];
+  ACHIEVEMENTS.forEach(ach => {
+    if (!unlocked[ach.id] && ach.check(gameData)) newUnlocks.push(ach);
+  });
+  if (newUnlocks.length > 0) {
+    const updates = {};
+    newUnlocks.forEach(a => { updates['achievements/' + a.id] = Date.now(); });
+    db.ref('tamagotchi').update(updates);
+    newUnlocks.forEach((a, i) => setTimeout(() => showAchievementPopup(a), i * 2800));
   }
+}
 
-  /* ============ UI UPDATES ============ */
-  function updateUI() {
-    streakCount.textContent = state.streak;
-    if (state.streak >= 3) streakBox.classList.add('hot');
-    coinCount.textContent = state.coins;
-    daysCount.textContent = state.days;
+function showAchievementPopup(ach) {
+  sfxGood();
+  const popup = document.createElement('div');
+  popup.className = 'ach-popup';
+  popup.innerHTML = `
+    <div class="ach-popup-icon">${ach.emoji}</div>
+    <div class="ach-popup-title">🏆 ACHIEVEMENT UNLOCKED</div>
+    <div class="ach-popup-name">${ach.name}</div>
+    <div class="ach-popup-desc">${ach.desc}</div>
+  `;
+  document.body.appendChild(popup);
+  spawnConfetti(16);
+  setTimeout(() => popup.remove(), 2700);
+}
 
-    const currentStage = getStage();
-    pet.dataset.stage = currentStage;
-    petStageBadge.textContent = STAGE_NAMES[currentStage];
-    petLevel.textContent = state.level;
-
-    const nextXP = getNextXP();
-    const pct = Math.min(100, (state.xp / nextXP) * 100);
-    xpFill.style.width = pct + '%';
-    xpText.textContent = `${state.xp}/${nextXP} XP`;
-
-    updateStatBar(hungerBar, hungerVal, state.hunger);
-    updateStatBar(energyBar, energyVal, state.energy);
-    updateStatBar(happyBar, happyVal, state.happy);
-    updateStatBar(cleanBar, cleanVal, state.clean);
-
-    updatePetAppearance();
-    renderAccessories();
-  }
-
-  function updateStatBar(bar, valText, value) {
-    const v = Math.round(value);
-    valText.textContent = v + '%';
-    bar.style.width = v + '%';
-
-    bar.className = 'stat-bar-fill';
-    if (v > 60) bar.classList.add('good');
-    else if (v > 30) bar.classList.add('medium');
-    else if (v > 10) bar.classList.add('low');
-    else bar.classList.add('critical');
-
-    const parentStat = bar.closest('.stat');
-    if (v <= 25) parentStat.classList.add('warning');
-    else parentStat.classList.remove('warning');
-  }
-
-  function getStage() {
-    if (state.level < 2) return 'egg';
-    if (state.level < 4) return 'hatchling';
-    if (state.level < 6) return 'sprout';
-    if (state.level < 8) return 'sapling';
-    if (state.level < 10) return 'bloom';
-    if (state.level < 12) return 'guardian';
-    if (state.level < 15) return 'mystic';
-    return 'eternal';
-  }
-
-  function getNextXP() {
-    return state.level * 50;
-  }
-
-  function addXP(amount) {
-    let boost = 1;
-    if (state.inventory.includes('xpboost')) boost = 1.25;
-    const gain = Math.round(amount * boost);
-
-    state.xp += gain;
-    showToast(`+${gain} XP!`);
-
-    while (state.xp >= getNextXP()) {
-      state.xp -= getNextXP();
-      state.level++;
-      levelUp();
-    }
-  }
-
-  function levelUp() {
-    petStageBadge.classList.add('level-up');
-    setTimeout(() => petStageBadge.classList.remove('level-up'), 1000);
-
-    const newStage = getStage();
-    addDiaryEntry(`Reached Level ${state.level}! (${STAGE_NAMES[newStage]})`);
-
-    if (state.level === 2) unlockAchievement('hatch');
-    if (state.level === 5) unlockAchievement('level_5');
-
-    addAlbumEntry(newStage, `Mochi grew into a ${STAGE_NAMES[newStage]} at Level ${state.level}!`);
-    showLevelUpOverlay();
-    spawnConfetti();
-  }
-
-  function showLevelUpOverlay() {
-    const overlay = document.createElement('div');
-    overlay.className = 'levelup-overlay';
-    overlay.innerHTML = `
-      <div class="levelup-badge">
-        🎉 LEVEL UP! 🎉<br>
-        <span style="font-size:1.2rem;">LEVEL ${state.level}</span><br>
-        ${STAGE_NAMES[getStage()]}
+function renderAchievements() {
+  if (!gameData) return;
+  const unlocked = gameData.achievements || {};
+  const count = Object.keys(unlocked).length;
+  $('achHeader').textContent = `🏆 ACHIEVEMENTS (${count}/${ACHIEVEMENTS.length})`;
+  const grid = $('achGrid');
+  grid.innerHTML = '';
+  ACHIEVEMENTS.forEach(ach => {
+    const isUnlocked = !!unlocked[ach.id];
+    const card = document.createElement('div');
+    card.className = 'ach-card' + (isUnlocked ? ' unlocked' : '');
+    card.innerHTML = `
+      <div class="ach-icon">${ach.emoji}</div>
+      <div class="ach-info">
+        <div class="ach-name">${ach.name}</div>
+        <div class="ach-desc">${isUnlocked ? ach.desc : '???'}</div>
       </div>
     `;
-    document.body.appendChild(overlay);
-    setTimeout(() => overlay.remove(), 2000);
-  }
-
-  /* ============ PET ANIMATIONS & BEHAVIOR ============ */
-  function updatePetAppearance() {
-    if (state.isSleeping) {
-      pet.className = 'pet sleeping';
-      return;
-    }
-
-    const isSad = state.hunger < 25 || state.happy < 25 || state.clean < 25;
-    if (isSad) {
-      pet.className = 'pet sad';
-    } else if (state.happy > 85) {
-      pet.className = 'pet happy';
-    } else {
-      pet.className = 'pet idle';
-    }
-  }
-
-  function wanderPet() {
-    if (state.isSleeping) return;
-    const roomWidth = roomEl.clientWidth;
-    const targetX = Math.floor(Math.random() * (roomWidth - 100)) + 50;
-    const leftPct = (targetX / roomWidth) * 100;
-
-    pet.classList.remove('idle', 'happy', 'sad');
-    pet.classList.add('walking');
-
-    pet.style.left = leftPct + '%';
-    petShadow.style.left = leftPct + '%';
-
-    createDustPuff();
-
-    setTimeout(() => {
-      pet.classList.remove('walking');
-      updatePetAppearance();
-    }, 1500);
-  }
-
-  function createDustPuff() {
-    const puff = document.createElement('div');
-    puff.className = 'dust-puff';
-    puff.style.left = pet.style.left;
-    puff.style.bottom = '12%';
-    roomEl.appendChild(puff);
-    setTimeout(() => puff.remove(), 500);
-  }
-
-  /* ============ ACTIONS ============ */
-  btnFeed.addEventListener('click', () => {
-    if (state.isSleeping) return;
-    if (state.hunger >= 100) { showToast('Mochi is full!'); return; }
-
-    state.hunger = Math.min(100, state.hunger + 35);
-    addXP(10);
-    addCoins(5);
-    showHeart('🍎');
-    addDiaryEntry('Fed Mochi a delicious meal');
-
-    pet.classList.add('eating');
-    setTimeout(() => pet.classList.remove('eating'), 1200);
-
-    clearWant('feed');
+    grid.appendChild(card);
   });
+}
 
-  btnSleep.addEventListener('click', () => {
-    if (state.isSleeping) {
-      wakeUp();
-    } else {
-      if (state.energy >= 90) { showToast('Mochi isn\'t tired!'); return; }
-      startSleep();
-    }
+/* ============================================================
+   NOTES
+   ============================================================ */
+function checkUnreadNotes() {
+  if (!gameData) return;
+  const notes = gameData.notes || {};
+  const count = Object.keys(notes).length;
+  if (count > lastCheckedNoteCount && lastCheckedNoteCount !== 0) {
+    const other = me === 'koy' ? 'metz' : 'koy';
+    const hasNew = Object.values(notes).some(n => n.by === other && n.time > lastCheckedNotesTime);
+    if (hasNew && currentView !== 'notes') noteUnread = true;
+  }
+  lastCheckedNoteCount = count;
+  lastCheckedNotesTime = Date.now();
+}
+
+function updateNotesBadge() {
+  $('notesBadge').style.display = noteUnread ? 'inline-block' : 'none';
+}
+
+function renderNotes() {
+  if (!gameData) return;
+  const notes = gameData.notes || {};
+  const wall = $('notesWall');
+  const entries = Object.values(notes).sort((a, b) => b.time - a.time);
+  const hash = entries.map(n => n.key).join(',');
+  if (renderCache.notesHash === hash) return;
+  renderCache.notesHash = hash;
+
+  wall.innerHTML = '';
+  if (entries.length === 0) {
+    wall.innerHTML = '<div style="grid-column: 1 / -1; text-align: center; color: #A89080; padding: 20px; font-size: 0.8rem;">No notes yet. Leave something sweet for each other! 💌</div>';
+    return;
+  }
+  entries.forEach(note => {
+    const div = document.createElement('div');
+    div.className = 'sticky-note by-' + note.by;
+    const sender = note.by === 'koy' ? '🌿 Koy' : '🌸 Metz';
+    const time = new Date(note.time).toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+    div.innerHTML = `
+      <button class="note-delete" data-key="${note.key}">×</button>
+      <span class="note-sender">${sender}</span>
+      ${escapeHtml(note.text)}
+      <span class="note-time">${time}</span>
+    `;
+    wall.appendChild(div);
   });
-
-  function startSleep() {
-    state.isSleeping = true;
-    roomEl.classList.add('room-night-tint');
-
-    // Move pet right onto the 3D Bed structure!
-    pet.style.left = '22%';
-    petShadow.style.left = '22%';
-    pet.className = 'pet sleeping';
-
-    btnSleep.querySelector('.label').textContent = 'WAKE';
-    btnSleep.querySelector('.emoji').textContent = '☀️';
-
-    addDiaryEntry('Tucked Mochi into bed');
-    clearWant('sleep');
-
-    const zzzInterval = setInterval(() => {
-      if (!state.isSleeping) { clearInterval(zzzInterval); return; }
-      const z = document.createElement('div');
-      z.className = 'zzz';
-      z.textContent = 'Z';
-      z.style.left = '22%';
-      z.style.bottom = '35%';
-      roomEl.appendChild(z);
-      setTimeout(() => z.remove(), 2500);
-    }, 1200);
-  }
-
-  function wakeUp() {
-    state.isSleeping = false;
-    roomEl.classList.remove('room-night-tint');
-
-    btnSleep.querySelector('.label').textContent = 'SLEEP';
-    btnSleep.querySelector('.emoji').textContent = '😴';
-
-    addXP(15);
-    addDiaryEntry('Mochi woke up refreshed!');
-    updatePetAppearance();
-  }
-
-  btnPlay.addEventListener('click', () => {
-    if (state.isSleeping) return;
-    if (state.energy < 15) { showToast('Mochi is too tired to play!'); return; }
-
-    state.happy = Math.min(100, state.happy + 30);
-    state.energy = Math.max(0, state.energy - 10);
-    addXP(12);
-    addCoins(8);
-    showHeart('⚽');
-    addDiaryEntry('Played ball with Mochi');
-
-    pet.classList.add('hopping');
-    setTimeout(() => pet.classList.remove('hopping'), 1200);
-
-    clearWant('play');
-  });
-
-  btnClean.addEventListener('click', () => {
-    if (state.isSleeping) return;
-
-    if (state.poopsInRoom > 0) {
-      const poops = roomEl.querySelectorAll('.poop');
-      poops.forEach(p => p.remove());
-      state.poopCount += state.poopsInRoom;
-      state.poopsInRoom = 0;
-
-      if (state.poopCount >= 5) unlockAchievement('all_clean');
-    }
-
-    state.clean = 100;
-    addXP(10);
-    addCoins(5);
-    showHeart('🧼');
-    addDiaryEntry('Cleaned Mochi and the room');
-
-    pet.classList.add('sniffing');
-    setTimeout(() => pet.classList.remove('sniffing'), 1200);
-
-    clearWant('clean');
-  });
-
-  btnPet.addEventListener('click', () => {
-    if (state.isSleeping) return;
-
-    state.happy = Math.min(100, state.happy + 15);
-    addXP(5);
-    showHeart('💖');
-
-    pet.classList.add('happy');
-    setTimeout(() => pet.classList.remove('happy'), 1000);
-  });
-
-  btnGame.addEventListener('click', startMinigame);
-
-  /* ============ WANTS SYSTEM ============ */
-  function triggerRandomWant() {
-    if (state.isSleeping || state.wantAction) return;
-
-    const possible = [];
-    if (state.hunger < 60) possible.push({ action: 'feed', text: 'Hungry! 🍎', btn: btnFeed });
-    if (state.energy < 50) possible.push({ action: 'sleep', text: 'Tired... 😴', btn: btnSleep });
-    if (state.happy < 60) possible.push({ action: 'play', text: 'Bored! 🎾', btn: btnPlay });
-    if (state.clean < 50) possible.push({ action: 'clean', text: 'Yucky! 🧼', btn: btnClean });
-
-    if (possible.length === 0) return;
-
-    const chosen = possible[Math.floor(Math.random() * possible.length)];
-    state.wantAction = chosen.action;
-
-    wantBubble.textContent = chosen.text;
-    wantBubble.style.display = 'block';
-    chosen.btn.classList.add('want-highlight');
-  }
-
-  function clearWant(action) {
-    if (state.wantAction === action) {
-      state.wantAction = null;
-      wantBubble.style.display = 'none';
-
-      document.querySelectorAll('.action-btn').forEach(b => b.classList.remove('want-highlight'));
-      addXP(10);
-      addCoins(10);
-      showToast('Satisfied Mochi\'s wish! +10🪙');
-    }
-  }
-
-  wantBubble.addEventListener('click', () => {
-    if (!state.wantAction) return;
-    if (state.wantAction === 'feed') btnFeed.click();
-    else if (state.wantAction === 'sleep') btnSleep.click();
-    else if (state.wantAction === 'play') btnPlay.click();
-    else if (state.wantAction === 'clean') btnClean.click();
-  });
-
-  /* ============ POOP SPAWNING ============ */
-  function spawnPoop() {
-    state.poopsInRoom++;
-    const poop = document.createElement('div');
-    poop.className = 'poop';
-    poop.textContent = '💩';
-
-    const randomX = Math.floor(Math.random() * 70) + 15;
-    poop.style.left = randomX + '%';
-    roomEl.appendChild(poop);
-  }
-
-  /* ============ VISUAL EFFECTS ============ */
-  function showHeart(symbol = '💖') {
-    const h = document.createElement('div');
-    h.className = 'heart-float';
-    h.textContent = symbol;
-    h.style.left = pet.style.left;
-    h.style.bottom = '25%';
-    h.style.setProperty('--drift', (Math.random() * 40 - 20) + 'px');
-    h.style.setProperty('--spin', (Math.random() * 30 - 15) + 'deg');
-    roomEl.appendChild(h);
-    setTimeout(() => h.remove(), 1500);
-  }
-
-  function showToast(msg) {
-    toast.textContent = msg;
-    toast.classList.add('show');
-    setTimeout(() => toast.classList.remove('show'), 2500);
-  }
-
-  function spawnConfetti() {
-    const colors = ['#F4D9C8', '#8FB87D', '#F0D888', '#E8B8D0', '#A8C8E8'];
-    for (let i = 0; i < 30; i++) {
-      const p = document.createElement('div');
-      p.className = 'confetti-piece';
-      p.style.background = colors[Math.floor(Math.random() * colors.length)];
-      p.style.left = Math.random() * 100 + 'vw';
-      p.style.top = '-10px';
-      p.style.setProperty('--cx', (Math.random() * 200 - 100) + 'px');
-      p.style.setProperty('--cy', (Math.innerHeight + 50) + 'px');
-      p.style.setProperty('--cr', (Math.random() * 720) + 'deg');
-      p.style.animationDuration = (Math.random() * 1.5 + 1.5) + 's';
-      document.body.appendChild(p);
-      setTimeout(() => p.remove(), 3000);
-    }
-  }
-
-  /* ============ NAV TABS ============ */
-  navTabs.forEach(tab => {
-    tab.addEventListener('click', () => {
-      const targetView = tab.dataset.view;
-
-      navTabs.forEach(t => t.classList.remove('active'));
-      views.forEach(v => v.classList.remove('active'));
-
-      tab.classList.add('active');
-      document.getElementById('view-' + targetView).classList.add('active');
-
-      if (targetView === 'notes') {
-        notesBadge.style.display = 'none';
-      }
+  wall.querySelectorAll('.note-delete').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      if (confirm('Delete this note?')) db.ref('tamagotchi/notes/' + btn.dataset.key).remove();
     });
   });
+}
 
-  /* ============ ROOM SWITCHING ============ */
-  function renderRooms() {
-    roomsGrid.innerHTML = '';
-    Object.values(ROOMS).forEach(r => {
-      const card = document.createElement('div');
-      const unlocked = state.level >= r.reqLvl;
-      const active = state.currentRoom === r.id;
+function escapeHtml(s) {
+  return String(s).replace(/[&<>"']/g, c => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' })[c]);
+}
 
-      card.className = `room-card ${unlocked ? 'unlocked' : 'locked'} ${active ? 'active' : ''}`;
-      card.innerHTML = `
-        <div class="room-emoji">${r.emoji}</div>
-        <div class="room-name">${r.name}</div>
-        <div class="room-req">${unlocked ? (active ? 'CURRENT' : 'TAP TO ENTER') : `LVL ${r.reqLvl}`}</div>
-      `;
+$('noteSendBtn').addEventListener('click', sendNote);
+$('noteInput').addEventListener('keydown', (e) => { if (e.key === 'Enter') sendNote(); });
 
-      if (unlocked) {
-        card.addEventListener('click', () => switchRoom(r.id));
-      }
-      roomsGrid.appendChild(card);
+function sendNote() {
+  const text = $('noteInput').value.trim();
+  if (!text) return showToast('Write something first 💌');
+  const key = 'note_' + Date.now() + '_' + Math.random().toString(36).slice(2, 6);
+  db.ref('tamagotchi/notes/' + key).set({ by: me, text, time: Date.now(), key });
+  $('noteInput').value = '';
+  sfxGood();
+  showToast('Note pinned! 💌');
+}
+
+/* ============================================================
+   ALBUM
+   ============================================================ */
+function addAlbumEntry(level) {
+  if (!gameData) return;
+  const stage = STAGES.reduce((acc, s) => (level >= s.level ? s : acc), STAGES[0]);
+  const entry = {
+    level, emoji: stage.emoji, stageName: stage.name,
+    date: Date.now(), id: 'album_' + level + '_' + Date.now()
+  };
+  const album = [...(gameData.album || [])];
+  if (!album.some(a => a.level === level)) {
+    album.push(entry);
+    db.ref('tamagotchi/album').set(album);
+  }
+}
+
+function renderAlbum() {
+  if (!gameData) return;
+  const album = [...(gameData.album || [])];
+  const grid = $('albumGrid');
+  grid.innerHTML = '';
+  if (album.length === 0) {
+    grid.innerHTML = '<div style="grid-column: 1 / -1; text-align: center; color: #A89080; padding: 20px; font-size: 0.8rem;">Mochi\'s album will appear here as you level up! 📸</div>';
+    return;
+  }
+  album.sort((a, b) => b.level - a.level).forEach(entry => {
+    const card = document.createElement('div');
+    card.className = 'album-card';
+    const dateStr = new Date(entry.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+    card.innerHTML = `
+      <div class="album-emoji">${entry.emoji}</div>
+      <div class="album-level">LV ${entry.level}</div>
+      <div class="album-date">${dateStr}</div>
+      <div class="album-note">${entry.stageName}</div>
+    `;
+    grid.appendChild(card);
+  });
+}
+
+/* ============================================================
+   ROOMS GRID
+   ============================================================ */
+function renderRooms() {
+  if (!gameData) return;
+  const grid = $('roomsGrid');
+  grid.innerHTML = '';
+  const level = gameData.level || 1;
+  ROOMS.forEach(room => {
+    const unlocked = level >= room.reqLevel;
+    const isActive = room.id === currentRoomId;
+    const card = document.createElement('div');
+    card.className = 'room-card' + (unlocked ? ' unlocked' : ' locked') + (isActive ? ' active' : '');
+    card.innerHTML = `
+      <div class="room-emoji">${room.emoji}</div>
+      <div class="room-name">${room.name}</div>
+      <div class="room-req">${unlocked ? (isActive ? 'Currently here' : 'Tap to visit') : 'Unlock at Lv ' + room.reqLevel}</div>
+    `;
+    if (unlocked) {
+      card.addEventListener('click', () => {
+        sfxClick();
+        currentRoomId = room.id;
+        applyRoom(true);
+        renderRooms();
+        showToast('Mochi is now in the ' + room.name.toLowerCase() + '!');
+      });
+    }
+    grid.appendChild(card);
+  });
+}
+
+/* ============================================================
+   SHOP
+   ============================================================ */
+function renderShop() {
+  if (!gameData) return;
+  const grid = $('shopGrid');
+  if (!grid) return;
+
+  const inv = gameData.inventory || {};
+  const coins = gameData.coins || 0;
+  const roomItems = gameData.roomItems || {};
+  const placedCounts = {};
+  Object.values(roomItems).forEach(it => {
+    placedCounts[it.type] = (placedCounts[it.type] || 0) + 1;
+  });
+
+  const roomFull = Object.keys(roomItems).length >= MAX_ROOM_ITEMS;
+  const hash = coins + '|' + JSON.stringify(inv) + '|' + JSON.stringify(placedCounts) + '|' + roomFull;
+  if (renderCache.shopHash === hash) return;
+  renderCache.shopHash = hash;
+
+  grid.innerHTML = '';
+
+  SHOP_ITEMS.forEach(item => {
+    const owned = !item.consumable && inv[item.id];
+    const canAfford = coins >= item.cost;
+    const placed = item.consumable ? (placedCounts[item.id] || 0) : 0;
+    const disabled = !canAfford || owned || (item.consumable && roomFull);
+
+    const card = document.createElement('div');
+    card.className = 'shop-card' + (owned ? ' owned' : '');
+    card.innerHTML = `
+      <div class="shop-emoji">${item.emoji}</div>
+      <div class="shop-name">${item.name}</div>
+      <div class="shop-desc">${item.desc}</div>
+      ${owned ? '<div class="owned-tag">IN USE</div>' : ''}
+      ${placed > 0 ? '<div class="place-count">' + placed + ' IN ROOM</div>' : ''}
+      <button class="shop-buy" data-id="${item.id}" ${disabled ? 'disabled' : ''}>
+        ${owned ? '✓ OWNED' : '🪙 ' + item.cost}
+      </button>
+    `;
+    grid.appendChild(card);
+  });
+
+  grid.querySelectorAll('.shop-buy').forEach(btn => {
+    btn.addEventListener('click', () => buyItem(btn.dataset.id));
+  });
+}
+
+/* ============================================================
+   BUY ITEM — single atomic update for consumables
+   ============================================================ */
+function buyItem(id) {
+  if (!gameData) return;
+  const item = SHOP_ITEMS.find(i => i.id === id);
+  if (!item) return;
+  const coins = gameData.coins || 0;
+  if (coins < item.cost) return showToast('Not enough coins 🪙');
+
+  if (item.consumable) {
+    const placed = placeRoomItem(item.id);
+    if (!placed) {
+      return showToast('Room is full! Use items first 🌿');
+    }
+
+    // Single atomic update: deduct coins + write entire roomItems map
+    // (Because we now hold the freshly-merged map locally, no race with our own writes)
+    const updates = {
+      coins: coins - item.cost,
+      roomItems: placed.items
+    };
+    db.ref('tamagotchi').update(updates);
+
+    showToast(item.emoji + ' ' + item.name + ' placed in room! Tap it!');
+    sfxGood();
+    spawnConfetti(6);
+
+  } else {
+    const inv = { ...(gameData.inventory || {}) };
+    inv[id] = true;
+    db.ref('tamagotchi').update({
+      coins: coins - item.cost,
+      inventory: inv
+    });
+    showToast(item.emoji + ' ' + item.name + ' purchased!');
+    renderCache.decorationsHash = '';
+    renderCache.accessoriesHash = '';
+    setTimeout(() => {
+      renderRoomDecorations();
+      renderPetAccessories();
+    }, 100);
+    sfxGood();
+    spawnConfetti(8);
+  }
+
+  // Force shop re-render locally (will also happen via Firebase listener)
+  renderCache.shopHash = '';
+  renderShop();
+}
+
+/* ============================================================
+   RENDER PET
+   ============================================================ */
+function renderPet(prev = {}) {
+  if (!gameData) return;
+  const stage = currentStage();
+  const pet = $('pet');
+
+  if (renderCache.stage !== stage.key) {
+    pet.dataset.stage = stage.key;
+    $('petStageBadge').textContent = stage.name;
+    renderCache.stage = stage.key;
+  }
+
+  if (renderCache.petName !== gameData.name) {
+    $('petName').textContent = gameData.name || 'Mochi';
+    renderCache.petName = gameData.name;
+  }
+
+  if (!ambientPlaying && !isAnimating) {
+    const avg = (gameData.hunger + gameData.happy + gameData.energy + gameData.clean) / 4;
+    let mood = 'idle';
+    if (avg < 30) mood = 'sad';
+    else if (avg > 75) mood = 'happy';
+    if (isNightTime()) mood = 'sleeping';
+
+    if (renderCache.petMood !== mood) {
+      pet.className = 'pet ' + mood;
+      renderCache.petMood = mood;
+    }
+  }
+
+  const shadow = $('petShadow');
+  if (shadow) {
+    shadow.style.left = pet.style.left || '50%';
+    shadow.style.opacity = pet.classList.contains('sleeping') ? '0.5' : '1';
+  }
+
+  renderPoops();
+  renderNeedIndicator();
+  setStat('hunger', gameData.hunger);
+  setStat('happy', gameData.happy);
+  setStat('energy', gameData.energy);
+  setStat('clean', gameData.clean);
+}
+
+function renderNeedIndicator() {
+  const pet = $('pet');
+  const old = pet.querySelector('.need-indicator');
+  if (old) old.remove();
+  if (!gameData) return;
+
+  const needs = [
+    { v: gameData.hunger, emoji: '🍚' },
+    { v: gameData.happy, emoji: '😢' },
+    { v: gameData.energy, emoji: '💤' },
+    { v: gameData.clean, emoji: '💧' }
+  ];
+  const worst = needs.reduce((a, b) => a.v < b.v ? a : b);
+  if (worst.v < 30) {
+    const ind = document.createElement('div');
+    ind.className = 'need-indicator';
+    ind.textContent = worst.emoji;
+    pet.appendChild(ind);
+  }
+}
+
+function renderPoops() {
+  if (!gameData) return;
+  const count = gameData.poops || 0;
+  if (renderCache.poops === count) return;
+  renderCache.poops = count;
+  const area = $('petArea');
+  area.querySelectorAll('.poop').forEach(p => p.remove());
+  for (let i = 0; i < Math.min(count, 3); i++) {
+    const p = document.createElement('div');
+    p.className = 'poop';
+    p.textContent = '💩';
+    p.style.left = (20 + i * 20) + '%';
+    area.appendChild(p);
+  }
+}
+
+function setStat(name, val) {
+  val = Math.max(0, Math.round(val));
+  if (lastRenderStats[name] === val) return;
+  lastRenderStats[name] = val;
+  $(name + 'Val').textContent = val;
+  const bar = $(name + 'Bar');
+  bar.style.width = val + '%';
+  let cls = 'good';
+  if (val < 20) cls = 'critical';
+  else if (val < 40) cls = 'low';
+  else if (val < 65) cls = 'medium';
+  bar.className = 'stat-bar-fill ' + cls;
+}
+
+function updateStatWarnings() {
+  if (!gameData) return;
+  ['hunger', 'happy', 'energy', 'clean'].forEach(s => {
+    const el = $('stat-' + s);
+    if (el) el.classList.toggle('warning', gameData[s] < 30);
+  });
+}
+
+function renderDiary() {
+  if (!gameData) return;
+  const diary = gameData.diary || {};
+  const entries = Object.values(diary).sort((a, b) => b.time - a.time).slice(0, MAX_DIARY);
+  const hash = entries.map(e => e.time).join(',');
+  if (renderCache.diaryHash === hash) return;
+  renderCache.diaryHash = hash;
+
+  const scroll = $('diaryScroll');
+  scroll.innerHTML = '';
+  if (entries.length === 0) {
+    scroll.innerHTML = '<div style="text-align:center; color:#C9B0A0; font-size:0.7rem; padding:8px;">Nothing yet! 🌿</div>';
+  } else {
+    entries.forEach(e => {
+      const div = document.createElement('div');
+      div.className = 'diary-entry by-' + e.by;
+      const t = new Date(e.time);
+      const timeStr = t.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
+      const who = e.by === 'koy' ? '🌿 Koy' : '🌸 Metz';
+      div.innerHTML = `<span class="time">${timeStr}</span>${who} ${e.text}`;
+      scroll.appendChild(div);
     });
   }
+  $('diaryCount').textContent = entries.length;
+}
 
-  function switchRoom(roomId) {
-    if (state.currentRoom === roomId) return;
-
-    roomEl.classList.add('room-fading');
-    setTimeout(() => {
-      roomEl.className = `room ${roomId} ${state.isSleeping ? 'room-night-tint' : ''}`;
-      state.currentRoom = roomId;
-
-      const r = ROOMS[roomId];
-      roomBadge.textContent = `${r.emoji} ${r.name.toUpperCase()}`;
-
-      renderRooms();
-      renderDecorations();
-      renderPlacedItems();
-      saveState();
-
-      roomEl.classList.remove('room-fading');
-    }, 350);
+function updateStreakAndDays() {
+  if (!gameData) return;
+  const days = Math.floor((Date.now() - gameData.createdAt) / 86400000) + 1;
+  if (renderCache.daysCount !== days) {
+    $('daysCount').textContent = days;
+    renderCache.daysCount = days;
   }
+  const streak = gameData.streak || 0;
+  if (renderCache.streakCount !== streak) {
+    $('streakCount').textContent = streak;
+    renderCache.streakCount = streak;
+    $('streakBox').classList.toggle('hot', streak >= 3);
+  }
+}
 
-  /* ============ SHOP & INVENTORY ============ */
-  function renderShop() {
-    shopGrid.innerHTML = '';
-    Object.values(ITEMS).forEach(item => {
-      const isOwned = state.inventory.includes(item.id);
-      const isPlaced = state.placedItems.some(i => i.id === item.id);
-      const canAfford = state.coins >= item.price;
+function renderCoins() {
+  if (!gameData) return;
+  const c = gameData.coins || 0;
+  if (renderCache.coinCount !== c) {
+    $('coinCount').textContent = c;
+    renderCache.coinCount = c;
+  }
+}
 
-      const card = document.createElement('div');
-      card.className = `shop-card ${isOwned ? 'owned' : ''}`;
+function renderXPBar() {
+  if (!gameData) return;
+  const lvl = gameData.level || 1;
+  let xp = gameData.xp || 0;
+  let l = 1;
+  while (l < lvl) { xp -= xpForLevel(l); l++; }
+  const need = xpForLevel(lvl);
+  const pct = Math.min(100, (xp / need) * 100);
+  $('levelNum').textContent = lvl;
+  $('xpFill').style.width = pct + '%';
+  $('xpText').textContent = Math.floor(xp) + '/' + need;
+}
 
-      let actionBtnText = `🪙 ${item.price}`;
-      let disabled = !canAfford;
+function renderPresence() {
+  if (!gameData) return;
+  const other = me === 'koy' ? 'metz' : 'koy';
+  const otherName = other === 'koy' ? 'Koy' : 'Metz';
+  const otherSeen = gameData[other === 'koy' ? 'koyLastSeen' : 'metzLastSeen'] || 0;
+  const diffMin = (Date.now() - otherSeen) / 60000;
+  let dot = '<span class="presence-dot"></span>';
+  let label = 'offline';
+  if (diffMin < 2) { dot = '<span class="presence-dot online"></span>'; label = 'online now'; }
+  else if (diffMin < 60) label = `${Math.floor(diffMin)}m ago`;
+  else if (diffMin < 1440) label = `${Math.floor(diffMin/60)}h ago`;
+  else label = `${Math.floor(diffMin/1440)}d ago`;
+  $('presenceFooter').innerHTML = `${dot} ${otherName} ${label} · Made with care for Mochi 🌿`;
+}
 
-      if (isOwned) {
-        if (item.type === 'consumable' || item.type === 'decor') {
-          actionBtnText = 'PLACE';
-          disabled = false;
-        } else {
-          actionBtnText = 'OWNED';
-          disabled = true;
+function checkStreak() {
+  if (!gameData) return;
+  const today = new Date().toISOString().slice(0, 10);
+  const last = gameData.lastStreakDate || '';
+  if (last === today) return;
+  const yest = new Date(Date.now() - 86400000).toISOString().slice(0, 10);
+  const newStreak = (last === yest) ? (gameData.streak || 0) + 1 : 1;
+  gameData.streak = newStreak;
+  gameData.lastStreakDate = today;
+  db.ref('tamagotchi').update({ streak: newStreak, lastStreakDate: today });
+}
+
+/* ============================================================
+   ANIMATION
+   ============================================================ */
+function movePetTo(percent, duration) {
+  return new Promise(resolve => {
+    const pet = $('pet');
+    const shadow = $('petShadow');
+    const area = $('petArea');
+    pet.style.transition = `left ${duration}ms cubic-bezier(0.4, 0, 0.2, 1)`;
+    pet.style.left = percent + '%';
+    if (shadow) {
+      shadow.style.transition = `left ${duration}ms cubic-bezier(0.4, 0, 0.2, 1)`;
+      shadow.style.left = percent + '%';
+    }
+    const trail = setInterval(() => {
+      const puff = document.createElement('div');
+      puff.className = 'dust-puff';
+      puff.style.left = pet.style.left;
+      area.appendChild(puff);
+      setTimeout(() => puff.remove(), 550);
+    }, 160);
+    setTimeout(() => { clearInterval(trail); resolve(); }, duration);
+  });
+}
+
+function showBubble(text, emoji) {
+  const area = $('petArea');
+  const pet = $('pet');
+  const bubble = document.createElement('div');
+  bubble.className = 'speech-bubble';
+  bubble.textContent = emoji + ' ' + text;
+  bubble.style.top = '-40px';
+  bubble.style.left = pet.style.left || '50%';
+  bubble.style.transform = 'translateX(-50%)';
+  area.appendChild(bubble);
+  setTimeout(() => bubble.remove(), 2200);
+}
+
+function floatHearts(count = 5) {
+  const area = $('petArea');
+  for (let i = 0; i < count; i++) {
+    setTimeout(() => {
+      const h = document.createElement('div');
+      h.className = 'heart-float';
+      h.textContent = ['💚', '💖', '✨', '💫', '🌟'][i % 5];
+      h.style.left = (35 + Math.random() * 30) + '%';
+      h.style.bottom = '80px';
+      h.style.setProperty('--drift', (Math.random() * 40 - 20) + 'px');
+      h.style.setProperty('--spin', (Math.random() * 40 - 20) + 'deg');
+      area.appendChild(h);
+      setTimeout(() => h.remove(), 1800);
+    }, i * 120);
+  }
+}
+
+function addProp(emoji, className, style) {
+  const area = $('petArea');
+  const prop = document.createElement('div');
+  prop.className = 'scene-prop ' + className;
+  prop.textContent = emoji;
+  Object.assign(prop.style, style);
+  area.appendChild(prop);
+  return prop;
+}
+
+/* ============================================================
+   AMBIENT LOOP
+   ============================================================ */
+function startAmbientLoop() {
+  if (ambientTimeoutId) clearTimeout(ambientTimeoutId);
+  const scheduleNext = () => {
+    const delay = 10000 + Math.random() * 10000;
+    ambientTimeoutId = setTimeout(() => {
+      runAmbientBehavior();
+      scheduleNext();
+    }, delay);
+  };
+  scheduleNext();
+}
+
+async function runAmbientBehavior() {
+  if (isAnimating || ambientPlaying) return;
+  if (!gameData) return;
+  if (document.hidden) return;
+
+  const behaviors = AMBIENT_BEHAVIORS[currentRoomId] || AMBIENT_BEHAVIORS.bedroom;
+  const behavior = behaviors[Math.floor(Math.random() * behaviors.length)];
+
+  ambientPlaying = true;
+  const pet = $('pet');
+
+  try {
+    if (behavior.cls === 'walking' || behavior.cls === 'hopping') {
+      const newPos = 20 + Math.random() * 60;
+      pet.className = 'pet walking';
+      await movePetTo(newPos, 1200 + Math.random() * 800);
+    }
+    pet.className = 'pet ' + behavior.cls;
+    if (behavior.bubble) showBubble(behavior.bubble, behavior.emoji || '✨');
+    await new Promise(r => setTimeout(r, behavior.dur * 1000));
+    pet.className = 'pet idle';
+  } catch(e) {}
+  ambientPlaying = false;
+  renderCache.petMood = '';
+
+  const shadow = $('petShadow');
+  if (shadow) shadow.style.left = pet.style.left;
+}
+
+/* ============================================================
+   ACTION ANIMATION
+   ============================================================ */
+function playActionAnimation(name) {
+  const pet = $('pet');
+  return new Promise(async (resolve) => {
+    try {
+      switch(name) {
+        case 'feed': {
+          const bowl = addProp('', 'prop-bowl', { left: '20%', bottom: '15px' });
+          pet.className = 'pet walking';
+          await movePetTo(28, 1200);
+          pet.className = 'pet happy eating';
+          for (let i = 0; i < 3; i++) setTimeout(() => floatHearts(1), i * 400);
+          showBubble('nom nom!', '🍚');
+          await new Promise(r => setTimeout(r, 1500));
+          pet.className = 'pet walking';
+          await movePetTo(50, 1200);
+          bowl.remove();
+          pet.className = 'pet idle';
+          break;
+        }
+        case 'play': {
+          const ball = addProp('🎈', 'prop-ball', { right: '25%' });
+          pet.className = 'pet happy';
+          showBubble('wheee!', '🎈');
+          floatHearts(6);
+          await new Promise(r => setTimeout(r, 2000));
+          ball.remove();
+          pet.className = 'pet idle';
+          break;
+        }
+        case 'sleep': {
+          const bed = addProp('', 'prop-bed-icon', { right: '15%', bottom: '10px' });
+          pet.className = 'pet walking';
+          await movePetTo(70, 1200);
+          pet.className = 'pet sleeping';
+          for (let i = 0; i < 4; i++) {
+            setTimeout(() => {
+              const z = document.createElement('div');
+              z.className = 'zzz';
+              z.textContent = 'Z';
+              z.style.left = '65%';
+              z.style.bottom = '90px';
+              z.style.fontSize = (0.6 + i * 0.1) + 'rem';
+              $('petArea').appendChild(z);
+              setTimeout(() => z.remove(), 2500);
+            }, i * 600);
+          }
+          showBubble('Zzz...', '💤');
+          await new Promise(r => setTimeout(r, 2200));
+          pet.className = 'pet walking';
+          await movePetTo(50, 1000);
+          bed.remove();
+          pet.className = 'pet idle';
+          break;
+        }
+        case 'bath': {
+          const tub = addProp('', 'prop-tub-icon', { left: '50%', bottom: '15px' });
+          pet.className = 'pet walking';
+          await movePetTo(50, 800);
+          for (let i = 0; i < 8; i++) {
+            setTimeout(() => {
+              const b = document.createElement('div');
+              b.className = 'bubble';
+              const size = 8 + Math.random() * 14;
+              b.style.width = size + 'px';
+              b.style.height = size + 'px';
+              b.style.left = (35 + Math.random() * 30) + '%';
+              b.style.bottom = '70px';
+              b.style.setProperty('--wobble', (Math.random() * 16 - 8) + 'px');
+              $('petArea').appendChild(b);
+              setTimeout(() => b.remove(), 2000);
+            }, i * 150);
+          }
+          pet.className = 'pet happy';
+          showBubble('splash!', '💧');
+          await new Promise(r => setTimeout(r, 1800));
+          tub.remove();
+          pet.className = 'pet idle';
+          break;
+        }
+        case 'pet': {
+          pet.className = 'pet happy';
+          showBubble('happy!', '💚');
+          floatHearts(8);
+          await new Promise(r => setTimeout(r, 1800));
+          pet.className = 'pet idle';
+          break;
+        }
+        case 'clean': {
+          pet.className = 'pet walking';
+          await movePetTo(25, 700);
+          showBubble('all clean!', '🧹');
+          await new Promise(r => setTimeout(r, 800));
+          await movePetTo(50, 700);
+          pet.className = 'pet idle';
+          break;
         }
       }
-
-      card.innerHTML = `
-        <div class="shop-emoji">${item.emoji}</div>
-        <div class="shop-name">${item.name}</div>
-        <div class="shop-desc">${item.desc}</div>
-        ${isPlaced ? '<div class="place-count">PLACED IN ROOM</div>' : ''}
-        <button class="shop-buy" ${disabled ? 'disabled' : ''}>${actionBtnText}</button>
-      `;
-
-      const buyBtn = card.querySelector('.shop-buy');
-      buyBtn.addEventListener('click', () => handleShopAction(item));
-
-      shopGrid.appendChild(card);
-    });
-  }
-
-  function handleShopAction(item) {
-    const isOwned = state.inventory.includes(item.id);
-
-    if (!isOwned) {
-      if (state.coins < item.price) return;
-      state.coins -= item.price;
-      state.inventory.push(item.id);
-
-      showToast(`Bought ${item.name}!`);
-      unlockAchievement('shop_1');
-      addDiaryEntry(`Bought ${item.name} from the shop`);
-    } else {
-      if (item.type === 'consumable' || item.type === 'decor') {
-        placeItemInRoom(item);
-      }
-    }
-
-    renderShop();
-    renderDecorations();
-    updateUI();
-    saveState();
-  }
-
-  function placeItemInRoom(item) {
-    const existingIndex = state.placedItems.findIndex(i => i.id === item.id);
-    if (existingIndex !== -1) {
-      state.placedItems.splice(existingIndex, 1);
-      showToast(`Removed ${item.name} from room`);
-    } else {
-      const posX = Math.floor(Math.random() * 60) + 20;
-      const posY = Math.floor(Math.random() * 15) + 10;
-      state.placedItems.push({ id: item.id, x: posX, y: posY });
-      showToast(`Placed ${item.name} in room!`);
-    }
-
-    renderPlacedItems();
-    renderShop();
-    saveState();
-  }
-
-  function renderPlacedItems() {
-    roomItems.innerHTML = '';
-    state.placedItems.forEach(pi => {
-      const itemDef = ITEMS[pi.id];
-      if (!itemDef) return;
-
-      const itemEl = document.createElement('div');
-      itemEl.className = `room-item placed-${pi.id}`;
-      itemEl.style.left = pi.x + '%';
-      itemEl.style.bottom = pi.y + '%';
-      itemEl.innerHTML = `
-        ${itemDef.emoji}
-        <div class="item-tooltip">${itemDef.name}</div>
-      `;
-
-      itemEl.addEventListener('click', () => usePlacedItem(pi, itemEl));
-      roomItems.appendChild(itemEl);
-    });
-  }
-
-  function usePlacedItem(placedItem, element) {
-    const itemDef = ITEMS[placedItem.id];
-    if (!itemDef) return;
-
-    element.classList.add('consuming');
-
-    setTimeout(() => {
-      if (placedItem.id === 'treat') state.hunger = 100;
-      if (placedItem.id === 'toy') state.happy = 100;
-      if (placedItem.id === 'pillow') state.energy = 100;
-      if (placedItem.id === 'soap') state.clean = 100;
-
-      state.placedItems = state.placedItems.filter(i => i !== placedItem);
-
-      const invIndex = state.inventory.indexOf(placedItem.id);
-      if (invIndex !== -1) state.inventory.splice(invIndex, 1);
-
-      showToast(`Used ${itemDef.name}! Maxed out! ✨`);
-      addXP(15);
-      showHeart(itemDef.emoji);
-
-      renderPlacedItems();
-      renderShop();
-      updateUI();
-      saveState();
-    }, 600);
-  }
-
-  function renderAccessories() {
-    petAccessories.innerHTML = '';
-    ['bow', 'lucky', 'xpboost'].forEach(accId => {
-      if (state.inventory.includes(accId)) {
-        const item = ITEMS[accId];
-        const accEl = document.createElement('div');
-        accEl.className = `pet-accessory ${accId}`;
-        accEl.textContent = item.emoji;
-        petAccessories.appendChild(accEl);
-      }
-    });
-  }
-
-  function renderDecorations() {
-    roomDecorations.innerHTML = '';
-    if (state.inventory.includes('bow')) {
-      const d = document.createElement('div');
-      d.className = 'room-deco bow-deco';
-      d.textContent = '🎀';
-      roomDecorations.appendChild(d);
-    }
-    if (state.inventory.includes('lucky')) {
-      const d = document.createElement('div');
-      d.className = 'room-deco lucky-deco';
-      d.textContent = '🍀';
-      roomDecorations.appendChild(d);
-    }
-    if (state.inventory.includes('xpboost')) {
-      const d = document.createElement('div');
-      d.className = 'room-deco xpboost-deco';
-      d.textContent = '⭐';
-      roomDecorations.appendChild(d);
-    }
-    if (state.inventory.includes('autoclean')) {
-      const d = document.createElement('div');
-      d.className = 'room-deco autoclean-deco';
-      d.textContent = '🧹';
-      roomDecorations.appendChild(d);
-    }
-  }
-
-  function addCoins(amount) {
-    let boost = 1;
-    if (state.inventory.includes('lucky')) boost = 1.2;
-    state.coins += Math.round(amount * boost);
-  }
-
-  /* ============ MINI-GAME ============ */
-  let mgScoreCount = 0;
-  let mgTimer = null;
-
-  function startMinigame() {
-    minigameArea.classList.add('active');
-    mgEnd.classList.remove('active');
-    mgScoreCount = 0;
-    mgScore.textContent = '0';
-    mgInner.innerHTML = '';
-
-    mgTimer = setInterval(spawnBubble, 600);
-  }
-
-  function spawnBubble() {
-    if (!minigameArea.classList.contains('active')) return;
-
-    const b = document.createElement('div');
-    b.className = 'mg-bubble';
-
-    const size = Math.floor(Math.random() * 20) + 40;
-    const posX = Math.floor(Math.random() * (mgInner.clientWidth - size));
-    const duration = Math.random() * 2 + 2;
-
-    b.style.width = size + 'px';
-    b.style.height = size + 'px';
-    b.style.left = posX + 'px';
-    b.style.bottom = '-60px';
-    b.style.animationDuration = duration + 's';
-
-    const emojis = ['🫧', '🫧', '🫧', '⭐', '🍬'];
-    b.textContent = emojis[Math.floor(Math.random() * emojis.length)];
-
-    b.addEventListener('click', () => {
-      if (b.classList.contains('popped')) return;
-      b.classList.add('popped');
-      mgScoreCount++;
-      mgScore.textContent = mgScoreCount;
-      setTimeout(() => b.remove(), 300);
-    });
-
-    mgInner.appendChild(b);
-
-    setTimeout(() => {
-      if (b.parentNode) b.remove();
-    }, duration * 1000);
-
-    if (mgScoreCount >= 30) {
-      endMinigame();
-    }
-  }
-
-  function endMinigame() {
-    clearInterval(mgTimer);
-    const reward = mgScoreCount * 2;
-    addCoins(reward);
-    addXP(mgScoreCount);
-
-    if (mgScoreCount >= 20) unlockAchievement('minigame_20');
-
-    mgEndScore.textContent = `${mgScoreCount} BUBBLES`;
-    mgEndReward.textContent = `+${reward} coins & +${mgScoreCount} XP`;
-    mgEnd.classList.add('active');
-  }
-
-  mgClose.addEventListener('click', () => {
-    clearInterval(mgTimer);
-    minigameArea.classList.remove('active');
+    } catch(e) { console.error('Animation error:', e); }
+    resolve();
   });
+}
 
-  mgRestart.addEventListener('click', startMinigame);
+/* ============================================================
+   MINI-GAME
+   ============================================================ */
+let mgActive = false;
+let mgScore = 0;
+let mgTimeLeft = 0;
+let mgTimerInterval = null;
+let mgSpawnInterval = null;
 
-  /* ============ LOVE NOTES ============ */
-  noteSend.addEventListener('click', postNote);
-  noteInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') postNote(); });
+function startMinigame() {
+  if (mgActive) return;
+  if (!gameData) return;
+  if (gameData.energy < 10) return showToast('Mochi is too tired for games 💤');
 
-  function postNote() {
-    const text = noteInput.value.trim();
-    if (!text) return;
+  mgActive = true;
+  mgScore = 0;
+  mgTimeLeft = MINIGAME_DURATION;
 
-    const note = {
-      id: Date.now(),
-      sender: state.role,
-      text: text,
-      time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+  const area = $('minigameArea');
+  const inner = $('minigameInner');
+  const end = $('mgEnd');
+  inner.innerHTML = '';
+  end.classList.remove('active');
+  area.classList.add('active');
+  $('mgHud').textContent = `SCORE: 0 · ${mgTimeLeft}s`;
+
+  if (ambientTimeoutId) { clearTimeout(ambientTimeoutId); ambientTimeoutId = null; }
+
+  mgSpawnInterval = setInterval(() => {
+    if (!mgActive) return;
+    spawnMgBubble(inner);
+  }, 380);
+
+  mgTimerInterval = setInterval(() => {
+    mgTimeLeft--;
+    $('mgHud').textContent = `SCORE: ${mgScore} · ${mgTimeLeft}s`;
+    if (mgTimeLeft <= 0) endMinigame();
+  }, 1000);
+
+  for (let i = 0; i < 3; i++) setTimeout(() => mgActive && spawnMgBubble(inner), i * 200);
+}
+
+function spawnMgBubble(inner) {
+  const colors = ['#B8D8E8', '#F0C0D0', '#C8E0A8', '#F8E6A0', '#C8B8E8'];
+  const emojis = ['', '✨', '⭐', '💚'];
+  const size = 38 + Math.random() * 26;
+  const b = document.createElement('div');
+  b.className = 'mg-bubble';
+  b.style.width = size + 'px';
+  b.style.height = size + 'px';
+  b.style.left = (5 + Math.random() * 80) + '%';
+  b.style.bottom = '-60px';
+  const color = colors[Math.floor(Math.random() * colors.length)];
+  b.style.background = `radial-gradient(circle at 30% 30%, #FFFFFF, ${color})`;
+  b.style.border = '3px solid #8B6F5E';
+  b.textContent = Math.random() < 0.3 ? emojis[Math.floor(Math.random() * emojis.length)] : '';
+  b.style.fontSize = '1rem';
+  const dur = 2200 + Math.random() * 1600;
+  b.style.animationDuration = dur + 'ms';
+
+  let popped = false;
+  const pop = (e) => {
+    e.preventDefault();
+    if (popped) return;
+    popped = true;
+    mgScore++;
+    $('mgHud').textContent = `SCORE: ${mgScore} · ${mgTimeLeft}s`;
+    sfxPop();
+    b.classList.add('popped');
+    setTimeout(() => b.remove(), 300);
+  };
+  b.addEventListener('click', pop);
+  b.addEventListener('touchstart', pop, { passive: false });
+  inner.appendChild(b);
+  setTimeout(() => { if (!popped) b.remove(); }, dur + 100);
+}
+
+function endMinigame() {
+  if (!mgActive) return;
+  mgActive = false;
+  clearInterval(mgTimerInterval);
+  clearInterval(mgSpawnInterval);
+  $('minigameInner').innerHTML = '';
+
+  const score = mgScore;
+  const coinsEarned = Math.floor(score * 1.5);
+  const xpEarned = Math.floor(score * 2);
+  const joyEarned = Math.min(30, Math.floor(score * 1.2));
+  const energyCost = 15;
+
+  $('mgEndTitle').textContent = score >= 20 ? 'AMAZING!' : score >= 10 ? 'GREAT JOB!' : 'GOOD TRY!';
+  $('mgEndScore').textContent = score + ' POPS';
+  $('mgEndReward').innerHTML = `+${coinsEarned} 🪙 · +${xpEarned} XP<br>+${joyEarned} ☀️ JOY · -${energyCost} 🌙 REST`;
+  $('mgEnd').classList.add('active');
+
+  if (gameData) {
+    const updates = {
+      coins: (gameData.coins || 0) + coinsEarned,
+      xp: (gameData.xp || 0) + xpEarned,
+      happy: Math.min(100, (gameData.happy || 0) + joyEarned),
+      energy: Math.max(0, (gameData.energy || 0) - energyCost),
+      lastUpdate: Date.now(),
+      'stats/bestMinigame': Math.max(gameData.stats?.bestMinigame || 0, score)
     };
+    db.ref('tamagotchi').update(updates);
 
-    state.notes.unshift(note);
-    noteInput.value = '';
-
-    renderNotes();
-    saveState();
-
-    if (state.notes.length >= 5) unlockAchievement('notes_5');
-    showToast('Posted note!');
+    const entry = { by: me, text: `played Bubble Pop and scored ${score}!`, time: Date.now() };
+    const key = 'diary/' + Date.now() + '_mg';
+    db.ref('tamagotchi/' + key).set(entry);
   }
 
-  function renderNotes() {
-    notesWall.innerHTML = '';
-    state.notes.forEach(note => {
-      const card = document.createElement('div');
-      card.className = `sticky-note by-${note.sender}`;
-      card.innerHTML = `
-        <span class="note-sender">${note.sender === 'koy' ? '🌿 KOY' : '🌸 METZ'}</span>
-        ${note.text}
-        <span class="note-time">${note.time}</span>
-        <button class="note-delete">✕</button>
-      `;
+  sfxGood();
+  if (score >= 10) spawnConfetti(20);
+}
 
-      card.querySelector('.note-delete').addEventListener('click', () => {
-        state.notes = state.notes.filter(n => n.id !== note.id);
-        renderNotes();
-        saveState();
-      });
+$('mgClose').addEventListener('click', () => {
+  if (mgActive) endMinigame();
+  setTimeout(() => {
+    $('minigameArea').classList.remove('active');
+    startAmbientLoop();
+  }, 100);
+});
 
-      notesWall.appendChild(card);
-    });
-  }
+$('mgAgainBtn').addEventListener('click', () => {
+  $('mgEnd').classList.remove('active');
+  $('minigameArea').classList.remove('active');
+  setTimeout(() => startMinigame(), 100);
+});
 
-  function addDiaryEntry(text) {
-    const entry = {
-      sender: state.role,
-      text: text,
-      time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
-    };
-    state.diary.unshift(entry);
-    if (state.diary.length > 30) state.diary.pop();
-    renderDiary();
-  }
+/* ============================================================
+   ACTIONS
+   ============================================================ */
+document.querySelectorAll('.action-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const action = btn.dataset.action;
+    if (action === 'minigame') startMinigame();
+    else doAction(action, btn);
+  });
+});
 
-  function renderDiary() {
-    diaryScroll.innerHTML = '';
-    diaryCount.textContent = `${state.diary.length} entries`;
-    state.diary.forEach(entry => {
-      const d = document.createElement('div');
-      d.className = `diary-entry by-${entry.sender}`;
-      d.innerHTML = `<span class="time">[${entry.time}]</span> ${entry.text}`;
-      diaryScroll.appendChild(d);
-    });
-  }
+function doAction(name) {
+  if (!gameData) return showToast('Loading Mochi... 🌿');
+  if (isAnimating) return showToast('Let Mochi finish 🌿');
+  if (mgActive) return showToast('Finish the mini-game first! 🫧');
+  if (Date.now() - lastActionAt < 1500) return showToast('A moment between care 🌿');
+  lastActionAt = Date.now();
 
-  /* ============ ACHIEVEMENTS ============ */
-  function unlockAchievement(id) {
-    if (state.achievements.includes(id)) return;
+  const action = ACTIONS[name];
+  if (!action) return;
 
-    state.achievements.push(id);
-    saveState();
-    renderAchievements();
-
-    const ach = ACHIEVEMENTS.find(a => a.id === id);
-    if (ach) {
-      showAchPopup(ach);
-      addCoins(25);
+  if (action.cost) {
+    for (const [s, amt] of Object.entries(action.cost)) {
+      if (gameData[s] < amt) return showToast(`Mochi needs more ${s} first 💤`);
     }
   }
 
-  function showAchPopup(ach) {
-    const pop = document.createElement('div');
-    pop.className = 'ach-popup';
-    pop.innerHTML = `
-      <div class="ach-popup-icon">${ach.icon}</div>
-      <div class="ach-popup-title">ACHIEVEMENT UNLOCKED!</div>
-      <div class="ach-popup-name">${ach.name}</div>
-      <div class="ach-popup-desc">${ach.desc} (+25🪙)</div>
-    `;
-    document.body.appendChild(pop);
-    setTimeout(() => pop.remove(), 2600);
+  isAnimating = true;
+  document.querySelectorAll('.action-btn').forEach(b => b.disabled = true);
+  sfxClick();
+
+  let addPoop = false;
+  if (name === 'feed' && (gameData.poops || 0) < 3) addPoop = true;
+  if (name === 'play' && Math.random() < 0.3 && (gameData.poops || 0) < 3) addPoop = true;
+
+  playActionAnimation(name).then(() => {
+    applyActionEffects(name, addPoop);
+    isAnimating = false;
+    document.querySelectorAll('.action-btn').forEach(b => b.disabled = false);
+    renderCache.petMood = '';
+    renderPet();
+    startAmbientLoop();
+  });
+}
+
+function applyActionEffects(name, addPoop) {
+  if (!gameData) return;
+  const action = ACTIONS[name];
+  const inv = gameData.inventory || {};
+  let xpMult = 1;
+  let coinMult = 1;
+  if (inv.decoration) xpMult += 0.05;
+  if (inv.xpboost) xpMult += 0.15;
+  if (inv.lucky) coinMult += 1;
+
+  const updates = {};
+  updates[action.stat] = Math.min(100, gameData[action.stat] + action.amount);
+  if (action.cost) {
+    for (const [s, amt] of Object.entries(action.cost)) {
+      updates[s] = Math.max(0, gameData[s] - amt);
+    }
   }
 
-  function renderAchievements() {
-    achGrid.innerHTML = '';
-    ACHIEVEMENTS.forEach(ach => {
-      const unlocked = state.achievements.includes(ach.id);
-      const card = document.createElement('div');
-      card.className = `ach-card ${unlocked ? 'unlocked' : ''}`;
-      card.innerHTML = `
-        <div class="ach-icon">${ach.icon}</div>
-        <div class="ach-info">
-          <div class="ach-name">${ach.name}</div>
-          <div class="ach-desc">${ach.desc}</div>
-        </div>
-      `;
-      achGrid.appendChild(card);
-    });
+  const want = gameData.currentWant;
+  let xpEarned = action.xp;
+  let coinsEarned = COIN_PER_ACTION * coinMult;
+  let fulfilledWant = false;
+  if (want && want.action === name && !want.content) {
+    xpEarned = action.xp * WANT_XP_MULTIPLIER;
+    coinsEarned += COIN_PER_WANT;
+    fulfilledWant = true;
+    updates.currentWant = null;
+  }
+  xpEarned = Math.floor(xpEarned * xpMult);
+
+  updates.xp = (gameData.xp || 0) + xpEarned;
+  updates.coins = (gameData.coins || 0) + coinsEarned;
+  updates.lastUpdate = Date.now();
+
+  const statsField = { feed: 'feeds', play: 'plays', sleep: 'sleeps', bath: 'baths', pet: 'pets', clean: 'cleans' }[name];
+  if (statsField) updates['stats/' + statsField] = (gameData.stats?.[statsField] || 0) + 1;
+  if (fulfilledWant) updates['stats/wantsFulfilled'] = (gameData.stats?.wantsFulfilled || 0) + 1;
+
+  const hour = new Date().getHours();
+  if (hour >= 2 && hour < 4) updates['achievementFlags/nightOwl'] = true;
+  if (hour >= 5 && hour < 7) updates['achievementFlags/earlyBird'] = true;
+
+  const other = me === 'koy' ? 'metz' : 'koy';
+  const otherLastAction = gameData.lastActions?.[other] || 0;
+  if (Date.now() - otherLastAction < 10 * 60 * 1000) updates['achievementFlags/bothClose'] = true;
+  updates['lastActions/' + me] = Date.now();
+
+  if (addPoop) updates.poops = Math.min(3, (gameData.poops || 0) + 1);
+  if (name === 'clean') updates.poops = 0;
+
+  if (gameData.clean > 90) updates.cleanliness_streak = (gameData.cleanliness_streak || 0) + 1;
+  else updates.cleanliness_streak = 0;
+
+  const today = new Date().toISOString().slice(0, 10);
+  const todayActions = { ...(gameData.todayActions || { koy: 0, metz: 0 }) };
+  if (gameData.todayDate !== today) {
+    todayActions.koy = 0; todayActions.metz = 0;
+    updates.todayDate = today;
+  }
+  todayActions[me] = (todayActions[me] || 0) + 1;
+  updates.todayActions = todayActions;
+
+  if (todayActions[me] === DAILY_GOAL) {
+    updates.xp += 10;
+    updates.coins = (updates.coins || gameData.coins || 0) + COIN_PER_DAILY_GOAL;
+    setTimeout(() => showToast('✨ Daily goal complete! +10 XP +20 🪙'), 500);
   }
 
-  /* ============ ALBUM ============ */
-  function addAlbumEntry(stage, note) {
-    const exists = state.album.some(a => a.stage === stage);
-    if (exists) return;
+  const entry = { by: me, text: `${action.verb} Mochi`, time: Date.now() };
+  const key = 'diary/' + Date.now() + '_' + Math.random().toString(36).slice(2, 6);
+  updates[key] = entry;
 
-    state.album.push({
-      stage: stage,
-      date: new Date().toLocaleDateString(),
-      note: note
-    });
-    renderAlbum();
+  const diary = gameData.diary || {};
+  const keys = Object.keys(diary).sort();
+  if (keys.length >= MAX_DIARY) {
+    keys.slice(0, keys.length - MAX_DIARY + 1).forEach(k => updates['diary/' + k] = null);
   }
 
-  function renderAlbum() {
-    albumGrid.innerHTML = '';
-    state.album.forEach(entry => {
-      const card = document.createElement('div');
-      card.className = 'album-card';
-      card.innerHTML = `
-        <div class="album-emoji">${STAGE_EMOJIS[entry.stage] || '✨'}</div>
-        <div class="album-level">${STAGE_NAMES[entry.stage]}</div>
-        <div class="album-date">${entry.date}</div>
-        <div class="album-note">${entry.note}</div>
-      `;
-      albumGrid.appendChild(card);
-    });
+  db.ref('tamagotchi').update(updates);
+
+  if (fulfilledWant) {
+    setTimeout(() => showToast('⭐ Want fulfilled! +' + xpEarned + ' XP +' + COIN_PER_WANT + ' 🪙'), 700);
+    sfxGood();
   }
+}
+
+function showLevelUp(newLevel) {
+  sfxLevelUp();
+  const stage = STAGES.reduce((acc, s) => (newLevel >= s.level ? s : acc), STAGES[0]);
+  const overlay = document.createElement('div');
+  overlay.className = 'levelup-overlay';
+  overlay.innerHTML = `
+    <div class="levelup-badge">
+      ${stage.emoji}<br>LV ${newLevel}<br>${stage.name}
+    </div>
+  `;
+  document.body.appendChild(overlay);
+  spawnConfetti(28);
+  setTimeout(() => overlay.remove(), 2200);
+  $('petStageBadge').classList.add('level-up');
+  setTimeout(() => $('petStageBadge').classList.remove('level-up'), 1500);
+}
+
+function showWelcomeBack(prev, curr, lastSeenTime) {
+  const hoursAway = (Date.now() - lastSeenTime) / 3600000;
+  let msg = '';
+  if (hoursAway > 24) msg = `Away ${Math.floor(hoursAway / 24)}d. `;
+  else if (hoursAway > 1) msg = `Away ${Math.floor(hoursAway)}h. `;
+  else msg = `Welcome back! `;
+
+  const other = me === 'koy' ? 'metz' : 'koy';
+  const otherName = other === 'koy' ? '🌿 Koy' : '🌸 Metz';
+  const diary = curr.diary || {};
+  const otherActs = Object.values(diary).filter(e => e.by === other && e.time > lastSeenTime);
+
+  if (otherActs.length > 0) msg += `${otherName} cared for Mochi ${otherActs.length}×.`;
+  else msg += `Mochi was waiting for you 🌿`;
+  showToast(`Hi ${me === 'koy' ? 'Koy' : 'Metz'}! ${msg}`);
+}
+
+/* ============================================================
+   AUTO-CLEAN
+   ============================================================ */
+function startAutoCleanLoop() {
+  if (autoCleanIntervalId) clearInterval(autoCleanIntervalId);
+  autoCleanIntervalId = setInterval(() => {
+    if (!gameData) return;
+    if (!gameData.inventory?.autoclean) return;
+    if ((gameData.poops || 0) > 0) {
+      db.ref('tamagotchi').update({ poops: Math.max(0, gameData.poops - 1) });
+      showToast('✨ Cleaning spirit tidied up!');
+    }
+  }, 5 * 60 * 1000);
+}
+
+/* ============================================================
+   PRESENCE HEARTBEAT
+   ============================================================ */
+function startPresenceHeartbeat() {
+  if (presenceIntervalId) clearInterval(presenceIntervalId);
+  const beat = () => {
+    if (!me) return;
+    db.ref('tamagotchi/' + (me === 'koy' ? 'koyLastSeen' : 'metzLastSeen')).set(Date.now());
+    localStorage.setItem('mochi_last_' + me, Date.now());
+  };
+  beat();
+  presenceIntervalId = setInterval(beat, 45 * 1000);
+}
+
+/* ============================================================
+   LOGOUT / VISIBILITY
+   ============================================================ */
+$('logoutBtn').addEventListener('click', () => {
+  if (presenceIntervalId) clearInterval(presenceIntervalId);
+  if (ambientTimeoutId) clearTimeout(ambientTimeoutId);
+  if (autoCleanIntervalId) clearInterval(autoCleanIntervalId);
+  localStorage.removeItem('mochi_role');
+  localStorage.removeItem('mochi_pin');
+  location.reload();
+});
+
+document.addEventListener('visibilitychange', () => {
+  if (document.hidden) {
+    if (ambientTimeoutId) { clearTimeout(ambientTimeoutId); ambientTimeoutId = null; }
+  } else if (!ambientTimeoutId && gameData && !mgActive) {
+    startAmbientLoop();
+  }
+});
 </script>
 </body>
 </html>
