@@ -614,8 +614,21 @@
   /* ============================================================
      3D FURNITURE — ALL FURNITURE SITS ON THE FLOOR PLANE
      ============================================================ */
-  .room-scene { position: absolute; inset: 0; pointer-events: none; z-index: 4; transform-style: preserve-3d; }
+  .room-scene {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 4;
+    transform-style: preserve-3d;
+  }
 
+  /*
+     Keep furniture percentages relative to the full room, not to an
+     accidentally shrink-wrapped scene. Every furniture item below uses
+     left/right percentages, so the scene must always span the entire room.
+  */
   .room-scene .furniture {
     position: absolute;
     pointer-events: auto;
@@ -1167,7 +1180,7 @@
      ============================================================ */
 
   /* Sink — mid-right between counter and fridge */
-  .f-room-sink { bottom: 8%; left: 38%; width: 58px; height: 66px; }
+  .f-room-sink { bottom: 8%; left: 48%; width: 58px; height: 66px; }
   .f-room-sink .sink-basin {
     position: absolute; inset: 0;
     background: linear-gradient(180deg, #E8E8E8 0%, #C8C8C8 100%);
@@ -1221,7 +1234,7 @@
   .f-room-sink.running .sink-knob { transform: rotate(90deg); }
 
   /* Trash can — center between counter and sink */
-  .f-room-trash { bottom: 8%; left: 22%; width: 42px; height: 58px; }
+  .f-room-trash { bottom: 8%; left: 30%; width: 42px; height: 58px; }
   .f-room-trash .trash-body {
     position: absolute; inset: 0;
     background: linear-gradient(180deg, #8FB87D 0%, #6B9F5D 100%);
@@ -2162,6 +2175,9 @@
     }
   }
   @media (max-width: 380px) {
+    .room-scene { width: 100%; height: 100%; }
+    .f-room-sink { left: 46%; }
+    .f-room-trash { left: 27%; }
     .pet { font-size: 2.6rem; }
     .room { height: 280px; }
     .action-btn { min-height: 64px; }
