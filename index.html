@@ -204,27 +204,31 @@
     width: 46px; height: 12px;
     background: radial-gradient(ellipse at center, rgba(74, 63, 58, 0.4) 0%, rgba(74, 63, 58, 0) 75%);
     border-radius: 50%; z-index: 9; pointer-events: none;
-    transform: translateX(-50%);
-    transition: left 1.5s cubic-bezier(0.4, 0, 0.2, 1), width 0.3s, opacity 0.3s;
+    transform: translateX(-50%) scale(var(--pet-z, 1));
+    transform-origin: center center;
+    transition: left 1.5s cubic-bezier(0.4, 0, 0.2, 1), bottom 1.5s cubic-bezier(0.4, 0, 0.2, 1), width 0.3s, opacity 0.3s, transform 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+    --pet-z: 1;
   }
 
   .pet {
     position: absolute; font-size: 3rem; line-height: 1;
-    transition: left 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: left 1.5s cubic-bezier(0.4, 0, 0.2, 1), bottom 1.5s cubic-bezier(0.4, 0, 0.2, 1);
     filter: drop-shadow(0 4px 0 rgba(139, 111, 94, 0.4));
     z-index: 20; left: 50%; bottom: 15%;
-    transform: translateX(-50%);
-    will-change: transform;
+    transform: translateX(-50%) scale(var(--pet-z, 1));
+    transform-origin: center bottom;
+    will-change: transform, left, bottom;
     width: 64px; height: 64px;
     image-rendering: pixelated;
+    --pet-z: 1;
   }
   .pet.walking { animation: walk 0.5s ease-in-out infinite; }
   @keyframes walk {
-    0%   { transform: translateX(-50%) translateY(0)    rotate(0deg)   scale(1, 1); }
-    25%  { transform: translateX(-50%) translateY(-7px) rotate(-4deg)  scale(0.97, 1.04); }
-    50%  { transform: translateX(-50%) translateY(0)    rotate(0deg)   scale(1.02, 0.98); }
-    75%  { transform: translateX(-50%) translateY(-7px) rotate(4deg)   scale(0.97, 1.04); }
-    100% { transform: translateX(-50%) translateY(0)    rotate(0deg)   scale(1, 1); }
+    0%   { transform: translateX(-50%) translateY(0)    rotate(0deg)   scale(calc(var(--pet-z, 1) * 1), calc(var(--pet-z, 1) * 1)); }
+    25%  { transform: translateX(-50%) translateY(-7px) rotate(-4deg)  scale(calc(var(--pet-z, 1) * 0.97), calc(var(--pet-z, 1) * 1.04)); }
+    50%  { transform: translateX(-50%) translateY(0)    rotate(0deg)   scale(calc(var(--pet-z, 1) * 1.02), calc(var(--pet-z, 1) * 0.98)); }
+    75%  { transform: translateX(-50%) translateY(-7px) rotate(4deg)   scale(calc(var(--pet-z, 1) * 0.97), calc(var(--pet-z, 1) * 1.04)); }
+    100% { transform: translateX(-50%) translateY(0)    rotate(0deg)   scale(calc(var(--pet-z, 1) * 1), calc(var(--pet-z, 1) * 1)); }
   }
   .pet.leaving {
     animation: walk 0.4s ease-in-out infinite;
@@ -232,68 +236,68 @@
   }
   .pet.arriving { animation: arriveIn 0.8s ease-out; }
   @keyframes arriveIn {
-    0% { opacity: 0; transform: translateX(-50%) scale(0.6); }
-    60% { opacity: 1; transform: translateX(-50%) scale(1.1); }
-    100% { opacity: 1; transform: translateX(-50%) scale(1); }
+    0% { opacity: 0; transform: translateX(-50%) scale(calc(var(--pet-z, 1) * 0.6)); }
+    60% { opacity: 1; transform: translateX(-50%) scale(calc(var(--pet-z, 1) * 1.1)); }
+    100% { opacity: 1; transform: translateX(-50%) scale(calc(var(--pet-z, 1) * 1)); }
   }
   .pet.idle { animation: idle 2.8s ease-in-out infinite; }
   @keyframes idle {
-    0%, 100% { transform: translateX(-50%) translateY(0)    scale(1, 1); }
-    45%      { transform: translateX(-50%) translateY(-5px) scale(1.015, 0.985); }
-    50%      { transform: translateX(-50%) translateY(-6px) scale(1.02, 0.98); }
-    55%      { transform: translateX(-50%) translateY(-5px) scale(1.015, 0.985); }
+    0%, 100% { transform: translateX(-50%) translateY(0)    scale(calc(var(--pet-z, 1) * 1), calc(var(--pet-z, 1) * 1)); }
+    45%      { transform: translateX(-50%) translateY(-5px) scale(calc(var(--pet-z, 1) * 1.015), calc(var(--pet-z, 1) * 0.985)); }
+    50%      { transform: translateX(-50%) translateY(-6px) scale(calc(var(--pet-z, 1) * 1.02), calc(var(--pet-z, 1) * 0.98)); }
+    55%      { transform: translateX(-50%) translateY(-5px) scale(calc(var(--pet-z, 1) * 1.015), calc(var(--pet-z, 1) * 0.985)); }
   }
   .pet.happy { animation: happyJump 0.45s ease-in-out infinite; }
   @keyframes happyJump {
-    0%, 100% { transform: translateX(-50%) translateY(0)     rotate(0deg)  scale(1, 1); }
-    40%      { transform: translateX(-50%) translateY(-14px) rotate(-6deg) scale(0.95, 1.08); }
-    60%      { transform: translateX(-50%) translateY(-14px) rotate(6deg)  scale(0.95, 1.08); }
+    0%, 100% { transform: translateX(-50%) translateY(0)     rotate(0deg)  scale(calc(var(--pet-z, 1) * 1), calc(var(--pet-z, 1) * 1)); }
+    40%      { transform: translateX(-50%) translateY(-14px) rotate(-6deg) scale(calc(var(--pet-z, 1) * 0.95), calc(var(--pet-z, 1) * 1.08)); }
+    60%      { transform: translateX(-50%) translateY(-14px) rotate(6deg)  scale(calc(var(--pet-z, 1) * 0.95), calc(var(--pet-z, 1) * 1.08)); }
   }
   .pet.sleeping { animation: sleepBreath 3s ease-in-out infinite; opacity: 0.92; }
   @keyframes sleepBreath {
-    0%, 100% { transform: translateX(-50%) scale(1, 1) rotate(0deg); }
-    50%      { transform: translateX(-50%) scale(1.04, 0.97) rotate(-1deg); }
+    0%, 100% { transform: translateX(-50%) scale(calc(var(--pet-z, 1) * 1), calc(var(--pet-z, 1) * 1)) rotate(0deg); }
+    50%      { transform: translateX(-50%) scale(calc(var(--pet-z, 1) * 1.04), calc(var(--pet-z, 1) * 0.97)) rotate(-1deg); }
   }
   .pet.sad {
     animation: sadShake 2.2s ease-in-out infinite;
     filter: drop-shadow(0 4px 0 rgba(139, 111, 94, 0.4)) grayscale(0.4) brightness(0.95);
   }
   @keyframes sadShake {
-    0%, 20%, 80%, 100% { transform: translateX(-50%) translateY(0) rotate(0deg); }
-    40% { transform: translateX(-50%) translateY(2px) rotate(-4deg); }
-    60% { transform: translateX(-50%) translateY(2px) rotate(3deg); }
+    0%, 20%, 80%, 100% { transform: translateX(-50%) translateY(0) rotate(0deg) scale(var(--pet-z, 1)); }
+    40% { transform: translateX(-50%) translateY(2px) rotate(-4deg) scale(var(--pet-z, 1)); }
+    60% { transform: translateX(-50%) translateY(2px) rotate(3deg) scale(var(--pet-z, 1)); }
   }
   .pet.watching { animation: watchBob 3s ease-in-out infinite; }
   @keyframes watchBob {
-    0%, 100% { transform: translateX(-50%) translateY(0) rotate(0deg); }
-    50% { transform: translateX(-50%) translateY(-3px) rotate(0deg); }
+    0%, 100% { transform: translateX(-50%) translateY(0) rotate(0deg) scale(var(--pet-z, 1)); }
+    50% { transform: translateX(-50%) translateY(-3px) rotate(0deg) scale(var(--pet-z, 1)); }
   }
   .pet.looking-up { animation: lookUp 2.6s ease-in-out infinite; }
   @keyframes lookUp {
-    0%, 100% { transform: translateX(-50%) rotate(0deg) scaleY(1); }
-    50% { transform: translateX(-50%) rotate(-6deg) scaleY(1.02); }
+    0%, 100% { transform: translateX(-50%) rotate(0deg) scaleY(calc(var(--pet-z, 1) * 1)); }
+    50% { transform: translateX(-50%) rotate(-6deg) scaleY(calc(var(--pet-z, 1) * 1.02)); }
   }
   .pet.stretching { animation: stretch 2s ease-in-out infinite; }
   @keyframes stretch {
-    0%, 100% { transform: translateX(-50%) scaleX(1) scaleY(1); }
-    50% { transform: translateX(-50%) scaleX(1.08) scaleY(0.94); }
+    0%, 100% { transform: translateX(-50%) scaleX(calc(var(--pet-z, 1) * 1)) scaleY(calc(var(--pet-z, 1) * 1)); }
+    50% { transform: translateX(-50%) scaleX(calc(var(--pet-z, 1) * 1.08)) scaleY(calc(var(--pet-z, 1) * 0.94)); }
   }
   .pet.hopping { animation: hop 0.6s ease-in-out infinite; }
   @keyframes hop {
-    0%, 100% { transform: translateX(-50%) translateY(0) scaleY(1); }
-    40% { transform: translateX(-50%) translateY(-16px) scaleY(1.05); }
-    70% { transform: translateX(-50%) translateY(0) scaleY(0.94); }
+    0%, 100% { transform: translateX(-50%) translateY(0) scaleY(calc(var(--pet-z, 1) * 1)); }
+    40% { transform: translateX(-50%) translateY(-16px) scaleY(calc(var(--pet-z, 1) * 1.05)); }
+    70% { transform: translateX(-50%) translateY(0) scaleY(calc(var(--pet-z, 1) * 0.94)); }
   }
   .pet.sniffing { animation: sniff 1.2s ease-in-out infinite; }
   @keyframes sniff {
-    0%, 100% { transform: translateX(-50%) translateY(0) rotate(0deg); }
-    50% { transform: translateX(-50%) translateY(2px) rotate(-5deg); }
+    0%, 100% { transform: translateX(-50%) translateY(0) rotate(0deg) scale(var(--pet-z, 1)); }
+    50% { transform: translateX(-50%) translateY(2px) rotate(-5deg) scale(var(--pet-z, 1)); }
   }
   .pet.spinning { animation: spinPet 1.2s ease-in-out infinite; }
   @keyframes spinPet {
-    0% { transform: translateX(-50%) rotate(0deg) scale(1); }
-    50% { transform: translateX(-50%) rotate(180deg) scale(1.05); }
-    100% { transform: translateX(-50%) rotate(360deg) scale(1); }
+    0% { transform: translateX(-50%) rotate(0deg) scale(calc(var(--pet-z, 1) * 1)); }
+    50% { transform: translateX(-50%) rotate(180deg) scale(calc(var(--pet-z, 1) * 1.05)); }
+    100% { transform: translateX(-50%) rotate(360deg) scale(calc(var(--pet-z, 1) * 1)); }
   }
 
   .pet.ecstatic {
@@ -301,30 +305,30 @@
     filter: drop-shadow(0 4px 0 rgba(139, 111, 94, 0.4)) drop-shadow(0 0 8px rgba(255, 220, 100, 0.7));
   }
   @keyframes ecstaticBounce {
-    0%, 100% { transform: translateX(-50%) translateY(0)     scale(1, 1); }
-    45%      { transform: translateX(-50%) translateY(-11px) scale(0.96, 1.06); }
-    70%      { transform: translateX(-50%) translateY(-3px)  scale(1.02, 0.98); }
+    0%, 100% { transform: translateX(-50%) translateY(0)     scale(calc(var(--pet-z, 1) * 1), calc(var(--pet-z, 1) * 1)); }
+    45%      { transform: translateX(-50%) translateY(-11px) scale(calc(var(--pet-z, 1) * 0.96), calc(var(--pet-z, 1) * 1.06)); }
+    70%      { transform: translateX(-50%) translateY(-3px)  scale(calc(var(--pet-z, 1) * 1.02), calc(var(--pet-z, 1) * 0.98)); }
   }
   .pet.bored {
     animation: boredSigh 3.4s ease-in-out infinite;
     filter: drop-shadow(0 4px 0 rgba(139, 111, 94, 0.4)) brightness(0.96);
   }
   @keyframes boredSigh {
-    0%, 100% { transform: translateX(-50%) translateY(0)     scale(1, 1) rotate(0deg); }
-    30%      { transform: translateX(-50%) translateY(-2px)  scale(1.02, 0.97) rotate(0deg); }
-    60%      { transform: translateX(-50%) translateY(-5px)  scale(0.98, 1.03) rotate(-3deg); }
-    70%      { transform: translateX(-50%) translateY(-5px)  scale(0.98, 1.03) rotate(-3deg); }
+    0%, 100% { transform: translateX(-50%) translateY(0)     scale(calc(var(--pet-z, 1) * 1), calc(var(--pet-z, 1) * 1)) rotate(0deg); }
+    30%      { transform: translateX(-50%) translateY(-2px)  scale(calc(var(--pet-z, 1) * 1.02), calc(var(--pet-z, 1) * 0.97)) rotate(0deg); }
+    60%      { transform: translateX(-50%) translateY(-5px)  scale(calc(var(--pet-z, 1) * 0.98), calc(var(--pet-z, 1) * 1.03)) rotate(-3deg); }
+    70%      { transform: translateX(-50%) translateY(-5px)  scale(calc(var(--pet-z, 1) * 0.98), calc(var(--pet-z, 1) * 1.03)) rotate(-3deg); }
   }
   .pet.grumpy {
     animation: grumpyStomp 1.2s ease-in-out infinite;
     filter: drop-shadow(0 4px 0 rgba(139, 111, 94, 0.4)) saturate(0.85) hue-rotate(-15deg) brightness(0.95);
   }
   @keyframes grumpyStomp {
-    0%, 100% { transform: translateX(-50%) translateY(0)    rotate(0deg)  scale(1, 1); }
-    20%      { transform: translateX(-50%) translateY(3px)  rotate(-6deg) scale(1.06, 0.94); }
-    40%      { transform: translateX(-50%) translateY(0)    rotate(0deg)  scale(1, 1); }
-    60%      { transform: translateX(-50%) translateY(3px)  rotate(6deg)  scale(1.06, 0.94); }
-    80%      { transform: translateX(-50%) translateY(0)    rotate(0deg)  scale(1, 1); }
+    0%, 100% { transform: translateX(-50%) translateY(0)    rotate(0deg)  scale(calc(var(--pet-z, 1) * 1), calc(var(--pet-z, 1) * 1)); }
+    20%      { transform: translateX(-50%) translateY(3px)  rotate(-6deg) scale(calc(var(--pet-z, 1) * 1.06), calc(var(--pet-z, 1) * 0.94)); }
+    40%      { transform: translateX(-50%) translateY(0)    rotate(0deg)  scale(calc(var(--pet-z, 1) * 1), calc(var(--pet-z, 1) * 1)); }
+    60%      { transform: translateX(-50%) translateY(3px)  rotate(6deg)  scale(calc(var(--pet-z, 1) * 1.06), calc(var(--pet-z, 1) * 0.94)); }
+    80%      { transform: translateX(-50%) translateY(0)    rotate(0deg)  scale(calc(var(--pet-z, 1) * 1), calc(var(--pet-z, 1) * 1)); }
   }
   .pet.sick {
     animation: sickShiver 1.6s ease-in-out infinite;
@@ -332,10 +336,10 @@
     opacity: 0.95;
   }
   @keyframes sickShiver {
-    0%, 100% { transform: translateX(-50%) translateY(0)    rotate(0deg)  scale(1, 1); }
-    25%      { transform: translateX(-50%) translateY(1px)  rotate(-2deg) scale(0.99, 1.01); }
-    50%      { transform: translateX(-50%) translateY(0)    rotate(0deg)  scale(1.01, 0.99); }
-    75%      { transform: translateX(-50%) translateY(1px)  rotate(2deg)  scale(0.99, 1.01); }
+    0%, 100% { transform: translateX(-50%) translateY(0)    rotate(0deg)  scale(calc(var(--pet-z, 1) * 1), calc(var(--pet-z, 1) * 1)); }
+    25%      { transform: translateX(-50%) translateY(1px)  rotate(-2deg) scale(calc(var(--pet-z, 1) * 0.99), calc(var(--pet-z, 1) * 1.01)); }
+    50%      { transform: translateX(-50%) translateY(0)    rotate(0deg)  scale(calc(var(--pet-z, 1) * 1.01), calc(var(--pet-z, 1) * 0.99)); }
+    75%      { transform: translateX(-50%) translateY(1px)  rotate(2deg)  scale(calc(var(--pet-z, 1) * 0.99), calc(var(--pet-z, 1) * 1.01)); }
   }
   .pet.sick .pet-eye { animation: none; height: 3px; background: transparent; border-radius: 0; box-shadow: none; }
   .pet.sick .pet-eye::before,
@@ -352,7 +356,7 @@
   }
   .pet.grumpy .pet-eye { height: 8px; }
   .pet.grumpy .pet-eye::after { display: block; }
-  .pet.grumpy .pet-mouth { height: 4px; width: 10px; border-radius: 6px 6px 0 0; transform: translateX(-50%) rotate(180deg); bottom: 12px; }
+  .pet.grumpy .pet-mouth { height: 4px scale(var(--pet-z, 1)); width: 10px scale(var(--pet-z, 1)); border-radius: 6px 6px 0 0 scale(var(--pet-z, 1)); transform: translateX(-50%) rotate(180deg) scale(var(--pet-z, 1)); bottom: 12px scale(var(--pet-z, 1)); }
   .pet.grumpy .pet-blush { opacity: 0; }
   .pet.bored .pet-eye { height: 5px; border-radius: 2px; animation: none; }
   .pet.bored .pet-eye::after { display: block; }
@@ -373,7 +377,7 @@
   }
 
   .pet-body {
-    position: absolute; left: 50%; bottom: 6px; transform: translateX(-50%);
+    position: absolute scale(var(--pet-z, 1)); left: 50% scale(var(--pet-z, 1)); bottom: 6px scale(var(--pet-z, 1)); transform: translateX(-50%) scale(var(--pet-z, 1));
     width: 44px; height: 42px;
     background: var(--pet-color, #F4E9DE);
     border: 3px solid var(--pet-color-dark, #C9B0A0);
@@ -398,7 +402,7 @@
   .pet-blush { position: absolute; bottom: 11px; width: 8px; height: 4px; background: rgba(201, 124, 140, 0.55); border-radius: 50%; transition: opacity 0.3s; }
   .pet-blush-l { left: 2px; } .pet-blush-r { right: 2px; }
   .pet-mouth {
-    position: absolute; bottom: 8px; left: 50%; transform: translateX(-50%);
+    position: absolute scale(var(--pet-z, 1)); bottom: 8px scale(var(--pet-z, 1)); left: 50% scale(var(--pet-z, 1)); transform: translateX(-50%) scale(var(--pet-z, 1));
     width: 9px; height: 4px; border-radius: 0 0 6px 6px;
     background: #3A2E28; opacity: 0.7;
     transition: all 0.3s;
@@ -410,7 +414,7 @@
   .pet.sleeping .pet-eye { height: 3px; border-radius: 3px; animation: none; }
   .pet.sleeping .pet-eye::after { display: none; }
   .pet.eating .pet-mouth { height: 6px; width: 8px; border-radius: 50%; animation: mouthChew 0.28s steps(1) infinite; }
-  @keyframes mouthChew { 0%, 49% { transform: translateX(-50%) scaleY(1); } 50%, 100% { transform: translateX(-50%) scaleY(0.4); } }
+  @keyframes mouthChew { 0%, 49% { transform: translateX(-50%) scaleY(calc(var(--pet-z, 1) * 1)); } 50%, 100% { transform: translateX(-50%) scaleY(calc(var(--pet-z, 1) * 0.4)); } }
 
   .pet-foot {
     position: absolute; bottom: -3px; width: 11px; height: 7px;
@@ -431,8 +435,8 @@
   @keyframes wingFlapL { 0%, 100% { transform: rotate(0deg); } 50% { transform: rotate(14deg); } }
   @keyframes wingFlapR { 0%, 100% { transform: rotate(0deg); } 50% { transform: rotate(-14deg); } }
 
-  .pet-horn { position: absolute; top: -12px; left: 50%; transform: translateX(-50%); width: 0; height: 0; border-left: 5px solid transparent; border-right: 5px solid transparent; border-bottom: 14px solid var(--pet-color-dark, #4A8F95); display: none; }
-  .pet-halo { position: absolute; top: -20px; left: 50%; transform: translateX(-50%); width: 28px; height: 10px; border: 3px solid #D4AF37; border-radius: 50%; opacity: 0.9; display: none; animation: haloPulse 2.4s ease-in-out infinite; }
+  .pet-horn { position: absolute scale(var(--pet-z, 1)); top: -12px scale(var(--pet-z, 1)); left: 50% scale(var(--pet-z, 1)); transform: translateX(-50%) scale(var(--pet-z, 1)); width: 0 scale(var(--pet-z, 1)); height: 0 scale(var(--pet-z, 1)); border-left: 5px solid transparent scale(var(--pet-z, 1)); border-right: 5px solid transparent scale(var(--pet-z, 1)); border-bottom: 14px solid var(--pet-color-dark, #4A8F95) scale(var(--pet-z, 1)); display: none scale(var(--pet-z, 1)); }
+  .pet-halo { position: absolute scale(var(--pet-z, 1)); top: -20px scale(var(--pet-z, 1)); left: 50% scale(var(--pet-z, 1)); transform: translateX(-50%) scale(var(--pet-z, 1)); width: 28px scale(var(--pet-z, 1)); height: 10px scale(var(--pet-z, 1)); border: 3px solid #D4AF37 scale(var(--pet-z, 1)); border-radius: 50% scale(var(--pet-z, 1)); opacity: 0.9 scale(var(--pet-z, 1)); display: none scale(var(--pet-z, 1)); animation: haloPulse 2.4s ease-in-out infinite scale(var(--pet-z, 1)); }
   @keyframes haloPulse { 0%, 100% { opacity: 0.75; } 50% { opacity: 1; box-shadow: 0 0 8px rgba(212, 175, 55, 0.6); } }
 
   .pet[data-stage="egg"] .pet-eye, .pet[data-stage="egg"] .pet-mouth, .pet[data-stage="egg"] .pet-foot { display: none; }
@@ -474,14 +478,14 @@
   .pet-accessories { position: absolute; inset: 0; pointer-events: none; z-index: 25; }
   .pet-accessory { position: absolute; pointer-events: none; filter: drop-shadow(0 2px 2px rgba(0,0,0,0.3)); line-height: 1; }
   .pet-accessory.bow {
-    top: 4px; left: 50%; transform: translateX(-50%);
+    top: 4px scale(var(--pet-z, 1)); left: 50% scale(var(--pet-z, 1)); transform: translateX(-50%) scale(var(--pet-z, 1));
     font-size: 1.15rem; z-index: 26;
     animation: bowBounce 2.6s ease-in-out infinite;
     transform-origin: center bottom;
   }
   @keyframes bowBounce {
-    0%, 100% { transform: translateX(-50%) translateY(0) rotate(-5deg); }
-    50% { transform: translateX(-50%) translateY(-1px) rotate(5deg); }
+    0%, 100% { transform: translateX(-50%) translateY(0) rotate(-5deg) scale(var(--pet-z, 1)); }
+    50% { transform: translateX(-50%) translateY(-1px) rotate(5deg) scale(var(--pet-z, 1)); }
   }
   .pet-accessory.lucky {
     top: 40%; left: 76%; transform: translate(-50%, -50%);
@@ -564,13 +568,13 @@
     100% { transform: scale(0) rotate(-30deg); opacity: 0; }
   }
   .room-item::after {
-    content: ''; position: absolute; bottom: -6px; left: 50%; transform: translateX(-50%);
+    content: '' scale(var(--pet-z, 1)); position: absolute scale(var(--pet-z, 1)); bottom: -6px scale(var(--pet-z, 1)); left: 50% scale(var(--pet-z, 1)); transform: translateX(-50%) scale(var(--pet-z, 1));
     width: 26px; height: 6px;
     background: radial-gradient(ellipse at center, rgba(74,63,58,0.3) 0%, transparent 70%);
     border-radius: 50%; z-index: -1;
   }
   .room-item .item-tooltip {
-    position: absolute; bottom: 110%; left: 50%; transform: translateX(-50%);
+    position: absolute scale(var(--pet-z, 1)); bottom: 110% scale(var(--pet-z, 1)); left: 50% scale(var(--pet-z, 1)); transform: translateX(-50%) scale(var(--pet-z, 1));
     background: #FFF9C8; border: 2px solid #C9A044;
     padding: 3px 6px;
     font-family: 'Press Start 2P', monospace; font-size: 0.4rem;
@@ -601,14 +605,14 @@
   }
 
   .need-indicator {
-    position: absolute; top: -22px; left: 50%; transform: translateX(-50%);
+    position: absolute scale(var(--pet-z, 1)); top: -22px scale(var(--pet-z, 1)); left: 50% scale(var(--pet-z, 1)); transform: translateX(-50%) scale(var(--pet-z, 1));
     font-size: 1.1rem; z-index: 25; pointer-events: none;
     animation: needBounce 1.2s ease-in-out infinite;
     filter: drop-shadow(0 2px 2px rgba(0,0,0,0.2));
   }
   @keyframes needBounce {
-    0%, 100% { transform: translateX(-50%) translateY(0); }
-    50% { transform: translateX(-50%) translateY(-5px); }
+    0%, 100% { transform: translateX(-50%) translateY(0) scale(var(--pet-z, 1)); }
+    50% { transform: translateX(-50%) translateY(-5px) scale(var(--pet-z, 1)); }
   }
 
   /* ============================================================
@@ -628,7 +632,7 @@
     content: '';
     position: absolute;
     left: 50%; bottom: -6px;
-    transform: translateX(-50%);
+    transform: translateX(-50%) scale(var(--pet-z, 1));
     width: 90%;
     height: 10px;
     background: radial-gradient(ellipse at center, rgba(74,63,58,0.42) 0%, rgba(74,63,58,0) 72%);
@@ -668,7 +672,7 @@
   }
 
   .furniture .furniture-label {
-    position: absolute; bottom: 105%; left: 50%; transform: translateX(-50%);
+    position: absolute scale(var(--pet-z, 1)); bottom: 105% scale(var(--pet-z, 1)); left: 50% scale(var(--pet-z, 1)); transform: translateX(-50%) scale(var(--pet-z, 1));
     background: #FFF9C8; border: 2px solid #C9A044;
     color: #6B4F0E;
     font-family: 'Press Start 2P', monospace; font-size: 0.4rem;
@@ -737,15 +741,15 @@
     content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
     width: 10px; height: 3px; background: #D4AF37; border-radius: 2px;
   }
-  .f-nightstand .ns-lamp { position: absolute; top: -34px; left: 50%; transform: translateX(-50%); width: 36px; height: 34px; pointer-events: none; }
+  .f-nightstand .ns-lamp { position: absolute scale(var(--pet-z, 1)); top: -34px scale(var(--pet-z, 1)); left: 50% scale(var(--pet-z, 1)); transform: translateX(-50%) scale(var(--pet-z, 1)); width: 36px scale(var(--pet-z, 1)); height: 34px scale(var(--pet-z, 1)); pointer-events: none scale(var(--pet-z, 1)); }
   .f-nightstand .ns-lamp::before {
-    content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
+    content: '' scale(var(--pet-z, 1)); position: absolute scale(var(--pet-z, 1)); bottom: 0 scale(var(--pet-z, 1)); left: 50% scale(var(--pet-z, 1)); transform: translateX(-50%) scale(var(--pet-z, 1));
     width: 4px; height: 16px;
     background: linear-gradient(180deg, #8B6F5E 0%, #6B4F3E 100%);
     border-radius: 2px;
   }
   .f-nightstand .ns-lamp-shade {
-    position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+    position: absolute scale(var(--pet-z, 1)); top: 0 scale(var(--pet-z, 1)); left: 50% scale(var(--pet-z, 1)); transform: translateX(-50%) scale(var(--pet-z, 1));
     width: 32px; height: 20px;
     background: linear-gradient(180deg, #FFE8A0 0%, #E8C878 100%);
     border: 3px solid #8B6F5E;
@@ -764,7 +768,7 @@
   .f-nightstand.lamp-off .ns-lamp-shade { background: linear-gradient(180deg, #8B6F5E 0%, #6B4F3E 100%); }
   .f-nightstand.lamp-off .ns-lamp-shade::after { opacity: 0 !important; animation: none; }
   .f-nightstand .ns-glow {
-    position: absolute; top: -14px; left: 50%; transform: translateX(-50%);
+    position: absolute scale(var(--pet-z, 1)); top: -14px scale(var(--pet-z, 1)); left: 50% scale(var(--pet-z, 1)); transform: translateX(-50%) scale(var(--pet-z, 1));
     width: 60px; height: 60px;
     background: radial-gradient(circle, rgba(255,232,160,0.35) 0%, rgba(255,232,160,0) 70%);
     pointer-events: none; animation: lampGlow3D 3s ease-in-out infinite; z-index: -1;
@@ -825,7 +829,7 @@
   .f-window .win-glass::before,
   .f-window .win-glass::after { content: ''; position: absolute; background: #6B4F3E; }
   .f-window .win-glass::before { top: 50%; left: 0; right: 0; height: 3px; transform: translateY(-50%); }
-  .f-window .win-glass::after { left: 50%; top: 0; bottom: 0; width: 3px; transform: translateX(-50%); }
+  .f-window .win-glass::after { left: 50% scale(var(--pet-z, 1)); top: 0 scale(var(--pet-z, 1)); bottom: 0 scale(var(--pet-z, 1)); width: 3px scale(var(--pet-z, 1)); transform: translateX(-50%) scale(var(--pet-z, 1)); }
   .f-window .win-cloud {
     position: absolute; width: 20px; height: 6px;
     background: rgba(255,255,255,0.9); border-radius: 6px;
@@ -872,7 +876,7 @@
     box-shadow: inset 0 3px 0 rgba(0,0,0,0.3);
   }
   .f-kitchen-counter .counter-sink::after {
-    content: ''; position: absolute; top: -14px; left: 50%; transform: translateX(-50%);
+    content: '' scale(var(--pet-z, 1)); position: absolute scale(var(--pet-z, 1)); top: -14px scale(var(--pet-z, 1)); left: 50% scale(var(--pet-z, 1)); transform: translateX(-50%) scale(var(--pet-z, 1));
     width: 3px; height: 14px; background: #4A3F3A; border-radius: 2px;
   }
   .f-kitchen-counter .counter-stove {
@@ -963,14 +967,14 @@
      ============================================================ */
   .f-tree { bottom: 5%; right: 3%; width: 80px; height: 140px; }
   .f-tree .tree-trunk {
-    position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
+    position: absolute scale(var(--pet-z, 1)); bottom: 0 scale(var(--pet-z, 1)); left: 50% scale(var(--pet-z, 1)); transform: translateX(-50%) scale(var(--pet-z, 1));
     width: 20px; height: 60px;
     background: linear-gradient(90deg, #6B4F3E 0%, #8B6F5E 50%, #6B4F3E 100%);
     border: 3px solid #4A3F3A; border-radius: 4px;
     box-shadow: inset -4px 0 0 rgba(0,0,0,0.2);
   }
   .f-tree .tree-leaves {
-    position: absolute; bottom: 50px; left: 50%; transform: translateX(-50%);
+    position: absolute scale(var(--pet-z, 1)); bottom: 50px scale(var(--pet-z, 1)); left: 50% scale(var(--pet-z, 1)); transform: translateX(-50%) scale(var(--pet-z, 1));
     width: 80px; height: 80px; border-radius: 50%;
     background: radial-gradient(circle at 35% 30%, #A8D488 0%, #6FA05D 60%, #4A7040 100%);
     box-shadow: inset -10px -10px 0 rgba(0,0,0,0.15), inset 6px 6px 0 rgba(255,255,255,0.15),
@@ -981,9 +985,9 @@
   }
   .f-tree.shaking .tree-leaves { animation: treeShake 0.4s ease-in-out; }
   @keyframes treeShake {
-    0%, 100% { transform: translateX(-50%) rotate(0deg); }
-    25% { transform: translateX(-50%) rotate(-8deg); }
-    75% { transform: translateX(-50%) rotate(8deg); }
+    0%, 100% { transform: translateX(-50%) rotate(0deg) scale(var(--pet-z, 1)); }
+    25% { transform: translateX(-50%) rotate(-8deg) scale(var(--pet-z, 1)); }
+    75% { transform: translateX(-50%) rotate(8deg) scale(var(--pet-z, 1)); }
   }
   .f-tree .tree-leaves::before,
   .f-tree .tree-leaves::after {
@@ -993,19 +997,19 @@
   .f-tree .tree-leaves::before { top: -12px; left: -10px; width: 46px; height: 46px; }
   .f-tree .tree-leaves::after { top: -6px; right: -12px; width: 40px; height: 40px; }
   @keyframes treeSway3D {
-    0%, 100% { transform: translateX(-50%) rotate(-2deg); }
-    50% { transform: translateX(-50%) rotate(2deg); }
+    0%, 100% { transform: translateX(-50%) rotate(-2deg) scale(var(--pet-z, 1)); }
+    50% { transform: translateX(-50%) rotate(2deg) scale(var(--pet-z, 1)); }
   }
   .f-tree .tree-fruit {
-    position: absolute; top: 30px; left: 50%; transform: translateX(-50%);
+    position: absolute scale(var(--pet-z, 1)); top: 30px scale(var(--pet-z, 1)); left: 50% scale(var(--pet-z, 1)); transform: translateX(-50%) scale(var(--pet-z, 1));
     font-size: 1.3rem; opacity: 0; pointer-events: none;
     filter: drop-shadow(0 2px 2px rgba(0,0,0,0.2));
   }
   .f-tree.shaking .tree-fruit { animation: fruitDrop 1.2s ease-in forwards; }
   @keyframes fruitDrop {
-    0% { opacity: 0; transform: translateX(-50%) translateY(-20px); }
+    0% { opacity: 0 scale(var(--pet-z, 1)); transform: translateX(-50%) translateY(-20px) scale(var(--pet-z, 1)); }
     30% { opacity: 1; }
-    100% { opacity: 1; transform: translateX(-50%) translateY(60px); }
+    100% { opacity: 1 scale(var(--pet-z, 1)); transform: translateX(-50%) translateY(60px) scale(var(--pet-z, 1)); }
   }
   .f-flowers {
     bottom: 8%; left: 3%; width: 110px; height: 40px;
@@ -1124,7 +1128,7 @@
      ============================================================ */
   .f-telescope { bottom: 5%; left: 8%; width: 100px; height: 110px; }
   .f-telescope .tel-tripod {
-    position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
+    position: absolute scale(var(--pet-z, 1)); bottom: 0 scale(var(--pet-z, 1)); left: 50% scale(var(--pet-z, 1)); transform: translateX(-50%) scale(var(--pet-z, 1));
     width: 4px; height: 50px;
     background: linear-gradient(180deg, #8B6F5E 0%, #4A3F3A 100%);
     border-radius: 2px;
@@ -1135,8 +1139,8 @@
     width: 3px; height: 40px; background: #6B4F3E; border-radius: 2px;
     transform-origin: top center;
   }
-  .f-telescope .tel-tripod::before { transform: translateX(-50%) rotate(-20deg); }
-  .f-telescope .tel-tripod::after { transform: translateX(-50%) rotate(20deg); }
+  .f-telescope .tel-tripod::before { transform: translateX(-50%) rotate(-20deg) scale(var(--pet-z, 1)); }
+  .f-telescope .tel-tripod::after { transform: translateX(-50%) rotate(20deg) scale(var(--pet-z, 1)); }
   .f-telescope .tel-tube {
     position: absolute; bottom: 44px; left: 50%;
     transform: translateX(-60%) rotate(-25deg);
@@ -1197,21 +1201,21 @@
     box-shadow: inset 0 4px 0 rgba(0,0,0,0.3);
   }
   .f-room-sink .sink-faucet {
-    position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
+    position: absolute scale(var(--pet-z, 1)); top: -12px scale(var(--pet-z, 1)); left: 50% scale(var(--pet-z, 1)); transform: translateX(-50%) scale(var(--pet-z, 1));
     width: 8px; height: 16px;
     background: linear-gradient(180deg, #D4D4D4 0%, #A8A8A8 100%);
     border: 2px solid #4A3F3A; border-radius: 3px 3px 0 0;
     z-index: 3;
   }
   .f-room-sink .sink-faucet::after {
-    content: ''; position: absolute; bottom: -2px; left: 50%; transform: translateX(-50%);
+    content: '' scale(var(--pet-z, 1)); position: absolute scale(var(--pet-z, 1)); bottom: -2px scale(var(--pet-z, 1)); left: 50% scale(var(--pet-z, 1)); transform: translateX(-50%) scale(var(--pet-z, 1));
     width: 14px; height: 6px;
     background: #C8C8C8;
     border: 2px solid #4A3F3A; border-radius: 0 0 3px 3px;
   }
   .f-room-sink.running .sink-faucet::after { background: #A8D4E8; }
   .f-room-sink .sink-water {
-    position: absolute; top: 4px; left: 50%; transform: translateX(-50%);
+    position: absolute scale(var(--pet-z, 1)); top: 4px scale(var(--pet-z, 1)); left: 50% scale(var(--pet-z, 1)); transform: translateX(-50%) scale(var(--pet-z, 1));
     width: 4px; height: 22px;
     background: linear-gradient(180deg, rgba(168,212,232,0.9) 0%, rgba(168,212,232,0.4) 100%);
     border-radius: 2px;
@@ -1335,8 +1339,8 @@
     background: #4A3F3A;
     border-radius: 2px;
   }
-  .f-room-clock .clock-hand.hour { width: 2px; height: 10px; transform: translateX(-50%) rotate(0deg); }
-  .f-room-clock .clock-hand.minute { width: 2px; height: 14px; transform: translateX(-50%) rotate(90deg); }
+  .f-room-clock .clock-hand.hour { width: 2px scale(var(--pet-z, 1)); height: 10px scale(var(--pet-z, 1)); transform: translateX(-50%) rotate(0deg) scale(var(--pet-z, 1)); }
+  .f-room-clock .clock-hand.minute { width: 2px scale(var(--pet-z, 1)); height: 14px scale(var(--pet-z, 1)); transform: translateX(-50%) rotate(90deg) scale(var(--pet-z, 1)); }
   .f-room-clock .clock-center {
     position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
     width: 5px; height: 5px;
@@ -1347,7 +1351,7 @@
   }
   .f-room-clock .clock-pendulum {
     position: absolute; top: 100%; left: 50%; transform-origin: top center;
-    transform: translateX(-50%);
+    transform: translateX(-50%) scale(var(--pet-z, 1));
     width: 3px; height: 22px;
     background: #8B6F3E;
     border: 2px solid #4A3F3A;
@@ -1355,12 +1359,12 @@
     animation: pendulumSwing 2s ease-in-out infinite;
   }
   @keyframes pendulumSwing {
-    0%, 100% { transform: translateX(-50%) rotate(-20deg); }
-    50% { transform: translateX(-50%) rotate(20deg); }
+    0%, 100% { transform: translateX(-50%) rotate(-20deg) scale(var(--pet-z, 1)); }
+    50% { transform: translateX(-50%) rotate(20deg) scale(var(--pet-z, 1)); }
   }
   .f-room-clock .clock-pendulum::after {
     content: '';
-    position: absolute; bottom: -8px; left: 50%; transform: translateX(-50%);
+    position: absolute scale(var(--pet-z, 1)); bottom: -8px scale(var(--pet-z, 1)); left: 50% scale(var(--pet-z, 1)); transform: translateX(-50%) scale(var(--pet-z, 1));
     width: 10px; height: 10px;
     background: radial-gradient(circle at 30% 30%, #FFE8A0, #C9A044);
     border: 2px solid #4A3F3A;
@@ -1370,34 +1374,34 @@
   /* Garden items */
   .f-room-fountain { bottom: 6%; left: 34%; width: 90px; height: 70px; }
   .f-room-fountain .fount-base {
-    position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
+    position: absolute scale(var(--pet-z, 1)); bottom: 0 scale(var(--pet-z, 1)); left: 50% scale(var(--pet-z, 1)); transform: translateX(-50%) scale(var(--pet-z, 1));
     width: 80px; height: 22px;
     background: linear-gradient(180deg, #C8C8C8 0%, #989898 100%);
     border: 3px solid #4A3F3A; border-radius: 50% 50% 10px 10px / 30% 30% 10% 10%;
     box-shadow: inset -4px -4px 0 rgba(0,0,0,0.18), 0 5px 0 rgba(0,0,0,0.25);
   }
   .f-room-fountain .fount-basin {
-    position: absolute; bottom: 12px; left: 50%; transform: translateX(-50%);
+    position: absolute scale(var(--pet-z, 1)); bottom: 12px scale(var(--pet-z, 1)); left: 50% scale(var(--pet-z, 1)); transform: translateX(-50%) scale(var(--pet-z, 1));
     width: 70px; height: 14px;
     background: linear-gradient(180deg, #A8D4E8 0%, #7FB0D8 100%);
     border: 3px solid #4A3F3A; border-radius: 0 0 60% 60% / 0 0 80% 80%;
     box-shadow: inset 0 3px 0 rgba(255,255,255,0.4);
   }
   .f-room-fountain .fount-column {
-    position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%);
+    position: absolute scale(var(--pet-z, 1)); bottom: 20px scale(var(--pet-z, 1)); left: 50% scale(var(--pet-z, 1)); transform: translateX(-50%) scale(var(--pet-z, 1));
     width: 8px; height: 30px;
     background: linear-gradient(180deg, #C8C8C8 0%, #A8A8A8 100%);
     border: 3px solid #4A3F3A; border-radius: 4px;
   }
   .f-room-fountain .fount-top {
-    position: absolute; bottom: 46px; left: 50%; transform: translateX(-50%);
+    position: absolute scale(var(--pet-z, 1)); bottom: 46px scale(var(--pet-z, 1)); left: 50% scale(var(--pet-z, 1)); transform: translateX(-50%) scale(var(--pet-z, 1));
     width: 30px; height: 10px;
     background: radial-gradient(circle at 40% 30%, #E8E8E8, #A8A8A8);
     border: 3px solid #4A3F3A; border-radius: 50%;
     box-shadow: inset 0 3px 0 rgba(255,255,255,0.4);
   }
   .f-room-fountain .fount-jet {
-    position: absolute; bottom: 52px; left: 50%; transform: translateX(-50%);
+    position: absolute scale(var(--pet-z, 1)); bottom: 52px scale(var(--pet-z, 1)); left: 50% scale(var(--pet-z, 1)); transform: translateX(-50%) scale(var(--pet-z, 1));
     width: 4px; height: 30px;
     background: linear-gradient(180deg, rgba(168,212,232,0) 0%, rgba(168,212,232,0.9) 60%, rgba(168,212,232,0.4) 100%);
     border-radius: 2px;
@@ -1405,8 +1409,8 @@
   }
   .f-room-fountain.running .fount-jet { opacity: 1; animation: jetPulse 1.2s ease-in-out infinite; }
   @keyframes jetPulse {
-    0%, 100% { transform: translateX(-50%) scaleY(1); }
-    50% { transform: translateX(-50%) scaleY(1.15); }
+    0%, 100% { transform: translateX(-50%) scaleY(calc(var(--pet-z, 1) * 1)); }
+    50% { transform: translateX(-50%) scaleY(calc(var(--pet-z, 1) * 1.15)); }
   }
   .f-room-fountain .fount-spray {
     position: absolute; bottom: 60px; left: 50%;
@@ -1419,21 +1423,21 @@
     animation: sprayArc 1.5s ease-in-out infinite;
   }
   @keyframes sprayArc {
-    0% { transform: translateX(-50%) translateY(0) scale(0.6); opacity: 0; }
+    0% { transform: translateX(-50%) translateY(0) scale(calc(var(--pet-z, 1) * 0.6)); opacity: 0; }
     30% { opacity: 1; }
-    70% { transform: translateX(-50%) translateY(-20px) scale(1); opacity: 1; }
-    100% { transform: translateX(-50%) translateY(-10px) scale(0.6); opacity: 0; }
+    70% { transform: translateX(-50%) translateY(-20px) scale(calc(var(--pet-z, 1) * 1)); opacity: 1; }
+    100% { transform: translateX(-50%) translateY(-10px) scale(calc(var(--pet-z, 1) * 0.6)); opacity: 0; }
   }
 
   .f-room-feeder { top: 30%; left: 40%; width: 60px; height: 80px; }
   .f-room-feeder .feeder-pole {
-    position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
+    position: absolute scale(var(--pet-z, 1)); bottom: 0 scale(var(--pet-z, 1)); left: 50% scale(var(--pet-z, 1)); transform: translateX(-50%) scale(var(--pet-z, 1));
     width: 4px; height: 60px;
     background: #6B4F3E; border: 2px solid #4A3F3A;
     border-radius: 2px;
   }
   .f-room-feeder .feeder-house {
-    position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+    position: absolute scale(var(--pet-z, 1)); top: 0 scale(var(--pet-z, 1)); left: 50% scale(var(--pet-z, 1)); transform: translateX(-50%) scale(var(--pet-z, 1));
     width: 40px; height: 30px;
     background: linear-gradient(180deg, #C97C8C 0%, #A8607C 100%);
     border: 3px solid #4A3F3A;
@@ -1442,35 +1446,35 @@
   }
   .f-room-feeder .feeder-house::after {
     content: '';
-    position: absolute; bottom: -4px; left: 50%; transform: translateX(-50%);
+    position: absolute scale(var(--pet-z, 1)); bottom: -4px scale(var(--pet-z, 1)); left: 50% scale(var(--pet-z, 1)); transform: translateX(-50%) scale(var(--pet-z, 1));
     width: 8px; height: 8px;
     background: #E8D8B8;
     border: 2px solid #4A3F3A;
     border-radius: 50%;
   }
   .f-room-feeder .feeder-seeds {
-    position: absolute; top: 12px; left: 50%; transform: translateX(-50%);
+    position: absolute scale(var(--pet-z, 1)); top: 12px scale(var(--pet-z, 1)); left: 50% scale(var(--pet-z, 1)); transform: translateX(-50%) scale(var(--pet-z, 1));
     font-size: 0.6rem;
   }
   .f-room-feeder .feeder-bird {
     position: absolute;
     top: -18px; left: 50%;
     font-size: 1.1rem;
-    transform: translateX(-50%) translateY(-30px);
+    transform: translateX(-50%) translateY(-30px) scale(var(--pet-z, 1));
     opacity: 0;
     pointer-events: none;
   }
   .f-room-feeder.visited .feeder-bird { animation: birdVisit 2.4s ease-in-out; }
   @keyframes birdVisit {
-    0% { opacity: 0; transform: translateX(-50%) translateY(-30px) scale(0.8); }
-    20% { opacity: 1; transform: translateX(-50%) translateY(0) scale(1); }
-    80% { opacity: 1; transform: translateX(-50%) translateY(0) scale(1); }
-    100% { opacity: 0; transform: translateX(-50%) translateY(-30px) scale(0.8); }
+    0% { opacity: 0; transform: translateX(-50%) translateY(-30px) scale(calc(var(--pet-z, 1) * 0.8)); }
+    20% { opacity: 1; transform: translateX(-50%) translateY(0) scale(calc(var(--pet-z, 1) * 1)); }
+    80% { opacity: 1; transform: translateX(-50%) translateY(0) scale(calc(var(--pet-z, 1) * 1)); }
+    100% { opacity: 0; transform: translateX(-50%) translateY(-30px) scale(calc(var(--pet-z, 1) * 0.8)); }
   }
 
   .f-room-plant { bottom: 10%; left: 20%; width: 40px; height: 50px; }
   .f-room-plant .plant-pot {
-    position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
+    position: absolute scale(var(--pet-z, 1)); bottom: 0 scale(var(--pet-z, 1)); left: 50% scale(var(--pet-z, 1)); transform: translateX(-50%) scale(var(--pet-z, 1));
     width: 32px; height: 24px;
     background: linear-gradient(180deg, #C97C8C 0%, #A8607C 100%);
     border: 3px solid #4A3F3A;
@@ -1478,16 +1482,16 @@
     box-shadow: inset -3px -3px 0 rgba(0,0,0,0.15);
   }
   .f-room-plant .plant-leaves {
-    position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%);
+    position: absolute scale(var(--pet-z, 1)); bottom: 20px scale(var(--pet-z, 1)); left: 50% scale(var(--pet-z, 1)); transform: translateX(-50%) scale(var(--pet-z, 1));
     font-size: 1.6rem;
     animation: plantSway 4s ease-in-out infinite;
   }
   @keyframes plantSway {
-    0%, 100% { transform: translateX(-50%) rotate(-3deg); }
-    50% { transform: translateX(-50%) rotate(3deg); }
+    0%, 100% { transform: translateX(-50%) rotate(-3deg) scale(var(--pet-z, 1)); }
+    50% { transform: translateX(-50%) rotate(3deg) scale(var(--pet-z, 1)); }
   }
   .f-room-plant .plant-water {
-    position: absolute; bottom: 24px; left: 50%; transform: translateX(-50%);
+    position: absolute scale(var(--pet-z, 1)); bottom: 24px scale(var(--pet-z, 1)); left: 50% scale(var(--pet-z, 1)); transform: translateX(-50%) scale(var(--pet-z, 1));
     width: 4px; height: 16px;
     background: linear-gradient(180deg, rgba(168,212,232,0.9) 0%, rgba(168,212,232,0) 100%);
     opacity: 0;
@@ -1513,7 +1517,7 @@
   .f-room-easel .easel-leg-l { left: 8px; transform: rotate(-6deg); }
   .f-room-easel .easel-leg-r { right: 8px; transform: rotate(6deg); }
   .f-room-easel .easel-canvas {
-    position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+    position: absolute scale(var(--pet-z, 1)); top: 0 scale(var(--pet-z, 1)); left: 50% scale(var(--pet-z, 1)); transform: translateX(-50%) scale(var(--pet-z, 1));
     width: 60px; height: 50px;
     background: #FFF9E8;
     border: 3px solid #4A3F3A;
@@ -1572,7 +1576,7 @@
   /* Observatory globe */
   .f-room-globe { bottom: 10%; right: 28%; width: 60px; height: 60px; }
   .f-room-globe .globe-base {
-    position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
+    position: absolute scale(var(--pet-z, 1)); bottom: 0 scale(var(--pet-z, 1)); left: 50% scale(var(--pet-z, 1)); transform: translateX(-50%) scale(var(--pet-z, 1));
     width: 40px; height: 10px;
     background: linear-gradient(180deg, #A88F70 0%, #8B6F5E 100%);
     border: 2px solid #4A3F3A;
@@ -1580,13 +1584,13 @@
     box-shadow: 0 4px 0 rgba(0,0,0,0.3);
   }
   .f-room-globe .globe-stand {
-    position: absolute; bottom: 6px; left: 50%; transform: translateX(-50%);
+    position: absolute scale(var(--pet-z, 1)); bottom: 6px scale(var(--pet-z, 1)); left: 50% scale(var(--pet-z, 1)); transform: translateX(-50%) scale(var(--pet-z, 1));
     width: 4px; height: 12px;
     background: #6B4F3E; border: 2px solid #4A3F3A;
     border-radius: 2px;
   }
   .f-room-globe .globe-orb {
-    position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+    position: absolute scale(var(--pet-z, 1)); top: 0 scale(var(--pet-z, 1)); left: 50% scale(var(--pet-z, 1)); transform: translateX(-50%) scale(var(--pet-z, 1));
     width: 50px; height: 50px;
     border-radius: 50%;
     background: radial-gradient(circle at 35% 30%, #6B4F7E 0%, #2A1F3A 100%);
@@ -1603,8 +1607,8 @@
   }
   .f-room-globe.spinning .globe-orb { animation: globeSpin 3s linear; }
   @keyframes globeSpin {
-    0% { transform: translateX(-50%) rotateY(0deg); }
-    100% { transform: translateX(-50%) rotateY(360deg); }
+    0% { transform: translateX(-50%) rotateY(0deg) scale(var(--pet-z, 1)); }
+    100% { transform: translateX(-50%) rotateY(360deg) scale(var(--pet-z, 1)); }
   }
 
   .scene-prop { position: absolute; font-size: 1.8rem; z-index: 15; pointer-events: none; }
@@ -1759,15 +1763,15 @@
   .f-fridge.has-food .fridge-full-badge { display: block; }
 
   .speech-bubble {
-    position: absolute; top: -20px; left: 50%; transform: translateX(-50%);
+    position: absolute scale(var(--pet-z, 1)); top: -20px scale(var(--pet-z, 1)); left: 50% scale(var(--pet-z, 1)); transform: translateX(-50%) scale(var(--pet-z, 1));
     background: white; border: 3px solid #8B6F5E;
     padding: 6px 12px;
     font-family: 'Press Start 2P', monospace; font-size: 0.55rem;
     color: #4A3F3A; border-radius: 6px; white-space: nowrap; z-index: 30;
     animation: bubbleIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
   }
-  @keyframes bubbleIn { 0% { opacity: 0; transform: translateX(-50%) translateY(8px) scale(0.8); } 100% { opacity: 1; transform: translateX(-50%) translateY(0) scale(1); } }
-  .speech-bubble::after { content: ''; position: absolute; bottom: -8px; left: 50%; transform: translateX(-50%); width: 0; height: 0; border-left: 6px solid transparent; border-right: 6px solid transparent; border-top: 8px solid #8B6F5E; }
+  @keyframes bubbleIn { 0% { opacity: 0; transform: translateX(-50%) translateY(8px) scale(calc(var(--pet-z, 1) * 0.8)); } 100% { opacity: 1; transform: translateX(-50%) translateY(0) scale(calc(var(--pet-z, 1) * 1)); } }
+  .speech-bubble::after { content: '' scale(var(--pet-z, 1)); position: absolute scale(var(--pet-z, 1)); bottom: -8px scale(var(--pet-z, 1)); left: 50% scale(var(--pet-z, 1)); transform: translateX(-50%) scale(var(--pet-z, 1)); width: 0 scale(var(--pet-z, 1)); height: 0 scale(var(--pet-z, 1)); border-left: 6px solid transparent scale(var(--pet-z, 1)); border-right: 6px solid transparent scale(var(--pet-z, 1)); border-top: 8px solid #8B6F5E scale(var(--pet-z, 1)); }
 
   .heart-float { position: absolute; font-size: 1rem; z-index: 25; pointer-events: none; animation: heartFloat 1.5s ease-out forwards; }
   @keyframes heartFloat { 0% { opacity: 1; transform: translateY(0) translateX(0) scale(0.5) rotate(0deg); } 100% { opacity: 0; transform: translateY(-60px) translateX(var(--drift, 0px)) scale(1.2) rotate(var(--spin, 0deg)); } }
@@ -1782,7 +1786,7 @@
   @keyframes confettiFall { 0% { opacity: 1; transform: translate(0, 0) rotate(0deg); } 100% { opacity: 0; transform: translate(var(--cx, 0px), var(--cy, 300px)) rotate(var(--cr, 360deg)); } }
 
   .want-bubble {
-    position: absolute; top: 12px; left: 50%; transform: translateX(-50%);
+    position: absolute scale(var(--pet-z, 1)); top: 12px scale(var(--pet-z, 1)); left: 50% scale(var(--pet-z, 1)); transform: translateX(-50%) scale(var(--pet-z, 1));
     background: #FFF9C8; border: 3px solid #C9A044;
     padding: 6px 12px;
     font-family: 'Press Start 2P', monospace; font-size: 0.5rem;
@@ -1791,8 +1795,8 @@
     animation: wantPulse 2s ease-in-out infinite;
     cursor: pointer;
   }
-  @keyframes wantPulse { 0%, 100% { transform: translateX(-50%) scale(1); } 50% { transform: translateX(-50%) scale(1.05); } }
-  .want-bubble::after { content: ''; position: absolute; bottom: -8px; left: 50%; transform: translateX(-50%); width: 0; height: 0; border-left: 6px solid transparent; border-right: 6px solid transparent; border-top: 8px solid #C9A044; }
+  @keyframes wantPulse { 0%, 100% { transform: translateX(-50%) scale(calc(var(--pet-z, 1) * 1)); } 50% { transform: translateX(-50%) scale(calc(var(--pet-z, 1) * 1.05)); } }
+  .want-bubble::after { content: '' scale(var(--pet-z, 1)); position: absolute scale(var(--pet-z, 1)); bottom: -8px scale(var(--pet-z, 1)); left: 50% scale(var(--pet-z, 1)); transform: translateX(-50%) scale(var(--pet-z, 1)); width: 0 scale(var(--pet-z, 1)); height: 0 scale(var(--pet-z, 1)); border-left: 6px solid transparent scale(var(--pet-z, 1)); border-right: 6px solid transparent scale(var(--pet-z, 1)); border-top: 8px solid #C9A044 scale(var(--pet-z, 1)); }
   .room-badge { position: absolute; top: 8px; left: 8px; background: rgba(253, 246, 238, 0.95); border: 3px solid #8B6F5E; padding: 3px 8px; font-family: 'Press Start 2P', monospace; font-size: 0.45rem; color: #8B6F5E; border-radius: 4px; z-index: 30; }
 
   .pet-mood-pill {
@@ -1899,7 +1903,7 @@
   .mg-bubble.popped { animation: mgPop 0.3s ease-out forwards; pointer-events: none; }
   @keyframes mgPop { 0% { transform: scale(1); } 100% { transform: scale(1.8); opacity: 0; } }
   .mg-hud {
-    position: absolute; top: 8px; left: 50%; transform: translateX(-50%);
+    position: absolute scale(var(--pet-z, 1)); top: 8px scale(var(--pet-z, 1)); left: 50% scale(var(--pet-z, 1)); transform: translateX(-50%) scale(var(--pet-z, 1));
     font-family: 'Press Start 2P', monospace; font-size: 0.7rem;
     color: white; text-shadow: 2px 2px 0 #4A3F3A;
     background: rgba(139, 111, 94, 0.8);
@@ -2099,7 +2103,7 @@
 
   .toast {
     position: fixed; top: 15px; left: 50%;
-    transform: translateX(-50%) translateY(-80px);
+    transform: translateX(-50%) translateY(-80px) scale(var(--pet-z, 1));
     background: #8B6F5E; color: white;
     padding: 10px 18px;
     font-family: 'Press Start 2P', monospace;
@@ -2107,7 +2111,7 @@
     z-index: 1000; transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
     max-width: 90vw; text-align: center; line-height: 1.5;
   }
-  .toast.show { transform: translateX(-50%) translateY(0); }
+  .toast.show { transform: translateX(-50%) translateY(0) scale(var(--pet-z, 1)); }
 
   .ach-popup {
     position: fixed; top: 50%; left: 50%;
@@ -2155,7 +2159,7 @@
   .door-transition {
     position: absolute;
     bottom: 20%; left: 50%;
-    transform: translateX(-50%);
+    transform: translateX(-50%) scale(var(--pet-z, 1));
     font-size: 1.4rem;
     pointer-events: none;
     z-index: 28;
@@ -2163,9 +2167,9 @@
     animation: doorFlash 0.9s ease-out;
   }
   @keyframes doorFlash {
-    0% { opacity: 0; transform: translateX(-50%) scale(0.6); }
-    30% { opacity: 1; transform: translateX(-50%) scale(1.1); }
-    100% { opacity: 0; transform: translateX(-50%) scale(1); }
+    0% { opacity: 0; transform: translateX(-50%) scale(calc(var(--pet-z, 1) * 0.6)); }
+    30% { opacity: 1; transform: translateX(-50%) scale(calc(var(--pet-z, 1) * 1.1)); }
+    100% { opacity: 0; transform: translateX(-50%) scale(calc(var(--pet-z, 1) * 1)); }
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -3696,10 +3700,10 @@ async function furnitureInteraction(type) {
 /* Bedroom */
 async function interactBed(pet) {
   const bed = document.querySelector('.f-bed');
-  const bedX = getFurnitureCenterX(bed, 18);
+  const bedPos = getFurniturePos(bed, 18);
   bed?.classList.add('fluffed');
   pet.className = 'pet walking';
-  await movePetTo(bedX, 900);
+  await movePetTo(bedPos.x, 900, bedPos.bottom, bedPos.scale);
   pet.className = 'pet sleeping';
   showBubble('so cozy~', '💤');
   for (let i = 0; i < 3; i++) {
@@ -3707,7 +3711,7 @@ async function interactBed(pet) {
       const z = document.createElement('div');
       z.className = 'zzz';
       z.textContent = 'Z';
-      z.style.left = bedX + '%';
+      z.style.left = bedPos.x + '%';
       z.style.bottom = '90px';
       z.style.fontSize = (0.6 + i * 0.1) + 'rem';
       $('petArea').appendChild(z);
@@ -3718,7 +3722,7 @@ async function interactBed(pet) {
   await new Promise(r => setTimeout(r, 2400));
   bed?.classList.remove('fluffed');
   pet.className = 'pet walking';
-  await movePetTo(50, 800);
+  await movePetTo(50, 800, 15, 1);
   pet.className = 'pet ' + computeMood().cls;
   showToast('😴 Napped on the bed! +8 rest');
 }
@@ -3763,10 +3767,10 @@ async function interactShelf(pet) {
 
 async function interactWindow(pet) {
   const win = document.querySelector('.f-window');
-  const winX = getFurnitureCenterX(win, 80);
+  const winPos = getFurniturePos(win, 80);
   win?.classList.add('open');
   pet.className = 'pet walking';
-  await movePetTo(winX, 900);
+  await movePetTo(winPos.x, 900, winPos.bottom, winPos.scale);
   pet.className = 'pet looking-up';
   showBubble('nice view!', '☁️');
   for (let i = 0; i < 4; i++) {
@@ -3774,7 +3778,7 @@ async function interactWindow(pet) {
       const s = document.createElement('div');
       s.className = 'sparkle-burst';
       s.textContent = '✨';
-      s.style.left = (winX - 8 + Math.random() * 16) + '%';
+      s.style.left = (winPos.x - 8 + Math.random() * 16) + '%';
       s.style.top = '20%';
       $('petArea').appendChild(s);
       setTimeout(() => s.remove(), 1000);
@@ -3783,7 +3787,7 @@ async function interactWindow(pet) {
   await new Promise(r => setTimeout(r, 2000));
   win?.classList.remove('open');
   pet.className = 'pet walking';
-  await movePetTo(50, 800);
+  await movePetTo(50, 800, 15, 1);
   pet.className = 'pet ' + computeMood().cls;
 }
 
@@ -3827,11 +3831,11 @@ async function interactCounter(pet) {
   cookingState.recipe = recipe;
 
   const counter = document.querySelector('.f-kitchen-counter');
-  const counterX = getFurnitureCenterX(counter, 20);
+  const counterPos = getFurniturePos(counter, 20);
   counter?.classList.add('cooking');
 
   pet.className = 'pet walking';
-  await movePetTo(counterX, 1000);
+  await movePetTo(counterPos.x, 1000, counterPos.bottom, counterPos.scale);
   pet.className = 'pet watching';
   showBubble('cooking!', '🍳');
   sfxCook();
@@ -3839,7 +3843,7 @@ async function interactCounter(pet) {
   const smokeInterval = setInterval(() => {
     const s = document.createElement('div');
     s.className = 'cook-smoke';
-    s.style.left = (counterX - 6 + Math.random() * 12) + '%';
+    s.style.left = (counterPos.x - 6 + Math.random() * 12) + '%';
     s.style.bottom = '50%';
     s.style.setProperty('--sx', (Math.random() * 20 - 10) + 'px');
     $('petArea').appendChild(s);
@@ -3866,7 +3870,7 @@ async function interactCounter(pet) {
       const s = document.createElement('div');
       s.className = 'sparkle-burst';
       s.textContent = '✨';
-      s.style.left = (counterX - 6 + Math.random() * 12) + '%';
+      s.style.left = (counterPos.x - 6 + Math.random() * 12) + '%';
       s.style.bottom = '45%';
       $('petArea').appendChild(s);
       setTimeout(() => s.remove(), 1000);
@@ -3912,8 +3916,8 @@ async function interactCounter(pet) {
     db.ref('tamagotchi/fridgeItems').set(fridgeItems2);
     pet.className = 'pet walking';
     const fridge = document.querySelector('.f-fridge');
-    const fridgeX = getFurnitureCenterX(fridge, 84);
-    await movePetTo(fridgeX, 1100);
+    const fridgePos = getFurniturePos(fridge, 84);
+    await movePetTo(fridgePos.x, 1100, fridgePos.bottom, fridgePos.scale);
     fridge?.classList.add('open');
     sfxOpen();
     showBubble('stored!', '🧊');
@@ -3938,13 +3942,13 @@ async function interactCounter(pet) {
   cookingState.active = false;
 
   pet.className = 'pet walking';
-  await movePetTo(50, 800);
+  await movePetTo(50, 800, 15, 1);
   pet.className = 'pet ' + computeMood().cls;
 }
 
 async function interactFridge(pet) {
   const fridge = document.querySelector('.f-fridge');
-  const fridgeX = getFurnitureCenterX(fridge, 84);
+  const fridgePos = getFurniturePos(fridge, 84);
   fridgeOpen = !fridgeOpen;
   fridge?.classList.toggle('open', fridgeOpen);
   sfxOpen();
@@ -3953,7 +3957,7 @@ async function interactFridge(pet) {
   if (!fridgeOpen) return;
 
   pet.className = 'pet walking';
-  await movePetTo(fridgeX, 900);
+  await movePetTo(fridgePos.x, 900, fridgePos.bottom, fridgePos.scale);
   pet.className = 'pet looking-up';
   showBubble('snacks!', '🧊');
 
@@ -4008,7 +4012,7 @@ async function interactFridge(pet) {
   renderFridgeContents();
 
   pet.className = 'pet walking';
-  await movePetTo(50, 800);
+  await movePetTo(50, 800, 15, 1);
   pet.className = 'pet ' + computeMood().cls;
   showToast(`🍴 Snacked on ${itemEmoji}! +8 🍚 +4 ☀️ +2 XP`);
 }
@@ -4016,11 +4020,11 @@ async function interactFridge(pet) {
 /* Garden */
 async function interactTree(pet) {
   const tree = document.querySelector('.f-tree');
-  const treeX = getFurnitureCenterX(tree, 78);
+  const treePos = getFurniturePos(tree, 78);
   tree?.classList.add('shaking');
   sfxOpen();
   pet.className = 'pet walking';
-  await movePetTo(treeX, 900);
+  await movePetTo(treePos.x, 900, treePos.bottom, treePos.scale);
   pet.className = 'pet looking-up';
   await new Promise(r => setTimeout(r, 1200));
   tree?.classList.remove('shaking');
@@ -4035,17 +4039,17 @@ async function interactTree(pet) {
   });
   await new Promise(r => setTimeout(r, 1600));
   pet.className = 'pet walking';
-  await movePetTo(50, 800);
+  await movePetTo(50, 800, 15, 1);
   pet.className = 'pet ' + computeMood().cls;
   showToast('🍎 Caught fruit! +6 🍚 +6 ☀️ +3 XP');
 }
 
 async function interactFlowers(pet) {
   const flowers = document.querySelector('.f-flowers');
-  const flowersX = getFurnitureCenterX(flowers, 20);
+  const flowersPos = getFurniturePos(flowers, 20);
   flowers?.classList.add('sniffed');
   pet.className = 'pet walking';
-  await movePetTo(flowersX, 900);
+  await movePetTo(flowersPos.x, 900, flowersPos.bottom, flowersPos.scale);
   pet.className = 'pet sniffing';
   showBubble('sniff sniff~', '🌸');
   for (let i = 0; i < 6; i++) {
@@ -4053,7 +4057,7 @@ async function interactFlowers(pet) {
       const s = document.createElement('div');
       s.className = 'sparkle-burst';
       s.textContent = ['🌸', '✨', '🌼', '💛'][i % 4];
-      s.style.left = (flowersX - 15 + Math.random() * 30) + '%';
+      s.style.left = (flowersPos.x - 15 + Math.random() * 30) + '%';
       s.style.bottom = '25%';
       $('petArea').appendChild(s);
       setTimeout(() => s.remove(), 1000);
@@ -4062,7 +4066,7 @@ async function interactFlowers(pet) {
   await new Promise(r => setTimeout(r, 2000));
   flowers?.classList.remove('sniffed');
   pet.className = 'pet walking';
-  await movePetTo(50, 800);
+  await movePetTo(50, 800, 15, 1);
   pet.className = 'pet ' + computeMood().cls;
   db.ref('tamagotchi').update({
     happy: Math.min(100, (gameData.happy || 0) + 7),
@@ -4075,11 +4079,11 @@ async function interactFlowers(pet) {
 /* Playroom */
 async function interactToybox(pet) {
   const box = document.querySelector('.f-toybox');
-  const boxX = getFurnitureCenterX(box, 20);
+  const boxPos = getFurniturePos(box, 20);
   box?.classList.add('open');
   sfxOpen();
   pet.className = 'pet walking';
-  await movePetTo(boxX, 900);
+  await movePetTo(boxPos.x, 900, boxPos.bottom, boxPos.scale);
   pet.className = 'pet happy';
 
   const toys = [
@@ -4116,7 +4120,7 @@ async function interactToybox(pet) {
   await new Promise(r => setTimeout(r, 2000));
   box?.classList.remove('open');
   pet.className = 'pet walking';
-  await movePetTo(50, 800);
+  await movePetTo(50, 800, 15, 1);
   pet.className = 'pet ' + computeMood().cls;
   showToast(`${toy.emoji} Played with ${toy.name.toLowerCase()}! +10 ☀️ -3 🌙 +4 XP`);
 }
@@ -4124,10 +4128,10 @@ async function interactToybox(pet) {
 async function interactBlocks(pet) {
   const blocks = document.querySelector('.f-blocks');
   if (!blocks) return;
-  const blocksX = getFurnitureCenterX(blocks, 46);
+  const blocksPos = getFurniturePos(blocks, 46);
   blocks.classList.add('stacked');
   pet.className = 'pet walking';
-  await movePetTo(blocksX, 900);
+  await movePetTo(blocksPos.x, 900, blocksPos.bottom, blocksPos.scale);
   pet.className = 'pet watching';
   showBubble('stacking!', '🧱');
   await new Promise(r => setTimeout(r, 1200));
@@ -4144,17 +4148,17 @@ async function interactBlocks(pet) {
   await new Promise(r => setTimeout(r, 1600));
   blocks.classList.remove('tumbled');
   pet.className = 'pet walking';
-  await movePetTo(50, 800);
+  await movePetTo(50, 800, 15, 1);
   pet.className = 'pet ' + computeMood().cls;
   showToast('🧱 Built a tower! It fell... +4 ☀️ +3 XP');
 }
 
 async function interactBallpit(pet) {
   const pit = document.querySelector('.f-ballpit');
-  const pitX = getFurnitureCenterX(pit, 80);
+  const pitPos = getFurniturePos(pit, 80);
   pit?.classList.add('splashing');
   pet.className = 'pet walking';
-  await movePetTo(pitX, 900);
+  await movePetTo(pitPos.x, 900, pitPos.bottom, pitPos.scale);
   pet.className = 'pet spinning';
   sfxPop();
   showBubble('wheee!!', '🎉');
@@ -4168,7 +4172,7 @@ async function interactBallpit(pet) {
   await new Promise(r => setTimeout(r, 2200));
   pit?.classList.remove('splashing');
   pet.className = 'pet walking';
-  await movePetTo(50, 800);
+  await movePetTo(50, 800, 15, 1);
   pet.className = 'pet ' + computeMood().cls;
   showToast('🎉 Dove into the ballpit! +12 ☀️ -4 🌙 +4 XP');
 }
@@ -4176,10 +4180,10 @@ async function interactBallpit(pet) {
 /* Observatory */
 async function interactTelescope(pet) {
   const tel = document.querySelector('.f-telescope');
-  const telX = getFurnitureCenterX(tel, 14);
+  const telPos = getFurniturePos(tel, 14);
   tel?.classList.add('peeking');
   pet.className = 'pet walking';
-  await movePetTo(telX, 900);
+  await movePetTo(telPos.x, 900, telPos.bottom, telPos.scale);
   pet.className = 'pet looking-up';
   showBubble('so many stars...', '⭐');
   sfxPop();
@@ -4188,7 +4192,7 @@ async function interactTelescope(pet) {
       const s = document.createElement('div');
       s.className = 'sparkle-burst';
       s.textContent = '⭐';
-      s.style.left = (telX - 10 + Math.random() * 20) + '%';
+      s.style.left = (telPos.x - 10 + Math.random() * 20) + '%';
       s.style.top = (20 + Math.random() * 20) + '%';
       $('petArea').appendChild(s);
       setTimeout(() => s.remove(), 1000);
@@ -4207,24 +4211,24 @@ async function interactTelescope(pet) {
   const key = 'diary/' + Date.now() + '_wish';
   db.ref('tamagotchi/' + key).set(entry);
   pet.className = 'pet walking';
-  await movePetTo(50, 800);
+  await movePetTo(50, 800, 15, 1);
   pet.className = 'pet ' + computeMood().cls;
   showToast('⭐ Stargazing! +4 ☀️ +8 XP');
 }
 
 async function interactStarchart(pet) {
   const chart = document.querySelector('.f-starchart');
-  const chartX = getFurnitureCenterX(chart, 14);
+  const chartPos = getFurniturePos(chart, 14);
   chart?.classList.add('glowing');
   pet.className = 'pet walking';
-  await movePetTo(chartX, 900);
+  await movePetTo(chartPos.x, 900, chartPos.bottom, chartPos.scale);
   pet.className = 'pet watching';
   showBubble('studying...', '📖');
   await new Promise(r => setTimeout(r, 1800));
   chart?.classList.remove('glowing');
   db.ref('tamagotchi').update({ xp: (gameData.xp || 0) + 6, lastUpdate: Date.now() });
   pet.className = 'pet walking';
-  await movePetTo(50, 800);
+  await movePetTo(50, 800, 15, 1);
   pet.className = 'pet ' + computeMood().cls;
   showToast('📖 Studied the stars! +6 XP');
 }
@@ -4233,18 +4237,18 @@ async function interactStarchart(pet) {
 async function interactRoomSink(pet) {
   const sink = document.querySelector('.f-room-sink');
   if (!sink) return;
-  const sinkX = getFurnitureCenterX(sink, 48);
+  const sinkPos = getFurniturePos(sink, 48);
   sink.classList.add('running');
   sfxWater();
   pet.className = 'pet walking';
-  await movePetTo(sinkX, 900);
+  await movePetTo(sinkPos.x, 900, sinkPos.bottom, sinkPos.scale);
   pet.className = 'pet looking-up';
   showBubble('splash!', '🚰');
   for (let i = 0; i < 10; i++) {
     setTimeout(() => {
       const d = document.createElement('div');
       d.className = 'water-drop';
-      d.style.left = (sinkX - 4 + Math.random() * 8) + '%';
+      d.style.left = (sinkPos.x - 4 + Math.random() * 8) + '%';
       d.style.bottom = '45%';
       d.style.setProperty('--wx', (Math.random() * 24 - 12) + 'px');
       d.style.setProperty('--wy', (-20 - Math.random() * 20) + 'px');
@@ -4255,7 +4259,7 @@ async function interactRoomSink(pet) {
   await new Promise(r => setTimeout(r, 2400));
   sink.classList.remove('running');
   pet.className = 'pet walking';
-  await movePetTo(50, 800);
+  await movePetTo(50, 800, 15, 1);
   pet.className = 'pet ' + computeMood().cls;
   db.ref('tamagotchi').update({
     clean: Math.min(100, (gameData.clean || 0) + 6),
@@ -4268,11 +4272,11 @@ async function interactRoomSink(pet) {
 async function interactRoomTrash(pet) {
   const trash = document.querySelector('.f-room-trash');
   if (!trash) return;
-  const trashX = getFurnitureCenterX(trash, 32);
+  const trashPos = getFurniturePos(trash, 32);
   trash.classList.add('open');
   sfxOpen();
   pet.className = 'pet walking';
-  await movePetTo(trashX, 900);
+  await movePetTo(trashPos.x, 900, trashPos.bottom, trashPos.scale);
   pet.className = 'pet watching';
   showBubble('trash!', '🗑️');
 
@@ -4295,7 +4299,7 @@ async function interactRoomTrash(pet) {
     const tossEl = document.createElement('div');
     tossEl.className = 'sparkle-burst';
     tossEl.textContent = item.emoji;
-    tossEl.style.left = trashX + '%';
+    tossEl.style.left = trashPos.x + '%';
     tossEl.style.bottom = '50%';
     $('petArea').appendChild(tossEl);
     setTimeout(() => tossEl.remove(), 1000);
@@ -4309,7 +4313,7 @@ async function interactRoomTrash(pet) {
   await new Promise(r => setTimeout(r, 1600));
   trash.classList.remove('open');
   pet.className = 'pet walking';
-  await movePetTo(50, 800);
+  await movePetTo(50, 800, 15, 1);
   pet.className = 'pet ' + computeMood().cls;
   if (picked) showToast('🗑️ Tidied up! +4 💧 +3 XP');
 }
@@ -4317,10 +4321,10 @@ async function interactRoomTrash(pet) {
 async function interactRoomBookshelf(pet) {
   const bs = document.querySelector('.f-room-bookshelf');
   if (!bs) return;
-  const bsX = getFurnitureCenterX(bs, 84);
+  const bsPos = getFurniturePos(bs, 84);
   bs.classList.add('pulled');
   pet.className = 'pet walking';
-  await movePetTo(bsX, 900);
+  await movePetTo(bsPos.x, 900, bsPos.bottom, bsPos.scale);
   pet.className = 'pet looking-up';
   showBubble('reading!', '📖');
   floatHearts(2);
@@ -4329,7 +4333,7 @@ async function interactRoomBookshelf(pet) {
       const s = document.createElement('div');
       s.className = 'sparkle-burst';
       s.textContent = ['📖', '✨', '📚', '💭'][i % 4];
-      s.style.left = (bsX - 6 + Math.random() * 12) + '%';
+      s.style.left = (bsPos.x - 6 + Math.random() * 12) + '%';
       s.style.bottom = '50%';
       $('petArea').appendChild(s);
       setTimeout(() => s.remove(), 1000);
@@ -4338,7 +4342,7 @@ async function interactRoomBookshelf(pet) {
   await new Promise(r => setTimeout(r, 2400));
   bs.classList.remove('pulled');
   pet.className = 'pet walking';
-  await movePetTo(50, 800);
+  await movePetTo(50, 800, 15, 1);
   pet.className = 'pet ' + computeMood().cls;
   db.ref('tamagotchi').update({
     xp: (gameData.xp || 0) + 5,
@@ -4350,9 +4354,9 @@ async function interactRoomBookshelf(pet) {
 
 async function interactRoomMirror(pet) {
   const mirror = document.querySelector('.f-room-mirror');
-  const mirrorX = getFurnitureCenterX(mirror, 66);
+  const mirrorPos = getFurniturePos(mirror, 66);
   pet.className = 'pet walking';
-  await movePetTo(mirrorX, 900);
+  await movePetTo(mirrorPos.x, 900, mirrorPos.bottom, mirrorPos.scale);
   pet.className = 'pet happy';
   showBubble('looking good!', '🪞');
   floatHearts(6);
@@ -4361,7 +4365,7 @@ async function interactRoomMirror(pet) {
       const s = document.createElement('div');
       s.className = 'sparkle-burst';
       s.textContent = '✨';
-      s.style.left = (mirrorX - 6 + Math.random() * 12) + '%';
+      s.style.left = (mirrorPos.x - 6 + Math.random() * 12) + '%';
       s.style.top = '20%';
       $('petArea').appendChild(s);
       setTimeout(() => s.remove(), 1000);
@@ -4369,7 +4373,7 @@ async function interactRoomMirror(pet) {
   }
   await new Promise(r => setTimeout(r, 2200));
   pet.className = 'pet walking';
-  await movePetTo(50, 800);
+  await movePetTo(50, 800, 15, 1);
   pet.className = 'pet ' + computeMood().cls;
   db.ref('tamagotchi').update({
     happy: Math.min(100, (gameData.happy || 0) + 8),
@@ -4381,9 +4385,9 @@ async function interactRoomMirror(pet) {
 
 async function interactRoomClock(pet) {
   const clock = document.querySelector('.f-room-clock');
-  const clockX = getFurnitureCenterX(clock, 84);
+  const clockPos = getFurniturePos(clock, 84);
   pet.className = 'pet walking';
-  await movePetTo(clockX, 900);
+  await movePetTo(clockPos.x, 900, clockPos.bottom, clockPos.scale);
   pet.className = 'pet looking-up';
   showBubble('tick tock~', '🕰️');
   const hourHand = document.querySelector('.f-room-clock .clock-hand.hour');
@@ -4401,7 +4405,7 @@ async function interactRoomClock(pet) {
   if (hourHand) { hourHand.style.transition = ''; hourHand.style.transform = 'translateX(-50%) rotate(0deg)'; }
   if (minuteHand) { minuteHand.style.transition = ''; minuteHand.style.transform = 'translateX(-50%) rotate(90deg)'; }
   pet.className = 'pet walking';
-  await movePetTo(50, 800);
+  await movePetTo(50, 800, 15, 1);
   pet.className = 'pet ' + computeMood().cls;
   db.ref('tamagotchi').update({ xp: (gameData.xp || 0) + 4, lastUpdate: Date.now() });
   showToast('🕰️ Watched the time! +4 XP');
@@ -4410,11 +4414,11 @@ async function interactRoomClock(pet) {
 async function interactRoomFountain(pet) {
   const fount = document.querySelector('.f-room-fountain');
   if (!fount) return;
-  const fountX = getFurnitureCenterX(fount, 44);
+  const fountPos = getFurniturePos(fount, 44);
   fount.classList.add('running');
   sfxWater();
   pet.className = 'pet walking';
-  await movePetTo(fountX, 900);
+  await movePetTo(fountPos.x, 900, fountPos.bottom, fountPos.scale);
   pet.className = 'pet hopping';
   showBubble('wheee!', '⛲');
   floatHearts(4);
@@ -4422,7 +4426,7 @@ async function interactRoomFountain(pet) {
     setTimeout(() => {
       const d = document.createElement('div');
       d.className = 'water-drop';
-      d.style.left = (fountX - 4 + Math.random() * 8) + '%';
+      d.style.left = (fountPos.x - 4 + Math.random() * 8) + '%';
       d.style.bottom = '40%';
       d.style.setProperty('--wx', (Math.random() * 40 - 20) + 'px');
       d.style.setProperty('--wy', (-30 - Math.random() * 20) + 'px');
@@ -4433,7 +4437,7 @@ async function interactRoomFountain(pet) {
   await new Promise(r => setTimeout(r, 2600));
   fount.classList.remove('running');
   pet.className = 'pet walking';
-  await movePetTo(50, 800);
+  await movePetTo(50, 800, 15, 1);
   pet.className = 'pet ' + computeMood().cls;
   db.ref('tamagotchi').update({
     happy: Math.min(100, (gameData.happy || 0) + 10),
@@ -4447,17 +4451,17 @@ async function interactRoomFountain(pet) {
 async function interactRoomFeeder(pet) {
   const feeder = document.querySelector('.f-room-feeder');
   if (!feeder) return;
-  const feederX = getFurnitureCenterX(feeder, 46);
+  const feederPos = getFurniturePos(feeder, 46);
   feeder.classList.add('visited');
   pet.className = 'pet walking';
-  await movePetTo(feederX, 900);
+  await movePetTo(feederPos.x, 900, feederPos.bottom, feederPos.scale);
   pet.className = 'pet looking-up';
   showBubble('a bird!', '🐦');
   sfxPop();
   await new Promise(r => setTimeout(r, 2600));
   feeder.classList.remove('visited');
   pet.className = 'pet walking';
-  await movePetTo(50, 800);
+  await movePetTo(50, 800, 15, 1);
   pet.className = 'pet ' + computeMood().cls;
   db.ref('tamagotchi').update({
     happy: Math.min(100, (gameData.happy || 0) + 6),
@@ -4470,17 +4474,17 @@ async function interactRoomFeeder(pet) {
 async function interactRoomPlant(pet) {
   const plant = document.querySelector('.f-room-plant');
   if (!plant) return;
-  const plantX = getFurnitureCenterX(plant, 22);
+  const plantPos = getFurniturePos(plant, 22);
   plant.classList.add('watered');
   sfxWater();
   pet.className = 'pet walking';
-  await movePetTo(plantX, 900);
+  await movePetTo(plantPos.x, 900, plantPos.bottom, plantPos.scale);
   pet.className = 'pet watching';
   showBubble('growing!', '🪴');
   await new Promise(r => setTimeout(r, 1800));
   plant.classList.remove('watered');
   pet.className = 'pet walking';
-  await movePetTo(50, 800);
+  await movePetTo(50, 800, 15, 1);
   pet.className = 'pet ' + computeMood().cls;
   db.ref('tamagotchi').update({
     xp: (gameData.xp || 0) + 4,
@@ -4493,9 +4497,9 @@ async function interactRoomPlant(pet) {
 async function interactRoomEasel(pet) {
   const easel = document.querySelector('.f-room-easel');
   const canvas = easel?.querySelector('.easel-canvas');
-  const easelX = getFurnitureCenterX(easel, 26);
+  const easelPos = getFurniturePos(easel, 26);
   pet.className = 'pet walking';
-  await movePetTo(easelX, 900);
+  await movePetTo(easelPos.x, 900, easelPos.bottom, easelPos.scale);
   pet.className = 'pet watching';
   showBubble('painting!', '🎨');
 
@@ -4507,7 +4511,7 @@ async function interactRoomEasel(pet) {
     const s = document.createElement('div');
     s.className = 'sparkle-burst';
     s.textContent = colors[Math.floor(Math.random() * colors.length)];
-    s.style.left = (easelX - 6 + Math.random() * 12) + '%';
+    s.style.left = (easelPos.x - 6 + Math.random() * 12) + '%';
     s.style.bottom = (40 + Math.random() * 15) + '%';
     $('petArea').appendChild(s);
     setTimeout(() => s.remove(), 1000);
@@ -4522,7 +4526,7 @@ async function interactRoomEasel(pet) {
   showBubble('pretty!', '🖼️');
   await new Promise(r => setTimeout(r, 800));
   pet.className = 'pet walking';
-  await movePetTo(50, 800);
+  await movePetTo(50, 800, 15, 1);
   pet.className = 'pet ' + computeMood().cls;
   db.ref('tamagotchi').update({
     happy: Math.min(100, (gameData.happy || 0) + 8),
@@ -4535,10 +4539,10 @@ async function interactRoomEasel(pet) {
 async function interactRoomPiano(pet) {
   const piano = document.querySelector('.f-room-piano');
   if (!piano) return;
-  const pianoX = getFurnitureCenterX(piano, 72);
+  const pianoPos = getFurniturePos(piano, 72);
   const keys = piano.querySelectorAll('.piano-key');
   pet.className = 'pet walking';
-  await movePetTo(pianoX, 900);
+  await movePetTo(pianoPos.x, 900, pianoPos.bottom, pianoPos.scale);
   pet.className = 'pet watching';
   showBubble('music!', '🎹');
 
@@ -4562,7 +4566,7 @@ async function interactRoomPiano(pet) {
 
   await new Promise(r => setTimeout(r, 3000));
   pet.className = 'pet walking';
-  await movePetTo(50, 800);
+  await movePetTo(50, 800, 15, 1);
   pet.className = 'pet ' + computeMood().cls;
   db.ref('tamagotchi').update({
     happy: Math.min(100, (gameData.happy || 0) + 9),
@@ -4575,11 +4579,11 @@ async function interactRoomPiano(pet) {
 async function interactRoomGlobe(pet) {
   const globe = document.querySelector('.f-room-globe');
   if (!globe) return;
-  const globeX = getFurnitureCenterX(globe, 64);
+  const globePos = getFurniturePos(globe, 64);
   globe.classList.add('spinning');
   sfxPop();
   pet.className = 'pet walking';
-  await movePetTo(globeX, 900);
+  await movePetTo(globePos.x, 900, globePos.bottom, globePos.scale);
   pet.className = 'pet looking-up';
   showBubble('wow...', '🌌');
   for (let i = 0; i < 6; i++) {
@@ -4587,7 +4591,7 @@ async function interactRoomGlobe(pet) {
       const s = document.createElement('div');
       s.className = 'sparkle-burst';
       s.textContent = ['⭐', '✨', '💫'][i % 3];
-      s.style.left = (globeX - 6 + Math.random() * 12) + '%';
+      s.style.left = (globePos.x - 6 + Math.random() * 12) + '%';
       s.style.top = (25 + Math.random() * 20) + '%';
       $('petArea').appendChild(s);
       setTimeout(() => s.remove(), 1000);
@@ -4596,7 +4600,7 @@ async function interactRoomGlobe(pet) {
   await new Promise(r => setTimeout(r, 3200));
   globe.classList.remove('spinning');
   pet.className = 'pet walking';
-  await movePetTo(50, 800);
+  await movePetTo(50, 800, 15, 1);
   pet.className = 'pet ' + computeMood().cls;
   db.ref('tamagotchi').update({
     xp: (gameData.xp || 0) + 7,
@@ -4814,7 +4818,7 @@ async function useRoomItem(itemId) {
     await new Promise(r => setTimeout(r, 1600));
 
     pet.className = 'pet walking';
-    await movePetTo(50, 900);
+    await movePetTo(50, 900, 15, 1);
     pet.className = 'pet ' + computeMood().cls;
 
     applyConsumableEffect(item, def);
@@ -5501,34 +5505,86 @@ function checkStreak() {
 /* ============================================================
    ANIMATION
    ============================================================ */
-/* Returns horizontal center % of a furniture element relative to the room (clamped).
-   Works correctly even after the user has dragged the furniture to a new spot. */
-function getFurnitureCenterX(selectorOrEl, fallback = 50) {
-  const el = typeof selectorOrEl === 'string' ? document.querySelector(selectorOrEl) : selectorOrEl;
-  const room = $('room');
-  if (!el || !room) return fallback;
-  const roomRect = room.getBoundingClientRect();
-  const elRect = el.getBoundingClientRect();
-  if (roomRect.width < 1) return fallback;
-  const centerX = ((elRect.left + elRect.width / 2) - roomRect.left) / roomRect.width * 100;
-  return Math.max(8, Math.min(92, centerX));
+/* 3D room position:
+   X = left %  |  Y = bottom %  |  Z = depth scale (smaller = further into the room) */
+function depthFromBottom(bottomPct, el) {
+  const t = Math.max(0, Math.min(1, (bottomPct - 5) / 50));
+  let scale = 1.06 - t * 0.34; // ~1.06 front → ~0.72 back
+  let zIndex = Math.round(24 - t * 12);
+  if (el) {
+    if (el.classList.contains('depth-back')) { scale = Math.min(scale, 0.82); zIndex = Math.min(zIndex, 14); }
+    else if (el.classList.contains('depth-mid')) { scale = Math.min(scale, 0.92); zIndex = Math.min(zIndex, 18); }
+  }
+  return { scale: Math.round(scale * 1000) / 1000, zIndex };
 }
 
-function movePetTo(percent, duration) {
+function getFurniturePos(selectorOrEl, fallbackX = 50, fallbackBottom = 15) {
+  const el = typeof selectorOrEl === 'string' ? document.querySelector(selectorOrEl) : selectorOrEl;
+  const room = $('room');
+  if (!el || !room) {
+    const d = depthFromBottom(fallbackBottom, null);
+    return { x: fallbackX, bottom: fallbackBottom, scale: d.scale, zIndex: d.zIndex };
+  }
+  const roomRect = room.getBoundingClientRect();
+  const elRect = el.getBoundingClientRect();
+  if (roomRect.width < 1 || roomRect.height < 1) {
+    const d = depthFromBottom(fallbackBottom, el);
+    return { x: fallbackX, bottom: fallbackBottom, scale: d.scale, zIndex: d.zIndex };
+  }
+  const centerX = ((elRect.left + elRect.width / 2) - roomRect.left) / roomRect.width * 100;
+  const furnBottom = ((roomRect.bottom - elRect.bottom) / roomRect.height) * 100;
+  const petBottom = Math.max(5, Math.min(58, furnBottom + 2));
+  const d = depthFromBottom(petBottom, el);
+  return {
+    x: Math.max(8, Math.min(92, centerX)),
+    bottom: petBottom,
+    scale: d.scale,
+    zIndex: d.zIndex
+  };
+}
+
+function getFurnitureCenterX(selectorOrEl, fallback = 50) {
+  return getFurniturePos(selectorOrEl, fallback, 15).x;
+}
+
+/* Move pet in 3D: X (left%), Y (bottom%), Z (depth scale). */
+function movePetTo(percent, duration, bottomPercent, depthScale) {
   return new Promise(resolve => {
     const pet = $('pet');
     const shadow = $('petShadow');
     const area = $('petArea');
-    pet.style.transition = `left ${duration}ms cubic-bezier(0.4, 0, 0.2, 1)`;
+    const ease = `left ${duration}ms cubic-bezier(0.4, 0, 0.2, 1), bottom ${duration}ms cubic-bezier(0.4, 0, 0.2, 1)`;
+    pet.style.transition = ease;
     pet.style.left = percent + '%';
-    if (shadow) {
-      shadow.style.transition = `left ${duration}ms cubic-bezier(0.4, 0, 0.2, 1)`;
-      shadow.style.left = percent + '%';
+
+    let bottom = bottomPercent;
+    if (typeof bottom !== 'number') {
+      const cur = parseFloat(pet.style.bottom);
+      bottom = Number.isFinite(cur) ? cur : 15;
+    } else {
+      pet.style.bottom = bottom + '%';
     }
+
+    const d = depthFromBottom(bottom, null);
+    const z = (typeof depthScale === 'number') ? depthScale : d.scale;
+    pet.style.setProperty('--pet-z', z);
+    pet.style.zIndex = String(d.zIndex);
+
+    if (shadow) {
+      shadow.style.transition = ease + ', transform ' + duration + 'ms cubic-bezier(0.4, 0, 0.2, 1)';
+      shadow.style.left = percent + '%';
+      shadow.style.bottom = Math.max(2, bottom - 6) + '%';
+      shadow.style.setProperty('--pet-z', z);
+      shadow.style.zIndex = String(Math.max(8, d.zIndex - 1));
+      shadow.style.width = (46 * z) + 'px';
+    }
+
     const trail = setInterval(() => {
       const puff = document.createElement('div');
       puff.className = 'dust-puff';
       puff.style.left = pet.style.left;
+      puff.style.bottom = pet.style.bottom || '15%';
+      puff.style.transform = 'scale(' + z + ')';
       area.appendChild(puff);
       setTimeout(() => puff.remove(), 550);
     }, 160);
@@ -5673,7 +5729,7 @@ function playActionAnimation(name) {
           showBubble('nom nom!', '🍚');
           await new Promise(r => setTimeout(r, 1500));
           pet.className = 'pet walking';
-          await movePetTo(50, 1200);
+          await movePetTo(50, 1200, 15, 1);
           bowl.remove();
           pet.className = 'pet ' + computeMood().cls;
           break;
@@ -5691,17 +5747,17 @@ function playActionAnimation(name) {
         case 'sleep': {
           // Prefer the real bedroom bed (wherever the user placed it)
           const realBed = document.querySelector('.f-bed');
-          const bedX = getFurnitureCenterX(realBed, 50);
+          const bedPos = getFurniturePos(realBed, 50);
           if (realBed) realBed.classList.add('fluffed');
           pet.className = 'pet walking';
-          await movePetTo(bedX, 1200);
+          await movePetTo(bedPos.x, 1200, bedPos.bottom, bedPos.scale);
           pet.className = 'pet sleeping';
           for (let i = 0; i < 4; i++) {
             setTimeout(() => {
               const z = document.createElement('div');
               z.className = 'zzz';
               z.textContent = 'Z';
-              z.style.left = bedX + '%';
+              z.style.left = bedPos.x + '%';
               z.style.bottom = '90px';
               z.style.fontSize = (0.6 + i * 0.1) + 'rem';
               $('petArea').appendChild(z);
@@ -5712,14 +5768,14 @@ function playActionAnimation(name) {
           await new Promise(r => setTimeout(r, 2200));
           if (realBed) realBed.classList.remove('fluffed');
           pet.className = 'pet walking';
-          await movePetTo(50, 1000);
+          await movePetTo(50, 1000, 15, 1);
           pet.className = 'pet ' + computeMood().cls;
           break;
         }
         case 'bath': {
           const tub = addProp('', 'prop-tub-icon', { left: '50%', bottom: '15px' });
           pet.className = 'pet walking';
-          await movePetTo(50, 800);
+          await movePetTo(50, 800, 15, 1);
           for (let i = 0; i < 8; i++) {
             setTimeout(() => {
               const b = document.createElement('div');
@@ -5754,7 +5810,7 @@ function playActionAnimation(name) {
           await movePetTo(25, 700);
           showBubble('all clean!', '🧹');
           await new Promise(r => setTimeout(r, 800));
-          await movePetTo(50, 700);
+          await movePetTo(50, 700, 15, 1);
           pet.className = 'pet ' + computeMood().cls;
           break;
         }
