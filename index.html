@@ -1972,6 +1972,83 @@
     50% { opacity: 1; transform: translateX(4px); }
   }
 
+  /* ---- Bathroom ---- */
+  .f-bathtub { bottom: 8%; left: 6%; width: 110px; height: 58px; }
+  .f-bathtub .tub-body {
+    position: absolute; inset: 0;
+    background: linear-gradient(180deg, #F0F6FA 0%, #C8D8E4 100%);
+    border: 3px solid #6B8A9A; border-radius: 12px 12px 18px 18px;
+    box-shadow: inset -6px -6px 0 rgba(0,0,0,0.08), 0 5px 0 rgba(0,0,0,0.2);
+    overflow: hidden;
+  }
+  .f-bathtub .tub-water {
+    position: absolute; bottom: 0; left: 4px; right: 4px; height: 55%;
+    background: linear-gradient(180deg, rgba(160,210,230,0.55), rgba(120,180,210,0.7));
+    border-radius: 0 0 14px 14px;
+  }
+  .f-bathtub .tub-faucet {
+    position: absolute; top: -10px; right: 14px; width: 10px; height: 16px;
+    background: #A8B8C0; border: 2px solid #6B8A9A; border-radius: 3px 3px 0 0;
+  }
+  .f-bathtub.splashing .tub-water { animation: tubSplash 0.4s ease-in-out 4; }
+  @keyframes tubSplash {
+    0%, 100% { height: 55%; }
+    50% { height: 70%; }
+  }
+
+  .f-toilet { bottom: 8%; right: 8%; width: 48px; height: 62px; }
+  .f-toilet .toi-bowl {
+    position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
+    width: 36px; height: 28px;
+    background: linear-gradient(180deg, #F4F8FA, #D0DCE4);
+    border: 3px solid #6B8A9A; border-radius: 8px 8px 12px 12px;
+  }
+  .f-toilet .toi-tank {
+    position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+    width: 32px; height: 30px;
+    background: linear-gradient(180deg, #F0F4F8, #C8D4DC);
+    border: 3px solid #6B8A9A; border-radius: 4px;
+  }
+  .f-toilet .toi-lid {
+    position: absolute; top: 26px; left: 50%; transform: translateX(-50%);
+    width: 34px; height: 6px; background: #E0E8EC; border: 2px solid #6B8A9A; border-radius: 3px;
+    transition: transform 0.35s;
+  }
+  .f-toilet.open .toi-lid { transform: translateX(-50%) rotate(-70deg); transform-origin: left center; }
+  .f-toilet.flushing .toi-bowl { animation: flushPulse 0.5s ease 2; }
+  @keyframes flushPulse {
+    0%, 100% { filter: brightness(1); }
+    50% { filter: brightness(1.15); }
+  }
+
+  .f-bath-sink { bottom: 10%; left: 42%; width: 50px; height: 48px; }
+  .f-bath-sink .bs-basin {
+    position: absolute; bottom: 0; left: 0; right: 0; height: 28px;
+    background: linear-gradient(180deg, #F0F4F8, #C8D4DC);
+    border: 3px solid #6B8A9A; border-radius: 4px 4px 50% 50% / 4px 4px 20% 20%;
+  }
+  .f-bath-sink .bs-faucet {
+    position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+    width: 8px; height: 14px; background: #A8B8C0; border: 2px solid #6B8A9A; border-radius: 2px;
+  }
+  .f-bath-sink.running .bs-basin::after {
+    content: ''; position: absolute; top: -8px; left: 50%; transform: translateX(-50%);
+    width: 4px; height: 12px; background: rgba(160,210,230,0.8); border-radius: 2px;
+  }
+
+  .f-towel { top: 18%; right: 22%; width: 36px; height: 44px; }
+  .f-towel .tw-rack {
+    position: absolute; top: 0; left: 0; right: 0; height: 6px;
+    background: #8B9AA4; border: 2px solid #5A6A74; border-radius: 2px;
+  }
+  .f-towel .tw-cloth {
+    position: absolute; top: 6px; left: 4px; right: 4px; bottom: 0;
+    background: linear-gradient(180deg, #F0E0D0, #E0C8B0);
+    border: 2px solid #C9A898; border-radius: 0 0 4px 4px;
+  }
+  .f-towel.used .tw-cloth { transform: rotate(8deg); filter: brightness(0.95); }
+
+
   @keyframes globeSpin {
     0% { transform: translateX(-50%) rotateY(0deg); }
     100% { transform: translateX(-50%) rotateY(360deg); }
@@ -2831,6 +2908,7 @@ const STAGES = [
 
 const ROOMS = [
   { id: 'bedroom',     name: 'BEDROOM',     emoji: '🛏️', reqLevel: 1 },
+  { id: 'bathroom',    name: 'BATHROOM',    emoji: '🛁', reqLevel: 1 },
   { id: 'kitchen',     name: 'KITCHEN',     emoji: '🍳', reqLevel: 5 },
   { id: 'garden',      name: 'GARDEN',      emoji: '🌷', reqLevel: 15 },
   { id: 'forest',      name: 'FOREST',      emoji: '🌲', reqLevel: 25 },
@@ -2843,9 +2921,9 @@ const ACTIONS = {
   feed:  { stat: 'hunger', amount: 25, xp: 2, verb: 'fed',              emoji: '🍚', prefRoom: 'kitchen' },
   play:  { stat: 'happy',  amount: 22, xp: 3, verb: 'played with',      emoji: '🎈', prefRoom: 'playroom', cost: { energy: 8 } },
   sleep: { stat: 'energy', amount: 30, xp: 2, verb: 'tucked in',        emoji: '🌙', prefRoom: 'bedroom' },
-  bath:  { stat: 'clean',  amount: 30, xp: 2, verb: 'bathed',           emoji: '💧', prefRoom: 'bedroom' },
+  bath:  { stat: 'clean',  amount: 30, xp: 2, verb: 'bathed',           emoji: '💧', prefRoom: 'bathroom' },
   pet:   { stat: 'happy',  amount: 8,  xp: 1, verb: 'petted',           emoji: '🤲', prefRoom: null },
-  clean: { stat: 'clean',  amount: 15, xp: 2, verb: 'cleaned up after', emoji: '🧹', prefRoom: null }
+  clean: { stat: 'clean',  amount: 15, xp: 2, verb: 'cleaned up after', emoji: '🧹', prefRoom: 'bathroom' }
 };
 
 const WANTS = [
@@ -2864,6 +2942,12 @@ const AMBIENT_BEHAVIORS = {
     { cls: 'watching', dur: 3, bubble: 'looking outside', emoji: '🪟' },
     { cls: 'stretching', dur: 1.5 },
     { cls: 'hopping', dur: 1.2, bubble: 'yay!', emoji: '✨' }
+  ],
+  bathroom: [
+    { cls: 'watching', dur: 2.5, bubble: 'bubbles!', emoji: '🫧' },
+    { cls: 'hopping', dur: 1.2, bubble: 'splash!', emoji: '💧' },
+    { cls: 'stretching', dur: 1.5, bubble: 'fresh!', emoji: '✨' },
+    { cls: 'walking', dur: 2 }
   ],
   kitchen: [
     { cls: 'sniffing', dur: 2, bubble: 'smells good!', emoji: '🍲' },
@@ -3231,9 +3315,11 @@ async function moveMochiToRoom(roomId, opts = {}) {
 
   currentRoomId = roomId;
   renderCache.sceneHash = '';
+  renderCache.poops = '';
   fridgeOpen = false;
   applyRoom(true);
   renderRooms();
+  renderPoops();
 
   if (gameData && gameData.room !== roomId) {
     db.ref('tamagotchi/room').set(roomId);
@@ -3643,6 +3729,16 @@ function applyRoom(force) {
         floorEl.style.background = 'repeating-linear-gradient(90deg, #C9A898 0px, #C9A898 22px, #B89888 22px, #B89888 24px)';
         $('roomBadge').textContent = '🛏️ BEDROOM';
         break;
+      case 'bathroom':
+        wallEl.style.background = 'linear-gradient(180deg, #D8E8F0 0%, #C0D8E4 100%)';
+        wallEl.innerHTML = `<div style="position:absolute;inset:0;background-image:
+          linear-gradient(90deg, rgba(160,180,200,0.35) 1px, transparent 1px),
+          linear-gradient(0deg, rgba(160,180,200,0.35) 1px, transparent 1px);
+          background-size:28px 28px;"></div>
+          <div style="position:absolute;top:16px;right:24px;width:36px;height:36px;border:3px solid #8BA8B8;border-radius:50%;background:radial-gradient(circle at 30% 30%, #F0F8FC, #B8D0DC);box-shadow:inset -4px -4px 0 rgba(0,0,0,0.08);"></div>`;
+        floorEl.style.background = 'repeating-linear-gradient(90deg, #E8F0F4 0px, #E8F0F4 20px, #D0E0E8 20px, #D0E0E8 22px)';
+        $('roomBadge').textContent = '🛁 BATHROOM';
+        break;
       case 'kitchen':
         wallEl.style.background = 'linear-gradient(180deg, #F4E4C8 0%, #E8D4B8 60%, #D4B898 100%)';
         wallEl.innerHTML = `<div style="position:absolute;inset:0;background-image:linear-gradient(90deg, rgba(139,111,94,0.15) 1px, transparent 1px), linear-gradient(0deg, rgba(139,111,94,0.15) 1px, transparent 1px);background-size:24px 24px;"></div>`;
@@ -3847,6 +3943,30 @@ function renderRoomScene() {
       <div class="win-curtain win-curtain-l"></div>
       <div class="win-curtain win-curtain-r"></div>
     `, 'OPEN', () => furnitureInteraction('window'), 'back');
+
+  } else if (roomKey === 'bathroom') {
+    makeFurniture('bathtub', 'f-bathtub', `
+      <div class="tub-body">
+        <div class="tub-water"></div>
+      </div>
+      <div class="tub-faucet"></div>
+    `, 'BATH', () => furnitureInteraction('bathtub'), 'front');
+
+    makeFurniture('toilet', 'f-toilet', `
+      <div class="toi-tank"></div>
+      <div class="toi-lid"></div>
+      <div class="toi-bowl"></div>
+    `, 'FLUSH', () => furnitureInteraction('toilet'), 'front');
+
+    makeFurniture('bathsink', 'f-bath-sink', `
+      <div class="bs-faucet"></div>
+      <div class="bs-basin"></div>
+    `, 'WASH', () => furnitureInteraction('bathsink'), 'front');
+
+    makeFurniture('towel', 'f-towel', `
+      <div class="tw-rack"></div>
+      <div class="tw-cloth"></div>
+    `, 'DRY', () => furnitureInteraction('towel'), 'back');
 
   } else if (roomKey === 'kitchen') {
     makeFurniture('counter', 'f-kitchen-counter', `
@@ -4217,6 +4337,10 @@ async function furnitureInteraction(type) {
       case 'room_easel': await interactRoomEasel(pet); break;
       case 'room_piano': await interactRoomPiano(pet); break;
       case 'room_globe': await interactRoomGlobe(pet); break;
+      case 'bathtub': await interactBathtub(pet); break;
+      case 'toilet': await interactToilet(pet); break;
+      case 'bathsink': await interactBathSink(pet); break;
+      case 'towel': await interactTowel(pet); break;
       case 'mushroom': await interactMushroom(pet); break;
       case 'stump': await interactStump(pet); break;
       case 'fireflies': await interactFireflies(pet); break;
@@ -5166,6 +5290,117 @@ async function interactRoomGlobe(pet) {
 }
 
 /* ---- New room & extra furniture interactions ---- */
+async function interactBathtub(pet) {
+  const el = document.querySelector('.f-bathtub');
+  if (!el) return;
+  const pos = getFurniturePos(el, 20);
+  pet.className = 'pet walking';
+  await movePetTo(pos.x, 900, pos.bottom, pos.scale);
+  el.classList.add('splashing');
+  pet.className = 'pet happy';
+  showBubble('splash!', '🛁');
+  sfxWater();
+  for (let i = 0; i < 6; i++) {
+    setTimeout(() => {
+      const b = document.createElement('div');
+      b.className = 'bubble';
+      const size = 8 + Math.random() * 12;
+      b.style.width = size + 'px';
+      b.style.height = size + 'px';
+      b.style.left = (pos.x - 8 + Math.random() * 16) + '%';
+      b.style.bottom = '70px';
+      b.style.setProperty('--wobble', (Math.random() * 12 - 6) + 'px');
+      $('petArea').appendChild(b);
+      setTimeout(() => b.remove(), 1800);
+    }, i * 120);
+  }
+  await new Promise(r => setTimeout(r, 2000));
+  el.classList.remove('splashing');
+  pet.className = 'pet walking';
+  await movePetTo(50, 800, 15, 1);
+  pet.className = 'pet ' + computeMood().cls;
+  db.ref('tamagotchi').update({
+    xp: (gameData.xp || 0) + 5,
+    clean: Math.min(100, (gameData.clean || 0) + 12),
+    lastUpdate: Date.now()
+  });
+  showToast('🛁 Bath time! +5 XP +12 💧');
+}
+
+async function interactToilet(pet) {
+  const el = document.querySelector('.f-toilet');
+  if (!el) return;
+  const pos = getFurniturePos(el, 80);
+  pet.className = 'pet walking';
+  await movePetTo(pos.x, 900, pos.bottom, pos.scale);
+  el.classList.add('open');
+  await new Promise(r => setTimeout(r, 400));
+  el.classList.add('flushing');
+  pet.className = 'pet watching';
+  showBubble('flush!', '🚽');
+  sfxWater();
+  await new Promise(r => setTimeout(r, 1200));
+  el.classList.remove('open', 'flushing');
+  // Clean up one poop if any
+  const poops = gameData.poops || 0;
+  const updates = { xp: (gameData.xp || 0) + 3, lastUpdate: Date.now() };
+  if (poops > 0) {
+    updates.poops = Math.max(0, poops - 1);
+    updates.clean = Math.min(100, (gameData.clean || 0) + 6);
+  }
+  pet.className = 'pet walking';
+  await movePetTo(50, 800, 15, 1);
+  pet.className = 'pet ' + computeMood().cls;
+  db.ref('tamagotchi').update(updates);
+  showToast(poops > 0 ? '🚽 All done! +3 XP' : '🚽 Flush! +3 XP');
+}
+
+async function interactBathSink(pet) {
+  const el = document.querySelector('.f-bath-sink');
+  if (!el) return;
+  const pos = getFurniturePos(el, 48);
+  pet.className = 'pet walking';
+  await movePetTo(pos.x, 900, pos.bottom, pos.scale);
+  el.classList.add('running');
+  pet.className = 'pet watching';
+  showBubble('wash wash', '🚰');
+  sfxWater();
+  await new Promise(r => setTimeout(r, 1600));
+  el.classList.remove('running');
+  pet.className = 'pet walking';
+  await movePetTo(50, 800, 15, 1);
+  pet.className = 'pet ' + computeMood().cls;
+  db.ref('tamagotchi').update({
+    xp: (gameData.xp || 0) + 3,
+    clean: Math.min(100, (gameData.clean || 0) + 5),
+    lastUpdate: Date.now()
+  });
+  showToast('🚰 Washed up! +3 XP');
+}
+
+async function interactTowel(pet) {
+  const el = document.querySelector('.f-towel');
+  if (!el) return;
+  const pos = getFurniturePos(el, 70);
+  pet.className = 'pet walking';
+  await movePetTo(pos.x, 900, pos.bottom, pos.scale);
+  el.classList.add('used');
+  pet.className = 'pet happy';
+  showBubble('soft!', '🧺');
+  sfxOpen();
+  await new Promise(r => setTimeout(r, 1400));
+  el.classList.remove('used');
+  pet.className = 'pet walking';
+  await movePetTo(50, 800, 15, 1);
+  pet.className = 'pet ' + computeMood().cls;
+  db.ref('tamagotchi').update({
+    xp: (gameData.xp || 0) + 2,
+    clean: Math.min(100, (gameData.clean || 0) + 3),
+    lastUpdate: Date.now()
+  });
+  showToast('🧺 Dried off! +2 XP');
+}
+
 async function interactMushroom(pet) {
   const el = document.querySelector('.f-mushroom');
   if (!el) return;
@@ -6307,15 +6542,19 @@ function renderNeedIndicator() {
 function renderPoops() {
   if (!gameData) return;
   const count = gameData.poops || 0;
-  if (renderCache.poops === count) return;
-  renderCache.poops = count;
+  const key = currentRoomId + '|' + count;
+  if (renderCache.poops === key) return;
+  renderCache.poops = key;
   const area = $('petArea');
   area.querySelectorAll('.poop').forEach(p => p.remove());
+  // Poops appear in the bathroom (or anywhere if already there during cleanup)
+  if (currentRoomId !== 'bathroom' && count > 0) return;
   for (let i = 0; i < Math.min(count, 3); i++) {
     const p = document.createElement('div');
     p.className = 'poop';
     p.textContent = '💩';
-    p.style.left = (20 + i * 20) + '%';
+    p.style.left = (18 + i * 18) + '%';
+    p.style.bottom = '22px';
     area.appendChild(p);
   }
 }
@@ -6705,9 +6944,11 @@ function playActionAnimation(name) {
           break;
         }
         case 'bath': {
-          const tub = addProp('', 'prop-tub-icon', { left: '50%', bottom: '15px' });
+          const realTub = document.querySelector('.f-bathtub');
+          const tubPos = getFurniturePos(realTub, 20, 12);
+          if (realTub) realTub.classList.add('splashing');
           pet.className = 'pet walking';
-          await movePetTo(50, 800, 15, 1);
+          await movePetTo(tubPos.x, 1000, tubPos.bottom, tubPos.scale);
           for (let i = 0; i < 8; i++) {
             setTimeout(() => {
               const b = document.createElement('div');
@@ -6715,7 +6956,7 @@ function playActionAnimation(name) {
               const size = 8 + Math.random() * 14;
               b.style.width = size + 'px';
               b.style.height = size + 'px';
-              b.style.left = (35 + Math.random() * 30) + '%';
+              b.style.left = (tubPos.x - 10 + Math.random() * 20) + '%';
               b.style.bottom = '70px';
               b.style.setProperty('--wobble', (Math.random() * 16 - 8) + 'px');
               $('petArea').appendChild(b);
@@ -6724,8 +6965,11 @@ function playActionAnimation(name) {
           }
           pet.className = 'pet happy';
           showBubble('splash!', '💧');
+          sfxWater();
           await new Promise(r => setTimeout(r, 1800));
-          tub.remove();
+          if (realTub) realTub.classList.remove('splashing');
+          pet.className = 'pet walking';
+          await movePetTo(50, 800, 15, 1);
           pet.className = 'pet ' + computeMood().cls;
           break;
         }
@@ -6738,10 +6982,18 @@ function playActionAnimation(name) {
           break;
         }
         case 'clean': {
+          const toilet = document.querySelector('.f-toilet');
+          const tPos = getFurniturePos(toilet, 75, 12);
           pet.className = 'pet walking';
-          await movePetTo(25, 700);
+          await movePetTo(tPos.x, 900, tPos.bottom, tPos.scale);
+          if (toilet) {
+            toilet.classList.add('open', 'flushing');
+            setTimeout(() => toilet.classList.remove('open', 'flushing'), 1200);
+          }
           showBubble('all clean!', '🧹');
-          await new Promise(r => setTimeout(r, 800));
+          sfxWater();
+          await new Promise(r => setTimeout(r, 1200));
+          pet.className = 'pet walking';
           await movePetTo(50, 700, 15, 1);
           pet.className = 'pet ' + computeMood().cls;
           break;
@@ -6943,8 +7195,27 @@ async function doAction(name) {
   if (name === 'feed' && (gameData.poops || 0) < 3) addPoop = true;
   if (name === 'play' && Math.random() < 0.3 && (gameData.poops || 0) < 3) addPoop = true;
 
-  playActionAnimation(name).then(() => {
+  playActionAnimation(name).then(async () => {
     applyActionEffects(name, addPoop);
+    // After eating/playing caused a poop, Mochi heads to the bathroom
+    if (addPoop && currentRoomId !== 'bathroom') {
+      showToast('Mochi needs the bathroom... 🚽');
+      await moveMochiToRoom('bathroom', { silent: false, noToast: true });
+      const toilet = document.querySelector('.f-toilet');
+      if (toilet) {
+        const tPos = getFurniturePos(toilet, 80);
+        const p = $('pet');
+        p.className = 'pet walking';
+        await movePetTo(tPos.x, 800, tPos.bottom, tPos.scale);
+        toilet.classList.add('open', 'flushing');
+        showBubble('gotta go!', '🚽');
+        await new Promise(r => setTimeout(r, 1000));
+        toilet.classList.remove('open', 'flushing');
+        p.className = 'pet walking';
+        await movePetTo(50, 700, 15, 1);
+        p.className = 'pet ' + computeMood().cls;
+      }
+    }
     isAnimating = false;
     clearTimeout(animationWatchdog);
     document.querySelectorAll('.action-btn').forEach(b => b.disabled = false);
