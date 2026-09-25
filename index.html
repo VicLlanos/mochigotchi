@@ -269,6 +269,118 @@
     100% { transform: translateX(-50%) rotate(360deg) scale(1); }
   }
 
+  /* ============ NEW MOODS: bored, grumpy, sick, ecstatic ============ */
+  .pet.ecstatic {
+    animation: ecstaticBounce 0.55s ease-in-out infinite;
+    filter: drop-shadow(0 4px 0 rgba(139, 111, 94, 0.4)) drop-shadow(0 0 8px rgba(255, 220, 100, 0.7));
+  }
+  @keyframes ecstaticBounce {
+    0%, 100% { transform: translateX(-50%) translateY(0)     scale(1, 1); }
+    45%      { transform: translateX(-50%) translateY(-11px) scale(0.96, 1.06); }
+    70%      { transform: translateX(-50%) translateY(-3px)  scale(1.02, 0.98); }
+  }
+  .pet.bored {
+    animation: boredSigh 3.4s ease-in-out infinite;
+    filter: drop-shadow(0 4px 0 rgba(139, 111, 94, 0.4)) brightness(0.96);
+  }
+  @keyframes boredSigh {
+    0%, 100% { transform: translateX(-50%) translateY(0)     scale(1, 1) rotate(0deg); }
+    30%      { transform: translateX(-50%) translateY(-2px)  scale(1.02, 0.97) rotate(0deg); }
+    60%      { transform: translateX(-50%) translateY(-5px)  scale(0.98, 1.03) rotate(-3deg); }
+    70%      { transform: translateX(-50%) translateY(-5px)  scale(0.98, 1.03) rotate(-3deg); }
+  }
+  .pet.grumpy {
+    animation: grumpyStomp 1.2s ease-in-out infinite;
+    filter: drop-shadow(0 4px 0 rgba(139, 111, 94, 0.4)) saturate(0.85) hue-rotate(-15deg) brightness(0.95);
+  }
+  @keyframes grumpyStomp {
+    0%, 100% { transform: translateX(-50%) translateY(0)    rotate(0deg)  scale(1, 1); }
+    20%      { transform: translateX(-50%) translateY(3px)  rotate(-6deg) scale(1.06, 0.94); }
+    40%      { transform: translateX(-50%) translateY(0)    rotate(0deg)  scale(1, 1); }
+    60%      { transform: translateX(-50%) translateY(3px)  rotate(6deg)  scale(1.06, 0.94); }
+    80%      { transform: translateX(-50%) translateY(0)    rotate(0deg)  scale(1, 1); }
+  }
+  .pet.sick {
+    animation: sickShiver 1.6s ease-in-out infinite;
+    filter: drop-shadow(0 4px 0 rgba(139, 111, 94, 0.4)) saturate(0.5) brightness(1.05) hue-rotate(-30deg);
+    opacity: 0.95;
+  }
+  @keyframes sickShiver {
+    0%, 100% { transform: translateX(-50%) translateY(0)    rotate(0deg)  scale(1, 1); }
+    25%      { transform: translateX(-50%) translateY(1px)  rotate(-2deg) scale(0.99, 1.01); }
+    50%      { transform: translateX(-50%) translateY(0)    rotate(0deg)  scale(1.01, 0.99); }
+    75%      { transform: translateX(-50%) translateY(1px)  rotate(2deg)  scale(0.99, 1.01); }
+  }
+  /* Sick face: X eyes + wavy mouth */
+  .pet.sick .pet-eye {
+    animation: none;
+    height: 3px;
+    background: transparent;
+    border-radius: 0;
+    box-shadow: none;
+  }
+  .pet.sick .pet-eye::before,
+  .pet.sick .pet-eye::after {
+    content: '';
+    position: absolute;
+    width: 8px; height: 2px;
+    background: #3A2E28;
+    border-radius: 2px;
+    top: 3px;
+  }
+  .pet.sick .pet-eye::before { transform: rotate(45deg); }
+  .pet.sick .pet-eye::after  { transform: rotate(-45deg); }
+  .pet.sick .pet-eye::after { display: block; } /* override sleeping rule */
+  .pet.sick .pet-mouth {
+    width: 12px; height: 5px;
+    background: #3A2E28;
+    border-radius: 2px;
+    clip-path: polygon(0 40%, 20% 0, 40% 40%, 60% 0, 80% 40%, 100% 0, 100% 60%, 80% 100%, 60% 60%, 40% 100%, 20% 60%, 0 100%);
+    opacity: 0.75;
+  }
+  /* Grumpy face: angled eyebrows */
+  .pet.grumpy .pet-eye { height: 8px; }
+  .pet.grumpy .pet-eye::after { display: block; }
+  .pet.grumpy .pet-mouth {
+    height: 4px; width: 10px;
+    border-radius: 6px 6px 0 0;
+    transform: translateX(-50%) rotate(180deg);
+    bottom: 12px;
+  }
+  .pet.grumpy .pet-blush { opacity: 0; }
+  /* Bored face: flat eyes, small mouth */
+  .pet.bored .pet-eye { height: 5px; border-radius: 2px; animation: none; }
+  .pet.bored .pet-eye::after { display: block; }
+  .pet.bored .pet-mouth { height: 3px; width: 8px; border-radius: 2px; bottom: 9px; }
+  /* Ecstatic face: big smile + sparkle eyes */
+  .pet.ecstatic .pet-mouth {
+    height: 8px; width: 14px;
+    border-radius: 0 0 12px 12px;
+    background: #3A2E28;
+    opacity: 0.75;
+  }
+  .pet.ecstatic .pet-blush { opacity: 0.95; width: 10px; height: 5px; }
+  .pet.ecstatic .pet-eye::after {
+    width: 4px; height: 4px;
+    background: #FFF9C8;
+    box-shadow: 0 0 4px rgba(255, 249, 200, 0.9);
+  }
+
+  /* mood particles (spawned around pet) */
+  .mood-particle {
+    position: absolute;
+    font-size: 0.75rem;
+    pointer-events: none;
+    z-index: 24;
+    filter: drop-shadow(0 1px 1px rgba(0,0,0,0.2));
+    animation: moodParticleRise 2.2s ease-out forwards;
+  }
+  @keyframes moodParticleRise {
+    0%   { opacity: 0; transform: translateY(0) scale(0.6); }
+    15%  { opacity: 1; }
+    100% { opacity: 0; transform: translateY(-46px) translateX(var(--mpx, 0px)) scale(1.1) rotate(var(--mr, 0deg)); }
+  }
+
   /* ============ PET BODY ============ */
   .pet-body {
     position: absolute; left: 50%; bottom: 6px; transform: translateX(-50%);
@@ -370,15 +482,11 @@
   .pet[data-stage="eternal"] .pet-body { width: 50px; height: 44px; }
   .pet[data-stage="eternal"] .pet-halo { display: block; }
 
-  /* ============ PET ACCESSORIES (NEW: use negative-offset technique) ============ */
-  /* The container covers the entire 64px pet. Accessories use % positioning
-     relative to the pet-body box (which sits at bottom:6px, height 42px).      */
-
+  /* ============ PET ACCESSORIES ============ */
   .pet-accessories {
     position: absolute; inset: 0;
     pointer-events: none;
     z-index: 25;
-    /* container = 64x64, matching .pet dimensions */
   }
   .pet-accessory {
     position: absolute;
@@ -386,13 +494,6 @@
     filter: drop-shadow(0 2px 2px rgba(0,0,0,0.3));
     line-height: 1;
   }
-
-  /* BOW — sits centered on Mochi's head.
-     Pet body sits at: left 50%, bottom 6px, width 44px, height 42px.
-     So the top of the body is at bottom: 6 + 42 = 48px from pet bottom.
-     In top-relative terms: 64 - 48 = 16px from pet top.
-     The bow should sit just above that: top: 8px.
-     Centered horizontally on the body's center (which is also pet center = 50%). */
   .pet-accessory.bow {
     top: 4px;
     left: 50%;
@@ -406,10 +507,6 @@
     0%, 100% { transform: translateX(-50%) translateY(0) rotate(-5deg); }
     50% { transform: translateX(-50%) translateY(-1px) rotate(5deg); }
   }
-
-  /* LUCKY CLOVER — pinned on Mochi's right cheek (viewer's right).
-     Cheek is inside the body box. Body spans horizontally from center-22 to center+22.
-     Right cheek is around +14px from center. In % of 64px container: ~72%. */
   .pet-accessory.lucky {
     top: 40%;
     left: 76%;
@@ -422,10 +519,6 @@
     0%, 100% { transform: translate(-50%, -50%) rotate(-12deg) scale(1); }
     50% { transform: translate(-50%, -50%) rotate(12deg) scale(1.1); }
   }
-
-  /* STAR SHARD — floats just above Mochi's right ear.
-     Ear is at right: 1px of body → around right edge of body.
-     Body right edge = center + 22px = 50% + 34% = 84% of container. */
   .pet-accessory.xpboost {
     top: 2%;
     left: 78%;
@@ -1273,6 +1366,29 @@
   .want-bubble::after { content: ''; position: absolute; bottom: -8px; left: 50%; transform: translateX(-50%); width: 0; height: 0; border-left: 6px solid transparent; border-right: 6px solid transparent; border-top: 8px solid #C9A044; }
   .room-badge { position: absolute; top: 8px; left: 8px; background: rgba(253, 246, 238, 0.95); border: 3px solid #8B6F5E; padding: 3px 8px; font-family: 'Press Start 2P', monospace; font-size: 0.45rem; color: #8B6F5E; border-radius: 4px; z-index: 30; }
 
+  /* Mood pill in pet-name-row */
+  .pet-mood-pill {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 0.42rem;
+    padding: 3px 6px;
+    border-radius: 4px;
+    margin-left: 6px;
+    color: white;
+    letter-spacing: 0.5px;
+  }
+  .pet-mood-pill.ecstatic { background: #C9A044; box-shadow: 0 0 8px rgba(201,160,68,0.6); }
+  .pet-mood-pill.content  { background: #8FB87D; }
+  .pet-mood-pill.idle     { background: #A89080; }
+  .pet-mood-pill.bored    { background: #B8A898; }
+  .pet-mood-pill.hungry   { background: #D18F73; }
+  .pet-mood-pill.grumpy   { background: #C97C8C; }
+  .pet-mood-pill.sick     { background: #7A8FA0; animation: sickPulse 1.6s ease-in-out infinite; }
+  .pet-mood-pill.sleeping { background: #8F7FB8; }
+  @keyframes sickPulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.65; }
+  }
+
   .poop { position: absolute; font-size: 1.2rem; bottom: 20px; z-index: 12; animation: poopIn 0.3s ease-out; }
   @keyframes poopIn { 0% { transform: scale(0) rotate(-30deg); } 70% { transform: scale(1.2) rotate(8deg); } 100% { transform: scale(1) rotate(0deg); } }
 
@@ -1491,6 +1607,187 @@
     font-size: 0.42rem; color: #C9A044; margin-top: -2px;
   }
 
+  /* ============================================================
+     DAILY REWARD CHEST
+     ============================================================ */
+  .daily-overlay {
+    position: fixed; inset: 0;
+    background: rgba(30, 28, 60, 0.65);
+    display: none;
+    align-items: center; justify-content: center;
+    z-index: 2500;
+    backdrop-filter: blur(3px);
+    padding: 16px;
+  }
+  .daily-overlay.active { display: flex; animation: dailyFadeIn 0.3s ease; }
+  @keyframes dailyFadeIn {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+  }
+  .daily-card {
+    background: #FDF6EE;
+    border: 4px solid #C9A044;
+    border-radius: 14px;
+    padding: 22px 20px 20px;
+    box-shadow: 0 10px 0 #8B6F5E, 0 14px 30px rgba(0,0,0,0.35);
+    max-width: 360px; width: 100%;
+    text-align: center;
+    animation: dailyPop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+    position: relative;
+  }
+  @keyframes dailyPop {
+    0% { transform: scale(0.6); opacity: 0; }
+    60% { transform: scale(1.05); opacity: 1; }
+    100% { transform: scale(1); opacity: 1; }
+  }
+  .daily-title {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 0.75rem;
+    color: #8B6F5E;
+    margin-bottom: 4px;
+  }
+  .daily-subtitle {
+    font-size: 0.78rem;
+    color: #A89080;
+    margin-bottom: 18px;
+    line-height: 1.4;
+  }
+  .daily-chest {
+    font-size: 4.5rem;
+    line-height: 1;
+    display: inline-block;
+    margin-bottom: 10px;
+    cursor: pointer;
+    animation: chestIdle 1.6s ease-in-out infinite;
+    filter: drop-shadow(0 6px 4px rgba(139,111,94,0.35));
+    user-select: none;
+  }
+  @keyframes chestIdle {
+    0%, 100% { transform: translateY(0) rotate(-2deg); }
+    50% { transform: translateY(-6px) rotate(2deg); }
+  }
+  .daily-chest.opening {
+    animation: chestOpen 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  }
+  @keyframes chestOpen {
+    0% { transform: scale(1) rotate(0deg); }
+    30% { transform: scale(1.25) rotate(-8deg); }
+    60% { transform: scale(0.9) rotate(6deg); }
+    100% { transform: scale(0); opacity: 0; }
+  }
+  .daily-hint {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 0.5rem;
+    color: #C9A044;
+    margin-bottom: 14px;
+    animation: hintPulse 1.4s ease-in-out infinite;
+  }
+  @keyframes hintPulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+  }
+  .daily-streak {
+    display: flex;
+    justify-content: center;
+    gap: 6px;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+  }
+  .daily-day {
+    width: 32px; height: 32px;
+    border: 3px solid #C9B0A0;
+    border-radius: 6px;
+    background: #F4E9DE;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Press Start 2P', monospace;
+    font-size: 0.5rem;
+    color: #A89080;
+    position: relative;
+    transition: all 0.3s;
+  }
+  .daily-day.claimed {
+    background: #8FB87D;
+    border-color: #6FA05D;
+    color: white;
+  }
+  .daily-day.claimed::after {
+    content: '✓';
+    position: absolute;
+    font-size: 0.7rem;
+  }
+  .daily-day.today {
+    background: #FFF9C8;
+    border-color: #C9A044;
+    color: #6B4F0E;
+    animation: todayPulse 1.4s ease-in-out infinite;
+  }
+  .daily-day.today::after {
+    content: '';
+  }
+  @keyframes todayPulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(201, 160, 68, 0.7); }
+    50% { box-shadow: 0 0 0 6px rgba(201, 160, 68, 0); }
+  }
+  .daily-day.day-7 {
+    background: linear-gradient(180deg, #FFE8A0, #E8C878);
+    border-color: #C9A044;
+    color: #6B4F0E;
+  }
+  .daily-day.day-7.claimed {
+    background: linear-gradient(180deg, #C9A044, #8B6F3E);
+    color: white;
+  }
+
+  /* Reward reveal state */
+  .daily-reward-view {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+  .daily-reward-view.active {
+    display: flex;
+    animation: rewardIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  @keyframes rewardIn {
+    0% { transform: scale(0.4); opacity: 0; }
+    70% { transform: scale(1.1); opacity: 1; }
+    100% { transform: scale(1); opacity: 1; }
+  }
+  .daily-reward-emoji {
+    font-size: 3.4rem;
+    line-height: 1;
+    filter: drop-shadow(0 6px 4px rgba(139,111,94,0.4));
+    animation: rewardBob 1.4s ease-in-out infinite;
+  }
+  @keyframes rewardBob {
+    0%, 100% { transform: translateY(0) rotate(-4deg); }
+    50% { transform: translateY(-8px) rotate(4deg); }
+  }
+  .daily-reward-label {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 0.55rem;
+    color: #8B6F5E;
+  }
+  .daily-reward-value {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 1rem;
+    color: #C9A044;
+    margin-top: 4px;
+  }
+  .daily-reward-extra {
+    font-size: 0.78rem;
+    color: #6B5F4D;
+    line-height: 1.4;
+    margin-top: 6px;
+  }
+  .daily-close-btn {
+    margin-top: 16px;
+    width: 100%;
+  }
+
   /* ============ TOASTS / POPUPS ============ */
   .toast {
     position: fixed; top: 15px; left: 50%;
@@ -1662,7 +1959,10 @@
 
       <div class="pet-info">
         <div class="pet-name-row">
-          <div class="pet-name" id="petName">Mochi</div>
+          <div style="display:flex;align-items:center;">
+            <div class="pet-name" id="petName">Mochi</div>
+            <div class="pet-mood-pill content" id="petMoodPill">CONTENT</div>
+          </div>
           <div class="pet-stage-badge" id="petStageBadge">EGG</div>
         </div>
         <div class="stats">
@@ -1748,6 +2048,31 @@
 
 </div>
 
+<!-- ============ DAILY REWARD OVERLAY ============ -->
+<div class="daily-overlay" id="dailyOverlay">
+  <div class="daily-card">
+    <div class="daily-title">🎁 DAILY GIFT</div>
+    <div class="daily-subtitle" id="dailySubtitle">Day 1 of 7 · Tap the chest to claim!</div>
+
+    <div class="daily-streak" id="dailyStreak">
+      <!-- Days populated by JS -->
+    </div>
+
+    <div id="dailyChestView">
+      <div class="daily-chest" id="dailyChest">🎁</div>
+      <div class="daily-hint">TAP TO OPEN</div>
+    </div>
+
+    <div class="daily-reward-view" id="dailyRewardView">
+      <div class="daily-reward-emoji" id="dailyRewardEmoji">🪙</div>
+      <div class="daily-reward-label">YOU GOT</div>
+      <div class="daily-reward-value" id="dailyRewardValue">+10</div>
+      <div class="daily-reward-extra" id="dailyRewardExtra"></div>
+      <button class="btn small daily-close-btn" id="dailyCloseBtn">AWESOME!</button>
+    </div>
+  </div>
+</div>
+
 <div class="toast" id="toast"></div>
 
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
@@ -1785,6 +2110,19 @@ const COIN_PER_WANT = 15;
 const COIN_PER_DAILY_GOAL = 20;
 const MINIGAME_DURATION = 30;
 const MAX_ROOM_ITEMS = 6;
+
+/* ============================================================
+   DAILY REWARD CONFIG — 7-day cycle
+   ============================================================ */
+const DAILY_REWARDS = [
+  { day: 1, emoji: '🪙', value: '+10', coins: 10,  extra: 'Just a little something 💛' },
+  { day: 2, emoji: '🪙', value: '+15', coins: 15,  extra: 'Building up!' },
+  { day: 3, emoji: '🍬', value: '+15 🪙', coins: 15, extra: 'Plus a free Sweet Treat placed in your room!', consumable: 'treat' },
+  { day: 4, emoji: '🪙', value: '+30', coins: 30,  extra: 'Nice streak going!' },
+  { day: 5, emoji: '🧼', value: '+25 🪙', coins: 25, extra: 'Plus a free Fancy Soap placed in your room!', consumable: 'soap' },
+  { day: 6, emoji: '🪙', value: '+50', coins: 50,  extra: 'Almost at the big one!' },
+  { day: 7, emoji: '💎', value: '+100 🪙', coins: 100, extra: 'MEGA GIFT! Plus a free Plush Toy placed in your room!', consumable: 'toy' }
+];
 
 const STAGES = [
   { level: 1,  name: 'EGG',       emoji: '🥚', key: 'egg' },
@@ -1902,7 +2240,8 @@ const ACHIEVEMENTS = [
   { id: 'kitchen_unlock',emoji: '🍳', name: 'HOME COOKIN\'',   desc: 'Unlock the Kitchen',                 check: (d) => (d.level || 0) >= 5 },
   { id: 'garden_unlock', emoji: '🌷', name: 'GREEN THUMB',      desc: 'Unlock the Garden',                  check: (d) => (d.level || 0) >= 15 },
   { id: 'minigame_10',   emoji: '🫧', name: 'BUBBLE MASTER',    desc: 'Score 10+ in Bubble Pop',            check: (d) => (d.stats?.bestMinigame || 0) >= 10 },
-  { id: 'minigame_25',   emoji: '🏅', name: 'BUBBLE LEGEND',    desc: 'Score 25+ in Bubble Pop',            check: (d) => (d.stats?.bestMinigame || 0) >= 25 }
+  { id: 'minigame_25',   emoji: '🏅', name: 'BUBBLE LEGEND',    desc: 'Score 25+ in Bubble Pop',            check: (d) => (d.stats?.bestMinigame || 0) >= 25 },
+  { id: 'daily_7',       emoji: '🎁', name: 'GIFT COLLECTOR',   desc: 'Claim 7 daily gifts in a row',       check: (d) => (d.dailyReward?.day || 0) >= 7 }
 ];
 
 /* ============================================================
@@ -1924,10 +2263,26 @@ let ambientTimeoutId = null;
 let ambientPlaying = false;
 let autoCleanIntervalId = null;
 let presenceIntervalId = null;
+let moodParticleIntervalId = null;
 let lastRenderStats = { hunger: -1, happy: -1, energy: -1, clean: -1 };
 
+/* Animation watchdog: safety net for stuck isAnimating */
+let animationWatchdog = null;
+function startWatchdog() {
+  clearTimeout(animationWatchdog);
+  animationWatchdog = setTimeout(() => {
+    if (isAnimating) {
+      console.warn('[watchdog] Forcing isAnimating = false after 15s');
+      isAnimating = false;
+      document.querySelectorAll('.action-btn').forEach(b => b.disabled = false);
+      renderCache.petMood = '';
+      renderPet();
+    }
+  }, 15000);
+}
+
 const renderCache = {
-  stage: '', petName: '', petMood: '', roomId: '',
+  stage: '', petName: '', petMood: '', petMoodKey: '', roomId: '',
   diaryHash: '', notesHash: '', achCount: -1,
   daysCount: -1, streakCount: -1, coinCount: -1,
   level: -1, xp: -1, poops: -1,
@@ -1967,6 +2322,9 @@ function sfxLevelUp() {
   [523, 659, 784, 1047].forEach((f, i) => setTimeout(() => playTone(f, 0.18, 'sine', 0.07), i * 90));
 }
 function sfxBad() { playTone(220, 0.2, 'sawtooth', 0.04); }
+function sfxReward() {
+  [523, 659, 784, 1047, 1319].forEach((f, i) => setTimeout(() => playTone(f, 0.2, 'triangle', 0.06), i * 100));
+}
 
 /* ============================================================
    TOAST
@@ -2053,6 +2411,7 @@ $('loginBtn').addEventListener('click', () => {
   startAmbientLoop();
   startPresenceHeartbeat();
   startAutoCleanLoop();
+  startMoodParticleLoop();
 });
 
 /* ============================================================
@@ -2092,6 +2451,7 @@ function listenToGame() {
         coins: 50,
         inventory: {},
         roomItems: {},
+        dailyReward: { day: 0, lastClaimDate: '', totalClaims: 0 },
         koyLastSeen: now, metzLastSeen: 0,
         todayActions: { koy: 0, metz: 0 },
         todayDate: '',
@@ -2122,6 +2482,7 @@ function listenToGame() {
       if (data.coins === undefined) missing.coins = 50;
       if (!data.inventory) missing.inventory = {};
       if (!data.roomItems) missing.roomItems = {};
+      if (!data.dailyReward) missing.dailyReward = { day: 0, lastClaimDate: '', totalClaims: 0 };
       if (Object.keys(missing).length > 0) {
         ref.update(missing).then(() => applyDecayAndListen());
       } else {
@@ -2187,6 +2548,7 @@ function processUpdate(snap) {
   checkWantGeneration();
   checkAchievements();
   checkUnreadNotes();
+  checkDailyReward();
 
   if (!isAnimating) renderPet(prev);
   renderDiary();
@@ -2253,6 +2615,79 @@ function isNightTime() {
   const h = new Date().getHours();
   return h >= NIGHT_START || h < NIGHT_END;
 }
+
+/* ============================================================
+   MOOD SYSTEM — 5 tiers + sick + sleeping
+   Priority order (highest first): sleeping → sick → grumpy → hungry → ecstatic → bored → content → idle
+   ============================================================ */
+function computeMood() {
+  if (!gameData) return { key: 'idle', label: 'IDLE', cls: 'idle' };
+
+  const hunger = gameData.hunger ?? 100;
+  const happy  = gameData.happy  ?? 100;
+  const energy = gameData.energy ?? 100;
+  const clean  = gameData.clean  ?? 100;
+
+  // Sleeping — night override
+  if (isNightTime() && energy < 60) return { key: 'sleeping', label: 'SLEEPING', cls: 'sleeping' };
+
+  // Sick — low clean AND low happy
+  if (clean < 20 && happy < 30) return { key: 'sick', label: 'SICK', cls: 'sick' };
+
+  // Count critical stats
+  const criticalCount = [hunger, happy, energy, clean].filter(v => v < 30).length;
+
+  // Grumpy — 2+ stats critical
+  if (criticalCount >= 2) return { key: 'grumpy', label: 'GRUMPY', cls: 'grumpy' };
+
+  // Hungry — hunger notably low
+  if (hunger < 40) return { key: 'hungry', label: 'HUNGRY', cls: 'sad' };
+
+  // Ecstatic — all stats very high
+  if (hunger > 85 && happy > 85 && energy > 85 && clean > 85) {
+    return { key: 'ecstatic', label: 'ECSTATIC', cls: 'ecstatic' };
+  }
+
+  // Bored — joy specifically low but rest is fine
+  if (happy < 50 && hunger > 50 && energy > 50 && clean > 50) {
+    return { key: 'bored', label: 'BORED', cls: 'bored' };
+  }
+
+  // Content — all stats healthy
+  if (hunger > 60 && happy > 60 && energy > 60 && clean > 60) {
+    return { key: 'content', label: 'CONTENT', cls: 'happy' };
+  }
+
+  // Otherwise idle
+  return { key: 'idle', label: 'IDLE', cls: 'idle' };
+}
+
+/* Mood-appropriate ambient behaviors */
+const MOOD_BEHAVIOR_OVERRIDES = {
+  ecstatic: [
+    { cls: 'hopping', dur: 1.2, bubble: 'so happy!!', emoji: '✨' },
+    { cls: 'spinning', dur: 1.5, bubble: 'yay yay!', emoji: '🎉' },
+    { cls: 'happy', dur: 1.5, bubble: 'la la la~', emoji: '🎵' }
+  ],
+  bored: [
+    { cls: 'stretching', dur: 2, bubble: '...', emoji: '💭' },
+    { cls: 'watching', dur: 3.5, bubble: '*sigh*', emoji: '😑' },
+    { cls: 'walking', dur: 2.5 }
+  ],
+  grumpy: [
+    { cls: 'stretching', dur: 2, bubble: 'hmph!', emoji: '💢' },
+    { cls: 'watching', dur: 2.5, bubble: 'grr...', emoji: '😠' },
+    { cls: 'walking', dur: 2 }
+  ],
+  sick: [
+    { cls: 'sleeping', dur: 4, bubble: 'not feeling...', emoji: '💧' },
+    { cls: 'stretching', dur: 2.5, bubble: '*cough*', emoji: '🤒' }
+  ],
+  hungry: [
+    { cls: 'sniffing', dur: 2.5, bubble: 'so hungry...', emoji: '🍚' },
+    { cls: 'watching', dur: 3, bubble: 'where is food?', emoji: '🍽️' }
+  ]
+};
 
 /* ============================================================
    ROOM RENDERING
@@ -2462,6 +2897,15 @@ async function furnitureInteraction(type) {
   if (!gameData || isAnimating || mgActive) return;
 
   const pet = $('pet');
+  const mood = computeMood();
+
+  // Grumpy pet refuses some furniture
+  if (mood.key === 'grumpy' && (type === 'bed' || type === 'ballpit' || type === 'toybox')) {
+    pet.className = 'pet grumpy';
+    showBubble('hmph!', '💢');
+    sfxBad();
+    return;
+  }
 
   const reactions = {
     bed:       { emoji: '💤', text: 'cozy!',    cls: 'sleeping', dur: 1800, x: 20 },
@@ -2484,6 +2928,7 @@ async function furnitureInteraction(type) {
   if (!r) return;
 
   isAnimating = true;
+  startWatchdog();
   document.querySelectorAll('.action-btn').forEach(b => b.disabled = true);
 
   try {
@@ -2498,14 +2943,16 @@ async function furnitureInteraction(type) {
     await new Promise(res => setTimeout(res, r.dur));
     pet.className = 'pet walking';
     await movePetTo(50, 700);
-    pet.className = 'pet idle';
+    pet.className = 'pet ' + computeMood().cls;
   } catch(e) {
-    pet.className = 'pet idle';
+    pet.className = 'pet ' + computeMood().cls;
   }
 
   isAnimating = false;
+  clearTimeout(animationWatchdog);
   document.querySelectorAll('.action-btn').forEach(b => b.disabled = false);
   renderCache.petMood = '';
+  renderCache.petMoodKey = '';
   startAmbientLoop();
 }
 
@@ -2666,6 +3113,7 @@ async function useRoomItem(itemId) {
   if (!def) return;
 
   isAnimating = true;
+  startWatchdog();
   document.querySelectorAll('.action-btn').forEach(b => b.disabled = true);
 
   const pet = $('pet');
@@ -2724,19 +3172,21 @@ async function useRoomItem(itemId) {
 
     pet.className = 'pet walking';
     await movePetTo(50, 900);
-    pet.className = 'pet idle';
+    pet.className = 'pet ' + computeMood().cls;
 
     applyConsumableEffect(item, def);
     db.ref('tamagotchi/roomItems/' + itemId).remove();
 
   } catch(e) {
     console.error('Use room item error:', e);
-    pet.className = 'pet idle';
+    pet.className = 'pet ' + computeMood().cls;
   }
 
   isAnimating = false;
+  clearTimeout(animationWatchdog);
   document.querySelectorAll('.action-btn').forEach(b => b.disabled = false);
   renderCache.petMood = '';
+  renderCache.petMoodKey = '';
   renderPet();
   startAmbientLoop();
 }
@@ -2802,6 +3252,126 @@ function renderWantBubble() {
     document.querySelectorAll('.action-btn').forEach(b => b.classList.remove('want-highlight'));
   }
 }
+
+/* ============================================================
+   DAILY REWARD
+   ============================================================ */
+function checkDailyReward() {
+  if (!gameData) return;
+  const dr = gameData.dailyReward || { day: 0, lastClaimDate: '', totalClaims: 0 };
+  const today = new Date().toISOString().slice(0, 10);
+
+  if (dr.lastClaimDate === today) return; // Already claimed today
+
+  // Show overlay with pre-claim state
+  showDailyOverlay(dr);
+}
+
+function showDailyOverlay(dr) {
+  const overlay = $('dailyOverlay');
+  if (!overlay) return;
+  if (overlay.classList.contains('active')) return; // Don't re-show
+
+  // Determine which day we're claiming (dr.day is last claimed day, capped at 7)
+  const lastDay = dr.day || 0;
+  const nextDay = lastDay >= 7 ? 1 : lastDay + 1; // Cycle back after 7
+  const reward = DAILY_REWARDS[nextDay - 1];
+
+  // Render streak row
+  const streak = $('dailyStreak');
+  streak.innerHTML = '';
+  for (let i = 0; i < 7; i++) {
+    const day = i + 1;
+    const cell = document.createElement('div');
+    cell.className = 'daily-day';
+    if (day === 7) cell.classList.add('day-7');
+    // Past days in current cycle = claimed (based on lastDay if in same cycle)
+    const isClaimed = (lastDay < 7 && day <= lastDay) || (lastDay >= 7 && false);
+    // Since we cycle back after 7, if lastDay is 7 all days are fresh
+    if (isClaimed) cell.classList.add('claimed');
+    if (day === nextDay) cell.classList.add('today');
+    cell.textContent = day;
+    streak.appendChild(cell);
+  }
+
+  $('dailySubtitle').textContent = `Day ${nextDay} of 7 · Tap the chest to claim!`;
+
+  // Reset views
+  $('dailyChestView').style.display = 'block';
+  $('dailyRewardView').classList.remove('active');
+  const chest = $('dailyChest');
+  chest.className = 'daily-chest';
+  chest.style.display = 'inline-block';
+
+  overlay.classList.add('active');
+
+  // Wire the chest tap handler (only once)
+  if (!chest.dataset.wired) {
+    chest.dataset.wired = '1';
+    chest.addEventListener('click', () => claimDailyReward(dr, nextDay, reward));
+  } else {
+    // Replace handler to reference latest closure values
+    chest.onclick = () => claimDailyReward(dr, nextDay, reward);
+  }
+}
+
+async function claimDailyReward(dr, day, reward) {
+  const chest = $('dailyChest');
+  if (chest.classList.contains('opening')) return; // Prevent double-tap
+
+  chest.classList.add('opening');
+  sfxReward();
+
+  // Confetti burst
+  spawnConfetti(30);
+
+  await new Promise(r => setTimeout(r, 550));
+
+  // Hide chest, show reward
+  $('dailyChestView').style.display = 'none';
+
+  $('dailyRewardEmoji').textContent = reward.emoji;
+  $('dailyRewardValue').textContent = reward.value;
+  $('dailyRewardExtra').textContent = reward.extra || '';
+  $('dailyRewardView').classList.add('active');
+
+  // Persist to Firebase
+  const today = new Date().toISOString().slice(0, 10);
+  const updates = {
+    coins: (gameData.coins || 0) + reward.coins,
+    'dailyReward/day': day,
+    'dailyReward/lastClaimDate': today,
+    'dailyReward/totalClaims': (dr.totalClaims || 0) + 1,
+    lastUpdate: Date.now()
+  };
+
+  // Optional: place a bonus consumable in the room
+  if (reward.consumable) {
+    const placed = placeRoomItem(reward.consumable);
+    if (placed) {
+      updates.roomItems = placed.items;
+      $('dailyRewardExtra').textContent = (reward.extra || '') + ' (placed in room!)';
+    }
+  }
+
+  // Diary entry
+  const entry = { by: me, text: `opened daily gift — day ${day} (${reward.value})`, time: Date.now() };
+  const key = 'diary/' + Date.now() + '_daily';
+  updates[key] = entry;
+
+  db.ref('tamagotchi').update(updates);
+
+  sfxGood();
+}
+
+$('dailyCloseBtn').addEventListener('click', () => {
+  $('dailyOverlay').classList.remove('active');
+  sfxClick();
+  // Reset chest for next time (next day)
+  const chest = $('dailyChest');
+  chest.classList.remove('opening');
+  chest.style.display = 'inline-block';
+});
 
 /* ============================================================
    ACHIEVEMENTS
@@ -3099,6 +3669,7 @@ function renderPet(prev = {}) {
   if (!gameData) return;
   const stage = currentStage();
   const pet = $('pet');
+  const mood = computeMood();
 
   if (renderCache.stage !== stage.key) {
     pet.dataset.stage = stage.key;
@@ -3111,16 +3682,18 @@ function renderPet(prev = {}) {
     renderCache.petName = gameData.name;
   }
 
-  if (!ambientPlaying && !isAnimating) {
-    const avg = (gameData.hunger + gameData.happy + gameData.energy + gameData.clean) / 4;
-    let mood = 'idle';
-    if (avg < 30) mood = 'sad';
-    else if (avg > 75) mood = 'happy';
-    if (isNightTime()) mood = 'sleeping';
+  // Update mood pill
+  const pill = $('petMoodPill');
+  if (pill && renderCache.petMoodKey !== mood.key) {
+    renderCache.petMoodKey = mood.key;
+    pill.textContent = mood.label;
+    pill.className = 'pet-mood-pill ' + mood.key;
+  }
 
-    if (renderCache.petMood !== mood) {
-      pet.className = 'pet ' + mood;
-      renderCache.petMood = mood;
+  if (!ambientPlaying && !isAnimating) {
+    if (renderCache.petMood !== mood.cls) {
+      pet.className = 'pet ' + mood.cls;
+      renderCache.petMood = mood.cls;
     }
   }
 
@@ -3353,6 +3926,41 @@ function addProp(emoji, className, style) {
 }
 
 /* ============================================================
+   MOOD PARTICLES — small emoji emission based on mood
+   ============================================================ */
+const MOOD_PARTICLE_MAP = {
+  ecstatic: ['✨', '💖', '⭐', '🌟'],
+  content:  ['✨'],
+  bored:    ['💭', '😑'],
+  grumpy:   ['💢', '😠'],
+  sick:     ['💧', '🤒', '💊'],
+  hungry:   ['🍚', '🥣']
+};
+
+function startMoodParticleLoop() {
+  if (moodParticleIntervalId) clearInterval(moodParticleIntervalId);
+  moodParticleIntervalId = setInterval(() => {
+    if (!gameData || document.hidden || isAnimating || mgActive) return;
+    const mood = computeMood();
+    const particles = MOOD_PARTICLE_MAP[mood.key];
+    if (!particles) return;
+    // Emit 1 particle
+    const pet = $('pet');
+    if (!pet) return;
+    const area = $('petArea');
+    const p = document.createElement('div');
+    p.className = 'mood-particle';
+    p.textContent = particles[Math.floor(Math.random() * particles.length)];
+    p.style.left = (50 + (Math.random() * 20 - 10)) + '%';
+    p.style.bottom = (70 + Math.random() * 20) + 'px';
+    p.style.setProperty('--mpx', (Math.random() * 30 - 15) + 'px');
+    p.style.setProperty('--mr', (Math.random() * 40 - 20) + 'deg');
+    area.appendChild(p);
+    setTimeout(() => p.remove(), 2200);
+  }, 3200);
+}
+
+/* ============================================================
    AMBIENT LOOP
    ============================================================ */
 function startAmbientLoop() {
@@ -3372,8 +3980,17 @@ async function runAmbientBehavior() {
   if (!gameData) return;
   if (document.hidden) return;
 
-  const behaviors = AMBIENT_BEHAVIORS[currentRoomId] || AMBIENT_BEHAVIORS.bedroom;
-  const behavior = behaviors[Math.floor(Math.random() * behaviors.length)];
+  const mood = computeMood();
+
+  // Use mood-specific behaviors sometimes, room behaviors otherwise
+  let behaviorPool;
+  if (MOOD_BEHAVIOR_OVERRIDES[mood.key] && Math.random() < 0.6) {
+    behaviorPool = MOOD_BEHAVIOR_OVERRIDES[mood.key];
+  } else {
+    behaviorPool = AMBIENT_BEHAVIORS[currentRoomId] || AMBIENT_BEHAVIORS.bedroom;
+  }
+
+  const behavior = behaviorPool[Math.floor(Math.random() * behaviorPool.length)];
 
   ambientPlaying = true;
   const pet = $('pet');
@@ -3387,7 +4004,7 @@ async function runAmbientBehavior() {
     pet.className = 'pet ' + behavior.cls;
     if (behavior.bubble) showBubble(behavior.bubble, behavior.emoji || '✨');
     await new Promise(r => setTimeout(r, behavior.dur * 1000));
-    pet.className = 'pet idle';
+    pet.className = 'pet ' + computeMood().cls;
   } catch(e) {}
   ambientPlaying = false;
   renderCache.petMood = '';
@@ -3415,7 +4032,7 @@ function playActionAnimation(name) {
           pet.className = 'pet walking';
           await movePetTo(50, 1200);
           bowl.remove();
-          pet.className = 'pet idle';
+          pet.className = 'pet ' + computeMood().cls;
           break;
         }
         case 'play': {
@@ -3425,7 +4042,7 @@ function playActionAnimation(name) {
           floatHearts(6);
           await new Promise(r => setTimeout(r, 2000));
           ball.remove();
-          pet.className = 'pet idle';
+          pet.className = 'pet ' + computeMood().cls;
           break;
         }
         case 'sleep': {
@@ -3450,7 +4067,7 @@ function playActionAnimation(name) {
           pet.className = 'pet walking';
           await movePetTo(50, 1000);
           bed.remove();
-          pet.className = 'pet idle';
+          pet.className = 'pet ' + computeMood().cls;
           break;
         }
         case 'bath': {
@@ -3475,7 +4092,7 @@ function playActionAnimation(name) {
           showBubble('splash!', '💧');
           await new Promise(r => setTimeout(r, 1800));
           tub.remove();
-          pet.className = 'pet idle';
+          pet.className = 'pet ' + computeMood().cls;
           break;
         }
         case 'pet': {
@@ -3483,7 +4100,7 @@ function playActionAnimation(name) {
           showBubble('happy!', '💚');
           floatHearts(8);
           await new Promise(r => setTimeout(r, 1800));
-          pet.className = 'pet idle';
+          pet.className = 'pet ' + computeMood().cls;
           break;
         }
         case 'clean': {
@@ -3492,7 +4109,7 @@ function playActionAnimation(name) {
           showBubble('all clean!', '🧹');
           await new Promise(r => setTimeout(r, 800));
           await movePetTo(50, 700);
-          pet.className = 'pet idle';
+          pet.className = 'pet ' + computeMood().cls;
           break;
         }
       }
@@ -3514,6 +4131,11 @@ function startMinigame() {
   if (mgActive) return;
   if (!gameData) return;
   if (gameData.energy < 10) return showToast('Mochi is too tired for games 💤');
+
+  // Grumpy/sick pets refuse minigame
+  const mood = computeMood();
+  if (mood.key === 'grumpy') return showToast('Mochi is too grumpy to play 💢');
+  if (mood.key === 'sick') return showToast('Mochi is sick — needs care first 💊');
 
   mgActive = true;
   mgScore = 0;
@@ -3658,6 +4280,7 @@ function doAction(name) {
   }
 
   isAnimating = true;
+  startWatchdog();
   document.querySelectorAll('.action-btn').forEach(b => b.disabled = true);
   sfxClick();
 
@@ -3668,8 +4291,10 @@ function doAction(name) {
   playActionAnimation(name).then(() => {
     applyActionEffects(name, addPoop);
     isAnimating = false;
+    clearTimeout(animationWatchdog);
     document.querySelectorAll('.action-btn').forEach(b => b.disabled = false);
     renderCache.petMood = '';
+    renderCache.petMoodKey = '';
     renderPet();
     startAmbientLoop();
   });
@@ -3831,6 +4456,7 @@ $('logoutBtn').addEventListener('click', () => {
   if (presenceIntervalId) clearInterval(presenceIntervalId);
   if (ambientTimeoutId) clearTimeout(ambientTimeoutId);
   if (autoCleanIntervalId) clearInterval(autoCleanIntervalId);
+  if (moodParticleIntervalId) clearInterval(moodParticleIntervalId);
   localStorage.removeItem('mochi_role');
   localStorage.removeItem('mochi_pin');
   location.reload();
