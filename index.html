@@ -637,6 +637,20 @@
     z-index: -1;
   }
   .room-scene .furniture:active { transform: scale(0.97); }
+  .room-scene .furniture {
+    touch-action: none;
+    user-select: none;
+    -webkit-user-select: none;
+    cursor: grab;
+  }
+  .room-scene .furniture.dragging {
+    z-index: 50 !important;
+    opacity: 0.9;
+    cursor: grabbing;
+    transition: none !important;
+    filter: brightness(1.08) drop-shadow(0 4px 8px rgba(0,0,0,0.35));
+  }
+  .room-scene .furniture.dragging .furniture-label { opacity: 0; }
 
   /* Depth layers: back (wall items), mid (behind sofa), front (foreground) */
   .furniture.depth-back {
@@ -3089,6 +3103,7 @@ function processUpdate(snap) {
   updateStreakAndDays();
   checkStreak();
   applyRoom();
+  renderRoomScene(); // re-apply furniture positions (including remote moves)
   renderWantBubble();
   updateNotesBadge();
   renderXPBar();
@@ -3276,35 +3291,113 @@ function renderRoomScene() {
   const roomKey = currentRoomId;
   const inv = gameData?.inventory || {};
   const invHash = Object.keys(inv).filter(k => inv[k]).sort().join(',');
-  const hashKey = roomKey + '|' + invHash;
+  const posHash = JSON.stringify(gameData?.furniturePositions?.[roomKey] || {});
+  const hashKey = roomKey + '|' + invHash + '|' + posHash;
   if (renderCache.sceneHash === hashKey) return;
   renderCache.sceneHash = hashKey;
 
   scene.innerHTML = '';
 
-  const makeFurniture = (className, html, label, onClick, depth = 'front') => {
+  const makeFurniture = (fid, className, html, label, onClick, depth = 'front') => {
     const el = document.createElement('div');
     el.className = 'furniture ' + className + ' depth-' + depth;
+    el.dataset.fid = fid;
     el.innerHTML = html + (label ? `<div class="furniture-label">${label}</div>` : '');
-    if (onClick) {
-      el.addEventListener('click', (e) => {
-        e.stopPropagation();
-        onClick();
-      });
+
+    // Apply saved position if any (works for every room, locked or not)
+    const saved = gameData?.furniturePositions?.[roomKey]?.[fid];
+    if (saved && typeof saved.left === 'number' && typeof saved.top === 'number') {
+      el.style.left = saved.left + '%';
+      el.style.top = saved.top + '%';
+      el.style.right = 'auto';
+      el.style.bottom = 'auto';
     }
+
+    // Drag-to-reposition (pointer events for mouse + touch)
+    let dragMoved = false;
+    let dragStartX = 0, dragStartY = 0, originLeft = 0, originTop = 0;
+    const DRAG_THRESHOLD = 6;
+
+    el.addEventListener('pointerdown', (e) => {
+      if (isAnimating || mgActive) return;
+      if (e.button !== undefined && e.button !== 0) return;
+      e.preventDefault();
+      e.stopPropagation();
+      const room = $('room');
+      if (!room) return;
+      const roomRect = room.getBoundingClientRect();
+      const elRect = el.getBoundingClientRect();
+      dragStartX = e.clientX;
+      dragStartY = e.clientY;
+      originLeft = ((elRect.left - roomRect.left) / roomRect.width) * 100;
+      originTop = ((elRect.top - roomRect.top) / roomRect.height) * 100;
+      dragMoved = false;
+      el.classList.add('dragging');
+      try { el.setPointerCapture(e.pointerId); } catch (_) {}
+
+      const onMove = (ev) => {
+        const dx = ev.clientX - dragStartX;
+        const dy = ev.clientY - dragStartY;
+        if (!dragMoved && (Math.abs(dx) > DRAG_THRESHOLD || Math.abs(dy) > DRAG_THRESHOLD)) {
+          dragMoved = true;
+        }
+        if (!dragMoved) return;
+        const newLeft = originLeft + (dx / roomRect.width) * 100;
+        const newTop = originTop + (dy / roomRect.height) * 100;
+        // Clamp so furniture stays mostly inside the room
+        const clampedLeft = Math.max(-5, Math.min(95, newLeft));
+        const clampedTop = Math.max(-5, Math.min(90, newTop));
+        el.style.left = clampedLeft + '%';
+        el.style.top = clampedTop + '%';
+        el.style.right = 'auto';
+        el.style.bottom = 'auto';
+      };
+
+      const onUp = (ev) => {
+        el.classList.remove('dragging');
+        try { el.releasePointerCapture(ev.pointerId); } catch (_) {}
+        el.removeEventListener('pointermove', onMove);
+        el.removeEventListener('pointerup', onUp);
+        el.removeEventListener('pointercancel', onUp);
+
+        if (dragMoved) {
+          // Persist new position for this room + furniture (syncs across devices)
+          const left = parseFloat(el.style.left) || 0;
+          const top = parseFloat(el.style.top) || 0;
+          if (gameData) {
+            const path = `furniturePositions/${roomKey}/${fid}`;
+            db.ref('tamagotchi/' + path).set({ left: Math.round(left * 10) / 10, top: Math.round(top * 10) / 10 });
+            // Keep local cache in sync immediately
+            if (!gameData.furniturePositions) gameData.furniturePositions = {};
+            if (!gameData.furniturePositions[roomKey]) gameData.furniturePositions[roomKey] = {};
+            gameData.furniturePositions[roomKey][fid] = { left: Math.round(left * 10) / 10, top: Math.round(top * 10) / 10 };
+            renderCache.sceneHash = ''; // force re-hash next time
+          }
+          showToast('📍 Furniture moved!');
+        } else if (onClick) {
+          // Treat as a normal interaction (no drag)
+          onClick();
+        }
+      };
+
+      el.addEventListener('pointermove', onMove);
+      el.addEventListener('pointerup', onUp);
+      el.addEventListener('pointercancel', onUp);
+    });
+
     scene.appendChild(el);
     return el;
   };
 
   if (roomKey === 'bedroom') {
-    makeFurniture('f-bed', `
+    makeFurniture('bed', 'f-bed', `
       <div class="bed-frame"></div>
       <div class="bed-mattress"></div>
       <div class="bed-blanket"></div>
       <div class="bed-pillow"></div>
     `, 'SLEEP', () => furnitureInteraction('bed'), 'front');
 
-    makeFurniture('f-nightstand', `
+    makeFurniture('nightstand', 'f-nightstand', `
       <div class="ns-top"></div>
       <div class="ns-front">
         <div class="ns-drawer"></div>
@@ -3315,19 +3408,19 @@ function renderRoomScene() {
       <div class="ns-glow"></div>
     `, 'LAMP', () => furnitureInteraction('lamp'), 'front');
 
-    makeFurniture('f-frame', `
+    makeFurniture('frame', 'f-frame', `
       <div class="frame-outer"></div>
       <div class="frame-inner">🖼️</div>
     `, 'LOOK', () => furnitureInteraction('frame'), 'back');
 
-    makeFurniture('f-shelf', `
+    makeFurniture('shelf', 'f-shelf', `
       <div class="shelf-top"></div>
       <span class="shelf-item" style="left:8px;">📚</span>
       <span class="shelf-item" style="left:38px;">🕯️</span>
       <span class="shelf-item" style="left:62px;">🏺</span>
     `, 'CHECK', () => furnitureInteraction('shelf'), 'back');
 
-    makeFurniture('f-window', `
+    makeFurniture('window', 'f-window', `
       <div class="win-frame"></div>
       <div class="win-glass"><div class="win-cloud"></div></div>
       <div class="win-curtain win-curtain-l"></div>
@@ -3336,7 +3429,7 @@ function renderRoomScene() {
 
   } else if (roomKey === 'kitchen') {
     /* Counter left */
-    makeFurniture('f-kitchen-counter', `
+    makeFurniture('counter', 'f-kitchen-counter', `
       <div class="counter-top"></div>
       <div class="counter-front"></div>
       <div class="counter-sink"></div>
@@ -3344,7 +3437,7 @@ function renderRoomScene() {
     `, 'COOK', () => furnitureInteraction('counter'), 'front');
 
     /* Fridge right */
-    makeFurniture('f-fridge', `
+    makeFurniture('fridge', 'f-fridge', `
       <div class="fridge-top"></div>
       <div class="fridge-body">
         <div class="fridge-shelves" id="fridgeShelves"></div>
@@ -3356,31 +3449,31 @@ function renderRoomScene() {
     `, 'FRIDGE', () => furnitureInteraction('fridge'), 'front');
 
   } else if (roomKey === 'garden') {
-    makeFurniture('f-tree', `
+    makeFurniture('tree', 'f-tree', `
       <div class="tree-trunk"></div>
       <div class="tree-leaves"></div>
       <div class="tree-fruit">🍎</div>
     `, 'SHAKE', () => furnitureInteraction('tree'), 'front');
 
-    makeFurniture('f-flowers', `
+    makeFurniture('flowers', 'f-flowers', `
       <span>🌷</span><span>🌻</span><span>🌼</span><span>🌺</span>
     `, 'SNIFF', () => furnitureInteraction('flowers'), 'front');
 
   } else if (roomKey === 'playroom') {
-    makeFurniture('f-toybox', `
+    makeFurniture('toybox', 'f-toybox', `
       <div class="toybox-top"></div>
       <div class="toybox-front">🧸</div>
       <div class="toybox-items">🎈 ⚽ 🪀</div>
     `, 'OPEN', () => furnitureInteraction('toybox'), 'front');
 
-    makeFurniture('f-blocks', `
+    makeFurniture('blocks', 'f-blocks', `
       <div class="block b1"></div>
       <div class="block b2"></div>
       <div class="block b3"></div>
       <div class="block b4"></div>
     `, 'STACK', () => furnitureInteraction('blocks'), 'back');
 
-    makeFurniture('f-ballpit', `
+    makeFurniture('ballpit', 'f-ballpit', `
       <div class="pit-back">
         <div class="pit-balls">
           <div class="pit-ball" style="background:radial-gradient(circle at 30% 30%, #F4D9C8, #C9A898);"></div>
@@ -3392,12 +3485,12 @@ function renderRoomScene() {
     `, 'JUMP IN', () => furnitureInteraction('ballpit'), 'front');
 
   } else if (roomKey === 'observatory') {
-    makeFurniture('f-telescope', `
+    makeFurniture('telescope', 'f-telescope', `
       <div class="tel-tripod"></div>
       <div class="tel-tube"></div>
     `, 'PEEK', () => furnitureInteraction('telescope'), 'front');
 
-    makeFurniture('f-starchart', `
+    makeFurniture('starchart', 'f-starchart', `
       <div class="chart-frame">✦ ✧<br>✦ ✧<br>✦ ✧</div>
     `, 'STUDY', () => furnitureInteraction('starchart'), 'back');
   }
@@ -3406,7 +3499,7 @@ function renderRoomScene() {
      ROOM-SPECIFIC SHOP ITEMS (positioned to fill empty space)
      ============================================================ */
   if (roomKey === 'kitchen' && inv.kitchen_sink) {
-    makeFurniture('f-room-sink', `
+    makeFurniture('kitchen_sink', 'f-room-sink', `
       <div class="sink-basin"><div class="sink-bowl"></div></div>
       <div class="sink-faucet"></div>
       <div class="sink-water"></div>
@@ -3414,14 +3507,14 @@ function renderRoomScene() {
     `, 'TAP WATER', () => furnitureInteraction('room_sink'), 'front');
   }
   if (roomKey === 'kitchen' && inv.kitchen_trash) {
-    makeFurniture('f-room-trash', `
+    makeFurniture('kitchen_trash', 'f-room-trash', `
       <div class="trash-lid"></div>
       <div class="trash-body">🗑️</div>
       <div class="trash-items">🍌 🍎 🥬</div>
     `, 'OPEN', () => furnitureInteraction('room_trash'), 'front');
   }
   if (roomKey === 'bedroom' && inv.bedroom_bookshelf) {
-    makeFurniture('f-room-bookshelf', `
+    makeFurniture('bedroom_bookshelf', 'f-room-bookshelf', `
       <div class="bs-body">
         <div class="bs-shelf"><span class="bs-book pull">📕</span><span class="bs-book">📗</span><span class="bs-book">📘</span></div>
         <div class="bs-shelf"><span class="bs-book">📙</span><span class="bs-book">📓</span><span class="bs-book">📔</span></div>
@@ -3430,13 +3523,13 @@ function renderRoomScene() {
     `, 'READ', () => furnitureInteraction('room_bookshelf'), 'front');
   }
   if (roomKey === 'bedroom' && inv.bedroom_mirror) {
-    makeFurniture('f-room-mirror', `
+    makeFurniture('bedroom_mirror', 'f-room-mirror', `
       <div class="mirror-frame"></div>
       <div class="mirror-glass"></div>
     `, 'LOOK', () => furnitureInteraction('room_mirror'), 'back');
   }
   if (roomKey === 'bedroom' && inv.bedroom_clock) {
-    makeFurniture('f-room-clock', `
+    makeFurniture('bedroom_clock', 'f-room-clock', `
       <div class="clock-frame"></div>
       <div class="clock-hand hour"></div>
       <div class="clock-hand minute"></div>
@@ -3445,7 +3538,7 @@ function renderRoomScene() {
     `, 'WATCH', () => furnitureInteraction('room_clock'), 'back');
   }
   if (roomKey === 'garden' && inv.garden_fountain) {
-    makeFurniture('f-room-fountain', `
+    makeFurniture('garden_fountain', 'f-room-fountain', `
       <div class="fount-base"></div>
       <div class="fount-column"></div>
       <div class="fount-basin"></div>
@@ -3455,7 +3548,7 @@ function renderRoomScene() {
     `, 'SPLASH', () => furnitureInteraction('room_fountain'), 'front');
   }
   if (roomKey === 'garden' && inv.garden_feeder) {
-    makeFurniture('f-room-feeder', `
+    makeFurniture('garden_feeder', 'f-room-feeder', `
       <div class="feeder-pole"></div>
       <div class="feeder-house"></div>
       <div class="feeder-seeds">🌾</div>
@@ -3463,14 +3556,14 @@ function renderRoomScene() {
     `, 'WATCH', () => furnitureInteraction('room_feeder'), 'back');
   }
   if (roomKey === 'garden' && inv.garden_plant) {
-    makeFurniture('f-room-plant', `
+    makeFurniture('garden_plant', 'f-room-plant', `
       <div class="plant-pot"></div>
       <div class="plant-leaves">🌿</div>
       <div class="plant-water"></div>
     `, 'WATER', () => furnitureInteraction('room_plant'), 'front');
   }
   if (roomKey === 'playroom' && inv.playroom_easel) {
-    makeFurniture('f-room-easel', `
+    makeFurniture('playroom_easel', 'f-room-easel', `
       <div class="easel-leg-l"></div>
       <div class="easel-leg-r"></div>
       <div class="easel-canvas" data-splats="0">
@@ -3481,7 +3574,7 @@ function renderRoomScene() {
     `, 'PAINT', () => furnitureInteraction('room_easel'), 'front');
   }
   if (roomKey === 'playroom' && inv.playroom_piano) {
-    makeFurniture('f-room-piano', `
+    makeFurniture('playroom_piano', 'f-room-piano', `
       <div class="piano-body"></div>
       <div class="piano-keys">
         <div class="piano-key" data-note="261"></div>
@@ -3502,7 +3595,7 @@ function renderRoomScene() {
       const y = Math.random() * 44 + 2;
       starsHtml += `<span class="globe-star" style="top:${y}px; left:${x}px;"></span>`;
     }
-    makeFurniture('f-room-globe', `
+    makeFurniture('observatory_globe', 'f-room-globe', `
       <div class="globe-base"></div>
       <div class="globe-stand"></div>
       <div class="globe-orb">${starsHtml}</div>
@@ -3609,10 +3702,9 @@ async function furnitureInteraction(type) {
 /* Bedroom */
 async function interactBed(pet) {
   const bed = document.querySelector('.f-bed');
-  const bedX = getFurnitureCenterX(bed, 18);
   bed?.classList.add('fluffed');
   pet.className = 'pet walking';
-  await movePetTo(bedX, 900);
+  await movePetTo(18, 900);
   pet.className = 'pet sleeping';
   showBubble('so cozy~', '💤');
   for (let i = 0; i < 3; i++) {
@@ -3620,7 +3712,7 @@ async function interactBed(pet) {
       const z = document.createElement('div');
       z.className = 'zzz';
       z.textContent = 'Z';
-      z.style.left = bedX + '%';
+      z.style.left = '20%';
       z.style.bottom = '90px';
       z.style.fontSize = (0.6 + i * 0.1) + 'rem';
       $('petArea').appendChild(z);
@@ -3676,10 +3768,9 @@ async function interactShelf(pet) {
 
 async function interactWindow(pet) {
   const win = document.querySelector('.f-window');
-  const winX = getFurnitureCenterX(win, 80);
   win?.classList.add('open');
   pet.className = 'pet walking';
-  await movePetTo(winX, 900);
+  await movePetTo(80, 900);
   pet.className = 'pet looking-up';
   showBubble('nice view!', '☁️');
   for (let i = 0; i < 4; i++) {
@@ -3687,7 +3778,7 @@ async function interactWindow(pet) {
       const s = document.createElement('div');
       s.className = 'sparkle-burst';
       s.textContent = '✨';
-      s.style.left = (winX - 8 + Math.random() * 16) + '%';
+      s.style.left = (72 + Math.random() * 15) + '%';
       s.style.top = '20%';
       $('petArea').appendChild(s);
       setTimeout(() => s.remove(), 1000);
@@ -3740,11 +3831,10 @@ async function interactCounter(pet) {
   cookingState.recipe = recipe;
 
   const counter = document.querySelector('.f-kitchen-counter');
-  const counterX = getFurnitureCenterX(counter, 20);
   counter?.classList.add('cooking');
 
   pet.className = 'pet walking';
-  await movePetTo(counterX, 1000);
+  await movePetTo(20, 1000);
   pet.className = 'pet watching';
   showBubble('cooking!', '🍳');
   sfxCook();
@@ -3752,7 +3842,7 @@ async function interactCounter(pet) {
   const smokeInterval = setInterval(() => {
     const s = document.createElement('div');
     s.className = 'cook-smoke';
-    s.style.left = (counterX - 6 + Math.random() * 12) + '%';
+    s.style.left = (16 + Math.random() * 12) + '%';
     s.style.bottom = '50%';
     s.style.setProperty('--sx', (Math.random() * 20 - 10) + 'px');
     $('petArea').appendChild(s);
@@ -3779,7 +3869,7 @@ async function interactCounter(pet) {
       const s = document.createElement('div');
       s.className = 'sparkle-burst';
       s.textContent = '✨';
-      s.style.left = (counterX - 6 + Math.random() * 12) + '%';
+      s.style.left = (16 + Math.random() * 12) + '%';
       s.style.bottom = '45%';
       $('petArea').appendChild(s);
       setTimeout(() => s.remove(), 1000);
@@ -3824,9 +3914,8 @@ async function interactCounter(pet) {
     fridgeItems2.push(recipe.emoji);
     db.ref('tamagotchi/fridgeItems').set(fridgeItems2);
     pet.className = 'pet walking';
+    await movePetTo(84, 1100);
     const fridge = document.querySelector('.f-fridge');
-    const fridgeX = getFurnitureCenterX(fridge, 84);
-    await movePetTo(fridgeX, 1100);
     fridge?.classList.add('open');
     sfxOpen();
     showBubble('stored!', '🧊');
@@ -3857,7 +3946,6 @@ async function interactCounter(pet) {
 
 async function interactFridge(pet) {
   const fridge = document.querySelector('.f-fridge');
-  const fridgeX = getFurnitureCenterX(fridge, 84);
   fridgeOpen = !fridgeOpen;
   fridge?.classList.toggle('open', fridgeOpen);
   sfxOpen();
@@ -3866,7 +3954,7 @@ async function interactFridge(pet) {
   if (!fridgeOpen) return;
 
   pet.className = 'pet walking';
-  await movePetTo(fridgeX, 900);
+  await movePetTo(84, 900);
   pet.className = 'pet looking-up';
   showBubble('snacks!', '🧊');
 
@@ -3929,11 +4017,10 @@ async function interactFridge(pet) {
 /* Garden */
 async function interactTree(pet) {
   const tree = document.querySelector('.f-tree');
-  const treeX = getFurnitureCenterX(tree, 78);
   tree?.classList.add('shaking');
   sfxOpen();
   pet.className = 'pet walking';
-  await movePetTo(treeX, 900);
+  await movePetTo(78, 900);
   pet.className = 'pet looking-up';
   await new Promise(r => setTimeout(r, 1200));
   tree?.classList.remove('shaking');
@@ -3955,10 +4042,9 @@ async function interactTree(pet) {
 
 async function interactFlowers(pet) {
   const flowers = document.querySelector('.f-flowers');
-  const flowersX = getFurnitureCenterX(flowers, 20);
   flowers?.classList.add('sniffed');
   pet.className = 'pet walking';
-  await movePetTo(flowersX, 900);
+  await movePetTo(20, 900);
   pet.className = 'pet sniffing';
   showBubble('sniff sniff~', '🌸');
   for (let i = 0; i < 6; i++) {
@@ -3966,7 +4052,7 @@ async function interactFlowers(pet) {
       const s = document.createElement('div');
       s.className = 'sparkle-burst';
       s.textContent = ['🌸', '✨', '🌼', '💛'][i % 4];
-      s.style.left = (flowersX - 15 + Math.random() * 30) + '%';
+      s.style.left = (8 + Math.random() * 30) + '%';
       s.style.bottom = '25%';
       $('petArea').appendChild(s);
       setTimeout(() => s.remove(), 1000);
@@ -3988,11 +4074,10 @@ async function interactFlowers(pet) {
 /* Playroom */
 async function interactToybox(pet) {
   const box = document.querySelector('.f-toybox');
-  const boxX = getFurnitureCenterX(box, 20);
   box?.classList.add('open');
   sfxOpen();
   pet.className = 'pet walking';
-  await movePetTo(boxX, 900);
+  await movePetTo(20, 900);
   pet.className = 'pet happy';
 
   const toys = [
@@ -4037,10 +4122,9 @@ async function interactToybox(pet) {
 async function interactBlocks(pet) {
   const blocks = document.querySelector('.f-blocks');
   if (!blocks) return;
-  const blocksX = getFurnitureCenterX(blocks, 46);
   blocks.classList.add('stacked');
   pet.className = 'pet walking';
-  await movePetTo(blocksX, 900);
+  await movePetTo(46, 900);
   pet.className = 'pet watching';
   showBubble('stacking!', '🧱');
   await new Promise(r => setTimeout(r, 1200));
@@ -4064,10 +4148,9 @@ async function interactBlocks(pet) {
 
 async function interactBallpit(pet) {
   const pit = document.querySelector('.f-ballpit');
-  const pitX = getFurnitureCenterX(pit, 80);
   pit?.classList.add('splashing');
   pet.className = 'pet walking';
-  await movePetTo(pitX, 900);
+  await movePetTo(80, 900);
   pet.className = 'pet spinning';
   sfxPop();
   showBubble('wheee!!', '🎉');
@@ -4089,10 +4172,9 @@ async function interactBallpit(pet) {
 /* Observatory */
 async function interactTelescope(pet) {
   const tel = document.querySelector('.f-telescope');
-  const telX = getFurnitureCenterX(tel, 14);
   tel?.classList.add('peeking');
   pet.className = 'pet walking';
-  await movePetTo(telX, 900);
+  await movePetTo(14, 900);
   pet.className = 'pet looking-up';
   showBubble('so many stars...', '⭐');
   sfxPop();
@@ -4101,7 +4183,7 @@ async function interactTelescope(pet) {
       const s = document.createElement('div');
       s.className = 'sparkle-burst';
       s.textContent = '⭐';
-      s.style.left = (telX - 10 + Math.random() * 20) + '%';
+      s.style.left = (8 + Math.random() * 20) + '%';
       s.style.top = (20 + Math.random() * 20) + '%';
       $('petArea').appendChild(s);
       setTimeout(() => s.remove(), 1000);
@@ -4127,10 +4209,9 @@ async function interactTelescope(pet) {
 
 async function interactStarchart(pet) {
   const chart = document.querySelector('.f-starchart');
-  const chartX = getFurnitureCenterX(chart, 14);
   chart?.classList.add('glowing');
   pet.className = 'pet walking';
-  await movePetTo(chartX, 900);
+  await movePetTo(14, 900);
   pet.className = 'pet watching';
   showBubble('studying...', '📖');
   await new Promise(r => setTimeout(r, 1800));
@@ -4146,18 +4227,17 @@ async function interactStarchart(pet) {
 async function interactRoomSink(pet) {
   const sink = document.querySelector('.f-room-sink');
   if (!sink) return;
-  const sinkX = getFurnitureCenterX(sink, 48);
   sink.classList.add('running');
   sfxWater();
   pet.className = 'pet walking';
-  await movePetTo(sinkX, 900);
+  await movePetTo(48, 900);
   pet.className = 'pet looking-up';
   showBubble('splash!', '🚰');
   for (let i = 0; i < 10; i++) {
     setTimeout(() => {
       const d = document.createElement('div');
       d.className = 'water-drop';
-      d.style.left = (sinkX - 4 + Math.random() * 8) + '%';
+      d.style.left = (46 + Math.random() * 8) + '%';
       d.style.bottom = '45%';
       d.style.setProperty('--wx', (Math.random() * 24 - 12) + 'px');
       d.style.setProperty('--wy', (-20 - Math.random() * 20) + 'px');
@@ -4181,11 +4261,10 @@ async function interactRoomSink(pet) {
 async function interactRoomTrash(pet) {
   const trash = document.querySelector('.f-room-trash');
   if (!trash) return;
-  const trashX = getFurnitureCenterX(trash, 32);
   trash.classList.add('open');
   sfxOpen();
   pet.className = 'pet walking';
-  await movePetTo(trashX, 900);
+  await movePetTo(32, 900);
   pet.className = 'pet watching';
   showBubble('trash!', '🗑️');
 
@@ -4208,7 +4287,7 @@ async function interactRoomTrash(pet) {
     const tossEl = document.createElement('div');
     tossEl.className = 'sparkle-burst';
     tossEl.textContent = item.emoji;
-    tossEl.style.left = trashX + '%';
+    tossEl.style.left = '30%';
     tossEl.style.bottom = '50%';
     $('petArea').appendChild(tossEl);
     setTimeout(() => tossEl.remove(), 1000);
@@ -4230,10 +4309,9 @@ async function interactRoomTrash(pet) {
 async function interactRoomBookshelf(pet) {
   const bs = document.querySelector('.f-room-bookshelf');
   if (!bs) return;
-  const bsX = getFurnitureCenterX(bs, 84);
   bs.classList.add('pulled');
   pet.className = 'pet walking';
-  await movePetTo(bsX, 900);
+  await movePetTo(84, 900);
   pet.className = 'pet looking-up';
   showBubble('reading!', '📖');
   floatHearts(2);
@@ -4242,7 +4320,7 @@ async function interactRoomBookshelf(pet) {
       const s = document.createElement('div');
       s.className = 'sparkle-burst';
       s.textContent = ['📖', '✨', '📚', '💭'][i % 4];
-      s.style.left = (bsX - 6 + Math.random() * 12) + '%';
+      s.style.left = (78 + Math.random() * 12) + '%';
       s.style.bottom = '50%';
       $('petArea').appendChild(s);
       setTimeout(() => s.remove(), 1000);
@@ -4262,10 +4340,8 @@ async function interactRoomBookshelf(pet) {
 }
 
 async function interactRoomMirror(pet) {
-  const mirror = document.querySelector('.f-room-mirror');
-  const mirrorX = getFurnitureCenterX(mirror, 66);
   pet.className = 'pet walking';
-  await movePetTo(mirrorX, 900);
+  await movePetTo(66, 900);
   pet.className = 'pet happy';
   showBubble('looking good!', '🪞');
   floatHearts(6);
@@ -4274,7 +4350,7 @@ async function interactRoomMirror(pet) {
       const s = document.createElement('div');
       s.className = 'sparkle-burst';
       s.textContent = '✨';
-      s.style.left = (mirrorX - 6 + Math.random() * 12) + '%';
+      s.style.left = (60 + Math.random() * 12) + '%';
       s.style.top = '20%';
       $('petArea').appendChild(s);
       setTimeout(() => s.remove(), 1000);
@@ -4293,10 +4369,8 @@ async function interactRoomMirror(pet) {
 }
 
 async function interactRoomClock(pet) {
-  const clock = document.querySelector('.f-room-clock');
-  const clockX = getFurnitureCenterX(clock, 84);
   pet.className = 'pet walking';
-  await movePetTo(clockX, 900);
+  await movePetTo(84, 900);
   pet.className = 'pet looking-up';
   showBubble('tick tock~', '🕰️');
   const hourHand = document.querySelector('.f-room-clock .clock-hand.hour');
@@ -4323,11 +4397,10 @@ async function interactRoomClock(pet) {
 async function interactRoomFountain(pet) {
   const fount = document.querySelector('.f-room-fountain');
   if (!fount) return;
-  const fountX = getFurnitureCenterX(fount, 44);
   fount.classList.add('running');
   sfxWater();
   pet.className = 'pet walking';
-  await movePetTo(fountX, 900);
+  await movePetTo(44, 900);
   pet.className = 'pet hopping';
   showBubble('wheee!', '⛲');
   floatHearts(4);
@@ -4335,7 +4408,7 @@ async function interactRoomFountain(pet) {
     setTimeout(() => {
       const d = document.createElement('div');
       d.className = 'water-drop';
-      d.style.left = (fountX - 4 + Math.random() * 8) + '%';
+      d.style.left = (40 + Math.random() * 8) + '%';
       d.style.bottom = '40%';
       d.style.setProperty('--wx', (Math.random() * 40 - 20) + 'px');
       d.style.setProperty('--wy', (-30 - Math.random() * 20) + 'px');
@@ -4360,10 +4433,9 @@ async function interactRoomFountain(pet) {
 async function interactRoomFeeder(pet) {
   const feeder = document.querySelector('.f-room-feeder');
   if (!feeder) return;
-  const feederX = getFurnitureCenterX(feeder, 46);
   feeder.classList.add('visited');
   pet.className = 'pet walking';
-  await movePetTo(feederX, 900);
+  await movePetTo(46, 900);
   pet.className = 'pet looking-up';
   showBubble('a bird!', '🐦');
   sfxPop();
@@ -4383,11 +4455,10 @@ async function interactRoomFeeder(pet) {
 async function interactRoomPlant(pet) {
   const plant = document.querySelector('.f-room-plant');
   if (!plant) return;
-  const plantX = getFurnitureCenterX(plant, 22);
   plant.classList.add('watered');
   sfxWater();
   pet.className = 'pet walking';
-  await movePetTo(plantX, 900);
+  await movePetTo(22, 900);
   pet.className = 'pet watching';
   showBubble('growing!', '🪴');
   await new Promise(r => setTimeout(r, 1800));
@@ -4406,9 +4477,8 @@ async function interactRoomPlant(pet) {
 async function interactRoomEasel(pet) {
   const easel = document.querySelector('.f-room-easel');
   const canvas = easel?.querySelector('.easel-canvas');
-  const easelX = getFurnitureCenterX(easel, 26);
   pet.className = 'pet walking';
-  await movePetTo(easelX, 900);
+  await movePetTo(26, 900);
   pet.className = 'pet watching';
   showBubble('painting!', '🎨');
 
@@ -4420,7 +4490,7 @@ async function interactRoomEasel(pet) {
     const s = document.createElement('div');
     s.className = 'sparkle-burst';
     s.textContent = colors[Math.floor(Math.random() * colors.length)];
-    s.style.left = (easelX - 6 + Math.random() * 12) + '%';
+    s.style.left = (22 + Math.random() * 12) + '%';
     s.style.bottom = (40 + Math.random() * 15) + '%';
     $('petArea').appendChild(s);
     setTimeout(() => s.remove(), 1000);
@@ -4448,10 +4518,9 @@ async function interactRoomEasel(pet) {
 async function interactRoomPiano(pet) {
   const piano = document.querySelector('.f-room-piano');
   if (!piano) return;
-  const pianoX = getFurnitureCenterX(piano, 72);
   const keys = piano.querySelectorAll('.piano-key');
   pet.className = 'pet walking';
-  await movePetTo(pianoX, 900);
+  await movePetTo(72, 900);
   pet.className = 'pet watching';
   showBubble('music!', '🎹');
 
@@ -4488,11 +4557,10 @@ async function interactRoomPiano(pet) {
 async function interactRoomGlobe(pet) {
   const globe = document.querySelector('.f-room-globe');
   if (!globe) return;
-  const globeX = getFurnitureCenterX(globe, 64);
   globe.classList.add('spinning');
   sfxPop();
   pet.className = 'pet walking';
-  await movePetTo(globeX, 900);
+  await movePetTo(64, 900);
   pet.className = 'pet looking-up';
   showBubble('wow...', '🌌');
   for (let i = 0; i < 6; i++) {
@@ -4500,7 +4568,7 @@ async function interactRoomGlobe(pet) {
       const s = document.createElement('div');
       s.className = 'sparkle-burst';
       s.textContent = ['⭐', '✨', '💫'][i % 3];
-      s.style.left = (globeX - 6 + Math.random() * 12) + '%';
+      s.style.left = (58 + Math.random() * 12) + '%';
       s.style.top = (25 + Math.random() * 20) + '%';
       $('petArea').appendChild(s);
       setTimeout(() => s.remove(), 1000);
@@ -5414,19 +5482,6 @@ function checkStreak() {
 /* ============================================================
    ANIMATION
    ============================================================ */
-/* Returns horizontal center % of a furniture element relative to the room (clamped).
-   Works correctly even after the user has dragged the furniture to a new spot. */
-function getFurnitureCenterX(selectorOrEl, fallback = 50) {
-  const el = typeof selectorOrEl === 'string' ? document.querySelector(selectorOrEl) : selectorOrEl;
-  const room = $('room');
-  if (!el || !room) return fallback;
-  const roomRect = room.getBoundingClientRect();
-  const elRect = el.getBoundingClientRect();
-  if (roomRect.width < 1) return fallback;
-  const centerX = ((elRect.left + elRect.width / 2) - roomRect.left) / roomRect.width * 100;
-  return Math.max(8, Math.min(92, centerX));
-}
-
 function movePetTo(percent, duration) {
   return new Promise(resolve => {
     const pet = $('pet');
@@ -5602,19 +5657,16 @@ function playActionAnimation(name) {
           break;
         }
         case 'sleep': {
-          // Prefer the real bedroom bed (wherever the user placed it)
-          const realBed = document.querySelector('.f-bed');
-          const bedX = getFurnitureCenterX(realBed, 50);
-          if (realBed) realBed.classList.add('fluffed');
+          const bed = addProp('', 'prop-bed-icon', { right: '15%', bottom: '10px' });
           pet.className = 'pet walking';
-          await movePetTo(bedX, 1200);
+          await movePetTo(70, 1200);
           pet.className = 'pet sleeping';
           for (let i = 0; i < 4; i++) {
             setTimeout(() => {
               const z = document.createElement('div');
               z.className = 'zzz';
               z.textContent = 'Z';
-              z.style.left = bedX + '%';
+              z.style.left = '65%';
               z.style.bottom = '90px';
               z.style.fontSize = (0.6 + i * 0.1) + 'rem';
               $('petArea').appendChild(z);
@@ -5623,9 +5675,9 @@ function playActionAnimation(name) {
           }
           showBubble('Zzz...', '💤');
           await new Promise(r => setTimeout(r, 2200));
-          if (realBed) realBed.classList.remove('fluffed');
           pet.className = 'pet walking';
           await movePetTo(50, 1000);
+          bed.remove();
           pet.className = 'pet ' + computeMood().cls;
           break;
         }
