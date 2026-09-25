@@ -19,7 +19,6 @@
   }
   #app { width: 100%; max-width: 480px; position: relative; z-index: 1; }
 
-  /* ============ LOGIN ============ */
   .pin-screen {
     background: #FDF6EE; border: 4px solid #8B6F5E; border-radius: 8px;
     padding: 28px 22px 24px; text-align: center;
@@ -78,7 +77,6 @@
 
   #gameScreen { display: none; }
 
-  /* ============ TOP BAR ============ */
   .top-bar {
     display: flex; justify-content: space-between; align-items: center;
     background: #FDF6EE; border: 3px solid #C9B0A0; border-radius: 4px;
@@ -109,7 +107,6 @@
     50% { box-shadow: 0 0 0 5px rgba(143,184,125,0); }
   }
 
-  /* ============ NAV ============ */
   .nav-tabs { display: flex; gap: 4px; margin-bottom: 8px; }
   .nav-tab {
     flex: 1; padding: 8px 4px; text-align: center;
@@ -139,7 +136,6 @@
     100% { opacity: 1; transform: translateY(0); }
   }
 
-  /* ============ ROOM ============ */
   .room {
     background: #FDF6EE; border: 4px solid #8B6F5E; border-radius: 4px;
     margin-bottom: 8px; position: relative; overflow: hidden;
@@ -269,7 +265,6 @@
     100% { transform: translateX(-50%) rotate(360deg) scale(1); }
   }
 
-  /* ============ MOODS ============ */
   .pet.ecstatic {
     animation: ecstaticBounce 0.55s ease-in-out infinite;
     filter: drop-shadow(0 4px 0 rgba(139, 111, 94, 0.4)) drop-shadow(0 0 8px rgba(255, 220, 100, 0.7));
@@ -311,9 +306,7 @@
     50%      { transform: translateX(-50%) translateY(0)    rotate(0deg)  scale(1.01, 0.99); }
     75%      { transform: translateX(-50%) translateY(1px)  rotate(2deg)  scale(0.99, 1.01); }
   }
-  .pet.sick .pet-eye {
-    animation: none; height: 3px; background: transparent; border-radius: 0; box-shadow: none;
-  }
+  .pet.sick .pet-eye { animation: none; height: 3px; background: transparent; border-radius: 0; box-shadow: none; }
   .pet.sick .pet-eye::before,
   .pet.sick .pet-eye::after {
     content: ''; position: absolute; width: 8px; height: 2px;
@@ -348,7 +341,6 @@
     100% { opacity: 0; transform: translateY(-46px) translateX(var(--mpx, 0px)) scale(1.1) rotate(var(--mr, 0deg)); }
   }
 
-  /* ============ PET BODY ============ */
   .pet-body {
     position: absolute; left: 50%; bottom: 6px; transform: translateX(-50%);
     width: 44px; height: 42px;
@@ -448,7 +440,6 @@
   .pet[data-stage="eternal"] .pet-body { width: 50px; height: 44px; }
   .pet[data-stage="eternal"] .pet-halo { display: block; }
 
-  /* ============ PET ACCESSORIES ============ */
   .pet-accessories { position: absolute; inset: 0; pointer-events: none; z-index: 25; }
   .pet-accessory { position: absolute; pointer-events: none; filter: drop-shadow(0 2px 2px rgba(0,0,0,0.3)); line-height: 1; }
   .pet-accessory.bow {
@@ -480,7 +471,6 @@
     50% { opacity: 1; transform: translate(-50%, -50%) scale(1.15) rotate(20deg); }
   }
 
-  /* ============ ROOM DECORATIONS ============ */
   .room-decorations { position: absolute; inset: 0; pointer-events: none; z-index: 12; }
   .room-deco {
     position: absolute; font-size: 1.4rem;
@@ -521,7 +511,6 @@
     100% { opacity: 0; transform: translate(30px, -20px) scale(1.6); }
   }
 
-  /* ============ PLACED ROOM ITEMS ============ */
   .room-items { position: absolute; inset: 0; pointer-events: none; z-index: 14; }
   .room-item {
     position: absolute; font-size: 1.6rem;
@@ -1012,9 +1001,7 @@
     box-shadow: inset -2px -2px 0 rgba(0,0,0,0.2), 0 2px 0 rgba(0,0,0,0.15);
     animation: ballWiggle 2.4s ease-in-out infinite;
   }
-  .f-ballpit.splashing .pit-ball {
-    animation: ballFly 0.9s ease-in-out;
-  }
+  .f-ballpit.splashing .pit-ball { animation: ballFly 0.9s ease-in-out; }
   @keyframes ballFly {
     0%, 100% { transform: translateY(0) rotate(0deg); }
     40% { transform: translateY(-22px) rotate(180deg); }
@@ -1082,9 +1069,7 @@
     box-shadow: 0 0 8px rgba(255,249,200,0.9);
     transition: box-shadow 0.3s;
   }
-  .f-telescope.peeking .tel-tube::before {
-    box-shadow: 0 0 20px rgba(255,249,200,1);
-  }
+  .f-telescope.peeking .tel-tube::before { box-shadow: 0 0 20px rgba(255,249,200,1); }
   @keyframes telScan3D {
     0%, 100% { transform: translateX(-60%) rotate(-25deg); }
     50% { transform: translateX(-60%) rotate(-40deg); }
@@ -1105,6 +1090,457 @@
     filter: brightness(1.4) drop-shadow(0 0 12px rgba(255,249,200,0.8));
   }
 
+  /* ============================================================
+     NEW ROOM DECORATION FURNITURE (from shop)
+     ============================================================ */
+
+  /* --- KITCHEN: sink --- */
+  .f-room-sink { bottom: 6%; left: 45%; width: 60px; height: 70px; z-index: 5; }
+  .f-room-sink .sink-basin {
+    position: absolute; inset: 0;
+    background: linear-gradient(180deg, #E8E8E8 0%, #C8C8C8 100%);
+    border: 3px solid #4A3F3A; border-radius: 4px;
+    box-shadow: inset -6px -6px 0 rgba(0,0,0,0.18), 0 6px 0 rgba(0,0,0,0.3);
+    overflow: hidden;
+  }
+  .f-room-sink .sink-bowl {
+    position: absolute; top: 12px; left: 8px; right: 8px;
+    height: 30px;
+    background: linear-gradient(180deg, #A8A8A8 0%, #888888 100%);
+    border: 2px solid #4A3F3A; border-radius: 4px 4px 50% 50% / 4px 4px 30% 30%;
+    box-shadow: inset 0 4px 0 rgba(0,0,0,0.3);
+  }
+  .f-room-sink .sink-faucet {
+    position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
+    width: 8px; height: 16px;
+    background: linear-gradient(180deg, #D4D4D4 0%, #A8A8A8 100%);
+    border: 2px solid #4A3F3A; border-radius: 3px 3px 0 0;
+    z-index: 3;
+  }
+  .f-room-sink .sink-faucet::after {
+    content: ''; position: absolute; bottom: -2px; left: 50%; transform: translateX(-50%);
+    width: 14px; height: 6px;
+    background: #C8C8C8;
+    border: 2px solid #4A3F3A; border-radius: 0 0 3px 3px;
+  }
+  .f-room-sink.running .sink-faucet::after {
+    background: #A8D4E8;
+  }
+  .f-room-sink .sink-water {
+    position: absolute; top: 4px; left: 50%; transform: translateX(-50%);
+    width: 4px; height: 24px;
+    background: linear-gradient(180deg, rgba(168,212,232,0.9) 0%, rgba(168,212,232,0.4) 100%);
+    border-radius: 2px;
+    opacity: 0; transition: opacity 0.3s;
+    z-index: 4;
+  }
+  .f-room-sink.running .sink-water {
+    opacity: 1;
+    animation: waterFlow 0.6s linear infinite;
+  }
+  @keyframes waterFlow {
+    0% { background-position: 0 0; }
+    100% { background-position: 0 8px; }
+  }
+  .f-room-sink .sink-knob {
+    position: absolute; top: 4px; right: 8px;
+    width: 6px; height: 6px;
+    background: #C9A044;
+    border: 2px solid #8B6F3E;
+    border-radius: 50%;
+    z-index: 4;
+    transition: transform 0.3s;
+  }
+  .f-room-sink.running .sink-knob { transform: rotate(90deg); }
+
+  /* --- KITCHEN: trash can --- */
+  .f-room-trash { bottom: 6%; left: 22%; width: 44px; height: 62px; z-index: 5; }
+  .f-room-trash .trash-body {
+    position: absolute; inset: 0;
+    background: linear-gradient(180deg, #8FB87D 0%, #6B9F5D 100%);
+    border: 3px solid #4A3F3A; border-radius: 6px 6px 4px 4px;
+    box-shadow: inset -5px -5px 0 rgba(0,0,0,0.18), 0 6px 0 rgba(0,0,0,0.25);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1rem;
+  }
+  .f-room-trash .trash-lid {
+    position: absolute; top: -4px; left: -4px; right: -4px;
+    height: 14px;
+    background: linear-gradient(180deg, #A8C898 0%, #7FB06D 100%);
+    border: 3px solid #4A3F3A; border-radius: 6px 6px 3px 3px;
+    transform-origin: right center;
+    transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    z-index: 3;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .f-room-trash .trash-lid::after {
+    content: '';
+    width: 8px; height: 4px;
+    background: #4A3F3A;
+    border-radius: 2px;
+    margin-left: auto;
+    margin-right: 8px;
+  }
+  .f-room-trash.open .trash-lid { transform: rotate(-100deg) translateY(-2px); }
+  .f-room-trash .trash-items {
+    position: absolute; bottom: 4px; left: 4px; right: 4px;
+    display: flex; justify-content: space-around;
+    opacity: 0; transition: opacity 0.3s 0.3s;
+    font-size: 0.9rem;
+  }
+  .f-room-trash.open .trash-items { opacity: 1; }
+
+  /* --- BEDROOM: bookshelf --- */
+  .f-room-bookshelf { bottom: 6%; right: 8%; width: 70px; height: 100px; z-index: 5; }
+  .f-room-bookshelf .bs-body {
+    position: absolute; inset: 0;
+    background: linear-gradient(180deg, #A88F70 0%, #8B6F5E 100%);
+    border: 3px solid #4A3F3A; border-radius: 4px;
+    box-shadow: inset -6px -6px 0 rgba(0,0,0,0.18), 0 6px 0 rgba(0,0,0,0.3);
+    padding: 4px;
+  }
+  .f-room-bookshelf .bs-shelf {
+    display: flex; gap: 2px; padding: 2px 3px;
+    background: rgba(0,0,0,0.15);
+    border-radius: 3px;
+    height: 24px;
+    align-items: center;
+    margin-bottom: 3px;
+    font-size: 1rem;
+    overflow: hidden;
+  }
+  .f-room-bookshelf .bs-book {
+    display: inline-block;
+    filter: drop-shadow(0 1px 0 rgba(0,0,0,0.2));
+    transition: transform 0.4s;
+  }
+  .f-room-bookshelf.pulled .bs-book.pull { transform: translateY(-10px) rotate(-15deg); }
+
+  /* --- BEDROOM: mirror --- */
+  .f-room-mirror { top: 12%; right: 30%; width: 50px; height: 66px; z-index: 5; }
+  .f-room-mirror .mirror-frame {
+    position: absolute; inset: 0;
+    background: linear-gradient(135deg, #C9A044 0%, #8B6F3E 100%);
+    border: 3px solid #4A3F3A; border-radius: 20px 20px 4px 4px / 30px 30px 4px 4px;
+    box-shadow: inset -4px -4px 0 rgba(0,0,0,0.2), 0 6px 0 rgba(0,0,0,0.25), 0 10px 12px rgba(0,0,0,0.2);
+  }
+  .f-room-mirror .mirror-glass {
+    position: absolute; inset: 5px;
+    background: linear-gradient(135deg, #E8F0F8 0%, #B8D0E0 60%, #A8C0D0 100%);
+    border: 2px solid #4A3F3A;
+    border-radius: 16px 16px 2px 2px / 26px 26px 2px 2px;
+    overflow: hidden;
+  }
+  .f-room-mirror .mirror-glass::before {
+    content: '';
+    position: absolute; top: 8px; left: 6px;
+    width: 20px; height: 30px;
+    background: linear-gradient(135deg, rgba(255,255,255,0.8) 0%, transparent 100%);
+    border-radius: 50%;
+    transform: rotate(-30deg);
+  }
+
+  /* --- BEDROOM: clock --- */
+  .f-room-clock { top: 22px; right: 12%; width: 44px; height: 44px; z-index: 5; }
+  .f-room-clock .clock-frame {
+    position: absolute; inset: 0;
+    background: radial-gradient(circle at 50% 50%, #FFF9E8 0%, #E8D8B8 100%);
+    border: 3px solid #8B6F3E; border-radius: 50%;
+    box-shadow: inset 0 4px 0 rgba(255,255,255,0.4), 0 5px 0 rgba(0,0,0,0.25), 0 8px 8px rgba(0,0,0,0.15);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .f-room-clock .clock-hand {
+    position: absolute;
+    bottom: 50%; left: 50%;
+    transform-origin: bottom center;
+    background: #4A3F3A;
+    border-radius: 2px;
+  }
+  .f-room-clock .clock-hand.hour { width: 2px; height: 10px; transform: translateX(-50%) rotate(0deg); }
+  .f-room-clock .clock-hand.minute { width: 2px; height: 14px; transform: translateX(-50%) rotate(90deg); }
+  .f-room-clock .clock-center {
+    position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+    width: 5px; height: 5px;
+    background: #C9A044;
+    border: 1.5px solid #4A3F3A;
+    border-radius: 50%;
+    z-index: 3;
+  }
+  .f-room-clock .clock-pendulum {
+    position: absolute; top: 100%; left: 50%; transform-origin: top center;
+    transform: translateX(-50%);
+    width: 3px; height: 22px;
+    background: #8B6F3E;
+    border: 2px solid #4A3F3A;
+    border-radius: 0 0 3px 3px;
+    animation: pendulumSwing 2s ease-in-out infinite;
+  }
+  @keyframes pendulumSwing {
+    0%, 100% { transform: translateX(-50%) rotate(-20deg); }
+    50% { transform: translateX(-50%) rotate(20deg); }
+  }
+  .f-room-clock .clock-pendulum::after {
+    content: '';
+    position: absolute; bottom: -8px; left: 50%; transform: translateX(-50%);
+    width: 10px; height: 10px;
+    background: radial-gradient(circle at 30% 30%, #FFE8A0, #C9A044);
+    border: 2px solid #4A3F3A;
+    border-radius: 50%;
+  }
+
+  /* --- GARDEN: fountain --- */
+  .f-room-fountain { bottom: 6%; left: 38%; width: 90px; height: 70px; z-index: 5; }
+  .f-room-fountain .fount-base {
+    position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
+    width: 80px; height: 22px;
+    background: linear-gradient(180deg, #C8C8C8 0%, #989898 100%);
+    border: 3px solid #4A3F3A; border-radius: 50% 50% 10px 10px / 30% 30% 10% 10%;
+    box-shadow: inset -4px -4px 0 rgba(0,0,0,0.18), 0 5px 0 rgba(0,0,0,0.25);
+  }
+  .f-room-fountain .fount-basin {
+    position: absolute; bottom: 12px; left: 50%; transform: translateX(-50%);
+    width: 70px; height: 14px;
+    background: linear-gradient(180deg, #A8D4E8 0%, #7FB0D8 100%);
+    border: 3px solid #4A3F3A; border-radius: 0 0 60% 60% / 0 0 80% 80%;
+    box-shadow: inset 0 3px 0 rgba(255,255,255,0.4);
+  }
+  .f-room-fountain .fount-column {
+    position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%);
+    width: 8px; height: 30px;
+    background: linear-gradient(180deg, #C8C8C8 0%, #A8A8A8 100%);
+    border: 3px solid #4A3F3A; border-radius: 4px;
+  }
+  .f-room-fountain .fount-top {
+    position: absolute; bottom: 46px; left: 50%; transform: translateX(-50%);
+    width: 30px; height: 10px;
+    background: radial-gradient(circle at 40% 30%, #E8E8E8, #A8A8A8);
+    border: 3px solid #4A3F3A; border-radius: 50%;
+    box-shadow: inset 0 3px 0 rgba(255,255,255,0.4);
+  }
+  .f-room-fountain .fount-jet {
+    position: absolute; bottom: 52px; left: 50%; transform: translateX(-50%);
+    width: 4px; height: 30px;
+    background: linear-gradient(180deg, rgba(168,212,232,0) 0%, rgba(168,212,232,0.9) 60%, rgba(168,212,232,0.4) 100%);
+    border-radius: 2px;
+    opacity: 0; transition: opacity 0.3s;
+  }
+  .f-room-fountain.running .fount-jet {
+    opacity: 1;
+    animation: jetPulse 1.2s ease-in-out infinite;
+  }
+  @keyframes jetPulse {
+    0%, 100% { transform: translateX(-50%) scaleY(1); }
+    50% { transform: translateX(-50%) scaleY(1.15); }
+  }
+  .f-room-fountain .fount-spray {
+    position: absolute; bottom: 60px; left: 50%;
+    font-size: 0.9rem;
+    pointer-events: none;
+    opacity: 0;
+  }
+  .f-room-fountain.running .fount-spray {
+    opacity: 1;
+    animation: sprayArc 1.5s ease-in-out infinite;
+  }
+  @keyframes sprayArc {
+    0% { transform: translateX(-50%) translateY(0) scale(0.6); opacity: 0; }
+    30% { opacity: 1; }
+    70% { transform: translateX(-50%) translateY(-20px) scale(1); opacity: 1; }
+    100% { transform: translateX(-50%) translateY(-10px) scale(0.6); opacity: 0; }
+  }
+
+  /* --- GARDEN: bird feeder --- */
+  .f-room-feeder { top: 22%; left: 26%; width: 60px; height: 80px; z-index: 5; }
+  .f-room-feeder .feeder-pole {
+    position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
+    width: 4px; height: 60px;
+    background: #6B4F3E; border: 2px solid #4A3F3A;
+    border-radius: 2px;
+  }
+  .f-room-feeder .feeder-house {
+    position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+    width: 40px; height: 30px;
+    background: linear-gradient(180deg, #C97C8C 0%, #A8607C 100%);
+    border: 3px solid #4A3F3A;
+    border-radius: 50% 50% 6px 6px / 30% 30% 6px 6px;
+    box-shadow: inset -3px -3px 0 rgba(0,0,0,0.15);
+  }
+  .f-room-feeder .feeder-house::after {
+    content: '';
+    position: absolute; bottom: -4px; left: 50%; transform: translateX(-50%);
+    width: 8px; height: 8px;
+    background: #E8D8B8;
+    border: 2px solid #4A3F3A;
+    border-radius: 50%;
+  }
+  .f-room-feeder .feeder-seeds {
+    position: absolute; top: 12px; left: 50%; transform: translateX(-50%);
+    font-size: 0.6rem;
+  }
+  .f-room-feeder .feeder-bird {
+    position: absolute;
+    top: -18px; left: 50%;
+    font-size: 1.1rem;
+    transform: translateX(-50%) translateY(-30px);
+    opacity: 0;
+    pointer-events: none;
+  }
+  .f-room-feeder.visited .feeder-bird {
+    animation: birdVisit 2.4s ease-in-out;
+  }
+  @keyframes birdVisit {
+    0% { opacity: 0; transform: translateX(-50%) translateY(-30px) scale(0.8); }
+    20% { opacity: 1; transform: translateX(-50%) translateY(0) scale(1); }
+    80% { opacity: 1; transform: translateX(-50%) translateY(0) scale(1); }
+    100% { opacity: 0; transform: translateX(-50%) translateY(-30px) scale(0.8); }
+  }
+
+  /* --- GARDEN: potted plant --- */
+  .f-room-plant { bottom: 6%; right: 42%; width: 40px; height: 50px; z-index: 5; }
+  .f-room-plant .plant-pot {
+    position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
+    width: 32px; height: 24px;
+    background: linear-gradient(180deg, #C97C8C 0%, #A8607C 100%);
+    border: 3px solid #4A3F3A;
+    border-radius: 3px 3px 6px 6px;
+    box-shadow: inset -3px -3px 0 rgba(0,0,0,0.15);
+  }
+  .f-room-plant .plant-leaves {
+    position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%);
+    font-size: 1.6rem;
+    animation: plantSway 4s ease-in-out infinite;
+  }
+  @keyframes plantSway {
+    0%, 100% { transform: translateX(-50%) rotate(-3deg); }
+    50% { transform: translateX(-50%) rotate(3deg); }
+  }
+  .f-room-plant .plant-water {
+    position: absolute; bottom: 24px; left: 50%; transform: translateX(-50%);
+    width: 4px; height: 16px;
+    background: linear-gradient(180deg, rgba(168,212,232,0.9) 0%, rgba(168,212,232,0) 100%);
+    opacity: 0;
+    pointer-events: none;
+  }
+  .f-room-plant.watered .plant-water {
+    opacity: 1;
+    animation: waterDrip 1.5s ease-out;
+  }
+  @keyframes waterDrip {
+    0% { height: 0; opacity: 0; }
+    30% { height: 16px; opacity: 1; }
+    100% { height: 16px; opacity: 0; }
+  }
+
+  /* --- PLAYROOM: easel --- */
+  .f-room-easel { bottom: 6%; left: 40%; width: 70px; height: 90px; z-index: 5; }
+  .f-room-easel .easel-leg-l,
+  .f-room-easel .easel-leg-r {
+    position: absolute; bottom: 0;
+    width: 4px; height: 62px;
+    background: #8B6F5E; border: 2px solid #4A3F3A;
+    border-radius: 2px;
+    transform-origin: bottom center;
+  }
+  .f-room-easel .easel-leg-l { left: 8px; transform: rotate(-6deg); }
+  .f-room-easel .easel-leg-r { right: 8px; transform: rotate(6deg); }
+  .f-room-easel .easel-canvas {
+    position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+    width: 60px; height: 50px;
+    background: #FFF9E8;
+    border: 3px solid #4A3F3A;
+    border-radius: 2px;
+    box-shadow: inset -3px -3px 0 rgba(0,0,0,0.1), 0 4px 0 rgba(0,0,0,0.25);
+    overflow: hidden;
+  }
+  .f-room-easel .easel-splat {
+    position: absolute;
+    font-size: 1rem;
+    opacity: 0;
+    transform: scale(0);
+    transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  .f-room-easel .easel-canvas[data-splats="1"] .easel-splat:nth-child(1),
+  .f-room-easel .easel-canvas[data-splats="2"] .easel-splat:nth-child(1),
+  .f-room-easel .easel-canvas[data-splats="2"] .easel-splat:nth-child(2),
+  .f-room-easel .easel-canvas[data-splats="3"] .easel-splat:nth-child(1),
+  .f-room-easel .easel-canvas[data-splats="3"] .easel-splat:nth-child(2),
+  .f-room-easel .easel-canvas[data-splats="3"] .easel-splat:nth-child(3) {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  /* --- PLAYROOM: piano --- */
+  .f-room-piano { bottom: 6%; right: 38%; width: 80px; height: 54px; z-index: 5; }
+  .f-room-piano .piano-body {
+    position: absolute; inset: 0;
+    background: linear-gradient(180deg, #4A3F3A 0%, #2A1F1A 100%);
+    border: 3px solid #1A0F0A;
+    border-radius: 4px;
+    box-shadow: inset -4px -4px 0 rgba(0,0,0,0.3), 0 5px 0 rgba(0,0,0,0.4);
+  }
+  .f-room-piano .piano-keys {
+    position: absolute; bottom: 4px; left: 4px; right: 4px;
+    height: 20px;
+    display: flex;
+    border-radius: 2px;
+    overflow: hidden;
+  }
+  .f-room-piano .piano-key {
+    flex: 1;
+    background: linear-gradient(180deg, #FFFFFF 0%, #E8E8E8 100%);
+    border-right: 1px solid #4A3F3A;
+    transition: background 0.1s, transform 0.1s;
+    transform-origin: top center;
+  }
+  .f-room-piano .piano-key.black {
+    background: linear-gradient(180deg, #2A2A2A 0%, #1A1A1A 100%);
+    flex: 0.6;
+  }
+  .f-room-piano .piano-key.pressed {
+    background: linear-gradient(180deg, #C9A044 0%, #8B6F3E 100%);
+    transform: scaleY(0.92);
+  }
+
+  /* --- OBSERVATORY: star globe --- */
+  .f-room-globe { bottom: 8%; right: 22%; width: 60px; height: 60px; z-index: 5; }
+  .f-room-globe .globe-base {
+    position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
+    width: 40px; height: 10px;
+    background: linear-gradient(180deg, #A88F70 0%, #8B6F5E 100%);
+    border: 2px solid #4A3F3A;
+    border-radius: 50% 50% 20% 20% / 50% 50% 40% 40%;
+    box-shadow: 0 4px 0 rgba(0,0,0,0.3);
+  }
+  .f-room-globe .globe-stand {
+    position: absolute; bottom: 6px; left: 50%; transform: translateX(-50%);
+    width: 4px; height: 12px;
+    background: #6B4F3E; border: 2px solid #4A3F3A;
+    border-radius: 2px;
+  }
+  .f-room-globe .globe-orb {
+    position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+    width: 50px; height: 50px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 30%, #6B4F7E 0%, #2A1F3A 100%);
+    border: 3px solid #4A3F3A;
+    box-shadow: inset -4px -4px 0 rgba(0,0,0,0.3), 0 5px 0 rgba(0,0,0,0.3), 0 10px 20px rgba(139,111,94,0.4);
+    overflow: hidden;
+  }
+  .f-room-globe .globe-star {
+    position: absolute;
+    width: 3px; height: 3px;
+    background: white;
+    border-radius: 50%;
+    box-shadow: 0 0 4px rgba(255,255,255,0.9);
+  }
+  .f-room-globe.spinning .globe-orb {
+    animation: globeSpin 3s linear;
+  }
+  @keyframes globeSpin {
+    0% { transform: translateX(-50%) rotateY(0deg); }
+    100% { transform: translateX(-50%) rotateY(360deg); }
+  }
+
   /* ============ SCENE PROPS ============ */
   .scene-prop { position: absolute; font-size: 1.8rem; z-index: 15; pointer-events: none; }
   .prop-ball { right: 25%; bottom: 30px; animation: ballBounce 1s ease-in-out infinite, propPop 0.3s ease-out; }
@@ -1120,7 +1556,6 @@
   @keyframes propPop { 0% { transform: scale(0); } 70% { transform: scale(1.15); } 100% { transform: scale(1); } }
   @keyframes ballBounce { 0%, 100% { transform: translateY(0) scaleY(1); } 45% { transform: translateY(-20px) scaleY(1); } 50% { transform: translateY(-20px) scaleY(1); } 100% { transform: translateY(0) scaleY(1); } }
 
-  /* cooking smoke */
   .cook-smoke {
     position: absolute;
     width: 12px; height: 12px;
@@ -1137,7 +1572,6 @@
     100% { opacity: 0; transform: translate(var(--sx, 8px), -50px) scale(2); }
   }
 
-  /* sparkle burst */
   .sparkle-burst {
     position: absolute;
     font-size: 1rem;
@@ -1151,7 +1585,22 @@
     100% { opacity: 0; transform: scale(0.6) rotate(360deg) translateY(-20px); }
   }
 
-  /* popup choice modal for actions */
+  /* water splash particles */
+  .water-drop {
+    position: absolute;
+    width: 6px; height: 8px;
+    background: radial-gradient(circle at 30% 30%, #E8F8FF, #88C8E8);
+    border: 1px solid #4A6F94;
+    border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+    pointer-events: none;
+    z-index: 24;
+    animation: waterSplash 0.9s ease-out forwards;
+  }
+  @keyframes waterSplash {
+    0% { opacity: 1; transform: translate(0, 0) scale(0.6); }
+    100% { opacity: 0; transform: translate(var(--wx, 0px), var(--wy, -30px)) scale(1); }
+  }
+
   .choice-overlay {
     position: fixed; inset: 0;
     background: rgba(30, 28, 60, 0.6);
@@ -1193,6 +1642,8 @@
     grid-template-columns: repeat(2, 1fr);
     gap: 8px;
     margin-bottom: 12px;
+    max-height: 60vh;
+    overflow-y: auto;
   }
   .choice-option {
     background: #FFFDF9; border: 3px solid #C9B0A0;
@@ -1217,9 +1668,7 @@
     color: #A89080;
     line-height: 1.3;
   }
-  .choice-option.ingredient {
-    min-height: 64px;
-  }
+  .choice-option.ingredient { min-height: 64px; }
   .choice-cancel {
     background: #B8A898; color: white;
     border: none; padding: 10px;
@@ -1231,7 +1680,6 @@
   }
   .choice-cancel:active { transform: translateY(2px); box-shadow: 0 1px 0 #8B6F5E; }
 
-  /* fridge inventory display */
   .fridge-full-badge {
     position: absolute;
     top: -8px; right: -8px;
@@ -1246,7 +1694,6 @@
   }
   .f-fridge.has-food .fridge-full-badge { display: block; }
 
-  /* ============ BUBBLES / EMOTES ============ */
   .speech-bubble {
     position: absolute; top: -20px; left: 50%; transform: translateX(-50%);
     background: white; border: 3px solid #8B6F5E;
@@ -1270,7 +1717,6 @@
   .confetti-piece { position: fixed; width: 8px; height: 8px; z-index: 2001; pointer-events: none; animation: confettiFall linear forwards; }
   @keyframes confettiFall { 0% { opacity: 1; transform: translate(0, 0) rotate(0deg); } 100% { opacity: 0; transform: translate(var(--cx, 0px), var(--cy, 300px)) rotate(var(--cr, 360deg)); } }
 
-  /* ============ WANT / BADGE ============ */
   .want-bubble {
     position: absolute; top: 12px; left: 50%; transform: translateX(-50%);
     background: #FFF9C8; border: 3px solid #C9A044;
@@ -1304,7 +1750,6 @@
   .poop { position: absolute; font-size: 1.2rem; bottom: 20px; z-index: 12; animation: poopIn 0.3s ease-out; }
   @keyframes poopIn { 0% { transform: scale(0) rotate(-30deg); } 70% { transform: scale(1.2) rotate(8deg); } 100% { transform: scale(1) rotate(0deg); } }
 
-  /* ============ PET INFO ============ */
   .pet-info { padding: 10px 12px 12px; background: #FDF6EE; }
   .pet-name-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
   .pet-name { font-family: 'Press Start 2P', monospace; font-size: 0.7rem; color: #4A3F3A; }
@@ -1365,7 +1810,6 @@
   .action-btn.want-highlight { border-color: #C9A044; background: #FFF9C8; animation: wantHighlight 1.2s infinite; }
   @keyframes wantHighlight { 0%, 100% { box-shadow: 0 3px 0 #C9A044; } 50% { box-shadow: 0 3px 0 #C9A044, 0 0 12px rgba(201, 160, 68, 0.6); } }
 
-  /* ============ MINI-GAME ============ */
   .minigame-area {
     position: absolute; inset: 0; z-index: 50;
     background: rgba(30, 28, 60, 0.55);
@@ -1485,8 +1929,17 @@
   }
   .shop-card.owned { background: #E8F0D8; border-color: #8FB87D; }
   .shop-card .shop-emoji { font-size: 2rem; }
-  .shop-card .shop-name { font-family: 'Press Start 2P', monospace; font-size: 0.5rem; color: #8B6F5E; }
+  .shop-card .shop-name { font-family: 'Press Start 2P', monospace; font-size: 0.5rem; color: #8B6F5E; line-height: 1.3; }
   .shop-card .shop-desc { font-size: 0.65rem; color: #A89080; line-height: 1.3; min-height: 24px; }
+  .shop-card .shop-room-tag {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 0.4rem;
+    color: #8B6F5E;
+    background: #F4E9DE;
+    padding: 2px 6px;
+    border-radius: 3px;
+    align-self: center;
+  }
   .shop-card .shop-buy {
     background: #8B6F5E; color: white; border: none;
     padding: 8px; border-radius: 4px; cursor: pointer;
@@ -1796,7 +2249,7 @@
 
     <div class="view" id="view-shop">
       <div class="section-header">🛒 MOCHI SHOP</div>
-      <p style="text-align:center; font-size:0.7rem; color:#A89080; margin-bottom:8px;">Earn coins from care & mini-games 🪙<br>Consumables appear in the room — tap them to use!</p>
+      <p style="text-align:center; font-size:0.7rem; color:#A89080; margin-bottom:8px;" id="shopSubtitle">Earn coins from care & mini-games 🪙</p>
       <div class="shop-grid" id="shopGrid"></div>
     </div>
 
@@ -1812,7 +2265,7 @@
     </div>
 
     <div class="view" id="view-ach">
-      <div class="section-header" id="achHeader">🏆 ACHIEVEMENTS (0/27)</div>
+      <div class="section-header" id="achHeader">🏆 ACHIEVEMENTS (0/29)</div>
       <div class="ach-grid" id="achGrid"></div>
     </div>
 
@@ -1848,7 +2301,6 @@
   </div>
 </div>
 
-<!-- Generic choice modal for interactive furniture -->
 <div class="choice-overlay" id="choiceOverlay">
   <div class="choice-card">
     <div class="choice-title" id="choiceTitle">Choose</div>
@@ -1865,8 +2317,10 @@
 
 <script>
 /* ============================================================
-   FIREBASE
+   ⚠️ FIX: ALL CONSTANTS DECLARED FIRST BEFORE ANY FUNCTION USES THEM
    ============================================================ */
+
+/* ---------- FIREBASE ---------- */
 const firebaseConfig = {
   apiKey: "AIzaSyCpxlMZiAcJwI2RuNTJ14jSaHhV-nBcW7A",
   authDomain: "mochigotchi.firebaseapp.com",
@@ -1879,9 +2333,7 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 const db = firebase.database();
 
-/* ============================================================
-   CONSTANTS
-   ============================================================ */
+/* ---------- GAME CONSTANTS ---------- */
 const DECAY_PER_MINUTE = 0.12;
 const OFFLINE_CAP_HOURS = 6;
 const MAX_DIARY = 40;
@@ -1896,6 +2348,7 @@ const COIN_PER_DAILY_GOAL = 20;
 const MINIGAME_DURATION = 30;
 const MAX_ROOM_ITEMS = 6;
 
+/* ---------- DAILY REWARDS ---------- */
 const DAILY_REWARDS = [
   { day: 1, emoji: '🪙', value: '+10', coins: 10,  extra: 'Just a little something 💛' },
   { day: 2, emoji: '🪙', value: '+15', coins: 15,  extra: 'Building up!' },
@@ -1906,6 +2359,7 @@ const DAILY_REWARDS = [
   { day: 7, emoji: '💎', value: '+100 🪙', coins: 100, extra: 'MEGA GIFT! Plus a free Plush Toy placed in your room!', consumable: 'toy' }
 ];
 
+/* ---------- PET STAGES ---------- */
 const STAGES = [
   { level: 1,  name: 'EGG',       emoji: '🥚', key: 'egg' },
   { level: 3,  name: 'HATCHLING', emoji: '🐣', key: 'hatchling' },
@@ -1917,6 +2371,7 @@ const STAGES = [
   { level: 75, name: 'ETERNAL',   emoji: '🌿', key: 'eternal' }
 ];
 
+/* ---------- ROOMS ---------- */
 const ROOMS = [
   { id: 'bedroom',     name: 'BEDROOM',     emoji: '🛏️', reqLevel: 1 },
   { id: 'kitchen',     name: 'KITCHEN',     emoji: '🍳', reqLevel: 5 },
@@ -1925,6 +2380,7 @@ const ROOMS = [
   { id: 'observatory', name: 'OBSERVATORY', emoji: '🔭', reqLevel: 50 }
 ];
 
+/* ---------- CARE ACTIONS ---------- */
 const ACTIONS = {
   feed:  { stat: 'hunger', amount: 25, xp: 2, verb: 'fed',              emoji: '🍚' },
   play:  { stat: 'happy',  amount: 22, xp: 3, verb: 'played with',      emoji: '🎈', cost: { energy: 8 } },
@@ -1934,6 +2390,7 @@ const ACTIONS = {
   clean: { stat: 'clean',  amount: 15, xp: 2, verb: 'cleaned up after', emoji: '🧹' }
 };
 
+/* ---------- WANTS ---------- */
 const WANTS = [
   { id: 'feed',  emoji: '🍚', text: 'wants food!',     action: 'feed' },
   { id: 'play',  emoji: '🎈', text: 'wants to play!',  action: 'play' },
@@ -1943,6 +2400,7 @@ const WANTS = [
   { id: 'clean', emoji: '🧹', text: 'wants tidying!',  action: 'clean' }
 ];
 
+/* ---------- AMBIENT BEHAVIORS ---------- */
 const AMBIENT_BEHAVIORS = {
   bedroom: [
     { cls: 'walking', dur: 2, bubble: 'hmm hmm~', emoji: '🎵' },
@@ -1978,6 +2436,7 @@ const AMBIENT_BEHAVIORS = {
   ]
 };
 
+/* ---------- CONSUMABLE DEFS ---------- */
 const CONSUMABLE_DEFS = {
   treat:  { emoji: '🍬', stat: 'hunger', amount: 15, placeClass: 'placed-treat',  tooltip: 'TAP TO EAT',  consumeVerb: 'ate a treat',       consumeEmoji: '🍚', consumeBubble: 'nom nom!', defaultX: 72, defaultBottom: 12 },
   toy:    { emoji: '🧸', stat: 'happy',  amount: 20, placeClass: 'placed-toy',    tooltip: 'TAP TO PLAY', consumeVerb: 'played with toy',   consumeEmoji: '🎈', consumeBubble: 'wheee!',   defaultX: 22, defaultBottom: 10 },
@@ -1985,52 +2444,86 @@ const CONSUMABLE_DEFS = {
   soap:   { emoji: '🧼', stat: 'clean',  amount: 25, placeClass: 'placed-soap',   tooltip: 'TAP TO WASH', consumeVerb: 'used soap',        consumeEmoji: '💧', consumeBubble: 'splash!',  defaultX: 40, defaultBottom: 14 }
 };
 
-/* Recipes for cooking — pick a dish, it consumes ingredients */
+/* ---------- RECIPES ---------- */
 const RECIPES = {
-  rice: {
-    id: 'rice',
-    name: 'RICE BOWL',
-    emoji: '🍚',
-    desc: 'Simple and warm',
-    hunger: 30,
-    joy: 5,
-    ingredients: ['🍚', '💧'],
-    xp: 8
-  },
-  soup: {
-    id: 'soup',
-    name: 'VEGGIE SOUP',
-    emoji: '🍲',
-    desc: 'Hearty & cozy',
-    hunger: 25,
-    joy: 10,
-    ingredients: ['🥕', '💧', '🍄'],
-    xp: 10
-  },
-  cake: {
-    id: 'cake',
-    name: 'HONEY CAKE',
-    emoji: '🍰',
-    desc: 'Sweet treat!',
-    hunger: 15,
-    joy: 25,
-    ingredients: ['🍯', '🥚', '🌾'],
-    xp: 12
-  },
-  salad: {
-    id: 'salad',
-    name: 'FRESH SALAD',
-    emoji: '🥗',
-    desc: 'Healthy & light',
-    hunger: 20,
-    joy: 8,
-    ingredients: ['🥬', '🍅', '🥒'],
-    xp: 8
-  }
+  rice:  { id: 'rice',  name: 'RICE BOWL',   emoji: '🍚', desc: 'Simple and warm', hunger: 30, joy: 5,  ingredients: ['🍚', '💧'],           xp: 8 },
+  soup:  { id: 'soup',  name: 'VEGGIE SOUP', emoji: '🍲', desc: 'Hearty & cozy',   hunger: 25, joy: 10, ingredients: ['🥕', '💧', '🍄'],     xp: 10 },
+  cake:  { id: 'cake',  name: 'HONEY CAKE',  emoji: '🍰', desc: 'Sweet treat!',    hunger: 15, joy: 25, ingredients: ['🍯', '🥚', '🌾'],     xp: 12 },
+  salad: { id: 'salad', name: 'FRESH SALAD', emoji: '🥗', desc: 'Healthy & light', hunger: 20, joy: 8,  ingredients: ['🥬', '🍅', '🥒'],     xp: 8 }
 };
 
-/* Fridge default pantry (these refill daily) */
 const FRIDGE_DEFAULT = ['🍚', '🥕', '🥬', '🍅', '🥚', '🍯', '💧', '🥒', '🍄', '🌾', '🧀', '🍎'];
+
+/* ============================================================
+   ⚠️ SHOP ITEMS — DECLARED HERE, AT TOP, SO renderShop() FINDS THEM
+   ============================================================ */
+const SHOP_ITEMS = [
+  /* --- Consumables (place in room, tap to use) --- */
+  { id: 'treat',      emoji: '🍬', name: 'SWEET TREAT',       desc: 'Place a treat — tap to feed Mochi',           cost: 20,  consumable: true,  scope: 'global' },
+  { id: 'toy',        emoji: '🧸', name: 'PLUSH TOY',         desc: 'Place a toy — tap to play',                   cost: 30,  consumable: true,  scope: 'global' },
+  { id: 'pillow',     emoji: '🛏️', name: 'FLUFFY PILLOW',     desc: 'Place a pillow — tap to rest',                cost: 35,  consumable: true,  scope: 'global' },
+  { id: 'soap',       emoji: '🧼', name: 'FANCY SOAP',        desc: 'Place a soap — tap to wash',                  cost: 25,  consumable: true,  scope: 'global' },
+
+  /* --- Global permanent (shown in every room) --- */
+  { id: 'decoration', emoji: '🎀', name: 'BOW DECOR',         desc: 'Pink bow worn by Mochi (+5% XP)',             cost: 100, consumable: false, scope: 'global' },
+  { id: 'lucky',      emoji: '🍀', name: 'LUCKY CHARM',       desc: 'Floating clover (+1 coin/action)',            cost: 150, consumable: false, scope: 'global' },
+  { id: 'xpboost',    emoji: '⭐', name: 'STAR SHARD',        desc: 'Sparkle star above Mochi (+15% XP)',          cost: 200, consumable: false, scope: 'global' },
+  { id: 'autoclean',  emoji: '✨', name: 'CLEANING SPIRIT',   desc: 'Auto-removes poops every 5 min',              cost: 300, consumable: false, scope: 'global' },
+
+  /* --- Kitchen decorations --- */
+  { id: 'kitchen_sink',   emoji: '🚰', name: 'KITCHEN SINK',  desc: 'Working faucet with running water!',          cost: 80,  consumable: false, scope: 'kitchen', furniture: 'f-room-sink' },
+  { id: 'kitchen_trash',  emoji: '🗑️', name: 'TRASH CAN',     desc: 'Lid opens — Mochi can take trash out',         cost: 65,  consumable: false, scope: 'kitchen', furniture: 'f-room-trash' },
+
+  /* --- Bedroom decorations --- */
+  { id: 'bedroom_bookshelf', emoji: '📚', name: 'BOOKSHELF',  desc: 'Full of books — Mochi loves to read',          cost: 90,  consumable: false, scope: 'bedroom', furniture: 'f-room-bookshelf' },
+  { id: 'bedroom_mirror',    emoji: '🪞', name: 'MIRROR',     desc: 'Gold frame — Mochi admires itself',            cost: 110, consumable: false, scope: 'bedroom', furniture: 'f-room-mirror' },
+  { id: 'bedroom_clock',     emoji: '🕰️', name: 'WALL CLOCK', desc: 'Pendulum swings — tells time',                 cost: 70,  consumable: false, scope: 'bedroom', furniture: 'f-room-clock' },
+
+  /* --- Garden decorations --- */
+  { id: 'garden_fountain', emoji: '⛲', name: 'FOUNTAIN',     desc: 'Water sprays! Mochi plays in it',              cost: 150, consumable: false, scope: 'garden',  furniture: 'f-room-fountain' },
+  { id: 'garden_feeder',   emoji: '🐦', name: 'BIRD FEEDER',  desc: 'A bird visits when tapped',                    cost: 85,  consumable: false, scope: 'garden',  furniture: 'f-room-feeder' },
+  { id: 'garden_plant',    emoji: '🪴', name: 'POTTED PLANT', desc: 'Mochi can water it with a can',                cost: 60,  consumable: false, scope: 'garden',  furniture: 'f-room-plant' },
+
+  /* --- Playroom decorations --- */
+  { id: 'playroom_easel', emoji: '🎨', name: 'EASEL',         desc: 'Mochi paints on the canvas!',                  cost: 120, consumable: false, scope: 'playroom', furniture: 'f-room-easel' },
+  { id: 'playroom_piano', emoji: '🎹', name: 'TOY PIANO',     desc: 'Keys play music — Mochi dances',               cost: 140, consumable: false, scope: 'playroom', furniture: 'f-room-piano' },
+
+  /* --- Observatory decorations --- */
+  { id: 'observatory_globe', emoji: '🌌', name: 'STAR GLOBE', desc: 'Rotates with glowing constellations',          cost: 180, consumable: false, scope: 'observatory', furniture: 'f-room-globe' }
+];
+
+/* ---------- ACHIEVEMENTS ---------- */
+const ACHIEVEMENTS = [
+  { id: 'first_feed',    emoji: '🍚', name: 'FIRST MEAL',       desc: 'Feed Mochi for the first time',       check: (d) => (d.stats?.feeds || 0) >= 1 },
+  { id: 'feed_50',       emoji: '🍱', name: 'MASTER CHEF',      desc: 'Feed Mochi 50 times',                check: (d) => (d.stats?.feeds || 0) >= 50 },
+  { id: 'pet_50',        emoji: '🤲', name: 'BEST FRIENDS',     desc: 'Pet Mochi 50 times',                 check: (d) => (d.stats?.pets || 0) >= 50 },
+  { id: 'bath_20',       emoji: '🛁', name: 'SQUEAKY CLEAN',    desc: 'Bath Mochi 20 times',                check: (d) => (d.stats?.baths || 0) >= 20 },
+  { id: 'play_30',       emoji: '🎮', name: 'PLAY BUDDIES',     desc: 'Play with Mochi 30 times',           check: (d) => (d.stats?.plays || 0) >= 30 },
+  { id: 'sleep_30',      emoji: '💤', name: 'SLEEP TRAINER',    desc: 'Tuck in Mochi 30 times',             check: (d) => (d.stats?.sleeps || 0) >= 30 },
+  { id: 'clean_20',      emoji: '🧹', name: 'TIDY HEART',       desc: 'Clean up after Mochi 20 times',      check: (d) => (d.stats?.cleans || 0) >= 20 },
+  { id: 'cook_10',       emoji: '🍳', name: 'LITTLE CHEF',      desc: 'Cook 10 dishes for Mochi',           check: (d) => (d.stats?.cooked || 0) >= 10 },
+  { id: 'cook_30',       emoji: '👨‍🍳', name: 'GOURMET COOK',   desc: 'Cook 30 dishes for Mochi',           check: (d) => (d.stats?.cooked || 0) >= 30 },
+  { id: 'streak_3',      emoji: '🔥', name: 'WARMING UP',       desc: '3-day streak',                       check: (d) => (d.streak || 0) >= 3 },
+  { id: 'streak_7',      emoji: '🔥', name: 'WEEK WARRIORS',    desc: '7-day streak',                       check: (d) => (d.streak || 0) >= 7 },
+  { id: 'streak_30',     emoji: '🌟', name: 'MONTH OF LOVE',    desc: '30-day streak',                      check: (d) => (d.streak || 0) >= 30 },
+  { id: 'level_5',       emoji: '🌱', name: 'GROWING UP',       desc: 'Reach Level 5',                      check: (d) => (d.level || 0) >= 5 },
+  { id: 'level_12',      emoji: '🌿', name: 'SAPLING STAGE',    desc: 'Reach Level 12',                     check: (d) => (d.level || 0) >= 12 },
+  { id: 'level_20',      emoji: '🌸', name: 'IN BLOOM',         desc: 'Reach Level 20',                     check: (d) => (d.level || 0) >= 20 },
+  { id: 'level_35',      emoji: '🦚', name: 'GUARDIAN',         desc: 'Reach Level 35',                     check: (d) => (d.level || 0) >= 35 },
+  { id: 'no_poop',       emoji: '✨', name: 'SPOTLESS',         desc: 'Keep Mochi clean above 90% often',   check: (d) => (d.cleanliness_streak || 0) >= 20 },
+  { id: 'night_owl',     emoji: '🦉', name: 'NIGHT OWL',        desc: 'Care for Mochi between 2-4 AM',      check: (d) => d.achievementFlags?.nightOwl === true },
+  { id: 'early_bird',    emoji: '🐦', name: 'EARLY BIRD',       desc: 'Care for Mochi between 5-7 AM',      check: (d) => d.achievementFlags?.earlyBird === true },
+  { id: 'both_care',     emoji: '💞', name: 'TOGETHER',         desc: 'Both of you care within 10 minutes', check: (d) => d.achievementFlags?.bothClose === true },
+  { id: 'first_note',    emoji: '💌', name: 'LOVE NOTE',        desc: 'Pin your first note',                check: (d) => Object.keys(d.notes || {}).length >= 1 },
+  { id: 'five_notes',    emoji: '💝', name: 'SWEET TALKER',     desc: 'Pin 5 notes together',               check: (d) => Object.keys(d.notes || {}).length >= 5 },
+  { id: 'first_want',    emoji: '⭐', name: 'GOOD LISTENER',    desc: 'Fulfill Mochi\'s first want',        check: (d) => (d.stats?.wantsFulfilled || 0) >= 1 },
+  { id: 'want_20',       emoji: '🌟', name: 'ATTENTIVE',        desc: 'Fulfill 20 wants',                   check: (d) => (d.stats?.wantsFulfilled || 0) >= 20 },
+  { id: 'kitchen_unlock',emoji: '🍳', name: 'HOME COOKIN\'',   desc: 'Unlock the Kitchen',                 check: (d) => (d.level || 0) >= 5 },
+  { id: 'garden_unlock', emoji: '🌷', name: 'GREEN THUMB',      desc: 'Unlock the Garden',                  check: (d) => (d.level || 0) >= 15 },
+  { id: 'minigame_10',   emoji: '🫧', name: 'BUBBLE MASTER',    desc: 'Score 10+ in Bubble Pop',            check: (d) => (d.stats?.bestMinigame || 0) >= 10 },
+  { id: 'minigame_25',   emoji: '🏅', name: 'BUBBLE LEGEND',    desc: 'Score 25+ in Bubble Pop',            check: (d) => (d.stats?.bestMinigame || 0) >= 25 },
+  { id: 'daily_7',       emoji: '🎁', name: 'GIFT COLLECTOR',   desc: 'Claim 7 daily gifts in a row',       check: (d) => (d.dailyReward?.day || 0) >= 7 }
+];
 
 /* ============================================================
    STATE
@@ -2054,18 +2547,7 @@ let presenceIntervalId = null;
 let moodParticleIntervalId = null;
 let lastRenderStats = { hunger: -1, happy: -1, energy: -1, clean: -1 };
 
-/* Interactive cooking state (ephemeral) */
-let cookingState = {
-  active: false,
-  recipe: null,
-  done: false,
-  dishEmoji: null,
-  dishName: null,
-  dishHunger: 0,
-  dishJoy: 0
-};
-
-/* Ephemeral state for the fridge being open */
+let cookingState = { active: false, recipe: null, done: false, dishEmoji: null, dishName: null, dishHunger: 0, dishJoy: 0 };
 let fridgeOpen = false;
 
 let animationWatchdog = null;
@@ -2073,7 +2555,7 @@ function startWatchdog() {
   clearTimeout(animationWatchdog);
   animationWatchdog = setTimeout(() => {
     if (isAnimating) {
-      console.warn('[watchdog] Forcing isAnimating = false after 15s');
+      console.warn('[watchdog] Forcing isAnimating = false');
       isAnimating = false;
       document.querySelectorAll('.action-btn').forEach(b => b.disabled = false);
       renderCache.petMood = '';
@@ -2119,24 +2601,13 @@ function playTone(freq, duration, type = 'sine', volume = 0.06) {
 function sfxClick() { playTone(800, 0.05, 'square', 0.03); }
 function sfxPop() { playTone(1200, 0.08, 'sine', 0.05); }
 function sfxGood() { playTone(660, 0.1, 'sine'); setTimeout(() => playTone(880, 0.12, 'sine'), 80); }
-function sfxLevelUp() {
-  [523, 659, 784, 1047].forEach((f, i) => setTimeout(() => playTone(f, 0.18, 'sine', 0.07), i * 90));
-}
+function sfxLevelUp() { [523, 659, 784, 1047].forEach((f, i) => setTimeout(() => playTone(f, 0.18, 'sine', 0.07), i * 90)); }
 function sfxBad() { playTone(220, 0.2, 'sawtooth', 0.04); }
-function sfxReward() {
-  [523, 659, 784, 1047, 1319].forEach((f, i) => setTimeout(() => playTone(f, 0.2, 'triangle', 0.06), i * 100));
-}
+function sfxReward() { [523, 659, 784, 1047, 1319].forEach((f, i) => setTimeout(() => playTone(f, 0.2, 'triangle', 0.06), i * 100)); }
 function sfxOpen() { playTone(520, 0.08, 'sine', 0.04); setTimeout(() => playTone(700, 0.1, 'sine', 0.04), 60); }
-function sfxCook() {
-  // Low sizzle
-  playTone(180, 0.15, 'sawtooth', 0.03);
-  setTimeout(() => playTone(220, 0.15, 'sawtooth', 0.03), 200);
-  setTimeout(() => playTone(190, 0.15, 'sawtooth', 0.03), 400);
-}
-function sfxDing() {
-  playTone(1320, 0.15, 'sine', 0.06);
-  setTimeout(() => playTone(1760, 0.2, 'sine', 0.06), 100);
-}
+function sfxCook() { playTone(180, 0.15, 'sawtooth', 0.03); setTimeout(() => playTone(220, 0.15, 'sawtooth', 0.03), 200); setTimeout(() => playTone(190, 0.15, 'sawtooth', 0.03), 400); }
+function sfxDing() { playTone(1320, 0.15, 'sine', 0.06); setTimeout(() => playTone(1760, 0.2, 'sine', 0.06), 100); }
+function sfxWater() { playTone(440, 0.1, 'sine', 0.03); setTimeout(() => playTone(330, 0.15, 'sine', 0.03), 100); setTimeout(() => playTone(440, 0.1, 'sine', 0.03), 220); }
 
 let toastT;
 function showToast(msg) {
@@ -2278,7 +2749,7 @@ function switchView(view) {
   if (view === 'album' && gameData) renderAlbum();
   if (view === 'notes' && gameData) { noteUnread = false; updateNotesBadge(); renderNotes(); }
   if (view === 'rooms' && gameData) renderRooms();
-  if (view === 'shop' && gameData) renderShop();
+  if (view === 'shop' && gameData) { renderCache.shopHash = ''; renderShop(); }
 }
 
 /* ============================================================
@@ -2301,7 +2772,7 @@ function listenToGame() {
         inventory: {},
         roomItems: {},
         dailyReward: { day: 0, lastClaimDate: '', totalClaims: 0 },
-        fridgeItems: [],
+        fridgeItems: [...FRIDGE_DEFAULT],
         koyLastSeen: now, metzLastSeen: 0,
         todayActions: { koy: 0, metz: 0 },
         todayDate: '',
@@ -2365,7 +2836,6 @@ function applyDecayAndListen() {
     if (data.todayDate !== today) {
       updates.todayDate = today;
       updates.todayActions = { koy: 0, metz: 0 };
-      // Refresh the fridge on new day
       updates.fridgeItems = [...FRIDGE_DEFAULT];
     }
     ref.update(updates).then(() => {
@@ -2418,7 +2888,7 @@ function processUpdate(snap) {
   renderPetAccessories();
   renderRoomDecorations();
   renderRoomItems();
-  if (currentView === 'shop') renderShop();
+  if (currentView === 'shop') { renderCache.shopHash = ''; renderShop(); }
 
   if (!hasShownWelcome && myLastSeen > 0 && Date.now() - myLastSeen > 5 * 60 * 1000) {
     showWelcomeBack(prev, data, myLastSeen);
@@ -2594,15 +3064,19 @@ function applyRoom(force) {
 }
 
 /* ============================================================
-   3D FURNITURE SCENE — objects now interactive with state
+   3D FURNITURE SCENE — includes dynamic shop decorations
    ============================================================ */
 function renderRoomScene() {
   const scene = $('roomScene');
   if (!scene) return;
 
   const roomKey = currentRoomId;
-  if (renderCache.sceneHash === roomKey) return;
-  renderCache.sceneHash = roomKey;
+  const inv = gameData?.inventory || {};
+  /* Hash inventory items relevant to this room so scene re-renders when new ones bought */
+  const invHash = Object.keys(inv).filter(k => inv[k]).sort().join(',');
+  const hashKey = roomKey + '|' + invHash;
+  if (renderCache.sceneHash === hashKey) return;
+  renderCache.sceneHash = hashKey;
 
   scene.innerHTML = '';
 
@@ -2620,6 +3094,7 @@ function renderRoomScene() {
     return el;
   };
 
+  /* --- Room base furniture --- */
   if (roomKey === 'bedroom') {
     makeFurniture('f-bed', `
       <div class="bed-frame"></div>
@@ -2666,7 +3141,7 @@ function renderRoomScene() {
       <div class="counter-stove"></div>
     `, 'COOK', () => furnitureInteraction('counter'));
 
-    const fridgeEl = makeFurniture('f-fridge', `
+    makeFurniture('f-fridge', `
       <div class="fridge-top"></div>
       <div class="fridge-body">
         <div class="fridge-shelves" id="fridgeShelves"></div>
@@ -2676,8 +3151,6 @@ function renderRoomScene() {
       </div>
       <div class="fridge-full-badge" id="fridgeBadge">0</div>
     `, 'FRIDGE', () => furnitureInteraction('fridge'));
-
-    renderFridgeContents();
 
   } else if (roomKey === 'garden') {
     makeFurniture('f-tree', `
@@ -2725,9 +3198,128 @@ function renderRoomScene() {
       <div class="chart-frame">✦ ✧<br>✦ ✧<br>✦ ✧</div>
     `, 'STUDY', () => furnitureInteraction('starchart'));
   }
+
+  /* --- Shop decoration furniture for this room --- */
+  /* Kitchen extras */
+  if (roomKey === 'kitchen' && inv.kitchen_sink) {
+    makeFurniture('f-room-sink', `
+      <div class="sink-basin">
+        <div class="sink-bowl"></div>
+      </div>
+      <div class="sink-faucet"></div>
+      <div class="sink-water"></div>
+      <div class="sink-knob"></div>
+    `, 'TAP WATER', () => furnitureInteraction('room_sink'));
+  }
+  if (roomKey === 'kitchen' && inv.kitchen_trash) {
+    makeFurniture('f-room-trash', `
+      <div class="trash-lid"></div>
+      <div class="trash-body">🗑️</div>
+      <div class="trash-items">🍌 🍎 🥬</div>
+    `, 'OPEN', () => furnitureInteraction('room_trash'));
+  }
+
+  /* Bedroom extras */
+  if (roomKey === 'bedroom' && inv.bedroom_bookshelf) {
+    makeFurniture('f-room-bookshelf', `
+      <div class="bs-body">
+        <div class="bs-shelf"><span class="bs-book pull">📕</span><span class="bs-book">📗</span><span class="bs-book">📘</span></div>
+        <div class="bs-shelf"><span class="bs-book">📙</span><span class="bs-book">📓</span><span class="bs-book">📔</span></div>
+        <div class="bs-shelf"><span class="bs-book">📒</span></div>
+      </div>
+    `, 'READ', () => furnitureInteraction('room_bookshelf'));
+  }
+  if (roomKey === 'bedroom' && inv.bedroom_mirror) {
+    makeFurniture('f-room-mirror', `
+      <div class="mirror-frame"></div>
+      <div class="mirror-glass"></div>
+    `, 'LOOK', () => furnitureInteraction('room_mirror'));
+  }
+  if (roomKey === 'bedroom' && inv.bedroom_clock) {
+    makeFurniture('f-room-clock', `
+      <div class="clock-frame"></div>
+      <div class="clock-hand hour"></div>
+      <div class="clock-hand minute"></div>
+      <div class="clock-center"></div>
+      <div class="clock-pendulum"></div>
+    `, 'WATCH', () => furnitureInteraction('room_clock'));
+  }
+
+  /* Garden extras */
+  if (roomKey === 'garden' && inv.garden_fountain) {
+    makeFurniture('f-room-fountain', `
+      <div class="fount-base"></div>
+      <div class="fount-column"></div>
+      <div class="fount-basin"></div>
+      <div class="fount-top"></div>
+      <div class="fount-jet"></div>
+      <div class="fount-spray">💦</div>
+    `, 'SPLASH', () => furnitureInteraction('room_fountain'));
+  }
+  if (roomKey === 'garden' && inv.garden_feeder) {
+    makeFurniture('f-room-feeder', `
+      <div class="feeder-pole"></div>
+      <div class="feeder-house"></div>
+      <div class="feeder-seeds">🌾</div>
+      <div class="feeder-bird">🐦</div>
+    `, 'WATCH', () => furnitureInteraction('room_feeder'));
+  }
+  if (roomKey === 'garden' && inv.garden_plant) {
+    makeFurniture('f-room-plant', `
+      <div class="plant-pot"></div>
+      <div class="plant-leaves">🌿</div>
+      <div class="plant-water"></div>
+    `, 'WATER', () => furnitureInteraction('room_plant'));
+  }
+
+  /* Playroom extras */
+  if (roomKey === 'playroom' && inv.playroom_easel) {
+    makeFurniture('f-room-easel', `
+      <div class="easel-leg-l"></div>
+      <div class="easel-leg-r"></div>
+      <div class="easel-canvas" data-splats="0">
+        <span class="easel-splat" style="top:10px; left:8px; color:#D88FA4;">🟣</span>
+        <span class="easel-splat" style="top:22px; left:32px; color:#8FB87D;">🟢</span>
+        <span class="easel-splat" style="top:8px; left:38px; color:#F0D888;">🟡</span>
+      </div>
+    `, 'PAINT', () => furnitureInteraction('room_easel'));
+  }
+  if (roomKey === 'playroom' && inv.playroom_piano) {
+    makeFurniture('f-room-piano', `
+      <div class="piano-body"></div>
+      <div class="piano-keys">
+        <div class="piano-key" data-note="261"></div>
+        <div class="piano-key black" data-note="277"></div>
+        <div class="piano-key" data-note="293"></div>
+        <div class="piano-key black" data-note="311"></div>
+        <div class="piano-key" data-note="329"></div>
+        <div class="piano-key" data-note="349"></div>
+        <div class="piano-key black" data-note="370"></div>
+        <div class="piano-key" data-note="392"></div>
+      </div>
+    `, 'PLAY', () => furnitureInteraction('room_piano'));
+  }
+
+  /* Observatory extras */
+  if (roomKey === 'observatory' && inv.observatory_globe) {
+    /* Random star positions inside the globe */
+    let starsHtml = '';
+    for (let i = 0; i < 6; i++) {
+      const x = Math.random() * 44 + 2;
+      const y = Math.random() * 44 + 2;
+      starsHtml += `<span class="globe-star" style="top:${y}px; left:${x}px;"></span>`;
+    }
+    makeFurniture('f-room-globe', `
+      <div class="globe-base"></div>
+      <div class="globe-stand"></div>
+      <div class="globe-orb">${starsHtml}</div>
+    `, 'SPIN', () => furnitureInteraction('room_globe'));
+  }
+
+  /* Refresh fridge contents if in kitchen */
+  if (roomKey === 'kitchen') renderFridgeContents();
 }
 
-/* Update fridge contents DOM */
 function renderFridgeContents() {
   const shelves = $('fridgeShelves');
   const badge = $('fridgeBadge');
@@ -2761,7 +3353,7 @@ function renderFridgeContents() {
 }
 
 /* ============================================================
-   FURNITURE INTERACTIONS — full multi-step now
+   FURNITURE INTERACTIONS
    ============================================================ */
 async function furnitureInteraction(type) {
   if (!gameData) return;
@@ -2770,8 +3362,7 @@ async function furnitureInteraction(type) {
   const pet = $('pet');
   const mood = computeMood();
 
-  // Grumpy refusal
-  if (mood.key === 'grumpy' && ['bed', 'ballpit', 'toybox', 'blocks'].includes(type)) {
+  if (mood.key === 'grumpy' && ['bed', 'ballpit', 'toybox', 'blocks', 'room_ballpit'].includes(type)) {
     pet.className = 'pet grumpy';
     showBubble('hmph!', '💢');
     sfxBad();
@@ -2798,6 +3389,18 @@ async function furnitureInteraction(type) {
       case 'ballpit': await interactBallpit(pet); break;
       case 'telescope': await interactTelescope(pet); break;
       case 'starchart': await interactStarchart(pet); break;
+      /* NEW: room-specific shop items */
+      case 'room_sink': await interactRoomSink(pet); break;
+      case 'room_trash': await interactRoomTrash(pet); break;
+      case 'room_bookshelf': await interactRoomBookshelf(pet); break;
+      case 'room_mirror': await interactRoomMirror(pet); break;
+      case 'room_clock': await interactRoomClock(pet); break;
+      case 'room_fountain': await interactRoomFountain(pet); break;
+      case 'room_feeder': await interactRoomFeeder(pet); break;
+      case 'room_plant': await interactRoomPlant(pet); break;
+      case 'room_easel': await interactRoomEasel(pet); break;
+      case 'room_piano': await interactRoomPiano(pet); break;
+      case 'room_globe': await interactRoomGlobe(pet); break;
     }
   } catch(e) {
     console.error('[furniture]', e);
@@ -2812,7 +3415,7 @@ async function furnitureInteraction(type) {
   startAmbientLoop();
 }
 
-/* ---------- BEDROOM ---------- */
+/* ---------- BEDROOM BASE ---------- */
 async function interactBed(pet) {
   const bed = document.querySelector('.f-bed');
   bed?.classList.add('fluffed');
@@ -2832,11 +3435,7 @@ async function interactBed(pet) {
       setTimeout(() => z.remove(), 2400);
     }, i * 500);
   }
-  // Bonus energy
-  db.ref('tamagotchi').update({
-    energy: Math.min(100, (gameData.energy || 0) + 8),
-    lastUpdate: Date.now()
-  });
+  db.ref('tamagotchi').update({ energy: Math.min(100, (gameData.energy || 0) + 8), lastUpdate: Date.now() });
   await new Promise(r => setTimeout(r, 2400));
   bed?.classList.remove('fluffed');
   pet.className = 'pet walking';
@@ -2851,7 +3450,6 @@ async function interactLamp(pet) {
   ns.classList.toggle('lamp-off');
   const isOff = ns.classList.contains('lamp-off');
   sfxClick();
-  // Watch reaction
   pet.className = 'pet ' + (isOff ? 'watching' : 'happy');
   showBubble(isOff ? 'dark...' : 'so warm!', isOff ? '🌙' : '💡');
   floatHearts(2);
@@ -2874,15 +3472,10 @@ async function interactShelf(pet) {
   const shelf = document.querySelector('.f-shelf');
   shelf?.classList.add('picked');
   pet.className = 'pet looking-up';
-  // Random item to "read"
   const item = Math.random() < 0.5 ? '📚' : '🕯️';
   showBubble(item === '📚' ? 'reading!' : 'smells nice!', item);
   floatHearts(3);
-  // Small XP bonus
-  db.ref('tamagotchi').update({
-    xp: (gameData.xp || 0) + 3,
-    lastUpdate: Date.now()
-  });
+  db.ref('tamagotchi').update({ xp: (gameData.xp || 0) + 3, lastUpdate: Date.now() });
   await new Promise(r => setTimeout(r, 1800));
   shelf?.classList.remove('picked');
   pet.className = 'pet ' + computeMood().cls;
@@ -2896,7 +3489,6 @@ async function interactWindow(pet) {
   await movePetTo(78, 900);
   pet.className = 'pet looking-up';
   showBubble('nice view!', '☁️');
-  // Sparkles
   for (let i = 0; i < 4; i++) {
     setTimeout(() => {
       const s = document.createElement('div');
@@ -2915,9 +3507,8 @@ async function interactWindow(pet) {
   pet.className = 'pet ' + computeMood().cls;
 }
 
-/* ---------- KITCHEN ---------- */
+/* ---------- KITCHEN BASE ---------- */
 async function interactCounter(pet) {
-  // Cooking: pick a recipe
   const options = Object.values(RECIPES).map(r => ({
     emoji: r.emoji,
     name: r.name,
@@ -2933,11 +3524,9 @@ async function interactCounter(pet) {
   });
 
   if (!chosenId) return;
-
   const recipe = RECIPES[chosenId];
   if (!recipe) return;
 
-  // Check ingredients in fridge
   const fridgeItems = [...(gameData.fridgeItems || FRIDGE_DEFAULT)];
   const needed = [...recipe.ingredients];
   const missing = [];
@@ -2948,28 +3537,24 @@ async function interactCounter(pet) {
   });
 
   if (missing.length > 0) {
-    showToast(`Missing ingredients: ${missing.join(' ')} — check the fridge!`);
+    showToast(`Missing: ${missing.join(' ')} — check the fridge!`);
     return;
   }
 
-  // Consume ingredients
   db.ref('tamagotchi/fridgeItems').set(fridgeItems);
 
   cookingState.active = true;
   cookingState.recipe = recipe;
-  cookingState.done = false;
 
   const counter = document.querySelector('.f-kitchen-counter');
   counter?.classList.add('cooking');
 
-  // Walk to counter
   pet.className = 'pet walking';
   await movePetTo(30, 1000);
   pet.className = 'pet watching';
   showBubble('cooking!', '🍳');
   sfxCook();
 
-  // Spawn smoke for 3.5s
   const smokeInterval = setInterval(() => {
     const s = document.createElement('div');
     s.className = 'cook-smoke';
@@ -2980,11 +3565,8 @@ async function interactCounter(pet) {
     setTimeout(() => s.remove(), 1700);
   }, 280);
 
-  // Cooking animation
   for (let i = 0; i < 3; i++) {
-    setTimeout(() => {
-      pet.className = 'pet ' + (i % 2 === 0 ? 'hopping' : 'watching');
-    }, i * 1000);
+    setTimeout(() => { pet.className = 'pet ' + (i % 2 === 0 ? 'hopping' : 'watching'); }, i * 1000);
   }
 
   await new Promise(r => setTimeout(r, 3500));
@@ -2992,21 +3574,12 @@ async function interactCounter(pet) {
   clearInterval(smokeInterval);
   counter?.classList.remove('cooking');
 
-  // Ding!
   sfxDing();
   spawnConfetti(8);
-
-  // Dish ready
-  cookingState.done = true;
-  cookingState.dishEmoji = recipe.emoji;
-  cookingState.dishName = recipe.name;
-  cookingState.dishHunger = recipe.hunger;
-  cookingState.dishJoy = recipe.joy;
 
   pet.className = 'pet happy';
   showBubble(`${recipe.name} ready!`, recipe.emoji);
 
-  // Show sparkles
   for (let i = 0; i < 5; i++) {
     setTimeout(() => {
       const s = document.createElement('div');
@@ -3021,7 +3594,6 @@ async function interactCounter(pet) {
 
   await new Promise(r => setTimeout(r, 800));
 
-  // Ask what to do with the dish
   const action = await showChoiceModal({
     title: recipe.emoji + ' ' + recipe.name,
     subtitle: 'What should Mochi do with it?',
@@ -3033,11 +3605,9 @@ async function interactCounter(pet) {
   });
 
   if (action === 'eat') {
-    // Mochi eats
     pet.className = 'pet happy eating';
     showBubble('nom nom!', '😋');
     for (let i = 0; i < 4; i++) setTimeout(() => floatHearts(1), i * 350);
-    // Add hunger + joy + XP
     const inv = gameData.inventory || {};
     let xpMult = 1;
     if (inv.decoration) xpMult += 0.05;
@@ -3050,27 +3620,23 @@ async function interactCounter(pet) {
       lastUpdate: Date.now(),
       'stats/cooked': (gameData.stats?.cooked || 0) + 1
     });
-    // Diary entry
     const entry = { by: me, text: `cooked and ate ${recipe.name}`, time: Date.now() };
     const key = 'diary/' + Date.now() + '_cook';
     db.ref('tamagotchi/' + key).set(entry);
     await new Promise(r => setTimeout(r, 2200));
     showToast(`😋 Ate ${recipe.name}! +${recipe.hunger} 🍚 +${recipe.joy} ☀️ +${xpGain} XP`);
   } else if (action === 'store') {
-    // Store in fridge
     const fridgeItems2 = [...(gameData.fridgeItems || [])];
     fridgeItems2.push(recipe.emoji);
     db.ref('tamagotchi/fridgeItems').set(fridgeItems2);
     pet.className = 'pet walking';
     await movePetTo(80, 1100);
-    // Fridge opens
     const fridge = document.querySelector('.f-fridge');
     fridge?.classList.add('open');
     sfxOpen();
     showBubble('stored!', '🧊');
     await new Promise(r => setTimeout(r, 1000));
     fridge?.classList.remove('open');
-    // XP
     const inv = gameData.inventory || {};
     let xpMult = 1;
     if (inv.decoration) xpMult += 0.05;
@@ -3084,10 +3650,9 @@ async function interactCounter(pet) {
     const entry = { by: me, text: `cooked ${recipe.name} and stored it`, time: Date.now() };
     const key = 'diary/' + Date.now() + '_cook';
     db.ref('tamagotchi/' + key).set(entry);
-    showToast(`📦 Stored ${recipe.name} in fridge! +${xpGain} XP`);
+    showToast(`📦 Stored ${recipe.name}! +${xpGain} XP`);
   }
 
-  // Reset cooking state
   cookingState.active = false;
 
   pet.className = 'pet walking';
@@ -3096,7 +3661,6 @@ async function interactCounter(pet) {
 }
 
 async function interactFridge(pet) {
-  // Open fridge
   const fridge = document.querySelector('.f-fridge');
   fridgeOpen = !fridgeOpen;
   fridge?.classList.toggle('open', fridgeOpen);
@@ -3110,17 +3674,14 @@ async function interactFridge(pet) {
   pet.className = 'pet looking-up';
   showBubble('snacks!', '🧊');
 
-  // Wait a beat for the shelf reveal
   await new Promise(r => setTimeout(r, 900));
 
-  // Show what's inside
   const fridgeItems = gameData.fridgeItems || FRIDGE_DEFAULT;
   if (fridgeItems.length === 0) {
     showToast('Fridge is empty! Cook something 🍳');
     return;
   }
 
-  // Snack picker
   const options = fridgeItems.slice(0, 8).map((it, idx) => ({
     emoji: it,
     name: 'SNACK',
@@ -3137,18 +3698,15 @@ async function interactFridge(pet) {
   });
 
   if (!picked) {
-    // leave fridge open but reset pet
     pet.className = 'pet ' + computeMood().cls;
     return;
   }
 
-  // Consume the item
   const { idx, emoji: itemEmoji } = picked;
   const newFridge = [...fridgeItems];
   newFridge.splice(idx, 1);
   db.ref('tamagotchi/fridgeItems').set(newFridge);
 
-  // Mochi eats
   pet.className = 'pet happy eating';
   showBubble('yum!', itemEmoji);
   for (let i = 0; i < 3; i++) setTimeout(() => floatHearts(1), i * 350);
@@ -3162,7 +3720,6 @@ async function interactFridge(pet) {
 
   await new Promise(r => setTimeout(r, 1800));
 
-  // Close fridge
   fridgeOpen = false;
   fridge?.classList.remove('open');
   renderFridgeContents();
@@ -3173,7 +3730,7 @@ async function interactFridge(pet) {
   showToast(`🍴 Snacked on ${itemEmoji}! +8 🍚 +4 ☀️ +2 XP`);
 }
 
-/* ---------- GARDEN ---------- */
+/* ---------- GARDEN BASE ---------- */
 async function interactTree(pet) {
   const tree = document.querySelector('.f-tree');
   tree?.classList.add('shaking');
@@ -3181,22 +3738,17 @@ async function interactTree(pet) {
   pet.className = 'pet walking';
   await movePetTo(70, 900);
   pet.className = 'pet looking-up';
-
-  // Wait for fruit drop
   await new Promise(r => setTimeout(r, 1200));
   tree?.classList.remove('shaking');
-
   pet.className = 'pet hopping';
   showBubble('caught it!', '🍎');
   floatHearts(3);
-
   db.ref('tamagotchi').update({
     hunger: Math.min(100, (gameData.hunger || 0) + 6),
     happy:  Math.min(100, (gameData.happy  || 0) + 6),
     xp: (gameData.xp || 0) + 3,
     lastUpdate: Date.now()
   });
-
   await new Promise(r => setTimeout(r, 1600));
   pet.className = 'pet walking';
   await movePetTo(50, 800);
@@ -3211,8 +3763,6 @@ async function interactFlowers(pet) {
   await movePetTo(24, 900);
   pet.className = 'pet sniffing';
   showBubble('sniff sniff~', '🌸');
-
-  // Pollen sparkles
   for (let i = 0; i < 6; i++) {
     setTimeout(() => {
       const s = document.createElement('div');
@@ -3224,13 +3774,11 @@ async function interactFlowers(pet) {
       setTimeout(() => s.remove(), 1000);
     }, i * 150);
   }
-
   await new Promise(r => setTimeout(r, 2000));
   flowers?.classList.remove('sniffed');
   pet.className = 'pet walking';
   await movePetTo(50, 800);
   pet.className = 'pet ' + computeMood().cls;
-
   db.ref('tamagotchi').update({
     happy: Math.min(100, (gameData.happy || 0) + 7),
     xp: (gameData.xp || 0) + 3,
@@ -3239,7 +3787,7 @@ async function interactFlowers(pet) {
   showToast('🌸 Sniffed flowers! +7 ☀️ +3 XP');
 }
 
-/* ---------- PLAYROOM ---------- */
+/* ---------- PLAYROOM BASE ---------- */
 async function interactToybox(pet) {
   const box = document.querySelector('.f-toybox');
   box?.classList.add('open');
@@ -3248,7 +3796,6 @@ async function interactToybox(pet) {
   await movePetTo(20, 900);
   pet.className = 'pet happy';
 
-  // Pick a toy
   const toys = [
     { emoji: '🧸', name: 'TEDDY', desc: 'fluffy hug', value: 'teddy' },
     { emoji: '🎈', name: 'BALLOON', desc: 'bouncy', value: 'balloon' },
@@ -3273,7 +3820,6 @@ async function interactToybox(pet) {
   showBubble(toy.name.toLowerCase() + '!', toy.emoji);
   floatHearts(5);
 
-  // Joy bonus
   db.ref('tamagotchi').update({
     happy: Math.min(100, (gameData.happy || 0) + 10),
     energy: Math.max(0, (gameData.energy || 0) - 3),
@@ -3297,22 +3843,17 @@ async function interactBlocks(pet) {
   await movePetTo(45, 900);
   pet.className = 'pet watching';
   showBubble('stacking!', '🧱');
-
   await new Promise(r => setTimeout(r, 1200));
-
-  // Tumble!
   blocks.classList.remove('stacked');
   blocks.classList.add('tumbled');
   sfxBad();
   pet.className = 'pet sad';
   showBubble('oh no!', '💥');
-
   db.ref('tamagotchi').update({
     happy: Math.min(100, (gameData.happy || 0) + 4),
     xp: (gameData.xp || 0) + 3,
     lastUpdate: Date.now()
   });
-
   await new Promise(r => setTimeout(r, 1600));
   blocks.classList.remove('tumbled');
   pet.className = 'pet walking';
@@ -3330,14 +3871,12 @@ async function interactBallpit(pet) {
   sfxPop();
   showBubble('wheee!!', '🎉');
   floatHearts(6);
-
   db.ref('tamagotchi').update({
     happy: Math.min(100, (gameData.happy || 0) + 12),
     energy: Math.max(0, (gameData.energy || 0) - 4),
     xp: (gameData.xp || 0) + 4,
     lastUpdate: Date.now()
   });
-
   await new Promise(r => setTimeout(r, 2200));
   pit?.classList.remove('splashing');
   pet.className = 'pet walking';
@@ -3346,7 +3885,7 @@ async function interactBallpit(pet) {
   showToast('🎉 Dove into the ballpit! +12 ☀️ -4 🌙 +4 XP');
 }
 
-/* ---------- OBSERVATORY ---------- */
+/* ---------- OBSERVATORY BASE ---------- */
 async function interactTelescope(pet) {
   const tel = document.querySelector('.f-telescope');
   tel?.classList.add('peeking');
@@ -3355,7 +3894,6 @@ async function interactTelescope(pet) {
   pet.className = 'pet looking-up';
   showBubble('so many stars...', '⭐');
   sfxPop();
-
   for (let i = 0; i < 5; i++) {
     setTimeout(() => {
       const s = document.createElement('div');
@@ -3367,24 +3905,18 @@ async function interactTelescope(pet) {
       setTimeout(() => s.remove(), 1000);
     }, i * 200);
   }
-
   await new Promise(r => setTimeout(r, 2200));
   tel?.classList.remove('peeking');
-
-  // Big XP reward (stargazing is intellectual!)
   db.ref('tamagotchi').update({
     xp: (gameData.xp || 0) + 8,
     happy: Math.min(100, (gameData.happy || 0) + 4),
     lastUpdate: Date.now()
   });
-
-  // Wish diary entry
   const wishes = ['I wish for more snacks', 'I wish for warm naps', 'I wish for more stars', 'I wish for friendship'];
   const wish = wishes[Math.floor(Math.random() * wishes.length)];
   const entry = { by: me, text: `made a wish: "${wish}"`, time: Date.now() };
   const key = 'diary/' + Date.now() + '_wish';
   db.ref('tamagotchi/' + key).set(entry);
-
   pet.className = 'pet walking';
   await movePetTo(50, 800);
   pet.className = 'pet ' + computeMood().cls;
@@ -3398,15 +3930,9 @@ async function interactStarchart(pet) {
   await movePetTo(14, 900);
   pet.className = 'pet watching';
   showBubble('studying...', '📖');
-
   await new Promise(r => setTimeout(r, 1800));
   chart?.classList.remove('glowing');
-
-  db.ref('tamagotchi').update({
-    xp: (gameData.xp || 0) + 6,
-    lastUpdate: Date.now()
-  });
-
+  db.ref('tamagotchi').update({ xp: (gameData.xp || 0) + 6, lastUpdate: Date.now() });
   pet.className = 'pet walking';
   await movePetTo(50, 800);
   pet.className = 'pet ' + computeMood().cls;
@@ -3414,7 +3940,391 @@ async function interactStarchart(pet) {
 }
 
 /* ============================================================
-   PET ACCESSORIES
+   NEW: ROOM DECORATION INTERACTIONS
+   ============================================================ */
+
+/* KITCHEN SINK — turns on water, splashes, cleans Mochi a little */
+async function interactRoomSink(pet) {
+  const sink = document.querySelector('.f-room-sink');
+  if (!sink) return;
+  sink.classList.add('running');
+  sfxWater();
+  pet.className = 'pet walking';
+  await movePetTo(52, 900);
+  pet.className = 'pet looking-up';
+  showBubble('splash!', '🚰');
+  for (let i = 0; i < 10; i++) {
+    setTimeout(() => {
+      const d = document.createElement('div');
+      d.className = 'water-drop';
+      d.style.left = (48 + Math.random() * 8) + '%';
+      d.style.bottom = '45%';
+      d.style.setProperty('--wx', (Math.random() * 24 - 12) + 'px');
+      d.style.setProperty('--wy', (-20 - Math.random() * 20) + 'px');
+      $('petArea').appendChild(d);
+      setTimeout(() => d.remove(), 1000);
+    }, i * 100);
+  }
+  await new Promise(r => setTimeout(r, 2400));
+  sink.classList.remove('running');
+  pet.className = 'pet walking';
+  await movePetTo(50, 800);
+  pet.className = 'pet ' + computeMood().cls;
+  db.ref('tamagotchi').update({
+    clean: Math.min(100, (gameData.clean || 0) + 6),
+    xp: (gameData.xp || 0) + 3,
+    lastUpdate: Date.now()
+  });
+  showToast('🚰 Splashed at the sink! +6 💧 +3 XP');
+}
+
+/* KITCHEN TRASH — opens lid, Mochi tosses a piece of trash */
+async function interactRoomTrash(pet) {
+  const trash = document.querySelector('.f-room-trash');
+  if (!trash) return;
+  trash.classList.add('open');
+  sfxOpen();
+  pet.className = 'pet walking';
+  await movePetTo(26, 900);
+  pet.className = 'pet watching';
+  showBubble('trash!', '🗑️');
+
+  /* Pick a piece of trash to toss */
+  const trashOptions = [
+    { emoji: '🍌', name: 'BANANA', desc: 'compost', value: 'banana' },
+    { emoji: '🥬', name: 'LETTUCE', desc: 'leftover', value: 'lettuce' },
+    { emoji: '📄', name: 'PAPER', desc: 'crumpled', value: 'paper' },
+    { emoji: '🥫', name: 'CAN', desc: 'empty', value: 'can' }
+  ];
+  const picked = await showChoiceModal({
+    title: '🗑️ TOSS IT OUT',
+    subtitle: 'What should Mochi throw away?',
+    options: trashOptions,
+    cancelLabel: 'CLOSE'
+  });
+
+  if (picked) {
+    const item = trashOptions.find(t => t.value === picked);
+    showBubble('toss!', item.emoji);
+    const tossEl = document.createElement('div');
+    tossEl.className = 'sparkle-burst';
+    tossEl.textContent = item.emoji;
+    tossEl.style.left = '24%';
+    tossEl.style.bottom = '50%';
+    $('petArea').appendChild(tossEl);
+    setTimeout(() => tossEl.remove(), 1000);
+    db.ref('tamagotchi').update({
+      clean: Math.min(100, (gameData.clean || 0) + 4),
+      xp: (gameData.xp || 0) + 3,
+      lastUpdate: Date.now()
+    });
+  }
+
+  await new Promise(r => setTimeout(r, 1600));
+  trash.classList.remove('open');
+  pet.className = 'pet walking';
+  await movePetTo(50, 800);
+  pet.className = 'pet ' + computeMood().cls;
+  if (picked) showToast('🗑️ Tidied up! +4 💧 +3 XP');
+}
+
+/* BEDROOM BOOKSHELF — Mochi pulls a book and reads */
+async function interactRoomBookshelf(pet) {
+  const bs = document.querySelector('.f-room-bookshelf');
+  if (!bs) return;
+  bs.classList.add('pulled');
+  pet.className = 'pet walking';
+  await movePetTo(78, 900);
+  pet.className = 'pet looking-up';
+  showBubble('reading!', '📖');
+  floatHearts(2);
+  for (let i = 0; i < 4; i++) {
+    setTimeout(() => {
+      const s = document.createElement('div');
+      s.className = 'sparkle-burst';
+      s.textContent = ['📖', '✨', '📚', '💭'][i % 4];
+      s.style.left = (72 + Math.random() * 12) + '%';
+      s.style.bottom = '50%';
+      $('petArea').appendChild(s);
+      setTimeout(() => s.remove(), 1000);
+    }, i * 220);
+  }
+  await new Promise(r => setTimeout(r, 2400));
+  bs.classList.remove('pulled');
+  pet.className = 'pet walking';
+  await movePetTo(50, 800);
+  pet.className = 'pet ' + computeMood().cls;
+  db.ref('tamagotchi').update({
+    xp: (gameData.xp || 0) + 5,
+    happy: Math.min(100, (gameData.happy || 0) + 3),
+    lastUpdate: Date.now()
+  });
+  showToast('📖 Read a story! +5 XP +3 ☀️');
+}
+
+/* BEDROOM MIRROR — Mochi admires itself */
+async function interactRoomMirror(pet) {
+  pet.className = 'pet walking';
+  await movePetTo(66, 900);
+  pet.className = 'pet happy';
+  showBubble('looking good!', '🪞');
+  floatHearts(6);
+  for (let i = 0; i < 5; i++) {
+    setTimeout(() => {
+      const s = document.createElement('div');
+      s.className = 'sparkle-burst';
+      s.textContent = '✨';
+      s.style.left = (60 + Math.random() * 12) + '%';
+      s.style.top = '20%';
+      $('petArea').appendChild(s);
+      setTimeout(() => s.remove(), 1000);
+    }, i * 150);
+  }
+  await new Promise(r => setTimeout(r, 2200));
+  pet.className = 'pet walking';
+  await movePetTo(50, 800);
+  pet.className = 'pet ' + computeMood().cls;
+  db.ref('tamagotchi').update({
+    happy: Math.min(100, (gameData.happy || 0) + 8),
+    xp: (gameData.xp || 0) + 3,
+    lastUpdate: Date.now()
+  });
+  showToast('🪞 Feeling cute! +8 ☀️ +3 XP');
+}
+
+/* BEDROOM CLOCK — pendulum swings, Mochi watches time */
+async function interactRoomClock(pet) {
+  pet.className = 'pet walking';
+  await movePetTo(70, 900);
+  pet.className = 'pet looking-up';
+  showBubble('tick tock~', '🕰️');
+  /* Make hands spin quickly as a fun effect */
+  const hourHand = document.querySelector('.f-room-clock .clock-hand.hour');
+  const minuteHand = document.querySelector('.f-room-clock .clock-hand.minute');
+  if (hourHand && minuteHand) {
+    hourHand.style.transition = 'transform 2s linear';
+    minuteHand.style.transition = 'transform 2s linear';
+    hourHand.style.transform = 'translateX(-50%) rotate(720deg)';
+    minuteHand.style.transform = 'translateX(-50%) rotate(1080deg)';
+  }
+  for (let i = 0; i < 3; i++) {
+    setTimeout(() => { pet.className = 'pet ' + (i % 2 === 0 ? 'hopping' : 'looking-up'); }, i * 500);
+  }
+  await new Promise(r => setTimeout(r, 2400));
+  if (hourHand) { hourHand.style.transition = ''; hourHand.style.transform = 'translateX(-50%) rotate(0deg)'; }
+  if (minuteHand) { minuteHand.style.transition = ''; minuteHand.style.transform = 'translateX(-50%) rotate(90deg)'; }
+  pet.className = 'pet walking';
+  await movePetTo(50, 800);
+  pet.className = 'pet ' + computeMood().cls;
+  db.ref('tamagotchi').update({ xp: (gameData.xp || 0) + 4, lastUpdate: Date.now() });
+  showToast('🕰️ Watched the time! +4 XP');
+}
+
+/* GARDEN FOUNTAIN — water spurts up, Mochi plays */
+async function interactRoomFountain(pet) {
+  const fount = document.querySelector('.f-room-fountain');
+  if (!fount) return;
+  fount.classList.add('running');
+  sfxWater();
+  pet.className = 'pet walking';
+  await movePetTo(44, 900);
+  pet.className = 'pet hopping';
+  showBubble('wheee!', '⛲');
+  floatHearts(4);
+  for (let i = 0; i < 12; i++) {
+    setTimeout(() => {
+      const d = document.createElement('div');
+      d.className = 'water-drop';
+      d.style.left = (40 + Math.random() * 8) + '%';
+      d.style.bottom = '40%';
+      d.style.setProperty('--wx', (Math.random() * 40 - 20) + 'px');
+      d.style.setProperty('--wy', (-30 - Math.random() * 20) + 'px');
+      $('petArea').appendChild(d);
+      setTimeout(() => d.remove(), 1000);
+    }, i * 90);
+  }
+  await new Promise(r => setTimeout(r, 2600));
+  fount.classList.remove('running');
+  pet.className = 'pet walking';
+  await movePetTo(50, 800);
+  pet.className = 'pet ' + computeMood().cls;
+  db.ref('tamagotchi').update({
+    happy: Math.min(100, (gameData.happy || 0) + 10),
+    clean: Math.min(100, (gameData.clean || 0) + 4),
+    xp: (gameData.xp || 0) + 5,
+    lastUpdate: Date.now()
+  });
+  showToast('⛲ Played in the fountain! +10 ☀️ +4 💧 +5 XP');
+}
+
+/* GARDEN BIRD FEEDER — bird visits */
+async function interactRoomFeeder(pet) {
+  const feeder = document.querySelector('.f-room-feeder');
+  if (!feeder) return;
+  feeder.classList.add('visited');
+  pet.className = 'pet walking';
+  await movePetTo(28, 900);
+  pet.className = 'pet looking-up';
+  showBubble('a bird!', '🐦');
+  sfxPop();
+  await new Promise(r => setTimeout(r, 2600));
+  feeder.classList.remove('visited');
+  pet.className = 'pet walking';
+  await movePetTo(50, 800);
+  pet.className = 'pet ' + computeMood().cls;
+  db.ref('tamagotchi').update({
+    happy: Math.min(100, (gameData.happy || 0) + 6),
+    xp: (gameData.xp || 0) + 4,
+    lastUpdate: Date.now()
+  });
+  showToast('🐦 Watched a bird! +6 ☀️ +4 XP');
+}
+
+/* GARDEN POTTED PLANT — Mochi waters it */
+async function interactRoomPlant(pet) {
+  const plant = document.querySelector('.f-room-plant');
+  if (!plant) return;
+  plant.classList.add('watered');
+  sfxWater();
+  pet.className = 'pet walking';
+  await movePetTo(60, 900);
+  pet.className = 'pet watching';
+  showBubble('growing!', '🪴');
+  await new Promise(r => setTimeout(r, 1800));
+  plant.classList.remove('watered');
+  pet.className = 'pet walking';
+  await movePetTo(50, 800);
+  pet.className = 'pet ' + computeMood().cls;
+  db.ref('tamagotchi').update({
+    xp: (gameData.xp || 0) + 4,
+    happy: Math.min(100, (gameData.happy || 0) + 3),
+    lastUpdate: Date.now()
+  });
+  showToast('🪴 Watered the plant! +4 XP +3 ☀️');
+}
+
+/* PLAYROOM EASEL — Mochi paints, splats appear */
+async function interactRoomEasel(pet) {
+  const easel = document.querySelector('.f-room-easel');
+  const canvas = easel?.querySelector('.easel-canvas');
+  pet.className = 'pet walking';
+  await movePetTo(42, 900);
+  pet.className = 'pet watching';
+  showBubble('painting!', '🎨');
+
+  /* Add splats progressively */
+  const colors = ['🟣', '🟢', '🟡', '🔴', '🔵'];
+  let splats = 0;
+  const splatInterval = setInterval(() => {
+    splats++;
+    if (canvas) canvas.dataset.splats = Math.min(3, splats);
+    /* Add a floating splat effect near Mochi */
+    const s = document.createElement('div');
+    s.className = 'sparkle-burst';
+    s.textContent = colors[Math.floor(Math.random() * colors.length)];
+    s.style.left = (36 + Math.random() * 12) + '%';
+    s.style.bottom = (40 + Math.random() * 15) + '%';
+    $('petArea').appendChild(s);
+    setTimeout(() => s.remove(), 1000);
+    if (splats >= 3) clearInterval(splatInterval);
+  }, 700);
+
+  await new Promise(r => setTimeout(r, 2600));
+  clearInterval(splatInterval);
+  if (canvas) canvas.dataset.splats = 0;
+
+  pet.className = 'pet happy';
+  showBubble('pretty!', '🖼️');
+  await new Promise(r => setTimeout(r, 800));
+  pet.className = 'pet walking';
+  await movePetTo(50, 800);
+  pet.className = 'pet ' + computeMood().cls;
+  db.ref('tamagotchi').update({
+    happy: Math.min(100, (gameData.happy || 0) + 8),
+    xp: (gameData.xp || 0) + 6,
+    lastUpdate: Date.now()
+  });
+  showToast('🎨 Painted a picture! +8 ☀️ +6 XP');
+}
+
+/* PLAYROOM PIANO — Mochi plays notes, keys light up */
+async function interactRoomPiano(pet) {
+  const piano = document.querySelector('.f-room-piano');
+  if (!piano) return;
+  const keys = piano.querySelectorAll('.piano-key');
+  pet.className = 'pet walking';
+  await movePetTo(64, 900);
+  pet.className = 'pet watching';
+  showBubble('music!', '🎹');
+
+  /* Play a melody by pressing random keys */
+  const notes = [523, 587, 659, 698, 784, 880, 988, 1047];
+  for (let i = 0; i < 8; i++) {
+    setTimeout(() => {
+      const key = keys[i % keys.length];
+      if (key) {
+        key.classList.add('pressed');
+        playTone(notes[i % notes.length], 0.2, 'sine', 0.06);
+        setTimeout(() => key.classList.remove('pressed'), 250);
+      }
+    }, i * 320);
+  }
+
+  /* Mochi bounces to the beat */
+  for (let i = 0; i < 8; i++) {
+    setTimeout(() => {
+      pet.className = 'pet ' + (i % 2 === 0 ? 'hopping' : 'happy');
+    }, i * 320);
+  }
+
+  await new Promise(r => setTimeout(r, 3000));
+  pet.className = 'pet walking';
+  await movePetTo(50, 800);
+  pet.className = 'pet ' + computeMood().cls;
+  db.ref('tamagotchi').update({
+    happy: Math.min(100, (gameData.happy || 0) + 9),
+    xp: (gameData.xp || 0) + 5,
+    lastUpdate: Date.now()
+  });
+  showToast('🎹 Made music! +9 ☀️ +5 XP');
+}
+
+/* OBSERVATORY STAR GLOBE — spins with rotating constellations */
+async function interactRoomGlobe(pet) {
+  const globe = document.querySelector('.f-room-globe');
+  if (!globe) return;
+  globe.classList.add('spinning');
+  sfxPop();
+  pet.className = 'pet walking';
+  await movePetTo(74, 900);
+  pet.className = 'pet looking-up';
+  showBubble('wow...', '🌌');
+  for (let i = 0; i < 6; i++) {
+    setTimeout(() => {
+      const s = document.createElement('div');
+      s.className = 'sparkle-burst';
+      s.textContent = ['⭐', '✨', '💫'][i % 3];
+      s.style.left = (68 + Math.random() * 12) + '%';
+      s.style.top = (25 + Math.random() * 20) + '%';
+      $('petArea').appendChild(s);
+      setTimeout(() => s.remove(), 1000);
+    }, i * 200);
+  }
+  await new Promise(r => setTimeout(r, 3200));
+  globe.classList.remove('spinning');
+  pet.className = 'pet walking';
+  await movePetTo(50, 800);
+  pet.className = 'pet ' + computeMood().cls;
+  db.ref('tamagotchi').update({
+    xp: (gameData.xp || 0) + 7,
+    happy: Math.min(100, (gameData.happy || 0) + 4),
+    lastUpdate: Date.now()
+  });
+  showToast('🌌 Watched the globe spin! +7 XP +4 ☀️');
+}
+
+/* ============================================================
+   PET ACCESSORIES / DECORATIONS / ROOM ITEMS
    ============================================================ */
 function renderPetAccessories() {
   if (!gameData) return;
@@ -3492,9 +4402,6 @@ function renderRoomDecorations() {
   }
 }
 
-/* ============================================================
-   ROOM ITEMS
-   ============================================================ */
 function renderRoomItems() {
   if (!gameData) return;
   const items = gameData.roomItems || {};
@@ -3929,10 +4836,7 @@ function sendNote() {
 function addAlbumEntry(level) {
   if (!gameData) return;
   const stage = STAGES.reduce((acc, s) => (level >= s.level ? s : acc), STAGES[0]);
-  const entry = {
-    level, emoji: stage.emoji, stageName: stage.name,
-    date: Date.now(), id: 'album_' + level + '_' + Date.now()
-  };
+  const entry = { level, emoji: stage.emoji, stageName: stage.name, date: Date.now(), id: 'album_' + level + '_' + Date.now() };
   const album = [...(gameData.album || [])];
   if (!album.some(a => a.level === level)) {
     album.push(entry);
@@ -3997,7 +4901,7 @@ function renderRooms() {
 }
 
 /* ============================================================
-   SHOP
+   SHOP — now filters by current room + shows global items
    ============================================================ */
 function renderShop() {
   if (!gameData) return;
@@ -4013,22 +4917,51 @@ function renderShop() {
   });
 
   const roomFull = Object.keys(roomItems).length >= MAX_ROOM_ITEMS;
-  const hash = coins + '|' + JSON.stringify(inv) + '|' + JSON.stringify(placedCounts) + '|' + roomFull;
+  const roomName = (ROOMS.find(r => r.id === currentRoomId) || {}).name || 'ROOM';
+  const hash = coins + '|' + JSON.stringify(inv) + '|' + JSON.stringify(placedCounts) + '|' + roomFull + '|' + currentRoomId;
   if (renderCache.shopHash === hash) return;
   renderCache.shopHash = hash;
 
+  /* Update subtitle to show which room the shop is currently showing */
+  const subtitle = $('shopSubtitle');
+  if (subtitle) {
+    subtitle.innerHTML = `Currently showing items for <b>${roomName}</b> 🪙<br>Visit a room to see its decorations!`;
+  }
+
   grid.innerHTML = '';
 
-  SHOP_ITEMS.forEach(item => {
+  /* Filter: show global scope items + items matching current room */
+  const visible = SHOP_ITEMS.filter(it => {
+    if (it.scope === 'global') return true;
+    if (it.scope === currentRoomId) return true;
+    return false;
+  });
+
+  if (visible.length === 0) {
+    grid.innerHTML = '<div style="grid-column: 1 / -1; text-align: center; color: #A89080; padding: 20px; font-size: 0.75rem; line-height: 1.6;">Nothing available here yet.<br>Try another room!</div>';
+    return;
+  }
+
+  visible.forEach(item => {
     const owned = !item.consumable && inv[item.id];
     const canAfford = coins >= item.cost;
     const placed = item.consumable ? (placedCounts[item.id] || 0) : 0;
     const disabled = !canAfford || owned || (item.consumable && roomFull);
 
+    /* Determine room tag */
+    let roomTag = '';
+    if (item.scope !== 'global') {
+      const r = ROOMS.find(rm => rm.id === item.scope);
+      if (r) roomTag = `<div class="shop-room-tag">${r.emoji} ${r.name}</div>`;
+    } else {
+      roomTag = `<div class="shop-room-tag">🌐 GLOBAL</div>`;
+    }
+
     const card = document.createElement('div');
     card.className = 'shop-card' + (owned ? ' owned' : '');
     card.innerHTML = `
       <div class="shop-emoji">${item.emoji}</div>
+      ${roomTag}
       <div class="shop-name">${item.name}</div>
       <div class="shop-desc">${item.desc}</div>
       ${owned ? '<div class="owned-tag">IN USE</div>' : ''}
@@ -4070,12 +5003,18 @@ function buyItem(id) {
       coins: coins - item.cost,
       inventory: inv
     });
-    showToast(item.emoji + ' ' + item.name + ' purchased!');
+    showToast(item.emoji + ' ' + item.name + ' purchased! It\'s in your room now!');
+
+    /* Force scene re-render for room-specific items */
+    renderCache.sceneHash = '';
+    renderCache.shopHash = '';
     renderCache.decorationsHash = '';
     renderCache.accessoriesHash = '';
     setTimeout(() => {
+      renderRoomScene();
       renderRoomDecorations();
       renderPetAccessories();
+      renderShop();
     }, 100);
     sfxGood();
     spawnConfetti(8);
@@ -4885,41 +5824,6 @@ document.addEventListener('visibilitychange', () => {
     startAmbientLoop();
   }
 });
-
-/* ============================================================
-   ACHIEVEMENTS array (kept at bottom so DOM refs are ready)
-   ============================================================ */
-const ACHIEVEMENTS = [
-  { id: 'first_feed',    emoji: '🍚', name: 'FIRST MEAL',       desc: 'Feed Mochi for the first time',       check: (d) => (d.stats?.feeds || 0) >= 1 },
-  { id: 'feed_50',       emoji: '🍱', name: 'MASTER CHEF',      desc: 'Feed Mochi 50 times',                check: (d) => (d.stats?.feeds || 0) >= 50 },
-  { id: 'pet_50',        emoji: '🤲', name: 'BEST FRIENDS',     desc: 'Pet Mochi 50 times',                 check: (d) => (d.stats?.pets || 0) >= 50 },
-  { id: 'bath_20',       emoji: '🛁', name: 'SQUEAKY CLEAN',    desc: 'Bath Mochi 20 times',                check: (d) => (d.stats?.baths || 0) >= 20 },
-  { id: 'play_30',       emoji: '🎮', name: 'PLAY BUDDIES',     desc: 'Play with Mochi 30 times',           check: (d) => (d.stats?.plays || 0) >= 30 },
-  { id: 'sleep_30',      emoji: '💤', name: 'SLEEP TRAINER',    desc: 'Tuck in Mochi 30 times',             check: (d) => (d.stats?.sleeps || 0) >= 30 },
-  { id: 'clean_20',      emoji: '🧹', name: 'TIDY HEART',       desc: 'Clean up after Mochi 20 times',      check: (d) => (d.stats?.cleans || 0) >= 20 },
-  { id: 'cook_10',       emoji: '🍳', name: 'LITTLE CHEF',      desc: 'Cook 10 dishes for Mochi',           check: (d) => (d.stats?.cooked || 0) >= 10 },
-  { id: 'cook_30',       emoji: '👨‍🍳', name: 'GOURMET COOK',   desc: 'Cook 30 dishes for Mochi',           check: (d) => (d.stats?.cooked || 0) >= 30 },
-  { id: 'streak_3',      emoji: '🔥', name: 'WARMING UP',       desc: '3-day streak',                       check: (d) => (d.streak || 0) >= 3 },
-  { id: 'streak_7',      emoji: '🔥', name: 'WEEK WARRIORS',    desc: '7-day streak',                       check: (d) => (d.streak || 0) >= 7 },
-  { id: 'streak_30',     emoji: '🌟', name: 'MONTH OF LOVE',    desc: '30-day streak',                      check: (d) => (d.streak || 0) >= 30 },
-  { id: 'level_5',       emoji: '🌱', name: 'GROWING UP',       desc: 'Reach Level 5',                      check: (d) => (d.level || 0) >= 5 },
-  { id: 'level_12',      emoji: '🌿', name: 'SAPLING STAGE',    desc: 'Reach Level 12',                     check: (d) => (d.level || 0) >= 12 },
-  { id: 'level_20',      emoji: '🌸', name: 'IN BLOOM',         desc: 'Reach Level 20',                     check: (d) => (d.level || 0) >= 20 },
-  { id: 'level_35',      emoji: '🦚', name: 'GUARDIAN',         desc: 'Reach Level 35',                     check: (d) => (d.level || 0) >= 35 },
-  { id: 'no_poop',       emoji: '✨', name: 'SPOTLESS',         desc: 'Keep Mochi clean above 90% often',   check: (d) => (d.cleanliness_streak || 0) >= 20 },
-  { id: 'night_owl',     emoji: '🦉', name: 'NIGHT OWL',        desc: 'Care for Mochi between 2-4 AM',      check: (d) => d.achievementFlags?.nightOwl === true },
-  { id: 'early_bird',    emoji: '🐦', name: 'EARLY BIRD',       desc: 'Care for Mochi between 5-7 AM',      check: (d) => d.achievementFlags?.earlyBird === true },
-  { id: 'both_care',     emoji: '💞', name: 'TOGETHER',         desc: 'Both of you care within 10 minutes', check: (d) => d.achievementFlags?.bothClose === true },
-  { id: 'first_note',    emoji: '💌', name: 'LOVE NOTE',        desc: 'Pin your first note',                check: (d) => Object.keys(d.notes || {}).length >= 1 },
-  { id: 'five_notes',    emoji: '💝', name: 'SWEET TALKER',     desc: 'Pin 5 notes together',               check: (d) => Object.keys(d.notes || {}).length >= 5 },
-  { id: 'first_want',    emoji: '⭐', name: 'GOOD LISTENER',    desc: 'Fulfill Mochi\'s first want',        check: (d) => (d.stats?.wantsFulfilled || 0) >= 1 },
-  { id: 'want_20',       emoji: '🌟', name: 'ATTENTIVE',        desc: 'Fulfill 20 wants',                   check: (d) => (d.stats?.wantsFulfilled || 0) >= 20 },
-  { id: 'kitchen_unlock',emoji: '🍳', name: 'HOME COOKIN\'',   desc: 'Unlock the Kitchen',                 check: (d) => (d.level || 0) >= 5 },
-  { id: 'garden_unlock', emoji: '🌷', name: 'GREEN THUMB',      desc: 'Unlock the Garden',                  check: (d) => (d.level || 0) >= 15 },
-  { id: 'minigame_10',   emoji: '🫧', name: 'BUBBLE MASTER',    desc: 'Score 10+ in Bubble Pop',            check: (d) => (d.stats?.bestMinigame || 0) >= 10 },
-  { id: 'minigame_25',   emoji: '🏅', name: 'BUBBLE LEGEND',    desc: 'Score 25+ in Bubble Pop',            check: (d) => (d.stats?.bestMinigame || 0) >= 25 },
-  { id: 'daily_7',       emoji: '🎁', name: 'GIFT COLLECTOR',   desc: 'Claim 7 daily gifts in a row',       check: (d) => (d.dailyReward?.day || 0) >= 7 }
-];
 </script>
 </body>
 </html>
