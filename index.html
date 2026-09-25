@@ -370,52 +370,73 @@
   .pet[data-stage="eternal"] .pet-body { width: 50px; height: 44px; }
   .pet[data-stage="eternal"] .pet-halo { display: block; }
 
-  /* ============ PET ACCESSORIES (FIXED POSITIONING) ============ */
+  /* ============ PET ACCESSORIES (NEW: use negative-offset technique) ============ */
+  /* The container covers the entire 64px pet. Accessories use % positioning
+     relative to the pet-body box (which sits at bottom:6px, height 42px).      */
+
   .pet-accessories {
-    position: absolute; inset: 0; pointer-events: none; z-index: 25;
+    position: absolute; inset: 0;
+    pointer-events: none;
+    z-index: 25;
+    /* container = 64x64, matching .pet dimensions */
   }
   .pet-accessory {
     position: absolute;
     pointer-events: none;
     filter: drop-shadow(0 2px 2px rgba(0,0,0,0.3));
-    transform-origin: center center;
+    line-height: 1;
   }
-  /* Bow — sits ON TOP of Mochi's head, between the ears, just above the eyes */
+
+  /* BOW — sits centered on Mochi's head.
+     Pet body sits at: left 50%, bottom 6px, width 44px, height 42px.
+     So the top of the body is at bottom: 6 + 42 = 48px from pet bottom.
+     In top-relative terms: 64 - 48 = 16px from pet top.
+     The bow should sit just above that: top: 8px.
+     Centered horizontally on the body's center (which is also pet center = 50%). */
   .pet-accessory.bow {
-    top: 2px;
+    top: 4px;
     left: 50%;
     transform: translateX(-50%);
-    font-size: 1.4rem;
+    font-size: 1.15rem;
     z-index: 26;
     animation: bowBounce 2.6s ease-in-out infinite;
+    transform-origin: center bottom;
   }
   @keyframes bowBounce {
-    0%, 100% { transform: translateX(-50%) translateY(0) rotate(-6deg); }
-    50% { transform: translateX(-50%) translateY(-1px) rotate(6deg); }
+    0%, 100% { transform: translateX(-50%) translateY(0) rotate(-5deg); }
+    50% { transform: translateX(-50%) translateY(-1px) rotate(5deg); }
   }
-  /* Lucky clover — pinned to the pet's upper-right cheek area */
+
+  /* LUCKY CLOVER — pinned on Mochi's right cheek (viewer's right).
+     Cheek is inside the body box. Body spans horizontally from center-22 to center+22.
+     Right cheek is around +14px from center. In % of 64px container: ~72%. */
   .pet-accessory.lucky {
-    top: 24px;
-    right: -2px;
-    font-size: 1.05rem;
+    top: 40%;
+    left: 76%;
+    transform: translate(-50%, -50%);
+    font-size: 0.95rem;
     z-index: 26;
     animation: luckyTwirl 3s ease-in-out infinite;
   }
   @keyframes luckyTwirl {
-    0%, 100% { transform: rotate(-12deg) scale(1); }
-    50% { transform: rotate(12deg) scale(1.1); }
+    0%, 100% { transform: translate(-50%, -50%) rotate(-12deg) scale(1); }
+    50% { transform: translate(-50%, -50%) rotate(12deg) scale(1.1); }
   }
-  /* Star shard — floats just above and to the right of the head */
+
+  /* STAR SHARD — floats just above Mochi's right ear.
+     Ear is at right: 1px of body → around right edge of body.
+     Body right edge = center + 22px = 50% + 34% = 84% of container. */
   .pet-accessory.xpboost {
-    top: -6px;
-    right: 4px;
-    font-size: 0.95rem;
+    top: 2%;
+    left: 78%;
+    transform: translate(-50%, -50%);
+    font-size: 0.85rem;
     z-index: 26;
     animation: starShimmer 1.8s ease-in-out infinite;
   }
   @keyframes starShimmer {
-    0%, 100% { opacity: 0.8; transform: scale(0.9) rotate(0deg); }
-    50% { opacity: 1; transform: scale(1.15) rotate(20deg); }
+    0%, 100% { opacity: 0.8; transform: translate(-50%, -50%) scale(0.9) rotate(0deg); }
+    50% { opacity: 1; transform: translate(-50%, -50%) scale(1.15) rotate(20deg); }
   }
 
   /* ============ ROOM DECORATIONS ============ */
@@ -1601,6 +1622,7 @@
         <div class="pet-area" id="petArea">
           <div class="pet-shadow" id="petShadow" style="left: 50%;"></div>
           <div class="pet idle" id="pet" data-stage="egg" style="left: 50%;">
+            <div class="pet-accessories" id="petAccessories"></div>
             <div class="pet-body">
               <div class="pet-blush pet-blush-l"></div>
               <div class="pet-blush pet-blush-r"></div>
@@ -1616,7 +1638,6 @@
             </div>
             <div class="pet-foot pet-foot-l"></div>
             <div class="pet-foot pet-foot-r"></div>
-            <div class="pet-accessories" id="petAccessories"></div>
           </div>
         </div>
 
@@ -2489,7 +2510,7 @@ async function furnitureInteraction(type) {
 }
 
 /* ============================================================
-   PET ACCESSORIES — repositioned to sit ON Mochi
+   PET ACCESSORIES
    ============================================================ */
 function renderPetAccessories() {
   if (!gameData) return;
