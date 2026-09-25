@@ -172,6 +172,16 @@
   .room.room-night-tint::before { opacity: 1; }
   .room.observatory::before { opacity: 0 !important; }
 
+  /* Room transition — when Mochi walks to another room */
+  .room.room-transition {
+    animation: roomShake 0.5s ease-in-out;
+  }
+  @keyframes roomShake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-3px); }
+    75% { transform: translateX(3px); }
+  }
+
   .pet-area {
     position: absolute; left: 0; right: 0; bottom: 0;
     height: 100%; z-index: 10; pointer-events: none;
@@ -204,6 +214,20 @@
     50%  { transform: translateX(-50%) translateY(0)    rotate(0deg)   scale(1.02, 0.98); }
     75%  { transform: translateX(-50%) translateY(-7px) rotate(4deg)   scale(0.97, 1.04); }
     100% { transform: translateX(-50%) translateY(0)    rotate(0deg)   scale(1, 1); }
+  }
+  /* Mochi walking to the door (leaving room) */
+  .pet.leaving {
+    animation: walk 0.4s ease-in-out infinite;
+    transition: left 0.8s ease-in, opacity 0.5s ease 0.4s;
+  }
+  /* Mochi arriving from a door */
+  .pet.arriving {
+    animation: arriveIn 0.8s ease-out;
+  }
+  @keyframes arriveIn {
+    0% { opacity: 0; transform: translateX(-50%) scale(0.6); }
+    60% { opacity: 1; transform: translateX(-50%) scale(1.1); }
+    100% { opacity: 1; transform: translateX(-50%) scale(1); }
   }
   .pet.idle { animation: idle 2.8s ease-in-out infinite; }
   @keyframes idle {
@@ -580,9 +604,6 @@
     50% { transform: translateX(-50%) translateY(-5px); }
   }
 
-  /* ============================================================
-     3D FURNITURE
-     ============================================================ */
   .room-scene { position: absolute; inset: 0; pointer-events: none; z-index: 4; transform-style: preserve-3d; }
   .room-scene .furniture {
     position: absolute;
@@ -1090,11 +1111,8 @@
     filter: brightness(1.4) drop-shadow(0 0 12px rgba(255,249,200,0.8));
   }
 
-  /* ============================================================
-     NEW ROOM DECORATION FURNITURE (from shop)
-     ============================================================ */
+  /* ============ NEW ROOM DECORATION FURNITURE (from shop) ============ */
 
-  /* --- KITCHEN: sink --- */
   .f-room-sink { bottom: 6%; left: 45%; width: 60px; height: 70px; z-index: 5; }
   .f-room-sink .sink-basin {
     position: absolute; inset: 0;
@@ -1123,9 +1141,7 @@
     background: #C8C8C8;
     border: 2px solid #4A3F3A; border-radius: 0 0 3px 3px;
   }
-  .f-room-sink.running .sink-faucet::after {
-    background: #A8D4E8;
-  }
+  .f-room-sink.running .sink-faucet::after { background: #A8D4E8; }
   .f-room-sink .sink-water {
     position: absolute; top: 4px; left: 50%; transform: translateX(-50%);
     width: 4px; height: 24px;
@@ -1134,10 +1150,7 @@
     opacity: 0; transition: opacity 0.3s;
     z-index: 4;
   }
-  .f-room-sink.running .sink-water {
-    opacity: 1;
-    animation: waterFlow 0.6s linear infinite;
-  }
+  .f-room-sink.running .sink-water { opacity: 1; animation: waterFlow 0.6s linear infinite; }
   @keyframes waterFlow {
     0% { background-position: 0 0; }
     100% { background-position: 0 8px; }
@@ -1153,7 +1166,6 @@
   }
   .f-room-sink.running .sink-knob { transform: rotate(90deg); }
 
-  /* --- KITCHEN: trash can --- */
   .f-room-trash { bottom: 6%; left: 22%; width: 44px; height: 62px; z-index: 5; }
   .f-room-trash .trash-body {
     position: absolute; inset: 0;
@@ -1190,7 +1202,6 @@
   }
   .f-room-trash.open .trash-items { opacity: 1; }
 
-  /* --- BEDROOM: bookshelf --- */
   .f-room-bookshelf { bottom: 6%; right: 8%; width: 70px; height: 100px; z-index: 5; }
   .f-room-bookshelf .bs-body {
     position: absolute; inset: 0;
@@ -1216,7 +1227,6 @@
   }
   .f-room-bookshelf.pulled .bs-book.pull { transform: translateY(-10px) rotate(-15deg); }
 
-  /* --- BEDROOM: mirror --- */
   .f-room-mirror { top: 12%; right: 30%; width: 50px; height: 66px; z-index: 5; }
   .f-room-mirror .mirror-frame {
     position: absolute; inset: 0;
@@ -1240,7 +1250,6 @@
     transform: rotate(-30deg);
   }
 
-  /* --- BEDROOM: clock --- */
   .f-room-clock { top: 22px; right: 12%; width: 44px; height: 44px; z-index: 5; }
   .f-room-clock .clock-frame {
     position: absolute; inset: 0;
@@ -1288,7 +1297,6 @@
     border-radius: 50%;
   }
 
-  /* --- GARDEN: fountain --- */
   .f-room-fountain { bottom: 6%; left: 38%; width: 90px; height: 70px; z-index: 5; }
   .f-room-fountain .fount-base {
     position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
@@ -1324,10 +1332,7 @@
     border-radius: 2px;
     opacity: 0; transition: opacity 0.3s;
   }
-  .f-room-fountain.running .fount-jet {
-    opacity: 1;
-    animation: jetPulse 1.2s ease-in-out infinite;
-  }
+  .f-room-fountain.running .fount-jet { opacity: 1; animation: jetPulse 1.2s ease-in-out infinite; }
   @keyframes jetPulse {
     0%, 100% { transform: translateX(-50%) scaleY(1); }
     50% { transform: translateX(-50%) scaleY(1.15); }
@@ -1349,7 +1354,6 @@
     100% { transform: translateX(-50%) translateY(-10px) scale(0.6); opacity: 0; }
   }
 
-  /* --- GARDEN: bird feeder --- */
   .f-room-feeder { top: 22%; left: 26%; width: 60px; height: 80px; z-index: 5; }
   .f-room-feeder .feeder-pole {
     position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
@@ -1385,9 +1389,7 @@
     opacity: 0;
     pointer-events: none;
   }
-  .f-room-feeder.visited .feeder-bird {
-    animation: birdVisit 2.4s ease-in-out;
-  }
+  .f-room-feeder.visited .feeder-bird { animation: birdVisit 2.4s ease-in-out; }
   @keyframes birdVisit {
     0% { opacity: 0; transform: translateX(-50%) translateY(-30px) scale(0.8); }
     20% { opacity: 1; transform: translateX(-50%) translateY(0) scale(1); }
@@ -1395,7 +1397,6 @@
     100% { opacity: 0; transform: translateX(-50%) translateY(-30px) scale(0.8); }
   }
 
-  /* --- GARDEN: potted plant --- */
   .f-room-plant { bottom: 6%; right: 42%; width: 40px; height: 50px; z-index: 5; }
   .f-room-plant .plant-pot {
     position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
@@ -1421,17 +1422,13 @@
     opacity: 0;
     pointer-events: none;
   }
-  .f-room-plant.watered .plant-water {
-    opacity: 1;
-    animation: waterDrip 1.5s ease-out;
-  }
+  .f-room-plant.watered .plant-water { opacity: 1; animation: waterDrip 1.5s ease-out; }
   @keyframes waterDrip {
     0% { height: 0; opacity: 0; }
     30% { height: 16px; opacity: 1; }
     100% { height: 16px; opacity: 0; }
   }
 
-  /* --- PLAYROOM: easel --- */
   .f-room-easel { bottom: 6%; left: 40%; width: 70px; height: 90px; z-index: 5; }
   .f-room-easel .easel-leg-l,
   .f-room-easel .easel-leg-r {
@@ -1469,7 +1466,6 @@
     transform: scale(1);
   }
 
-  /* --- PLAYROOM: piano --- */
   .f-room-piano { bottom: 6%; right: 38%; width: 80px; height: 54px; z-index: 5; }
   .f-room-piano .piano-body {
     position: absolute; inset: 0;
@@ -1501,7 +1497,6 @@
     transform: scaleY(0.92);
   }
 
-  /* --- OBSERVATORY: star globe --- */
   .f-room-globe { bottom: 8%; right: 22%; width: 60px; height: 60px; z-index: 5; }
   .f-room-globe .globe-base {
     position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
@@ -1533,15 +1528,12 @@
     border-radius: 50%;
     box-shadow: 0 0 4px rgba(255,255,255,0.9);
   }
-  .f-room-globe.spinning .globe-orb {
-    animation: globeSpin 3s linear;
-  }
+  .f-room-globe.spinning .globe-orb { animation: globeSpin 3s linear; }
   @keyframes globeSpin {
     0% { transform: translateX(-50%) rotateY(0deg); }
     100% { transform: translateX(-50%) rotateY(360deg); }
   }
 
-  /* ============ SCENE PROPS ============ */
   .scene-prop { position: absolute; font-size: 1.8rem; z-index: 15; pointer-events: none; }
   .prop-ball { right: 25%; bottom: 30px; animation: ballBounce 1s ease-in-out infinite, propPop 0.3s ease-out; }
   .prop-bowl { width: 28px; height: 16px; }
@@ -1585,7 +1577,6 @@
     100% { opacity: 0; transform: scale(0.6) rotate(360deg) translateY(-20px); }
   }
 
-  /* water splash particles */
   .water-drop {
     position: absolute;
     width: 6px; height: 8px;
@@ -1919,6 +1910,17 @@
   .room-card .room-name { font-family: 'Press Start 2P', monospace; font-size: 0.55rem; color: #8B6F5E; margin-bottom: 4px; }
   .room-card .room-req { font-size: 0.65rem; color: #A89080; }
   .room-card.active .room-req { color: #4A3F3A; font-weight: 600; }
+  .room-card .room-here-badge {
+    position: absolute;
+    top: -6px; right: -4px;
+    background: #8FB87D;
+    color: white;
+    font-family: 'Press Start 2P', monospace;
+    font-size: 0.4rem;
+    padding: 2px 5px;
+    border-radius: 8px;
+  }
+  .room-card { position: relative; }
 
   .shop-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; padding: 0 12px 12px; }
   .shop-card {
@@ -2077,6 +2079,23 @@
   }
 
   .footer { text-align: center; font-size: 0.65rem; color: #A89080; margin: 8px 0 20px; }
+
+  /* Walk-to-room indicator — small footprint trail overlay */
+  .door-transition {
+    position: absolute;
+    bottom: 20%; left: 50%;
+    transform: translateX(-50%);
+    font-size: 1.4rem;
+    pointer-events: none;
+    z-index: 28;
+    opacity: 0;
+    animation: doorFlash 0.9s ease-out;
+  }
+  @keyframes doorFlash {
+    0% { opacity: 0; transform: translateX(-50%) scale(0.6); }
+    30% { opacity: 1; transform: translateX(-50%) scale(1.1); }
+    100% { opacity: 0; transform: translateX(-50%) scale(1); }
+  }
 
   @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after {
@@ -2244,6 +2263,7 @@
 
     <div class="view" id="view-rooms">
       <div class="section-header">🚪 ROOMS TO EXPLORE</div>
+      <p style="text-align:center; font-size:0.7rem; color:#A89080; margin-bottom:8px;" id="roomsSubtitle">Mochi wanders on its own — but you can visit too</p>
       <div class="rooms-grid" id="roomsGrid"></div>
     </div>
 
@@ -2317,10 +2337,8 @@
 
 <script>
 /* ============================================================
-   ⚠️ FIX: ALL CONSTANTS DECLARED FIRST BEFORE ANY FUNCTION USES THEM
+   ALL CONSTANTS FIRST
    ============================================================ */
-
-/* ---------- FIREBASE ---------- */
 const firebaseConfig = {
   apiKey: "AIzaSyCpxlMZiAcJwI2RuNTJ14jSaHhV-nBcW7A",
   authDomain: "mochigotchi.firebaseapp.com",
@@ -2333,7 +2351,6 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 const db = firebase.database();
 
-/* ---------- GAME CONSTANTS ---------- */
 const DECAY_PER_MINUTE = 0.12;
 const OFFLINE_CAP_HOURS = 6;
 const MAX_DIARY = 40;
@@ -2348,7 +2365,16 @@ const COIN_PER_DAILY_GOAL = 20;
 const MINIGAME_DURATION = 30;
 const MAX_ROOM_ITEMS = 6;
 
-/* ---------- DAILY REWARDS ---------- */
+/* Auto-wander interval — how often Mochi considers moving rooms */
+const WANDER_COOLDOWN_MS = 4 * 60 * 1000; /* 4 minutes between auto-moves */
+const WANDER_THRESHOLD = 45;              /* Stat below this triggers wander desire */
+const WANDER_ROOM_MAP = {
+  hunger: 'kitchen',
+  energy: 'bedroom',
+  happy:  'playroom',
+  clean:  'garden'    /* Garden has flowers = a "clean" outdoor vibe; kitchen sink also works */
+};
+
 const DAILY_REWARDS = [
   { day: 1, emoji: '🪙', value: '+10', coins: 10,  extra: 'Just a little something 💛' },
   { day: 2, emoji: '🪙', value: '+15', coins: 15,  extra: 'Building up!' },
@@ -2359,7 +2385,6 @@ const DAILY_REWARDS = [
   { day: 7, emoji: '💎', value: '+100 🪙', coins: 100, extra: 'MEGA GIFT! Plus a free Plush Toy placed in your room!', consumable: 'toy' }
 ];
 
-/* ---------- PET STAGES ---------- */
 const STAGES = [
   { level: 1,  name: 'EGG',       emoji: '🥚', key: 'egg' },
   { level: 3,  name: 'HATCHLING', emoji: '🐣', key: 'hatchling' },
@@ -2371,7 +2396,6 @@ const STAGES = [
   { level: 75, name: 'ETERNAL',   emoji: '🌿', key: 'eternal' }
 ];
 
-/* ---------- ROOMS ---------- */
 const ROOMS = [
   { id: 'bedroom',     name: 'BEDROOM',     emoji: '🛏️', reqLevel: 1 },
   { id: 'kitchen',     name: 'KITCHEN',     emoji: '🍳', reqLevel: 5 },
@@ -2380,17 +2404,15 @@ const ROOMS = [
   { id: 'observatory', name: 'OBSERVATORY', emoji: '🔭', reqLevel: 50 }
 ];
 
-/* ---------- CARE ACTIONS ---------- */
 const ACTIONS = {
-  feed:  { stat: 'hunger', amount: 25, xp: 2, verb: 'fed',              emoji: '🍚' },
-  play:  { stat: 'happy',  amount: 22, xp: 3, verb: 'played with',      emoji: '🎈', cost: { energy: 8 } },
-  sleep: { stat: 'energy', amount: 30, xp: 2, verb: 'tucked in',        emoji: '🌙' },
-  bath:  { stat: 'clean',  amount: 30, xp: 2, verb: 'bathed',           emoji: '💧' },
-  pet:   { stat: 'happy',  amount: 8,  xp: 1, verb: 'petted',           emoji: '🤲' },
-  clean: { stat: 'clean',  amount: 15, xp: 2, verb: 'cleaned up after', emoji: '🧹' }
+  feed:  { stat: 'hunger', amount: 25, xp: 2, verb: 'fed',              emoji: '🍚', prefRoom: 'kitchen' },
+  play:  { stat: 'happy',  amount: 22, xp: 3, verb: 'played with',      emoji: '🎈', prefRoom: 'playroom', cost: { energy: 8 } },
+  sleep: { stat: 'energy', amount: 30, xp: 2, verb: 'tucked in',        emoji: '🌙', prefRoom: 'bedroom' },
+  bath:  { stat: 'clean',  amount: 30, xp: 2, verb: 'bathed',           emoji: '💧', prefRoom: 'bedroom' },
+  pet:   { stat: 'happy',  amount: 8,  xp: 1, verb: 'petted',           emoji: '🤲', prefRoom: null },
+  clean: { stat: 'clean',  amount: 15, xp: 2, verb: 'cleaned up after', emoji: '🧹', prefRoom: null }
 };
 
-/* ---------- WANTS ---------- */
 const WANTS = [
   { id: 'feed',  emoji: '🍚', text: 'wants food!',     action: 'feed' },
   { id: 'play',  emoji: '🎈', text: 'wants to play!',  action: 'play' },
@@ -2400,7 +2422,6 @@ const WANTS = [
   { id: 'clean', emoji: '🧹', text: 'wants tidying!',  action: 'clean' }
 ];
 
-/* ---------- AMBIENT BEHAVIORS ---------- */
 const AMBIENT_BEHAVIORS = {
   bedroom: [
     { cls: 'walking', dur: 2, bubble: 'hmm hmm~', emoji: '🎵' },
@@ -2436,7 +2457,6 @@ const AMBIENT_BEHAVIORS = {
   ]
 };
 
-/* ---------- CONSUMABLE DEFS ---------- */
 const CONSUMABLE_DEFS = {
   treat:  { emoji: '🍬', stat: 'hunger', amount: 15, placeClass: 'placed-treat',  tooltip: 'TAP TO EAT',  consumeVerb: 'ate a treat',       consumeEmoji: '🍚', consumeBubble: 'nom nom!', defaultX: 72, defaultBottom: 12 },
   toy:    { emoji: '🧸', stat: 'happy',  amount: 20, placeClass: 'placed-toy',    tooltip: 'TAP TO PLAY', consumeVerb: 'played with toy',   consumeEmoji: '🎈', consumeBubble: 'wheee!',   defaultX: 22, defaultBottom: 10 },
@@ -2444,7 +2464,6 @@ const CONSUMABLE_DEFS = {
   soap:   { emoji: '🧼', stat: 'clean',  amount: 25, placeClass: 'placed-soap',   tooltip: 'TAP TO WASH', consumeVerb: 'used soap',        consumeEmoji: '💧', consumeBubble: 'splash!',  defaultX: 40, defaultBottom: 14 }
 };
 
-/* ---------- RECIPES ---------- */
 const RECIPES = {
   rice:  { id: 'rice',  name: 'RICE BOWL',   emoji: '🍚', desc: 'Simple and warm', hunger: 30, joy: 5,  ingredients: ['🍚', '💧'],           xp: 8 },
   soup:  { id: 'soup',  name: 'VEGGIE SOUP', emoji: '🍲', desc: 'Hearty & cozy',   hunger: 25, joy: 10, ingredients: ['🥕', '💧', '🍄'],     xp: 10 },
@@ -2454,45 +2473,34 @@ const RECIPES = {
 
 const FRIDGE_DEFAULT = ['🍚', '🥕', '🥬', '🍅', '🥚', '🍯', '💧', '🥒', '🍄', '🌾', '🧀', '🍎'];
 
-/* ============================================================
-   ⚠️ SHOP ITEMS — DECLARED HERE, AT TOP, SO renderShop() FINDS THEM
-   ============================================================ */
 const SHOP_ITEMS = [
-  /* --- Consumables (place in room, tap to use) --- */
   { id: 'treat',      emoji: '🍬', name: 'SWEET TREAT',       desc: 'Place a treat — tap to feed Mochi',           cost: 20,  consumable: true,  scope: 'global' },
   { id: 'toy',        emoji: '🧸', name: 'PLUSH TOY',         desc: 'Place a toy — tap to play',                   cost: 30,  consumable: true,  scope: 'global' },
   { id: 'pillow',     emoji: '🛏️', name: 'FLUFFY PILLOW',     desc: 'Place a pillow — tap to rest',                cost: 35,  consumable: true,  scope: 'global' },
   { id: 'soap',       emoji: '🧼', name: 'FANCY SOAP',        desc: 'Place a soap — tap to wash',                  cost: 25,  consumable: true,  scope: 'global' },
 
-  /* --- Global permanent (shown in every room) --- */
   { id: 'decoration', emoji: '🎀', name: 'BOW DECOR',         desc: 'Pink bow worn by Mochi (+5% XP)',             cost: 100, consumable: false, scope: 'global' },
   { id: 'lucky',      emoji: '🍀', name: 'LUCKY CHARM',       desc: 'Floating clover (+1 coin/action)',            cost: 150, consumable: false, scope: 'global' },
   { id: 'xpboost',    emoji: '⭐', name: 'STAR SHARD',        desc: 'Sparkle star above Mochi (+15% XP)',          cost: 200, consumable: false, scope: 'global' },
   { id: 'autoclean',  emoji: '✨', name: 'CLEANING SPIRIT',   desc: 'Auto-removes poops every 5 min',              cost: 300, consumable: false, scope: 'global' },
 
-  /* --- Kitchen decorations --- */
   { id: 'kitchen_sink',   emoji: '🚰', name: 'KITCHEN SINK',  desc: 'Working faucet with running water!',          cost: 80,  consumable: false, scope: 'kitchen', furniture: 'f-room-sink' },
   { id: 'kitchen_trash',  emoji: '🗑️', name: 'TRASH CAN',     desc: 'Lid opens — Mochi can take trash out',         cost: 65,  consumable: false, scope: 'kitchen', furniture: 'f-room-trash' },
 
-  /* --- Bedroom decorations --- */
   { id: 'bedroom_bookshelf', emoji: '📚', name: 'BOOKSHELF',  desc: 'Full of books — Mochi loves to read',          cost: 90,  consumable: false, scope: 'bedroom', furniture: 'f-room-bookshelf' },
   { id: 'bedroom_mirror',    emoji: '🪞', name: 'MIRROR',     desc: 'Gold frame — Mochi admires itself',            cost: 110, consumable: false, scope: 'bedroom', furniture: 'f-room-mirror' },
   { id: 'bedroom_clock',     emoji: '🕰️', name: 'WALL CLOCK', desc: 'Pendulum swings — tells time',                 cost: 70,  consumable: false, scope: 'bedroom', furniture: 'f-room-clock' },
 
-  /* --- Garden decorations --- */
   { id: 'garden_fountain', emoji: '⛲', name: 'FOUNTAIN',     desc: 'Water sprays! Mochi plays in it',              cost: 150, consumable: false, scope: 'garden',  furniture: 'f-room-fountain' },
   { id: 'garden_feeder',   emoji: '🐦', name: 'BIRD FEEDER',  desc: 'A bird visits when tapped',                    cost: 85,  consumable: false, scope: 'garden',  furniture: 'f-room-feeder' },
   { id: 'garden_plant',    emoji: '🪴', name: 'POTTED PLANT', desc: 'Mochi can water it with a can',                cost: 60,  consumable: false, scope: 'garden',  furniture: 'f-room-plant' },
 
-  /* --- Playroom decorations --- */
   { id: 'playroom_easel', emoji: '🎨', name: 'EASEL',         desc: 'Mochi paints on the canvas!',                  cost: 120, consumable: false, scope: 'playroom', furniture: 'f-room-easel' },
   { id: 'playroom_piano', emoji: '🎹', name: 'TOY PIANO',     desc: 'Keys play music — Mochi dances',               cost: 140, consumable: false, scope: 'playroom', furniture: 'f-room-piano' },
 
-  /* --- Observatory decorations --- */
   { id: 'observatory_globe', emoji: '🌌', name: 'STAR GLOBE', desc: 'Rotates with glowing constellations',          cost: 180, consumable: false, scope: 'observatory', furniture: 'f-room-globe' }
 ];
 
-/* ---------- ACHIEVEMENTS ---------- */
 const ACHIEVEMENTS = [
   { id: 'first_feed',    emoji: '🍚', name: 'FIRST MEAL',       desc: 'Feed Mochi for the first time',       check: (d) => (d.stats?.feeds || 0) >= 1 },
   { id: 'feed_50',       emoji: '🍱', name: 'MASTER CHEF',      desc: 'Feed Mochi 50 times',                check: (d) => (d.stats?.feeds || 0) >= 50 },
@@ -2545,6 +2553,7 @@ let ambientPlaying = false;
 let autoCleanIntervalId = null;
 let presenceIntervalId = null;
 let moodParticleIntervalId = null;
+let wanderIntervalId = null;
 let lastRenderStats = { hunger: -1, happy: -1, energy: -1, clean: -1 };
 
 let cookingState = { active: false, recipe: null, done: false, dishEmoji: null, dishName: null, dishHunger: 0, dishJoy: 0 };
@@ -2569,7 +2578,8 @@ const renderCache = {
   diaryHash: '', notesHash: '', achCount: -1,
   daysCount: -1, streakCount: -1, coinCount: -1,
   level: -1, xp: -1, poops: -1,
-  decorationsHash: '', accessoriesHash: '', roomItemsHash: '', shopHash: '', sceneHash: ''
+  decorationsHash: '', accessoriesHash: '', roomItemsHash: '', shopHash: '', sceneHash: '',
+  lastAutoRoom: ''
 };
 
 const $ = (id) => document.getElementById(id);
@@ -2608,6 +2618,7 @@ function sfxOpen() { playTone(520, 0.08, 'sine', 0.04); setTimeout(() => playTon
 function sfxCook() { playTone(180, 0.15, 'sawtooth', 0.03); setTimeout(() => playTone(220, 0.15, 'sawtooth', 0.03), 200); setTimeout(() => playTone(190, 0.15, 'sawtooth', 0.03), 400); }
 function sfxDing() { playTone(1320, 0.15, 'sine', 0.06); setTimeout(() => playTone(1760, 0.2, 'sine', 0.06), 100); }
 function sfxWater() { playTone(440, 0.1, 'sine', 0.03); setTimeout(() => playTone(330, 0.15, 'sine', 0.03), 100); setTimeout(() => playTone(440, 0.1, 'sine', 0.03), 220); }
+function sfxWalk() { playTone(300, 0.08, 'sine', 0.02); setTimeout(() => playTone(260, 0.08, 'sine', 0.02), 100); }
 
 let toastT;
 function showToast(msg) {
@@ -2642,7 +2653,7 @@ function spawnConfetti(count = 18) {
 }
 
 /* ============================================================
-   GENERIC CHOICE MODAL
+   CHOICE MODAL
    ============================================================ */
 let choiceResolve = null;
 
@@ -2682,6 +2693,198 @@ function showChoiceModal({ title, subtitle, options, cancelLabel = 'CANCEL' }) {
 function closeChoiceModal() {
   $('choiceOverlay').classList.remove('active');
   choiceResolve = null;
+}
+
+/* ============================================================
+   🧠 SMART WANDER SYSTEM
+   Mochi autonomously chooses which room to be in based on needs.
+   Persists to Firebase so it survives sessions.
+   ============================================================ */
+
+/* Determine which room Mochi SHOULD be in right now, based on dominant need */
+function pickDesiredRoom() {
+  if (!gameData) return currentRoomId;
+
+  const lvl = gameData.level || 1;
+  const unlockedRooms = ROOMS.filter(r => lvl >= r.reqLevel).map(r => r.id);
+
+  /* Compute a "pull" score for each room based on what Mochi needs */
+  const pulls = {
+    kitchen: 0,
+    bedroom: 0,
+    playroom: 0,
+    garden: 0
+  };
+
+  /* Hungry → kitchen */
+  if (gameData.hunger < WANDER_THRESHOLD) {
+    pulls.kitchen += (WANDER_THRESHOLD - gameData.hunger) * 1.5;
+  }
+  /* Tired or night → bedroom */
+  if (gameData.energy < WANDER_THRESHOLD) {
+    pulls.bedroom += (WANDER_THRESHOLD - gameData.energy) * 1.5;
+  }
+  if (isNightTime() && gameData.energy < 70) {
+    pulls.bedroom += 30;
+  }
+  /* Bored (low joy) → playroom */
+  if (gameData.happy < WANDER_THRESHOLD) {
+    pulls.playroom += (WANDER_THRESHOLD - gameData.happy) * 1.5;
+  }
+  /* Dirty → garden (fresh air & flowers) */
+  if (gameData.clean < WANDER_THRESHOLD) {
+    pulls.garden += (WANDER_THRESHOLD - gameData.clean) * 1.2;
+  }
+  /* Sick → bedroom to rest */
+  if (gameData.clean < 20 && gameData.happy < 30) {
+    pulls.bedroom += 40;
+  }
+
+  /* Only consider unlocked rooms */
+  Object.keys(pulls).forEach(k => {
+    if (!unlockedRooms.includes(k)) pulls[k] = -1;
+  });
+
+  /* Find the room with the highest pull */
+  let bestRoom = null;
+  let bestScore = 0;
+  Object.entries(pulls).forEach(([room, score]) => {
+    if (score > bestScore) {
+      bestScore = score;
+      bestRoom = room;
+    }
+  });
+
+  /* If nothing has a strong enough pull, Mochi stays in a "preferred idle room"
+     (bedroom by default), but only if current room is also viable */
+  if (!bestRoom) {
+    /* Fallback: choose the lowest stat's preferred room if it's notably low */
+    const stats = [
+      { s: 'hunger', room: 'kitchen',  v: gameData.hunger },
+      { s: 'energy', room: 'bedroom',  v: gameData.energy },
+      { s: 'happy',  room: 'playroom', v: gameData.happy },
+      { s: 'clean',  room: 'garden',   v: gameData.clean }
+    ];
+    stats.sort((a, b) => a.v - b.v);
+    const lowest = stats[0];
+    if (lowest.v < 60 && unlockedRooms.includes(lowest.room)) {
+      bestRoom = lowest.room;
+    }
+  }
+
+  return bestRoom || currentRoomId;
+}
+
+/* Move Mochi to a new room — with a nice animated transition */
+async function moveMochiToRoom(roomId, opts = {}) {
+  if (!roomId || roomId === currentRoomId) return;
+  if (isAnimating && !opts.force) return;
+
+  const room = ROOMS.find(r => r.id === roomId);
+  if (!room) return;
+  const lvl = gameData?.level || 1;
+  if (lvl < room.reqLevel) return;
+
+  const pet = $('pet');
+  const area = $('petArea');
+
+  /* Only animate if we're viewing the home tab */
+  const isVisible = currentView === 'home';
+
+  if (isVisible && !opts.silent) {
+    try {
+      /* Show "walking out" icon */
+      const outBadge = document.createElement('div');
+      outBadge.className = 'door-transition';
+      outBadge.textContent = '🚪';
+      area.appendChild(outBadge);
+      setTimeout(() => outBadge.remove(), 900);
+      sfxWalk();
+
+      /* Mochi walks to the edge and fades */
+      pet.classList.add('leaving');
+      pet.style.left = '110%';
+      await new Promise(r => setTimeout(r, 800));
+    } catch(e) {}
+  }
+
+  /* Switch the room */
+  currentRoomId = roomId;
+  renderCache.sceneHash = '';
+  fridgeOpen = false;
+  applyRoom(true);
+  renderRooms();
+
+  /* Persist to Firebase so both users see it */
+  if (gameData && gameData.room !== roomId) {
+    db.ref('tamagotchi/room').set(roomId);
+  }
+
+  /* Mochi arrives */
+  if (isVisible && !opts.silent) {
+    const petEl = $('pet');
+    petEl.classList.remove('leaving');
+    petEl.style.left = '50%';
+    petEl.style.transition = 'none';
+    petEl.classList.add('arriving');
+    setTimeout(() => {
+      petEl.classList.remove('arriving');
+      petEl.className = 'pet ' + computeMood().cls;
+    }, 850);
+
+    if (!opts.noToast) {
+      showToast('Mochi walked to the ' + room.name.toLowerCase() + ' ' + room.emoji);
+    }
+  }
+}
+
+/* Periodic check — if Mochi should be in a different room, go there */
+async function tryAutoWander() {
+  if (!gameData) return;
+  if (isAnimating || ambientPlaying) return;
+  if (document.hidden) return;
+  if (mgActive) return;
+
+  /* Cooldown — don't wander more than once every WANDER_COOLDOWN_MS */
+  const last = gameData.lastWander || 0;
+  if (Date.now() - last < WANDER_COOLDOWN_MS) return;
+
+  const desired = pickDesiredRoom();
+  if (desired && desired !== currentRoomId) {
+    db.ref('tamagotchi/lastWander').set(Date.now());
+    /* Small delay so it feels natural */
+    setTimeout(() => moveMochiToRoom(desired, { noToast: false }), 500);
+  }
+}
+
+/* Run on login: if the auto-decided room is different, snap Mochi there instantly */
+function applyInitialRoomFromState() {
+  if (!gameData) return;
+  const savedRoom = gameData.room;
+
+  /* If Firebase has a saved room, use it (both users see same) */
+  if (savedRoom && ROOMS.some(r => r.id === savedRoom)) {
+    const lvl = gameData.level || 1;
+    const roomObj = ROOMS.find(r => r.id === savedRoom);
+    if (lvl >= roomObj.reqLevel) {
+      currentRoomId = savedRoom;
+      renderCache.sceneHash = '';
+      applyRoom(true);
+      renderRooms();
+      return;
+    }
+  }
+
+  /* Otherwise decide from current stats */
+  const desired = pickDesiredRoom();
+  if (desired && desired !== currentRoomId) {
+    currentRoomId = desired;
+    /* Save to Firebase so both users stay in sync */
+    db.ref('tamagotchi/room').set(desired);
+  }
+  renderCache.sceneHash = '';
+  applyRoom(true);
+  renderRooms();
 }
 
 /* ============================================================
@@ -2732,6 +2935,7 @@ $('loginBtn').addEventListener('click', () => {
   startPresenceHeartbeat();
   startAutoCleanLoop();
   startMoodParticleLoop();
+  startWanderLoop();
 });
 
 /* ============================================================
@@ -2771,6 +2975,8 @@ function listenToGame() {
         coins: 50,
         inventory: {},
         roomItems: {},
+        room: 'bedroom',
+        lastWander: 0,
         dailyReward: { day: 0, lastClaimDate: '', totalClaims: 0 },
         fridgeItems: [...FRIDGE_DEFAULT],
         koyLastSeen: now, metzLastSeen: 0,
@@ -2806,6 +3012,8 @@ function listenToGame() {
       if (!data.roomItems) missing.roomItems = {};
       if (!data.dailyReward) missing.dailyReward = { day: 0, lastClaimDate: '', totalClaims: 0 };
       if (!Array.isArray(data.fridgeItems)) missing.fridgeItems = [...FRIDGE_DEFAULT];
+      if (!data.room) missing.room = 'bedroom';
+      if (data.lastWander === undefined) missing.lastWander = 0;
       if (Object.keys(missing).length > 0) {
         ref.update(missing).then(() => applyDecayAndListen());
       } else {
@@ -2859,6 +3067,7 @@ function handleUpdate(snap) {
 
 let lastUpdateReceived = 0;
 let decayTickInterval = null;
+let initialRoomApplied = false;
 
 function processUpdate(snap) {
   const data = snap.val();
@@ -2867,6 +3076,21 @@ function processUpdate(snap) {
 
   const prev = gameData ? { ...gameData } : { ...data };
   gameData = data;
+
+  /* ⚡ On first load, apply saved room from Firebase */
+  if (!initialRoomApplied) {
+    initialRoomApplied = true;
+    applyInitialRoomFromState();
+  } else {
+    /* If Firebase room differs from local (partner moved Mochi), sync silently */
+    if (data.room && data.room !== currentRoomId && !isAnimating) {
+      const roomObj = ROOMS.find(r => r.id === data.room);
+      const lvl = data.level || 1;
+      if (roomObj && lvl >= roomObj.reqLevel) {
+        moveMochiToRoom(data.room, { silent: true, force: true });
+      }
+    }
+  }
 
   updateLevel();
   checkWantGeneration();
@@ -3064,7 +3288,7 @@ function applyRoom(force) {
 }
 
 /* ============================================================
-   3D FURNITURE SCENE — includes dynamic shop decorations
+   3D FURNITURE SCENE
    ============================================================ */
 function renderRoomScene() {
   const scene = $('roomScene');
@@ -3072,7 +3296,6 @@ function renderRoomScene() {
 
   const roomKey = currentRoomId;
   const inv = gameData?.inventory || {};
-  /* Hash inventory items relevant to this room so scene re-renders when new ones bought */
   const invHash = Object.keys(inv).filter(k => inv[k]).sort().join(',');
   const hashKey = roomKey + '|' + invHash;
   if (renderCache.sceneHash === hashKey) return;
@@ -3094,7 +3317,6 @@ function renderRoomScene() {
     return el;
   };
 
-  /* --- Room base furniture --- */
   if (roomKey === 'bedroom') {
     makeFurniture('f-bed', `
       <div class="bed-frame"></div>
@@ -3199,13 +3421,10 @@ function renderRoomScene() {
     `, 'STUDY', () => furnitureInteraction('starchart'));
   }
 
-  /* --- Shop decoration furniture for this room --- */
-  /* Kitchen extras */
+  /* Room-specific shop items */
   if (roomKey === 'kitchen' && inv.kitchen_sink) {
     makeFurniture('f-room-sink', `
-      <div class="sink-basin">
-        <div class="sink-bowl"></div>
-      </div>
+      <div class="sink-basin"><div class="sink-bowl"></div></div>
       <div class="sink-faucet"></div>
       <div class="sink-water"></div>
       <div class="sink-knob"></div>
@@ -3218,8 +3437,6 @@ function renderRoomScene() {
       <div class="trash-items">🍌 🍎 🥬</div>
     `, 'OPEN', () => furnitureInteraction('room_trash'));
   }
-
-  /* Bedroom extras */
   if (roomKey === 'bedroom' && inv.bedroom_bookshelf) {
     makeFurniture('f-room-bookshelf', `
       <div class="bs-body">
@@ -3244,8 +3461,6 @@ function renderRoomScene() {
       <div class="clock-pendulum"></div>
     `, 'WATCH', () => furnitureInteraction('room_clock'));
   }
-
-  /* Garden extras */
   if (roomKey === 'garden' && inv.garden_fountain) {
     makeFurniture('f-room-fountain', `
       <div class="fount-base"></div>
@@ -3271,8 +3486,6 @@ function renderRoomScene() {
       <div class="plant-water"></div>
     `, 'WATER', () => furnitureInteraction('room_plant'));
   }
-
-  /* Playroom extras */
   if (roomKey === 'playroom' && inv.playroom_easel) {
     makeFurniture('f-room-easel', `
       <div class="easel-leg-l"></div>
@@ -3299,10 +3512,7 @@ function renderRoomScene() {
       </div>
     `, 'PLAY', () => furnitureInteraction('room_piano'));
   }
-
-  /* Observatory extras */
   if (roomKey === 'observatory' && inv.observatory_globe) {
-    /* Random star positions inside the globe */
     let starsHtml = '';
     for (let i = 0; i < 6; i++) {
       const x = Math.random() * 44 + 2;
@@ -3316,7 +3526,6 @@ function renderRoomScene() {
     `, 'SPIN', () => furnitureInteraction('room_globe'));
   }
 
-  /* Refresh fridge contents if in kitchen */
   if (roomKey === 'kitchen') renderFridgeContents();
 }
 
@@ -3389,7 +3598,6 @@ async function furnitureInteraction(type) {
       case 'ballpit': await interactBallpit(pet); break;
       case 'telescope': await interactTelescope(pet); break;
       case 'starchart': await interactStarchart(pet); break;
-      /* NEW: room-specific shop items */
       case 'room_sink': await interactRoomSink(pet); break;
       case 'room_trash': await interactRoomTrash(pet); break;
       case 'room_bookshelf': await interactRoomBookshelf(pet); break;
@@ -3415,7 +3623,7 @@ async function furnitureInteraction(type) {
   startAmbientLoop();
 }
 
-/* ---------- BEDROOM BASE ---------- */
+/* ---------- BEDROOM ---------- */
 async function interactBed(pet) {
   const bed = document.querySelector('.f-bed');
   bed?.classList.add('fluffed');
@@ -3507,7 +3715,7 @@ async function interactWindow(pet) {
   pet.className = 'pet ' + computeMood().cls;
 }
 
-/* ---------- KITCHEN BASE ---------- */
+/* ---------- KITCHEN ---------- */
 async function interactCounter(pet) {
   const options = Object.values(RECIPES).map(r => ({
     emoji: r.emoji,
@@ -3730,7 +3938,7 @@ async function interactFridge(pet) {
   showToast(`🍴 Snacked on ${itemEmoji}! +8 🍚 +4 ☀️ +2 XP`);
 }
 
-/* ---------- GARDEN BASE ---------- */
+/* ---------- GARDEN ---------- */
 async function interactTree(pet) {
   const tree = document.querySelector('.f-tree');
   tree?.classList.add('shaking');
@@ -3787,7 +3995,7 @@ async function interactFlowers(pet) {
   showToast('🌸 Sniffed flowers! +7 ☀️ +3 XP');
 }
 
-/* ---------- PLAYROOM BASE ---------- */
+/* ---------- PLAYROOM ---------- */
 async function interactToybox(pet) {
   const box = document.querySelector('.f-toybox');
   box?.classList.add('open');
@@ -3885,7 +4093,7 @@ async function interactBallpit(pet) {
   showToast('🎉 Dove into the ballpit! +12 ☀️ -4 🌙 +4 XP');
 }
 
-/* ---------- OBSERVATORY BASE ---------- */
+/* ---------- OBSERVATORY ---------- */
 async function interactTelescope(pet) {
   const tel = document.querySelector('.f-telescope');
   tel?.classList.add('peeking');
@@ -3939,11 +4147,7 @@ async function interactStarchart(pet) {
   showToast('📖 Studied the stars! +6 XP');
 }
 
-/* ============================================================
-   NEW: ROOM DECORATION INTERACTIONS
-   ============================================================ */
-
-/* KITCHEN SINK — turns on water, splashes, cleans Mochi a little */
+/* ---------- ROOM DECOR INTERACTIONS ---------- */
 async function interactRoomSink(pet) {
   const sink = document.querySelector('.f-room-sink');
   if (!sink) return;
@@ -3978,7 +4182,6 @@ async function interactRoomSink(pet) {
   showToast('🚰 Splashed at the sink! +6 💧 +3 XP');
 }
 
-/* KITCHEN TRASH — opens lid, Mochi tosses a piece of trash */
 async function interactRoomTrash(pet) {
   const trash = document.querySelector('.f-room-trash');
   if (!trash) return;
@@ -3989,7 +4192,6 @@ async function interactRoomTrash(pet) {
   pet.className = 'pet watching';
   showBubble('trash!', '🗑️');
 
-  /* Pick a piece of trash to toss */
   const trashOptions = [
     { emoji: '🍌', name: 'BANANA', desc: 'compost', value: 'banana' },
     { emoji: '🥬', name: 'LETTUCE', desc: 'leftover', value: 'lettuce' },
@@ -4028,7 +4230,6 @@ async function interactRoomTrash(pet) {
   if (picked) showToast('🗑️ Tidied up! +4 💧 +3 XP');
 }
 
-/* BEDROOM BOOKSHELF — Mochi pulls a book and reads */
 async function interactRoomBookshelf(pet) {
   const bs = document.querySelector('.f-room-bookshelf');
   if (!bs) return;
@@ -4062,7 +4263,6 @@ async function interactRoomBookshelf(pet) {
   showToast('📖 Read a story! +5 XP +3 ☀️');
 }
 
-/* BEDROOM MIRROR — Mochi admires itself */
 async function interactRoomMirror(pet) {
   pet.className = 'pet walking';
   await movePetTo(66, 900);
@@ -4092,13 +4292,11 @@ async function interactRoomMirror(pet) {
   showToast('🪞 Feeling cute! +8 ☀️ +3 XP');
 }
 
-/* BEDROOM CLOCK — pendulum swings, Mochi watches time */
 async function interactRoomClock(pet) {
   pet.className = 'pet walking';
   await movePetTo(70, 900);
   pet.className = 'pet looking-up';
   showBubble('tick tock~', '🕰️');
-  /* Make hands spin quickly as a fun effect */
   const hourHand = document.querySelector('.f-room-clock .clock-hand.hour');
   const minuteHand = document.querySelector('.f-room-clock .clock-hand.minute');
   if (hourHand && minuteHand) {
@@ -4120,7 +4318,6 @@ async function interactRoomClock(pet) {
   showToast('🕰️ Watched the time! +4 XP');
 }
 
-/* GARDEN FOUNTAIN — water spurts up, Mochi plays */
 async function interactRoomFountain(pet) {
   const fount = document.querySelector('.f-room-fountain');
   if (!fount) return;
@@ -4157,7 +4354,6 @@ async function interactRoomFountain(pet) {
   showToast('⛲ Played in the fountain! +10 ☀️ +4 💧 +5 XP');
 }
 
-/* GARDEN BIRD FEEDER — bird visits */
 async function interactRoomFeeder(pet) {
   const feeder = document.querySelector('.f-room-feeder');
   if (!feeder) return;
@@ -4180,7 +4376,6 @@ async function interactRoomFeeder(pet) {
   showToast('🐦 Watched a bird! +6 ☀️ +4 XP');
 }
 
-/* GARDEN POTTED PLANT — Mochi waters it */
 async function interactRoomPlant(pet) {
   const plant = document.querySelector('.f-room-plant');
   if (!plant) return;
@@ -4203,7 +4398,6 @@ async function interactRoomPlant(pet) {
   showToast('🪴 Watered the plant! +4 XP +3 ☀️');
 }
 
-/* PLAYROOM EASEL — Mochi paints, splats appear */
 async function interactRoomEasel(pet) {
   const easel = document.querySelector('.f-room-easel');
   const canvas = easel?.querySelector('.easel-canvas');
@@ -4212,13 +4406,11 @@ async function interactRoomEasel(pet) {
   pet.className = 'pet watching';
   showBubble('painting!', '🎨');
 
-  /* Add splats progressively */
   const colors = ['🟣', '🟢', '🟡', '🔴', '🔵'];
   let splats = 0;
   const splatInterval = setInterval(() => {
     splats++;
     if (canvas) canvas.dataset.splats = Math.min(3, splats);
-    /* Add a floating splat effect near Mochi */
     const s = document.createElement('div');
     s.className = 'sparkle-burst';
     s.textContent = colors[Math.floor(Math.random() * colors.length)];
@@ -4247,7 +4439,6 @@ async function interactRoomEasel(pet) {
   showToast('🎨 Painted a picture! +8 ☀️ +6 XP');
 }
 
-/* PLAYROOM PIANO — Mochi plays notes, keys light up */
 async function interactRoomPiano(pet) {
   const piano = document.querySelector('.f-room-piano');
   if (!piano) return;
@@ -4257,7 +4448,6 @@ async function interactRoomPiano(pet) {
   pet.className = 'pet watching';
   showBubble('music!', '🎹');
 
-  /* Play a melody by pressing random keys */
   const notes = [523, 587, 659, 698, 784, 880, 988, 1047];
   for (let i = 0; i < 8; i++) {
     setTimeout(() => {
@@ -4270,7 +4460,6 @@ async function interactRoomPiano(pet) {
     }, i * 320);
   }
 
-  /* Mochi bounces to the beat */
   for (let i = 0; i < 8; i++) {
     setTimeout(() => {
       pet.className = 'pet ' + (i % 2 === 0 ? 'hopping' : 'happy');
@@ -4289,7 +4478,6 @@ async function interactRoomPiano(pet) {
   showToast('🎹 Made music! +9 ☀️ +5 XP');
 }
 
-/* OBSERVATORY STAR GLOBE — spins with rotating constellations */
 async function interactRoomGlobe(pet) {
   const globe = document.querySelector('.f-room-globe');
   if (!globe) return;
@@ -4868,7 +5056,7 @@ function renderAlbum() {
 }
 
 /* ============================================================
-   ROOMS GRID
+   ROOMS GRID — shows where Mochi is now
    ============================================================ */
 function renderRooms() {
   if (!gameData) return;
@@ -4881,19 +5069,17 @@ function renderRooms() {
     const card = document.createElement('div');
     card.className = 'room-card' + (unlocked ? ' unlocked' : ' locked') + (isActive ? ' active' : '');
     card.innerHTML = `
+      ${isActive ? '<div class="room-here-badge">MOCHI HERE</div>' : ''}
       <div class="room-emoji">${room.emoji}</div>
       <div class="room-name">${room.name}</div>
       <div class="room-req">${unlocked ? (isActive ? 'Currently here' : 'Tap to visit') : 'Unlock at Lv ' + room.reqLevel}</div>
     `;
-    if (unlocked) {
-      card.addEventListener('click', () => {
+    if (unlocked && !isActive) {
+      card.addEventListener('click', async () => {
         sfxClick();
-        currentRoomId = room.id;
-        renderCache.sceneHash = '';
-        fridgeOpen = false;
-        applyRoom(true);
-        renderRooms();
-        showToast('Mochi is now in the ' + room.name.toLowerCase() + '!');
+        if (isAnimating) return showToast('Let Mochi finish 🌿');
+        await moveMochiToRoom(room.id, { noToast: true });
+        showToast('Mochi walked to the ' + room.name.toLowerCase() + '! ' + room.emoji);
       });
     }
     grid.appendChild(card);
@@ -4901,7 +5087,7 @@ function renderRooms() {
 }
 
 /* ============================================================
-   SHOP — now filters by current room + shows global items
+   SHOP
    ============================================================ */
 function renderShop() {
   if (!gameData) return;
@@ -4922,7 +5108,6 @@ function renderShop() {
   if (renderCache.shopHash === hash) return;
   renderCache.shopHash = hash;
 
-  /* Update subtitle to show which room the shop is currently showing */
   const subtitle = $('shopSubtitle');
   if (subtitle) {
     subtitle.innerHTML = `Currently showing items for <b>${roomName}</b> 🪙<br>Visit a room to see its decorations!`;
@@ -4930,7 +5115,6 @@ function renderShop() {
 
   grid.innerHTML = '';
 
-  /* Filter: show global scope items + items matching current room */
   const visible = SHOP_ITEMS.filter(it => {
     if (it.scope === 'global') return true;
     if (it.scope === currentRoomId) return true;
@@ -4948,7 +5132,6 @@ function renderShop() {
     const placed = item.consumable ? (placedCounts[item.id] || 0) : 0;
     const disabled = !canAfford || owned || (item.consumable && roomFull);
 
-    /* Determine room tag */
     let roomTag = '';
     if (item.scope !== 'global') {
       const r = ROOMS.find(rm => rm.id === item.scope);
@@ -5005,7 +5188,6 @@ function buyItem(id) {
     });
     showToast(item.emoji + ' ' + item.name + ' purchased! It\'s in your room now!');
 
-    /* Force scene re-render for room-specific items */
     renderCache.sceneHash = '';
     renderCache.shopHash = '';
     renderCache.decorationsHash = '';
@@ -5305,6 +5487,14 @@ function startMoodParticleLoop() {
     area.appendChild(p);
     setTimeout(() => p.remove(), 2200);
   }, 3200);
+}
+
+/* Wander loop — checks every 30s if Mochi should move rooms */
+function startWanderLoop() {
+  if (wanderIntervalId) clearInterval(wanderIntervalId);
+  wanderIntervalId = setInterval(() => {
+    tryAutoWander();
+  }, 30000);
 }
 
 /* ============================================================
@@ -5608,7 +5798,7 @@ $('mgAgainBtn').addEventListener('click', () => {
 });
 
 /* ============================================================
-   ACTIONS
+   ACTIONS — SMART: walk to preferred room first
    ============================================================ */
 document.querySelectorAll('.action-btn').forEach(btn => {
   btn.addEventListener('click', () => {
@@ -5618,7 +5808,7 @@ document.querySelectorAll('.action-btn').forEach(btn => {
   });
 });
 
-function doAction(name) {
+async function doAction(name) {
   if (!gameData) return showToast('Loading Mochi... 🌿');
   if (isAnimating) return showToast('Let Mochi finish 🌿');
   if (mgActive) return showToast('Finish the mini-game first! 🫧');
@@ -5631,6 +5821,21 @@ function doAction(name) {
   if (action.cost) {
     for (const [s, amt] of Object.entries(action.cost)) {
       if (gameData[s] < amt) return showToast(`Mochi needs more ${s} first 💤`);
+    }
+  }
+
+  /* 🧠 SMART: If this action has a preferred room AND Mochi isn't there AND it's unlocked,
+     Mochi walks to that room first (before the animation starts). */
+  if (action.prefRoom && action.prefRoom !== currentRoomId) {
+    const lvl = gameData.level || 1;
+    const roomObj = ROOMS.find(r => r.id === action.prefRoom);
+    const unlocked = roomObj && lvl >= roomObj.reqLevel;
+
+    if (unlocked) {
+      showToast('Mochi is heading to the ' + roomObj.name.toLowerCase() + '...');
+      await moveMochiToRoom(action.prefRoom, { silent: false, noToast: true });
+      /* Small settle delay so player sees arrival */
+      await new Promise(r => setTimeout(r, 500));
     }
   }
 
@@ -5812,6 +6017,7 @@ $('logoutBtn').addEventListener('click', () => {
   if (ambientTimeoutId) clearTimeout(ambientTimeoutId);
   if (autoCleanIntervalId) clearInterval(autoCleanIntervalId);
   if (moodParticleIntervalId) clearInterval(moodParticleIntervalId);
+  if (wanderIntervalId) clearInterval(wanderIntervalId);
   localStorage.removeItem('mochi_role');
   localStorage.removeItem('mochi_pin');
   location.reload();
@@ -5822,6 +6028,8 @@ document.addEventListener('visibilitychange', () => {
     if (ambientTimeoutId) { clearTimeout(ambientTimeoutId); ambientTimeoutId = null; }
   } else if (!ambientTimeoutId && gameData && !mgActive) {
     startAmbientLoop();
+    /* On return, check if Mochi should wander */
+    setTimeout(() => tryAutoWander(), 5000);
   }
 });
 </script>
