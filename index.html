@@ -2258,7 +2258,17 @@
   .pet-mood-pill.sleeping { background: #8F7FB8; }
   @keyframes sickPulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.65; } }
 
-  .poop { position: absolute; font-size: 1.2rem; bottom: 20px; z-index: 12; animation: poopIn 0.3s ease-out; }
+  .poop {
+    position: absolute; font-size: 1.05rem; z-index: 12;
+    pointer-events: none;
+    animation: poopIn 0.3s ease-out;
+    filter: drop-shadow(0 2px 0 rgba(0,0,0,0.2));
+  }
+  /* When parented to the toilet, sit in/on the bowl */
+  .f-toilet .poop {
+    font-size: 0.95rem;
+    z-index: 6;
+  }
   @keyframes poopIn { 0% { transform: scale(0) rotate(-30deg); } 70% { transform: scale(1.2) rotate(8deg); } 100% { transform: scale(1) rotate(0deg); } }
 
   .pet-info { padding: 10px 12px 12px; background: #FDF6EE; }
@@ -4286,6 +4296,11 @@ function renderRoomScene() {
   }
 
   if (roomKey === 'kitchen') renderFridgeContents();
+  // Keep poops stuck to the toilet after scene rebuild / drag
+  if (roomKey === 'bathroom') {
+    renderCache.poops = '';
+    renderPoops();
+  }
 }
 
 function renderFridgeContents() {
@@ -6589,33 +6604,35 @@ function renderNeedIndicator() {
 
 function renderPoops() {
   if (!gameData) return;
+  // Always clear any stray poops first (petArea or toilets)
+  document.querySelectorAll('.poop').forEach(p => p.remove());
+
   const count = gameData.poops || 0;
   const key = currentRoomId + '|' + count;
-  if (renderCache.poops === key) return;
   renderCache.poops = key;
-  const area = $('petArea');
-  area.querySelectorAll('.poop').forEach(p => p.remove());
-  // Poops only show in the bathroom, parked next to the toilet
+
+  // Only visible in the bathroom, sitting on the toilet bowl
   if (currentRoomId !== 'bathroom' || count <= 0) return;
 
-  let baseLeft = 78;
-  let baseBottom = 14;
   const toilet = document.querySelector('.f-toilet');
-  if (toilet && $('room')) {
-    const roomRect = $('room').getBoundingClientRect();
-    const tRect = toilet.getBoundingClientRect();
-    if (roomRect.width > 1) {
-      baseLeft = ((tRect.left + tRect.width / 2) - roomRect.left) / roomRect.width * 100 - 6;
-      baseBottom = ((roomRect.bottom - tRect.bottom) / roomRect.height) * 100 + 2;
-    }
+  if (!toilet) {
+    // Scene may not be ready yet — retry shortly
+    setTimeout(() => {
+      renderCache.poops = '';
+      renderPoops();
+    }, 120);
+    return;
   }
+
+  // Parent to toilet so they stay on it even after drag-reposition
   for (let i = 0; i < Math.min(count, 3); i++) {
     const p = document.createElement('div');
     p.className = 'poop';
     p.textContent = '💩';
-    p.style.left = (baseLeft + i * 5) + '%';
-    p.style.bottom = (baseBottom + (i % 2) * 2) + '%';
-    area.appendChild(p);
+    // Sit in the bowl area of the toilet graphic
+    p.style.left = (22 + i * 16) + '%';
+    p.style.bottom = (6 + (i % 2) * 5) + '%';
+    toilet.appendChild(p);
   }
 }
 
@@ -7042,17 +7059,27 @@ function playActionAnimation(name) {
           break;
         }
         case 'clean': {
+          // Always clean at the toilet (wherever it was dragged)
           const toilet = document.querySelector('.f-toilet');
-          const tPos = getFurniturePos(toilet, 75, 12);
+          const tPos = getFurniturePos(toilet, 78, 12);
           pet.className = 'pet walking';
           await movePetTo(tPos.x, 900, tPos.bottom, tPos.scale);
           if (toilet) {
             toilet.classList.add('open', 'flushing');
+            // Visually clear stool on the toilet during flush
+            toilet.querySelectorAll('.poop').forEach((p, i) => {
+              setTimeout(() => {
+                p.style.transition = 'opacity 0.3s, transform 0.3s';
+                p.style.opacity = '0';
+                p.style.transform = 'scale(0.3) translateY(8px)';
+                setTimeout(() => p.remove(), 320);
+              }, i * 100);
+            });
             setTimeout(() => toilet.classList.remove('open', 'flushing'), 1200);
           }
           showBubble('all clean!', '🧹');
           sfxWater();
-          await new Promise(r => setTimeout(r, 1200));
+          await new Promise(r => setTimeout(r, 1300));
           pet.className = 'pet walking';
           await movePetTo(50, 700, 15, 1);
           pet.className = 'pet ' + computeMood().cls;
@@ -7258,23 +7285,30 @@ async function doAction(name) {
   playActionAnimation(name).then(async () => {
     applyActionEffects(name, addPoop);
     // After eating/playing caused a poop, Mochi heads to the bathroom
-    if (addPoop && currentRoomId !== 'bathroom') {
-      showToast('Mochi needs the bathroom... 🚽');
-      await moveMochiToRoom('bathroom', { silent: false, noToast: true });
+    if (addPoop) {
+      if (currentRoomId !== 'bathroom') {
+        showToast('Mochi needs the bathroom... 🚽');
+        await moveMochiToRoom('bathroom', { silent: false, noToast: true });
+      }
+      // Ensure stool is sitting on the toilet
+      renderCache.poops = '';
+      renderPoops();
       const toilet = document.querySelector('.f-toilet');
       if (toilet) {
         const tPos = getFurniturePos(toilet, 80);
         const p = $('pet');
         p.className = 'pet walking';
         await movePetTo(tPos.x, 800, tPos.bottom, tPos.scale);
-        toilet.classList.add('open', 'flushing');
+        toilet.classList.add('open');
         showBubble('gotta go!', '🚽');
         await new Promise(r => setTimeout(r, 1000));
-        toilet.classList.remove('open', 'flushing');
+        toilet.classList.remove('open');
         p.className = 'pet walking';
         await movePetTo(50, 700, 15, 1);
         p.className = 'pet ' + computeMood().cls;
       }
+      renderCache.poops = '';
+      renderPoops();
     }
     isAnimating = false;
     clearTimeout(animationWatchdog);
