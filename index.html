@@ -3438,21 +3438,23 @@
   .pet:not([data-stage="egg"]) .pet-torso {
     background: none !important; border-color: transparent !important; box-shadow: none !important;
   }
-  /* Head outfit anchor — aligned to SVG head */
+  /* Head outfit anchor — only the top of the SVG head (bow/hat/glasses) */
   .pet:not([data-stage="egg"]) .pet-body {
-    width: 52px !important; height: 44px !important; bottom: 30px !important;
+    width: 48px !important; height: 28px !important; bottom: 52px !important;
     left: 50% !important;
     transform: translateX(-50%) scale(var(--dk, 1)) !important;
     transform-origin: 50% 100% !important;
-    z-index: 8 !important;
+    z-index: 12 !important;
+    overflow: visible !important;
   }
-  /* Torso outfit anchor — aligned to SVG belly/chest */
+  /* Torso outfit anchor — only the belly/chest, never the face */
   .pet:not([data-stage="egg"]) .pet-torso {
-    width: 36px !important; height: 36px !important; bottom: 2px !important;
+    width: 34px !important; height: 28px !important; bottom: 14px !important;
     left: 50% !important;
     transform: translateX(-50%) scale(var(--dk, 1)) !important;
     transform-origin: 50% 100% !important;
-    z-index: 6 !important;
+    z-index: 5 !important;
+    overflow: visible !important;
   }
   .pet:not([data-stage="egg"]) .pet-belly,
   .pet:not([data-stage="egg"]) .pet-wing,
@@ -3580,35 +3582,53 @@
   }
 
   .pet:not([data-stage="egg"]) .wear-scarf {
-    top: 8%; width: 120%; margin-left: -60%; height: 10px;
+    top: -2px; width: 115%; margin-left: -57.5%; height: 8px;
   }
-  .pet:not([data-stage="egg"]) .wear-scarf .scarf-tail { right: 4px; top: 7px; }
+  .pet:not([data-stage="egg"]) .wear-scarf .scarf-tail { right: 2px; top: 6px; height: 10px; }
 
-  .pet:not([data-stage="egg"]) .wear-hoodie { inset: -4px -6px -2px; }
+  /* Soft hoodie = blue vest on the belly only (never covers face) */
+  .pet:not([data-stage="egg"]) .wear-hoodie {
+    position: absolute;
+    left: 50%; top: 8%;
+    width: 108%; height: 78%;
+    margin-left: -54%;
+    inset: auto;
+  }
   .pet:not([data-stage="egg"]) .wear-hoodie .hoodie-shell {
-    border-radius: 42% 42% 40% 40%;
-    background: linear-gradient(180deg, #8FB4D4 0%, #6A94B8 55%, #5A84A8 100%);
-    border: 2.5px solid #3A6080;
-    opacity: 0.92;
+    position: absolute; inset: 0;
+    border-radius: 45% 45% 38% 38%;
+    background: linear-gradient(180deg, #A8C8E0 0%, #7AA8C8 50%, #6A98B8 100%);
+    border: 2.5px solid #4A7088;
+    box-shadow: inset 0 2px 0 rgba(255,255,255,0.35);
+    opacity: 0.88;
   }
   .pet:not([data-stage="egg"]) .wear-hoodie .hoodie-pocket {
-    bottom: 6px; height: 24%;
+    position: absolute;
+    left: 50%; bottom: 12%;
+    width: 40%; height: 28%;
+    margin-left: -20%;
+    background: rgba(255,255,255,0.2);
+    border: 2px solid #4A7088;
+    border-radius: 4px 4px 6px 6px;
   }
+  /* Small collar at top of vest — not a face mask */
   .pet[data-outfit="clothes_hoodie"] .pet-torso::before {
     content: '';
-    position: absolute; top: -5px; left: 50%; width: 72%; height: 11px;
-    margin-left: -36%;
-    background: linear-gradient(180deg, #8FB4D4, #6A94B8);
-    border: 2px solid #3A6080;
-    border-radius: 50% 50% 20% 20% / 90% 90% 20% 20%;
-    z-index: 15; pointer-events: none;
+    position: absolute; top: -3px; left: 50%;
+    width: 58%; height: 7px;
+    margin-left: -29%;
+    background: linear-gradient(180deg, #A8C8E0, #7AA8C8);
+    border: 2px solid #4A7088;
+    border-radius: 6px 6px 2px 2px;
+    z-index: 6; pointer-events: none;
   }
+  .pet[data-outfit="clothes_hoodie"] .pet-torso::after { display: none !important; }
 
   /* Scale armor on torso */
   .pet[data-outfit="clothes_cape"] .pet-torso::after {
     content: '';
-    position: absolute; top: 8%; left: 50%; width: 78%; height: 58%;
-    margin-left: -39%;
+    position: absolute; top: 10%; left: 50%; width: 70%; height: 55%;
+    margin-left: -35%;
     background:
       radial-gradient(ellipse at 30% 40%, #E8A060 0%, transparent 55%),
       radial-gradient(ellipse at 70% 40%, #E8A060 0%, transparent 55%),
@@ -3616,7 +3636,7 @@
     border: 2px solid #6B3A18;
     border-radius: 40% 40% 35% 35%;
     box-shadow: inset 0 2px 0 rgba(255,220,160,0.35);
-    z-index: 15; pointer-events: none;
+    z-index: 6; pointer-events: none;
   }
 
   @media (prefers-reduced-motion: reduce) { .pet-dragon * { animation: none !important; } }
