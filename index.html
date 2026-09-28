@@ -3378,37 +3378,81 @@
   }
 
   /* ============================================================
-     RED BABY DRAGON — vector (SVG) body drawn inside .pet
-     Old CSS-box parts stay in the DOM (outfits/JS need them) but are hidden.
+     VECTOR DRAGON — SVG body + wardrobe anchors + stage growth
      ============================================================ */
   .pet-dragon { display: none; }
   .pet:not([data-stage="egg"]) .pet-dragon {
     display: block; position: absolute; z-index: 4; pointer-events: none;
     width: 113px; height: 101px; left: 50%; margin-left: -57px; top: 2px; overflow: visible;
     transform: scaleX(var(--fx, 1)) scale(var(--dk, 1)); transform-origin: 50% 88px;
-    transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+    transition: transform 0.55s cubic-bezier(0.34, 1.2, 0.64, 1), filter 0.4s;
   }
-  .pet[data-stage="hatchling"] { --dk: 0.83; }
-  .pet[data-stage="sapling"] { --dk: 1.09; }
-  .pet[data-stage="bloom"] { --dk: 1.17; }
-  .pet[data-stage="guardian"] { --dk: 1.26; }
-  .pet[data-stage="mystic"] { --dk: 1.35; }
-  .pet[data-stage="eternal"] { --dk: 1.43; }
+  /* Evolution scale — same design, bigger each stage */
+  .pet[data-stage="hatchling"] { --dk: 0.82; width: 72px; height: 78px; }
+  .pet[data-stage="sprout"]    { --dk: 1.00; width: 84px; height: 90px; }
+  .pet[data-stage="sapling"]   { --dk: 1.10; width: 92px; height: 98px; }
+  .pet[data-stage="bloom"]     { --dk: 1.18; width: 98px; height: 104px; }
+  .pet[data-stage="guardian"]  { --dk: 1.28; width: 106px; height: 112px; }
+  .pet[data-stage="mystic"]    { --dk: 1.36; width: 112px; height: 118px; }
+  .pet[data-stage="eternal"]   { --dk: 1.45; width: 120px; height: 126px; }
   .pet:not([data-stage="egg"]) { filter: drop-shadow(0 3px 2px rgba(47, 93, 74, 0.28)); }
 
-  /* hide the old boxy parts (keep .pet-body/.pet-torso as invisible outfit anchors) */
+  /* Stage color themes (same silhouette, evolving palette) */
+  .pet[data-stage="hatchling"] .pet-dragon .dg-red { fill: #9ADBAA; }
+  .pet[data-stage="hatchling"] .pet-dragon .dg-dk  { fill: #6FB888; }
+  .pet[data-stage="hatchling"] .pet-dragon .dg-cr  { fill: #FFF6DC; }
+  .pet[data-stage="hatchling"] .pet-dragon .dg-o   { stroke: #3A6A50; }
+
+  .pet[data-stage="sprout"] .pet-dragon .dg-red { fill: #7fd69a; }
+  .pet[data-stage="sprout"] .pet-dragon .dg-dk  { fill: #4fae78; }
+  .pet[data-stage="sprout"] .pet-dragon .dg-cr  { fill: #fff0c4; }
+  .pet[data-stage="sprout"] .pet-dragon .dg-o   { stroke: #2f5d4a; }
+
+  .pet[data-stage="sapling"] .pet-dragon .dg-red { fill: #5ecf88; }
+  .pet[data-stage="sapling"] .pet-dragon .dg-dk  { fill: #3aa868; }
+  .pet[data-stage="sapling"] .pet-dragon .dg-cr  { fill: #ffe8b0; }
+  .pet[data-stage="sapling"] .pet-dragon .dg-o   { stroke: #1e4a35; }
+
+  .pet[data-stage="bloom"] .pet-dragon .dg-red { fill: #E8A0B8; }
+  .pet[data-stage="bloom"] .pet-dragon .dg-dk  { fill: #C07090; }
+  .pet[data-stage="bloom"] .pet-dragon .dg-cr  { fill: #FFF0F4; }
+  .pet[data-stage="bloom"] .pet-dragon .dg-o   { stroke: #5A3040; }
+
+  .pet[data-stage="guardian"] .pet-dragon .dg-red { fill: #70C0D0; }
+  .pet[data-stage="guardian"] .pet-dragon .dg-dk  { fill: #3A8A98; }
+  .pet[data-stage="guardian"] .pet-dragon .dg-cr  { fill: #E8F6FA; }
+  .pet[data-stage="guardian"] .pet-dragon .dg-o   { stroke: #1A4050; }
+
+  .pet[data-stage="mystic"] .pet-dragon .dg-red { fill: #B8A0E0; }
+  .pet[data-stage="mystic"] .pet-dragon .dg-dk  { fill: #7A5AB0; }
+  .pet[data-stage="mystic"] .pet-dragon .dg-cr  { fill: #F4F0FC; }
+  .pet[data-stage="mystic"] .pet-dragon .dg-o   { stroke: #3A2858; }
+
+  .pet[data-stage="eternal"] .pet-dragon .dg-red { fill: #F0D878; }
+  .pet[data-stage="eternal"] .pet-dragon .dg-dk  { fill: #D4AF37; }
+  .pet[data-stage="eternal"] .pet-dragon .dg-cr  { fill: #FFFBF0; }
+  .pet[data-stage="eternal"] .pet-dragon .dg-o   { stroke: #6B5A20; }
+
+  /* hide old boxy parts — keep anchors for outfits */
   .pet:not([data-stage="egg"]) .pet-body,
   .pet:not([data-stage="egg"]) .pet-torso {
     background: none !important; border-color: transparent !important; box-shadow: none !important;
   }
-  /* invisible outfit anchors, sized to the dragon's head and torso and scaled with it */
+  /* Head outfit anchor — aligned to SVG head */
   .pet:not([data-stage="egg"]) .pet-body {
-    width: 49px !important; height: 40px !important; bottom: 27px !important;
-    transform: translateX(-50%) scale(var(--dk, 1)) !important; transform-origin: 50% 72px !important;
+    width: 52px !important; height: 44px !important; bottom: 30px !important;
+    left: 50% !important;
+    transform: translateX(-50%) scale(var(--dk, 1)) !important;
+    transform-origin: 50% 100% !important;
+    z-index: 8 !important;
   }
+  /* Torso outfit anchor — aligned to SVG belly/chest */
   .pet:not([data-stage="egg"]) .pet-torso {
-    width: 30px !important; height: 33px !important; bottom: -2px !important;
-    transform: translateX(-50%) scale(var(--dk, 1)) !important; transform-origin: 50% 35px !important;
+    width: 36px !important; height: 36px !important; bottom: 2px !important;
+    left: 50% !important;
+    transform: translateX(-50%) scale(var(--dk, 1)) !important;
+    transform-origin: 50% 100% !important;
+    z-index: 6 !important;
   }
   .pet:not([data-stage="egg"]) .pet-belly,
   .pet:not([data-stage="egg"]) .pet-wing,
@@ -3420,32 +3464,28 @@
   .pet:not([data-stage="egg"]) .pet-eye,
   .pet:not([data-stage="egg"]) .pet-blush,
   .pet:not([data-stage="egg"]) .pet-snout,
-  .pet:not([data-stage="egg"]) .pet-mouth { display: none !important; }
-  .pet:not([data-stage="egg"]) .pet-accessories { z-index: 9 !important; }
+  .pet:not([data-stage="egg"]) .pet-mouth,
+  .pet:not([data-stage="egg"]) .pet-halo { display: none !important; }
+  .pet:not([data-stage="egg"]) .pet-accessories { z-index: 10 !important; }
+  .pet:not([data-stage="egg"]) .pet-outfit,
+  .pet:not([data-stage="egg"]) .pet-outfit-body {
+    position: absolute; inset: 0; pointer-events: none; overflow: visible; z-index: 12;
+  }
 
-  /* dragon paint */
+  /* Default paint */
   .pet-dragon .dg-o { stroke: #2f5d4a; stroke-width: 5; stroke-linejoin: round; stroke-linecap: round; }
   .pet-dragon .dg-red { fill: #7fd69a; }
   .pet-dragon .dg-dk { fill: #4fae78; }
   .pet-dragon .dg-cr { fill: #fff0c4; }
   .pet-dragon .dg-breath { opacity: 0; }
 
-  /* idle motion */
   .pet-dragon .dg-wl { transform-box: fill-box; transform-origin: 100% 60%; animation: dgFlapL 1.6s ease-in-out infinite; }
   .pet-dragon .dg-wr { transform-box: fill-box; transform-origin: 0% 60%; animation: dgFlapR 1.6s ease-in-out infinite; }
   .pet-dragon .dg-tail { transform-box: fill-box; transform-origin: 0% 20%; animation: dgWag 2.4s ease-in-out infinite; }
   .pet-dragon .dg-flame { transform-box: fill-box; transform-origin: 50% 100%; animation: dgFlick 0.7s ease-in-out infinite alternate; }
   .pet-dragon .dg-eye { transform-box: fill-box; transform-origin: 50% 50%; animation: dgBlink 4.6s ease-in-out infinite; }
   .pet-dragon .dg-mouth { transform-box: fill-box; transform-origin: 50% 0%; transition: transform 0.3s; }
-  @keyframes dgFlapL { 50% { transform: rotate(-9deg); } }
-  @keyframes dgFlapR { 50% { transform: rotate(9deg); } }
-  @keyframes dgWag { 50% { transform: rotate(7deg); } }
-  @keyframes dgFlick { to { transform: scale(1.12, 0.94) rotate(3deg); } }
-  @keyframes dgBlink { 0%, 90%, 100% { transform: scaleY(1); } 95% { transform: scaleY(0.1); } }
-  @keyframes dgChew { 0%, 49% { transform: scaleY(1); } 50%, 100% { transform: scaleY(0.55); } }
-  @keyframes dgBreath { 0% { opacity: 1; transform: scale(0.2); } 70% { opacity: 1; transform: scale(1.15); } 100% { opacity: 0.9; transform: scale(1); } }
 
-  /* moods & actions */
   .pet.sleeping .pet-dragon .dg-eye { animation: none; transform: scaleY(0.08); }
   .pet.sleeping .pet-dragon .dg-wl, .pet.sleeping .pet-dragon .dg-wr, .pet.sleeping .pet-dragon .dg-tail { animation-play-state: paused; }
   .pet.sad .pet-dragon .dg-eye, .pet.sick .pet-dragon .dg-eye, .pet.grumpy .pet-dragon .dg-eye { transform: scaleY(0.75); animation: none; }
@@ -3454,20 +3494,44 @@
   .pet.roaring .pet-dragon .dg-mouth, .pet.happy .pet-dragon .dg-mouth, .pet.ecstatic .pet-dragon .dg-mouth { transform: scale(1.12); }
   .pet.flying .pet-dragon .dg-wl, .pet.flying .pet-dragon .dg-wr { animation-duration: 0.35s; }
   .pet.firebreath .pet-dragon .dg-breath, .pet.roaring .pet-dragon .dg-breath {
-    transform-box: view-box; transform-origin: 385px 395px; animation: dgBreath 0.6s ease-out forwards;
+    opacity: 1;
   }
   .pet.roaring .pet-dragon .dg-breath { animation-name: none; opacity: 0; }
 
-  /* walking: alternate steps, swinging arms, waddle, quicker tail */
   .pet-dragon .dg-all { transform-origin: 385px 575px; }
   .pet-dragon .dg-foot-l, .pet-dragon .dg-foot-r, .pet-dragon .dg-arm-l, .pet-dragon .dg-arm-r { transform-box: fill-box; }
   .pet-dragon .dg-arm-l, .pet-dragon .dg-arm-r { transform-origin: 50% 10%; }
   .pet.walking .pet-dragon .dg-all, .pet.leaving .pet-dragon .dg-all { animation: dgWaddle 0.5s ease-in-out infinite; }
-  .pet.walking .pet-dragon .dg-foot-l, .pet.leaving .pet-dragon .dg-foot-l { animation: dgStepL 0.5s ease-in-out infinite; }
-  .pet.walking .pet-dragon .dg-foot-r, .pet.leaving .pet-dragon .dg-foot-r { animation: dgStepR 0.5s ease-in-out infinite; }
-  .pet.walking .pet-dragon .dg-arm-l, .pet.leaving .pet-dragon .dg-arm-l { animation: dgSwingL 0.5s ease-in-out infinite; }
-  .pet.walking .pet-dragon .dg-arm-r, .pet.leaving .pet-dragon .dg-arm-r { animation: dgSwingR 0.5s ease-in-out infinite; }
+  .pet.walking .pet-dragon .dg-foot-l { animation: dgStepL 0.5s ease-in-out infinite; }
+  .pet.walking .pet-dragon .dg-foot-r { animation: dgStepR 0.5s ease-in-out infinite; }
+  .pet.walking .pet-dragon .dg-arm-l { animation: dgSwingL 0.5s ease-in-out infinite; }
+  .pet.walking .pet-dragon .dg-arm-r { animation: dgSwingR 0.5s ease-in-out infinite; }
   .pet.walking .pet-dragon .dg-tail { animation-duration: 0.5s; }
+
+  @keyframes dgFlapL {
+    0%, 100% { transform: rotate(4deg); }
+    50% { transform: rotate(-16deg); }
+  }
+  @keyframes dgFlapR {
+    0%, 100% { transform: rotate(-4deg); }
+    50% { transform: rotate(16deg); }
+  }
+  @keyframes dgWag {
+    0%, 100% { transform: rotate(-6deg); }
+    50% { transform: rotate(10deg); }
+  }
+  @keyframes dgFlick {
+    0% { transform: scaleY(1) scaleX(1); }
+    100% { transform: scaleY(1.12) scaleX(0.95); }
+  }
+  @keyframes dgBlink {
+    0%, 90%, 100% { transform: scaleY(1); }
+    95% { transform: scaleY(0.12); }
+  }
+  @keyframes dgChew {
+    0%, 49% { transform: scaleY(1); }
+    50%, 100% { transform: scaleY(0.45); }
+  }
   @keyframes dgWaddle { 0%, 100% { transform: rotate(-4deg); } 50% { transform: rotate(4deg); } }
   @keyframes dgStepL { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-24px); } }
   @keyframes dgStepR { 0%, 100% { transform: translateY(-24px); } 50% { transform: translateY(0); } }
@@ -3477,28 +3541,86 @@
   .pet.happy .pet-dragon .dg-arm-r { animation: dgSwingR 0.45s ease-in-out infinite; }
   .pet:not([data-stage="egg"]):active { filter: drop-shadow(0 3px 2px rgba(47, 93, 74, 0.28)) brightness(1.06); }
 
-  /* wardrobe: every piece re-fitted to the dragon's head (49x40) and torso (30x33) */
-  .pet .wear-hat { top: -15px; width: 28px; height: 17px; margin-left: -14px; }
-  .pet .wear-hat .hat-brim { width: 28px; margin-left: -14px; height: 5px; }
-  .pet .wear-hat .hat-top { width: 17px; height: 13px; margin-left: -8.5px; bottom: 3px; }
-  .pet .wear-hat .hat-band { width: 17px; margin-left: -8.5px; bottom: 4px; }
-  .pet .wear-crown { top: -14px; width: 26px; height: 15px; margin-left: -13px; }
-  .pet .wear-crown .crown-pt { border-left-width: 4px; border-right-width: 4px; }
-  .pet .wear-crown .crown-pt.p2 { margin-left: -4px; }
-  .pet .wear-bow { left: auto; right: 0; margin-left: 0; top: -5px; width: 22px; height: 14px; }
-  .pet .wear-bow::before, .pet .wear-bow::after { width: 10px; height: 10px; }
-  .pet .wear-bow .wear-knot { top: 4px; width: 6px; height: 6px; margin-left: -3px; }
-  .pet .wear-glasses { left: 2.4px; top: 12.5px; width: 41.6px; height: 16px; margin-left: 0; }
-  .pet .wear-glasses .g-lens { width: 16px; height: 16px; border-color: #2d3a4a; background: rgba(190, 225, 255, 0.3); }
-  .pet .wear-glasses .g-bridge { left: 16px; top: 6px; width: 9.6px; margin-left: 0; background: #2d3a4a; }
-  .pet .wear-flower { left: 33px; right: auto; top: -2px; width: 13px; height: 13px; }
-  .pet .wear-scarf { top: 5px; width: 132%; margin-left: -66%; height: 9px; }
-  .pet .wear-hoodie { inset: -3px -4px -2px; }
-  .pet .wear-hoodie .hoodie-shell { border-radius: 46% 46% 42% 42%; }
-  .pet .wear-scarf .scarf-tail { right: 3px; top: 6px; }
-  .pet[data-outfit="clothes_hoodie"] .pet-torso::before { top: -3px; width: 104%; margin-left: -52%; height: 8px; }
-  .pet[data-outfit="clothes_cape"] .pet-torso::after { top: 5px; width: 86%; margin-left: -43%; height: 62%; }
+  /* ---- Wardrobe fitted to SVG dragon head/torso anchors ---- */
+  .pet:not([data-stage="egg"]) .wear {
+    z-index: 14;
+  }
+  .pet:not([data-stage="egg"]) .wear-hat {
+    top: -16px; left: 50%; width: 30px; height: 18px; margin-left: -15px;
+  }
+  .pet:not([data-stage="egg"]) .wear-hat .hat-brim { width: 30px; margin-left: -15px; height: 5px; }
+  .pet:not([data-stage="egg"]) .wear-hat .hat-top { width: 18px; height: 14px; margin-left: -9px; bottom: 3px; }
+  .pet:not([data-stage="egg"]) .wear-hat .hat-band { width: 18px; margin-left: -9px; bottom: 4px; }
+
+  .pet:not([data-stage="egg"]) .wear-crown {
+    top: -15px; left: 50%; width: 28px; height: 16px; margin-left: -14px;
+  }
+
+  .pet:not([data-stage="egg"]) .wear-bow {
+    left: 50%; right: auto; top: -8px; width: 20px; height: 14px; margin-left: -2px;
+  }
+  .pet:not([data-stage="egg"]) .wear-bow::before,
+  .pet:not([data-stage="egg"]) .wear-bow::after { width: 9px; height: 9px; }
+
+  .pet:not([data-stage="egg"]) .wear-glasses {
+    left: 50%; top: 14px; width: 44px; height: 15px; margin-left: -22px;
+  }
+  .pet:not([data-stage="egg"]) .wear-glasses .g-lens {
+    width: 15px; height: 15px; border-color: #2d3a4a;
+    background: rgba(190, 225, 255, 0.28);
+  }
+  .pet:not([data-stage="egg"]) .wear-glasses .g-lens.l { left: 0; }
+  .pet:not([data-stage="egg"]) .wear-glasses .g-lens.r { right: 0; }
+  .pet:not([data-stage="egg"]) .wear-glasses .g-bridge {
+    left: 50%; top: 6px; width: 10px; margin-left: -5px; background: #2d3a4a;
+  }
+
+  .pet:not([data-stage="egg"]) .wear-flower {
+    left: auto; right: -2px; top: 0; width: 14px; height: 14px;
+  }
+
+  .pet:not([data-stage="egg"]) .wear-scarf {
+    top: 8%; width: 120%; margin-left: -60%; height: 10px;
+  }
+  .pet:not([data-stage="egg"]) .wear-scarf .scarf-tail { right: 4px; top: 7px; }
+
+  .pet:not([data-stage="egg"]) .wear-hoodie { inset: -4px -6px -2px; }
+  .pet:not([data-stage="egg"]) .wear-hoodie .hoodie-shell {
+    border-radius: 42% 42% 40% 40%;
+    background: linear-gradient(180deg, #8FB4D4 0%, #6A94B8 55%, #5A84A8 100%);
+    border: 2.5px solid #3A6080;
+    opacity: 0.92;
+  }
+  .pet:not([data-stage="egg"]) .wear-hoodie .hoodie-pocket {
+    bottom: 6px; height: 24%;
+  }
+  .pet[data-outfit="clothes_hoodie"] .pet-torso::before {
+    content: '';
+    position: absolute; top: -5px; left: 50%; width: 72%; height: 11px;
+    margin-left: -36%;
+    background: linear-gradient(180deg, #8FB4D4, #6A94B8);
+    border: 2px solid #3A6080;
+    border-radius: 50% 50% 20% 20% / 90% 90% 20% 20%;
+    z-index: 15; pointer-events: none;
+  }
+
+  /* Scale armor on torso */
+  .pet[data-outfit="clothes_cape"] .pet-torso::after {
+    content: '';
+    position: absolute; top: 8%; left: 50%; width: 78%; height: 58%;
+    margin-left: -39%;
+    background:
+      radial-gradient(ellipse at 30% 40%, #E8A060 0%, transparent 55%),
+      radial-gradient(ellipse at 70% 40%, #E8A060 0%, transparent 55%),
+      linear-gradient(180deg, #C97A40 0%, #A05828 100%);
+    border: 2px solid #6B3A18;
+    border-radius: 40% 40% 35% 35%;
+    box-shadow: inset 0 2px 0 rgba(255,220,160,0.35);
+    z-index: 15; pointer-events: none;
+  }
+
   @media (prefers-reduced-motion: reduce) { .pet-dragon * { animation: none !important; } }
+
 </style>
 </head>
 <body>
