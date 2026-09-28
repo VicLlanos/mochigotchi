@@ -385,12 +385,12 @@
     position: absolute; left: 50%; bottom: 28px;
     transform: translateX(-50%);
     width: 44px; height: 40px;
-    background: var(--pet-color, #4A9B6E);
-    border: 3px solid var(--pet-outline, #1E3A28);
-    border-radius: 48% 48% 42% 42%;
+    background: var(--pet-color, #7ECF9A);
+    border: 3px solid var(--pet-outline, #3A7A55);
+    border-radius: 50%;
     box-shadow:
-      inset -6px -5px 0 rgba(0,0,0,0.12),
-      inset 3px 3px 0 rgba(255,255,255,0.18);
+      inset -5px -5px 0 rgba(0,0,0,0.06),
+      inset 3px 3px 0 rgba(255,255,255,0.35);
     transition: width 0.4s, height 0.4s, bottom 0.4s, background 0.4s, border-color 0.4s;
     z-index: 8;
   }
@@ -398,12 +398,12 @@
     position: absolute; left: 50%; bottom: 8px;
     transform: translateX(-50%);
     width: 40px; height: 32px;
-    background: var(--pet-color, #4A9B6E);
-    border: 3px solid var(--pet-outline, #1E3A28);
-    border-radius: 42% 42% 38% 38%;
+    background: var(--pet-color, #7ECF9A);
+    border: 3px solid var(--pet-outline, #3A7A55);
+    border-radius: 46% 46% 42% 42%;
     box-shadow:
-      inset -5px -4px 0 rgba(0,0,0,0.1),
-      inset 2px 2px 0 rgba(255,255,255,0.15);
+      inset -4px -4px 0 rgba(0,0,0,0.06),
+      inset 2px 2px 0 rgba(255,255,255,0.3);
     transition: width 0.4s, height 0.4s, background 0.4s, border-color 0.4s;
     z-index: 5;
   }
@@ -412,8 +412,8 @@
     position: absolute; left: 50%; top: 16%;
     transform: translateX(-50%);
     width: 52%; height: 62%;
-    background: var(--pet-belly, #A8D4B0);
-    border: 2px solid var(--pet-outline, #1E3A28);
+    background: var(--pet-belly, #E0F5E6);
+    border: 2px solid var(--pet-outline, #3A7A55);
     border-radius: 40% 40% 42% 42%;
     box-shadow: inset 0 2px 0 rgba(255,255,255,0.25);
     z-index: 1;
@@ -429,8 +429,8 @@
   .pet-arm {
     position: absolute; bottom: 20px;
     width: 11px; height: 12px;
-    background: var(--pet-color, #4A9B6E);
-    border: 2.5px solid var(--pet-outline, #1E3A28);
+    background: var(--pet-color, #7ECF9A);
+    border: 2.5px solid var(--pet-outline, #3A7A55);
     border-radius: 45%;
     z-index: 6;
     box-shadow: inset -2px -2px 0 rgba(0,0,0,0.1);
@@ -447,8 +447,8 @@
   .pet-foot {
     position: absolute; bottom: 2px;
     width: 14px; height: 11px;
-    background: var(--pet-color, #4A9B6E);
-    border: 2.5px solid var(--pet-outline, #1E3A28);
+    background: var(--pet-color, #7ECF9A);
+    border: 2.5px solid var(--pet-outline, #3A7A55);
     border-radius: 45% 45% 40% 40%;
     z-index: 6;
   }
@@ -560,24 +560,22 @@
     width: 18px; height: 14px; border-radius: 50%;
   }
 
-  /* Large expressive eyes with green shine */
+  /* Big soft cute eyes */
   .pet-eye {
-    position: absolute; top: 10px; width: 14px; height: 16px;
-    background: #0A1A0A;
+    position: absolute; top: 11px; width: 13px; height: 14px;
+    background: #2A2218;
     border-radius: 50%;
     animation: petBlink 4.6s ease-in-out infinite;
     z-index: 4;
-    box-shadow: inset 0 0 0 2px #1A3020;
   }
-  .pet-eye-l { left: 6px; } .pet-eye-r { right: 6px; }
+  .pet-eye-l { left: 7px; } .pet-eye-r { right: 7px; }
   .pet-eye::after {
     content: ''; position: absolute; top: 2px; left: 2px;
-    width: 6px; height: 6px; background: #7CFF9A; border-radius: 50%;
-    box-shadow: 3px 4px 0 -1px #fff;
+    width: 5px; height: 5px; background: #fff; border-radius: 50%;
   }
   .pet-eye::before {
-    content: ''; position: absolute; bottom: 3px; right: 3px;
-    width: 3px; height: 3px; background: rgba(255,255,255,0.7); border-radius: 50%;
+    content: ''; position: absolute; bottom: 2px; right: 2px;
+    width: 2.5px; height: 2.5px; background: rgba(255,255,255,0.55); border-radius: 50%;
   }
   .pet-snout {
     position: absolute; bottom: 11px; left: 50%;
@@ -602,14 +600,14 @@
     0%, 90%, 100% { transform: scaleY(1); }
     95% { transform: scaleY(0.15); }
   }
-  .pet-blush { position: absolute; bottom: 12px; width: 10px; height: 6px; background: rgba(255, 140, 150, 0.55); border-radius: 50%; transition: opacity 0.3s; z-index: 3; }
-  .pet-blush-l { left: 1px; } .pet-blush-r { right: 1px; }
+  .pet-blush { position: absolute; bottom: 11px; width: 11px; height: 7px; background: rgba(255, 150, 160, 0.7); border-radius: 50%; transition: opacity 0.3s; z-index: 3; }
+  .pet-blush-l { left: 0px; } .pet-blush-r { right: 0px; }
   .pet-mouth {
-    position: absolute; bottom: 5px; left: 50%; transform: translateX(-50%);
-    width: 10px; height: 4px;
-    background: #0A1A0A;
-    border-radius: 0 0 8px 8px;
-    opacity: 0.85;
+    position: absolute; bottom: 6px; left: 50%; transform: translateX(-50%);
+    width: 11px; height: 5px;
+    background: #3A2E28;
+    border-radius: 0 0 10px 10px;
+    opacity: 0.75;
     transition: all 0.3s;
     z-index: 4;
     overflow: hidden;
@@ -652,8 +650,8 @@
   .pet-ear {
     position: absolute; top: 8px;
     width: 14px; height: 16px;
-    background: var(--pet-color, #4A9B6E);
-    border: 2.5px solid var(--pet-outline, #1E3A28);
+    background: var(--pet-color, #7ECF9A);
+    border: 2.5px solid var(--pet-outline, #3A7A55);
     display: none;
     z-index: 2;
   }
@@ -672,8 +670,8 @@
   .pet-wing {
     position: absolute; top: 22px;
     width: 26px; height: 28px;
-    background: var(--pet-wing, #3A7A58);
-    border: 2.5px solid var(--pet-outline, #1E3A28);
+    background: var(--pet-wing, #6BC090);
+    border: 2.5px solid var(--pet-outline, #3A7A55);
     display: none;
     z-index: 3;
     opacity: 1;
@@ -708,8 +706,8 @@
     margin-left: 8px;
     bottom: 12px;
     width: 28px; height: 12px;
-    background: var(--pet-color, #4A9B6E);
-    border: 3px solid var(--pet-outline, #1E3A28);
+    background: var(--pet-color, #7ECF9A);
+    border: 3px solid var(--pet-outline, #3A7A55);
     border-left: none;
     border-radius: 0 40% 40% 0;
     transform-origin: left center;
@@ -722,7 +720,7 @@
     position: absolute;
     left: -6px; top: -1px;
     width: 12px; height: 12px;
-    background: var(--pet-color, #4A9B6E);
+    background: var(--pet-color, #7ECF9A);
     border-radius: 50%;
     z-index: -1;
   }
@@ -735,8 +733,8 @@
     width: 0; height: 0;
     border-top: 8px solid transparent;
     border-bottom: 8px solid transparent;
-    border-left: 12px solid var(--pet-color, #4A9B6E);
-    filter: drop-shadow(1px 0 0 var(--pet-outline, #1E3A28));
+    border-left: 12px solid var(--pet-color, #7ECF9A);
+    filter: drop-shadow(1px 0 0 var(--pet-outline, #3A7A55));
   }
   @keyframes tailWag {
     0%, 100% { transform: rotate(-6deg); }
@@ -748,8 +746,8 @@
   .pet-horn {
     position: absolute; top: -6px;
     width: 8px; height: 10px;
-    background: var(--pet-color, #4A9B6E);
-    border: 2.5px solid var(--pet-outline, #1E3A28);
+    background: var(--pet-color, #7ECF9A);
+    border: 2.5px solid var(--pet-outline, #3A7A55);
     border-radius: 50% 50% 40% 40%;
     display: none;
     z-index: 9;
@@ -792,8 +790,8 @@
   /* ---- Hatchling ---- */
   .pet[data-stage="hatchling"] {
     width: 68px; height: 72px;
-    --pet-color: #6BB884; --pet-color-dark: #3A7A58; --pet-outline: #1E3A28;
-    --pet-belly: #B8DCC0; --pet-horn: #4A9B6E; --pet-wing: #3A7A58;
+    --pet-color: #9ADBAA; --pet-color-dark: #6FB888; --pet-outline: #4A8A60;
+    --pet-belly: #E8F8EC; --pet-horn: #9ADBAA; --pet-wing: #7ECF9A;
   }
   .pet[data-stage="hatchling"] .pet-body { bottom: 22px; width: 38px; height: 34px; }
   .pet[data-stage="hatchling"] .pet-torso { width: 34px; height: 26px; bottom: 5px; }
@@ -813,8 +811,8 @@
   /* ---- Sprout — matches reference green dragon ---- */
   .pet[data-stage="sprout"] {
     width: 78px; height: 84px;
-    --pet-color: #4A9B6E; --pet-color-dark: #2E6B4A; --pet-outline: #1A3020;
-    --pet-belly: #A8D4B0; --pet-horn: #4A9B6E; --pet-wing: #2E6B4A;
+    --pet-color: #7ECF9A; --pet-color-dark: #5AB078; --pet-outline: #3A8A58;
+    --pet-belly: #E0F5E6; --pet-horn: #7ECF9A; --pet-wing: #6BC090;
   }
   .pet[data-stage="sprout"] .pet-body { bottom: 26px; width: 46px; height: 42px; }
   .pet[data-stage="sprout"] .pet-torso { width: 44px; height: 34px; bottom: 6px; }
@@ -837,8 +835,8 @@
   /* ---- Sapling ---- */
   .pet[data-stage="sapling"] {
     width: 86px; height: 92px;
-    --pet-color: #3D8F62; --pet-color-dark: #286648; --pet-outline: #152818;
-    --pet-belly: #98C8A8; --pet-horn: #3D8F62; --pet-wing: #286648;
+    --pet-color: #6BC090; --pet-color-dark: #4AA870; --pet-outline: #358050;
+    --pet-belly: #D8F0E0; --pet-horn: #6BC090; --pet-wing: #5AB080;
   }
   .pet[data-stage="sapling"] .pet-body { bottom: 30px; width: 50px; height: 46px; }
   .pet[data-stage="sapling"] .pet-torso { width: 48px; height: 38px; bottom: 7px; }
