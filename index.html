@@ -498,89 +498,9 @@
 
   /* Big shiny cartoon eyes */
 
-  /* ---- All-fours dragon pose (rest / idle) ---- */
-  .pet.quad .pet-body {
-    left: 8%; bottom: 16px;
-    transform: none;
-    width: 36px; height: 32px;
-  }
-  .pet.quad .pet-torso {
-    left: 50%; bottom: 8px;
-    width: 48px; height: 22px;
-    border-radius: 42% 42% 38% 38%;
-  }
-  .pet.quad .pet-arm-l { left: 50%; margin-left: -22px; bottom: 2px; transform: none; }
-  .pet.quad .pet-arm-r { left: 50%; margin-left: -8px; bottom: 2px; transform: none; }
-  .pet.quad .pet-foot-l { left: 50%; margin-left: 6px; bottom: 2px; }
-  .pet.quad .pet-foot-r { left: 50%; margin-left: 18px; bottom: 2px; }
-  .pet.quad .pet-tail {
-    left: 50%; margin-left: 16px; bottom: 10px;
-    display: block !important;
-  }
-  .pet.quad .pet-wing { top: 22px; }
-  .pet.quad .pet-wing-l { margin-left: -28px; }
-  .pet.quad .pet-wing-r { margin-left: 10px; }
+  /* all-fours layout overrides removed — kept body design stable */
 
-  /* ---- Curled-up rest (tail around body, sleepy) ---- */
-  .pet.curled {
-    animation: curlBreath 3.2s ease-in-out infinite;
-  }
-  @keyframes curlBreath {
-    0%, 100% { transform: translateX(-50%) translateY(0) scale(1, 1); }
-    50% { transform: translateX(-50%) translateY(-2px) scale(1.02, 0.98); }
-  }
-  .pet.curled .pet-body {
-    left: 50%; bottom: 18px;
-    transform: translateX(-50%);
-  }
-  .pet.curled .pet-torso {
-    width: 42px; height: 30px; bottom: 6px;
-  }
-  .pet.curled .pet-arm-l,
-  .pet.curled .pet-arm-r {
-    bottom: 12px;
-    transform: scale(0.85);
-  }
-  .pet.curled .pet-arm-l { margin-left: -22px; }
-  .pet.curled .pet-arm-r { margin-left: 10px; }
-  .pet.curled .pet-foot {
-    bottom: 2px;
-    transform: scale(0.9);
-  }
-  .pet.curled .pet-tail {
-    display: block !important;
-    left: 50%; margin-left: -4px;
-    bottom: 4px;
-    width: 36px; height: 28px;
-    border-radius: 50%;
-    border: 3px solid var(--pet-outline, #2A3A28);
-    border-left-color: transparent;
-    border-bottom-color: transparent;
-    background: transparent;
-    animation: none;
-    transform: rotate(-20deg);
-    z-index: 7;
-  }
-  .pet.curled .pet-tail::before {
-    left: auto; right: 2px; top: auto; bottom: -4px;
-    width: 16px; height: 16px;
-    background: var(--pet-color, #7EC87A);
-    border: 2.5px solid var(--pet-outline, #2A3A28);
-    border-radius: 50%;
-  }
-  .pet.curled .pet-tail::after {
-    right: -2px; bottom: -6px;
-    width: 12px; height: 12px;
-  }
-  .pet.curled .pet-eye {
-    height: 3px; border-radius: 3px; animation: none;
-  }
-  .pet.curled .pet-eye::after,
-  .pet.curled .pet-eye::before { display: none; }
-  .pet.curled .pet-mouth {
-    width: 8px; height: 3px; border-radius: 0 0 6px 6px;
-  }
-  .pet.curled .pet-mouth::after { display: none !important; }
+  /* curled pose removed — caused broken tail/body layout */
 
   /* ---- Special action animations ---- */
   .pet.singing {
@@ -604,15 +524,33 @@
     100% { transform: translateX(-50%) rotate(-8deg) translateY(0); }
   }
   .pet.flying {
-    animation: flyHover 0.7s ease-in-out infinite;
+    animation: flyHover 0.85s ease-in-out infinite;
   }
   @keyframes flyHover {
-    0%, 100% { transform: translateX(-50%) translateY(-18px); }
-    50% { transform: translateX(-50%) translateY(-28px); }
+    0%, 100% { transform: translateX(-50%) translateY(-14px) rotate(-2deg); }
+    50% { transform: translateX(-50%) translateY(-26px) rotate(2deg); }
   }
-  .pet.flying .pet-wing-l { animation: wingFlapL 0.25s ease-in-out infinite; }
-  .pet.flying .pet-wing-r { animation: wingFlapR 0.25s ease-in-out infinite; }
-  .pet.flying .pet-wing { display: block !important; }
+  .pet.flying .pet-wing {
+    display: block !important;
+    opacity: 1;
+  }
+  .pet.flying .pet-wing-l { animation: wingFlapL 0.28s ease-in-out infinite; }
+  .pet.flying .pet-wing-r { animation: wingFlapR 0.28s ease-in-out infinite; }
+  /* Flying never rearranges body parts — stage CSS stays in control */
+  .pet.leaving {
+    animation: flyAway 0.9s ease-in forwards;
+  }
+  @keyframes flyAway {
+    0% { opacity: 1; transform: translateX(-50%) translateY(-20px); }
+    100% { opacity: 0; transform: translateX(40%) translateY(-50px); }
+  }
+  .pet.arriving {
+    animation: flyIn 0.85s ease-out;
+  }
+  @keyframes flyIn {
+    0% { opacity: 0; transform: translateX(-80%) translateY(-40px) scale(0.85); }
+    100% { opacity: 1; transform: translateX(-50%) translateY(-14px) scale(1); }
+  }
 
   .pet.firebreath {
     animation: fireRock 0.4s ease-in-out infinite;
@@ -3777,10 +3715,9 @@ const WANTS = [
 
 const AMBIENT_BEHAVIORS = {
   bedroom: [
-    { cls: 'curled', dur: 4, bubble: 'cozy...', emoji: '💤' },
-    { cls: 'quad', dur: 3, bubble: 'stretch~', emoji: '🐉' },
-    { cls: 'sleeping curled', dur: 4, bubble: 'nap time', emoji: '💤' },
-    { cls: 'walking', dur: 2, bubble: 'hmm hmm~', emoji: '🎵' },
+    { cls: 'flying', dur: 3.5, bubble: 'zoom~', emoji: '🪽' },
+    { cls: 'sleeping', dur: 4, bubble: 'nap time', emoji: '💤' },
+    { cls: 'flying', dur: 2.5, bubble: 'weee!', emoji: '✨' },
     { cls: 'watching', dur: 3, bubble: 'looking outside', emoji: '🪟' },
     { cls: 'hopping', dur: 1.2, bubble: 'yay!', emoji: '✨' }
   ],
@@ -4262,9 +4199,10 @@ async function moveMochiToRoom(roomId, opts = {}) {
       setTimeout(() => outBadge.remove(), 900);
       sfxWalk();
 
-      pet.classList.add('leaving');
+      pet.className = 'pet flying leaving';
       pet.style.left = '110%';
-      await new Promise(r => setTimeout(r, 800));
+      pet.style.bottom = '35%';
+      await new Promise(r => setTimeout(r, 900));
     } catch(e) {}
   }
 
@@ -4284,11 +4222,12 @@ async function moveMochiToRoom(roomId, opts = {}) {
     const petEl = $('pet');
     petEl.classList.remove('leaving');
     petEl.style.left = '50%';
+    petEl.style.bottom = '18%';
     petEl.style.transition = 'none';
-    petEl.classList.add('arriving');
+    petEl.className = 'pet flying arriving';
     setTimeout(() => {
-      petEl.classList.remove('arriving');
       petEl.className = 'pet ' + computeMood().cls;
+      renderCache.petMood = computeMood().cls;
     }, 850);
 
     if (!opts.noToast) showToast('Mochi walked to the ' + room.name.toLowerCase() + ' ' + room.emoji);
@@ -4614,24 +4553,23 @@ function isNightTime() {
    MOOD SYSTEM
    ============================================================ */
 function computeMood() {
-  if (!gameData) return { key: 'idle', label: 'IDLE', cls: 'idle curled' };
+  if (!gameData) return { key: 'idle', label: 'IDLE', cls: 'flying' };
   const hunger = gameData.hunger ?? 100;
   const happy  = gameData.happy  ?? 100;
   const energy = gameData.energy ?? 100;
   const clean  = gameData.clean  ?? 100;
 
-  // Resting / night — curl up with tail
-  if (isNightTime() && energy < 60) return { key: 'sleeping', label: 'SLEEPING', cls: 'sleeping curled' };
-  if (energy < 25) return { key: 'sleeping', label: 'TIRED', cls: 'sleeping curled' };
+  if (isNightTime() && energy < 60) return { key: 'sleeping', label: 'SLEEPING', cls: 'sleeping' };
+  if (energy < 25) return { key: 'sleeping', label: 'TIRED', cls: 'sleeping' };
   if (clean < 20 && happy < 30) return { key: 'sick', label: 'SICK', cls: 'sick' };
   const criticalCount = [hunger, happy, energy, clean].filter(v => v < 30).length;
   if (criticalCount >= 2) return { key: 'grumpy', label: 'GRUMPY', cls: 'grumpy' };
   if (hunger < 40) return { key: 'hungry', label: 'HUNGRY', cls: 'sad' };
   if (hunger > 85 && happy > 85 && energy > 85 && clean > 85) return { key: 'ecstatic', label: 'ECSTATIC', cls: 'ecstatic' };
-  if (happy < 50 && hunger > 50 && energy > 50 && clean > 50) return { key: 'bored', label: 'BORED', cls: 'bored quad' };
-  // Peaceful / nothing to do — all fours, then curl
-  if (hunger > 60 && happy > 60 && energy > 60 && clean > 60) return { key: 'content', label: 'CONTENT', cls: 'happy quad' };
-  return { key: 'idle', label: 'IDLE', cls: 'idle curled' };
+  if (happy < 50 && hunger > 50 && energy > 50 && clean > 50) return { key: 'bored', label: 'BORED', cls: 'bored' };
+  // Idle / content — hover and fly around (body design stays intact)
+  if (hunger > 60 && happy > 60 && energy > 60 && clean > 60) return { key: 'content', label: 'CONTENT', cls: 'flying' };
+  return { key: 'idle', label: 'IDLE', cls: 'flying' };
 }
 
 const MOOD_BEHAVIOR_OVERRIDES = {
@@ -8112,15 +8050,18 @@ async function runAmbientBehavior() {
   const pet = $('pet');
 
   try {
-    if (behavior.cls === 'walking' || behavior.cls === 'hopping') {
-      const newPos = 20 + Math.random() * 60;
-      pet.className = 'pet walking';
-      await movePetTo(newPos, 1200 + Math.random() * 800);
+    // Idle / flying: drift around the room in the air
+    if (behavior.cls === 'flying' || behavior.cls === 'walking' || behavior.cls === 'hopping') {
+      const newPos = 18 + Math.random() * 64;
+      const airBottom = behavior.cls === 'flying' ? (22 + Math.random() * 18) : 15;
+      pet.className = 'pet flying';
+      await movePetTo(newPos, 1400 + Math.random() * 900, airBottom, 1);
     }
     pet.className = 'pet ' + behavior.cls;
     if (behavior.bubble) showBubble(behavior.bubble, behavior.emoji || '✨');
     await new Promise(r => setTimeout(r, behavior.dur * 1000));
     pet.className = 'pet ' + computeMood().cls;
+    renderCache.petMood = computeMood().cls;
   } catch(e) {}
   ambientPlaying = false;
   renderCache.petMood = '';
@@ -8252,6 +8193,7 @@ function playActionAnimation(name) {
           pet.className = 'pet walking';
           await movePetTo(50, 700, 15, 1);
           pet.className = 'pet ' + computeMood().cls;
+          renderCache.petMood = computeMood().cls;
           break;
         }
         case 'sing': {
@@ -8333,16 +8275,17 @@ function playActionAnimation(name) {
           break;
         }
         case 'dig': {
-          pet.className = 'pet walking';
-          await movePetTo(40, 700, 12, 1);
-          pet.className = 'pet quad';
+          pet.className = 'pet flying';
+          await movePetTo(40, 700, 14, 1);
+          pet.className = 'pet hopping';
           showBubble('dig dig...', '🕳️');
           await new Promise(r => setTimeout(r, 900));
-          pet.className = 'pet hopping';
+          pet.className = 'pet happy';
           showBubble('found something!', '✨');
           floatHearts(2);
           await new Promise(r => setTimeout(r, 1000));
           pet.className = 'pet ' + computeMood().cls;
+          renderCache.petMood = computeMood().cls;
           break;
         }
       }
