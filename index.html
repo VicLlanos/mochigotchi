@@ -217,7 +217,7 @@
     z-index: 20; left: 50%; bottom: 15%;
     transform: translateX(-50%);
     will-change: transform, left, bottom;
-    width: 72px; height: 78px;
+    width: 84px; height: 64px;
     image-rendering: pixelated;
     --pet-z: 1;
     /* Depth (Z) via zoom — does not fight walk/idle transform animations */
@@ -377,24 +377,28 @@
     100% { opacity: 0; transform: translateY(-46px) translateX(var(--mpx, 0px)) scale(1.1) rotate(var(--mr, 0deg)); }
   }
 
-  /* Head (face) — sits on top of torso */
+  /* ============================================================
+     QUADRUPED DRAGON-LING LAYOUT
+     Head at the front, long torso, 4 legs, tail at the rear
+     ============================================================ */
+  /* Head — front of the body */
   .pet-body {
-    position: absolute; left: 50%; bottom: 22px; transform: translateX(-50%);
-    width: 40px; height: 34px;
+    position: absolute; left: 4%; bottom: 18px;
+    width: 34px; height: 32px;
     background: var(--pet-color, #F4E9DE);
     border: 3px solid var(--pet-color-dark, #C9B0A0);
     border-radius: 48% 48% 42% 42%;
     box-shadow: inset -5px -5px 0 rgba(0,0,0,0.08), inset 3px 3px 0 rgba(255,255,255,0.35);
-    transition: width 0.4s, height 0.4s, bottom 0.4s, background 0.4s, border-color 0.4s;
-    z-index: 6;
+    transition: width 0.4s, height 0.4s, left 0.4s, bottom 0.4s, background 0.4s, border-color 0.4s;
+    z-index: 7;
   }
-  /* Torso — connected body under the head */
+  /* Long horizontal torso */
   .pet-torso {
-    position: absolute; left: 50%; bottom: 4px; transform: translateX(-50%);
-    width: 32px; height: 26px;
+    position: absolute; left: 50%; bottom: 8px; transform: translateX(-50%);
+    width: 42px; height: 22px;
     background: var(--pet-color, #F4E9DE);
     border: 3px solid var(--pet-color-dark, #C9B0A0);
-    border-radius: 40% 40% 36% 36%;
+    border-radius: 40% 40% 38% 38%;
     box-shadow: inset -4px -4px 0 rgba(0,0,0,0.08), inset 2px 2px 0 rgba(255,255,255,0.3);
     transition: width 0.4s, height 0.4s, background 0.4s, border-color 0.4s;
     z-index: 4;
@@ -404,38 +408,51 @@
     pointer-events: none; z-index: 5;
     overflow: visible;
   }
-  /* Little arms / hands */
+  /* Front legs (were arms) */
   .pet-arm {
-    position: absolute; bottom: 10px;
-    width: 10px; height: 12px;
+    position: absolute; bottom: 0;
+    width: 11px; height: 14px;
     background: var(--pet-color, #F4E9DE);
     border: 2.5px solid var(--pet-color-dark, #C9B0A0);
-    border-radius: 40% 40% 45% 45%;
+    border-radius: 35% 35% 40% 40%;
     z-index: 5;
-    transition: bottom 0.4s, width 0.4s, height 0.4s;
+    transition: left 0.4s, right 0.4s, width 0.4s, height 0.4s;
     box-shadow: inset -2px -2px 0 rgba(0,0,0,0.08);
   }
-  .pet-arm-l { left: 2px; transform: rotate(-18deg); transform-origin: top center; }
-  .pet-arm-r { right: 2px; transform: rotate(18deg); transform-origin: top center; }
-  .pet.walking .pet-arm-l { animation: armSwingL 0.5s ease-in-out infinite; }
-  .pet.walking .pet-arm-r { animation: armSwingR 0.5s ease-in-out infinite; }
-  .pet.happy .pet-arm-l, .pet.ecstatic .pet-arm-l { animation: armWaveL 0.55s ease-in-out infinite; }
-  .pet.happy .pet-arm-r, .pet.ecstatic .pet-arm-r { animation: armWaveR 0.55s ease-in-out infinite; }
-  @keyframes armSwingL {
-    0%, 100% { transform: rotate(-22deg); }
-    50% { transform: rotate(-8deg); }
+  .pet-arm-l { left: 18%; transform: none; }
+  .pet-arm-r { left: 32%; right: auto; transform: none; }
+  /* Back legs */
+  .pet-foot {
+    position: absolute; bottom: 0; width: 11px; height: 14px;
+    background: var(--pet-color-dark, #C9B0A0);
+    border: 2.5px solid var(--pet-color-dark, #8FB87D);
+    border-radius: 35% 35% 40% 40%;
+    z-index: 5;
+    box-shadow: inset -2px -2px 0 rgba(0,0,0,0.1);
   }
-  @keyframes armSwingR {
-    0%, 100% { transform: rotate(22deg); }
-    50% { transform: rotate(8deg); }
+  .pet-foot-l { left: 52%; }
+  .pet-foot-r { left: 68%; right: auto; }
+
+  /* Quadruped walk — diagonal leg pairs */
+  .pet.walking .pet-arm-l { animation: quadFL 0.45s steps(1) infinite; }
+  .pet.walking .pet-arm-r { animation: quadFR 0.45s steps(1) infinite; }
+  .pet.walking .pet-foot-l { animation: quadBL 0.45s steps(1) infinite; }
+  .pet.walking .pet-foot-r { animation: quadBR 0.45s steps(1) infinite; }
+  @keyframes quadFL { 0%, 49% { transform: translateY(0); } 50%, 100% { transform: translateY(-4px); } }
+  @keyframes quadFR { 0%, 49% { transform: translateY(-4px); } 50%, 100% { transform: translateY(0); } }
+  @keyframes quadBL { 0%, 49% { transform: translateY(-4px); } 50%, 100% { transform: translateY(0); } }
+  @keyframes quadBR { 0%, 49% { transform: translateY(0); } 50%, 100% { transform: translateY(-4px); } }
+
+  /* Happy: little front-paw lift */
+  .pet.happy .pet-arm-l, .pet.ecstatic .pet-arm-l {
+    animation: pawLift 0.55s ease-in-out infinite;
   }
-  @keyframes armWaveL {
-    0%, 100% { transform: rotate(-30deg) translateY(0); }
-    50% { transform: rotate(-50deg) translateY(-2px); }
+  .pet.happy .pet-arm-r, .pet.ecstatic .pet-arm-r {
+    animation: pawLift 0.55s ease-in-out infinite 0.15s;
   }
-  @keyframes armWaveR {
-    0%, 100% { transform: rotate(30deg) translateY(0); }
-    50% { transform: rotate(50deg) translateY(-2px); }
+  @keyframes pawLift {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-6px) rotate(-12deg); }
   }
   .pet-eye {
     position: absolute; top: 11px; width: 7px; height: 9px;
@@ -468,15 +485,8 @@
   .pet.eating .pet-mouth { height: 6px; width: 8px; border-radius: 50%; animation: mouthChew 0.28s steps(1) infinite; }
   @keyframes mouthChew { 0%, 49% { transform: translateX(-50%) scaleY(1); } 50%, 100% { transform: translateX(-50%) scaleY(0.4); } }
 
-  .pet-foot {
-    position: absolute; bottom: -2px; width: 11px; height: 8px;
-    background: var(--pet-color-dark, #C9B0A0); border-radius: 3px 3px 4px 4px; z-index: 3;
-  }
-  .pet-foot-l { left: 14px; } .pet-foot-r { right: 14px; }
-  .pet.walking .pet-foot-l { animation: footL 0.5s steps(1) infinite; }
-  .pet.walking .pet-foot-r { animation: footR 0.5s steps(1) infinite; }
-  @keyframes footL { 0%, 49% { transform: translateY(0); } 50%, 100% { transform: translateY(-3px); } }
-  @keyframes footR { 0%, 49% { transform: translateY(-3px); } 50%, 100% { transform: translateY(0); } }
+  /* feet rules moved into quadruped block above */
+
 
   .pet-ear { position: absolute; top: -8px; width: 11px; height: 15px; background: var(--pet-color, #F0D888); border: 3px solid var(--pet-color-dark, #C9A044); border-radius: 60% 60% 10% 10%; display: none; transition: width 0.4s, height 0.4s, top 0.4s; }
   .pet-ear-l { left: 1px; transform: rotate(-18deg); } .pet-ear-r { right: 1px; transform: rotate(18deg); }
@@ -502,7 +512,7 @@
     border-radius: 0 60% 60% 40%;
     transform-origin: left center;
     animation: tailWag 2.2s ease-in-out infinite;
-    z-index: -1;
+    z-index: 3;
     transition: width 0.4s, height 0.4s, right 0.4s, bottom 0.4s;
   }
   .pet-tail::after {
@@ -518,7 +528,7 @@
     50% { transform: rotate(12deg); }
   }
 
-  /* ---- Egg: just the shell, no body parts ---- */
+  /* ---- Egg ---- */
   .pet[data-stage="egg"] .pet-eye,
   .pet[data-stage="egg"] .pet-mouth,
   .pet[data-stage="egg"] .pet-foot,
@@ -527,9 +537,10 @@
   .pet[data-stage="egg"] .pet-ear,
   .pet[data-stage="egg"] .pet-wing,
   .pet[data-stage="egg"] .pet-tail { display: none; }
-  .pet[data-stage="egg"]        { width: 56px; height: 56px; --pet-color: #F4E9DE; --pet-color-dark: #C9B0A0; }
+  .pet[data-stage="egg"] { width: 56px; height: 56px; --pet-color: #F4E9DE; --pet-color-dark: #C9B0A0; }
   .pet[data-stage="egg"] .pet-body {
-    bottom: 6px; width: 36px; height: 40px; border-radius: 50% 50% 46% 46%;
+    left: 50%; bottom: 6px; transform: translateX(-50%);
+    width: 36px; height: 40px; border-radius: 50% 50% 46% 46%;
   }
   .pet[data-stage="egg"] .pet-body::after {
     content: ''; position: absolute; top: 42%; left: 18%; width: 62%; height: 2px;
@@ -537,116 +548,123 @@
     box-shadow: 6px 4px 0 -1px var(--pet-color-dark, #C9B0A0);
   }
 
-  /* ---- Hatchling: tiny chick with stubby body ---- */
-  .pet[data-stage="hatchling"]  { width: 64px; height: 68px; --pet-color: #F8E6A0; --pet-color-dark: #D4B472; }
-  .pet[data-stage="hatchling"] .pet-body { bottom: 16px; width: 34px; height: 28px; border-radius: 48% 48% 42% 42%; }
-  .pet[data-stage="hatchling"] .pet-torso { width: 26px; height: 18px; bottom: 3px; }
-  .pet[data-stage="hatchling"] .pet-arm { width: 8px; height: 9px; bottom: 8px; }
+  /* ---- Hatchling: tiny quadruped chick-dragon ---- */
+  .pet[data-stage="hatchling"] { width: 70px; height: 56px; --pet-color: #F8E6A0; --pet-color-dark: #D4B472; }
+  .pet[data-stage="hatchling"] .pet-body { left: 2%; bottom: 14px; width: 28px; height: 26px; }
+  .pet[data-stage="hatchling"] .pet-torso { width: 34px; height: 16px; bottom: 6px; }
+  .pet[data-stage="hatchling"] .pet-arm { width: 9px; height: 11px; }
+  .pet[data-stage="hatchling"] .pet-arm-l { left: 16%; } .pet[data-stage="hatchling"] .pet-arm-r { left: 30%; }
+  .pet[data-stage="hatchling"] .pet-foot { width: 9px; height: 11px; }
+  .pet[data-stage="hatchling"] .pet-foot-l { left: 50%; } .pet[data-stage="hatchling"] .pet-foot-r { left: 66%; }
   .pet[data-stage="hatchling"] .pet-ear { display: block; width: 9px; height: 12px; top: -6px; }
-  .pet[data-stage="hatchling"] .pet-foot { width: 9px; height: 6px; left: 12px; }
-  .pet[data-stage="hatchling"] .pet-foot-r { left: auto; right: 12px; }
-  .pet[data-stage="hatchling"] .pet-eye { top: 10px; width: 6px; height: 8px; }
-  .pet[data-stage="hatchling"] .pet-eye-l { left: 7px; } .pet[data-stage="hatchling"] .pet-eye-r { right: 7px; }
+  .pet[data-stage="hatchling"] .pet-eye { top: 9px; width: 6px; height: 7px; }
+  .pet[data-stage="hatchling"] .pet-eye-l { left: 6px; } .pet[data-stage="hatchling"] .pet-eye-r { right: 6px; }
 
-  /* ---- Sprout: small dragon-ling with clear body ---- */
-  .pet[data-stage="sprout"]     { width: 72px; height: 78px; --pet-color: #C8E0A8; --pet-color-dark: #8FB87D; }
-  .pet[data-stage="sprout"] .pet-body { bottom: 22px; width: 40px; height: 34px; }
-  .pet[data-stage="sprout"] .pet-torso { width: 32px; height: 24px; bottom: 4px; border-radius: 38% 38% 34% 34%; }
-  .pet[data-stage="sprout"] .pet-arm { width: 10px; height: 12px; bottom: 10px; }
+  /* ---- Sprout: young dragon on all fours ---- */
+  .pet[data-stage="sprout"] { width: 84px; height: 64px; --pet-color: #C8E0A8; --pet-color-dark: #8FB87D; }
+  .pet[data-stage="sprout"] .pet-body { left: 2%; bottom: 16px; width: 34px; height: 32px; }
+  .pet[data-stage="sprout"] .pet-torso { width: 44px; height: 20px; bottom: 7px; border-radius: 42% 42% 38% 38%; }
+  .pet[data-stage="sprout"] .pet-arm { width: 11px; height: 13px; }
+  .pet[data-stage="sprout"] .pet-arm-l { left: 18%; } .pet[data-stage="sprout"] .pet-arm-r { left: 32%; }
+  .pet[data-stage="sprout"] .pet-foot { width: 11px; height: 13px; }
+  .pet[data-stage="sprout"] .pet-foot-l { left: 52%; } .pet[data-stage="sprout"] .pet-foot-r { left: 68%; }
   .pet[data-stage="sprout"] .pet-ear { display: block; width: 11px; height: 15px; }
-  .pet[data-stage="sprout"] .pet-foot { width: 11px; height: 7px; left: 14px; }
-  .pet[data-stage="sprout"] .pet-foot-r { left: auto; right: 14px; }
-  .pet[data-stage="sprout"] .pet-eye { top: 11px; width: 7px; height: 9px; }
-  .pet[data-stage="sprout"] .pet-eye-l { left: 8px; } .pet[data-stage="sprout"] .pet-eye-r { right: 8px; }
-  .pet[data-stage="sprout"] .pet-tail { display: none; }
+  .pet[data-stage="sprout"] .pet-eye { top: 10px; width: 7px; height: 9px; }
+  .pet[data-stage="sprout"] .pet-eye-l { left: 7px; } .pet[data-stage="sprout"] .pet-eye-r { right: 7px; }
+  .pet[data-stage="sprout"] .pet-tail { display: block; width: 16px; height: 9px; right: -2px; bottom: 12px; }
 
-  /* ---- Sapling: growing body + little wings ---- */
-  .pet[data-stage="sapling"]    { width: 80px; height: 88px; --pet-color: #A8D4B0; --pet-color-dark: #6FA05D; }
-  .pet[data-stage="sapling"] .pet-body { bottom: 28px; width: 44px; height: 38px; border-radius: 46% 46% 40% 40%; }
-  .pet[data-stage="sapling"] .pet-torso { width: 36px; height: 28px; bottom: 5px; }
-  .pet[data-stage="sapling"] .pet-arm { width: 11px; height: 13px; bottom: 12px; }
+  /* ---- Sapling ---- */
+  .pet[data-stage="sapling"] { width: 94px; height: 72px; --pet-color: #A8D4B0; --pet-color-dark: #6FA05D; }
+  .pet[data-stage="sapling"] .pet-body { left: 1%; bottom: 20px; width: 38px; height: 36px; border-radius: 46% 46% 40% 40%; }
+  .pet[data-stage="sapling"] .pet-torso { width: 50px; height: 22px; bottom: 8px; }
+  .pet[data-stage="sapling"] .pet-arm { width: 12px; height: 14px; }
+  .pet[data-stage="sapling"] .pet-arm-l { left: 18%; } .pet[data-stage="sapling"] .pet-arm-r { left: 32%; }
+  .pet[data-stage="sapling"] .pet-foot { width: 12px; height: 14px; }
+  .pet[data-stage="sapling"] .pet-foot-l { left: 52%; } .pet[data-stage="sapling"] .pet-foot-r { left: 68%; }
   .pet[data-stage="sapling"] .pet-ear { display: block; width: 12px; height: 17px; top: -10px; border-radius: 70% 70% 8% 8%; }
-  .pet[data-stage="sapling"] .pet-wing { display: block; width: 16px; height: 22px; top: 28px; }
-  .pet[data-stage="sapling"] .pet-wing-l { left: -4px; }
-  .pet[data-stage="sapling"] .pet-wing-r { right: -4px; }
-  .pet[data-stage="sapling"] .pet-foot { width: 12px; height: 8px; left: 16px; }
-  .pet[data-stage="sapling"] .pet-foot-r { left: auto; right: 16px; }
-  .pet[data-stage="sapling"] .pet-eye { width: 8px; height: 10px; top: 12px; }
-  .pet[data-stage="sapling"] .pet-eye-l { left: 9px; } .pet[data-stage="sapling"] .pet-eye-r { right: 9px; }
+  .pet[data-stage="sapling"] .pet-wing { display: block; width: 16px; height: 20px; top: 18px; }
+  .pet[data-stage="sapling"] .pet-wing-l { left: 28%; }
+  .pet[data-stage="sapling"] .pet-wing-r { left: 48%; right: auto; }
+  .pet[data-stage="sapling"] .pet-tail { display: block; width: 18px; height: 10px; right: -4px; bottom: 14px; }
+  .pet[data-stage="sapling"] .pet-eye { width: 8px; height: 10px; top: 11px; }
+  .pet[data-stage="sapling"] .pet-eye-l { left: 8px; } .pet[data-stage="sapling"] .pet-eye-r { right: 8px; }
 
-  /* ---- Bloom: clearer growth + tail starts ---- */
-  .pet[data-stage="bloom"]      { width: 88px; height: 96px; --pet-color: #F0C0D0; --pet-color-dark: #C97C8C; }
-  .pet[data-stage="bloom"] .pet-body { bottom: 32px; width: 48px; height: 42px; border-radius: 44% 44% 38% 38%; }
-  .pet[data-stage="bloom"] .pet-torso { width: 40px; height: 30px; bottom: 6px; }
-  .pet[data-stage="bloom"] .pet-arm { width: 12px; height: 14px; bottom: 14px; }
+  /* ---- Bloom ---- */
+  .pet[data-stage="bloom"] { width: 104px; height: 78px; --pet-color: #F0C0D0; --pet-color-dark: #C97C8C; }
+  .pet[data-stage="bloom"] .pet-body { left: 0; bottom: 22px; width: 42px; height: 40px; border-radius: 44% 44% 38% 38%; }
+  .pet[data-stage="bloom"] .pet-torso { width: 56px; height: 24px; bottom: 9px; }
+  .pet[data-stage="bloom"] .pet-arm { width: 13px; height: 15px; }
+  .pet[data-stage="bloom"] .pet-arm-l { left: 18%; } .pet[data-stage="bloom"] .pet-arm-r { left: 32%; }
+  .pet[data-stage="bloom"] .pet-foot { width: 13px; height: 15px; }
+  .pet[data-stage="bloom"] .pet-foot-l { left: 52%; } .pet[data-stage="bloom"] .pet-foot-r { left: 68%; }
   .pet[data-stage="bloom"] .pet-ear { display: block; width: 13px; height: 20px; top: -12px; border-radius: 80% 80% 6% 6%; }
-  .pet[data-stage="bloom"] .pet-wing { display: block; width: 22px; height: 28px; top: 30px; }
-  .pet[data-stage="bloom"] .pet-wing-l { left: -8px; }
-  .pet[data-stage="bloom"] .pet-wing-r { right: -8px; }
-  .pet[data-stage="bloom"] .pet-tail { display: block; width: 20px; height: 11px; bottom: 12px; right: -4px; }
-  .pet[data-stage="bloom"] .pet-foot { width: 13px; height: 8px; left: 18px; }
-  .pet[data-stage="bloom"] .pet-foot-r { left: auto; right: 18px; }
-  .pet[data-stage="bloom"] .pet-eye { width: 8px; height: 10px; top: 13px; }
-  .pet[data-stage="bloom"] .pet-eye-l { left: 10px; } .pet[data-stage="bloom"] .pet-eye-r { right: 10px; }
+  .pet[data-stage="bloom"] .pet-wing { display: block; width: 20px; height: 26px; top: 16px; }
+  .pet[data-stage="bloom"] .pet-wing-l { left: 28%; }
+  .pet[data-stage="bloom"] .pet-wing-r { left: 48%; right: auto; }
+  .pet[data-stage="bloom"] .pet-tail { display: block; width: 22px; height: 11px; right: -6px; bottom: 14px; }
+  .pet[data-stage="bloom"] .pet-eye { width: 8px; height: 10px; top: 12px; }
+  .pet[data-stage="bloom"] .pet-eye-l { left: 9px; } .pet[data-stage="bloom"] .pet-eye-r { right: 9px; }
   .pet[data-stage="bloom"] .pet-mouth { width: 11px; }
 
   /* ---- Guardian: young dragon ---- */
-  .pet[data-stage="guardian"]   { width: 100px; height: 108px; --pet-color: #A0D4D8; --pet-color-dark: #4A8F95; }
-  .pet[data-stage="guardian"] .pet-body { bottom: 38px; width: 54px; height: 46px; border-radius: 42% 42% 36% 36%; }
-  .pet[data-stage="guardian"] .pet-torso { width: 46px; height: 34px; bottom: 7px; border-radius: 36% 36% 32% 32%; }
-  .pet[data-stage="guardian"] .pet-arm { width: 13px; height: 16px; bottom: 16px; }
+  .pet[data-stage="guardian"] { width: 116px; height: 88px; --pet-color: #A0D4D8; --pet-color-dark: #4A8F95; }
+  .pet[data-stage="guardian"] .pet-body { left: 0; bottom: 26px; width: 48px; height: 44px; border-radius: 42% 42% 36% 36%; }
+  .pet[data-stage="guardian"] .pet-torso { width: 62px; height: 28px; bottom: 10px; border-radius: 38% 38% 34% 34%; }
+  .pet[data-stage="guardian"] .pet-arm { width: 14px; height: 16px; }
+  .pet[data-stage="guardian"] .pet-arm-l { left: 18%; } .pet[data-stage="guardian"] .pet-arm-r { left: 32%; }
+  .pet[data-stage="guardian"] .pet-foot { width: 14px; height: 16px; }
+  .pet[data-stage="guardian"] .pet-foot-l { left: 52%; } .pet[data-stage="guardian"] .pet-foot-r { left: 68%; }
   .pet[data-stage="guardian"] .pet-ear { display: block; width: 14px; height: 22px; top: -14px; border-radius: 90% 40% 4% 4%; }
-  .pet[data-stage="guardian"] .pet-wing { display: block; width: 28px; height: 36px; top: 32px; opacity: 0.9; }
-  .pet[data-stage="guardian"] .pet-wing-l { left: -14px; border-radius: 70% 0 20% 60%; }
-  .pet[data-stage="guardian"] .pet-wing-r { right: -14px; border-radius: 0 70% 60% 20%; }
+  .pet[data-stage="guardian"] .pet-wing { display: block; width: 26px; height: 34px; top: 14px; opacity: 0.9; }
+  .pet[data-stage="guardian"] .pet-wing-l { left: 26%; border-radius: 70% 0 20% 60%; }
+  .pet[data-stage="guardian"] .pet-wing-r { left: 48%; right: auto; border-radius: 0 70% 60% 20%; }
   .pet[data-stage="guardian"] .pet-horn { display: block; top: -14px; border-left-width: 6px; border-right-width: 6px; border-bottom-width: 16px; }
-  .pet[data-stage="guardian"] .pet-tail { display: block; width: 28px; height: 13px; right: -8px; bottom: 14px; }
+  .pet[data-stage="guardian"] .pet-tail { display: block; width: 28px; height: 13px; right: -8px; bottom: 16px; }
   .pet[data-stage="guardian"] .pet-tail::after { border-top-width: 7px; border-bottom-width: 7px; border-left-width: 12px; right: -10px; }
-  .pet[data-stage="guardian"] .pet-foot { width: 15px; height: 9px; left: 20px; }
-  .pet[data-stage="guardian"] .pet-foot-r { left: auto; right: 20px; }
-  .pet[data-stage="guardian"] .pet-eye { width: 9px; height: 11px; top: 14px; }
-  .pet[data-stage="guardian"] .pet-eye-l { left: 11px; } .pet[data-stage="guardian"] .pet-eye-r { right: 11px; }
+  .pet[data-stage="guardian"] .pet-eye { width: 9px; height: 11px; top: 13px; }
+  .pet[data-stage="guardian"] .pet-eye-l { left: 10px; } .pet[data-stage="guardian"] .pet-eye-r { right: 10px; }
   .pet[data-stage="guardian"] .pet-mouth { width: 14px; height: 5px; }
 
-  /* ---- Mystic: larger dragon spirit ---- */
-  .pet[data-stage="mystic"]     { width: 112px; height: 120px; --pet-color: #C8B8E8; --pet-color-dark: #8F6FB8; }
-  .pet[data-stage="mystic"] .pet-body { bottom: 44px; width: 60px; height: 50px; border-radius: 40% 40% 34% 34%; }
-  .pet[data-stage="mystic"] .pet-torso { width: 52px; height: 38px; bottom: 8px; }
-  .pet[data-stage="mystic"] .pet-arm { width: 14px; height: 17px; bottom: 18px; }
+  /* ---- Mystic ---- */
+  .pet[data-stage="mystic"] { width: 128px; height: 96px; --pet-color: #C8B8E8; --pet-color-dark: #8F6FB8; }
+  .pet[data-stage="mystic"] .pet-body { left: 0; bottom: 28px; width: 52px; height: 48px; border-radius: 40% 40% 34% 34%; }
+  .pet[data-stage="mystic"] .pet-torso { width: 70px; height: 30px; bottom: 11px; }
+  .pet[data-stage="mystic"] .pet-arm { width: 15px; height: 17px; }
+  .pet[data-stage="mystic"] .pet-arm-l { left: 18%; } .pet[data-stage="mystic"] .pet-arm-r { left: 32%; }
+  .pet[data-stage="mystic"] .pet-foot { width: 15px; height: 17px; }
+  .pet[data-stage="mystic"] .pet-foot-l { left: 52%; } .pet[data-stage="mystic"] .pet-foot-r { left: 68%; }
   .pet[data-stage="mystic"] .pet-ear { display: block; width: 15px; height: 26px; top: -16px; border-radius: 95% 35% 4% 4%; }
-  .pet[data-stage="mystic"] .pet-wing { display: block; width: 34px; height: 44px; top: 34px; opacity: 0.92; }
-  .pet[data-stage="mystic"] .pet-wing-l { left: -18px; border-radius: 75% 0 18% 65%; }
-  .pet[data-stage="mystic"] .pet-wing-r { right: -18px; border-radius: 0 75% 65% 18%; }
+  .pet[data-stage="mystic"] .pet-wing { display: block; width: 32px; height: 40px; top: 12px; opacity: 0.92; }
+  .pet[data-stage="mystic"] .pet-wing-l { left: 24%; border-radius: 75% 0 18% 65%; }
+  .pet[data-stage="mystic"] .pet-wing-r { left: 48%; right: auto; border-radius: 0 75% 65% 18%; }
   .pet[data-stage="mystic"] .pet-horn { display: block; top: -18px; border-left-width: 7px; border-right-width: 7px; border-bottom-width: 20px; }
-  .pet[data-stage="mystic"] .pet-tail { display: block; width: 36px; height: 15px; right: -12px; bottom: 16px; }
+  .pet[data-stage="mystic"] .pet-tail { display: block; width: 34px; height: 15px; right: -10px; bottom: 18px; }
   .pet[data-stage="mystic"] .pet-tail::after { border-top-width: 8px; border-bottom-width: 8px; border-left-width: 14px; right: -12px; }
-  .pet[data-stage="mystic"] .pet-foot { width: 16px; height: 10px; left: 24px; }
-  .pet[data-stage="mystic"] .pet-foot-r { left: auto; right: 24px; }
-  .pet[data-stage="mystic"] .pet-eye { width: 10px; height: 12px; top: 16px; }
-  .pet[data-stage="mystic"] .pet-eye-l { left: 12px; } .pet[data-stage="mystic"] .pet-eye-r { right: 12px; }
+  .pet[data-stage="mystic"] .pet-eye { width: 10px; height: 12px; top: 14px; }
+  .pet[data-stage="mystic"] .pet-eye-l { left: 11px; } .pet[data-stage="mystic"] .pet-eye-r { right: 11px; }
   .pet[data-stage="mystic"] .pet-mouth { width: 16px; height: 6px; }
   .pet[data-stage="mystic"] .pet-blush { width: 10px; height: 5px; }
 
   /* ---- Eternal: full little dragon ---- */
-  .pet[data-stage="eternal"]    { width: 124px; height: 132px; --pet-color: #FFF6DC; --pet-color-dark: #D4AF37; }
-  .pet[data-stage="eternal"] .pet-body { bottom: 50px; width: 68px; height: 56px; border-radius: 38% 38% 32% 32%; }
-  .pet[data-stage="eternal"] .pet-torso { width: 58px; height: 42px; bottom: 9px; border-radius: 34% 34% 30% 30%; }
-  .pet[data-stage="eternal"] .pet-arm { width: 15px; height: 18px; bottom: 20px; }
+  .pet[data-stage="eternal"] { width: 140px; height: 104px; --pet-color: #FFF6DC; --pet-color-dark: #D4AF37; }
+  .pet[data-stage="eternal"] .pet-body { left: 0; bottom: 30px; width: 58px; height: 52px; border-radius: 38% 38% 32% 32%; }
+  .pet[data-stage="eternal"] .pet-torso { width: 78px; height: 34px; bottom: 12px; border-radius: 36% 36% 32% 32%; }
+  .pet[data-stage="eternal"] .pet-arm { width: 16px; height: 18px; }
+  .pet[data-stage="eternal"] .pet-arm-l { left: 18%; } .pet[data-stage="eternal"] .pet-arm-r { left: 32%; }
+  .pet[data-stage="eternal"] .pet-foot { width: 16px; height: 18px; }
+  .pet[data-stage="eternal"] .pet-foot-l { left: 52%; } .pet[data-stage="eternal"] .pet-foot-r { left: 68%; }
   .pet[data-stage="eternal"] .pet-ear { display: block; width: 16px; height: 28px; top: -18px; border-radius: 100% 30% 4% 4%; }
-  .pet[data-stage="eternal"] .pet-wing { display: block; width: 42px; height: 52px; top: 36px; opacity: 0.95; }
-  .pet[data-stage="eternal"] .pet-wing-l { left: -24px; border-radius: 80% 0 15% 70%; }
-  .pet[data-stage="eternal"] .pet-wing-r { right: -24px; border-radius: 0 80% 70% 15%; }
+  .pet[data-stage="eternal"] .pet-wing { display: block; width: 38px; height: 48px; top: 10px; opacity: 0.95; }
+  .pet[data-stage="eternal"] .pet-wing-l { left: 22%; border-radius: 80% 0 15% 70%; }
+  .pet[data-stage="eternal"] .pet-wing-r { left: 48%; right: auto; border-radius: 0 80% 70% 15%; }
   .pet[data-stage="eternal"] .pet-horn { display: block; top: -20px; border-left-width: 8px; border-right-width: 8px; border-bottom-width: 24px; border-bottom-color: #D4AF37; }
   .pet[data-stage="eternal"] .pet-halo { display: block; top: -32px; width: 40px; height: 14px; border-width: 3px; }
-  .pet[data-stage="eternal"] .pet-tail { display: block; width: 44px; height: 17px; right: -16px; bottom: 18px; }
+  .pet[data-stage="eternal"] .pet-tail { display: block; width: 40px; height: 17px; right: -14px; bottom: 20px; }
   .pet[data-stage="eternal"] .pet-tail::after { border-top-width: 9px; border-bottom-width: 9px; border-left-width: 16px; right: -14px; border-left-color: #D4AF37; }
-  .pet[data-stage="eternal"] .pet-foot { width: 18px; height: 11px; left: 28px; }
-  .pet[data-stage="eternal"] .pet-foot-r { left: auto; right: 28px; }
-  .pet[data-stage="eternal"] .pet-eye { width: 11px; height: 13px; top: 18px; }
-  .pet[data-stage="eternal"] .pet-eye-l { left: 14px; } .pet[data-stage="eternal"] .pet-eye-r { right: 14px; }
+  .pet[data-stage="eternal"] .pet-eye { width: 11px; height: 13px; top: 16px; }
+  .pet[data-stage="eternal"] .pet-eye-l { left: 12px; } .pet[data-stage="eternal"] .pet-eye-r { right: 12px; }
   .pet[data-stage="eternal"] .pet-mouth { width: 18px; height: 7px; }
   .pet[data-stage="eternal"] .pet-blush { width: 12px; height: 6px; bottom: 14px; }
-
 
   .pet-accessories { position: absolute; inset: 0; pointer-events: none; z-index: 25; }
   .pet-accessory { position: absolute; pointer-events: none; filter: drop-shadow(0 2px 2px rgba(0,0,0,0.3)); line-height: 1; }
@@ -932,23 +950,29 @@
   }
 
   /* Hero cape stays behind whole pet via data-outfit */
-  .pet[data-outfit="clothes_cape"]::before {
+  /* Scale armor — sits on the back of the torso */
+  .pet[data-outfit="clothes_cape"] .pet-torso::after {
     content: '';
     position: absolute;
-    bottom: 6px; left: 50%;
-    width: 44px; height: 36px;
-    margin-left: -22px;
-    background: linear-gradient(180deg, #C9302C 0%, #8B1A1A 100%);
-    border: 2.5px solid #5A1010;
-    border-radius: 8px 8px 55% 55% / 8px 8px 40% 40%;
-    z-index: 2;
-    animation: capeSway 2.4s ease-in-out infinite;
-    box-shadow: inset 0 3px 0 rgba(255,255,255,0.12);
+    top: 2px; left: 50%;
+    width: 70%; height: 55%;
+    margin-left: -35%;
+    background:
+      radial-gradient(ellipse at 30% 40%, #E8A060 0%, transparent 55%),
+      radial-gradient(ellipse at 70% 40%, #E8A060 0%, transparent 55%),
+      radial-gradient(ellipse at 50% 70%, #D4884A 0%, transparent 55%),
+      linear-gradient(180deg, #C97A40 0%, #A05828 100%);
+    border: 2px solid #6B3A18;
+    border-radius: 40% 40% 30% 30%;
+    box-shadow: inset 0 2px 0 rgba(255,220,160,0.35);
+    z-index: 6;
     pointer-events: none;
   }
-  @keyframes capeSway {
-    0%, 100% { transform: scaleX(1) rotate(-2deg); }
-    50% { transform: scaleX(1.05) rotate(2deg); }
+  .pet[data-outfit="clothes_cape"] .pet-torso {
+    box-shadow:
+      inset -4px -4px 0 rgba(0,0,0,0.08),
+      inset 2px 2px 0 rgba(255,255,255,0.3),
+      0 0 0 1px rgba(201, 122, 64, 0.35);
   }
   .pet .pet-body { z-index: 5; }
   .pet .pet-tail { z-index: 4; }
@@ -3314,24 +3338,24 @@ const DAILY_REWARDS = [
 
 const STAGES = [
   { level: 1,  name: 'EGG',       emoji: '🥚', key: 'egg' },
-  { level: 3,  name: 'HATCHLING', emoji: '🐣', key: 'hatchling' },
-  { level: 6,  name: 'SPROUT',    emoji: '🌱', key: 'sprout' },
-  { level: 12, name: 'SAPLING',   emoji: '🍃', key: 'sapling' },
+  { level: 5,  name: 'HATCHLING', emoji: '🐣', key: 'hatchling' },
+  { level: 10, name: 'SPROUT',    emoji: '🌱', key: 'sprout' },
+  { level: 15, name: 'SAPLING',   emoji: '🍃', key: 'sapling' },
   { level: 20, name: 'BLOOM',     emoji: '🌸', key: 'bloom' },
-  { level: 35, name: 'GUARDIAN',  emoji: '🐉', key: 'guardian' },
-  { level: 50, name: 'MYSTIC',    emoji: '✨', key: 'mystic' },
-  { level: 75, name: 'ETERNAL',   emoji: '👑', key: 'eternal' }
+  { level: 25, name: 'GUARDIAN',  emoji: '🐉', key: 'guardian' },
+  { level: 30, name: 'MYSTIC',    emoji: '✨', key: 'mystic' },
+  { level: 35, name: 'ETERNAL',   emoji: '👑', key: 'eternal' }
 ];
 
 const ROOMS = [
   { id: 'bedroom',     name: 'BEDROOM',     emoji: '🛏️', reqLevel: 1 },
   { id: 'bathroom',    name: 'BATHROOM',    emoji: '🛁', reqLevel: 1 },
   { id: 'kitchen',     name: 'KITCHEN',     emoji: '🍳', reqLevel: 5 },
-  { id: 'garden',      name: 'GARDEN',      emoji: '🌷', reqLevel: 15 },
-  { id: 'forest',      name: 'FOREST',      emoji: '🌲', reqLevel: 25 },
-  { id: 'playroom',    name: 'PLAYROOM',    emoji: '🎨', reqLevel: 30 },
-  { id: 'farm',        name: 'FARM',        emoji: '🌾', reqLevel: 40 },
-  { id: 'observatory', name: 'OBSERVATORY', emoji: '🔭', reqLevel: 50 }
+  { id: 'garden',      name: 'GARDEN',      emoji: '🌷', reqLevel: 10 },
+  { id: 'forest',      name: 'FOREST',      emoji: '🌲', reqLevel: 15 },
+  { id: 'playroom',    name: 'PLAYROOM',    emoji: '🎨', reqLevel: 20 },
+  { id: 'farm',        name: 'FARM',        emoji: '🌾', reqLevel: 25 },
+  { id: 'observatory', name: 'OBSERVATORY', emoji: '🔭', reqLevel: 30 }
 ];
 
 const ACTIONS = {
@@ -3446,7 +3470,7 @@ const CLOTHES_DEFS = [
   { id: 'clothes_scarf',   emoji: '🧣', name: 'COZY SCARF',    desc: 'Warm and snuggly scarf',          cost: 55,  css: 'clothes-scarf' },
   { id: 'clothes_hat',     emoji: '🎩', name: 'FANCY HAT',     desc: 'A dapper little hat',             cost: 70,  css: 'clothes-hat' },
   { id: 'clothes_glasses', emoji: '👓', name: 'SMART GLASSES', desc: 'Looking wise and cute',           cost: 50,  css: 'clothes-glasses' },
-  { id: 'clothes_cape',    emoji: '🦸', name: 'HERO CAPE',     desc: 'Fluttering superhero cape',       cost: 90,  css: 'clothes-cape' },
+  { id: 'clothes_cape',    emoji: '🛡️', name: 'SCALE ARMOR',   desc: 'Dragon scales across the back',   cost: 90,  css: 'clothes-cape' },
   { id: 'clothes_crown',   emoji: '👑', name: 'ROYAL CROWN',   desc: 'For the most special days',       cost: 120, css: 'clothes-crown' },
   { id: 'clothes_hoodie',  emoji: '🧥', name: 'SOFT HOODIE',   desc: 'Comfy everyday hoodie',           cost: 65,  css: 'clothes-hoodie' },
   { id: 'clothes_flower',  emoji: '🌸', name: 'FLOWER CLIP',   desc: 'A pretty blossom in the fur',     cost: 35,  css: 'clothes-flower' }
@@ -3521,7 +3545,7 @@ const SHOP_ITEMS = [
   { id: 'clothes_scarf',   emoji: '🧣', name: 'COZY SCARF',    desc: 'Outfit — wear from the wardrobe', cost: 55,  consumable: false, clothes: true, scope: 'global' },
   { id: 'clothes_hat',     emoji: '🎩', name: 'FANCY HAT',     desc: 'Outfit — wear from the wardrobe', cost: 70,  consumable: false, clothes: true, scope: 'global' },
   { id: 'clothes_glasses', emoji: '👓', name: 'SMART GLASSES', desc: 'Outfit — wear from the wardrobe', cost: 50,  consumable: false, clothes: true, scope: 'global' },
-  { id: 'clothes_cape',    emoji: '🦸', name: 'HERO CAPE',     desc: 'Outfit — wear from the wardrobe', cost: 90,  consumable: false, clothes: true, scope: 'global' },
+  { id: 'clothes_cape',    emoji: '🛡️', name: 'SCALE ARMOR',   desc: 'Dragon scales on the back', cost: 90,  consumable: false, clothes: true, scope: 'global' },
   { id: 'clothes_crown',   emoji: '👑', name: 'ROYAL CROWN',   desc: 'Outfit — wear from the wardrobe', cost: 120, consumable: false, clothes: true, scope: 'global' },
   { id: 'clothes_hoodie',  emoji: '🧥', name: 'SOFT HOODIE',   desc: 'Outfit — wear from the wardrobe', cost: 65,  consumable: false, clothes: true, scope: 'global' },
   { id: 'clothes_flower',  emoji: '🌸', name: 'FLOWER CLIP',   desc: 'Outfit — wear from the wardrobe', cost: 35,  consumable: false, clothes: true, scope: 'global' },
@@ -3607,11 +3631,11 @@ const ACHIEVEMENTS = [
   { id: 'first_want',    emoji: '⭐', name: 'GOOD LISTENER',    desc: 'Fulfill Mochi\'s first want',        check: (d) => (d.stats?.wantsFulfilled || 0) >= 1 },
   { id: 'want_20',       emoji: '🌟', name: 'ATTENTIVE',        desc: 'Fulfill 20 wants',                   check: (d) => (d.stats?.wantsFulfilled || 0) >= 20 },
   { id: 'kitchen_unlock',emoji: '🍳', name: 'HOME COOKIN\'',   desc: 'Unlock the Kitchen',                 check: (d) => (d.level || 0) >= 5 },
-  { id: 'garden_unlock', emoji: '🌷', name: 'GREEN THUMB',      desc: 'Unlock the Garden',                  check: (d) => (d.level || 0) >= 15 },
-  { id: 'forest_unlock', emoji: '🌲', name: 'WOODLAND WALK',    desc: 'Unlock the Forest',                  check: (d) => (d.level || 0) >= 25 },
-  { id: 'playroom_unlock', emoji: '🎨', name: 'PLAY TIME',     desc: 'Unlock the Playroom',                check: (d) => (d.level || 0) >= 30 },
-  { id: 'farm_unlock',   emoji: '🌾', name: 'FARMHAND',         desc: 'Unlock the Farm',                    check: (d) => (d.level || 0) >= 40 },
-  { id: 'observatory_unlock', emoji: '🔭', name: 'STARGAZER', desc: 'Unlock the Observatory',              check: (d) => (d.level || 0) >= 50 },
+  { id: 'garden_unlock', emoji: '🌷', name: 'GREEN THUMB',      desc: 'Unlock the Garden',                  check: (d) => (d.level || 0) >= 10 },
+  { id: 'forest_unlock', emoji: '🌲', name: 'WOODLAND WALK',    desc: 'Unlock the Forest',                  check: (d) => (d.level || 0) >= 15 },
+  { id: 'playroom_unlock', emoji: '🎨', name: 'PLAY TIME',     desc: 'Unlock the Playroom',                check: (d) => (d.level || 0) >= 20 },
+  { id: 'farm_unlock',   emoji: '🌾', name: 'FARMHAND',         desc: 'Unlock the Farm',                    check: (d) => (d.level || 0) >= 25 },
+  { id: 'observatory_unlock', emoji: '🔭', name: 'STARGAZER', desc: 'Unlock the Observatory',              check: (d) => (d.level || 0) >= 30 },
   { id: 'minigame_10',   emoji: '🫧', name: 'BUBBLE MASTER',    desc: 'Score 10+ in Bubble Pop',            check: (d) => (d.stats?.bestMinigame || 0) >= 10 },
   { id: 'minigame_25',   emoji: '🏅', name: 'BUBBLE LEGEND',    desc: 'Score 25+ in Bubble Pop',            check: (d) => (d.stats?.bestMinigame || 0) >= 25 },
   { id: 'daily_7',       emoji: '🎁', name: 'GIFT COLLECTOR',   desc: 'Claim 7 daily gifts in a row',       check: (d) => (d.dailyReward?.day || 0) >= 7 }
