@@ -1431,6 +1431,7 @@
      3D FURNITURE — ALL FURNITURE SITS ON THE FLOOR PLANE
      ============================================================ */
   .room-scene { position: absolute; inset: 0; pointer-events: none; z-index: 4; transform-style: preserve-3d; }
+  .room-scene .furniture { pointer-events: auto; z-index: 6; cursor: pointer; }
 
   .room-scene .furniture {
     position: absolute;
@@ -3543,101 +3544,101 @@
   .pet.happy .pet-dragon .dg-arm-r { animation: dgSwingR 0.45s ease-in-out infinite; }
   .pet:not([data-stage="egg"]):active { filter: drop-shadow(0 3px 2px rgba(47, 93, 74, 0.28)) brightness(1.06); }
 
-  /* ---- Wardrobe fitted to SVG dragon head/torso anchors ---- */
-  .pet:not([data-stage="egg"]) .wear {
-    z-index: 14;
+  /* ---- Wardrobe: overlays on .pet-accessories, sized to SVG dragon ---- */
+  .pet:not([data-stage="egg"]) .pet-accessories {
+    position: absolute; inset: 0; z-index: 15; pointer-events: none;
+    transform: scale(var(--dk, 1));
+    transform-origin: 50% 90%;
   }
-  .pet:not([data-stage="egg"]) .wear-hat {
-    top: -16px; left: 50%; width: 30px; height: 18px; margin-left: -15px;
+  .pet:not([data-stage="egg"]) .pet-accessories .wear {
+    position: absolute; pointer-events: none; box-sizing: border-box;
   }
-  .pet:not([data-stage="egg"]) .wear-hat .hat-brim { width: 30px; margin-left: -15px; height: 5px; }
-  .pet:not([data-stage="egg"]) .wear-hat .hat-top { width: 18px; height: 14px; margin-left: -9px; bottom: 3px; }
-  .pet:not([data-stage="egg"]) .wear-hat .hat-band { width: 18px; margin-left: -9px; bottom: 4px; }
-
-  .pet:not([data-stage="egg"]) .wear-crown {
-    top: -15px; left: 50%; width: 28px; height: 16px; margin-left: -14px;
+  /* Head items */
+  .pet:not([data-stage="egg"]) .pet-accessories .wear-hat {
+    top: 2%; left: 50%; width: 36%; height: 16%; margin-left: -18%;
   }
-
-  .pet:not([data-stage="egg"]) .wear-bow {
-    left: 50%; right: auto; top: -8px; width: 20px; height: 14px; margin-left: -2px;
+  .pet:not([data-stage="egg"]) .pet-accessories .wear-hat .hat-brim {
+    position: absolute; bottom: 0; left: 50%; width: 100%; height: 28%;
+    margin-left: -50%; background: #2A2218; border: 2px solid #1A1008; border-radius: 4px;
   }
-  .pet:not([data-stage="egg"]) .wear-bow::before,
-  .pet:not([data-stage="egg"]) .wear-bow::after { width: 9px; height: 9px; }
-
-  .pet:not([data-stage="egg"]) .wear-glasses {
-    left: 50%; top: 14px; width: 44px; height: 15px; margin-left: -22px;
+  .pet:not([data-stage="egg"]) .pet-accessories .wear-hat .hat-top {
+    position: absolute; bottom: 22%; left: 50%; width: 58%; height: 70%;
+    margin-left: -29%; background: #2A2218; border: 2px solid #1A1008; border-radius: 4px 4px 0 0;
   }
-  .pet:not([data-stage="egg"]) .wear-glasses .g-lens {
-    width: 15px; height: 15px; border-color: #2d3a4a;
-    background: rgba(190, 225, 255, 0.28);
+  .pet:not([data-stage="egg"]) .pet-accessories .wear-hat .hat-band {
+    position: absolute; bottom: 22%; left: 50%; width: 58%; height: 12%;
+    margin-left: -29%; background: #C9A044;
   }
-  .pet:not([data-stage="egg"]) .wear-glasses .g-lens.l { left: 0; }
-  .pet:not([data-stage="egg"]) .wear-glasses .g-lens.r { right: 0; }
-  .pet:not([data-stage="egg"]) .wear-glasses .g-bridge {
-    left: 50%; top: 6px; width: 10px; margin-left: -5px; background: #2d3a4a;
+  .pet:not([data-stage="egg"]) .pet-accessories .wear-crown {
+    top: 0%; left: 50%; width: 34%; height: 16%; margin-left: -17%;
   }
-
-  .pet:not([data-stage="egg"]) .wear-flower {
-    left: auto; right: -2px; top: 0; width: 14px; height: 14px;
+  .pet:not([data-stage="egg"]) .pet-accessories .wear-bow {
+    top: 4%; left: 58%; width: 22%; height: 14%; margin-left: 0;
   }
-
-  .pet:not([data-stage="egg"]) .wear-scarf {
-    top: -2px; width: 115%; margin-left: -57.5%; height: 8px;
+  .pet:not([data-stage="egg"]) .pet-accessories .wear-glasses {
+    top: 18%; left: 50%; width: 42%; height: 14%; margin-left: -21%;
   }
-  .pet:not([data-stage="egg"]) .wear-scarf .scarf-tail { right: 2px; top: 6px; height: 10px; }
-
-  /* Soft hoodie = blue vest on the belly only (never covers face) */
-  .pet:not([data-stage="egg"]) .wear-hoodie {
-    position: absolute;
-    left: 50%; top: 8%;
-    width: 108%; height: 78%;
-    margin-left: -54%;
-    inset: auto;
+  .pet:not([data-stage="egg"]) .pet-accessories .wear-glasses .g-lens {
+    position: absolute; top: 0; width: 38%; height: 100%;
+    border: 2.5px solid #2d3a4a; border-radius: 50%;
+    background: rgba(190, 225, 255, 0.22);
   }
-  .pet:not([data-stage="egg"]) .wear-hoodie .hoodie-shell {
+  .pet:not([data-stage="egg"]) .pet-accessories .wear-glasses .g-lens.l { left: 0; }
+  .pet:not([data-stage="egg"]) .pet-accessories .wear-glasses .g-lens.r { right: 0; }
+  .pet:not([data-stage="egg"]) .pet-accessories .wear-glasses .g-bridge {
+    position: absolute; left: 50%; top: 40%; width: 16%; height: 12%;
+    margin-left: -8%; background: #2d3a4a; border-radius: 2px;
+  }
+  .pet:not([data-stage="egg"]) .pet-accessories .wear-flower {
+    top: 6%; left: 68%; width: 16%; height: 16%;
+  }
+  /* Body items — belly only */
+  .pet:not([data-stage="egg"]) .pet-accessories .wear-scarf {
+    top: 42%; left: 50%; width: 48%; height: 8%; margin-left: -24%;
+  }
+  .pet:not([data-stage="egg"]) .pet-accessories .wear-scarf .scarf-band {
     position: absolute; inset: 0;
-    border-radius: 45% 45% 38% 38%;
-    background: linear-gradient(180deg, #A8C8E0 0%, #7AA8C8 50%, #6A98B8 100%);
+    background: linear-gradient(180deg, #E87890, #C45870);
+    border: 2px solid #8B4050; border-radius: 4px;
+  }
+  .pet:not([data-stage="egg"]) .pet-accessories .wear-scarf .scarf-tail {
+    position: absolute; right: 4%; top: 90%; width: 18%; height: 120%;
+    background: linear-gradient(180deg, #E87890, #C45870);
+    border: 2px solid #8B4050; border-radius: 0 0 3px 3px;
+  }
+  .pet:not([data-stage="egg"]) .pet-accessories .wear-hoodie {
+    top: 44%; left: 50%; width: 44%; height: 30%; margin-left: -22%;
+  }
+  .pet:not([data-stage="egg"]) .pet-accessories .wear-hoodie .hoodie-shell {
+    position: absolute; inset: 0;
+    background: linear-gradient(180deg, #A8C8E0 0%, #7AA8C8 55%, #6A98B8 100%);
     border: 2.5px solid #4A7088;
-    box-shadow: inset 0 2px 0 rgba(255,255,255,0.35);
-    opacity: 0.88;
+    border-radius: 40% 40% 36% 36%;
+    box-shadow: inset 0 2px 0 rgba(255,255,255,0.3);
+    opacity: 0.9;
   }
-  .pet:not([data-stage="egg"]) .wear-hoodie .hoodie-pocket {
-    position: absolute;
-    left: 50%; bottom: 12%;
-    width: 40%; height: 28%;
-    margin-left: -20%;
-    background: rgba(255,255,255,0.2);
-    border: 2px solid #4A7088;
-    border-radius: 4px 4px 6px 6px;
+  .pet:not([data-stage="egg"]) .pet-accessories .wear-hoodie .hoodie-pocket {
+    position: absolute; left: 50%; bottom: 10%; width: 36%; height: 30%;
+    margin-left: -18%;
+    background: rgba(255,255,255,0.22);
+    border: 2px solid #4A7088; border-radius: 3px;
   }
-  /* Small collar at top of vest — not a face mask */
-  .pet[data-outfit="clothes_hoodie"] .pet-torso::before {
-    content: '';
-    position: absolute; top: -3px; left: 50%;
-    width: 58%; height: 7px;
-    margin-left: -29%;
-    background: linear-gradient(180deg, #A8C8E0, #7AA8C8);
-    border: 2px solid #4A7088;
-    border-radius: 6px 6px 2px 2px;
-    z-index: 6; pointer-events: none;
+  .pet:not([data-stage="egg"]) .pet-accessories .wear-cape {
+    top: 40%; left: 50%; width: 40%; height: 28%; margin-left: -20%;
   }
-  .pet[data-outfit="clothes_hoodie"] .pet-torso::after { display: none !important; }
-
-  /* Scale armor on torso */
-  .pet[data-outfit="clothes_cape"] .pet-torso::after {
-    content: '';
-    position: absolute; top: 10%; left: 50%; width: 70%; height: 55%;
-    margin-left: -35%;
-    background:
-      radial-gradient(ellipse at 30% 40%, #E8A060 0%, transparent 55%),
-      radial-gradient(ellipse at 70% 40%, #E8A060 0%, transparent 55%),
-      linear-gradient(180deg, #C97A40 0%, #A05828 100%);
+  .pet:not([data-stage="egg"]) .pet-accessories .wear-cape .cape-shell {
+    position: absolute; inset: 0;
+    background: linear-gradient(180deg, #C97A40 0%, #A05828 100%);
     border: 2px solid #6B3A18;
     border-radius: 40% 40% 35% 35%;
-    box-shadow: inset 0 2px 0 rgba(255,220,160,0.35);
-    z-index: 6; pointer-events: none;
+    box-shadow: inset 0 2px 0 rgba(255,220,160,0.3);
   }
+  /* Kill old torso pseudo clothes that painted over the face */
+  .pet[data-outfit] .pet-torso::before,
+  .pet[data-outfit] .pet-torso::after {
+    display: none !important; content: none !important;
+  }
+
 
   @media (prefers-reduced-motion: reduce) { .pet-dragon * { animation: none !important; } }
 
@@ -5037,8 +5038,13 @@ function renderRoomScene() {
     const DRAG_THRESHOLD = 6;
 
     el.addEventListener('pointerdown', (e) => {
-      if (isAnimating || mgActive) return;
+      if (mgActive) return;
       if (e.button !== undefined && e.button !== 0) return;
+      // Allow tap even if a previous anim stuck; clear so walk-to works
+      if (isAnimating) {
+        isAnimating = false;
+        clearTimeout(animationWatchdog);
+      }
       e.preventDefault();
       e.stopPropagation();
       const room = $('room');
@@ -5513,9 +5519,16 @@ function renderFridgeContents() {
 
 async function furnitureInteraction(type) {
   if (!gameData) return;
-  if (isAnimating || mgActive) return;
+  if (mgActive) return;
+  // Unstick a stuck animation so furniture always remains usable
+  if (isAnimating) {
+    console.warn('[furniture] clearing stuck isAnimating');
+    isAnimating = false;
+    clearTimeout(animationWatchdog);
+  }
 
   const pet = $('pet');
+  if (!pet) return;
   const mood = computeMood();
 
   // Mood-aware refusals — actions must fit how Mochi feels
@@ -7168,6 +7181,9 @@ function renderPetAccessories() {
   if (equipped) pet.setAttribute('data-outfit', equipped);
   else pet.removeAttribute('data-outfit');
 
+  // Clear any leftover outfit nodes on old anchors
+  pet.querySelectorAll('.pet-outfit, .pet-outfit-body').forEach(n => { n.innerHTML = ''; });
+
   if (inv.decoration && !equipped) {
     const bow = document.createElement('div');
     bow.className = 'pet-accessory bow';
@@ -7187,36 +7203,10 @@ function renderPetAccessories() {
     container.appendChild(star);
   }
 
-  const body = pet.querySelector('.pet-body');
-  const torso = pet.querySelector('.pet-torso');
-  if (!body) return;
-
-  // Head outfit layer
-  let headLayer = body.querySelector('.pet-outfit');
-  if (!headLayer) {
-    headLayer = document.createElement('div');
-    headLayer.className = 'pet-outfit';
-    body.appendChild(headLayer);
-  }
-  headLayer.innerHTML = '';
-
-  // Body outfit layer
-  let bodyLayer = torso ? torso.querySelector('.pet-outfit-body') : null;
-  if (torso && !bodyLayer) {
-    bodyLayer = document.createElement('div');
-    bodyLayer.className = 'pet-outfit-body';
-    torso.appendChild(bodyLayer);
-  }
-  if (bodyLayer) bodyLayer.innerHTML = '';
-
   if (!equipped) return;
   const def = CLOTHES_DEFS.find(c => c.id === equipped);
   if (!def) return;
 
-  // Cape: CSS ::before on .pet — nothing to inject
-  if (def.id === 'clothes_cape') return;
-
-  const isBodyWear = def.id === 'clothes_hoodie' || def.id === 'clothes_scarf';
   const el = document.createElement('div');
   el.className = 'wear wear-' + def.id.replace('clothes_', '');
   el.title = def.name;
@@ -7235,11 +7225,14 @@ function renderPetAccessories() {
     el.innerHTML = '<div class="hoodie-shell"></div><div class="hoodie-pocket"></div>';
   } else if (def.id === 'clothes_flower') {
     el.innerHTML = '<div class="fl-petal p1"></div><div class="fl-petal p2"></div><div class="fl-petal p3"></div><div class="fl-center"></div>';
+  } else if (def.id === 'clothes_cape') {
+    el.className = 'wear wear-cape';
+    el.innerHTML = '<div class="cape-shell"></div>';
   }
 
-  if (isBodyWear && bodyLayer) bodyLayer.appendChild(el);
-  else headLayer.appendChild(el);
+  container.appendChild(el);
 }
+
 
 function renderRoomDecorations() {
   if (!gameData) return;
