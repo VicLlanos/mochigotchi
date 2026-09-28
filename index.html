@@ -497,6 +497,145 @@
   }
 
   /* Big shiny cartoon eyes */
+
+  /* ---- All-fours dragon pose (rest / idle) ---- */
+  .pet.quad .pet-body {
+    left: 8%; bottom: 16px;
+    transform: none;
+    width: 36px; height: 32px;
+  }
+  .pet.quad .pet-torso {
+    left: 50%; bottom: 8px;
+    width: 48px; height: 22px;
+    border-radius: 42% 42% 38% 38%;
+  }
+  .pet.quad .pet-arm-l { left: 50%; margin-left: -22px; bottom: 2px; transform: none; }
+  .pet.quad .pet-arm-r { left: 50%; margin-left: -8px; bottom: 2px; transform: none; }
+  .pet.quad .pet-foot-l { left: 50%; margin-left: 6px; bottom: 2px; }
+  .pet.quad .pet-foot-r { left: 50%; margin-left: 18px; bottom: 2px; }
+  .pet.quad .pet-tail {
+    left: 50%; margin-left: 16px; bottom: 10px;
+    display: block !important;
+  }
+  .pet.quad .pet-wing { top: 22px; }
+  .pet.quad .pet-wing-l { margin-left: -28px; }
+  .pet.quad .pet-wing-r { margin-left: 10px; }
+
+  /* ---- Curled-up rest (tail around body, sleepy) ---- */
+  .pet.curled {
+    animation: curlBreath 3.2s ease-in-out infinite;
+  }
+  @keyframes curlBreath {
+    0%, 100% { transform: translateX(-50%) translateY(0) scale(1, 1); }
+    50% { transform: translateX(-50%) translateY(-2px) scale(1.02, 0.98); }
+  }
+  .pet.curled .pet-body {
+    left: 50%; bottom: 18px;
+    transform: translateX(-50%);
+  }
+  .pet.curled .pet-torso {
+    width: 42px; height: 30px; bottom: 6px;
+  }
+  .pet.curled .pet-arm-l,
+  .pet.curled .pet-arm-r {
+    bottom: 12px;
+    transform: scale(0.85);
+  }
+  .pet.curled .pet-arm-l { margin-left: -22px; }
+  .pet.curled .pet-arm-r { margin-left: 10px; }
+  .pet.curled .pet-foot {
+    bottom: 2px;
+    transform: scale(0.9);
+  }
+  .pet.curled .pet-tail {
+    display: block !important;
+    left: 50%; margin-left: -4px;
+    bottom: 4px;
+    width: 36px; height: 28px;
+    border-radius: 50%;
+    border: 3px solid var(--pet-outline, #2A3A28);
+    border-left-color: transparent;
+    border-bottom-color: transparent;
+    background: transparent;
+    animation: none;
+    transform: rotate(-20deg);
+    z-index: 7;
+  }
+  .pet.curled .pet-tail::before {
+    left: auto; right: 2px; top: auto; bottom: -4px;
+    width: 16px; height: 16px;
+    background: var(--pet-color, #7EC87A);
+    border: 2.5px solid var(--pet-outline, #2A3A28);
+    border-radius: 50%;
+  }
+  .pet.curled .pet-tail::after {
+    right: -2px; bottom: -6px;
+    width: 12px; height: 12px;
+  }
+  .pet.curled .pet-eye {
+    height: 3px; border-radius: 3px; animation: none;
+  }
+  .pet.curled .pet-eye::after,
+  .pet.curled .pet-eye::before { display: none; }
+  .pet.curled .pet-mouth {
+    width: 8px; height: 3px; border-radius: 0 0 6px 6px;
+  }
+  .pet.curled .pet-mouth::after { display: none !important; }
+
+  /* ---- Special action animations ---- */
+  .pet.singing {
+    animation: singBob 0.6s ease-in-out infinite;
+  }
+  @keyframes singBob {
+    0%, 100% { transform: translateX(-50%) translateY(0) rotate(-2deg); }
+    50% { transform: translateX(-50%) translateY(-6px) rotate(2deg); }
+  }
+  .pet.singing .pet-mouth {
+    width: 14px; height: 12px; border-radius: 50%;
+  }
+  .pet.dancing {
+    animation: danceSpin 0.55s ease-in-out infinite;
+  }
+  @keyframes danceSpin {
+    0% { transform: translateX(-50%) rotate(-8deg) translateY(0); }
+    25% { transform: translateX(-50%) rotate(0deg) translateY(-10px); }
+    50% { transform: translateX(-50%) rotate(8deg) translateY(0); }
+    75% { transform: translateX(-50%) rotate(0deg) translateY(-10px); }
+    100% { transform: translateX(-50%) rotate(-8deg) translateY(0); }
+  }
+  .pet.flying {
+    animation: flyHover 0.7s ease-in-out infinite;
+  }
+  @keyframes flyHover {
+    0%, 100% { transform: translateX(-50%) translateY(-18px); }
+    50% { transform: translateX(-50%) translateY(-28px); }
+  }
+  .pet.flying .pet-wing-l { animation: wingFlapL 0.25s ease-in-out infinite; }
+  .pet.flying .pet-wing-r { animation: wingFlapR 0.25s ease-in-out infinite; }
+  .pet.flying .pet-wing { display: block !important; }
+
+  .pet.firebreath {
+    animation: fireRock 0.4s ease-in-out infinite;
+  }
+  @keyframes fireRock {
+    0%, 100% { transform: translateX(-50%) scale(1, 1); }
+    50% { transform: translateX(-50%) scale(1.05, 0.95); }
+  }
+  .pet.firebreath .pet-mouth {
+    width: 16px; height: 14px; border-radius: 40%;
+    background: #C9302C;
+  }
+  .pet.roaring {
+    animation: roarShake 0.35s ease-in-out infinite;
+  }
+  @keyframes roarShake {
+    0%, 100% { transform: translateX(-50%) scale(1.05); }
+    50% { transform: translateX(-48%) scale(1.08); }
+  }
+  .pet.roaring .pet-mouth {
+    width: 18px; height: 14px; border-radius: 50%;
+  }
+
   .pet-eye {
     position: absolute; top: 11px; width: 12px; height: 14px;
     background: #1A1810;
@@ -690,6 +829,13 @@
     transform: rotate(28deg);
     border-radius: 40% 60% 50% 30%;
   }
+
+
+  .pet[data-stage="egg"].quad .pet-torso,
+  .pet[data-stage="egg"].quad .pet-arm,
+  .pet[data-stage="egg"].curled .pet-torso,
+  .pet[data-stage="egg"].curled .pet-arm,
+  .pet[data-stage="egg"].curled .pet-tail { display: none !important; }
 
   /* ---- Egg ---- */
   .pet[data-stage="egg"] .pet-eye,
@@ -3439,6 +3585,12 @@
         <button class="action-btn" data-action="bath"><span class="emoji">💧</span><span class="label">BATH</span></button>
         <button class="action-btn" data-action="pet"><span class="emoji">🤲</span><span class="label">PET</span></button>
         <button class="action-btn" data-action="clean"><span class="emoji">🧹</span><span class="label">CLEAN</span></button>
+        <button class="action-btn" data-action="sing"><span class="emoji">🎤</span><span class="label">SING</span></button>
+        <button class="action-btn" data-action="dance"><span class="emoji">💃</span><span class="label">DANCE</span></button>
+        <button class="action-btn" data-action="fly"><span class="emoji">🪽</span><span class="label">FLY</span></button>
+        <button class="action-btn" data-action="fire"><span class="emoji">🔥</span><span class="label">FIRE</span></button>
+        <button class="action-btn" data-action="roar"><span class="emoji">📣</span><span class="label">ROAR</span></button>
+        <button class="action-btn" data-action="dig"><span class="emoji">🕳️</span><span class="label">DIG</span></button>
         <button class="action-btn" data-action="minigame" style="grid-column: span 3; background: linear-gradient(180deg, #FFF9C8, #F0E0A0); border-color: #C9A044;">
           <span class="emoji">🫧</span><span class="label">BUBBLE POP MINI-GAME</span>
         </button>
@@ -3599,7 +3751,13 @@ const ACTIONS = {
   sleep: { stat: 'energy', amount: 30, xp: 2, verb: 'tucked in',        emoji: '🌙', prefRoom: 'bedroom' },
   bath:  { stat: 'clean',  amount: 30, xp: 2, verb: 'bathed',           emoji: '💧', prefRoom: 'bathroom' },
   pet:   { stat: 'happy',  amount: 8,  xp: 1, verb: 'petted',           emoji: '🤲', prefRoom: null },
-  clean: { stat: 'clean',  amount: 15, xp: 2, verb: 'cleaned up after', emoji: '🧹', prefRoom: 'bathroom' }
+  clean: { stat: 'clean',  amount: 15, xp: 2, verb: 'cleaned up after', emoji: '🧹', prefRoom: 'bathroom' },
+  sing:  { stat: 'happy',  amount: 18, xp: 3, verb: 'sang with',        emoji: '🎤', prefRoom: 'playroom', cost: { energy: 4 } },
+  dance: { stat: 'happy',  amount: 20, xp: 3, verb: 'danced with',      emoji: '💃', prefRoom: 'playroom', cost: { energy: 6 } },
+  fly:   { stat: 'happy',  amount: 16, xp: 4, verb: 'flew with',        emoji: '🪽', prefRoom: 'garden',   cost: { energy: 10 } },
+  fire:  { stat: 'happy',  amount: 14, xp: 4, verb: 'trained fire with', emoji: '🔥', prefRoom: 'garden',  cost: { energy: 8 } },
+  roar:  { stat: 'happy',  amount: 12, xp: 3, verb: 'roared with',      emoji: '📣', prefRoom: null,      cost: { energy: 5 } },
+  dig:   { stat: 'happy',  amount: 10, xp: 2, verb: 'dug with',         emoji: '🕳️', prefRoom: 'farm',    cost: { energy: 6, clean: 4 } }
 };
 
 const WANTS = [
@@ -3608,15 +3766,22 @@ const WANTS = [
   { id: 'sleep', emoji: '🌙', text: 'is sleepy',       action: 'sleep' },
   { id: 'bath',  emoji: '💧', text: 'wants a bath!',   action: 'bath' },
   { id: 'pet',   emoji: '🤲', text: 'wants cuddles!',  action: 'pet' },
-  { id: 'clean', emoji: '🧹', text: 'wants tidying!',  action: 'clean' }
+  { id: 'clean', emoji: '🧹', text: 'wants tidying!',  action: 'clean' },
+  { id: 'sing',  emoji: '🎤', text: 'wants to sing!',  action: 'sing' },
+  { id: 'dance', emoji: '💃', text: 'wants to dance!', action: 'dance' },
+  { id: 'fly',   emoji: '🪽', text: 'wants to fly!',   action: 'fly' },
+  { id: 'fire',  emoji: '🔥', text: 'wants to practice fire!', action: 'fire' },
+  { id: 'roar',  emoji: '📣', text: 'wants to roar!',  action: 'roar' },
+  { id: 'dig',   emoji: '🕳️', text: 'wants to dig!',   action: 'dig' }
 ];
 
 const AMBIENT_BEHAVIORS = {
   bedroom: [
+    { cls: 'curled', dur: 4, bubble: 'cozy...', emoji: '💤' },
+    { cls: 'quad', dur: 3, bubble: 'stretch~', emoji: '🐉' },
+    { cls: 'sleeping curled', dur: 4, bubble: 'nap time', emoji: '💤' },
     { cls: 'walking', dur: 2, bubble: 'hmm hmm~', emoji: '🎵' },
-    { cls: 'sleeping', dur: 3.5, bubble: 'nap time', emoji: '💤' },
     { cls: 'watching', dur: 3, bubble: 'looking outside', emoji: '🪟' },
-    { cls: 'stretching', dur: 1.5 },
     { cls: 'hopping', dur: 1.2, bubble: 'yay!', emoji: '✨' }
   ],
   bathroom: [
@@ -4449,21 +4614,24 @@ function isNightTime() {
    MOOD SYSTEM
    ============================================================ */
 function computeMood() {
-  if (!gameData) return { key: 'idle', label: 'IDLE', cls: 'idle' };
+  if (!gameData) return { key: 'idle', label: 'IDLE', cls: 'idle curled' };
   const hunger = gameData.hunger ?? 100;
   const happy  = gameData.happy  ?? 100;
   const energy = gameData.energy ?? 100;
   const clean  = gameData.clean  ?? 100;
 
-  if (isNightTime() && energy < 60) return { key: 'sleeping', label: 'SLEEPING', cls: 'sleeping' };
+  // Resting / night — curl up with tail
+  if (isNightTime() && energy < 60) return { key: 'sleeping', label: 'SLEEPING', cls: 'sleeping curled' };
+  if (energy < 25) return { key: 'sleeping', label: 'TIRED', cls: 'sleeping curled' };
   if (clean < 20 && happy < 30) return { key: 'sick', label: 'SICK', cls: 'sick' };
   const criticalCount = [hunger, happy, energy, clean].filter(v => v < 30).length;
   if (criticalCount >= 2) return { key: 'grumpy', label: 'GRUMPY', cls: 'grumpy' };
   if (hunger < 40) return { key: 'hungry', label: 'HUNGRY', cls: 'sad' };
   if (hunger > 85 && happy > 85 && energy > 85 && clean > 85) return { key: 'ecstatic', label: 'ECSTATIC', cls: 'ecstatic' };
-  if (happy < 50 && hunger > 50 && energy > 50 && clean > 50) return { key: 'bored', label: 'BORED', cls: 'bored' };
-  if (hunger > 60 && happy > 60 && energy > 60 && clean > 60) return { key: 'content', label: 'CONTENT', cls: 'happy' };
-  return { key: 'idle', label: 'IDLE', cls: 'idle' };
+  if (happy < 50 && hunger > 50 && energy > 50 && clean > 50) return { key: 'bored', label: 'BORED', cls: 'bored quad' };
+  // Peaceful / nothing to do — all fours, then curl
+  if (hunger > 60 && happy > 60 && energy > 60 && clean > 60) return { key: 'content', label: 'CONTENT', cls: 'happy quad' };
+  return { key: 'idle', label: 'IDLE', cls: 'idle curled' };
 }
 
 const MOOD_BEHAVIOR_OVERRIDES = {
@@ -8086,6 +8254,97 @@ function playActionAnimation(name) {
           pet.className = 'pet ' + computeMood().cls;
           break;
         }
+        case 'sing': {
+          pet.className = 'pet walking';
+          await movePetTo(50, 600, 18, 1);
+          pet.className = 'pet singing';
+          showBubble('la la la~', '🎤');
+          floatHearts(2);
+          for (let i = 0; i < 4; i++) {
+            setTimeout(() => showBubble(['do', 're', 'mi', 'fa~'][i], '🎵'), i * 450);
+          }
+          await new Promise(r => setTimeout(r, 2200));
+          pet.className = 'pet ' + computeMood().cls;
+          break;
+        }
+        case 'dance': {
+          pet.className = 'pet walking';
+          await movePetTo(45, 500, 16, 1);
+          pet.className = 'pet dancing';
+          showBubble('dance party!', '💃');
+          floatHearts(3);
+          await new Promise(r => setTimeout(r, 2400));
+          pet.className = 'pet spinning';
+          showBubble('wheee!', '✨');
+          await new Promise(r => setTimeout(r, 800));
+          pet.className = 'pet ' + computeMood().cls;
+          break;
+        }
+        case 'fly': {
+          pet.className = 'pet walking';
+          await movePetTo(50, 500, 20, 1);
+          pet.className = 'pet flying';
+          showBubble('up up!', '🪽');
+          floatHearts(2);
+          await new Promise(r => setTimeout(r, 2500));
+          pet.className = 'pet hopping';
+          showBubble('soft landing!', '✨');
+          await new Promise(r => setTimeout(r, 700));
+          pet.className = 'pet ' + computeMood().cls;
+          break;
+        }
+        case 'fire': {
+          pet.className = 'pet walking';
+          await movePetTo(55, 600, 16, 1);
+          pet.className = 'pet firebreath';
+          showBubble('FWOOSH!', '🔥');
+          // Fire particles
+          for (let i = 0; i < 5; i++) {
+            setTimeout(() => {
+              const f = document.createElement('div');
+              f.textContent = ['🔥','🧡','✨'][i % 3];
+              f.style.cssText = 'position:absolute;left:58%;bottom:40px;font-size:1.2rem;pointer-events:none;z-index:40;transition:all 0.6s ease-out;';
+              $('petArea')?.appendChild(f);
+              requestAnimationFrame(() => {
+                f.style.transform = `translate(${20 + i * 8}px, -${30 + i * 12}px) scale(${1.2 - i * 0.1})`;
+                f.style.opacity = '0';
+              });
+              setTimeout(() => f.remove(), 700);
+            }, i * 180);
+          }
+          await new Promise(r => setTimeout(r, 2200));
+          pet.className = 'pet happy';
+          showBubble('toasty!', '🔥');
+          await new Promise(r => setTimeout(r, 600));
+          pet.className = 'pet ' + computeMood().cls;
+          break;
+        }
+        case 'roar': {
+          pet.className = 'pet walking';
+          await movePetTo(50, 500, 16, 1);
+          pet.className = 'pet roaring';
+          showBubble('RAWR!!', '📣');
+          floatHearts(1);
+          await new Promise(r => setTimeout(r, 1800));
+          pet.className = 'pet happy';
+          showBubble('scary?', '🐉');
+          await new Promise(r => setTimeout(r, 600));
+          pet.className = 'pet ' + computeMood().cls;
+          break;
+        }
+        case 'dig': {
+          pet.className = 'pet walking';
+          await movePetTo(40, 700, 12, 1);
+          pet.className = 'pet quad';
+          showBubble('dig dig...', '🕳️');
+          await new Promise(r => setTimeout(r, 900));
+          pet.className = 'pet hopping';
+          showBubble('found something!', '✨');
+          floatHearts(2);
+          await new Promise(r => setTimeout(r, 1000));
+          pet.className = 'pet ' + computeMood().cls;
+          break;
+        }
       }
     } catch(e) { console.error('Animation error:', e); }
     resolve();
@@ -8371,7 +8630,7 @@ function applyActionEffects(name, addPoop) {
   updates.coins = (gameData.coins || 0) + coinsEarned;
   updates.lastUpdate = Date.now();
 
-  const statsField = { feed: 'feeds', play: 'plays', sleep: 'sleeps', bath: 'baths', pet: 'pets', clean: 'cleans' }[name];
+  const statsField = { feed: 'feeds', play: 'plays', sleep: 'sleeps', bath: 'baths', pet: 'pets', clean: 'cleans', sing: 'sings', dance: 'dances', fly: 'flies', fire: 'fires', roar: 'roars', dig: 'digs' }[name];
   if (statsField) updates['stats/' + statsField] = (gameData.stats?.[statsField] || 0) + 1;
   if (fulfilledWant) updates['stats/wantsFulfilled'] = (gameData.stats?.wantsFulfilled || 0) + 1;
 
