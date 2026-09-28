@@ -3385,21 +3385,30 @@
   .pet:not([data-stage="egg"]) .pet-dragon {
     display: block; position: absolute; z-index: 4; pointer-events: none;
     width: 113px; height: 101px; left: 50%; margin-left: -57px; top: 2px; overflow: visible;
-    --dk: 1; transform: scale(var(--dk)); transform-origin: 50% 88px;
+    transform: scaleX(var(--fx, 1)) scale(var(--dk, 1)); transform-origin: 50% 88px;
     transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
   }
-  .pet[data-stage="hatchling"] .pet-dragon { --dk: 0.83; }
-  .pet[data-stage="sapling"] .pet-dragon { --dk: 1.09; }
-  .pet[data-stage="bloom"] .pet-dragon { --dk: 1.17; }
-  .pet[data-stage="guardian"] .pet-dragon { --dk: 1.26; }
-  .pet[data-stage="mystic"] .pet-dragon { --dk: 1.35; }
-  .pet[data-stage="eternal"] .pet-dragon { --dk: 1.43; }
+  .pet[data-stage="hatchling"] { --dk: 0.83; }
+  .pet[data-stage="sapling"] { --dk: 1.09; }
+  .pet[data-stage="bloom"] { --dk: 1.17; }
+  .pet[data-stage="guardian"] { --dk: 1.26; }
+  .pet[data-stage="mystic"] { --dk: 1.35; }
+  .pet[data-stage="eternal"] { --dk: 1.43; }
   .pet:not([data-stage="egg"]) { filter: drop-shadow(0 3px 2px rgba(47, 93, 74, 0.28)); }
 
   /* hide the old boxy parts (keep .pet-body/.pet-torso as invisible outfit anchors) */
   .pet:not([data-stage="egg"]) .pet-body,
   .pet:not([data-stage="egg"]) .pet-torso {
     background: none !important; border-color: transparent !important; box-shadow: none !important;
+  }
+  /* invisible outfit anchors, sized to the dragon's head and torso and scaled with it */
+  .pet:not([data-stage="egg"]) .pet-body {
+    width: 49px !important; height: 40px !important; bottom: 27px !important;
+    transform: translateX(-50%) scale(var(--dk, 1)) !important; transform-origin: 50% 72px !important;
+  }
+  .pet:not([data-stage="egg"]) .pet-torso {
+    width: 30px !important; height: 33px !important; bottom: -2px !important;
+    transform: translateX(-50%) scale(var(--dk, 1)) !important; transform-origin: 50% 35px !important;
   }
   .pet:not([data-stage="egg"]) .pet-belly,
   .pet:not([data-stage="egg"]) .pet-wing,
@@ -3448,6 +3457,47 @@
     transform-box: view-box; transform-origin: 385px 395px; animation: dgBreath 0.6s ease-out forwards;
   }
   .pet.roaring .pet-dragon .dg-breath { animation-name: none; opacity: 0; }
+
+  /* walking: alternate steps, swinging arms, waddle, quicker tail */
+  .pet-dragon .dg-all { transform-origin: 385px 575px; }
+  .pet-dragon .dg-foot-l, .pet-dragon .dg-foot-r, .pet-dragon .dg-arm-l, .pet-dragon .dg-arm-r { transform-box: fill-box; }
+  .pet-dragon .dg-arm-l, .pet-dragon .dg-arm-r { transform-origin: 50% 10%; }
+  .pet.walking .pet-dragon .dg-all, .pet.leaving .pet-dragon .dg-all { animation: dgWaddle 0.5s ease-in-out infinite; }
+  .pet.walking .pet-dragon .dg-foot-l, .pet.leaving .pet-dragon .dg-foot-l { animation: dgStepL 0.5s ease-in-out infinite; }
+  .pet.walking .pet-dragon .dg-foot-r, .pet.leaving .pet-dragon .dg-foot-r { animation: dgStepR 0.5s ease-in-out infinite; }
+  .pet.walking .pet-dragon .dg-arm-l, .pet.leaving .pet-dragon .dg-arm-l { animation: dgSwingL 0.5s ease-in-out infinite; }
+  .pet.walking .pet-dragon .dg-arm-r, .pet.leaving .pet-dragon .dg-arm-r { animation: dgSwingR 0.5s ease-in-out infinite; }
+  .pet.walking .pet-dragon .dg-tail { animation-duration: 0.5s; }
+  @keyframes dgWaddle { 0%, 100% { transform: rotate(-4deg); } 50% { transform: rotate(4deg); } }
+  @keyframes dgStepL { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-24px); } }
+  @keyframes dgStepR { 0%, 100% { transform: translateY(-24px); } 50% { transform: translateY(0); } }
+  @keyframes dgSwingL { 0%, 100% { transform: rotate(-14deg); } 50% { transform: rotate(14deg); } }
+  @keyframes dgSwingR { 0%, 100% { transform: rotate(14deg); } 50% { transform: rotate(-14deg); } }
+  .pet.happy .pet-dragon .dg-arm-l { animation: dgSwingL 0.45s ease-in-out infinite; }
+  .pet.happy .pet-dragon .dg-arm-r { animation: dgSwingR 0.45s ease-in-out infinite; }
+  .pet:not([data-stage="egg"]):active { filter: drop-shadow(0 3px 2px rgba(47, 93, 74, 0.28)) brightness(1.06); }
+
+  /* wardrobe: every piece re-fitted to the dragon's head (49x40) and torso (30x33) */
+  .pet .wear-hat { top: -15px; width: 28px; height: 17px; margin-left: -14px; }
+  .pet .wear-hat .hat-brim { width: 28px; margin-left: -14px; height: 5px; }
+  .pet .wear-hat .hat-top { width: 17px; height: 13px; margin-left: -8.5px; bottom: 3px; }
+  .pet .wear-hat .hat-band { width: 17px; margin-left: -8.5px; bottom: 4px; }
+  .pet .wear-crown { top: -14px; width: 26px; height: 15px; margin-left: -13px; }
+  .pet .wear-crown .crown-pt { border-left-width: 4px; border-right-width: 4px; }
+  .pet .wear-crown .crown-pt.p2 { margin-left: -4px; }
+  .pet .wear-bow { left: auto; right: 0; margin-left: 0; top: -5px; width: 22px; height: 14px; }
+  .pet .wear-bow::before, .pet .wear-bow::after { width: 10px; height: 10px; }
+  .pet .wear-bow .wear-knot { top: 4px; width: 6px; height: 6px; margin-left: -3px; }
+  .pet .wear-glasses { left: 2.4px; top: 12.5px; width: 41.6px; height: 16px; margin-left: 0; }
+  .pet .wear-glasses .g-lens { width: 16px; height: 16px; border-color: #2d3a4a; background: rgba(190, 225, 255, 0.3); }
+  .pet .wear-glasses .g-bridge { left: 16px; top: 6px; width: 9.6px; margin-left: 0; background: #2d3a4a; }
+  .pet .wear-flower { left: 33px; right: auto; top: -2px; width: 13px; height: 13px; }
+  .pet .wear-scarf { top: 5px; width: 132%; margin-left: -66%; height: 9px; }
+  .pet .wear-hoodie { inset: -3px -4px -2px; }
+  .pet .wear-hoodie .hoodie-shell { border-radius: 46% 46% 42% 42%; }
+  .pet .wear-scarf .scarf-tail { right: 3px; top: 6px; }
+  .pet[data-outfit="clothes_hoodie"] .pet-torso::before { top: -3px; width: 104%; margin-left: -52%; height: 8px; }
+  .pet[data-outfit="clothes_cape"] .pet-torso::after { top: 5px; width: 86%; margin-left: -43%; height: 62%; }
   @media (prefers-reduced-motion: reduce) { .pet-dragon * { animation: none !important; } }
 </style>
 </head>
@@ -3514,17 +3564,17 @@
     <g id="dgHorn"><path class="dg-o dg-red" d="M262 235C235 190 245 120 288 98C290 130 305 165 330 190Z"/><path class="dg-dk" d="M270 212C260 175 264 138 285 114C288 146 300 176 318 196Z"/><path class="dg-o dg-cr" d="M318 170C322 152 335 142 342 138C346 150 346 162 340 174Z"/></g>
     <g id="dgWing"><path class="dg-o dg-red" d="M305 380L195 360C205 380 195 400 175 420C205 415 225 430 235 455C250 435 275 432 305 425Z"/><path class="dg-cr" d="M298 392L218 378Q222 398 200 416Q226 412 236 435Q262 420 298 415Z"/><path d="M298 402L222 384M298 408L206 414M298 412L236 434" stroke="#2f5d4a" stroke-width="3" fill="none" stroke-linecap="round"/></g>
   </defs>
+  <g class="dg-all">
   <g class="dg-tail"><path class="dg-o dg-red" d="M465 515C520 515 565 560 555 622C542 610 528 600 518 585C500 568 485 560 465 555Z"/><path class="dg-cr" d="M515 545C540 565 548 590 546 608C535 598 525 588 518 575Z"/><path class="dg-o dg-cr" d="M508 520L522 505L530 528ZM540 552L556 540L556 568Z"/></g>
   <g class="dg-wl"><use href="#dgWing"/></g>
   <g class="dg-wr"><use href="#dgWing" transform="translate(770 0) scale(-1 1)"/></g>
-  <ellipse class="dg-o dg-red" cx="298" cy="562" rx="38" ry="22"/><ellipse class="dg-o dg-red" cx="452" cy="565" rx="38" ry="22"/>
-  <g class="dg-cr" stroke="#2f5d4a" stroke-width="3"><ellipse cx="282" cy="570" rx="6" ry="8"/><ellipse cx="299" cy="573" rx="6" ry="8"/><ellipse cx="316" cy="569" rx="6" ry="8"/><ellipse cx="438" cy="572" rx="6" ry="8"/><ellipse cx="455" cy="574" rx="6" ry="8"/><ellipse cx="472" cy="570" rx="6" ry="8"/></g>
+  <g class="dg-foot-l"><ellipse class="dg-o dg-red" cx="298" cy="562" rx="38" ry="22"/><g class="dg-cr" stroke="#2f5d4a" stroke-width="3"><ellipse cx="282" cy="570" rx="6" ry="8"/><ellipse cx="299" cy="573" rx="6" ry="8"/><ellipse cx="316" cy="569" rx="6" ry="8"/></g></g>
+  <g class="dg-foot-r"><ellipse class="dg-o dg-red" cx="452" cy="565" rx="38" ry="22"/><g class="dg-cr" stroke="#2f5d4a" stroke-width="3"><ellipse cx="438" cy="572" rx="6" ry="8"/><ellipse cx="455" cy="574" rx="6" ry="8"/><ellipse cx="472" cy="570" rx="6" ry="8"/></g></g>
   <ellipse class="dg-o dg-red" cx="385" cy="470" rx="82" ry="92"/><path d="M322 420C312 440 310 470 316 496" stroke="#fff" stroke-opacity=".35" stroke-width="8" fill="none" stroke-linecap="round"/><path d="M448 430C462 455 462 500 446 535C468 515 474 468 448 430Z" fill="#4fae78" opacity=".55"/><ellipse class="dg-cr" cx="385" cy="488" rx="52" ry="68"/>
   <path d="M340 445Q385 458 430 445M345 500Q385 512 425 500M352 535Q385 545 418 535" stroke="#e4cf94" stroke-width="3" fill="none" stroke-linecap="round"/>
   <g class="dg-flame"><path class="dg-o" fill="#ff8a1f" stroke-width="3" d="M378 428C398 445 402 465 393 480C385 490 368 490 362 477C355 462 368 452 372 440C374 448 378 446 378 428Z"/><path fill="#ffd23f" d="M379 455C388 463 388 474 381 480C374 482 369 476 370 469C372 464 377 462 379 455Z"/></g>
-  <g class="dg-arm-l" transform="rotate(-18 325 470)"><ellipse class="dg-o dg-red" cx="325" cy="470" rx="26" ry="36"/></g>
-  <g class="dg-arm-r" transform="rotate(18 445 470)"><ellipse class="dg-o dg-red" cx="445" cy="470" rx="26" ry="36"/></g>
-  <g class="dg-cr" stroke="#2f5d4a" stroke-width="3"><ellipse cx="318" cy="453" rx="5" ry="8"/><ellipse cx="332" cy="450" rx="5" ry="8"/><ellipse cx="452" cy="453" rx="5" ry="8"/><ellipse cx="438" cy="450" rx="5" ry="8"/></g>
+  <g class="dg-arm-l"><g transform="rotate(-18 325 470)"><ellipse class="dg-o dg-red" cx="325" cy="470" rx="26" ry="36"/></g><g class="dg-cr" stroke="#2f5d4a" stroke-width="3"><ellipse cx="318" cy="453" rx="5" ry="8"/><ellipse cx="332" cy="450" rx="5" ry="8"/></g></g>
+  <g class="dg-arm-r"><g transform="rotate(18 445 470)"><ellipse class="dg-o dg-red" cx="445" cy="470" rx="26" ry="36"/></g><g class="dg-cr" stroke="#2f5d4a" stroke-width="3"><ellipse cx="452" cy="453" rx="5" ry="8"/><ellipse cx="438" cy="450" rx="5" ry="8"/></g></g>
   <use href="#dgHorn"/><use href="#dgHorn" transform="translate(770 0) scale(-1 1)"/>
   <path class="dg-o dg-red" d="M300 200C330 175 440 175 470 200C490 225 495 250 505 262C530 262 535 285 520 300C528 322 505 335 490 335C470 385 430 398 385 398C340 398 300 385 280 335C262 335 240 322 250 300C232 285 240 262 265 262C275 250 280 225 300 200Z"/>
   <path d="M300 226C322 200 362 193 404 197" stroke="#fff" stroke-opacity=".5" stroke-width="9" fill="none" stroke-linecap="round"/><ellipse cx="290" cy="346" rx="21" ry="12" fill="#ff9fb5" opacity=".75"/><ellipse cx="480" cy="346" rx="21" ry="12" fill="#ff9fb5" opacity=".75"/>
@@ -3534,6 +3584,7 @@
   <path d="M362 340Q378 332 394 340" stroke="#2f5d4a" stroke-width="4" fill="none" stroke-linecap="round"/><circle cx="371" cy="345" r="2.5" fill="#2f5d4a"/><circle cx="386" cy="345" r="2.5" fill="#2f5d4a"/>
   <g class="dg-mouth"><path class="dg-o" fill="#8a1c45" stroke-width="4" d="M360 366Q384 358 405 366Q402 396 383 397Q362 395 360 366Z"/><ellipse cx="384" cy="386" rx="10" ry="6" fill="#ff7b9c"/></g>
   <g class="dg-breath"><path class="dg-o" fill="#ff8a1f" d="M385 402C345 420 325 462 352 500C362 480 374 486 385 466C396 486 408 480 418 500C445 462 425 420 385 402Z"/><path fill="#ffd23f" d="M385 424C362 438 355 465 371 484C377 474 382 476 385 464C388 476 393 474 399 484C415 465 408 438 385 424Z"/></g>
+  </g>
 </svg>
             <div class="pet-wing pet-wing-l"></div>
             <div class="pet-wing pet-wing-r"></div>
@@ -8849,6 +8900,20 @@ document.addEventListener('visibilitychange', () => {
     setTimeout(() => tryAutoWander(), 5000);
   }
 });
+</script>
+<script>
+/* Dragon: turn to face the way it is walking (tail trails behind) */
+(function () {
+  var pet = document.getElementById('pet'); if (!pet) return;
+  var art = pet.querySelector('.pet-dragon'); if (!art) return;
+  var last = parseFloat(pet.style.left) || 50;
+  new MutationObserver(function () {
+    var x = parseFloat(pet.style.left);
+    if (isNaN(x) || Math.abs(x - last) < 0.5) return;
+    art.style.setProperty('--fx', x > last ? -1 : 1);
+    last = x;
+  }).observe(pet, { attributes: true, attributeFilter: ['style'] });
+})();
 </script>
 </body>
 </html>
