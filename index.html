@@ -3057,6 +3057,14 @@
   .action-btn .emoji { font-size: 1.5rem; line-height: 1; transition: transform 0.15s; }
   .action-btn .label { font-family: 'Press Start 2P', monospace; font-size: 0.45rem; color: #8B6F5E; }
   .action-btn.want-highlight { border-color: #C9A044; background: #FFF9C8; animation: wantHighlight 1.2s infinite; }
+  .action-section-label {
+    grid-column: 1 / -1;
+    font-family: 'Press Start 2P', monospace;
+    font-size: 0.45rem;
+    color: #A89080;
+    letter-spacing: 0.08em;
+    margin: 4px 2px 0;
+  }
   @keyframes wantHighlight { 0%, 100% { box-shadow: 0 3px 0 #C9A044; } 50% { box-shadow: 0 3px 0 #C9A044, 0 0 12px rgba(201, 160, 68, 0.6); } }
 
   .minigame-area {
@@ -3504,12 +3512,14 @@
       </div>
 
       <div class="actions">
+        <div class="action-section-label">CARE</div>
         <button class="action-btn" data-action="feed"><span class="emoji">🍚</span><span class="label">FEED</span></button>
-        <button class="action-btn" data-action="play"><span class="emoji">🎈</span><span class="label">PLAY</span></button>
         <button class="action-btn" data-action="sleep"><span class="emoji">🌙</span><span class="label">SLEEP</span></button>
         <button class="action-btn" data-action="bath"><span class="emoji">💧</span><span class="label">BATH</span></button>
         <button class="action-btn" data-action="pet"><span class="emoji">🤲</span><span class="label">PET</span></button>
         <button class="action-btn" data-action="clean"><span class="emoji">🧹</span><span class="label">CLEAN</span></button>
+        <button class="action-btn" data-action="play"><span class="emoji">🎈</span><span class="label">PLAY</span></button>
+        <div class="action-section-label">DRAGON</div>
         <button class="action-btn" data-action="sing"><span class="emoji">🎤</span><span class="label">SING</span></button>
         <button class="action-btn" data-action="dance"><span class="emoji">💃</span><span class="label">DANCE</span></button>
         <button class="action-btn" data-action="fly"><span class="emoji">🪽</span><span class="label">FLY</span></button>
@@ -3702,11 +3712,11 @@ const WANTS = [
 
 const AMBIENT_BEHAVIORS = {
   bedroom: [
-    { cls: 'flying', dur: 3.5, bubble: 'zoom~', emoji: '🪽' },
+    { cls: 'idle', dur: 3, bubble: 'hmm~', emoji: '💭' },
     { cls: 'sleeping', dur: 4, bubble: 'nap time', emoji: '💤' },
-    { cls: 'flying', dur: 2.5, bubble: 'weee!', emoji: '✨' },
     { cls: 'watching', dur: 3, bubble: 'looking outside', emoji: '🪟' },
-    { cls: 'hopping', dur: 1.2, bubble: 'yay!', emoji: '✨' }
+    { cls: 'hopping', dur: 1.2, bubble: 'yay!', emoji: '✨' },
+    { cls: 'stretching', dur: 1.5, bubble: 'stretch~', emoji: '✨' }
   ],
   bathroom: [
     { cls: 'watching', dur: 2.5, bubble: 'bubbles!', emoji: '🫧' },
@@ -3943,7 +3953,7 @@ const ACHIEVEMENTS = [
   { id: 'streak_7',      emoji: '🔥', name: 'WEEK WARRIORS',    desc: '7-day streak',                       check: (d) => (d.streak || 0) >= 7 },
   { id: 'streak_30',     emoji: '🌟', name: 'MONTH OF LOVE',    desc: '30-day streak',                      check: (d) => (d.streak || 0) >= 30 },
   { id: 'level_5',       emoji: '🌱', name: 'GROWING UP',       desc: 'Reach Level 5',                      check: (d) => (d.level || 0) >= 5 },
-  { id: 'level_12',      emoji: '🌿', name: 'SAPLING STAGE',    desc: 'Reach Level 12',                     check: (d) => (d.level || 0) >= 12 },
+  { id: 'level_15',      emoji: '🌿', name: 'SAPLING STAGE',    desc: 'Reach Level 15',                     check: (d) => (d.level || 0) >= 15 },
   { id: 'level_20',      emoji: '🌸', name: 'IN BLOOM',         desc: 'Reach Level 20',                     check: (d) => (d.level || 0) >= 20 },
   { id: 'level_35',      emoji: '🦚', name: 'GUARDIAN',         desc: 'Reach Level 35',                     check: (d) => (d.level || 0) >= 35 },
   { id: 'no_poop',       emoji: '✨', name: 'SPOTLESS',         desc: 'Keep Mochi clean above 90% often',   check: (d) => (d.cleanliness_streak || 0) >= 20 },
@@ -4209,12 +4219,12 @@ async function moveMochiToRoom(roomId, opts = {}) {
     const petEl = $('pet');
     petEl.classList.remove('leaving');
     petEl.style.left = '50%';
-    petEl.style.bottom = '18%';
+    petEl.style.bottom = '15%';
     petEl.style.transition = 'none';
     petEl.className = 'pet flying arriving';
     setTimeout(() => {
-      petEl.className = 'pet ' + computeMood().cls;
-      renderCache.petMood = computeMood().cls;
+      petEl.style.bottom = '15%';
+      setPetClass(); // land as sitting dragon
     }, 850);
 
     if (!opts.noToast) showToast('Mochi walked to the ' + room.name.toLowerCase() + ' ' + room.emoji);
@@ -4540,7 +4550,7 @@ function isNightTime() {
    MOOD SYSTEM
    ============================================================ */
 function computeMood() {
-  if (!gameData) return { key: 'idle', label: 'IDLE', cls: 'flying' };
+  if (!gameData) return { key: 'idle', label: 'IDLE', cls: 'idle' };
   const hunger = gameData.hunger ?? 100;
   const happy  = gameData.happy  ?? 100;
   const energy = gameData.energy ?? 100;
@@ -4552,11 +4562,22 @@ function computeMood() {
   const criticalCount = [hunger, happy, energy, clean].filter(v => v < 30).length;
   if (criticalCount >= 2) return { key: 'grumpy', label: 'GRUMPY', cls: 'grumpy' };
   if (hunger < 40) return { key: 'hungry', label: 'HUNGRY', cls: 'sad' };
+  if (energy < 40) return { key: 'tired', label: 'TIRED', cls: 'idle' };
   if (hunger > 85 && happy > 85 && energy > 85 && clean > 85) return { key: 'ecstatic', label: 'ECSTATIC', cls: 'ecstatic' };
   if (happy < 50 && hunger > 50 && energy > 50 && clean > 50) return { key: 'bored', label: 'BORED', cls: 'bored' };
-  // Idle / content — hover and fly around (body design stays intact)
-  if (hunger > 60 && happy > 60 && energy > 60 && clean > 60) return { key: 'content', label: 'CONTENT', cls: 'flying' };
-  return { key: 'idle', label: 'IDLE', cls: 'flying' };
+  if (hunger > 60 && happy > 60 && energy > 60 && clean > 60) return { key: 'content', label: 'CONTENT', cls: 'happy' };
+  return { key: 'idle', label: 'IDLE', cls: 'idle' };
+}
+
+/** Always restore a stable pet class without breaking body layout */
+function setPetClass(extra) {
+  const pet = $('pet');
+  if (!pet) return;
+  const mood = computeMood();
+  const base = (extra && String(extra).trim()) ? String(extra).trim() : mood.cls;
+  // Never leave permanent flying/quad/curled as the only state except explicit action
+  pet.className = 'pet ' + base;
+  renderCache.petMood = base;
 }
 
 const MOOD_BEHAVIOR_OVERRIDES = {
@@ -5296,7 +5317,7 @@ async function furnitureInteraction(type) {
     }
   } catch(e) {
     console.error('[furniture]', e);
-    pet.className = 'pet ' + computeMood().cls;
+    setPetClass();
   }
 
   isAnimating = false;
@@ -5333,7 +5354,7 @@ async function interactBed(pet) {
   bed?.classList.remove('fluffed');
   pet.className = 'pet walking';
   await movePetTo(50, 800, 15, 1);
-  pet.className = 'pet ' + computeMood().cls;
+  setPetClass();
   showToast('😴 Napped on the bed! +8 rest');
 }
 
@@ -5347,7 +5368,7 @@ async function interactLamp(pet) {
   showBubble(isOff ? 'dark...' : 'so warm!', isOff ? '🌙' : '💡');
   floatHearts(2);
   await new Promise(r => setTimeout(r, 1400));
-  pet.className = 'pet ' + computeMood().cls;
+  setPetClass();
 }
 
 async function interactFrame(pet) {
@@ -5358,7 +5379,7 @@ async function interactFrame(pet) {
   floatHearts(3);
   await new Promise(r => setTimeout(r, 1600));
   frame?.classList.remove('swapped');
-  pet.className = 'pet ' + computeMood().cls;
+  setPetClass();
 }
 
 async function interactShelf(pet) {
@@ -5371,7 +5392,7 @@ async function interactShelf(pet) {
   db.ref('tamagotchi').update({ xp: (gameData.xp || 0) + 3, lastUpdate: Date.now() });
   await new Promise(r => setTimeout(r, 1800));
   shelf?.classList.remove('picked');
-  pet.className = 'pet ' + computeMood().cls;
+  setPetClass();
   showToast('✨ Curious! +3 XP');
 }
 
@@ -5403,7 +5424,7 @@ async function interactWindow(pet) {
   });
   pet.className = 'pet walking';
   await movePetTo(50, 800, 15, 1);
-  pet.className = 'pet ' + computeMood().cls;
+  setPetClass();
   showToast('🪟 Fresh air! +3 ☀️ +2 XP');
 }
 
@@ -5567,7 +5588,7 @@ async function interactCounter(pet) {
 
   pet.className = 'pet walking';
   await movePetTo(50, 800, 15, 1);
-  pet.className = 'pet ' + computeMood().cls;
+  setPetClass();
 }
 
 async function interactFridge(pet) {
@@ -5593,7 +5614,7 @@ async function interactFridge(pet) {
     fridgeOpen = false;
     fridge?.classList.remove('open');
     renderFridgeContents();
-    pet.className = 'pet ' + computeMood().cls;
+    setPetClass();
     return;
   }
 
@@ -5622,7 +5643,7 @@ async function interactFridge(pet) {
   });
 
   if (!picked) {
-    pet.className = 'pet ' + computeMood().cls;
+    setPetClass();
     return;
   }
 
@@ -5654,7 +5675,7 @@ async function interactFridge(pet) {
 
   pet.className = 'pet walking';
   await movePetTo(50, 800, 15, 1);
-  pet.className = 'pet ' + computeMood().cls;
+  setPetClass();
   const label = item.name || item.emoji;
   showToast(`🍴 ${isDish ? 'Ate' : 'Snacked on'} ${label}! +${hungerGain} 🍚 +${joyGain} ☀️ +${xpGain} XP`);
 }
@@ -5682,7 +5703,7 @@ async function interactTree(pet) {
   await new Promise(r => setTimeout(r, 1600));
   pet.className = 'pet walking';
   await movePetTo(50, 800, 15, 1);
-  pet.className = 'pet ' + computeMood().cls;
+  setPetClass();
   showToast('🍎 Caught fruit! +6 🍚 +6 ☀️ +3 XP');
 }
 
@@ -5709,7 +5730,7 @@ async function interactFlowers(pet) {
   flowers?.classList.remove('sniffed');
   pet.className = 'pet walking';
   await movePetTo(50, 800, 15, 1);
-  pet.className = 'pet ' + computeMood().cls;
+  setPetClass();
   db.ref('tamagotchi').update({
     happy: Math.min(100, (gameData.happy || 0) + 7),
     xp: (gameData.xp || 0) + 3,
@@ -5743,7 +5764,7 @@ async function interactToybox(pet) {
 
   if (!picked) {
     box?.classList.remove('open');
-    pet.className = 'pet ' + computeMood().cls;
+    setPetClass();
     return;
   }
 
@@ -5763,7 +5784,7 @@ async function interactToybox(pet) {
   box?.classList.remove('open');
   pet.className = 'pet walking';
   await movePetTo(50, 800, 15, 1);
-  pet.className = 'pet ' + computeMood().cls;
+  setPetClass();
   showToast(`${toy.emoji} Played with ${toy.name.toLowerCase()}! +10 ☀️ -3 🌙 +4 XP`);
 }
 
@@ -5791,7 +5812,7 @@ async function interactBlocks(pet) {
   blocks.classList.remove('tumbled');
   pet.className = 'pet walking';
   await movePetTo(50, 800, 15, 1);
-  pet.className = 'pet ' + computeMood().cls;
+  setPetClass();
   showToast('🧱 Built a tower! It fell... +4 ☀️ +3 XP');
 }
 
@@ -5815,7 +5836,7 @@ async function interactBallpit(pet) {
   pit?.classList.remove('splashing');
   pet.className = 'pet walking';
   await movePetTo(50, 800, 15, 1);
-  pet.className = 'pet ' + computeMood().cls;
+  setPetClass();
   showToast('🎉 Dove into the ballpit! +12 ☀️ -4 🌙 +4 XP');
 }
 
@@ -5854,7 +5875,7 @@ async function interactTelescope(pet) {
   db.ref('tamagotchi/' + key).set(entry);
   pet.className = 'pet walking';
   await movePetTo(50, 800, 15, 1);
-  pet.className = 'pet ' + computeMood().cls;
+  setPetClass();
   showToast('⭐ Stargazing! +4 ☀️ +8 XP');
 }
 
@@ -5871,7 +5892,7 @@ async function interactStarchart(pet) {
   db.ref('tamagotchi').update({ xp: (gameData.xp || 0) + 6, lastUpdate: Date.now() });
   pet.className = 'pet walking';
   await movePetTo(50, 800, 15, 1);
-  pet.className = 'pet ' + computeMood().cls;
+  setPetClass();
   showToast('📖 Studied the stars! +6 XP');
 }
 
@@ -5902,7 +5923,7 @@ async function interactRoomSink(pet) {
   sink.classList.remove('running');
   pet.className = 'pet walking';
   await movePetTo(50, 800, 15, 1);
-  pet.className = 'pet ' + computeMood().cls;
+  setPetClass();
   db.ref('tamagotchi').update({
     clean: Math.min(100, (gameData.clean || 0) + 6),
     xp: (gameData.xp || 0) + 3,
@@ -5956,7 +5977,7 @@ async function interactRoomTrash(pet) {
   trash.classList.remove('open');
   pet.className = 'pet walking';
   await movePetTo(50, 800, 15, 1);
-  pet.className = 'pet ' + computeMood().cls;
+  setPetClass();
   if (picked) showToast('🗑️ Tidied up! +4 💧 +3 XP');
 }
 
@@ -5985,7 +6006,7 @@ async function interactRoomBookshelf(pet) {
   bs.classList.remove('pulled');
   pet.className = 'pet walking';
   await movePetTo(50, 800, 15, 1);
-  pet.className = 'pet ' + computeMood().cls;
+  setPetClass();
   db.ref('tamagotchi').update({
     xp: (gameData.xp || 0) + 5,
     happy: Math.min(100, (gameData.happy || 0) + 3),
@@ -6016,7 +6037,7 @@ async function interactRoomMirror(pet) {
   await new Promise(r => setTimeout(r, 2200));
   pet.className = 'pet walking';
   await movePetTo(50, 800, 15, 1);
-  pet.className = 'pet ' + computeMood().cls;
+  setPetClass();
   db.ref('tamagotchi').update({
     happy: Math.min(100, (gameData.happy || 0) + 8),
     xp: (gameData.xp || 0) + 3,
@@ -6048,7 +6069,7 @@ async function interactRoomClock(pet) {
   if (minuteHand) { minuteHand.style.transition = ''; minuteHand.style.transform = 'translateX(-50%) rotate(90deg)'; }
   pet.className = 'pet walking';
   await movePetTo(50, 800, 15, 1);
-  pet.className = 'pet ' + computeMood().cls;
+  setPetClass();
   db.ref('tamagotchi').update({ xp: (gameData.xp || 0) + 4, lastUpdate: Date.now() });
   showToast('🕰️ Watched the time! +4 XP');
 }
@@ -6080,7 +6101,7 @@ async function interactRoomFountain(pet) {
   fount.classList.remove('running');
   pet.className = 'pet walking';
   await movePetTo(50, 800, 15, 1);
-  pet.className = 'pet ' + computeMood().cls;
+  setPetClass();
   db.ref('tamagotchi').update({
     happy: Math.min(100, (gameData.happy || 0) + 10),
     clean: Math.min(100, (gameData.clean || 0) + 4),
@@ -6104,7 +6125,7 @@ async function interactRoomFeeder(pet) {
   feeder.classList.remove('visited');
   pet.className = 'pet walking';
   await movePetTo(50, 800, 15, 1);
-  pet.className = 'pet ' + computeMood().cls;
+  setPetClass();
   db.ref('tamagotchi').update({
     happy: Math.min(100, (gameData.happy || 0) + 6),
     xp: (gameData.xp || 0) + 4,
@@ -6127,7 +6148,7 @@ async function interactRoomPlant(pet) {
   plant.classList.remove('watered');
   pet.className = 'pet walking';
   await movePetTo(50, 800, 15, 1);
-  pet.className = 'pet ' + computeMood().cls;
+  setPetClass();
   db.ref('tamagotchi').update({
     xp: (gameData.xp || 0) + 4,
     happy: Math.min(100, (gameData.happy || 0) + 3),
@@ -6169,7 +6190,7 @@ async function interactRoomEasel(pet) {
   await new Promise(r => setTimeout(r, 800));
   pet.className = 'pet walking';
   await movePetTo(50, 800, 15, 1);
-  pet.className = 'pet ' + computeMood().cls;
+  setPetClass();
   db.ref('tamagotchi').update({
     happy: Math.min(100, (gameData.happy || 0) + 8),
     xp: (gameData.xp || 0) + 6,
@@ -6209,7 +6230,7 @@ async function interactRoomPiano(pet) {
   await new Promise(r => setTimeout(r, 3000));
   pet.className = 'pet walking';
   await movePetTo(50, 800, 15, 1);
-  pet.className = 'pet ' + computeMood().cls;
+  setPetClass();
   db.ref('tamagotchi').update({
     happy: Math.min(100, (gameData.happy || 0) + 9),
     xp: (gameData.xp || 0) + 5,
@@ -6243,7 +6264,7 @@ async function interactRoomGlobe(pet) {
   globe.classList.remove('spinning');
   pet.className = 'pet walking';
   await movePetTo(50, 800, 15, 1);
-  pet.className = 'pet ' + computeMood().cls;
+  setPetClass();
   db.ref('tamagotchi').update({
     xp: (gameData.xp || 0) + 7,
     happy: Math.min(100, (gameData.happy || 0) + 4),
@@ -6281,7 +6302,7 @@ async function interactBathtub(pet) {
   el.classList.remove('splashing');
   pet.className = 'pet walking';
   await movePetTo(50, 800, 15, 1);
-  pet.className = 'pet ' + computeMood().cls;
+  setPetClass();
   db.ref('tamagotchi').update({
     xp: (gameData.xp || 0) + 5,
     clean: Math.min(100, (gameData.clean || 0) + 12),
@@ -6313,7 +6334,7 @@ async function interactToilet(pet) {
   }
   pet.className = 'pet walking';
   await movePetTo(50, 800, 15, 1);
-  pet.className = 'pet ' + computeMood().cls;
+  setPetClass();
   db.ref('tamagotchi').update(updates);
   showToast(poops > 0 ? '🚽 All done! +3 XP' : '🚽 Flush! +3 XP');
 }
@@ -6332,7 +6353,7 @@ async function interactBathSink(pet) {
   el.classList.remove('running');
   pet.className = 'pet walking';
   await movePetTo(50, 800, 15, 1);
-  pet.className = 'pet ' + computeMood().cls;
+  setPetClass();
   db.ref('tamagotchi').update({
     xp: (gameData.xp || 0) + 3,
     clean: Math.min(100, (gameData.clean || 0) + 5),
@@ -6355,7 +6376,7 @@ async function interactTowel(pet) {
   el.classList.remove('used');
   pet.className = 'pet walking';
   await movePetTo(50, 800, 15, 1);
-  pet.className = 'pet ' + computeMood().cls;
+  setPetClass();
   db.ref('tamagotchi').update({
     xp: (gameData.xp || 0) + 2,
     clean: Math.min(100, (gameData.clean || 0) + 3),
@@ -6378,7 +6399,7 @@ async function interactMushroom(pet) {
   el.classList.remove('glow');
   pet.className = 'pet walking';
   await movePetTo(50, 800, 15, 1);
-  pet.className = 'pet ' + computeMood().cls;
+  setPetClass();
   db.ref('tamagotchi').update({ xp: (gameData.xp || 0) + 4, happy: Math.min(100, (gameData.happy || 0) + 3), lastUpdate: Date.now() });
   showToast('🍄 Touched a glowing mushroom! +4 XP');
 }
@@ -6395,7 +6416,7 @@ async function interactStump(pet) {
   await new Promise(r => setTimeout(r, 2000));
   pet.className = 'pet walking';
   await movePetTo(50, 800, 15, 1);
-  pet.className = 'pet ' + computeMood().cls;
+  setPetClass();
   db.ref('tamagotchi').update({ xp: (gameData.xp || 0) + 3, energy: Math.min(100, (gameData.energy || 0) + 2), lastUpdate: Date.now() });
   showToast('🪵 Rested on a stump! +3 XP');
 }
@@ -6412,7 +6433,7 @@ async function interactFireflies(pet) {
   await new Promise(r => setTimeout(r, 2200));
   pet.className = 'pet walking';
   await movePetTo(50, 800, 15, 1);
-  pet.className = 'pet ' + computeMood().cls;
+  setPetClass();
   db.ref('tamagotchi').update({ xp: (gameData.xp || 0) + 5, happy: Math.min(100, (gameData.happy || 0) + 4), lastUpdate: Date.now() });
   showToast('✨ Watched fireflies! +5 XP');
 }
@@ -6431,7 +6452,7 @@ async function interactCrops(pet) {
   el.classList.remove('harvested');
   pet.className = 'pet walking';
   await movePetTo(50, 800, 15, 1);
-  pet.className = 'pet ' + computeMood().cls;
+  setPetClass();
   db.ref('tamagotchi').update({ xp: (gameData.xp || 0) + 5, hunger: Math.min(100, (gameData.hunger || 0) + 4), lastUpdate: Date.now() });
   showToast('🌾 Harvested some crops! +5 XP');
 }
@@ -6450,7 +6471,7 @@ async function interactChicken(pet) {
   el.classList.remove('pecking');
   pet.className = 'pet walking';
   await movePetTo(50, 800, 15, 1);
-  pet.className = 'pet ' + computeMood().cls;
+  setPetClass();
   db.ref('tamagotchi').update({ xp: (gameData.xp || 0) + 4, happy: Math.min(100, (gameData.happy || 0) + 5), lastUpdate: Date.now() });
   showToast('🐔 Said hi to the chicken! +4 XP');
 }
@@ -6467,7 +6488,7 @@ async function interactRoomRug(pet) {
   await new Promise(r => setTimeout(r, 1600));
   pet.className = 'pet walking';
   await movePetTo(50, 800, 15, 1);
-  pet.className = 'pet ' + computeMood().cls;
+  setPetClass();
   db.ref('tamagotchi').update({ xp: (gameData.xp || 0) + 3, happy: Math.min(100, (gameData.happy || 0) + 3), lastUpdate: Date.now() });
   showToast('🧶 Rolled on the rug! +3 XP');
 }
@@ -6510,15 +6531,15 @@ async function interactRoomWardrobe(pet) {
 
   // Also allow "none"
   options.unshift({
-    emoji: '✨',
-    name: 'NO OUTFIT',
-    desc: equipped ? 'Remove current clothes' : 'Nothing equipped',
+    emoji: '❌',
+    name: equipped ? 'REMOVE OUTFIT' : 'NO OUTFIT',
+    desc: equipped ? 'Take off what Mochi is wearing' : 'Nothing equipped right now',
     value: { id: null, owned: true, isOn: !equipped, cost: 0 }
   });
 
   const picked = await showChoiceModal({
     title: '👗 WARDROBE',
-    subtitle: 'Buy, wear, or switch outfits',
+    subtitle: equipped ? 'Wearing an outfit — remove or switch' : 'Buy, wear, or switch outfits',
     options,
     cancelLabel: 'CLOSE'
   });
@@ -6527,7 +6548,7 @@ async function interactRoomWardrobe(pet) {
     el.classList.remove('open');
     pet.className = 'pet walking';
     await movePetTo(50, 800, 15, 1);
-    pet.className = 'pet ' + computeMood().cls;
+    setPetClass();
     return;
   }
 
@@ -6558,7 +6579,7 @@ async function interactRoomWardrobe(pet) {
     if (coins < picked.cost) {
       showToast('Not enough coins 🪙');
       el.classList.remove('open');
-      pet.className = 'pet ' + computeMood().cls;
+      setPetClass();
       return;
     }
     const newInv = { ...inv, [picked.id]: true };
@@ -6585,7 +6606,7 @@ async function interactRoomWardrobe(pet) {
   el.classList.remove('open');
   pet.className = 'pet walking';
   await movePetTo(50, 800, 15, 1);
-  pet.className = 'pet ' + computeMood().cls;
+  setPetClass();
 }
 
 async function interactRoomTable(pet) {
@@ -6600,7 +6621,7 @@ async function interactRoomTable(pet) {
   await new Promise(r => setTimeout(r, 1800));
   pet.className = 'pet walking';
   await movePetTo(50, 800, 15, 1);
-  pet.className = 'pet ' + computeMood().cls;
+  setPetClass();
   db.ref('tamagotchi').update({ xp: (gameData.xp || 0) + 3, lastUpdate: Date.now() });
   showToast('🪑 Sat at the table! +3 XP');
 }
@@ -6617,7 +6638,7 @@ async function interactRoomSpices(pet) {
   await new Promise(r => setTimeout(r, 1600));
   pet.className = 'pet walking';
   await movePetTo(50, 800, 15, 1);
-  pet.className = 'pet ' + computeMood().cls;
+  setPetClass();
   db.ref('tamagotchi').update({ xp: (gameData.xp || 0) + 3, happy: Math.min(100, (gameData.happy || 0) + 2), lastUpdate: Date.now() });
   showToast('🧂 Sniffed the spice rack! +3 XP');
 }
@@ -6634,7 +6655,7 @@ async function interactRoomBench(pet) {
   await new Promise(r => setTimeout(r, 2000));
   pet.className = 'pet walking';
   await movePetTo(50, 800, 15, 1);
-  pet.className = 'pet ' + computeMood().cls;
+  setPetClass();
   db.ref('tamagotchi').update({ xp: (gameData.xp || 0) + 3, energy: Math.min(100, (gameData.energy || 0) + 3), lastUpdate: Date.now() });
   showToast('🪵 Rested on the bench! +3 XP');
 }
@@ -6652,7 +6673,7 @@ async function interactRoomLantern(pet) {
   await new Promise(r => setTimeout(r, 1600));
   pet.className = 'pet walking';
   await movePetTo(50, 800, 15, 1);
-  pet.className = 'pet ' + computeMood().cls;
+  setPetClass();
   db.ref('tamagotchi').update({ xp: (gameData.xp || 0) + 3, lastUpdate: Date.now() });
   showToast('🏮 Toggled the lantern! +3 XP');
 }
@@ -6671,7 +6692,7 @@ async function interactRoomTrain(pet) {
   el.classList.remove('chugging');
   pet.className = 'pet walking';
   await movePetTo(50, 800, 15, 1);
-  pet.className = 'pet ' + computeMood().cls;
+  setPetClass();
   db.ref('tamagotchi').update({ xp: (gameData.xp || 0) + 5, happy: Math.min(100, (gameData.happy || 0) + 5), lastUpdate: Date.now() });
   showToast('🚂 Played with the train! +5 XP');
 }
@@ -6688,7 +6709,7 @@ async function interactRoomPlaymat(pet) {
   await new Promise(r => setTimeout(r, 1500));
   pet.className = 'pet walking';
   await movePetTo(50, 800, 15, 1);
-  pet.className = 'pet ' + computeMood().cls;
+  setPetClass();
   db.ref('tamagotchi').update({ xp: (gameData.xp || 0) + 4, happy: Math.min(100, (gameData.happy || 0) + 4), lastUpdate: Date.now() });
   showToast('🧩 Tumbled on the play mat! +4 XP');
 }
@@ -6705,7 +6726,7 @@ async function interactRoomCushions(pet) {
   await new Promise(r => setTimeout(r, 2200));
   pet.className = 'pet walking';
   await movePetTo(50, 800, 15, 1);
-  pet.className = 'pet ' + computeMood().cls;
+  setPetClass();
   db.ref('tamagotchi').update({ xp: (gameData.xp || 0) + 4, energy: Math.min(100, (gameData.energy || 0) + 5), lastUpdate: Date.now() });
   showToast('🛋️ Rested on star cushions! +4 XP');
 }
@@ -6722,7 +6743,7 @@ async function interactRoomMeteor(pet) {
   await new Promise(r => setTimeout(r, 2000));
   pet.className = 'pet walking';
   await movePetTo(50, 800, 15, 1);
-  pet.className = 'pet ' + computeMood().cls;
+  setPetClass();
   db.ref('tamagotchi').update({ xp: (gameData.xp || 0) + 6, happy: Math.min(100, (gameData.happy || 0) + 3), lastUpdate: Date.now() });
   showToast('☄️ Wished on a meteor! +6 XP');
 }
@@ -6739,7 +6760,7 @@ async function interactRoomCampfire(pet) {
   await new Promise(r => setTimeout(r, 2000));
   pet.className = 'pet walking';
   await movePetTo(50, 800, 15, 1);
-  pet.className = 'pet ' + computeMood().cls;
+  setPetClass();
   db.ref('tamagotchi').update({ xp: (gameData.xp || 0) + 5, energy: Math.min(100, (gameData.energy || 0) + 3), lastUpdate: Date.now() });
   showToast('🔥 Warmed up by the campfire! +5 XP');
 }
@@ -6756,7 +6777,7 @@ async function interactRoomTent(pet) {
   await new Promise(r => setTimeout(r, 1800));
   pet.className = 'pet walking';
   await movePetTo(50, 800, 15, 1);
-  pet.className = 'pet ' + computeMood().cls;
+  setPetClass();
   db.ref('tamagotchi').update({ xp: (gameData.xp || 0) + 4, happy: Math.min(100, (gameData.happy || 0) + 3), lastUpdate: Date.now() });
   showToast('⛺ Hid in the tent! +4 XP');
 }
@@ -6773,7 +6794,7 @@ async function interactRoomLogseat(pet) {
   await new Promise(r => setTimeout(r, 2000));
   pet.className = 'pet walking';
   await movePetTo(50, 800, 15, 1);
-  pet.className = 'pet ' + computeMood().cls;
+  setPetClass();
   db.ref('tamagotchi').update({ xp: (gameData.xp || 0) + 3, energy: Math.min(100, (gameData.energy || 0) + 2), lastUpdate: Date.now() });
   showToast('🪵 Sat on a log! +3 XP');
 }
@@ -6792,7 +6813,7 @@ async function interactRoomBarn(pet) {
   el.classList.remove('open');
   pet.className = 'pet walking';
   await movePetTo(50, 800, 15, 1);
-  pet.className = 'pet ' + computeMood().cls;
+  setPetClass();
   db.ref('tamagotchi').update({ xp: (gameData.xp || 0) + 5, happy: Math.min(100, (gameData.happy || 0) + 3), lastUpdate: Date.now() });
   showToast('🏚️ Peeked in the barn! +5 XP');
 }
@@ -6811,7 +6832,7 @@ async function interactRoomScarecrow(pet) {
   el.classList.remove('wave');
   pet.className = 'pet walking';
   await movePetTo(50, 800, 15, 1);
-  pet.className = 'pet ' + computeMood().cls;
+  setPetClass();
   db.ref('tamagotchi').update({ xp: (gameData.xp || 0) + 4, happy: Math.min(100, (gameData.happy || 0) + 4), lastUpdate: Date.now() });
   showToast('🎃 Waved at the scarecrow! +4 XP');
 }
@@ -6830,7 +6851,7 @@ async function interactRoomWell(pet) {
   el.classList.remove('pulling');
   pet.className = 'pet walking';
   await movePetTo(50, 800, 15, 1);
-  pet.className = 'pet ' + computeMood().cls;
+  setPetClass();
   db.ref('tamagotchi').update({ xp: (gameData.xp || 0) + 5, clean: Math.min(100, (gameData.clean || 0) + 3), lastUpdate: Date.now() });
   showToast('🪣 Drew water from the well! +5 XP');
 }
@@ -7103,14 +7124,14 @@ async function useRoomItem(itemId) {
 
     pet.className = 'pet walking';
     await movePetTo(50, 900, 15, 1);
-    pet.className = 'pet ' + computeMood().cls;
+    setPetClass();
 
     applyConsumableEffect(item, def);
     db.ref('tamagotchi/roomItems/' + itemId).remove();
 
   } catch(e) {
     console.error('Use room item error:', e);
-    pet.className = 'pet ' + computeMood().cls;
+    setPetClass();
   }
 
   isAnimating = false;
@@ -7656,8 +7677,7 @@ function renderPet(prev = {}) {
 
   if (!ambientPlaying && !isAnimating) {
     if (renderCache.petMood !== mood.cls) {
-      pet.className = 'pet ' + mood.cls;
-      renderCache.petMood = mood.cls;
+      setPetClass(mood.cls);
     }
   }
 
@@ -7750,6 +7770,15 @@ function updateStatWarnings() {
     const el = $('stat-' + s);
     if (el) el.classList.toggle('warning', gameData[s] < 30);
   });
+  // Soft tired cue (throttled)
+  const energy = gameData.energy ?? 100;
+  if (energy < 40 && energy >= 25) {
+    const now = Date.now();
+    if (!window._lastTiredToast || now - window._lastTiredToast > 120000) {
+      window._lastTiredToast = now;
+      showToast('😴 Mochi is getting tired — time for a nap?');
+    }
+  }
 }
 
 function renderDiary() {
@@ -8037,18 +8066,20 @@ async function runAmbientBehavior() {
   const pet = $('pet');
 
   try {
-    // Idle / flying: drift around the room in the air
-    if (behavior.cls === 'flying' || behavior.cls === 'walking' || behavior.cls === 'hopping') {
-      const newPos = 18 + Math.random() * 64;
-      const airBottom = behavior.cls === 'flying' ? (22 + Math.random() * 18) : 15;
-      pet.className = 'pet flying';
-      await movePetTo(newPos, 1400 + Math.random() * 900, airBottom, 1);
+    // Pause ambient during modals
+    if (document.querySelector('.choice-overlay.active, .daily-overlay.active')) {
+      ambientPlaying = false;
+      return;
+    }
+    if (behavior.cls === 'walking' || behavior.cls === 'hopping') {
+      const newPos = 20 + Math.random() * 60;
+      pet.className = 'pet walking';
+      await movePetTo(newPos, 1200 + Math.random() * 800, 15, 1);
     }
     pet.className = 'pet ' + behavior.cls;
     if (behavior.bubble) showBubble(behavior.bubble, behavior.emoji || '✨');
     await new Promise(r => setTimeout(r, behavior.dur * 1000));
-    pet.className = 'pet ' + computeMood().cls;
-    renderCache.petMood = computeMood().cls;
+    setPetClass();
   } catch(e) {}
   ambientPlaying = false;
   renderCache.petMood = '';
@@ -8076,7 +8107,7 @@ function playActionAnimation(name) {
           pet.className = 'pet walking';
           await movePetTo(50, 1200, 15, 1);
           bowl.remove();
-          pet.className = 'pet ' + computeMood().cls;
+          setPetClass();
           break;
         }
         case 'play': {
@@ -8086,7 +8117,7 @@ function playActionAnimation(name) {
           floatHearts(6);
           await new Promise(r => setTimeout(r, 2000));
           ball.remove();
-          pet.className = 'pet ' + computeMood().cls;
+          setPetClass();
           break;
         }
         case 'sleep': {
@@ -8114,7 +8145,7 @@ function playActionAnimation(name) {
           if (realBed) realBed.classList.remove('fluffed');
           pet.className = 'pet walking';
           await movePetTo(50, 1000, 15, 1);
-          pet.className = 'pet ' + computeMood().cls;
+          setPetClass();
           break;
         }
         case 'bath': {
@@ -8144,7 +8175,7 @@ function playActionAnimation(name) {
           if (realTub) realTub.classList.remove('splashing');
           pet.className = 'pet walking';
           await movePetTo(50, 800, 15, 1);
-          pet.className = 'pet ' + computeMood().cls;
+          setPetClass();
           break;
         }
         case 'pet': {
@@ -8152,7 +8183,7 @@ function playActionAnimation(name) {
           showBubble('happy!', '💚');
           floatHearts(8);
           await new Promise(r => setTimeout(r, 1800));
-          pet.className = 'pet ' + computeMood().cls;
+          setPetClass();
           break;
         }
         case 'clean': {
@@ -8179,7 +8210,7 @@ function playActionAnimation(name) {
           await new Promise(r => setTimeout(r, 1300));
           pet.className = 'pet walking';
           await movePetTo(50, 700, 15, 1);
-          pet.className = 'pet ' + computeMood().cls;
+          setPetClass();
           renderCache.petMood = computeMood().cls;
           break;
         }
@@ -8193,7 +8224,7 @@ function playActionAnimation(name) {
             setTimeout(() => showBubble(['do', 're', 'mi', 'fa~'][i], '🎵'), i * 450);
           }
           await new Promise(r => setTimeout(r, 2200));
-          pet.className = 'pet ' + computeMood().cls;
+          setPetClass();
           break;
         }
         case 'dance': {
@@ -8206,7 +8237,7 @@ function playActionAnimation(name) {
           pet.className = 'pet spinning';
           showBubble('wheee!', '✨');
           await new Promise(r => setTimeout(r, 800));
-          pet.className = 'pet ' + computeMood().cls;
+          setPetClass();
           break;
         }
         case 'fly': {
@@ -8219,7 +8250,7 @@ function playActionAnimation(name) {
           pet.className = 'pet hopping';
           showBubble('soft landing!', '✨');
           await new Promise(r => setTimeout(r, 700));
-          pet.className = 'pet ' + computeMood().cls;
+          setPetClass();
           break;
         }
         case 'fire': {
@@ -8245,7 +8276,7 @@ function playActionAnimation(name) {
           pet.className = 'pet happy';
           showBubble('toasty!', '🔥');
           await new Promise(r => setTimeout(r, 600));
-          pet.className = 'pet ' + computeMood().cls;
+          setPetClass();
           break;
         }
         case 'roar': {
@@ -8258,7 +8289,7 @@ function playActionAnimation(name) {
           pet.className = 'pet happy';
           showBubble('scary?', '🐉');
           await new Promise(r => setTimeout(r, 600));
-          pet.className = 'pet ' + computeMood().cls;
+          setPetClass();
           break;
         }
         case 'dig': {
@@ -8271,7 +8302,7 @@ function playActionAnimation(name) {
           showBubble('found something!', '✨');
           floatHearts(2);
           await new Promise(r => setTimeout(r, 1000));
-          pet.className = 'pet ' + computeMood().cls;
+          setPetClass();
           renderCache.petMood = computeMood().cls;
           break;
         }
@@ -8615,16 +8646,38 @@ function applyActionEffects(name, addPoop) {
 function showLevelUp(newLevel) {
   sfxLevelUp();
   const stage = STAGES.reduce((acc, s) => (newLevel >= s.level ? s : acc), STAGES[0]);
+  const prevStage = STAGES.reduce((acc, s) => (newLevel - 1 >= s.level ? s : acc), STAGES[0]);
+  const evolved = stage.key !== prevStage.key;
+  const hints = {
+    egg: 'Still in the shell...',
+    hatchling: 'Tiny dragon hatched!',
+    sprout: 'Wings are budding!',
+    sapling: 'Wings grew stronger!',
+    bloom: 'Looking more dragon-like!',
+    guardian: 'Young guardian dragon!',
+    mystic: 'Mystic wings unfold!',
+    eternal: 'Eternal little dragon!'
+  };
+  const hint = evolved ? (hints[stage.key] || 'Mochi grew!') : 'Level up!';
   const overlay = document.createElement('div');
   overlay.className = 'levelup-overlay';
   overlay.innerHTML = `
     <div class="levelup-badge">
       ${stage.emoji}<br>LV ${newLevel}<br>${stage.name}
+      <div style="font-size:0.55rem;margin-top:10px;opacity:0.9;line-height:1.4;">${evolved ? '✨ EVOLVED! ✨<br>' : ''}${hint}</div>
     </div>
   `;
   document.body.appendChild(overlay);
-  spawnConfetti(28);
-  setTimeout(() => overlay.remove(), 2200);
+  spawnConfetti(evolved ? 40 : 28);
+  if (evolved) {
+    const pet = $('pet');
+    if (pet) {
+      pet.className = 'pet ecstatic';
+      showBubble('grew!', stage.emoji);
+      setTimeout(() => setPetClass(), 1600);
+    }
+  }
+  setTimeout(() => overlay.remove(), evolved ? 2800 : 2200);
   $('petStageBadge').classList.add('level-up');
   setTimeout(() => $('petStageBadge').classList.remove('level-up'), 1500);
 }
