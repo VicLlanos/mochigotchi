@@ -378,12 +378,13 @@
   }
 
   /* ============================================================
-     SITTING CUTE DRAGON — matches chubby cartoon dragon style
+     SITTING CUTE DRAGON — connected silhouette (no floating parts)
      ============================================================ */
+  /* Head sits on torso */
   .pet-body {
-    position: absolute; left: 50%; bottom: 28px;
+    position: absolute; left: 50%; bottom: 30px;
     transform: translateX(-50%);
-    width: 48px; height: 44px;
+    width: 46px; height: 42px;
     background: var(--pet-color, #7EC87A);
     border: 3px solid var(--pet-outline, #2A3A28);
     border-radius: 50%;
@@ -393,69 +394,80 @@
     transition: width 0.4s, height 0.4s, bottom 0.4s, background 0.4s, border-color 0.4s;
     z-index: 8;
   }
+  /* Chubby torso — main body mass */
   .pet-torso {
-    position: absolute; left: 50%; bottom: 6px;
+    position: absolute; left: 50%; bottom: 8px;
     transform: translateX(-50%);
-    width: 46px; height: 36px;
+    width: 44px; height: 34px;
     background: var(--pet-color, #7EC87A);
     border: 3px solid var(--pet-outline, #2A3A28);
-    border-radius: 48% 48% 42% 42%;
+    border-radius: 46% 46% 42% 42%;
     box-shadow:
       inset -5px -5px 0 rgba(0,0,0,0.08),
       inset 3px 3px 0 rgba(255,255,255,0.22);
     transition: width 0.4s, height 0.4s, background 0.4s, border-color 0.4s;
     z-index: 5;
   }
-  /* Big cream belly */
+  /* Cream belly — inside torso */
   .pet-belly {
-    position: absolute; left: 50%; top: 12%;
+    position: absolute; left: 50%; top: 14%;
     transform: translateX(-50%);
-    width: 62%; height: 72%;
+    width: 58%; height: 68%;
     background: var(--pet-belly, #F5E6C8);
-    border: 2.5px solid var(--pet-outline, #2A3A28);
-    border-radius: 45% 45% 48% 48%;
-    box-shadow: inset 0 3px 0 rgba(255,255,255,0.45);
+    border: 2px solid var(--pet-outline, #2A3A28);
+    border-radius: 40% 40% 45% 45%;
+    box-shadow: inset 0 2px 0 rgba(255,255,255,0.4);
     z-index: 1;
     overflow: hidden;
   }
-  .pet-belly::before { display: none; }
+  .pet-belly::before {
+    content: '';
+    position: absolute; left: 18%; right: 18%; top: 30%;
+    height: 2px;
+    background: rgba(139, 111, 94, 0.2);
+    box-shadow: 0 5px 0 rgba(139, 111, 94, 0.16), 0 10px 0 rgba(139, 111, 94, 0.12);
+  }
   .pet-outfit-body {
     position: absolute; inset: 0;
     pointer-events: none; z-index: 6;
     overflow: visible;
   }
-  /* Raised little arms (sitting pose) */
+  /* Arms attached to upper torso sides (not floating) */
   .pet-arm {
-    position: absolute; bottom: 28px;
-    width: 14px; height: 16px;
+    position: absolute;
+    width: 13px; height: 15px;
     background: var(--pet-color, #7EC87A);
     border: 2.5px solid var(--pet-outline, #2A3A28);
     border-radius: 50%;
-    z-index: 7;
+    z-index: 6;
     box-shadow: inset -2px -2px 0 rgba(0,0,0,0.08);
+    bottom: 22px;
   }
   .pet-arm-l {
-    left: -2px;
-    transform: rotate(-40deg);
-    transform-origin: 70% 20%;
+    left: 50%;
+    margin-left: -30px;
+    transform: rotate(-20deg);
+    transform-origin: center top;
   }
   .pet-arm-r {
-    right: -2px;
-    transform: rotate(40deg);
-    transform-origin: 30% 20%;
+    left: 50%;
+    margin-left: 17px;
+    right: auto;
+    transform: rotate(20deg);
+    transform-origin: center top;
   }
-  /* Sitting feet — rounded stubs in front */
+  /* Sitting feet — tucked under front of torso */
   .pet-foot {
     position: absolute; bottom: 2px;
-    width: 16px; height: 12px;
+    width: 15px; height: 12px;
     background: var(--pet-color, #7EC87A);
     border: 2.5px solid var(--pet-outline, #2A3A28);
     border-radius: 50% 50% 40% 40%;
     z-index: 6;
     box-shadow: inset -2px -2px 0 rgba(0,0,0,0.1);
   }
-  .pet-foot-l { left: 50%; margin-left: -20px; }
-  .pet-foot-r { left: 50%; margin-left: 4px; }
+  .pet-foot-l { left: 50%; margin-left: -18px; }
+  .pet-foot-r { left: 50%; margin-left: 3px; }
 
   .pet.walking .pet-foot-l { animation: sitBounceL 0.45s ease-in-out infinite; }
   .pet.walking .pet-foot-r { animation: sitBounceR 0.45s ease-in-out infinite; }
@@ -463,10 +475,10 @@
   .pet.walking .pet-arm-r { animation: armWaveR 0.45s ease-in-out infinite; }
   @keyframes sitBounceL {
     0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-3px); }
+    50% { transform: translateY(-2px); }
   }
   @keyframes sitBounceR {
-    0%, 100% { transform: translateY(-3px); }
+    0%, 100% { transform: translateY(-2px); }
     50% { transform: translateY(0); }
   }
   .pet.happy .pet-arm-l, .pet.ecstatic .pet-arm-l {
@@ -476,12 +488,12 @@
     animation: armWaveR 0.55s ease-in-out infinite;
   }
   @keyframes armWaveL {
-    0%, 100% { transform: rotate(-45deg) translateY(0); }
-    50% { transform: rotate(-65deg) translateY(-4px); }
+    0%, 100% { transform: rotate(-20deg) translateY(0); }
+    50% { transform: rotate(-45deg) translateY(-3px); }
   }
   @keyframes armWaveR {
-    0%, 100% { transform: rotate(45deg) translateY(0); }
-    50% { transform: rotate(65deg) translateY(-4px); }
+    0%, 100% { transform: rotate(20deg) translateY(0); }
+    50% { transform: rotate(45deg) translateY(-3px); }
   }
 
   .pet-eye {
@@ -575,60 +587,62 @@
   .pet-ear-l { left: -4px; }
   .pet-ear-r { right: -4px; }
 
-  /* Membrane wings behind body */
+  /* Wings tucked against the back of the body */
   .pet-wing {
-    position: absolute; top: 24px;
-    width: 22px; height: 26px;
-    background: var(--pet-wing, #F0C878);
+    position: absolute; top: 26px;
+    width: 18px; height: 22px;
+    background: var(--pet-wing, #F0D090);
     border: 2.5px solid var(--pet-outline, #2A3A28);
     display: none;
-    z-index: 2;
+    z-index: 3;
     opacity: 1;
   }
   .pet-wing-l {
-    left: -12px;
-    border-radius: 20% 80% 30% 90%;
+    left: 50%;
+    margin-left: -30px;
+    border-radius: 30% 80% 40% 90%;
     transform-origin: right center;
     animation: wingFlapL 1.4s ease-in-out infinite;
   }
   .pet-wing-r {
-    right: -12px;
-    border-radius: 80% 20% 90% 30%;
+    left: 50%;
+    margin-left: 12px;
+    right: auto;
+    border-radius: 80% 30% 90% 40%;
     transform-origin: left center;
     animation: wingFlapR 1.4s ease-in-out infinite;
   }
   @keyframes wingFlapL {
-    0%, 100% { transform: rotate(6deg); }
-    50% { transform: rotate(-10deg); }
+    0%, 100% { transform: rotate(4deg); }
+    50% { transform: rotate(-8deg); }
   }
   @keyframes wingFlapR {
-    0%, 100% { transform: rotate(-6deg); }
-    50% { transform: rotate(10deg); }
+    0%, 100% { transform: rotate(-4deg); }
+    50% { transform: rotate(8deg); }
   }
   .pet-tail {
     position: absolute; display: none;
-    right: -10px; bottom: 8px;
-    width: 28px; height: 18px;
+    right: 2px; bottom: 10px;
+    width: 22px; height: 16px;
     background: var(--pet-color, #7EC87A);
     border: 3px solid var(--pet-outline, #2A3A28);
-    border-radius: 10% 70% 60% 50%;
+    border-radius: 30% 70% 55% 45%;
     transform-origin: left center;
     animation: tailWag 2.2s ease-in-out infinite;
-    z-index: 3;
+    z-index: 4;
     transition: width 0.4s, height 0.4s, right 0.4s, bottom 0.4s;
   }
   .pet-tail::after {
     content: '';
-    position: absolute; right: -6px; top: 50%;
-    transform: translateY(-50%);
-    width: 12px; height: 14px;
-    background: var(--pet-color, #7EC87A);
+    position: absolute; right: -5px; bottom: 0;
+    width: 12px; height: 12px;
+    background: var(--pet-wing, #F0D090);
     border: 2.5px solid var(--pet-outline, #2A3A28);
-    border-radius: 40% 60% 50% 40%;
+    border-radius: 50% 40% 50% 40%;
   }
   @keyframes tailWag {
-    0%, 100% { transform: rotate(-6deg); }
-    50% { transform: rotate(10deg); }
+    0%, 100% { transform: rotate(-4deg); }
+    50% { transform: rotate(8deg); }
   }
 
 
@@ -686,14 +700,14 @@
   }
   .pet[data-stage="hatchling"] .pet-body { bottom: 22px; width: 38px; height: 34px; }
   .pet[data-stage="hatchling"] .pet-torso { width: 34px; height: 26px; bottom: 5px; }
-  .pet[data-stage="hatchling"] .pet-arm { width: 11px; height: 12px; bottom: 20px; }
+  .pet[data-stage="hatchling"] .pet-arm { width: 11px; height: 12px; bottom: 18px; }
   .pet[data-stage="hatchling"] .pet-foot { width: 13px; height: 10px; }
   .pet[data-stage="hatchling"] .pet-foot-l { margin-left: -16px; }
   .pet[data-stage="hatchling"] .pet-foot-r { margin-left: 3px; }
   .pet[data-stage="hatchling"] .pet-ear { display: block; width: 10px; height: 11px; top: 2px; }
   .pet[data-stage="hatchling"] .pet-horn { display: block; top: -8px; width: 8px; height: 12px; }
   .pet[data-stage="hatchling"] .pet-horn-l { left: 5px; } .pet[data-stage="hatchling"] .pet-horn-r { right: 5px; }
-  .pet[data-stage="hatchling"] .pet-tail { display: block; width: 18px; height: 12px; right: -6px; bottom: 6px; }
+  .pet[data-stage="hatchling"] .pet-tail { display: block; width: 16px; height: 12px; right: 0; bottom: 8px; }
   .pet[data-stage="hatchling"] .pet-eye { top: 10px; width: 9px; height: 10px; }
   .pet[data-stage="hatchling"] .pet-eye-l { left: 6px; } .pet[data-stage="hatchling"] .pet-eye-r { right: 6px; }
   .pet[data-stage="hatchling"] .pet-snout { width: 11px; height: 6px; bottom: 8px; }
@@ -707,7 +721,7 @@
   }
   .pet[data-stage="sprout"] .pet-body { bottom: 26px; width: 46px; height: 42px; }
   .pet[data-stage="sprout"] .pet-torso { width: 44px; height: 34px; bottom: 6px; }
-  .pet[data-stage="sprout"] .pet-arm { width: 13px; height: 15px; bottom: 26px; }
+  .pet[data-stage="sprout"] .pet-arm { width: 13px; height: 14px; bottom: 22px; }
   .pet[data-stage="sprout"] .pet-foot { width: 15px; height: 11px; }
   .pet[data-stage="sprout"] .pet-foot-l { margin-left: -19px; }
   .pet[data-stage="sprout"] .pet-foot-r { margin-left: 4px; }
@@ -717,7 +731,7 @@
   .pet[data-stage="sprout"] .pet-wing { display: block; width: 20px; height: 24px; top: 28px; }
   .pet[data-stage="sprout"] .pet-wing-l { left: -10px; }
   .pet[data-stage="sprout"] .pet-wing-r { right: -10px; }
-  .pet[data-stage="sprout"] .pet-tail { display: block; width: 26px; height: 16px; right: -10px; bottom: 8px; }
+  .pet[data-stage="sprout"] .pet-tail { display: block; width: 22px; height: 15px; right: 0; bottom: 10px; }
   .pet[data-stage="sprout"] .pet-eye { top: 12px; width: 11px; height: 12px; }
   .pet[data-stage="sprout"] .pet-eye-l { left: 8px; } .pet[data-stage="sprout"] .pet-eye-r { right: 8px; }
   .pet[data-stage="sprout"] .pet-snout { width: 13px; height: 7px; bottom: 9px; }
@@ -731,7 +745,7 @@
   }
   .pet[data-stage="sapling"] .pet-body { bottom: 30px; width: 50px; height: 46px; }
   .pet[data-stage="sapling"] .pet-torso { width: 48px; height: 38px; bottom: 7px; }
-  .pet[data-stage="sapling"] .pet-arm { width: 14px; height: 16px; bottom: 30px; }
+  .pet[data-stage="sapling"] .pet-arm { width: 14px; height: 15px; bottom: 26px; }
   .pet[data-stage="sapling"] .pet-foot { width: 16px; height: 12px; }
   .pet[data-stage="sapling"] .pet-foot-l { margin-left: -20px; }
   .pet[data-stage="sapling"] .pet-foot-r { margin-left: 4px; }
@@ -741,7 +755,7 @@
   .pet[data-stage="sapling"] .pet-wing { display: block; width: 24px; height: 28px; top: 30px; }
   .pet[data-stage="sapling"] .pet-wing-l { left: -12px; }
   .pet[data-stage="sapling"] .pet-wing-r { right: -12px; }
-  .pet[data-stage="sapling"] .pet-tail { display: block; width: 30px; height: 18px; right: -12px; bottom: 8px; }
+  .pet[data-stage="sapling"] .pet-tail { display: block; width: 26px; height: 16px; right: -2px; bottom: 10px; }
   .pet[data-stage="sapling"] .pet-eye { width: 12px; height: 13px; top: 13px; }
   .pet[data-stage="sapling"] .pet-eye-l { left: 9px; } .pet[data-stage="sapling"] .pet-eye-r { right: 9px; }
   .pet[data-stage="sapling"] .pet-snout { width: 14px; height: 8px; }
@@ -755,7 +769,7 @@
   }
   .pet[data-stage="bloom"] .pet-body { bottom: 32px; width: 54px; height: 50px; }
   .pet[data-stage="bloom"] .pet-torso { width: 52px; height: 40px; bottom: 8px; }
-  .pet[data-stage="bloom"] .pet-arm { width: 15px; height: 17px; bottom: 32px; }
+  .pet[data-stage="bloom"] .pet-arm { width: 15px; height: 16px; bottom: 28px; }
   .pet[data-stage="bloom"] .pet-foot { width: 17px; height: 13px; }
   .pet[data-stage="bloom"] .pet-foot-l { margin-left: -22px; }
   .pet[data-stage="bloom"] .pet-foot-r { margin-left: 5px; }
@@ -765,7 +779,7 @@
   .pet[data-stage="bloom"] .pet-wing { display: block; width: 26px; height: 30px; top: 32px; }
   .pet[data-stage="bloom"] .pet-wing-l { left: -14px; }
   .pet[data-stage="bloom"] .pet-wing-r { right: -14px; }
-  .pet[data-stage="bloom"] .pet-tail { display: block; width: 32px; height: 18px; right: -12px; bottom: 9px; }
+  .pet[data-stage="bloom"] .pet-tail { display: block; width: 28px; height: 17px; right: -2px; bottom: 11px; }
   .pet[data-stage="bloom"] .pet-eye { width: 12px; height: 14px; top: 14px; }
   .pet[data-stage="bloom"] .pet-eye-l { left: 10px; } .pet[data-stage="bloom"] .pet-eye-r { right: 10px; }
   .pet[data-stage="bloom"] .pet-snout { width: 15px; height: 8px; }
@@ -779,7 +793,7 @@
   }
   .pet[data-stage="guardian"] .pet-body { bottom: 36px; width: 58px; height: 54px; }
   .pet[data-stage="guardian"] .pet-torso { width: 56px; height: 44px; bottom: 9px; }
-  .pet[data-stage="guardian"] .pet-arm { width: 16px; height: 18px; bottom: 36px; }
+  .pet[data-stage="guardian"] .pet-arm { width: 16px; height: 17px; bottom: 30px; }
   .pet[data-stage="guardian"] .pet-foot { width: 18px; height: 14px; }
   .pet[data-stage="guardian"] .pet-foot-l { margin-left: -23px; }
   .pet[data-stage="guardian"] .pet-foot-r { margin-left: 5px; }
@@ -789,7 +803,7 @@
   .pet[data-stage="guardian"] .pet-wing { display: block; width: 30px; height: 34px; top: 34px; }
   .pet[data-stage="guardian"] .pet-wing-l { left: -16px; }
   .pet[data-stage="guardian"] .pet-wing-r { right: -16px; }
-  .pet[data-stage="guardian"] .pet-tail { display: block; width: 36px; height: 20px; right: -14px; bottom: 10px; }
+  .pet[data-stage="guardian"] .pet-tail { display: block; width: 30px; height: 18px; right: -4px; bottom: 12px; }
   .pet[data-stage="guardian"] .pet-eye { width: 13px; height: 15px; top: 15px; }
   .pet[data-stage="guardian"] .pet-eye-l { left: 11px; } .pet[data-stage="guardian"] .pet-eye-r { right: 11px; }
   .pet[data-stage="guardian"] .pet-snout { width: 16px; height: 9px; }
@@ -803,7 +817,7 @@
   }
   .pet[data-stage="mystic"] .pet-body { bottom: 38px; width: 62px; height: 58px; }
   .pet[data-stage="mystic"] .pet-torso { width: 60px; height: 48px; bottom: 10px; }
-  .pet[data-stage="mystic"] .pet-arm { width: 17px; height: 19px; bottom: 38px; }
+  .pet[data-stage="mystic"] .pet-arm { width: 17px; height: 18px; bottom: 32px; }
   .pet[data-stage="mystic"] .pet-foot { width: 19px; height: 15px; }
   .pet[data-stage="mystic"] .pet-foot-l { margin-left: -25px; }
   .pet[data-stage="mystic"] .pet-foot-r { margin-left: 6px; }
@@ -813,7 +827,7 @@
   .pet[data-stage="mystic"] .pet-wing { display: block; width: 34px; height: 38px; top: 36px; }
   .pet[data-stage="mystic"] .pet-wing-l { left: -18px; }
   .pet[data-stage="mystic"] .pet-wing-r { right: -18px; }
-  .pet[data-stage="mystic"] .pet-tail { display: block; width: 40px; height: 22px; right: -16px; bottom: 11px; }
+  .pet[data-stage="mystic"] .pet-tail { display: block; width: 34px; height: 20px; right: -4px; bottom: 13px; }
   .pet[data-stage="mystic"] .pet-eye { width: 14px; height: 16px; top: 16px; }
   .pet[data-stage="mystic"] .pet-eye-l { left: 12px; } .pet[data-stage="mystic"] .pet-eye-r { right: 12px; }
   .pet[data-stage="mystic"] .pet-snout { width: 17px; height: 9px; }
@@ -827,7 +841,7 @@
   }
   .pet[data-stage="eternal"] .pet-body { bottom: 42px; width: 66px; height: 62px; }
   .pet[data-stage="eternal"] .pet-torso { width: 64px; height: 52px; bottom: 11px; }
-  .pet[data-stage="eternal"] .pet-arm { width: 18px; height: 20px; bottom: 42px; }
+  .pet[data-stage="eternal"] .pet-arm { width: 18px; height: 19px; bottom: 36px; }
   .pet[data-stage="eternal"] .pet-foot { width: 20px; height: 16px; }
   .pet[data-stage="eternal"] .pet-foot-l { margin-left: -26px; }
   .pet[data-stage="eternal"] .pet-foot-r { margin-left: 6px; }
@@ -838,11 +852,27 @@
   .pet[data-stage="eternal"] .pet-wing { display: block; width: 38px; height: 44px; top: 38px; }
   .pet[data-stage="eternal"] .pet-wing-l { left: -20px; }
   .pet[data-stage="eternal"] .pet-wing-r { right: -20px; }
-  .pet[data-stage="eternal"] .pet-tail { display: block; width: 44px; height: 24px; right: -18px; bottom: 12px; }
+  .pet[data-stage="eternal"] .pet-tail { display: block; width: 38px; height: 22px; right: -6px; bottom: 14px; }
   .pet[data-stage="eternal"] .pet-eye { width: 15px; height: 17px; top: 17px; }
   .pet[data-stage="eternal"] .pet-eye-l { left: 13px; } .pet[data-stage="eternal"] .pet-eye-r { right: 13px; }
   .pet[data-stage="eternal"] .pet-snout { width: 18px; height: 10px; }
   .pet[data-stage="eternal"] .pet-mouth { width: 18px; height: 10px; }
+
+  .pet[data-stage="hatchling"] .pet-arm-l { margin-left: -24px; }
+  .pet[data-stage="hatchling"] .pet-arm-r { margin-left: 13px; }
+  .pet[data-stage="sprout"] .pet-arm-l { margin-left: -29px; }
+  .pet[data-stage="sprout"] .pet-arm-r { margin-left: 16px; }
+  .pet[data-stage="sapling"] .pet-arm-l { margin-left: -32px; }
+  .pet[data-stage="sapling"] .pet-arm-r { margin-left: 18px; }
+  .pet[data-stage="bloom"] .pet-arm-l { margin-left: -34px; }
+  .pet[data-stage="bloom"] .pet-arm-r { margin-left: 19px; }
+  .pet[data-stage="guardian"] .pet-arm-l { margin-left: -36px; }
+  .pet[data-stage="guardian"] .pet-arm-r { margin-left: 20px; }
+  .pet[data-stage="mystic"] .pet-arm-l { margin-left: -38px; }
+  .pet[data-stage="mystic"] .pet-arm-r { margin-left: 21px; }
+  .pet[data-stage="eternal"] .pet-arm-l { margin-left: -40px; }
+  .pet[data-stage="eternal"] .pet-arm-r { margin-left: 22px; }
+
 
   .pet-accessories { position: absolute; inset: 0; pointer-events: none; z-index: 25; }
   .pet-accessory { position: absolute; pointer-events: none; filter: drop-shadow(0 2px 2px rgba(0,0,0,0.3)); line-height: 1; }
