@@ -588,95 +588,6 @@
   @keyframes starShimmer {
     0%, 100% { opacity: 0.8; transform: translate(-50%, -50%) scale(0.9) rotate(0deg); }
     50% { opacity: 1; transform: translate(-50%, -50%) scale(1.15) rotate(20deg); }
-
-  /* Clothing accessories worn by Mochi */
-  .pet-accessory.clothes {
-    z-index: 27;
-    filter: drop-shadow(0 2px 2px rgba(0,0,0,0.3));
-  }
-  .pet-accessory.clothes-bow {
-    top: -2px; left: 50%; transform: translateX(-50%);
-    font-size: 1.25rem;
-    animation: bowBounce 2.6s ease-in-out infinite;
-  }
-  .pet-accessory.clothes-scarf {
-    bottom: 2px; left: 50%; transform: translateX(-50%);
-    font-size: 1.1rem;
-    animation: scarfSway 3s ease-in-out infinite;
-  }
-  @keyframes scarfSway {
-    0%, 100% { transform: translateX(-50%) rotate(-4deg); }
-    50% { transform: translateX(-50%) rotate(4deg); }
-  }
-  .pet-accessory.clothes-hat {
-    top: -18px; left: 50%; transform: translateX(-50%);
-    font-size: 1.35rem;
-    animation: hatBob 2.8s ease-in-out infinite;
-  }
-  @keyframes hatBob {
-    0%, 100% { transform: translateX(-50%) translateY(0); }
-    50% { transform: translateX(-50%) translateY(-3px); }
-  }
-  .pet-accessory.clothes-glasses {
-    top: 12px; left: 50%; transform: translateX(-50%);
-    font-size: 0.95rem;
-  }
-  .pet-accessory.clothes-cape {
-    top: 18px; left: 50%; transform: translateX(-50%);
-    font-size: 1.2rem;
-    z-index: 19;
-    animation: capeFlutter 2.4s ease-in-out infinite;
-  }
-  @keyframes capeFlutter {
-    0%, 100% { transform: translateX(-50%) rotate(-3deg); }
-    50% { transform: translateX(-50%) rotate(3deg); }
-  }
-  .pet-accessory.clothes-crown {
-    top: -22px; left: 50%; transform: translateX(-50%);
-    font-size: 1.2rem;
-    animation: crownShine 2s ease-in-out infinite;
-  }
-  @keyframes crownShine {
-    0%, 100% { filter: drop-shadow(0 0 2px rgba(212,175,55,0.5)); }
-    50% { filter: drop-shadow(0 0 8px rgba(212,175,55,0.9)); }
-  }
-  .pet-accessory.clothes-hoodie {
-    top: 4px; left: 50%; transform: translateX(-50%);
-    font-size: 1.15rem;
-  }
-  .pet-accessory.clothes-flower {
-    top: -6px; right: 8%;
-    font-size: 0.9rem;
-    animation: flowerSway3D 3s ease-in-out infinite;
-  }
-  .fridge-item-label {
-    font-family: 'Press Start 2P', monospace;
-    font-size: 0.32rem;
-    color: #4A3F3A;
-    text-align: center;
-    line-height: 1.3;
-    margin-top: 1px;
-  }
-  .fridge-qty {
-    position: absolute;
-    top: -4px; right: -4px;
-    background: #C9302C;
-    color: white;
-    font-family: 'Press Start 2P', monospace;
-    font-size: 0.35rem;
-    padding: 1px 3px;
-    border-radius: 4px;
-    min-width: 10px;
-    text-align: center;
-  }
-  .fridge-shelf .fridge-slot {
-    position: relative;
-    display: inline-flex;
-    flex-direction: column;
-    align-items: center;
-    margin: 0 2px;
-  }
-
   }
 
   .room-decorations { position: absolute; inset: 0; pointer-events: none; z-index: 12; }
@@ -3121,94 +3032,11 @@ const INGREDIENT_DEFS = [
   { id: 'ing_apple',  emoji: '🍎', name: 'APPLE',     cost: 7  }
 ];
 
-
-/* Clothing outfits — buy once, equip/switch from wardrobe */
-const CLOTHES_DEFS = [
-  { id: 'clothes_bow',     emoji: '🎀', name: 'PINK BOW',      desc: 'A cute bow on the head',           cost: 40,  css: 'clothes-bow' },
-  { id: 'clothes_scarf',   emoji: '🧣', name: 'COZY SCARF',    desc: 'Warm and snuggly scarf',          cost: 55,  css: 'clothes-scarf' },
-  { id: 'clothes_hat',     emoji: '🎩', name: 'FANCY HAT',     desc: 'A dapper little hat',             cost: 70,  css: 'clothes-hat' },
-  { id: 'clothes_glasses', emoji: '👓', name: 'SMART GLASSES', desc: 'Looking wise and cute',           cost: 50,  css: 'clothes-glasses' },
-  { id: 'clothes_cape',    emoji: '🦸', name: 'HERO CAPE',     desc: 'Fluttering superhero cape',       cost: 90,  css: 'clothes-cape' },
-  { id: 'clothes_crown',   emoji: '👑', name: 'ROYAL CROWN',   desc: 'For the most special days',       cost: 120, css: 'clothes-crown' },
-  { id: 'clothes_hoodie',  emoji: '🧥', name: 'SOFT HOODIE',   desc: 'Comfy everyday hoodie',           cost: 65,  css: 'clothes-hoodie' },
-  { id: 'clothes_flower',  emoji: '🌸', name: 'FLOWER CLIP',   desc: 'A pretty blossom in the fur',     cost: 35,  css: 'clothes-flower' }
-];
-
-const EMOJI_ING_NAME = Object.fromEntries(INGREDIENT_DEFS.map(i => [i.emoji, i.name]));
-Object.assign(EMOJI_ING_NAME, {
-  '🥬': 'LETTUCE', '🍅': 'TOMATO', '🥒': 'CUCUMBER', '🥕': 'CARROT',
-  '🍄': 'MUSHROOM', '💧': 'WATER', '🍚': 'RICE', '🍯': 'HONEY',
-  '🥚': 'EGG', '🌾': 'WHEAT', '🧀': 'CHEESE', '🍎': 'APPLE'
-});
-
-function normalizeFridgeItem(it) {
-  if (it && typeof it === 'object') {
-    if (it.type === 'dish' || it.type === 'ing') return it;
-    if (it.emoji && it.name) return { type: it.hunger != null ? 'dish' : 'ing', ...it };
-  }
-  if (typeof it === 'string') {
-    const recipe = Object.values(RECIPES).find(r => r.emoji === it);
-    if (recipe) {
-      return { type: 'dish', emoji: recipe.emoji, name: recipe.name, hunger: recipe.hunger, joy: recipe.joy, xp: Math.max(2, Math.floor(recipe.xp / 2)) };
-    }
-    return { type: 'ing', emoji: it, name: EMOJI_ING_NAME[it] || 'ITEM' };
-  }
-  return null;
-}
-
-function getFridgeList() {
-  const raw = gameData?.fridgeItems;
-  const list = Array.isArray(raw) ? raw : [...FRIDGE_DEFAULT];
-  return list.map(normalizeFridgeItem).filter(Boolean);
-}
-
-function groupFridgeForDisplay(items) {
-  const groups = [];
-  const map = new Map();
-  items.forEach((it, idx) => {
-    const key = it.type + '|' + it.emoji + '|' + (it.name || '');
-    if (!map.has(key)) {
-      const g = { ...it, count: 0, indices: [] };
-      map.set(key, g);
-      groups.push(g);
-    }
-    const g = map.get(key);
-    g.count++;
-    g.indices.push(idx);
-  });
-  return groups;
-}
-
-function removeFridgeAt(idx) {
-  const list = getFridgeList();
-  if (idx < 0 || idx >= list.length) return list;
-  list.splice(idx, 1);
-  return list;
-}
-
-function removeFridgeIngredientEmoji(emoji) {
-  const list = getFridgeList();
-  const idx = list.findIndex(it => it.type === 'ing' && it.emoji === emoji);
-  if (idx === -1) return { ok: false, list };
-  list.splice(idx, 1);
-  return { ok: true, list };
-}
-
 const SHOP_ITEMS = [
   { id: 'treat',      emoji: '🍬', name: 'SWEET TREAT',       desc: 'Place a treat — tap to feed Mochi',           cost: 20,  consumable: true,  scope: 'global' },
   { id: 'toy',        emoji: '🧸', name: 'PLUSH TOY',         desc: 'Place a toy — tap to play',                   cost: 30,  consumable: true,  scope: 'global' },
   { id: 'pillow',     emoji: '🛏️', name: 'FLUFFY PILLOW',     desc: 'Place a pillow — tap to rest',                cost: 35,  consumable: true,  scope: 'global' },
   { id: 'soap',       emoji: '🧼', name: 'FANCY SOAP',        desc: 'Place a soap — tap to wash',                  cost: 25,  consumable: true,  scope: 'global' },
-  { id: 'clothes_bow',     emoji: '🎀', name: 'PINK BOW',      desc: 'Outfit — wear from the wardrobe', cost: 40,  consumable: false, clothes: true, scope: 'global' },
-  { id: 'clothes_scarf',   emoji: '🧣', name: 'COZY SCARF',    desc: 'Outfit — wear from the wardrobe', cost: 55,  consumable: false, clothes: true, scope: 'global' },
-  { id: 'clothes_hat',     emoji: '🎩', name: 'FANCY HAT',     desc: 'Outfit — wear from the wardrobe', cost: 70,  consumable: false, clothes: true, scope: 'global' },
-  { id: 'clothes_glasses', emoji: '👓', name: 'SMART GLASSES', desc: 'Outfit — wear from the wardrobe', cost: 50,  consumable: false, clothes: true, scope: 'global' },
-  { id: 'clothes_cape',    emoji: '🦸', name: 'HERO CAPE',     desc: 'Outfit — wear from the wardrobe', cost: 90,  consumable: false, clothes: true, scope: 'global' },
-  { id: 'clothes_crown',   emoji: '👑', name: 'ROYAL CROWN',   desc: 'Outfit — wear from the wardrobe', cost: 120, consumable: false, clothes: true, scope: 'global' },
-  { id: 'clothes_hoodie',  emoji: '🧥', name: 'SOFT HOODIE',   desc: 'Outfit — wear from the wardrobe', cost: 65,  consumable: false, clothes: true, scope: 'global' },
-  { id: 'clothes_flower',  emoji: '🌸', name: 'FLOWER CLIP',   desc: 'Outfit — wear from the wardrobe', cost: 35,  consumable: false, clothes: true, scope: 'global' },
-
-
 
   { id: 'ing_rice',     emoji: '🍚', name: 'RICE',      desc: 'Ingredient → goes in the fridge', cost: 6,  ingredient: true, scope: 'global' },
   { id: 'ing_water',    emoji: '💧', name: 'WATER',     desc: 'Ingredient → goes in the fridge', cost: 3,  ingredient: true, scope: 'global' },
@@ -3717,7 +3545,6 @@ function listenToGame() {
       if (data.currentWant === undefined) missing.currentWant = null;
       if (data.coins === undefined) missing.coins = 50;
       if (!data.inventory) missing.inventory = {};
-      if (data.equippedClothes === undefined) missing.equippedClothes = null;
       if (!data.roomItems) missing.roomItems = {};
       if (!data.dailyReward) missing.dailyReward = { day: 0, lastClaimDate: '', totalClaims: 0 };
       if (!Array.isArray(data.fridgeItems)) missing.fridgeItems = [...FRIDGE_DEFAULT];
@@ -4480,47 +4307,27 @@ function renderFridgeContents() {
   const shelves = $('fridgeShelves');
   const badge = $('fridgeBadge');
   if (!shelves) return;
-
-  const items = getFridgeList();
-  const groups = groupFridgeForDisplay(items);
-
-  if (badge) badge.textContent = String(items.length);
-
+  const items = gameData?.fridgeItems || FRIDGE_DEFAULT;
   shelves.innerHTML = '';
-  // 3 rows of slots
-  const perRow = Math.max(4, Math.ceil(groups.length / 3) || 4);
-  for (let r = 0; r < 3; r++) {
+  const rows = 3;
+  const perRow = Math.ceil(items.length / rows);
+  for (let r = 0; r < rows; r++) {
     const row = document.createElement('div');
     row.className = 'fridge-shelf';
-    const slice = groups.slice(r * perRow, (r + 1) * perRow);
-    if (slice.length === 0 && r === 0 && groups.length === 0) {
-      const empty = document.createElement('span');
-      empty.style.cssText = 'font-size:0.5rem;color:#8B6F5E;opacity:0.7;';
-      empty.textContent = 'empty';
-      row.appendChild(empty);
+    const slice = items.slice(r * perRow, (r + 1) * perRow);
+    if (slice.length === 0) {
+      row.style.opacity = '0.4';
+    } else {
+      slice.forEach(it => {
+        const s = document.createElement('span');
+        s.className = 'fridge-item';
+        s.textContent = it;
+        row.appendChild(s);
+      });
     }
-    slice.forEach(g => {
-      const slot = document.createElement('div');
-      slot.className = 'fridge-slot';
-      const s = document.createElement('span');
-      s.className = 'fridge-item';
-      s.textContent = g.emoji;
-      slot.appendChild(s);
-      if (g.count > 1) {
-        const q = document.createElement('span');
-        q.className = 'fridge-qty';
-        q.textContent = '×' + g.count;
-        slot.appendChild(q);
-      }
-      const label = document.createElement('div');
-      label.className = 'fridge-item-label';
-      label.textContent = g.type === 'dish' ? (g.name || 'DISH').slice(0, 8) : (g.name || '').slice(0, 6);
-      slot.appendChild(label);
-      row.appendChild(slot);
-    });
     shelves.appendChild(row);
   }
-
+  if (badge) badge.textContent = items.length;
   const fridgeEl = document.querySelector('.f-fridge');
   if (fridgeEl) {
     fridgeEl.classList.toggle('has-food', items.length > 0);
@@ -4528,43 +4335,21 @@ function renderFridgeContents() {
   }
 }
 
-function furnitureInteraction(type) {
+/* ============================================================
+   FURNITURE INTERACTIONS
+   ============================================================ */
+async function furnitureInteraction(type) {
   if (!gameData) return;
   if (isAnimating || mgActive) return;
 
   const pet = $('pet');
   const mood = computeMood();
 
-  // Mood-aware refusals — actions must fit how Mochi feels
-  const playTypes = ['ballpit', 'toybox', 'blocks', 'room_train', 'room_playmat', 'room_easel', 'room_piano', 'piano', 'easel'];
-  const restTypes = ['bed', 'room_cushions', 'room_tent', 'room_logseat', 'room_bench', 'stump'];
-  const washTypes = ['bathtub', 'bath_sink', 'toilet', 'room_sink', 'towel'];
-
-  if (mood.key === 'sick' && playTypes.includes(type)) {
-    pet.className = 'pet sick';
-    showBubble('too sick...', '🤒');
-    sfxBad();
-    showToast('Mochi is sick — try a bath or rest first 💊');
-    return;
-  }
-  if (mood.key === 'grumpy' && playTypes.includes(type)) {
+  if (mood.key === 'grumpy' && ['bed', 'ballpit', 'toybox', 'blocks'].includes(type)) {
     pet.className = 'pet grumpy';
     showBubble('hmph!', '💢');
     sfxBad();
-    showToast('Mochi is too grumpy to play — feed or pet first 💢');
     return;
-  }
-  if (mood.key === 'hungry' && playTypes.includes(type) && (gameData.hunger || 0) < 25) {
-    pet.className = 'pet sad';
-    showBubble('hungry first...', '🍚');
-    showToast('Mochi is too hungry to play — feed first 🍚');
-    return;
-  }
-  if (mood.key === 'ecstatic' && restTypes.includes(type) && (gameData.energy || 0) > 90) {
-    pet.className = 'pet hopping';
-    showBubble('too excited to sleep!', '✨');
-    showToast('Mochi is full of energy — play instead! ✨');
-    // still allow, but lighter rest later handled in interact
   }
 
   isAnimating = true;
@@ -4726,15 +4511,9 @@ async function interactWindow(pet) {
   }
   await new Promise(r => setTimeout(r, 2000));
   win?.classList.remove('open');
-  db.ref('tamagotchi').update({
-    happy: Math.min(100, (gameData.happy || 0) + 3),
-    xp: (gameData.xp || 0) + 2,
-    lastUpdate: Date.now()
-  });
   pet.className = 'pet walking';
   await movePetTo(50, 800, 15, 1);
   pet.className = 'pet ' + computeMood().cls;
-  showToast('🪟 Fresh air! +3 ☀️ +2 XP');
 }
 
 /* Kitchen */
@@ -4757,18 +4536,17 @@ async function interactCounter(pet) {
   const recipe = RECIPES[chosenId];
   if (!recipe) return;
 
-  let fridgeItems = getFridgeList();
+  const fridgeItems = [...(gameData.fridgeItems || FRIDGE_DEFAULT)];
   const needed = [...recipe.ingredients];
   const missing = [];
   needed.forEach(ing => {
-    const idx = fridgeItems.findIndex(it => it.type === 'ing' && it.emoji === ing);
+    const idx = fridgeItems.indexOf(ing);
     if (idx === -1) missing.push(ing);
     else fridgeItems.splice(idx, 1);
   });
 
   if (missing.length > 0) {
-    const names = missing.map(e => EMOJI_ING_NAME[e] || e).join(', ');
-    showToast(`Missing: ${names} — buy ingredients in the shop!`);
+    showToast(`Missing: ${missing.join(' ')} — check the fridge!`);
     return;
   }
 
@@ -4858,15 +4636,8 @@ async function interactCounter(pet) {
     await new Promise(r => setTimeout(r, 2200));
     showToast(`😋 Ate ${recipe.name}! +${recipe.hunger} 🍚 +${recipe.joy} ☀️ +${xpGain} XP`);
   } else if (action === 'store') {
-    const fridgeItems2 = getFridgeList();
-    fridgeItems2.push({
-      type: 'dish',
-      emoji: recipe.emoji,
-      name: recipe.name,
-      hunger: recipe.hunger,
-      joy: recipe.joy,
-      xp: Math.max(2, Math.floor(recipe.xp / 2))
-    });
+    const fridgeItems2 = [...(gameData.fridgeItems || [])];
+    fridgeItems2.push(recipe.emoji);
     db.ref('tamagotchi/fridgeItems').set(fridgeItems2);
     pet.className = 'pet walking';
     const fridge = document.querySelector('.f-fridge');
@@ -4917,36 +4688,23 @@ async function interactFridge(pet) {
 
   await new Promise(r => setTimeout(r, 900));
 
-  const fridgeItems = getFridgeList();
+  const fridgeItems = gameData.fridgeItems || FRIDGE_DEFAULT;
   if (fridgeItems.length === 0) {
-    showToast('Fridge is empty! Cook something or buy ingredients 🍳');
-    fridgeOpen = false;
-    fridge?.classList.remove('open');
-    renderFridgeContents();
-    pet.className = 'pet ' + computeMood().cls;
+    showToast('Fridge is empty! Cook something 🍳');
     return;
   }
 
-  // Group for clearer picker (show qty)
-  const groups = groupFridgeForDisplay(fridgeItems);
-  const options = groups.slice(0, 12).map((g) => {
-    const isDish = g.type === 'dish';
-    const qty = g.count > 1 ? ` ×${g.count}` : '';
-    const desc = isDish
-      ? `Cooked · +${g.hunger || 0} 🍚 +${g.joy || 0} ☀️`
-      : `Ingredient · ${g.name || 'ITEM'}`;
-    return {
-      emoji: g.emoji,
-      name: (g.name || 'ITEM') + qty,
-      desc,
-      ingredient: !isDish,
-      value: { idx: g.indices[0], item: g }
-    };
-  });
+  const options = fridgeItems.slice(0, 8).map((it, idx) => ({
+    emoji: it,
+    name: 'SNACK',
+    desc: '',
+    ingredient: true,
+    value: { idx, emoji: it }
+  }));
 
   const picked = await showChoiceModal({
     title: '🧊 IN THE FRIDGE',
-    subtitle: `${fridgeItems.length} item${fridgeItems.length === 1 ? '' : 's'} · pick one to eat`,
+    subtitle: `Pick a snack (${fridgeItems.length} items)`,
     options,
     cancelLabel: 'CLOSE'
   });
@@ -4956,23 +4714,19 @@ async function interactFridge(pet) {
     return;
   }
 
-  const { idx, item } = picked;
-  const newFridge = removeFridgeAt(idx);
+  const { idx, emoji: itemEmoji } = picked;
+  const newFridge = [...fridgeItems];
+  newFridge.splice(idx, 1);
   db.ref('tamagotchi/fridgeItems').set(newFridge);
 
-  const isDish = item.type === 'dish';
-  const hungerGain = isDish ? (item.hunger || 15) : 8;
-  const joyGain = isDish ? (item.joy || 4) : 3;
-  const xpGain = isDish ? (item.xp || 3) : 2;
-
   pet.className = 'pet happy eating';
-  showBubble(isDish ? 'delicious!' : 'yum!', item.emoji);
+  showBubble('yum!', itemEmoji);
   for (let i = 0; i < 3; i++) setTimeout(() => floatHearts(1), i * 350);
 
   db.ref('tamagotchi').update({
-    hunger: Math.min(100, (gameData.hunger || 0) + hungerGain),
-    happy:  Math.min(100, (gameData.happy  || 0) + joyGain),
-    xp: (gameData.xp || 0) + xpGain,
+    hunger: Math.min(100, (gameData.hunger || 0) + 8),
+    happy:  Math.min(100, (gameData.happy  || 0) + 4),
+    xp: (gameData.xp || 0) + 2,
     lastUpdate: Date.now()
   });
 
@@ -4985,8 +4739,7 @@ async function interactFridge(pet) {
   pet.className = 'pet walking';
   await movePetTo(50, 800, 15, 1);
   pet.className = 'pet ' + computeMood().cls;
-  const label = item.name || item.emoji;
-  showToast(`🍴 ${isDish ? 'Ate' : 'Snacked on'} ${label}! +${hungerGain} 🍚 +${joyGain} ☀️ +${xpGain} XP`);
+  showToast(`🍴 Snacked on ${itemEmoji}! +8 🍚 +4 ☀️ +2 XP`);
 }
 
 /* Garden */
@@ -5812,110 +5565,13 @@ async function interactRoomWardrobe(pet) {
   pet.className = 'pet watching';
   showBubble('cute outfits!', '👗');
   sfxPop();
-
-  const inv = gameData.inventory || {};
-  const equipped = gameData.equippedClothes || null;
-
-  const options = CLOTHES_DEFS.map(c => {
-    const owned = !!inv[c.id];
-    const isOn = equipped === c.id;
-    let desc, name;
-    if (isOn) {
-      name = c.name + ' ✓';
-      desc = 'Currently wearing — tap to remove';
-    } else if (owned) {
-      name = c.name;
-      desc = 'Owned — tap to wear';
-    } else {
-      name = c.name;
-      desc = `Buy for 🪙 ${c.cost}`;
-    }
-    return {
-      emoji: c.emoji,
-      name,
-      desc,
-      value: { id: c.id, owned, isOn, cost: c.cost }
-    };
-  });
-
-  // Also allow "none"
-  options.unshift({
-    emoji: '✨',
-    name: 'NO OUTFIT',
-    desc: equipped ? 'Remove current clothes' : 'Nothing equipped',
-    value: { id: null, owned: true, isOn: !equipped, cost: 0 }
-  });
-
-  const picked = await showChoiceModal({
-    title: '👗 WARDROBE',
-    subtitle: 'Buy, wear, or switch outfits',
-    options,
-    cancelLabel: 'CLOSE'
-  });
-
-  if (!picked) {
-    el.classList.remove('open');
-    pet.className = 'pet walking';
-    await movePetTo(50, 800, 15, 1);
-    pet.className = 'pet ' + computeMood().cls;
-    return;
-  }
-
-  const updates = { lastUpdate: Date.now() };
-  let toastMsg = '';
-
-  if (picked.id === null) {
-    updates.equippedClothes = null;
-    toastMsg = '✨ Outfit removed';
-    pet.className = 'pet happy';
-    showBubble('free!', '✨');
-  } else if (picked.isOn) {
-    updates.equippedClothes = null;
-    toastMsg = '✨ Took off outfit';
-    pet.className = 'pet happy';
-    showBubble('changed!', '👗');
-  } else if (picked.owned) {
-    updates.equippedClothes = picked.id;
-    const def = CLOTHES_DEFS.find(c => c.id === picked.id);
-    toastMsg = `${def.emoji} Wearing ${def.name}!`;
-    pet.className = 'pet happy';
-    showBubble('so cute!', def.emoji);
-    floatHearts(4);
-    updates.happy = Math.min(100, (gameData.happy || 0) + 3);
-    updates.xp = (gameData.xp || 0) + 2;
-  } else {
-    const coins = gameData.coins || 0;
-    if (coins < picked.cost) {
-      showToast('Not enough coins 🪙');
-      el.classList.remove('open');
-      pet.className = 'pet ' + computeMood().cls;
-      return;
-    }
-    const newInv = { ...inv, [picked.id]: true };
-    updates.coins = coins - picked.cost;
-    updates.inventory = newInv;
-    updates.equippedClothes = picked.id;
-    const def = CLOTHES_DEFS.find(c => c.id === picked.id);
-    toastMsg = `${def.emoji} Bought & wearing ${def.name}!`;
-    pet.className = 'pet ecstatic';
-    showBubble('new look!', def.emoji);
-    floatHearts(6);
-    spawnConfetti(10);
-    updates.happy = Math.min(100, (gameData.happy || 0) + 6);
-    updates.xp = (gameData.xp || 0) + 4;
-    sfxGood();
-  }
-
-  db.ref('tamagotchi').update(updates);
-  renderCache.accessoriesHash = '';
-  renderPetAccessories();
-  showToast(toastMsg || '👗 Wardrobe');
-
-  await new Promise(r => setTimeout(r, 1600));
+  await new Promise(r => setTimeout(r, 2000));
   el.classList.remove('open');
   pet.className = 'pet walking';
   await movePetTo(50, 800, 15, 1);
   pet.className = 'pet ' + computeMood().cls;
+  db.ref('tamagotchi').update({ xp: (gameData.xp || 0) + 4, happy: Math.min(100, (gameData.happy || 0) + 2), lastUpdate: Date.now() });
+  showToast('👗 Peeked in the wardrobe! +4 XP');
 }
 
 async function interactRoomTable(pet) {
@@ -6174,8 +5830,7 @@ function renderPetAccessories() {
   const container = $('petAccessories');
   if (!container) return;
 
-  const equipped = gameData.equippedClothes || null;
-  const hash = ['decoration', 'lucky', 'xpboost'].map(k => inv[k] ? '1' : '0').join('') + '|' + (equipped || '');
+  const hash = ['decoration', 'lucky', 'xpboost'].map(k => inv[k] ? '1' : '0').join('');
   if (renderCache.accessoriesHash === hash) return;
   renderCache.accessoriesHash = hash;
 
@@ -6197,17 +5852,6 @@ function renderPetAccessories() {
     star.className = 'pet-accessory xpboost';
     star.textContent = '⭐';
     container.appendChild(star);
-  }
-  // Equipped outfit (visible on Mochi)
-  if (equipped) {
-    const def = CLOTHES_DEFS.find(c => c.id === equipped);
-    if (def) {
-      const outfit = document.createElement('div');
-      outfit.className = 'pet-accessory clothes ' + def.css;
-      outfit.textContent = def.emoji;
-      outfit.title = def.name;
-      container.appendChild(outfit);
-    }
   }
 }
 
@@ -6837,8 +6481,8 @@ function buyItem(id) {
   if (coins < item.cost) return showToast('Not enough coins 🪙');
 
   if (item.ingredient) {
-    const fridge = getFridgeList();
-    fridge.push({ type: 'ing', emoji: item.emoji, name: item.name });
+    const fridge = [...(gameData.fridgeItems || FRIDGE_DEFAULT)];
+    fridge.push(item.emoji);
     db.ref('tamagotchi').update({
       coins: coins - item.cost,
       fridgeItems: fridge
@@ -6848,27 +6492,6 @@ function buyItem(id) {
     renderCache.shopHash = '';
     renderShop();
     if (currentRoomId === 'kitchen') renderFridgeContents();
-    return;
-  }
-
-  if (item.clothes) {
-    const inv = { ...(gameData.inventory || {}) };
-    if (inv[item.id]) return showToast('Already own this outfit! Open the wardrobe to wear it 👗');
-    inv[item.id] = true;
-    db.ref('tamagotchi').update({
-      coins: coins - item.cost,
-      inventory: inv,
-      equippedClothes: item.id,
-      happy: Math.min(100, (gameData.happy || 0) + 4),
-      lastUpdate: Date.now()
-    });
-    showToast(item.emoji + ' ' + item.name + ' purchased & equipped!');
-    sfxGood();
-    spawnConfetti(8);
-    renderCache.accessoriesHash = '';
-    renderCache.shopHash = '';
-    renderPetAccessories();
-    renderShop();
     return;
   }
 
@@ -7631,22 +7254,6 @@ async function doAction(name) {
 
   const action = ACTIONS[name];
   if (!action) return;
-
-  const mood = computeMood();
-  // Align actions with mood — rest fills energy, play fills joy, etc.
-  if (name === 'play' || name === 'minigame') {
-    if (mood.key === 'sick') return showToast('Mochi is sick — needs a bath or rest first 💊');
-    if (mood.key === 'grumpy') return showToast('Mochi is too grumpy — feed or pet first 💢');
-    if ((gameData.hunger || 0) < 20) return showToast('Mochi is too hungry to play 🍚');
-  }
-  if (name === 'sleep') {
-    if (mood.key === 'ecstatic' && (gameData.energy || 0) > 92) {
-      showToast('Mochi is buzzing with energy — a short rest only~');
-    }
-  }
-  if (name === 'bath' || name === 'clean') {
-    // always allowed — cleaning helps sick/grumpy
-  }
 
   if (action.cost) {
     for (const [s, amt] of Object.entries(action.cost)) {
