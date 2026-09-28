@@ -588,67 +588,304 @@
   @keyframes starShimmer {
     0%, 100% { opacity: 0.8; transform: translate(-50%, -50%) scale(0.9) rotate(0deg); }
     50% { opacity: 1; transform: translate(-50%, -50%) scale(1.15) rotate(20deg); }
+  }
 
-  /* Clothing accessories worn by Mochi */
-  .pet-accessory.clothes {
-    z-index: 27;
-    filter: drop-shadow(0 2px 2px rgba(0,0,0,0.3));
+  /* ============================================================
+     CLOTHES — drawn to fit the pet body (not floating emojis)
+     ============================================================ */
+  .pet-accessories {
+    position: absolute; inset: 0;
+    pointer-events: none; z-index: 25;
+    overflow: visible;
   }
-  .pet-accessory.clothes-bow {
-    top: -2px; left: 50%; transform: translateX(-50%);
-    font-size: 1.25rem;
-    animation: bowBounce 2.6s ease-in-out infinite;
+
+  /* Shared wearable base — anchored to pet center */
+  .wear {
+    position: absolute;
+    pointer-events: none;
+    box-sizing: border-box;
   }
-  .pet-accessory.clothes-scarf {
-    bottom: 2px; left: 50%; transform: translateX(-50%);
-    font-size: 1.1rem;
-    animation: scarfSway 3s ease-in-out infinite;
+
+  /* --- Pink Bow (sits between ears on forehead) --- */
+  .wear-bow {
+    top: 2px; left: 50%;
+    width: 22px; height: 14px;
+    transform: translateX(-50%);
+    z-index: 28;
+    animation: wearBowBob 2.8s ease-in-out infinite;
   }
-  @keyframes scarfSway {
+  .wear-bow::before,
+  .wear-bow::after {
+    content: '';
+    position: absolute; top: 2px;
+    width: 10px; height: 10px;
+    background: #E87A9A;
+    border: 2px solid #A8506A;
+    border-radius: 50% 50% 40% 40%;
+  }
+  .wear-bow::before { left: 0; transform: rotate(-25deg); }
+  .wear-bow::after  { right: 0; transform: rotate(25deg); }
+  .wear-bow .wear-knot {
+    position: absolute; left: 50%; top: 4px;
+    transform: translateX(-50%);
+    width: 6px; height: 6px;
+    background: #C45A7A;
+    border: 2px solid #A8506A;
+    border-radius: 50%;
+    z-index: 1;
+  }
+  @keyframes wearBowBob {
     0%, 100% { transform: translateX(-50%) rotate(-4deg); }
     50% { transform: translateX(-50%) rotate(4deg); }
   }
-  .pet-accessory.clothes-hat {
-    top: -18px; left: 50%; transform: translateX(-50%);
-    font-size: 1.35rem;
-    animation: hatBob 2.8s ease-in-out infinite;
+
+  /* --- Cozy Scarf (around lower body / neck) --- */
+  .wear-scarf {
+    bottom: 8px; left: 50%;
+    width: 38px; height: 12px;
+    transform: translateX(-50%);
+    z-index: 22;
   }
-  @keyframes hatBob {
+  .wear-scarf .scarf-band {
+    position: absolute; inset: 0;
+    background: linear-gradient(180deg, #E87890 0%, #C45870 100%);
+    border: 2px solid #8B4050;
+    border-radius: 6px;
+    box-shadow: inset 0 2px 0 rgba(255,255,255,0.25);
+  }
+  .wear-scarf .scarf-tail {
+    position: absolute; right: 2px; top: 8px;
+    width: 8px; height: 14px;
+    background: linear-gradient(180deg, #E87890, #C45870);
+    border: 2px solid #8B4050;
+    border-radius: 0 0 4px 4px;
+    transform-origin: top center;
+    animation: scarfWag 2.6s ease-in-out infinite;
+  }
+  @keyframes scarfWag {
+    0%, 100% { transform: rotate(-6deg); }
+    50% { transform: rotate(8deg); }
+  }
+
+  /* --- Fancy Hat --- */
+  .wear-hat {
+    top: -10px; left: 50%;
+    width: 28px; height: 16px;
+    transform: translateX(-50%);
+    z-index: 28;
+    animation: wearHatBob 3s ease-in-out infinite;
+  }
+  .wear-hat .hat-brim {
+    position: absolute; bottom: 0; left: 50%;
+    transform: translateX(-50%);
+    width: 28px; height: 5px;
+    background: #3A2E28;
+    border: 2px solid #2A1E18;
+    border-radius: 3px;
+  }
+  .wear-hat .hat-top {
+    position: absolute; bottom: 3px; left: 50%;
+    transform: translateX(-50%);
+    width: 16px; height: 12px;
+    background: linear-gradient(180deg, #4A3F3A 0%, #2A1E18 100%);
+    border: 2px solid #1A1008;
+    border-radius: 3px 3px 0 0;
+  }
+  .wear-hat .hat-band {
+    position: absolute; bottom: 4px; left: 50%;
+    transform: translateX(-50%);
+    width: 16px; height: 3px;
+    background: #C9A044;
+    z-index: 1;
+  }
+  @keyframes wearHatBob {
     0%, 100% { transform: translateX(-50%) translateY(0); }
-    50% { transform: translateX(-50%) translateY(-3px); }
+    50% { transform: translateX(-50%) translateY(-2px); }
   }
-  .pet-accessory.clothes-glasses {
-    top: 12px; left: 50%; transform: translateX(-50%);
-    font-size: 0.95rem;
+
+  /* --- Smart Glasses (over eyes) --- */
+  .wear-glasses {
+    top: 12px; left: 50%;
+    width: 30px; height: 10px;
+    transform: translateX(-50%);
+    z-index: 26;
   }
-  .pet-accessory.clothes-cape {
-    top: 18px; left: 50%; transform: translateX(-50%);
-    font-size: 1.2rem;
-    z-index: 19;
-    animation: capeFlutter 2.4s ease-in-out infinite;
+  .wear-glasses .g-lens {
+    position: absolute; top: 0;
+    width: 11px; height: 9px;
+    border: 2.5px solid #3A2E28;
+    border-radius: 50%;
+    background: rgba(180, 210, 230, 0.35);
+    box-shadow: inset 1px 1px 0 rgba(255,255,255,0.5);
   }
-  @keyframes capeFlutter {
-    0%, 100% { transform: translateX(-50%) rotate(-3deg); }
-    50% { transform: translateX(-50%) rotate(3deg); }
+  .wear-glasses .g-lens.l { left: 0; }
+  .wear-glasses .g-lens.r { right: 0; }
+  .wear-glasses .g-bridge {
+    position: absolute; top: 3px; left: 50%;
+    transform: translateX(-50%);
+    width: 6px; height: 2px;
+    background: #3A2E28;
+    border-radius: 1px;
   }
-  .pet-accessory.clothes-crown {
-    top: -22px; left: 50%; transform: translateX(-50%);
-    font-size: 1.2rem;
-    animation: crownShine 2s ease-in-out infinite;
+
+  /* --- Hero Cape (behind body) --- */
+  .wear-cape {
+    top: 14px; left: 50%;
+    width: 36px; height: 28px;
+    transform: translateX(-50%);
+    z-index: 18;
   }
-  @keyframes crownShine {
-    0%, 100% { filter: drop-shadow(0 0 2px rgba(212,175,55,0.5)); }
-    50% { filter: drop-shadow(0 0 8px rgba(212,175,55,0.9)); }
+  .wear-cape .cape-cloth {
+    position: absolute; inset: 0;
+    background: linear-gradient(180deg, #C9302C 0%, #8B1A1A 100%);
+    border: 2px solid #5A1010;
+    border-radius: 4px 4px 60% 60% / 4px 4px 40% 40%;
+    transform-origin: top center;
+    animation: capeSway 2.4s ease-in-out infinite;
+    box-shadow: inset 0 4px 0 rgba(255,255,255,0.12);
   }
-  .pet-accessory.clothes-hoodie {
-    top: 4px; left: 50%; transform: translateX(-50%);
-    font-size: 1.15rem;
+  @keyframes capeSway {
+    0%, 100% { transform: scaleX(1) rotate(-2deg); }
+    50% { transform: scaleX(1.06) rotate(2deg); }
   }
-  .pet-accessory.clothes-flower {
-    top: -6px; right: 8%;
-    font-size: 0.9rem;
-    animation: flowerSway3D 3s ease-in-out infinite;
+
+  /* --- Royal Crown --- */
+  .wear-crown {
+    top: -8px; left: 50%;
+    width: 24px; height: 14px;
+    transform: translateX(-50%);
+    z-index: 28;
+    animation: crownGlow 2.2s ease-in-out infinite;
   }
+  .wear-crown .crown-base {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    height: 6px;
+    background: linear-gradient(180deg, #FFE08A 0%, #D4AF37 100%);
+    border: 2px solid #8B6F1E;
+    border-radius: 2px;
+  }
+  .wear-crown .crown-pt {
+    position: absolute; bottom: 4px;
+    width: 0; height: 0;
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    border-bottom: 10px solid #D4AF37;
+    filter: drop-shadow(0 0 0 #8B6F1E);
+  }
+  .wear-crown .crown-pt.p1 { left: 1px; }
+  .wear-crown .crown-pt.p2 { left: 50%; transform: translateX(-50%); border-bottom-width: 12px; }
+  .wear-crown .crown-pt.p3 { right: 1px; }
+  .wear-crown .crown-gem {
+    position: absolute; bottom: 7px; left: 50%;
+    transform: translateX(-50%);
+    width: 4px; height: 4px;
+    background: #E87A9A;
+    border-radius: 50%;
+    z-index: 2;
+  }
+  @keyframes crownGlow {
+    0%, 100% { filter: drop-shadow(0 0 1px rgba(212,175,55,0.4)); }
+    50% { filter: drop-shadow(0 0 6px rgba(212,175,55,0.85)); }
+  }
+
+  /* --- Soft Hoodie (body overlay tint + hood) --- */
+  .wear-hoodie {
+    top: 0; left: 50%;
+    width: 100%; height: 100%;
+    transform: translateX(-50%);
+    z-index: 21;
+    pointer-events: none;
+  }
+  .wear-hoodie .hoodie-body {
+    position: absolute;
+    left: 50%; bottom: 6px;
+    transform: translateX(-50%);
+    width: 40px; height: 28px;
+    background: linear-gradient(180deg, rgba(120,160,200,0.55) 0%, rgba(90,130,170,0.45) 100%);
+    border: 2px solid rgba(70,100,130,0.7);
+    border-radius: 40% 40% 36% 36%;
+    box-shadow: inset 0 3px 0 rgba(255,255,255,0.2);
+  }
+  .wear-hoodie .hoodie-hood {
+    position: absolute;
+    top: 2px; left: 50%;
+    transform: translateX(-50%);
+    width: 26px; height: 12px;
+    background: linear-gradient(180deg, #8FB0D0 0%, #6A90B0 100%);
+    border: 2px solid #4A7080;
+    border-radius: 50% 50% 20% 20% / 80% 80% 20% 20%;
+    z-index: 27;
+  }
+
+  /* --- Flower Clip (on ear / side of head) --- */
+  .wear-flower {
+    top: 0; left: 72%;
+    width: 14px; height: 14px;
+    z-index: 28;
+    animation: flowerTilt 3s ease-in-out infinite;
+  }
+  .wear-flower .fl-petal {
+    position: absolute; left: 50%; top: 50%;
+    width: 7px; height: 7px;
+    background: #F0A0C0;
+    border: 1.5px solid #C07090;
+    border-radius: 50%;
+    transform-origin: center center;
+  }
+  .wear-flower .fl-petal.p1 { transform: translate(-50%, -50%) translateY(-4px); }
+  .wear-flower .fl-petal.p2 { transform: translate(-50%, -50%) translate(3.5px, 2px); }
+  .wear-flower .fl-petal.p3 { transform: translate(-50%, -50%) translate(-3.5px, 2px); }
+  .wear-flower .fl-center {
+    position: absolute; left: 50%; top: 50%;
+    transform: translate(-50%, -50%);
+    width: 5px; height: 5px;
+    background: #FFE08A;
+    border: 1.5px solid #C9A044;
+    border-radius: 50%;
+    z-index: 1;
+  }
+  @keyframes flowerTilt {
+    0%, 100% { transform: rotate(-8deg); }
+    50% { transform: rotate(10deg); }
+  }
+
+  /* Stage scaling — keep wearables proportional */
+  .pet[data-stage="egg"] .wear,
+  .pet[data-stage="hatchling"] .wear { zoom: 0.85; }
+  .pet[data-stage="bloom"] .wear,
+  .pet[data-stage="guardian"] .wear { zoom: 1.05; }
+  .pet[data-stage="mystic"] .wear,
+  .pet[data-stage="eternal"] .wear { zoom: 1.12; }
+
+  /* Soft body tint when dressed (subtle, not a sticker) */
+  .pet.wearing-clothes .pet-body {
+    box-shadow:
+      inset -5px -5px 0 rgba(0,0,0,0.08),
+      inset 3px 3px 0 rgba(255,255,255,0.35),
+      0 0 0 2px rgba(232, 122, 154, 0.15);
+  }
+
+  /* Cape rendered behind the body via pet pseudo-element */
+  .pet[data-outfit="clothes_cape"]::before {
+    content: '';
+    position: absolute;
+    top: 18%; left: 50%;
+    transform: translateX(-50%);
+    width: 42px; height: 32px;
+    background: linear-gradient(180deg, #C9302C 0%, #8B1A1A 100%);
+    border: 2px solid #5A1010;
+    border-radius: 6px 6px 60% 60% / 6px 6px 45% 45%;
+    z-index: 1;
+    animation: capeSway 2.4s ease-in-out infinite;
+    box-shadow: inset 0 4px 0 rgba(255,255,255,0.12);
+    pointer-events: none;
+  }
+  .pet .pet-body { position: relative; z-index: 5; }
+  .pet .pet-tail { z-index: 4; }
+  .pet .pet-foot { z-index: 3; }
+  .pet .pet-accessories { z-index: 10; }
+
+
   .fridge-item-label {
     font-family: 'Press Start 2P', monospace;
     font-size: 0.32rem;
@@ -6173,6 +6410,7 @@ function renderPetAccessories() {
   const inv = gameData.inventory || {};
   const container = $('petAccessories');
   if (!container) return;
+  const pet = $('pet');
 
   const equipped = gameData.equippedClothes || null;
   const hash = ['decoration', 'lucky', 'xpboost'].map(k => inv[k] ? '1' : '0').join('') + '|' + (equipped || '');
@@ -6180,7 +6418,15 @@ function renderPetAccessories() {
   renderCache.accessoriesHash = hash;
 
   container.innerHTML = '';
-  if (inv.decoration) {
+  if (pet) {
+    pet.classList.toggle('wearing-clothes', !!equipped);
+    if (equipped) pet.setAttribute('data-outfit', equipped);
+    else pet.removeAttribute('data-outfit');
+  }
+
+  // Room-boost charms sit off to the side — never cover the face
+  // Skip decoration bow on the pet if a real outfit is equipped (avoids double-bow mess)
+  if (inv.decoration && !equipped) {
     const bow = document.createElement('div');
     bow.className = 'pet-accessory bow';
     bow.textContent = '🎀';
@@ -6198,15 +6444,35 @@ function renderPetAccessories() {
     star.textContent = '⭐';
     container.appendChild(star);
   }
-  // Equipped outfit (visible on Mochi)
+
+  // Equipped outfit — CSS shapes that sit on the body
   if (equipped) {
     const def = CLOTHES_DEFS.find(c => c.id === equipped);
     if (def) {
-      const outfit = document.createElement('div');
-      outfit.className = 'pet-accessory clothes ' + def.css;
-      outfit.textContent = def.emoji;
-      outfit.title = def.name;
-      container.appendChild(outfit);
+      const el = document.createElement('div');
+      el.className = 'wear wear-' + def.id.replace('clothes_', '');
+      el.title = def.name;
+      el.setAttribute('aria-label', def.name);
+
+      if (def.id === 'clothes_cape') {
+        // Cape is drawn behind the body via .pet[data-outfit]::before — no overlay
+        return;
+      } else if (def.id === 'clothes_bow') {
+        el.innerHTML = '<div class="wear-knot"></div>';
+      } else if (def.id === 'clothes_scarf') {
+        el.innerHTML = '<div class="scarf-band"></div><div class="scarf-tail"></div>';
+      } else if (def.id === 'clothes_hat') {
+        el.innerHTML = '<div class="hat-top"></div><div class="hat-band"></div><div class="hat-brim"></div>';
+      } else if (def.id === 'clothes_glasses') {
+        el.innerHTML = '<div class="g-lens l"></div><div class="g-bridge"></div><div class="g-lens r"></div>';
+      } else if (def.id === 'clothes_crown') {
+        el.innerHTML = '<div class="crown-pt p1"></div><div class="crown-pt p2"></div><div class="crown-pt p3"></div><div class="crown-base"></div><div class="crown-gem"></div>';
+      } else if (def.id === 'clothes_hoodie') {
+        el.innerHTML = '<div class="hoodie-body"></div><div class="hoodie-hood"></div>';
+      } else if (def.id === 'clothes_flower') {
+        el.innerHTML = '<div class="fl-petal p1"></div><div class="fl-petal p2"></div><div class="fl-petal p3"></div><div class="fl-center"></div>';
+      }
+      container.appendChild(el);
     }
   }
 }
