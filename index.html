@@ -3376,6 +3376,58 @@
     .nav-tab { font-size: 0.42rem; padding: 6px 2px; }
     .f-bed { width: 108px; height: 58px; }
   }
+
+  /* ============================================================
+     RED BABY DRAGON SKIN (overrides; DOM + JS unchanged)
+     Red body, cream belly with flame, big glossy eyes, cream
+     head spikes, curled horns, cream-membrane wings, spiked tail
+     ============================================================ */
+  .pet:not([data-stage="egg"]) {
+    --pet-color: #EE4650; --pet-color-dark: #C3335F; --pet-outline: #4A2470;
+    --pet-belly: #FDD5A2; --pet-horn: #EE4650; --pet-wing: #FDD5A2;
+  }
+  /* cream forehead spikes */
+  .pet:not([data-stage="egg"]) .pet-body {
+    background-image:
+      radial-gradient(ellipse 2.5px 3.5px at 50% 12%, #FDD5A2 96%, transparent 100%),
+      radial-gradient(ellipse 2.5px 3.5px at 50% 27%, #FDD5A2 96%, transparent 100%),
+      radial-gradient(ellipse 2px 3px at 50% 41%, #FDD5A2 96%, transparent 100%);
+    box-shadow: inset -5px -5px 0 rgba(120, 20, 60, 0.18), inset 3px 3px 0 rgba(255, 255, 255, 0.28);
+  }
+  .pet:not([data-stage="egg"]) .pet-torso {
+    box-shadow: inset -4px -4px 0 rgba(120, 20, 60, 0.18), inset 2px 2px 0 rgba(255, 255, 255, 0.25);
+  }
+  /* cream belly with a small flame */
+  .pet .pet-belly { border-color: #EAB97D; }
+  .pet .pet-belly::after {
+    content: ''; position: absolute; left: 50%; top: 14%;
+    width: 9px; height: 11px; transform: translateX(-50%);
+    background: radial-gradient(circle at 50% 72%, #FFD23F 0 28%, #FF8A1F 30%);
+    clip-path: polygon(50% 0, 100% 58%, 86% 100%, 14% 100%, 0 58%);
+    animation: dragonFlame 0.7s ease-in-out infinite alternate;
+  }
+  @keyframes dragonFlame {
+    from { transform: translateX(-50%) scale(1, 1); }
+    to   { transform: translateX(-50%) scale(1.12, 0.92); }
+  }
+  /* big glossy eyes with white rim */
+  .pet .pet-eye {
+    background: radial-gradient(circle at 50% 78%, #6B3FC0 0 24%, #2B1A5E 26%);
+    box-shadow: 0 0 0 2px #fff, 0 0 0 3.5px #4A2470;
+  }
+  .pet.sleeping .pet-eye { background: #4A2470; box-shadow: none; }
+  .pet .pet-snout::before, .pet .pet-snout::after { background: #4A2470; }
+  .pet .pet-mouth { background: #8A1C45; opacity: 1; }
+  .pet .pet-blush { background: rgba(255, 170, 170, 0.5); }
+  /* curled horns */
+  .pet .pet-horn-l { border-radius: 90% 8% 40% 8%; transform: rotate(-20deg); }
+  .pet .pet-horn-r { border-radius: 8% 90% 8% 40%; transform: rotate(20deg); }
+  /* wings: red edge, cream membrane */
+  .pet .pet-wing { background: linear-gradient(135deg, #EE4650 0 34%, #FDD5A2 35%); }
+  .pet .pet-wing-r { background: linear-gradient(225deg, #EE4650 0 34%, #FDD5A2 35%); }
+  /* spiked tail with cream tip */
+  .pet .pet-tail::after { border-left-color: #FDD5A2; }
+  .pet .pet-tail::before { background: #EE4650; }
 </style>
 </head>
 <body>
