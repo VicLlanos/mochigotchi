@@ -496,64 +496,66 @@
     50% { transform: rotate(45deg) translateY(-3px); }
   }
 
+  /* Big shiny cartoon eyes */
   .pet-eye {
-    position: absolute; top: 12px; width: 11px; height: 13px;
+    position: absolute; top: 11px; width: 12px; height: 14px;
     background: #1A1810;
     border-radius: 50%;
     animation: petBlink 4.6s ease-in-out infinite;
     z-index: 4;
   }
-  .pet-eye-l { left: 8px; } .pet-eye-r { right: 8px; }
+  .pet-eye-l { left: 7px; } .pet-eye-r { right: 7px; }
   .pet-eye::after {
     content: ''; position: absolute; top: 2px; left: 2px;
-    width: 4px; height: 4px; background: white; border-radius: 50%;
+    width: 5px; height: 5px; background: #fff; border-radius: 50%;
   }
   .pet-eye::before {
     content: ''; position: absolute; bottom: 2px; right: 2px;
-    width: 2px; height: 2px; background: rgba(255,255,255,0.5); border-radius: 50%;
+    width: 2.5px; height: 2.5px; background: rgba(255,255,255,0.55); border-radius: 50%;
   }
-  /* Soft snout */
+  /* Tiny soft snout (nostrils) */
   .pet-snout {
-    position: absolute; bottom: 10px; left: 50%;
+    position: absolute; bottom: 12px; left: 50%;
     transform: translateX(-50%);
-    width: 14px; height: 8px;
-    background: var(--pet-color, #7EC87A);
-    border: 2px solid var(--pet-outline, #2A3A28);
-    border-radius: 50%;
+    width: 10px; height: 5px;
+    background: transparent;
+    border: none;
     z-index: 3;
   }
   .pet-snout::before,
   .pet-snout::after {
     content: '';
-    position: absolute; top: 2px;
+    position: absolute; top: 0;
     width: 3px; height: 3px;
     background: #2A3A28;
     border-radius: 50%;
   }
-  .pet-snout::before { left: 2px; }
-  .pet-snout::after { right: 2px; }
+  .pet-snout::before { left: 0; }
+  .pet-snout::after { right: 0; }
 
   @keyframes petBlink {
     0%, 90%, 100% { transform: scaleY(1); }
     95% { transform: scaleY(0.15); }
   }
-  .pet-blush { position: absolute; bottom: 11px; width: 8px; height: 4px; background: rgba(201, 124, 140, 0.55); border-radius: 50%; transition: opacity 0.3s; }
-  .pet-blush-l { left: 2px; } .pet-blush-r { right: 2px; }
+  .pet-blush { position: absolute; bottom: 12px; width: 10px; height: 6px; background: rgba(255, 140, 150, 0.55); border-radius: 50%; transition: opacity 0.3s; z-index: 3; }
+  .pet-blush-l { left: 1px; } .pet-blush-r { right: 1px; }
   .pet-mouth {
-    position: absolute; bottom: 4px; left: 50%; transform: translateX(-50%);
-    width: 14px; height: 8px;
-    background: #2A1810;
+    position: absolute; bottom: 6px; left: 50%; transform: translateX(-50%);
+    width: 12px; height: 6px;
+    background: #1A1810;
     border-radius: 0 0 10px 10px;
     opacity: 1;
     transition: all 0.3s;
     z-index: 4;
     overflow: hidden;
   }
-  .pet-mouth::after {
+  .pet-mouth::after { display: none; }
+  .pet.happy .pet-mouth::after, .pet.ecstatic .pet-mouth::after {
+    display: block;
     content: '';
     position: absolute; bottom: 0; left: 50%;
     transform: translateX(-50%);
-    width: 8px; height: 4px;
+    width: 7px; height: 3px;
     background: #E87890;
     border-radius: 50% 50% 40% 40%;
   }
@@ -561,12 +563,18 @@
   .pet.sad .pet-mouth { border-radius: 6px 6px 0 0; height: 4px; }
   .pet.sad .pet-blush { opacity: 0; }
   .pet.sad .pet-eye { transform: scaleY(0.7); }
+  /* Happy keeps big open cute eyes (like the reference) */
   .pet.happy .pet-eye, .pet.ecstatic .pet-eye {
-    height: 3px; border-radius: 0 0 6px 6px; background: #2A2218;
-    animation: none; top: 15px;
+    animation: petBlink 4.6s ease-in-out infinite;
   }
-  .pet.happy .pet-eye::after, .pet.ecstatic .pet-eye::after { display: none; }
-  .pet.happy .pet-mouth { height: 6px; width: 12px; border-radius: 0 0 10px 10px; }
+  .pet.happy .pet-mouth, .pet.ecstatic .pet-mouth {
+    width: 16px; height: 9px;
+    border-radius: 0 0 12px 12px;
+  }
+  .pet.happy .pet-blush, .pet.ecstatic .pet-blush {
+    opacity: 1;
+    background: rgba(255, 140, 150, 0.65);
+  }
   .pet.sleeping .pet-eye { height: 3px; border-radius: 3px; animation: none; }
   .pet.sleeping .pet-eye::after { display: none; }
   .pet.eating .pet-mouth { height: 6px; width: 8px; border-radius: 50%; animation: mouthChew 0.28s steps(1) infinite; }
@@ -620,29 +628,45 @@
     0%, 100% { transform: rotate(-4deg); }
     50% { transform: rotate(8deg); }
   }
+  /* Tail grows out of the lower-right of the torso */
   .pet-tail {
     position: absolute; display: none;
-    right: 2px; bottom: 10px;
-    width: 22px; height: 16px;
+    left: 50%;
+    margin-left: 6px;
+    bottom: 10px;
+    width: 24px; height: 18px;
     background: var(--pet-color, #7EC87A);
     border: 3px solid var(--pet-outline, #2A3A28);
-    border-radius: 30% 70% 55% 45%;
+    border-left: none;
+    border-radius: 0 75% 60% 20%;
     transform-origin: left center;
     animation: tailWag 2.2s ease-in-out infinite;
     z-index: 4;
-    transition: width 0.4s, height 0.4s, right 0.4s, bottom 0.4s;
+    transition: width 0.4s, height 0.4s, bottom 0.4s;
   }
+  /* Soft fill that plugs the gap into the torso */
+  .pet-tail::before {
+    content: '';
+    position: absolute;
+    left: -8px; top: 1px;
+    width: 14px; height: 14px;
+    background: var(--pet-color, #7EC87A);
+    border-radius: 50%;
+    z-index: -1;
+  }
+  /* Orange tip like the reference */
   .pet-tail::after {
     content: '';
-    position: absolute; right: -5px; bottom: 0;
-    width: 12px; height: 12px;
-    background: var(--pet-wing, #F0D090);
+    position: absolute;
+    right: -4px; bottom: -2px;
+    width: 13px; height: 13px;
+    background: var(--pet-wing, #F0A040);
     border: 2.5px solid var(--pet-outline, #2A3A28);
-    border-radius: 50% 40% 50% 40%;
+    border-radius: 45% 55% 50% 45%;
   }
   @keyframes tailWag {
-    0%, 100% { transform: rotate(-4deg); }
-    50% { transform: rotate(8deg); }
+    0%, 100% { transform: rotate(-5deg); }
+    50% { transform: rotate(9deg); }
   }
 
 
@@ -707,7 +731,7 @@
   .pet[data-stage="hatchling"] .pet-ear { display: block; width: 10px; height: 11px; top: 2px; }
   .pet[data-stage="hatchling"] .pet-horn { display: block; top: -8px; width: 8px; height: 12px; }
   .pet[data-stage="hatchling"] .pet-horn-l { left: 5px; } .pet[data-stage="hatchling"] .pet-horn-r { right: 5px; }
-  .pet[data-stage="hatchling"] .pet-tail { display: block; width: 16px; height: 12px; right: 0; bottom: 8px; }
+  .pet[data-stage="hatchling"] .pet-tail { display: block; width: 16px; height: 12px; left: 50%; margin-left: 6px; right: auto; bottom: 8px; }
   .pet[data-stage="hatchling"] .pet-eye { top: 10px; width: 9px; height: 10px; }
   .pet[data-stage="hatchling"] .pet-eye-l { left: 6px; } .pet[data-stage="hatchling"] .pet-eye-r { right: 6px; }
   .pet[data-stage="hatchling"] .pet-snout { width: 11px; height: 6px; bottom: 8px; }
@@ -731,7 +755,7 @@
   .pet[data-stage="sprout"] .pet-wing { display: block; width: 20px; height: 24px; top: 28px; }
   .pet[data-stage="sprout"] .pet-wing-l { left: -10px; }
   .pet[data-stage="sprout"] .pet-wing-r { right: -10px; }
-  .pet[data-stage="sprout"] .pet-tail { display: block; width: 22px; height: 15px; right: 0; bottom: 10px; }
+  .pet[data-stage="sprout"] .pet-tail { display: block; width: 22px; height: 16px; left: 50%; margin-left: 6px; right: auto; bottom: 10px; }
   .pet[data-stage="sprout"] .pet-eye { top: 12px; width: 11px; height: 12px; }
   .pet[data-stage="sprout"] .pet-eye-l { left: 8px; } .pet[data-stage="sprout"] .pet-eye-r { right: 8px; }
   .pet[data-stage="sprout"] .pet-snout { width: 13px; height: 7px; bottom: 9px; }
@@ -755,7 +779,7 @@
   .pet[data-stage="sapling"] .pet-wing { display: block; width: 24px; height: 28px; top: 30px; }
   .pet[data-stage="sapling"] .pet-wing-l { left: -12px; }
   .pet[data-stage="sapling"] .pet-wing-r { right: -12px; }
-  .pet[data-stage="sapling"] .pet-tail { display: block; width: 26px; height: 16px; right: -2px; bottom: 10px; }
+  .pet[data-stage="sapling"] .pet-tail { display: block; width: 26px; height: 17px; left: 50%; margin-left: 6px; right: auto; bottom: 11px; }
   .pet[data-stage="sapling"] .pet-eye { width: 12px; height: 13px; top: 13px; }
   .pet[data-stage="sapling"] .pet-eye-l { left: 9px; } .pet[data-stage="sapling"] .pet-eye-r { right: 9px; }
   .pet[data-stage="sapling"] .pet-snout { width: 14px; height: 8px; }
@@ -779,7 +803,7 @@
   .pet[data-stage="bloom"] .pet-wing { display: block; width: 26px; height: 30px; top: 32px; }
   .pet[data-stage="bloom"] .pet-wing-l { left: -14px; }
   .pet[data-stage="bloom"] .pet-wing-r { right: -14px; }
-  .pet[data-stage="bloom"] .pet-tail { display: block; width: 28px; height: 17px; right: -2px; bottom: 11px; }
+  .pet[data-stage="bloom"] .pet-tail { display: block; width: 28px; height: 18px; left: 50%; margin-left: 6px; right: auto; bottom: 11px; }
   .pet[data-stage="bloom"] .pet-eye { width: 12px; height: 14px; top: 14px; }
   .pet[data-stage="bloom"] .pet-eye-l { left: 10px; } .pet[data-stage="bloom"] .pet-eye-r { right: 10px; }
   .pet[data-stage="bloom"] .pet-snout { width: 15px; height: 8px; }
@@ -803,7 +827,7 @@
   .pet[data-stage="guardian"] .pet-wing { display: block; width: 30px; height: 34px; top: 34px; }
   .pet[data-stage="guardian"] .pet-wing-l { left: -16px; }
   .pet[data-stage="guardian"] .pet-wing-r { right: -16px; }
-  .pet[data-stage="guardian"] .pet-tail { display: block; width: 30px; height: 18px; right: -4px; bottom: 12px; }
+  .pet[data-stage="guardian"] .pet-tail { display: block; width: 30px; height: 19px; left: 50%; margin-left: 6px; right: auto; bottom: 12px; }
   .pet[data-stage="guardian"] .pet-eye { width: 13px; height: 15px; top: 15px; }
   .pet[data-stage="guardian"] .pet-eye-l { left: 11px; } .pet[data-stage="guardian"] .pet-eye-r { right: 11px; }
   .pet[data-stage="guardian"] .pet-snout { width: 16px; height: 9px; }
@@ -827,7 +851,7 @@
   .pet[data-stage="mystic"] .pet-wing { display: block; width: 34px; height: 38px; top: 36px; }
   .pet[data-stage="mystic"] .pet-wing-l { left: -18px; }
   .pet[data-stage="mystic"] .pet-wing-r { right: -18px; }
-  .pet[data-stage="mystic"] .pet-tail { display: block; width: 34px; height: 20px; right: -4px; bottom: 13px; }
+  .pet[data-stage="mystic"] .pet-tail { display: block; width: 34px; height: 20px; left: 50%; margin-left: 6px; right: auto; bottom: 13px; }
   .pet[data-stage="mystic"] .pet-eye { width: 14px; height: 16px; top: 16px; }
   .pet[data-stage="mystic"] .pet-eye-l { left: 12px; } .pet[data-stage="mystic"] .pet-eye-r { right: 12px; }
   .pet[data-stage="mystic"] .pet-snout { width: 17px; height: 9px; }
@@ -852,7 +876,7 @@
   .pet[data-stage="eternal"] .pet-wing { display: block; width: 38px; height: 44px; top: 38px; }
   .pet[data-stage="eternal"] .pet-wing-l { left: -20px; }
   .pet[data-stage="eternal"] .pet-wing-r { right: -20px; }
-  .pet[data-stage="eternal"] .pet-tail { display: block; width: 38px; height: 22px; right: -6px; bottom: 14px; }
+  .pet[data-stage="eternal"] .pet-tail { display: block; width: 38px; height: 22px; left: 50%; margin-left: 6px; right: auto; bottom: 14px; }
   .pet[data-stage="eternal"] .pet-eye { width: 15px; height: 17px; top: 17px; }
   .pet[data-stage="eternal"] .pet-eye-l { left: 13px; } .pet[data-stage="eternal"] .pet-eye-r { right: 13px; }
   .pet[data-stage="eternal"] .pet-snout { width: 18px; height: 10px; }
