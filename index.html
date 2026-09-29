@@ -139,12 +139,60 @@
   /* ============ ROOM ============ */
   .room {
     background: #FDF6EE; border: 4px solid #8B6F5E; border-radius: 4px;
-    margin-bottom: 8px; position: relative; overflow: hidden;
+    margin-bottom: 8px; position: sticky; top: 0; z-index: 60;
+    overflow: hidden;
     box-shadow: 0 6px 0 #8B6F5E;
     height: 320px;
     perspective: 900px;
     perspective-origin: 50% 40%;
+    transition: height 0.28s ease, box-shadow 0.28s ease, border-radius 0.28s ease;
   }
+  .room.is-stuck {
+    height: 200px;
+    border-radius: 0 0 8px 8px;
+    box-shadow:
+      0 8px 0 #8B6F5E,
+      0 14px 28px rgba(74, 63, 58, 0.28);
+  }
+  .room.is-stuck .room-badge { font-size: 0.55rem; padding: 3px 6px; }
+  /* Floating mini-Mochi when scrolled deep past sticky room (extra visibility) */
+  .mochi-float {
+    position: fixed;
+    right: max(12px, calc(50% - 228px));
+    bottom: 18px;
+    z-index: 80;
+    width: 64px; height: 72px;
+    background: #FDF6EE;
+    border: 3px solid #8B6F5E;
+    border-radius: 12px;
+    box-shadow: 0 4px 0 #8B6F5E, 0 8px 20px rgba(74,63,58,0.25);
+    display: none;
+    align-items: center; justify-content: center;
+    cursor: pointer;
+    padding: 4px;
+    animation: floatIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  .mochi-float.visible { display: flex; }
+  .mochi-float .mochi-float-pet {
+    font-size: 2rem; line-height: 1;
+    filter: drop-shadow(0 2px 0 rgba(139,111,94,0.35));
+    animation: bob 2.4s ease-in-out infinite;
+  }
+  .mochi-float .mochi-float-label {
+    position: absolute; bottom: -2px; left: 50%; transform: translateX(-50%);
+    font-family: 'Press Start 2P', monospace; font-size: 0.32rem;
+    color: #8B6F5E; white-space: nowrap; background: #FDF6EE;
+    padding: 1px 4px; border-radius: 3px;
+  }
+  @keyframes floatIn {
+    0% { opacity: 0; transform: translateY(12px) scale(0.85); }
+    100% { opacity: 1; transform: translateY(0) scale(1); }
+  }
+  .sticky-room-spacer {
+    display: none;
+    height: 0;
+  }
+
   .room-wall {
     position: absolute; top: 0; left: 0; right: 0;
     height: 58%; overflow: hidden;
@@ -3344,6 +3392,7 @@
   @media (max-width: 380px) {
     .pet { font-size: 2.6rem; }
     .room { height: 280px; }
+    .room.is-stuck { height: 168px; }
     .action-btn { min-height: 64px; }
     .action-btn .emoji { font-size: 1.3rem; }
     .nav-tab { font-size: 0.42rem; padding: 6px 2px; }
@@ -3880,7 +3929,7 @@
   }
 
   /* Room depth polish */
-  .room {
+  .room:not(.is-stuck) {
     box-shadow: 0 8px 0 #8B6F5E, 0 12px 24px rgba(139,111,94,0.18) !important;
   }
   .room-wall {
@@ -4395,6 +4444,10 @@
   </div>
 </div>
 
+<div class="mochi-float" id="mochiFloat" title="Jump back to Mochi">
+  <span class="mochi-float-pet" id="mochiFloatPet">🥚</span>
+  <span class="mochi-float-label">MOCHI</span>
+</div>
 <div class="toast" id="toast"></div>
 
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
@@ -9958,6 +10011,91 @@ function startOnboarding() {
   }
 })();
 
+
+
+/* ============================================================
+   STICKY MOCHI ROOM + FLOATING PEEK
+   ============================================================ */
+(function setupStickyMochi() {
+  let stuck = false;
+  let floatVisible = false;
+
+  function updateStickyMochi() {
+    const room = document.getElementById('room');
+    const floatEl = document.getElementById('mochiFloat');
+    const home = document.getElementById('view-home');
+    if (!room || !home) return;
+
+    const onHome = home.classList.contains('active');
+    if (!onHome) {
+      room.classList.remove('is-stuck');
+      if (floatEl) floatEl.classList.remove('visible');
+      stuck = false;
+      floatVisible = false;
+      return;
+    }
+
+    // How far the room's natural top is from the viewport top
+    // Use a sentinel: when user has scrolled so room would leave viewport, sticky engages
+    const rect = room.getBoundingClientRect();
+    // Room is sticky at top:0 — once its top hits 0 (or near), mark stuck for compact mode
+    const shouldStuck = rect.top <= 2 && window.scrollY > 40;
+    if (shouldStuck !== stuck) {
+      stuck = shouldStuck;
+      room.classList.toggle('is-stuck', stuck);
+    }
+
+    // Floating peek when scrolled well past the sticky room height
+    const shouldFloat = window.scrollY > (stuck ? 220 : 360);
+    if (shouldFloat !== floatVisible) {
+      floatVisible = shouldFloat;
+      if (floatEl) floatEl.classList.toggle('visible', floatVisible);
+    }
+
+    // Sync float emoji with stage
+    if (floatEl && typeof currentStage === 'function' && gameData) {
+      try {
+        const st = currentStage();
+        const petEl = document.getElementById('mochiFloatPet');
+        if (petEl && st) petEl.textContent = st.emoji || '🥚';
+      } catch (e) {}
+    }
+  }
+
+  let ticking = false;
+  function onScroll() {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(() => {
+      updateStickyMochi();
+      ticking = false;
+    });
+  }
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll, { passive: true });
+
+  document.addEventListener('click', (e) => {
+    const floatEl = document.getElementById('mochiFloat');
+    if (!floatEl || !floatEl.contains(e.target)) return;
+    // Jump back to top / Mochi
+    if (typeof sfxClick === 'function') sfxClick();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    // Ensure home view
+    if (typeof switchView === 'function' && currentView !== 'home') switchView('home');
+  });
+
+  // Re-check when switching views
+  const origSwitch = window.switchView;
+  // Hook after nav tabs already bound — poll on class changes
+  const home = document.getElementById('view-home');
+  if (home) {
+    new MutationObserver(updateStickyMochi).observe(home, { attributes: true, attributeFilter: ['class'] });
+  }
+
+  setInterval(updateStickyMochi, 1200);
+  setTimeout(updateStickyMochi, 400);
+})();
 
 /* ============================================================
    LOGOUT / VISIBILITY
