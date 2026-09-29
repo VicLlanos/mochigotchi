@@ -3910,6 +3910,119 @@
   .room.starcove { color: #E8E0F0; }
 
 
+
+  /* ===== Unlockable room furniture ===== */
+  .f-room-swing { width: 56px; height: 70px; }
+  .f-room-swing .sw-rope-l, .f-room-swing .sw-rope-r {
+    position: absolute; top: 0; width: 2px; height: 36px; background: #8B6F5E;
+  }
+  .f-room-swing .sw-rope-l { left: 12px; }
+  .f-room-swing .sw-rope-r { right: 12px; }
+  .f-room-swing .sw-seat {
+    position: absolute; bottom: 8px; left: 50%; transform: translateX(-50%);
+    font-size: 1.2rem; animation: swingSeat 2.4s ease-in-out infinite;
+  }
+  @keyframes swingSeat {
+    0%, 100% { transform: translateX(-50%) rotate(-6deg); }
+    50% { transform: translateX(-50%) rotate(6deg); }
+  }
+  .f-room-sunflower { width: 40px; height: 70px; }
+  .f-room-sunflower .sf-stem {
+    position: absolute; bottom: 0; left: 50%; width: 4px; height: 40px;
+    background: #5A9A4A; transform: translateX(-50%); border-radius: 2px;
+  }
+  .f-room-sunflower .sf-head {
+    position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+    font-size: 1.8rem; filter: drop-shadow(0 2px 2px rgba(0,0,0,0.15));
+  }
+  .f-room-birdbath { width: 48px; height: 50px; }
+  .f-room-birdbath .bb-base {
+    position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
+    width: 28px; height: 16px; background: #B8B0A8; border-radius: 4px 4px 2px 2px;
+    border: 2px solid #8B6F5E;
+  }
+  .f-room-birdbath .bb-bowl {
+    position: absolute; bottom: 12px; left: 50%; transform: translateX(-50%);
+    font-size: 1.1rem;
+  }
+  .f-room-birdbath .bb-bird {
+    position: absolute; top: 0; right: 0; font-size: 0.85rem;
+    animation: birdHop 2s ease-in-out infinite;
+  }
+  @keyframes birdHop {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-4px); }
+  }
+  .f-room-path { width: 90px; height: 28px; display: flex; gap: 4px; align-items: center; justify-content: center; }
+  .f-room-path .path-stone { font-size: 0.9rem; opacity: 0.9; }
+  .f-room-butterfly { width: 60px; height: 40px; }
+  .f-room-butterfly .bf { position: absolute; font-size: 1rem; animation: flutter 2.5s ease-in-out infinite; }
+  .f-room-butterfly .bf1 { left: 4px; top: 4px; }
+  .f-room-butterfly .bf2 { right: 4px; top: 12px; animation-delay: 0.6s; }
+  @keyframes flutter {
+    0%, 100% { transform: translate(0,0) rotate(-8deg); }
+    50% { transform: translate(6px,-8px) rotate(8deg); }
+  }
+  .f-room-greenhouse { width: 58px; height: 52px; }
+  .f-room-greenhouse .gh-roof {
+    position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+    width: 0; height: 0; border-left: 26px solid transparent; border-right: 26px solid transparent;
+    border-bottom: 16px solid #8FB8C8;
+  }
+  .f-room-greenhouse .gh-body {
+    position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
+    width: 44px; height: 34px; background: rgba(180,220,230,0.55);
+    border: 2px solid #6A9AAC; border-radius: 2px; display: flex; align-items: center; justify-content: center;
+    font-size: 1.1rem;
+  }
+  .f-room-duck { width: 40px; height: 36px; font-size: 1.6rem; }
+  .f-room-duck .duck-body { animation: bob 2s ease-in-out infinite; }
+  .f-room-bathmat { width: 56px; height: 18px; }
+  .f-room-bathmat .bath-mat-shape {
+    width: 100%; height: 100%; background: #B8D0E0; border: 2px solid #6A8A9A;
+    border-radius: 8px; box-shadow: inset 0 2px 0 rgba(255,255,255,0.4);
+  }
+  .f-room-bplant { width: 36px; height: 48px; }
+  .f-room-cabinet { width: 40px; height: 48px; }
+  .f-room-cabinet .cab-body {
+    position: absolute; inset: 0; background: #E8D8C8; border: 2px solid #8B6F5E; border-radius: 3px;
+  }
+  .f-room-cabinet .cab-door {
+    position: absolute; top: 4px; left: 4px; right: 4px; bottom: 4px;
+    border: 1px solid #C9B0A0; border-radius: 2px;
+  }
+  .f-room-owl, .f-room-cow, .f-room-tractor, .f-room-rocket, .f-room-skymap,
+  .f-room-hammock, .f-room-cloudsofa, .f-room-rainbow, .f-room-crystal,
+  .f-room-altar, .f-room-moonlamp, .f-room-mushrooms, .f-room-stream {
+    width: 48px; height: 48px; display: flex; align-items: center; justify-content: center;
+    font-size: 1.6rem; filter: drop-shadow(0 3px 0 rgba(139,111,94,0.25));
+  }
+  .f-room-fence { width: 70px; height: 28px; display: flex; gap: 6px; align-items: flex-end; }
+  .f-room-fence .fence-bar {
+    flex: 1; height: 24px; background: #C9A898; border: 2px solid #8B6F5E; border-radius: 2px;
+  }
+  .f-room-mushrooms { gap: 4px; }
+  .f-room-mushrooms .mush { font-size: 1.2rem; animation: mushGlow 2.5s ease-in-out infinite alternate; }
+  .f-room-mushrooms .mush:nth-child(2) { animation-delay: 0.5s; font-size: 0.95rem; margin-top: 6px; }
+  @keyframes mushGlow {
+    from { filter: brightness(1); }
+    to { filter: brightness(1.35) drop-shadow(0 0 6px rgba(180,255,160,0.6)); }
+  }
+  .f-room-crystal .crystal { animation: crystalPulse 2s ease-in-out infinite; }
+  @keyframes crystalPulse {
+    0%, 100% { filter: drop-shadow(0 0 4px rgba(160,200,255,0.5)); transform: scale(1); }
+    50% { filter: drop-shadow(0 0 12px rgba(180,160,255,0.8)); transform: scale(1.08); }
+  }
+  .f-room-moonlamp .moonlamp { animation: moonGlow 3s ease-in-out infinite; }
+  @keyframes moonGlow {
+    0%, 100% { filter: drop-shadow(0 0 6px rgba(255,240,180,0.5)); }
+    50% { filter: drop-shadow(0 0 14px rgba(255,240,180,0.9)); }
+  }
+  .shop-locked-tag {
+    font-size: 0.55rem; color: #C9302C; font-weight: 600; margin-top: 4px;
+  }
+  .shop-card.locked-room { opacity: 0.55; filter: grayscale(0.3); }
+
 </style>
 </head>
 <body>
@@ -4510,7 +4623,45 @@ const SHOP_ITEMS = [
   { id: 'forest_logseat',   emoji: '🪵', name: 'LOG SEAT',      desc: 'Sit and listen to the forest',                 cost: 70,  consumable: false, scope: 'forest', furniture: 'f-room-logseat' },
   { id: 'farm_barn',        emoji: '🏚️', name: 'MINI BARN',    desc: 'Peek inside — a friend might peek back',       cost: 170, consumable: false, scope: 'farm', furniture: 'f-room-barn' },
   { id: 'farm_scarecrow',   emoji: '🎃', name: 'SCARECROW',     desc: 'Protects the crops (and waves hello)',          cost: 120, consumable: false, scope: 'farm', furniture: 'f-room-scarecrow' },
-  { id: 'farm_well',        emoji: '🪣', name: 'WATER WELL',    desc: 'Splash! Pull up a bucket of water',             cost: 135, consumable: false, scope: 'farm', furniture: 'f-room-well' }
+  { id: 'farm_well',        emoji: '🪣', name: 'WATER WELL',    desc: 'Splash! Pull up a bucket of water',             cost: 135, consumable: false, scope: 'farm', furniture: 'f-room-well' },
+
+  /* ---- Bathroom furniture ---- */
+  { id: 'bathroom_duck',    emoji: '🦆', name: 'RUBBER DUCK',   desc: 'Squeaky bath buddy — Mochi loves it',          cost: 45,  consumable: false, scope: 'bathroom', furniture: 'f-room-duck' },
+  { id: 'bathroom_mat',     emoji: '🧺', name: 'BATH MAT',      desc: 'Soft mat so paws stay dry',                   cost: 55,  consumable: false, scope: 'bathroom', furniture: 'f-room-bathmat' },
+  { id: 'bathroom_plant',   emoji: '🪴', name: 'HUMID PLANT',   desc: 'Loves steamy bathroom air',                   cost: 60,  consumable: false, scope: 'bathroom', furniture: 'f-room-bplant' },
+  { id: 'bathroom_cabinet', emoji: '🗄️', name: 'CABINET',       desc: 'Towels & soap stash',                         cost: 90,  consumable: false, scope: 'bathroom', furniture: 'f-room-cabinet' },
+
+  /* ---- More Garden ---- */
+  { id: 'garden_swing',     emoji: '🪑', name: 'TREE SWING',    desc: 'Mochi swings under the tree!',                cost: 130, consumable: false, scope: 'garden', furniture: 'f-room-swing' },
+  { id: 'garden_sunflower', emoji: '🌻', name: 'SUNFLOWER',     desc: 'Tall and sunny — bees visit',                 cost: 70,  consumable: false, scope: 'garden', furniture: 'f-room-sunflower' },
+  { id: 'garden_birdbath',  emoji: '🐦', name: 'BIRD BATH',     desc: 'Birds splash — tap to watch',                 cost: 110, consumable: false, scope: 'garden', furniture: 'f-room-birdbath' },
+  { id: 'garden_path',      emoji: '🪨', name: 'STONE PATH',    desc: 'Pretty walkway through the garden',           cost: 85,  consumable: false, scope: 'garden', furniture: 'f-room-path' },
+  { id: 'garden_butterfly', emoji: '🦋', name: 'BUTTERFLY SET', desc: 'Fluttering friends among the flowers',        cost: 95,  consumable: false, scope: 'garden', furniture: 'f-room-butterfly' },
+  { id: 'garden_greenhouse',emoji: '🏡', name: 'MINI GREENHOUSE', desc: 'Tiny glass house for seedlings',            cost: 160, consumable: false, scope: 'garden', furniture: 'f-room-greenhouse' },
+
+  /* ---- More Forest ---- */
+  { id: 'forest_owl',       emoji: '🦉', name: 'WISE OWL',      desc: 'Hoot! Shares forest secrets',                 cost: 125, consumable: false, scope: 'forest', furniture: 'f-room-owl' },
+  { id: 'forest_stream',    emoji: '💧', name: 'STREAM',        desc: 'Babbling water through the trees',            cost: 150, consumable: false, scope: 'forest', furniture: 'f-room-stream' },
+  { id: 'forest_mushrooms', emoji: '🍄', name: 'GLOW SHROOMS',  desc: 'Soft bioluminescent mushrooms',               cost: 100, consumable: false, scope: 'forest', furniture: 'f-room-mushrooms' },
+
+  /* ---- More Farm ---- */
+  { id: 'farm_tractor',     emoji: '🚜', name: 'TOY TRACTOR',  desc: 'Vroom across the fields',                    cost: 145, consumable: false, scope: 'farm', furniture: 'f-room-tractor' },
+  { id: 'farm_fence',       emoji: '🪵', name: 'WOOD FENCE',    desc: 'Keeps the garden tidy',                       cost: 80,  consumable: false, scope: 'farm', furniture: 'f-room-fence' },
+  { id: 'farm_cow',         emoji: '🐄', name: 'FRIENDLY COW',  desc: 'Moo! Gives milk vibes',                       cost: 155, consumable: false, scope: 'farm', furniture: 'f-room-cow' },
+
+  /* ---- More Observatory ---- */
+  { id: 'observatory_rocket', emoji: '🚀', name: 'MODEL ROCKET', desc: 'Points at the stars',                        cost: 170, consumable: false, scope: 'observatory', furniture: 'f-room-rocket' },
+  { id: 'observatory_map',    emoji: '🗺️', name: 'SKY MAP',     desc: 'Constellation chart on the wall',             cost: 100, consumable: false, scope: 'observatory', furniture: 'f-room-skymap' },
+
+  /* ---- Cloud Nest (LV 45) ---- */
+  { id: 'cloudnest_hammock',  emoji: '🛏️', name: 'CLOUD HAMMOCK', desc: 'Float and rest in the sky',                cost: 200, consumable: false, scope: 'cloudnest', furniture: 'f-room-hammock' },
+  { id: 'cloudnest_sofa',     emoji: '☁️', name: 'CLOUD SOFA',    desc: 'Fluffy seat made of cloud',                 cost: 180, consumable: false, scope: 'cloudnest', furniture: 'f-room-cloudsofa' },
+  { id: 'cloudnest_rainbow',  emoji: '🌈', name: 'RAINBOW ARCH',  desc: 'Soft rainbow over the nest',                cost: 220, consumable: false, scope: 'cloudnest', furniture: 'f-room-rainbow' },
+
+  /* ---- Star Cove (LV 55) ---- */
+  { id: 'starcove_crystal',   emoji: '💎', name: 'STAR CRYSTAL',  desc: 'Hums with starlight',                       cost: 250, consumable: false, scope: 'starcove', furniture: 'f-room-crystal' },
+  { id: 'starcove_altar',     emoji: '🕯️', name: 'STAR ALTAR',   desc: 'A quiet place to wish',                      cost: 280, consumable: false, scope: 'starcove', furniture: 'f-room-altar' },
+  { id: 'starcove_moon',      emoji: '🌙', name: 'MOON LAMP',     desc: 'Gentle moonlight for the cove',              cost: 240, consumable: false, scope: 'starcove', furniture: 'f-room-moonlamp' }
 ];
 
 const ACHIEVEMENTS = [
@@ -5760,6 +5911,39 @@ function renderRoomScene() {
       <div class="ln-body"></div>
     `, 'LIGHT', () => furnitureInteraction('room_lantern'), 'back');
   }
+
+  if (roomKey === 'garden' && inv.garden_swing) {
+    makeFurniture('garden_swing', 'f-room-swing', `
+      <div class="sw-rope-l"></div><div class="sw-rope-r"></div>
+      <div class="sw-seat">🪵</div>
+    `, 'SWING', () => furnitureInteraction('room_swing'), 'front');
+  }
+  if (roomKey === 'garden' && inv.garden_sunflower) {
+    makeFurniture('garden_sunflower', 'f-room-sunflower', `
+      <div class="sf-stem"></div><div class="sf-head">🌻</div>
+    `, 'SUN', () => furnitureInteraction('room_sunflower'), 'back');
+  }
+  if (roomKey === 'garden' && inv.garden_birdbath) {
+    makeFurniture('garden_birdbath', 'f-room-birdbath', `
+      <div class="bb-base"></div><div class="bb-bowl">💧</div><div class="bb-bird">🐦</div>
+    `, 'BATH', () => furnitureInteraction('room_birdbath'), 'front');
+  }
+  if (roomKey === 'garden' && inv.garden_path) {
+    makeFurniture('garden_path', 'f-room-path', `
+      <div class="path-stone">🪨</div><div class="path-stone">🪨</div><div class="path-stone">🪨</div>
+    `, 'PATH', () => furnitureInteraction('room_path'), 'back');
+  }
+  if (roomKey === 'garden' && inv.garden_butterfly) {
+    makeFurniture('garden_butterfly', 'f-room-butterfly', `
+      <div class="bf bf1">🦋</div><div class="bf bf2">🦋</div>
+    `, 'FLUTTER', () => furnitureInteraction('room_butterfly'), 'back');
+  }
+  if (roomKey === 'garden' && inv.garden_greenhouse) {
+    makeFurniture('garden_greenhouse', 'f-room-greenhouse', `
+      <div class="gh-roof"></div><div class="gh-body">🌱</div>
+    `, 'GREEN', () => furnitureInteraction('room_greenhouse'), 'back');
+  }
+
   if (roomKey === 'playroom' && inv.playroom_train) {
     makeFurniture('playroom_train', 'f-room-train', `🚂`, 'CHOO', () => furnitureInteraction('room_train'), 'front');
   }
@@ -5809,6 +5993,72 @@ function renderRoomScene() {
       <div class="well-rim"></div>
       <div class="well-base"></div>
     `, 'DRAW', () => furnitureInteraction('room_well'), 'front');
+  }
+
+  /* ---- Bathroom unlockable furniture ---- */
+  if (roomKey === 'bathroom' && inv.bathroom_duck) {
+    makeFurniture('bathroom_duck', 'f-room-duck', `<div class="duck-body">🦆</div>`, 'SQUEAK', () => furnitureInteraction('room_duck'), 'front');
+  }
+  if (roomKey === 'bathroom' && inv.bathroom_mat) {
+    makeFurniture('bathroom_mat', 'f-room-bathmat', `<div class="bath-mat-shape"></div>`, 'MAT', () => furnitureInteraction('room_bathmat'), 'back');
+  }
+  if (roomKey === 'bathroom' && inv.bathroom_plant) {
+    makeFurniture('bathroom_plant', 'f-room-bplant', `<div class="plant-pot"></div><div class="plant-leaves">🌿</div>`, 'GREEN', () => furnitureInteraction('room_bplant'), 'back');
+  }
+  if (roomKey === 'bathroom' && inv.bathroom_cabinet) {
+    makeFurniture('bathroom_cabinet', 'f-room-cabinet', `<div class="cab-body"></div><div class="cab-door"></div>`, 'OPEN', () => furnitureInteraction('room_cabinet'), 'back');
+  }
+
+  /* ---- Extra forest ---- */
+  if (roomKey === 'forest' && inv.forest_owl) {
+    makeFurniture('forest_owl', 'f-room-owl', `<div class="owl-body">🦉</div>`, 'HOOT', () => furnitureInteraction('room_owl'), 'back');
+  }
+  if (roomKey === 'forest' && inv.forest_stream) {
+    makeFurniture('forest_stream', 'f-room-stream', `<div class="stream-water">💧</div>`, 'SPLASH', () => furnitureInteraction('room_stream'), 'back');
+  }
+  if (roomKey === 'forest' && inv.forest_mushrooms) {
+    makeFurniture('forest_mushrooms', 'f-room-mushrooms', `<div class="mush">🍄</div><div class="mush">🍄</div>`, 'GLOW', () => furnitureInteraction('room_mushrooms'), 'front');
+  }
+
+  /* ---- Extra farm ---- */
+  if (roomKey === 'farm' && inv.farm_tractor) {
+    makeFurniture('farm_tractor', 'f-room-tractor', `<div class="tractor-emoji">🚜</div>`, 'VROOM', () => furnitureInteraction('room_tractor'), 'front');
+  }
+  if (roomKey === 'farm' && inv.farm_fence) {
+    makeFurniture('farm_fence', 'f-room-fence', `<div class="fence-bar"></div><div class="fence-bar"></div>`, 'FENCE', () => furnitureInteraction('room_fence'), 'back');
+  }
+  if (roomKey === 'farm' && inv.farm_cow) {
+    makeFurniture('farm_cow', 'f-room-cow', `<div class="cow-emoji">🐄</div>`, 'MOO', () => furnitureInteraction('room_cow'), 'front');
+  }
+
+  /* ---- Extra observatory ---- */
+  if (roomKey === 'observatory' && inv.observatory_rocket) {
+    makeFurniture('observatory_rocket', 'f-room-rocket', `<div class="rocket-emoji">🚀</div>`, 'BLAST', () => furnitureInteraction('room_rocket'), 'front');
+  }
+  if (roomKey === 'observatory' && inv.observatory_map) {
+    makeFurniture('observatory_map', 'f-room-skymap', `<div class="skymap">🗺️</div>`, 'MAP', () => furnitureInteraction('room_skymap'), 'back');
+  }
+
+  /* ---- Cloud Nest ---- */
+  if (roomKey === 'cloudnest' && inv.cloudnest_hammock) {
+    makeFurniture('cloudnest_hammock', 'f-room-hammock', `<div class="hammock">🛏️</div>`, 'REST', () => furnitureInteraction('room_hammock'), 'front');
+  }
+  if (roomKey === 'cloudnest' && inv.cloudnest_sofa) {
+    makeFurniture('cloudnest_sofa', 'f-room-cloudsofa', `<div class="cloudsofa">☁️</div>`, 'SIT', () => furnitureInteraction('room_cloudsofa'), 'front');
+  }
+  if (roomKey === 'cloudnest' && inv.cloudnest_rainbow) {
+    makeFurniture('cloudnest_rainbow', 'f-room-rainbow', `<div class="rainbow">🌈</div>`, 'WOW', () => furnitureInteraction('room_rainbow'), 'back');
+  }
+
+  /* ---- Star Cove ---- */
+  if (roomKey === 'starcove' && inv.starcove_crystal) {
+    makeFurniture('starcove_crystal', 'f-room-crystal', `<div class="crystal">💎</div>`, 'HUM', () => furnitureInteraction('room_crystal'), 'front');
+  }
+  if (roomKey === 'starcove' && inv.starcove_altar) {
+    makeFurniture('starcove_altar', 'f-room-altar', `<div class="altar">🕯️</div>`, 'WISH', () => furnitureInteraction('room_altar'), 'front');
+  }
+  if (roomKey === 'starcove' && inv.starcove_moon) {
+    makeFurniture('starcove_moon', 'f-room-moonlamp', `<div class="moonlamp">🌙</div>`, 'GLOW', () => furnitureInteraction('room_moonlamp'), 'back');
   }
 
   if (roomKey === 'kitchen') renderFridgeContents();
@@ -5871,7 +6121,27 @@ function renderFridgeContents() {
   }
 }
 
-async function furnitureInteraction(type) {
+async 
+async function interactGenericFurniture(pet, type, opts = {}) {
+  const el = document.querySelector(`[data-fid]`); // nearest not needed
+  showBubble(opts.phrase || 'nice!', opts.emoji || '✨');
+  pet.className = 'pet walking';
+  // small happy bounce near current spot
+  await new Promise(r => setTimeout(r, 400));
+  pet.className = 'pet happy';
+  sfxGood();
+  await new Promise(r => setTimeout(r, 700));
+  const updates = { lastUpdate: Date.now() };
+  if (opts.happy) updates.happy = Math.min(100, (gameData.happy || 0) + opts.happy);
+  if (opts.energy) updates.energy = Math.min(100, (gameData.energy || 0) + opts.energy);
+  if (opts.clean) updates.clean = Math.min(100, (gameData.clean || 0) + opts.clean);
+  if (opts.xp) updates.xp = (gameData.xp || 0) + opts.xp;
+  updates['lastActions/' + me] = Date.now();
+  db.ref('tamagotchi').update(updates);
+  pet.className = 'pet ' + computeMood().cls;
+}
+
+function furnitureInteraction(type) {
   if (!gameData) return;
   if (mgActive) return;
   // Unstick a stuck animation so furniture always remains usable
@@ -5973,6 +6243,41 @@ async function furnitureInteraction(type) {
       case 'room_barn': await interactRoomBarn(pet); break;
       case 'room_scarecrow': await interactRoomScarecrow(pet); break;
       case 'room_well': await interactRoomWell(pet); break;
+      case 'room_swing':
+      case 'room_hammock':
+      case 'room_cloudsofa':
+      case 'room_bench':
+      case 'room_cushions':
+      case 'room_logseat':
+      case 'room_bathmat':
+        await interactGenericFurniture(pet, type, { energy: 8, happy: 4, emoji: '😌', phrase: 'cozy...' });
+        break;
+      case 'room_sunflower':
+      case 'room_butterfly':
+      case 'room_path':
+      case 'room_greenhouse':
+      case 'room_birdbath':
+      case 'room_plant':
+      case 'room_bplant':
+      case 'room_mushrooms':
+      case 'room_stream':
+      case 'room_fence':
+      case 'room_rainbow':
+        await interactGenericFurniture(pet, type, { happy: 10, clean: 2, emoji: '🌿', phrase: 'pretty!' });
+        break;
+      case 'room_duck':
+      case 'room_cabinet':
+      case 'room_owl':
+      case 'room_cow':
+      case 'room_tractor':
+      case 'room_rocket':
+      case 'room_skymap':
+      case 'room_crystal':
+      case 'room_altar':
+      case 'room_moonlamp':
+        await interactGenericFurniture(pet, type, { happy: 12, xp: 1, emoji: '✨', phrase: 'wow!' });
+        break;
+
     }
   } catch(e) {
     console.error('[furniture]', e);
@@ -8153,14 +8458,25 @@ function renderShop() {
 
   const subtitle = $('shopSubtitle');
   if (subtitle) {
-    subtitle.innerHTML = `Currently showing items for <b>${roomName}</b> 🪙<br>Visit a room to see its decorations!`;
+    const roomObj = ROOMS.find(r => r.id === currentRoomId);
+    const locked = roomObj && (gameData.level || 1) < roomObj.reqLevel;
+    if (locked) {
+      subtitle.innerHTML = `🔒 <b>${roomName}</b> unlocks at LV ${roomObj.reqLevel}<br>Explore unlocked rooms to buy furniture!`;
+    } else {
+      const ownedCount = SHOP_ITEMS.filter(it => it.scope === currentRoomId && inv[it.id]).length;
+      const totalCount = SHOP_ITEMS.filter(it => it.scope === currentRoomId).length;
+      subtitle.innerHTML = `Decorating <b>${roomName}</b> · ${ownedCount}/${totalCount} owned 🪙<br>Buy furniture to customize this room!`;
+    }
   }
 
   grid.innerHTML = '';
 
+  const lvl = gameData.level || 1;
+  const unlockedRoomIds = new Set(ROOMS.filter(r => lvl >= r.reqLevel).map(r => r.id));
   const visible = SHOP_ITEMS.filter(it => {
     if (it.scope === 'global') return true;
-    if (it.scope === currentRoomId) return true;
+    // Show furniture for the room you are in (if unlocked)
+    if (it.scope === currentRoomId && unlockedRoomIds.has(it.scope)) return true;
     return false;
   });
 
