@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="theme-color" content="#F4D9C8">
 <title>Mochi's Room 🌿 - Koy & Metz</title>
 <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Fredoka:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -3714,202 +3714,35 @@
 
   @media (prefers-reduced-motion: reduce) { .pet-dragon * { animation: none !important; } }
 
-    transform: translate(-50%, -50%) translate(35%, 20%);
-  }
-  .pet:not([data-stage="egg"]) .pet-accessories .wear-flower .fl-petal.p3 {
-    transform: translate(-50%, -50%) translate(-35%, 20%);
-  }
-  .pet:not([data-stage="egg"]) .pet-accessories .wear-flower .fl-center {
-    position: absolute; left: 50%; top: 50%; width: 28%; height: 28%;
-    margin-left: -14%; margin-top: -14%;
-    background: #F8E060; border-radius: 50%;
-  }
-
-  /* —— BODY: scarf around the neck/upper chest —— */
-  .pet:not([data-stage="egg"]) .pet-accessories .wear-scarf {
-    top: auto; bottom: 42%; left: 50%; width: 38%; height: 6%; margin-left: -19%;
-    z-index: 12;
-  }
-  .pet:not([data-stage="egg"]) .pet-accessories .wear-scarf .scarf-band {
-    position: absolute; inset: 0;
-    background: linear-gradient(180deg, #E87890, #C45870);
-    border: 2px solid #8B4050; border-radius: 4px;
-  }
-  .pet:not([data-stage="egg"]) .pet-accessories .wear-scarf .scarf-tail {
-    position: absolute; right: 6%; top: 85%; width: 20%; height: 140%;
-    background: linear-gradient(180deg, #E87890, #C45870);
-    border: 2px solid #8B4050; border-radius: 0 0 3px 3px;
-  }
-
-  /* —— BODY: hoodie vest on the belly only —— */
-  .pet:not([data-stage="egg"]) .pet-accessories .wear-hoodie {
-    top: auto !important; bottom: 18% !important;
-    left: 50% !important; width: 32% !important; height: 22% !important;
-    margin-left: -16% !important;
-    z-index: 10;
-  }
-  .pet:not([data-stage="egg"]) .pet-accessories .wear-hoodie .hoodie-shell {
-    position: absolute; inset: 0;
-    background: linear-gradient(180deg, #B0D0E8 0%, #7AA8C8 55%, #5A90B0 100%);
-    border: 2px solid #3A6880;
-    border-radius: 48% 48% 40% 40%;
-    box-shadow: inset 0 1px 0 rgba(255,255,255,0.35);
-    opacity: 0.88;
-  }
-  .pet:not([data-stage="egg"]) .pet-accessories .wear-hoodie .hoodie-pocket {
-    position: absolute; left: 50%; bottom: 10%; width: 30%; height: 26%;
-    margin-left: -15%;
-    background: rgba(255,255,255,0.22);
-    border: 1.5px solid #3A6880; border-radius: 3px;
-  }
-
-  /* —— BODY: scale armor on the belly —— */
-  .pet:not([data-stage="egg"]) .pet-accessories .wear-cape {
-    top: auto; bottom: 18%; left: 50%; width: 34%; height: 24%; margin-left: -17%;
-    z-index: 10;
-  }
-  .pet:not([data-stage="egg"]) .pet-accessories .wear-cape .cape-shell {
-    position: absolute; inset: 0;
-    background:
-      radial-gradient(ellipse at 30% 35%, #E8A060 0%, transparent 50%),
-      radial-gradient(ellipse at 70% 35%, #E8A060 0%, transparent 50%),
-      linear-gradient(180deg, #C97A40 0%, #A05828 100%);
-    border: 2px solid #6B3A18;
-    border-radius: 42% 42% 36% 36%;
-    box-shadow: inset 0 2px 0 rgba(255,220,160,0.3);
-  }
-
-  /* Never let old anchors paint over the dragon */
-  .pet:not([data-stage="egg"]) .pet-body,
-  .pet:not([data-stage="egg"]) .pet-torso {
-    background: transparent !important;
-    border: none !important;
-    box-shadow: none !important;
-  }
-  .pet:not([data-stage="egg"]) .pet-body::before,
-  .pet:not([data-stage="egg"]) .pet-body::after,
-  .pet:not([data-stage="egg"]) .pet-torso::before,
-  .pet:not([data-stage="egg"]) .pet-torso::after,
-  .pet[data-outfit] .pet-torso::before,
-  .pet[data-outfit] .pet-torso::after,
-  .pet[data-outfit="clothes_cape"] .pet-torso::after,
-  .pet[data-outfit="clothes_hoodie"] .pet-torso::before {
-    display: none !important;
-    content: none !important;
-  }
-
-  @media (prefers-reduced-motion: reduce) { .pet-dragon * { animation: none !important; } }
-
-
-
-
-  /* ===== Evolution visuals (SVG dragon) ===== */
-  .pet .pet-dragon {
-    width: 100%; height: 100%;
-    transition: filter 0.6s ease, transform 0.55s cubic-bezier(0.34, 1.2, 0.64, 1);
-    transform-origin: 50% 80%;
-  }
-  .pet[data-stage="egg"] .pet-dragon { transform: scale(0.72); filter: saturate(0.7) brightness(1.08); }
-  .pet[data-stage="egg"] .dg-wl, .pet[data-stage="egg"] .dg-wr, .pet[data-stage="egg"] .dg-tail { opacity: 0; }
-  .pet[data-stage="hatchling"] .pet-dragon { transform: scale(0.82); filter: hue-rotate(8deg) saturate(0.95); }
-  .pet[data-stage="hatchling"] .dg-wl, .pet[data-stage="hatchling"] .dg-wr { transform: scale(0.55); transform-origin: center; opacity: 0.85; }
-  .pet[data-stage="sprout"] .pet-dragon { transform: scale(0.90); filter: hue-rotate(20deg) saturate(1.05); }
-  .pet[data-stage="sprout"] .dg-wl, .pet[data-stage="sprout"] .dg-wr { transform: scale(0.7); transform-origin: center; }
-  .pet[data-stage="sapling"] .pet-dragon { transform: scale(0.98); filter: hue-rotate(35deg) saturate(1.1); }
-  .pet[data-stage="bloom"] .pet-dragon { transform: scale(1.05); filter: hue-rotate(-8deg) saturate(1.15) brightness(1.05); }
-  .pet[data-stage="guardian"] .pet-dragon { transform: scale(1.12); filter: hue-rotate(-22deg) saturate(1.2) contrast(1.05); }
-  .pet[data-stage="mystic"] .pet-dragon {
-    transform: scale(1.18);
-    filter: hue-rotate(195deg) saturate(1.25) brightness(1.08) drop-shadow(0 0 10px rgba(160,180,255,0.55));
-  }
-  .pet[data-stage="eternal"] .pet-dragon {
-    transform: scale(1.25);
-    filter: hue-rotate(270deg) saturate(1.3) brightness(1.1) drop-shadow(0 0 14px rgba(255,210,120,0.55));
-  }
-  .pet[data-stage="aurora"] .pet-dragon {
-    transform: scale(1.32);
-    filter: hue-rotate(250deg) saturate(1.4) brightness(1.12) drop-shadow(0 0 16px rgba(120,200,255,0.65));
-    animation: auroraShimmer 4s ease-in-out infinite;
-  }
-  .pet[data-stage="celestial"] .pet-dragon {
-    transform: scale(1.40);
-    filter: hue-rotate(40deg) saturate(1.35) brightness(1.15) drop-shadow(0 0 18px rgba(255,230,150,0.7));
-    animation: celestialGlow 3.2s ease-in-out infinite;
-  }
-  @keyframes auroraShimmer {
-    0%, 100% { filter: hue-rotate(250deg) saturate(1.4) brightness(1.12) drop-shadow(0 0 12px rgba(120,200,255,0.5)); }
-    50% { filter: hue-rotate(280deg) saturate(1.5) brightness(1.18) drop-shadow(0 0 20px rgba(180,140,255,0.7)); }
-  }
-  @keyframes celestialGlow {
-    0%, 100% { filter: hue-rotate(40deg) saturate(1.35) brightness(1.12) drop-shadow(0 0 14px rgba(255,230,150,0.55)); }
-    50% { filter: hue-rotate(55deg) saturate(1.45) brightness(1.2) drop-shadow(0 0 22px rgba(255,210,100,0.8)); }
-  }
-
-  /* Evolution progress toward next form */
-  .evo-panel {
-    background: #FDF6EE; border: 3px solid #C9B0A0; border-radius: 6px;
-    padding: 10px 12px; margin-bottom: 8px;
-    box-shadow: 0 3px 0 #C9B0A0;
-  }
-  .evo-panel-top {
-    display: flex; justify-content: space-between; align-items: center;
-    margin-bottom: 6px; gap: 8px; flex-wrap: wrap;
-  }
-  .evo-stage-label {
-    font-family: 'Press Start 2P', monospace; font-size: 0.52rem;
-    color: #8B6F5E; line-height: 1.5;
-  }
-  .evo-stage-label strong { color: #4A3F3A; }
-  .evo-desc {
-    font-size: 0.72rem; color: #A89080; line-height: 1.35; margin-bottom: 8px;
-  }
-  .evo-bar-track {
-    height: 10px; background: #E8D5C8; border: 2px solid #8B6F5E;
-    border-radius: 6px; overflow: hidden; position: relative;
-  }
-  .evo-bar-fill {
-    height: 100%; width: 0%;
-    background: linear-gradient(90deg, #C9A044, #E8C070, #8FB87D);
-    border-radius: 4px;
-    transition: width 0.6s cubic-bezier(0.34, 1.2, 0.64, 1);
-    box-shadow: inset 0 -2px 0 rgba(0,0,0,0.12);
-  }
-  .evo-next {
-    font-family: 'Press Start 2P', monospace; font-size: 0.45rem;
-    color: #A89080; margin-top: 6px; text-align: right;
-  }
-
-  /* Room depth polish */
-  .room {
-    box-shadow: 0 8px 0 #8B6F5E, 0 12px 24px rgba(139,111,94,0.18) !important;
-  }
-  .room-wall {
-    background-image:
-      radial-gradient(ellipse at 20% 30%, rgba(255,255,255,0.25) 0%, transparent 45%),
-      radial-gradient(ellipse at 80% 20%, rgba(255,240,220,0.2) 0%, transparent 40%);
-  }
-
-  /* Stat bars slightly richer */
-  .stat-bar, .stat .bar, .stat-fill {
-    transition: width 0.5s cubic-bezier(0.34, 1.2, 0.64, 1);
-  }
-  .stat.critical .stat-fill, .stat.critical .bar-fill {
-    animation: criticalPulse 1.2s ease-in-out infinite;
-  }
-  @keyframes criticalPulse {
-    0%, 100% { filter: brightness(1); }
-    50% { filter: brightness(1.25); }
-  }
-
-  /* Cloud nest / star cove ambient */
-  .room.cloudnest .room-wall { background: linear-gradient(180deg, #D8E8F8 0%, #F0F4FA 100%) !important; }
-  .room.starcove .room-wall {
-    background: linear-gradient(180deg, #1a1a3a 0%, #2a2050 50%, #1a1530 100%) !important;
-  }
-  .room.starcove .room-floor { background: linear-gradient(180deg, #2a2050 0%, #1a1530 100%) !important; }
-  .room.starcove { color: #E8E0F0; }
-
-
+/* ===== Polish pack ===== */
+body{background:radial-gradient(circle at 20% 0%,#FBE9DC 0,transparent 55%),linear-gradient(180deg,#F4D9C8,#E3C2B0 60%,#D2AE9C);background-attachment:fixed}
+.top-bar,.pet-info,.diary,.quests,.xp-bar{border-radius:14px}
+.top-bar{box-shadow:0 3px 0 #C9B0A0,0 8px 18px rgba(139,111,94,.15)}
+.nav-tabs{position:sticky;top:0;z-index:60;padding:6px 0;background:linear-gradient(180deg,#EBCDBB 70%,transparent);backdrop-filter:blur(6px)}
+.nav-tab{border-radius:10px;padding:10px 4px}
+.room{border-radius:18px;box-shadow:0 6px 0 #8B6F5E,0 14px 28px rgba(90,60,40,.25),inset 0 0 40px rgba(90,60,40,.12)}
+.pet-info{border:3px solid #C9B0A0;margin-bottom:8px}
+.stat{border-radius:10px}.stat-bar{border-radius:6px;height:10px}.stat-bar-fill{border-radius:4px}
+.actions{gap:8px}
+.action-btn{border-radius:14px;min-height:74px;transition:transform .12s,box-shadow .12s,border-color .2s}
+.action-btn:hover:not(:disabled){transform:translateY(-2px);box-shadow:0 5px 0 #C9B0A0,0 8px 14px rgba(139,111,94,.2)}
+.action-btn.needs{border-color:#D18F73;background:#FFF1E8;animation:needGlow 1.4s infinite}
+@keyframes needGlow{50%{box-shadow:0 3px 0 #D18F73,0 0 14px rgba(209,143,115,.7)}}
+.mute-btn{background:#F4E9DE;border:2px solid #C9B0A0;border-radius:8px;font-size:.85rem;padding:3px 7px;cursor:pointer}
+.toast{border-radius:12px;box-shadow:0 6px 18px rgba(0,0,0,.25)}
+.quests{background:#FDF6EE;border:3px solid #C9B0A0;margin:0 12px 12px;padding:10px}
+.q-head{display:flex;justify-content:space-between;align-items:center;font-family:'Press Start 2P',monospace;font-size:.55rem;color:#8B6F5E;margin-bottom:8px}
+.q-bond{background:#FFF9C8;border:2px solid #C9A044;border-radius:8px;padding:3px 7px;color:#6B4F0E}
+.q-row{display:flex;align-items:center;gap:8px;background:#F4E9DE;border-radius:10px;padding:8px;margin-bottom:5px}
+.q-row.done{background:#E8F0D8}
+.q-emoji{font-size:1.4rem}.q-info{flex:1;min-width:0;font-size:.75rem;color:#6B5F4D}
+.q-bar{height:6px;background:#E0CFBE;border-radius:4px;margin-top:4px;overflow:hidden}
+.q-bar>i{display:block;height:100%;background:linear-gradient(90deg,#8FB87D,#C9D88A);transition:width .5s}
+.q-btn{border:none;border-radius:8px;background:#C9A044;color:#fff;font-family:'Press Start 2P',monospace;font-size:.45rem;padding:8px;cursor:pointer;box-shadow:0 3px 0 #8B6F3E}
+.q-btn:disabled{background:#B8A898;box-shadow:none;cursor:default}
+.q-rew{font-size:.62rem;color:#A89080}
+#quickCare{position:fixed;right:12px;bottom:14px;z-index:900;display:none;border:3px solid #8B6F5E;border-radius:999px;background:#FFF9C8;color:#4A3F3A;font-family:'Press Start 2P',monospace;font-size:.5rem;padding:12px 14px;box-shadow:0 4px 0 #8B6F5E,0 8px 18px rgba(0,0,0,.25);cursor:pointer}
+#quickCare:active{transform:translateY(3px);box-shadow:0 1px 0 #8B6F5E}
 </style>
 </head>
 <body>
@@ -3941,7 +3774,7 @@
       <div class="coin-display" id="coinBox">
         <span>🪙</span><span id="coinCount">0</span>
       </div>
-      <div class="days-display">
+      <button id="muteBtn" class="mute-btn" title="Sound (M)">🔊</button><div class="days-display">
         <span>🌱</span><span id="daysCount">0</span>
       </div>
     </div>
@@ -4052,15 +3885,6 @@
           </div>
           <div class="pet-stage-badge" id="petStageBadge">EGG</div>
         </div>
-        <div class="evo-panel" id="evoPanel">
-          <div class="evo-panel-top">
-            <div class="evo-stage-label">FORM · <strong id="evoStageName">EGG</strong> <span id="evoStageEmoji">🥚</span></div>
-            <div class="evo-stage-label">LV <strong id="evoLevelNum">1</strong></div>
-          </div>
-          <div class="evo-desc" id="evoDesc">Warm shell. Something tiny is dreaming inside.</div>
-          <div class="evo-bar-track"><div class="evo-bar-fill" id="evoBarFill"></div></div>
-          <div class="evo-next" id="evoNextLabel">Next form at LV 5</div>
-        </div>
         <div class="stats">
           <div class="stat" id="stat-hunger">
             <div class="stat-header"><span>🍚 FOOD</span><span id="hungerVal">100</span></div>
@@ -4101,6 +3925,7 @@
         </button>
       </div>
 
+      <div class="quests" id="questPanel"></div>
       <div class="diary">
         <div class="diary-title">
           <span>📖 MOCHI'S DIARY</span>
@@ -4229,16 +4054,14 @@ const DAILY_REWARDS = [
 ];
 
 const STAGES = [
-  { level: 1,  name: 'EGG',       emoji: '🥚', key: 'egg',       scale: 0.72, hue: 0,   desc: 'Warm shell. Something tiny is dreaming inside.' },
-  { level: 5,  name: 'HATCHLING', emoji: '🐣', key: 'hatchling', scale: 0.82, hue: 8,   desc: 'Freshly cracked. Soft scales, big eyes, tiny wings.' },
-  { level: 10, name: 'SPROUT',    emoji: '🌱', key: 'sprout',    scale: 0.90, hue: 25,  desc: 'Budding wings. Curious and always hungry.' },
-  { level: 15, name: 'SAPLING',   emoji: '🍃', key: 'sapling',   scale: 0.98, hue: 40,  desc: 'Stronger limbs. Learning little dragon tricks.' },
-  { level: 20, name: 'BLOOM',     emoji: '🌸', key: 'bloom',     scale: 1.05, hue: -10, desc: 'Petals of scale-shine. Playful and proud.' },
-  { level: 25, name: 'GUARDIAN',  emoji: '🐉', key: 'guardian',  scale: 1.12, hue: -25, desc: 'Young guardian. Protective of their room.' },
-  { level: 30, name: 'MYSTIC',    emoji: '✨', key: 'mystic',    scale: 1.18, hue: 200, desc: 'Star-dusted wings. Hears the night sky.' },
-  { level: 35, name: 'ETERNAL',   emoji: '👑', key: 'eternal',   scale: 1.25, hue: 280, desc: 'Little eternal dragon. Bond of Koy & Metz.' },
-  { level: 45, name: 'AURORA',    emoji: '🌌', key: 'aurora',    scale: 1.32, hue: 260, desc: 'Northern-light scales. Rare form of devotion.' },
-  { level: 55, name: 'CELESTIAL', emoji: '🌟', key: 'celestial', scale: 1.40, hue: 45,  desc: 'Celestial Mochi. The room becomes a constellation.' }
+  { level: 1,  name: 'EGG',       emoji: '🥚', key: 'egg' },
+  { level: 5,  name: 'HATCHLING', emoji: '🐣', key: 'hatchling' },
+  { level: 10, name: 'SPROUT',    emoji: '🌱', key: 'sprout' },
+  { level: 15, name: 'SAPLING',   emoji: '🍃', key: 'sapling' },
+  { level: 20, name: 'BLOOM',     emoji: '🌸', key: 'bloom' },
+  { level: 25, name: 'GUARDIAN',  emoji: '🐉', key: 'guardian' },
+  { level: 30, name: 'MYSTIC',    emoji: '✨', key: 'mystic' },
+  { level: 35, name: 'ETERNAL',   emoji: '👑', key: 'eternal' }
 ];
 
 const ROOMS = [
@@ -4249,9 +4072,7 @@ const ROOMS = [
   { id: 'forest',      name: 'FOREST',      emoji: '🌲', reqLevel: 15 },
   { id: 'playroom',    name: 'PLAYROOM',    emoji: '🎨', reqLevel: 20 },
   { id: 'farm',        name: 'FARM',        emoji: '🌾', reqLevel: 25 },
-  { id: 'observatory', name: 'OBSERVATORY', emoji: '🔭', reqLevel: 30 },
-  { id: 'cloudnest',   name: 'CLOUD NEST',  emoji: '☁️', reqLevel: 45 },
-  { id: 'starcove',    name: 'STAR COVE',   emoji: '🌌', reqLevel: 55 }
+  { id: 'observatory', name: 'OBSERVATORY', emoji: '🔭', reqLevel: 30 }
 ];
 
 const ACTIONS = {
@@ -4609,6 +4430,7 @@ function ensureAudio() {
   }
 }
 function playTone(freq, duration, type = 'sine', volume = 0.06) {
+  if (localStorage.getItem('mochi_mute') === '1') return;
   ensureAudio();
   if (!audioCtx) return;
   if (audioCtx.state === 'suspended') audioCtx.resume();
@@ -5005,7 +4827,7 @@ function applyDecayAndListen() {
     if (data.todayDate !== today) {
       updates.todayDate = today;
       updates.todayActions = { koy: 0, metz: 0 };
-      updates.fridgeItems = [...FRIDGE_DEFAULT];
+      { const cur = Array.isArray(data.fridgeItems) ? data.fridgeItems : []; const have = new Set(cur.map(i => typeof i === 'string' ? i : (i && i.type === 'ing' ? i.emoji : null))); updates.fridgeItems = cur.concat(FRIDGE_DEFAULT.filter(e => !have.has(e))); }
     }
     ref.update(updates).then(() => {
       ref.on('value', handleUpdate);
@@ -5111,48 +4933,9 @@ function updateLevel() {
   lastLevel = lvl;
 }
 function currentStage() {
-  if (!gameData) return STAGES[0];
   let s = STAGES[0];
-  const lvl = gameData.level || 1;
-  for (const st of STAGES) if (lvl >= st.level) s = st;
+  for (const st of STAGES) if (gameData.level >= st.level) s = st;
   return s;
-}
-function nextStage() {
-  const cur = currentStage();
-  const idx = STAGES.findIndex(s => s.key === cur.key);
-  return STAGES[idx + 1] || null;
-}
-function evolutionProgress() {
-  const cur = currentStage();
-  const nxt = nextStage();
-  const lvl = gameData?.level || 1;
-  if (!nxt) return { pct: 100, label: 'MAX FORM', nextName: null, nextLevel: null };
-  const span = Math.max(1, nxt.level - cur.level);
-  const done = Math.max(0, lvl - cur.level);
-  const pct = Math.min(100, Math.round((done / span) * 100));
-  return { pct, label: `Next form at LV ${nxt.level}`, nextName: nxt.name, nextLevel: nxt.level, nextEmoji: nxt.emoji };
-}
-function updateEvolutionUI() {
-  if (!gameData) return;
-  const stage = currentStage();
-  const prog = evolutionProgress();
-  const nameEl = $('evoStageName');
-  if (!nameEl) return;
-  nameEl.textContent = stage.name;
-  const em = $('evoStageEmoji');
-  if (em) em.textContent = stage.emoji || '';
-  const lv = $('evoLevelNum');
-  if (lv) lv.textContent = String(gameData.level || 1);
-  const desc = $('evoDesc');
-  if (desc) desc.textContent = stage.desc || '';
-  const fill = $('evoBarFill');
-  if (fill) fill.style.width = prog.pct + '%';
-  const next = $('evoNextLabel');
-  if (next) {
-    next.textContent = prog.nextName
-      ? `${prog.pct}% → ${prog.nextEmoji || ''} ${prog.nextName} (LV ${prog.nextLevel})`
-      : '✨ MAX FORM REACHED';
-  }
 }
 function isNightTime() {
   const h = new Date().getHours();
@@ -5178,18 +4961,7 @@ function computeMood() {
   if (energy < 40) return { key: 'tired', label: 'TIRED', cls: 'idle' };
   if (hunger > 85 && happy > 85 && energy > 85 && clean > 85) return { key: 'ecstatic', label: 'ECSTATIC', cls: 'ecstatic' };
   if (happy < 50 && hunger > 50 && energy > 50 && clean > 50) return { key: 'bored', label: 'BORED', cls: 'bored' };
-  // Bond moods — partner presence
-  const other = (typeof me === 'string' && me === 'koy') ? 'metz' : 'koy';
-  const otherSeen = gameData[other === 'koy' ? 'koyLastSeen' : 'metzLastSeen'] || 0;
-  const partnerOnline = Date.now() - otherSeen < 3 * 60 * 1000;
-  const bothActive = partnerOnline && (Date.now() - (gameData.lastActions?.[me] || 0) < 10 * 60 * 1000);
-
-  if (hunger > 85 && happy > 85 && energy > 85 && clean > 85 && bothActive)
-    return { key: 'ecstatic', label: 'BELOVED', cls: 'ecstatic' };
-  if (hunger > 60 && happy > 60 && energy > 60 && clean > 60)
-    return { key: 'content', label: partnerOnline ? 'COZY' : 'CONTENT', cls: 'happy' };
-  if (happy < 45 && !partnerOnline && (Date.now() - otherSeen > 12 * 3600000))
-    return { key: 'lonely', label: 'LONELY', cls: 'sad' };
+  if (hunger > 60 && happy > 60 && energy > 60 && clean > 60) return { key: 'content', label: 'CONTENT', cls: 'happy' };
   return { key: 'idle', label: 'IDLE', cls: 'idle' };
 }
 
@@ -5235,7 +5007,7 @@ const MOOD_BEHAVIOR_OVERRIDES = {
    ============================================================ */
 function applyRoom(force) {
   const roomEl = $('room');
-  const key = currentRoomId + (isNightTime() && currentRoomId !== 'observatory' && currentRoomId !== 'starcove' ? '-n' : '-d');
+  const key = currentRoomId + (isNightTime() && currentRoomId !== 'observatory' ? '-n' : '-d');
   if (!force && renderCache.roomId === key) return;
   renderCache.roomId = key;
 
@@ -5318,29 +5090,6 @@ function applyRoom(force) {
           <div style="position:absolute;bottom:0;left:0;right:0;height:28%;background:linear-gradient(180deg, transparent, rgba(168,180,100,0.35));"></div>`;
         floorEl.style.background = 'repeating-linear-gradient(90deg, #C9B078 0px, #C9B078 18px, #B89860 18px, #B89860 20px)';
         $('roomBadge').textContent = '🌾 FARM';
-        break;
-      case 'cloudnest':
-        wallEl.style.background = 'linear-gradient(180deg, #B8D4F0 0%, #D8E8F8 45%, #F0F6FC 100%)';
-        wallEl.innerHTML = `<div style="position:absolute;inset:0;background-image:
-          radial-gradient(ellipse at 20% 40%, rgba(255,255,255,0.85) 0%, transparent 42%),
-          radial-gradient(ellipse at 70% 25%, rgba(255,255,255,0.7) 0%, transparent 38%),
-          radial-gradient(ellipse at 45% 70%, rgba(255,255,255,0.55) 0%, transparent 40%);"></div>
-          <div style="position:absolute;top:18px;right:30px;width:28px;height:28px;background:radial-gradient(circle,#FFF9C8,#FFE08C);border-radius:50%;box-shadow:0 0 18px rgba(255,224,120,0.6);opacity:0.85;"></div>`;
-        floorEl.style.background = 'linear-gradient(180deg, #E8F0F8 0%, #D0E0F0 50%, #C0D4E8 100%)';
-        $('roomBadge').textContent = '☁️ CLOUD NEST';
-        break;
-      case 'starcove':
-        wallEl.style.background = 'linear-gradient(180deg, #0E0A22 0%, #1A1438 50%, #2A1A48 100%)';
-        wallEl.innerHTML = `<div style="position:absolute;inset:0;background-image:
-          radial-gradient(circle at 18% 22%, #FFF 1px, transparent 2px),
-          radial-gradient(circle at 72% 18%, #FFF9C8 1.4px, transparent 2.5px),
-          radial-gradient(circle at 40% 48%, #C8B8FF 1px, transparent 2px),
-          radial-gradient(circle at 85% 60%, #FFF 1.2px, transparent 2px),
-          radial-gradient(circle at 30% 75%, #A8D8FF 1px, transparent 2px),
-          radial-gradient(ellipse at 50% 0%, rgba(100,80,180,0.35) 0%, transparent 55%);
-          background-size:100% 100%; animation:twinkle 4s ease-in-out infinite alternate;"></div>`;
-        floorEl.style.background = 'linear-gradient(180deg, #2A1A48 0%, #1A0E30 60%, #120A22 100%)';
-        $('roomBadge').textContent = '🌌 STAR COVE';
         break;
     }
     roomEl.dataset.rendered = '1';
@@ -8298,11 +8047,8 @@ function renderPet(prev = {}) {
 
   if (renderCache.stage !== stage.key) {
     pet.dataset.stage = stage.key;
-    pet.setAttribute('data-stage', stage.key);
-    const badge = $('petStageBadge');
-    if (badge) badge.textContent = stage.name + (stage.emoji ? ' ' + stage.emoji : '');
+    $('petStageBadge').textContent = stage.name;
     renderCache.stage = stage.key;
-    updateEvolutionUI();
   }
 
   if (renderCache.petName !== gameData.name) {
@@ -9405,6 +9151,85 @@ document.addEventListener('visibilitychange', () => {
     art.style.setProperty('--fx', x > last ? -1 : 1);
     last = x;
   }).observe(pet, { attributes: true, attributeFilter: ['style'] });
+})();
+</script>
+
+<script>
+/* ===== Enhancement pack: quests, bond, quick care, live decay, shortcuts ===== */
+(function(){
+const T='tamagotchi', $$=id=>document.getElementById(id);
+const POOL=[
+ {k:'feeds',t:'Feed Mochi',n:3,c:20,x:15,e:'🍚'},{k:'plays',t:'Play together',n:2,c:25,x:20,e:'🎈'},
+ {k:'baths',t:'Give a bath',n:1,c:15,x:10,e:'💧'},{k:'pets',t:'Cuddle Mochi',n:5,c:20,x:15,e:'🤲'},
+ {k:'cleans',t:'Tidy up',n:2,c:20,x:15,e:'🧹'},{k:'sleeps',t:'Tuck in for rest',n:2,c:20,x:15,e:'🌙'},
+ {k:'cooked',t:'Cook a dish',n:1,c:35,x:30,e:'🍳'},{k:'wantsFulfilled',t:'Grant wishes',n:2,c:40,x:30,e:'⭐'}];
+const KEYS=POOL.map(p=>p.k), today=()=>new Date().toISOString().slice(0,10);
+function todays(){ let h=0; for(const ch of today()) h=(h*31+ch.charCodeAt(0))>>>0;
+  const idx=[]; while(idx.length<3){ h=(h*1103515245+12345)>>>0; const i=h%POOL.length; if(!idx.includes(i)) idx.push(i);} return idx.map(i=>POOL[i]); }
+const total=()=>KEYS.reduce((a,k)=>a+((gameData&&gameData.stats&&gameData.stats[k])||0),0);
+const bondOf=n=>Math.floor(Math.sqrt(n/3));
+const give=(c,x)=>{ db.ref(T+'/coins').transaction(v=>(v||0)+c); db.ref(T+'/xp').transaction(v=>(v||0)+x); sfxReward(); spawnConfetti(14); showToast('🎉 +'+c+' 🪙  +'+x+' XP'); };
+
+function ensureQuests(){
+  if(!gameData) return;
+  if(!gameData.quests||gameData.quests.date!==today()){
+    db.ref(T+'/quests').transaction(q=>{ if(q&&q.date===today()) return; const base={}; KEYS.forEach(k=>base[k]=(gameData.stats&&gameData.stats[k])||0); return {date:today(),base,claimed:{},bonus:false}; });
+  }
+  const b=bondOf(total()); let prev=0;
+  if(b>0) db.ref(T+'/bondClaimed').transaction(v=>{prev=v||0; return prev<b?b:undefined;},(e,ok)=>{ if(ok&&b>prev){ give(25*(b-prev),0); showToast('💞 Bond level '+b+'! +'+25*(b-prev)+' 🪙'); }});
+}
+function claim(k){ const d=todays().find(x=>x.k===k);
+  db.ref(T+'/quests/claimed/'+k).transaction(v=>v?undefined:true,(e,ok)=>{ if(ok&&d) give(d.c,d.x); }); }
+function claimBonus(){ db.ref(T+'/quests/bonus').transaction(v=>v?undefined:true,(e,ok)=>{ if(ok) give(60,50); }); }
+let qHash='';
+function renderQuests(){
+  const el=$$('questPanel'); if(!el||!gameData||!gameData.quests||gameData.quests.date!==today()) return;
+  const q=gameData.quests, base=q.base||{}, cl=q.claimed||{}, list=todays();
+  const rows=list.map(d=>{ const p=Math.min(d.n,Math.max(0,((gameData.stats&&gameData.stats[d.k])||0)-(base[d.k]||0)));
+    return {d,p,done:p>=d.n,got:!!cl[d.k]}; });
+  const all=rows.every(r=>r.got), b=bondOf(total()), nxt=Math.pow(b+1,2)*3-total();
+  const h=JSON.stringify([rows.map(r=>[r.p,r.got]),q.bonus,b,nxt]); if(h===qHash) return; qHash=h;
+  el.innerHTML='<div class="q-head"><span>📜 DAILY QUESTS</span><span class="q-bond" title="Bond grows with every act of care">💞 BOND '+b+' · '+nxt+' to next</span></div>'+
+   rows.map(r=>'<div class="q-row'+(r.got?' done':'')+'"><span class="q-emoji">'+r.d.e+'</span><div class="q-info">'+r.d.t+' ('+r.p+'/'+r.d.n+')<div class="q-bar"><i style="width:'+(r.p/r.d.n*100)+'%"></i></div><span class="q-rew">+'+r.d.c+' 🪙 +'+r.d.x+' XP</span></div>'+
+     '<button class="q-btn" data-q="'+r.d.k+'" '+(r.done&&!r.got?'':'disabled')+'>'+(r.got?'✓':'CLAIM')+'</button></div>').join('')+
+   '<div class="q-row'+(q.bonus?' done':'')+'"><span class="q-emoji">🎁</span><div class="q-info">Finish all 3 together<br><span class="q-rew">+60 🪙 +50 XP bonus chest</span></div><button class="q-btn" data-q="_bonus" '+(all&&!q.bonus?'':'disabled')+'>'+(q.bonus?'✓':'OPEN')+'</button></div>';
+}
+document.addEventListener('click',e=>{ const b=e.target.closest&&e.target.closest('.q-btn'); if(!b||b.disabled) return; b.dataset.q==='_bonus'?claimBonus():claim(b.dataset.q); });
+
+const NEED=[['hunger','feed','🍚','FEED'],['happy','play','🎈','PLAY'],['energy','sleep','🌙','SLEEP'],['clean','bath','💧','BATH']];
+function lowest(){ return NEED.map(n=>({n,v:gameData[n[0]]??100})).sort((a,b)=>a.v-b.v)[0]; }
+const qc=document.createElement('button'); qc.id='quickCare'; document.body.appendChild(qc);
+qc.onclick=()=>{ if(!gameData) return; switchView('home'); doAction(lowest().n[1]); };
+function tick(){
+  if(!gameData) return;
+  ensureQuests(); renderQuests();
+  const need=lowest();
+  document.querySelectorAll('.action-btn[data-action]').forEach(b=>b.classList.toggle('needs',NEED.some(n=>n[1]===b.dataset.action&&(gameData[n[0]]??100)<35)));
+  const on=$$('gameScreen').style.display==='block';
+  qc.style.display=on?'block':'none';
+  qc.textContent=need.v<70?'✨ '+need.n[3]+' '+need.n[2]:'✨ ALL GOOD';
+}
+setInterval(tick,1500);
+
+/* live decay while the app is open (shared gate so two players don't double-drain) */
+setInterval(()=>{
+  if(!gameData||document.hidden) return; const now=Date.now(); let prev=0;
+  db.ref(T+'/lastDecay').transaction(v=>{prev=v||now-60000; return now-prev>55000?now:undefined;},(e,ok)=>{
+    if(!ok) return; const d=Math.min(10,(now-prev)/60000)*DECAY_PER_MINUTE, u={lastUpdate:now};
+    ['hunger','happy','energy','clean'].forEach(k=>u[k]=Math.max(0,(gameData[k]??100)-d)); db.ref(T).update(u); });
+},60000);
+
+/* mute + shortcuts */
+const mb=$$('muteBtn'); const paint=()=>mb.textContent=localStorage.getItem('mochi_mute')==='1'?'🔇':'🔊'; paint();
+const toggleMute=()=>{ localStorage.setItem('mochi_mute',localStorage.getItem('mochi_mute')==='1'?'0':'1'); paint(); }; mb.onclick=toggleMute;
+const KEYMAP={f:'feed',s:'sleep',b:'bath',p:'pet',c:'clean',y:'play',g:'sing',d:'dance'}, VIEWS=['home','rooms','shop','notes','ach','album'];
+document.querySelectorAll('.action-btn[data-action]').forEach(b=>{ const k=Object.keys(KEYMAP).find(x=>KEYMAP[x]===b.dataset.action); if(k) b.title=b.dataset.action+' ('+k.toUpperCase()+')'; });
+document.addEventListener('keydown',e=>{
+  if(e.ctrlKey||e.metaKey||e.altKey||/INPUT|TEXTAREA/.test((e.target||{}).tagName||'')||!gameData) return;
+  const k=e.key.toLowerCase();
+  if(k==='m') toggleMute(); else if(k==='q') qc.click(); else if(VIEWS[+k-1]) switchView(VIEWS[+k-1]);
+  else if(KEYMAP[k]&&currentView==='home') doAction(KEYMAP[k]);
+});
 })();
 </script>
 </body>
