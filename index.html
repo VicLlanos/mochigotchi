@@ -3934,6 +3934,7 @@
 /* billboards keep facing the camera */
 .room.is3d .pet,.room.is3d .furniture,.room.is3d .room-item,.room.is3d .room-deco{rotate:0 1 0 calc(var(--ry,0)*-1deg)}
 .room.is3d .pet{filter:drop-shadow(0 6px 3px rgba(74,50,38,.35))}
+.room.is3d .on-wall{rotate:none!important}
 .room-3d-toggle{position:absolute;top:8px;right:8px;z-index:31;font:inherit;font-family:'Press Start 2P',monospace;font-size:.45rem;
   padding:4px 7px;background:rgba(253,246,238,.95);color:#8B6F5E;border:3px solid #8B6F5E;border-radius:4px;cursor:pointer}
 .room-3d-toggle.off{opacity:.65;background:#E8D8C8}
@@ -9486,7 +9487,10 @@ document.addEventListener('visibilitychange', () => {
         if(el.classList.contains('dragging')){el.style.translate='none';continue;}
         var p=el.offsetParent,ph=p?p.clientHeight:H;
         var b=ph-(el.offsetTop+el.offsetHeight);
-        var z=-Math.max(0,Math.min(b,FLp)); if(el.classList.contains('pet-shadow'))z+=2;
+        var isS=el.classList.contains('pet-shadow'),isP=el.classList.contains('pet');
+        var wall=!isS&&!isP&&b>=FLp*.9;
+        el.classList.toggle('on-wall',wall);
+        var z=wall?(-FLp+4):-Math.max(0,Math.min(b,FLp)); if(isS)z+=2;
         el.style.translate='0 0 '+z.toFixed(1)+'px';
       }
       wasOn=true;
