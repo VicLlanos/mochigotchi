@@ -139,12 +139,60 @@
   /* ============ ROOM ============ */
   .room {
     background: #FDF6EE; border: 4px solid #8B6F5E; border-radius: 4px;
-    margin-bottom: 8px; position: relative; overflow: hidden;
+    margin-bottom: 8px; position: sticky; top: 0; z-index: 60;
+    overflow: hidden;
     box-shadow: 0 6px 0 #8B6F5E;
     height: 320px;
     perspective: 900px;
     perspective-origin: 50% 40%;
+    transition: height 0.28s ease, box-shadow 0.28s ease, border-radius 0.28s ease;
   }
+  .room.is-stuck {
+    height: 200px;
+    border-radius: 0 0 8px 8px;
+    box-shadow:
+      0 8px 0 #8B6F5E,
+      0 14px 28px rgba(74, 63, 58, 0.28);
+  }
+  .room.is-stuck .room-badge { font-size: 0.55rem; padding: 3px 6px; }
+  /* Floating mini-Mochi when scrolled deep past sticky room (extra visibility) */
+  .mochi-float {
+    position: fixed;
+    right: max(12px, calc(50% - 228px));
+    bottom: 18px;
+    z-index: 80;
+    width: 64px; height: 72px;
+    background: #FDF6EE;
+    border: 3px solid #8B6F5E;
+    border-radius: 12px;
+    box-shadow: 0 4px 0 #8B6F5E, 0 8px 20px rgba(74,63,58,0.25);
+    display: none;
+    align-items: center; justify-content: center;
+    cursor: pointer;
+    padding: 4px;
+    animation: floatIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  .mochi-float.visible { display: flex; }
+  .mochi-float .mochi-float-pet {
+    font-size: 2rem; line-height: 1;
+    filter: drop-shadow(0 2px 0 rgba(139,111,94,0.35));
+    animation: bob 2.4s ease-in-out infinite;
+  }
+  .mochi-float .mochi-float-label {
+    position: absolute; bottom: -2px; left: 50%; transform: translateX(-50%);
+    font-family: 'Press Start 2P', monospace; font-size: 0.32rem;
+    color: #8B6F5E; white-space: nowrap; background: #FDF6EE;
+    padding: 1px 4px; border-radius: 3px;
+  }
+  @keyframes floatIn {
+    0% { opacity: 0; transform: translateY(12px) scale(0.85); }
+    100% { opacity: 1; transform: translateY(0) scale(1); }
+  }
+  .sticky-room-spacer {
+    display: none;
+    height: 0;
+  }
+
   .room-wall {
     position: absolute; top: 0; left: 0; right: 0;
     height: 58%; overflow: hidden;
@@ -3344,6 +3392,7 @@
   @media (max-width: 380px) {
     .pet { font-size: 2.6rem; }
     .room { height: 280px; }
+    .room.is-stuck { height: 168px; }
     .action-btn { min-height: 64px; }
     .action-btn .emoji { font-size: 1.3rem; }
     .nav-tab { font-size: 0.42rem; padding: 6px 2px; }
@@ -3880,7 +3929,7 @@
   }
 
   /* Room depth polish */
-  .room {
+  .room:not(.is-stuck) {
     box-shadow: 0 8px 0 #8B6F5E, 0 12px 24px rgba(139,111,94,0.18) !important;
   }
   .room-wall {
@@ -3910,34 +3959,172 @@
   .room.starcove { color: #E8E0F0; }
 
 
-</style>
-<style id="mochi-3d-css">
-/* ===== MOCHI 3D LAYER (additive; toggle with the 🧊 button) ===== */
-.room.is3d{perspective:1400px;perspective-origin:50% 40%;touch-action:pan-y}
-.room .stage3d{position:absolute;inset:0;z-index:1}
-.room.is3d .stage3d{transform-style:preserve-3d;transform-origin:50% 62%;
-  transform:rotateX(calc(var(--rx,0)*1deg)) rotateY(calc(var(--ry,0)*1deg))}
-.room.is3d .pet-area,.room.is3d .room-scene,.room.is3d .room-items,.room.is3d .room-decorations{transform-style:preserve-3d;overflow:visible}
-/* back wall recedes; scaled so it still fills the frame */
-.room.is3d .room-wall{transform-origin:50% var(--oy,128px);transform:translateZ(calc(var(--fl,134px)*-1)) scale(var(--ws,1.096))}
-/* floor becomes a real plane lying back at 45deg */
-.room.is3d .room-floor{height:var(--fll,190px)!important;transform-origin:50% 100%;transform:rotateX(45deg)}
-.room.is3d .room-floor::after{background:linear-gradient(0deg,rgba(255,255,255,.10) 0%,rgba(139,111,94,.06) 45%,rgba(139,111,94,.30) 100%)}
-/* side walls */
-.sw3d{display:none;position:absolute;top:0;height:100%;width:var(--fl,134px);pointer-events:none}
-.room.is3d .sw3d{display:block}
-.sw3d.l{left:0;transform-origin:0 50%;transform:rotateY(90deg);background:linear-gradient(90deg,rgba(74,50,38,.50),rgba(74,50,38,.20));border-right:2px solid rgba(139,111,94,.45)}
-.sw3d.r{right:0;transform-origin:100% 50%;transform:rotateY(-90deg);background:linear-gradient(270deg,rgba(74,50,38,.50),rgba(74,50,38,.20));border-left:2px solid rgba(139,111,94,.45)}
-/* depth now comes from real perspective, so drop the fake zoom */
-.room.is3d .pet,.room.is3d .pet-shadow{zoom:1!important}
-.room.is3d .pet-shadow{rotate:1 0 0 45deg}
-/* billboards keep facing the camera */
-.room.is3d .pet,.room.is3d .furniture,.room.is3d .room-item,.room.is3d .room-deco{rotate:0 1 0 calc(var(--ry,0)*-1deg)}
-.room.is3d .pet{filter:drop-shadow(0 6px 3px rgba(74,50,38,.35))}
-.room.is3d .on-wall{rotate:none!important}
-.room-3d-toggle{position:absolute;top:8px;right:8px;z-index:31;font:inherit;font-family:'Press Start 2P',monospace;font-size:.45rem;
-  padding:4px 7px;background:rgba(253,246,238,.95);color:#8B6F5E;border:3px solid #8B6F5E;border-radius:4px;cursor:pointer}
-.room-3d-toggle.off{opacity:.65;background:#E8D8C8}
+
+  /* ============================================================
+     IMPROVEMENTS: room chips, bond, quests, onboarding, colors
+     ============================================================ */
+  .room-chips {
+    display: flex; gap: 4px; overflow-x: auto; padding: 0 2px 8px;
+    -webkit-overflow-scrolling: touch; scrollbar-width: none;
+  }
+  .room-chips::-webkit-scrollbar { display: none; }
+  .room-chip {
+    flex: 0 0 auto; padding: 6px 10px; border: 2px solid #C9B0A0;
+    background: #FDF6EE; border-radius: 16px; cursor: pointer;
+    font-family: 'Press Start 2P', monospace; font-size: 0.42rem;
+    color: #8B6F5E; white-space: nowrap; transition: all 0.15s;
+  }
+  .room-chip.active {
+    background: #F4D9C8; border-color: #8B6F5E; color: #4A3F3A;
+    box-shadow: 0 2px 0 #8B6F5E;
+  }
+  .room-chip.locked { opacity: 0.45; cursor: not-allowed; }
+  .room-chip:active:not(.locked) { transform: translateY(1px); }
+
+  .bond-bar-wrap {
+    background: #FDF6EE; border: 3px solid #C9B0A0; border-radius: 6px;
+    padding: 8px 10px; margin-bottom: 8px; box-shadow: 0 3px 0 #C9B0A0;
+  }
+  .bond-header {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 4px;
+  }
+  .bond-label {
+    font-family: 'Press Start 2P', monospace; font-size: 0.48rem; color: #8B6F5E;
+  }
+  .bond-value {
+    font-family: 'Press Start 2P', monospace; font-size: 0.48rem; color: #C45A7A;
+  }
+  .bond-track {
+    height: 8px; background: #E8D5C8; border: 2px solid #8B6F5E;
+    border-radius: 5px; overflow: hidden;
+  }
+  .bond-fill {
+    height: 100%; width: 0%;
+    background: linear-gradient(90deg, #E87A9A, #C45A7A, #E8A0C0);
+    border-radius: 3px; transition: width 0.5s ease;
+  }
+  .bond-hint { font-size: 0.68rem; color: #A89080; margin-top: 4px; line-height: 1.3; }
+
+  .quest-panel {
+    background: #FDF6EE; border: 3px solid #C9B0A0; border-radius: 6px;
+    padding: 10px 12px; margin-bottom: 8px; box-shadow: 0 3px 0 #C9B0A0;
+  }
+  .quest-title {
+    font-family: 'Press Start 2P', monospace; font-size: 0.5rem;
+    color: #8B6F5E; margin-bottom: 8px;
+  }
+  .quest-item {
+    display: flex; align-items: center; gap: 8px; padding: 6px 0;
+    border-bottom: 1px dashed #E8D5C8; font-size: 0.78rem; color: #4A3F3A;
+  }
+  .quest-item:last-child { border-bottom: none; }
+  .quest-item.done { opacity: 0.55; text-decoration: line-through; }
+  .quest-check {
+    width: 18px; height: 18px; border: 2px solid #8B6F5E; border-radius: 4px;
+    background: #FFFDF9; display: flex; align-items: center; justify-content: center;
+    font-size: 0.65rem; flex-shrink: 0;
+  }
+  .quest-item.done .quest-check { background: #8FB87D; border-color: #5A8A4A; color: white; }
+  .quest-reward {
+    margin-left: auto; font-family: 'Press Start 2P', monospace;
+    font-size: 0.38rem; color: #C9A044; white-space: nowrap;
+  }
+
+  .hint-bar {
+    background: #FFF9C8; border: 2px solid #C9A044; border-radius: 4px;
+    padding: 8px 10px; margin-bottom: 8px; font-size: 0.75rem;
+    color: #6B4F0E; line-height: 1.4; display: none;
+  }
+  .hint-bar.visible { display: block; animation: viewIn 0.3s ease; }
+  .hint-bar .hint-close {
+    float: right; background: none; border: none; color: #8B6F5E;
+    font-size: 0.9rem; cursor: pointer; padding: 0 4px;
+  }
+
+  .onboard-overlay {
+    position: fixed; inset: 0; background: rgba(30, 24, 20, 0.72);
+    z-index: 9000; display: none; align-items: center; justify-content: center;
+    padding: 16px;
+  }
+  .onboard-overlay.active { display: flex; animation: dailyFadeIn 0.3s ease; }
+  .onboard-card {
+    background: #FDF6EE; border: 4px solid #8B6F5E; border-radius: 10px;
+    padding: 22px 18px; max-width: 340px; width: 100%;
+    box-shadow: 0 8px 0 #6B4F3E; text-align: center;
+  }
+  .onboard-emoji { font-size: 2.8rem; margin-bottom: 10px; }
+  .onboard-title {
+    font-family: 'Press Start 2P', monospace; font-size: 0.7rem;
+    color: #8B6F5E; margin-bottom: 10px; line-height: 1.5;
+  }
+  .onboard-text {
+    font-size: 0.85rem; color: #4A3F3A; line-height: 1.5; margin-bottom: 16px;
+  }
+  .onboard-dots { display: flex; gap: 6px; justify-content: center; margin-bottom: 14px; }
+  .onboard-dot {
+    width: 8px; height: 8px; border-radius: 50%; background: #C9B0A0;
+  }
+  .onboard-dot.active { background: #8B6F5E; }
+  .onboard-actions { display: flex; gap: 8px; }
+  .onboard-actions .btn { flex: 1; }
+
+  .color-swatch-row {
+    display: flex; gap: 6px; flex-wrap: wrap; margin-top: 6px;
+  }
+  .color-swatch {
+    width: 28px; height: 28px; border-radius: 50%; border: 3px solid #8B6F5E;
+    cursor: pointer; transition: transform 0.15s;
+  }
+  .color-swatch.active { box-shadow: 0 0 0 3px #C9A044; transform: scale(1.1); }
+  .color-swatch:active { transform: scale(0.95); }
+
+  .pet[data-color="mint"] { filter: hue-rotate(0deg) saturate(1.05); }
+  .pet[data-color="blush"] { filter: hue-rotate(-25deg) saturate(1.15); }
+  .pet[data-color="sky"] { filter: hue-rotate(160deg) saturate(1.1); }
+  .pet[data-color="gold"] { filter: hue-rotate(40deg) saturate(1.25) brightness(1.05); }
+  .pet[data-color="lavender"] { filter: hue-rotate(220deg) saturate(1.15); }
+  .pet[data-color="coral"] { filter: hue-rotate(-40deg) saturate(1.2); }
+
+  .wardrobe-panel {
+    background: #FDF6EE; border: 3px solid #C9B0A0; border-radius: 6px;
+    padding: 10px 12px; margin-bottom: 8px; box-shadow: 0 3px 0 #C9B0A0;
+    display: none;
+  }
+  .wardrobe-panel.open { display: block; }
+  .wardrobe-title {
+    font-family: 'Press Start 2P', monospace; font-size: 0.5rem;
+    color: #8B6F5E; margin-bottom: 8px;
+  }
+  .wardrobe-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px;
+  }
+  .wardrobe-item {
+    background: #FFFDF9; border: 2px solid #C9B0A0; border-radius: 4px;
+    padding: 8px 4px; text-align: center; cursor: pointer; font-size: 1.2rem;
+  }
+  .wardrobe-item.equipped { border-color: #8B6F5E; background: #F4D9C8; }
+  .wardrobe-item .w-name {
+    font-family: 'Press Start 2P', monospace; font-size: 0.32rem;
+    color: #8B6F5E; margin-top: 4px; line-height: 1.3;
+  }
+  .wardrobe-toggle {
+    width: 100%; margin-top: 6px; padding: 8px; border: 2px solid #C9B0A0;
+    background: #FFFDF9; border-radius: 4px; cursor: pointer;
+    font-family: 'Fredoka', sans-serif; font-weight: 600; font-size: 0.8rem;
+    color: #8B6F5E;
+  }
+
+  .actions-more-btn {
+    grid-column: 1 / -1; padding: 10px; border: 2px dashed #C9B0A0;
+    background: #FFFDF9; border-radius: 4px; cursor: pointer;
+    font-family: 'Press Start 2P', monospace; font-size: 0.45rem;
+    color: #8B6F5E; margin-top: 2px;
+  }
+  .dragon-actions { display: contents; }
+  .dragon-actions.collapsed { display: none; }
+
+
 </style>
 </head>
 <body>
@@ -3982,6 +4169,8 @@
       <div class="nav-tab" data-view="ach">🏆</div>
       <div class="nav-tab" data-view="album">📸</div>
     </div>
+
+    <div class="room-chips" id="roomChips"></div>
 
     <div class="view active" id="view-home">
 
@@ -4089,6 +4278,26 @@
           <div class="evo-bar-track"><div class="evo-bar-fill" id="evoBarFill"></div></div>
           <div class="evo-next" id="evoNextLabel">Next form at LV 5</div>
         </div>
+
+        <div class="bond-bar-wrap" id="bondBarWrap">
+          <div class="bond-header">
+            <span class="bond-label">💞 BOND</span>
+            <span class="bond-value" id="bondValue">0</span>
+          </div>
+          <div class="bond-track"><div class="bond-fill" id="bondFill" style="width:0%"></div></div>
+          <div class="bond-hint" id="bondHint">Care together to grow your bond</div>
+        </div>
+
+        <div class="quest-panel" id="questPanel">
+          <div class="quest-title">📋 DAILY QUESTS</div>
+          <div id="questList"></div>
+        </div>
+
+        <div class="hint-bar" id="hintBar">
+          <button class="hint-close" id="hintClose" type="button">×</button>
+          <span id="hintText">Tip: Tap furniture to interact with Mochi!</span>
+        </div>
+
         <div class="stats">
           <div class="stat" id="stat-hunger">
             <div class="stat-header"><span>🍚 FOOD</span><span id="hungerVal">100</span></div>
@@ -4109,6 +4318,15 @@
         </div>
       </div>
 
+
+      <button class="wardrobe-toggle" id="wardrobeToggle" type="button">👗 Wardrobe & Colors</button>
+      <div class="wardrobe-panel" id="wardrobePanel">
+        <div class="wardrobe-title">OUTFITS</div>
+        <div class="wardrobe-grid" id="wardrobeGrid"></div>
+        <div class="wardrobe-title" style="margin-top:10px;">SCALE COLOR</div>
+        <div class="color-swatch-row" id="colorSwatches"></div>
+      </div>
+
       <div class="actions">
         <div class="action-section-label">CARE</div>
         <button class="action-btn" data-action="feed"><span class="emoji">🍚</span><span class="label">FEED</span></button>
@@ -4117,6 +4335,8 @@
         <button class="action-btn" data-action="pet"><span class="emoji">🤲</span><span class="label">PET</span></button>
         <button class="action-btn" data-action="clean"><span class="emoji">🧹</span><span class="label">CLEAN</span></button>
         <button class="action-btn" data-action="play"><span class="emoji">🎈</span><span class="label">PLAY</span></button>
+        <button class="actions-more-btn" id="actionsMoreBtn" type="button">▼ DRAGON MOVES & MINI-GAME</button>
+        <div class="dragon-actions collapsed" id="dragonActions">
         <div class="action-section-label">DRAGON</div>
         <button class="action-btn" data-action="sing"><span class="emoji">🎤</span><span class="label">SING</span></button>
         <button class="action-btn" data-action="dance"><span class="emoji">💃</span><span class="label">DANCE</span></button>
@@ -4127,6 +4347,7 @@
         <button class="action-btn" data-action="minigame" style="grid-column: span 3; background: linear-gradient(180deg, #FFF9C8, #F0E0A0); border-color: #C9A044;">
           <span class="emoji">🫧</span><span class="label">BUBBLE POP MINI-GAME</span>
         </button>
+        </div>
       </div>
 
       <div class="diary">
@@ -4209,6 +4430,24 @@
   </div>
 </div>
 
+
+<div class="onboard-overlay" id="onboardOverlay">
+  <div class="onboard-card">
+    <div class="onboard-emoji" id="onboardEmoji">🥚</div>
+    <div class="onboard-title" id="onboardTitle">Welcome</div>
+    <div class="onboard-text" id="onboardText"></div>
+    <div class="onboard-dots" id="onboardDots"></div>
+    <div class="onboard-actions">
+      <button class="btn small" id="onboardSkip" style="background:#B8A898;box-shadow:0 3px 0 #8B6F5E;">SKIP</button>
+      <button class="btn small" id="onboardNext">NEXT</button>
+    </div>
+  </div>
+</div>
+
+<div class="mochi-float" id="mochiFloat" title="Jump back to Mochi">
+  <span class="mochi-float-pet" id="mochiFloatPet">🥚</span>
+  <span class="mochi-float-label">MOCHI</span>
+</div>
 <div class="toast" id="toast"></div>
 
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
@@ -4501,6 +4740,14 @@ const SHOP_ITEMS = [
   { id: 'ing_cheese',   emoji: '🧀', name: 'CHEESE',    desc: 'Ingredient → goes in the fridge', cost: 12, ingredient: true, scope: 'global' },
   { id: 'ing_apple',    emoji: '🍎', name: 'APPLE',     desc: 'Ingredient → goes in the fridge', cost: 7,  ingredient: true, scope: 'global' },
 
+
+  { id: 'color_mint',     emoji: '🟢', name: 'MINT SCALES',     desc: 'Classic green scale color', cost: 40,  colorVariant: 'mint', scope: 'global' },
+  { id: 'color_blush',    emoji: '🩷', name: 'BLUSH SCALES',    desc: 'Soft pink scale tint', cost: 60,  colorVariant: 'blush', scope: 'global' },
+  { id: 'color_sky',      emoji: '🔵', name: 'SKY SCALES',      desc: 'Cool blue scale tint', cost: 60,  colorVariant: 'sky', scope: 'global' },
+  { id: 'color_gold',     emoji: '🟡', name: 'GOLD SCALES',     desc: 'Warm golden scale tint', cost: 80,  colorVariant: 'gold', scope: 'global' },
+  { id: 'color_lavender', emoji: '💜', name: 'LAVENDER SCALES', desc: 'Mystic purple scale tint', cost: 90,  colorVariant: 'lavender', scope: 'global' },
+  { id: 'color_coral',    emoji: '🧡', name: 'CORAL SCALES',    desc: 'Warm coral scale tint', cost: 70,  colorVariant: 'coral', scope: 'global' },
+
   { id: 'decoration', emoji: '🎀', name: 'BOW DECOR',         desc: 'Pink bow worn by Mochi (+5% XP)',             cost: 100, consumable: false, scope: 'global' },
   { id: 'lucky',      emoji: '🍀', name: 'LUCKY CHARM',       desc: 'Floating clover (+1 coin/action)',            cost: 150, consumable: false, scope: 'global' },
   { id: 'xpboost',    emoji: '⭐', name: 'STAR SHARD',        desc: 'Sparkle star above Mochi (+15% XP)',          cost: 200, consumable: false, scope: 'global' },
@@ -4574,6 +4821,11 @@ const ACHIEVEMENTS = [
   { id: 'observatory_unlock', emoji: '🔭', name: 'STARGAZER', desc: 'Unlock the Observatory',              check: (d) => (d.level || 0) >= 30 },
   { id: 'minigame_10',   emoji: '🫧', name: 'BUBBLE MASTER',    desc: 'Score 10+ in Bubble Pop',            check: (d) => (d.stats?.bestMinigame || 0) >= 10 },
   { id: 'minigame_25',   emoji: '🏅', name: 'BUBBLE LEGEND',    desc: 'Score 25+ in Bubble Pop',            check: (d) => (d.stats?.bestMinigame || 0) >= 25 },
+
+  { id: 'bond_50',       emoji: '💞', name: 'CLOSE BOND',       desc: 'Reach bond level 50',              check: (d) => (d.bond || 0) >= 50 },
+  { id: 'bond_100',      emoji: '💗', name: 'SOULMATES',        desc: 'Reach bond level 100',             check: (d) => (d.bond || 0) >= 100 },
+  { id: 'quests_7',      emoji: '📋', name: 'QUEST KEEPER',     desc: 'Complete 7 daily quest sets',      check: (d) => (d.stats?.questDays || 0) >= 7 },
+  { id: 'color_first',   emoji: '🎨', name: 'STYLE ICON',       desc: 'Unlock a scale color',             check: (d) => Object.keys(d.unlockedColors || {}).length >= 1 },
   { id: 'daily_7',       emoji: '🎁', name: 'GIFT COLLECTOR',   desc: 'Claim 7 daily gifts in a row',       check: (d) => (d.dailyReward?.day || 0) >= 7 }
 ];
 
@@ -4924,6 +5176,7 @@ $('loginBtn').addEventListener('click', () => {
   startAutoCleanLoop();
   startMoodParticleLoop();
   startWanderLoop();
+  setTimeout(() => startOnboarding(), 600);
 });
 
 /* ============================================================
@@ -5100,6 +5353,12 @@ function processUpdate(snap) {
   renderPetAccessories();
   renderRoomDecorations();
   renderRoomItems();
+  ensureBondAndQuests(gameData);
+  renderBond();
+  renderQuests();
+  renderRoomChips();
+  renderPetColor();
+  if (document.getElementById('wardrobePanel')?.classList.contains('open')) renderWardrobe();
   if (currentView === 'shop') { renderCache.shopHash = ''; renderShop(); }
 
   if (!hasShownWelcome && myLastSeen > 0 && Date.now() - myLastSeen > 5 * 60 * 1000) {
@@ -8087,6 +8346,8 @@ function sendNote() {
   $('noteInput').value = '';
   sfxGood();
   showToast('Note pinned! 💌');
+  progressQuest('note');
+  addBond(1);
 }
 
 /* ============================================================
@@ -8198,10 +8459,12 @@ function renderShop() {
   }
 
   visible.forEach(item => {
-    const owned = !item.consumable && !item.ingredient && inv[item.id];
+    const owned = !item.consumable && !item.ingredient && !item.colorVariant && inv[item.id];
+    const colorOwned = item.colorVariant && (gameData.unlockedColors || {})[item.colorVariant];
+    const isOwned = owned || colorOwned;
     const canAfford = coins >= item.cost;
     const placed = item.consumable ? (placedCounts[item.id] || 0) : 0;
-    const disabled = !canAfford || owned || (item.consumable && roomFull);
+    const disabled = !canAfford || isOwned || (item.consumable && roomFull);
 
     let roomTag = '';
     if (item.ingredient) {
@@ -8214,16 +8477,16 @@ function renderShop() {
     }
 
     const card = document.createElement('div');
-    card.className = 'shop-card' + (owned ? ' owned' : '');
+    card.className = 'shop-card' + (isOwned ? ' owned' : '');
     card.innerHTML = `
       <div class="shop-emoji">${item.emoji}</div>
       ${roomTag}
       <div class="shop-name">${item.name}</div>
       <div class="shop-desc">${item.desc}</div>
-      ${owned ? '<div class="owned-tag">IN USE</div>' : ''}
+      ${isOwned ? '<div class="owned-tag">OWNED</div>' : ''}
       ${placed > 0 ? '<div class="place-count">' + placed + ' IN ROOM</div>' : ''}
       <button class="shop-buy" data-id="${item.id}" ${disabled ? 'disabled' : ''}>
-        ${owned ? '✓ OWNED' : '🪙 ' + item.cost}
+        ${isOwned ? '✓ OWNED' : '🪙 ' + item.cost}
       </button>
     `;
     grid.appendChild(card);
@@ -8253,6 +8516,25 @@ function buyItem(id) {
     renderCache.shopHash = '';
     renderShop();
     if (currentRoomId === 'kitchen') renderFridgeContents();
+    return;
+  }
+
+  if (item.colorVariant) {
+    const unlocked = { ...(gameData.unlockedColors || { mint: true }) };
+    if (unlocked[item.colorVariant]) return showToast('Already unlocked! Open wardrobe to equip 🎨');
+    unlocked[item.colorVariant] = true;
+    db.ref('tamagotchi').update({
+      coins: coins - item.cost,
+      unlockedColors: unlocked,
+      petColor: item.colorVariant,
+      lastUpdate: Date.now()
+    });
+    showToast(item.emoji + ' ' + item.name + ' unlocked!');
+    sfxGood();
+    spawnConfetti(8);
+    renderCache.shopHash = '';
+    renderShop();
+    renderPetColor();
     return;
   }
 
@@ -9107,6 +9389,7 @@ function endMinigame() {
     db.ref('tamagotchi/' + key).set(entry);
   }
 
+  progressQuest('minigame');
   sfxGood();
   if (score >= 10) spawnConfetti(20);
 }
@@ -9307,6 +9590,9 @@ function applyActionEffects(name, addPoop) {
 
   db.ref('tamagotchi').update(updates);
 
+  progressQuest(name);
+  maybeBoostBondFromAction();
+
   if (fulfilledWant) {
     setTimeout(() => showToast('⭐ Want fulfilled! +' + xpEarned + ' XP +' + COIN_PER_WANT + ' 🪙'), 700);
     sfxGood();
@@ -9398,6 +9684,419 @@ function startPresenceHeartbeat() {
   presenceIntervalId = setInterval(beat, 45 * 1000);
 }
 
+
+/* ============================================================
+   IMPROVEMENTS: bond, quests, onboarding, colors, room chips
+   ============================================================ */
+const COLOR_VARIANTS = [
+  { id: 'mint',     emoji: '🟢', name: 'Mint',     cost: 0,  unlockedByDefault: true },
+  { id: 'blush',    emoji: '🩷', name: 'Blush',    shopId: 'color_blush' },
+  { id: 'sky',      emoji: '🔵', name: 'Sky',      shopId: 'color_sky' },
+  { id: 'gold',     emoji: '🟡', name: 'Gold',     shopId: 'color_gold' },
+  { id: 'lavender', emoji: '💜', name: 'Lavender', shopId: 'color_lavender' },
+  { id: 'coral',    emoji: '🧡', name: 'Coral',    shopId: 'color_coral' }
+];
+
+const DAILY_QUEST_POOL = [
+  { id: 'feed',     text: 'Feed Mochi',           action: 'feed',     target: 1, reward: '🪙 8' },
+  { id: 'pet',      text: 'Pet Mochi',            action: 'pet',      target: 2, reward: '🪙 6' },
+  { id: 'bath',     text: 'Give Mochi a bath',    action: 'bath',     target: 1, reward: '🪙 8' },
+  { id: 'play',     text: 'Play with Mochi',      action: 'play',     target: 1, reward: '🪙 10' },
+  { id: 'sleep',    text: 'Tuck Mochi in',        action: 'sleep',    target: 1, reward: '🪙 8' },
+  { id: 'note',     text: 'Leave a love note',    action: 'note',     target: 1, reward: '🪙 12' },
+  { id: 'minigame', text: 'Play Bubble Pop',      action: 'minigame', target: 1, reward: '🪙 15' },
+  { id: 'clean',    text: 'Clean up after Mochi', action: 'clean',    target: 1, reward: '🪙 8' },
+  { id: 'sing',     text: 'Sing with Mochi',      action: 'sing',     target: 1, reward: '🪙 10' }
+];
+
+const ONBOARD_STEPS = [
+  { emoji: '🥚', title: 'MEET MOCHI', text: 'This is Mochi\'s room — a tiny life you and your partner care for together. Stats drop over time, so check in often!' },
+  { emoji: '🍚', title: 'CARE ACTIONS', text: 'Use FEED, SLEEP, BATH, PET, CLEAN and PLAY to keep Mochi happy. Special dragon moves are under the button below.' },
+  { emoji: '🚪', title: 'ROOMS & SHOP', text: 'Swipe the room chips or open ROOMS to visit new spaces. Earn coins from care and buy treats, outfits, and furniture in the SHOP.' },
+  { emoji: '💌', title: 'NOTES & BOND', text: 'Leave love notes for each other. When you both care close together, your BOND grows — unlock achievements and special moments!' },
+  { emoji: '✨', title: 'YOU\'RE READY', text: 'Claim daily gifts, complete quests, dress Mochi up, and watch them evolve. Have fun caring for Mochi together 🌿' }
+];
+
+const HINTS = [
+  'Tip: Tap furniture in the room — Mochi will walk over and interact!',
+  'Tip: Fulfill Mochi\'s want bubble for bonus XP and coins ⭐',
+  'Tip: Drag furniture to rearrange the room layout',
+  'Tip: Open the fridge in the kitchen to cook recipes 🍳',
+  'Tip: Complete daily quests for extra coins',
+  'Tip: Unlock scale colors and outfits in the shop',
+  'Tip: Both of you caring within 10 minutes boosts BOND 💞'
+];
+
+function ensureBondAndQuests(data) {
+  if (!data) return;
+  const today = new Date().toISOString().slice(0, 10);
+  const updates = {};
+  if (data.bond == null) updates.bond = 0;
+  if (!data.unlockedColors) updates.unlockedColors = { mint: true };
+  if (!data.petColor) updates.petColor = 'mint';
+  if (!data.dailyQuests || data.dailyQuests.date !== today) {
+    const shuffled = [...DAILY_QUEST_POOL].sort(() => Math.random() - 0.5).slice(0, 3);
+    updates.dailyQuests = {
+      date: today,
+      items: shuffled.map(q => ({ id: q.id, text: q.text, action: q.action, target: q.target, progress: 0, reward: q.reward, claimed: false }))
+    };
+  }
+  if (Object.keys(updates).length) {
+    db.ref('tamagotchi').update(updates);
+  }
+}
+
+function renderBond() {
+  if (!gameData) return;
+  const bond = Math.min(100, gameData.bond || 0);
+  const el = $('bondValue');
+  const fill = $('bondFill');
+  const hint = $('bondHint');
+  if (el) el.textContent = bond;
+  if (fill) fill.style.width = bond + '%';
+  if (hint) {
+    if (bond >= 100) hint.textContent = 'Soulmates — maximum bond! 💗';
+    else if (bond >= 50) hint.textContent = 'Close bond — keep caring together';
+    else hint.textContent = 'Care within 10 min of each other to grow bond';
+  }
+}
+
+function renderQuests() {
+  if (!gameData) return;
+  const list = $('questList');
+  if (!list) return;
+  const dq = gameData.dailyQuests;
+  if (!dq || !dq.items) {
+    list.innerHTML = '<div style="font-size:0.75rem;color:#A89080;">Loading quests...</div>';
+    return;
+  }
+  list.innerHTML = '';
+  dq.items.forEach((q, idx) => {
+    const done = q.progress >= q.target;
+    const div = document.createElement('div');
+    div.className = 'quest-item' + (done ? ' done' : '');
+    div.innerHTML = `
+      <div class="quest-check">${done ? '✓' : ''}</div>
+      <div style="flex:1;">${q.text} <span style="color:#A89080;font-size:0.7rem;">(${Math.min(q.progress, q.target)}/${q.target})</span></div>
+      <div class="quest-reward">${q.reward}${done && !q.claimed ? ' · TAP' : ''}</div>
+    `;
+    if (done && !q.claimed) {
+      div.style.cursor = 'pointer';
+      div.addEventListener('click', () => claimQuest(idx));
+    }
+    list.appendChild(div);
+  });
+}
+
+function claimQuest(idx) {
+  if (!gameData || !gameData.dailyQuests) return;
+  const items = [...gameData.dailyQuests.items];
+  const q = items[idx];
+  if (!q || q.progress < q.target || q.claimed) return;
+  q.claimed = true;
+  const coins = parseInt(String(q.reward).replace(/[^0-9]/g, ''), 10) || 8;
+  const allDone = items.every(i => i.claimed);
+  const updates = {
+    coins: (gameData.coins || 0) + coins,
+    ['dailyQuests/items']: items,
+    lastUpdate: Date.now()
+  };
+  if (allDone) {
+    updates['stats/questDays'] = (gameData.stats?.questDays || 0) + 1;
+    updates.coins = (updates.coins || 0) + 15;
+    updates.xp = (gameData.xp || 0) + 8;
+  }
+  db.ref('tamagotchi').update(updates);
+  sfxGood();
+  showToast(allDone ? '📋 All quests done! +' + (coins + 15) + ' 🪙' : '📋 Quest complete! +' + coins + ' 🪙');
+}
+
+function progressQuest(actionName) {
+  if (!gameData || !gameData.dailyQuests || !gameData.dailyQuests.items) return;
+  const items = gameData.dailyQuests.items;
+  let changed = false;
+  const next = items.map(q => {
+    if (q.action === actionName && q.progress < q.target && !q.claimed) {
+      changed = true;
+      return { ...q, progress: q.progress + 1 };
+    }
+    return q;
+  });
+  if (changed) {
+    db.ref('tamagotchi/dailyQuests/items').set(next);
+  }
+}
+
+function addBond(amount) {
+  if (!gameData) return;
+  const bond = Math.min(100, (gameData.bond || 0) + amount);
+  db.ref('tamagotchi').update({ bond, lastUpdate: Date.now() });
+}
+
+function maybeBoostBondFromAction() {
+  if (!gameData) return;
+  const other = me === 'koy' ? 'metz' : 'koy';
+  const otherLast = gameData.lastActions?.[other] || 0;
+  if (Date.now() - otherLast < 10 * 60 * 1000) {
+    addBond(2);
+  }
+}
+
+function renderRoomChips() {
+  const container = $('roomChips');
+  if (!container || !gameData) return;
+  const level = gameData.level || 1;
+  const hash = level + '|' + currentRoomId;
+  if (renderCache.roomChipsHash === hash) return;
+  renderCache.roomChipsHash = hash;
+  container.innerHTML = '';
+  ROOMS.forEach(room => {
+    const unlocked = level >= room.reqLevel;
+    const chip = document.createElement('div');
+    chip.className = 'room-chip' + (room.id === currentRoomId ? ' active' : '') + (!unlocked ? ' locked' : '');
+    chip.textContent = room.emoji + ' ' + room.name;
+    if (unlocked && room.id !== currentRoomId) {
+      chip.addEventListener('click', async () => {
+        sfxClick();
+        if (isAnimating) return showToast('Let Mochi finish 🌿');
+        await moveMochiToRoom(room.id, { noToast: true });
+        showToast('Mochi walked to the ' + room.name.toLowerCase() + '! ' + room.emoji);
+      });
+    } else if (!unlocked) {
+      chip.addEventListener('click', () => showToast('Unlock at Lv ' + room.reqLevel));
+    }
+    container.appendChild(chip);
+  });
+}
+
+function renderPetColor() {
+  const pet = $('pet');
+  if (!pet || !gameData) return;
+  const color = gameData.petColor || 'mint';
+  pet.setAttribute('data-color', color);
+}
+
+function renderWardrobe() {
+  if (!gameData) return;
+  const grid = $('wardrobeGrid');
+  const swatches = $('colorSwatches');
+  if (!grid || !swatches) return;
+  const inv = gameData.inventory || {};
+  const equipped = gameData.equippedClothes || null;
+  grid.innerHTML = '';
+  // unequip option
+  const none = document.createElement('div');
+  none.className = 'wardrobe-item' + (!equipped ? ' equipped' : '');
+  none.innerHTML = '<div>∅</div><div class="w-name">NONE</div>';
+  none.addEventListener('click', () => {
+    db.ref('tamagotchi').update({ equippedClothes: null, lastUpdate: Date.now() });
+    showToast('Outfit removed');
+    sfxClick();
+  });
+  grid.appendChild(none);
+  CLOTHES_DEFS.forEach(def => {
+    if (!inv[def.id]) return;
+    const el = document.createElement('div');
+    el.className = 'wardrobe-item' + (equipped === def.id ? ' equipped' : '');
+    el.innerHTML = `<div>${def.emoji}</div><div class="w-name">${def.name}</div>`;
+    el.addEventListener('click', () => {
+      db.ref('tamagotchi').update({ equippedClothes: def.id, lastUpdate: Date.now() });
+      showToast(def.emoji + ' Wearing ' + def.name);
+      sfxGood();
+    });
+    grid.appendChild(el);
+  });
+
+  const unlocked = gameData.unlockedColors || { mint: true };
+  const current = gameData.petColor || 'mint';
+  swatches.innerHTML = '';
+  COLOR_VARIANTS.forEach(c => {
+    const isUnlocked = unlocked[c.id] || c.unlockedByDefault;
+    const sw = document.createElement('div');
+    sw.className = 'color-swatch' + (current === c.id ? ' active' : '');
+    sw.title = c.name + (isUnlocked ? '' : ' (locked)');
+    const colors = {
+      mint: '#7ECF9A', blush: '#E8A0B8', sky: '#70C0D0',
+      gold: '#F0D878', lavender: '#B8A0E0', coral: '#E89070'
+    };
+    sw.style.background = colors[c.id] || '#7ECF9A';
+    if (!isUnlocked) {
+      sw.style.opacity = '0.35';
+      sw.style.cursor = 'not-allowed';
+      sw.addEventListener('click', () => showToast('Buy ' + c.name + ' scales in the shop 🎨'));
+    } else {
+      sw.addEventListener('click', () => {
+        db.ref('tamagotchi').update({ petColor: c.id, lastUpdate: Date.now() });
+        showToast('🎨 ' + c.name + ' scales!');
+        sfxClick();
+      });
+    }
+    swatches.appendChild(sw);
+  });
+}
+
+function showHint() {
+  const bar = $('hintBar');
+  const text = $('hintText');
+  if (!bar || !text) return;
+  if (localStorage.getItem('mochi_hints_dismissed') === '1') return;
+  const idx = Math.floor(Math.random() * HINTS.length);
+  text.textContent = HINTS[idx];
+  bar.classList.add('visible');
+}
+
+function startOnboarding() {
+  if (localStorage.getItem('mochi_onboarded') === '1') return;
+  let step = 0;
+  const overlay = $('onboardOverlay');
+  if (!overlay) return;
+  const render = () => {
+    const s = ONBOARD_STEPS[step];
+    $('onboardEmoji').textContent = s.emoji;
+    $('onboardTitle').textContent = s.title;
+    $('onboardText').textContent = s.text;
+    const dots = $('onboardDots');
+    dots.innerHTML = '';
+    ONBOARD_STEPS.forEach((_, i) => {
+      const d = document.createElement('div');
+      d.className = 'onboard-dot' + (i === step ? ' active' : '');
+      dots.appendChild(d);
+    });
+    $('onboardNext').textContent = step === ONBOARD_STEPS.length - 1 ? 'START!' : 'NEXT';
+  };
+  render();
+  overlay.classList.add('active');
+  const finish = () => {
+    overlay.classList.remove('active');
+    localStorage.setItem('mochi_onboarded', '1');
+    showHint();
+  };
+  $('onboardNext').onclick = () => {
+    sfxClick();
+    if (step >= ONBOARD_STEPS.length - 1) finish();
+    else { step++; render(); }
+  };
+  $('onboardSkip').onclick = () => { sfxClick(); finish(); };
+}
+
+// UI bindings for new controls
+(function bindImprovementUI() {
+  const moreBtn = $('actionsMoreBtn');
+  if (moreBtn) {
+    moreBtn.addEventListener('click', () => {
+      const panel = $('dragonActions');
+      if (!panel) return;
+      const open = !panel.classList.contains('collapsed');
+      panel.classList.toggle('collapsed', open);
+      moreBtn.textContent = open ? '▼ DRAGON MOVES & MINI-GAME' : '▲ HIDE DRAGON MOVES';
+      sfxClick();
+    });
+  }
+  const wt = $('wardrobeToggle');
+  if (wt) {
+    wt.addEventListener('click', () => {
+      const p = $('wardrobePanel');
+      if (!p) return;
+      p.classList.toggle('open');
+      sfxClick();
+      if (p.classList.contains('open')) renderWardrobe();
+    });
+  }
+  const hc = $('hintClose');
+  if (hc) {
+    hc.addEventListener('click', () => {
+      $('hintBar')?.classList.remove('visible');
+      localStorage.setItem('mochi_hints_dismissed', '1');
+    });
+  }
+})();
+
+
+
+/* ============================================================
+   STICKY MOCHI ROOM + FLOATING PEEK
+   ============================================================ */
+(function setupStickyMochi() {
+  let stuck = false;
+  let floatVisible = false;
+
+  function updateStickyMochi() {
+    const room = document.getElementById('room');
+    const floatEl = document.getElementById('mochiFloat');
+    const home = document.getElementById('view-home');
+    if (!room || !home) return;
+
+    const onHome = home.classList.contains('active');
+    if (!onHome) {
+      room.classList.remove('is-stuck');
+      if (floatEl) floatEl.classList.remove('visible');
+      stuck = false;
+      floatVisible = false;
+      return;
+    }
+
+    // How far the room's natural top is from the viewport top
+    // Use a sentinel: when user has scrolled so room would leave viewport, sticky engages
+    const rect = room.getBoundingClientRect();
+    // Room is sticky at top:0 — once its top hits 0 (or near), mark stuck for compact mode
+    const shouldStuck = rect.top <= 2 && window.scrollY > 40;
+    if (shouldStuck !== stuck) {
+      stuck = shouldStuck;
+      room.classList.toggle('is-stuck', stuck);
+    }
+
+    // Floating peek when scrolled well past the sticky room height
+    const shouldFloat = window.scrollY > (stuck ? 220 : 360);
+    if (shouldFloat !== floatVisible) {
+      floatVisible = shouldFloat;
+      if (floatEl) floatEl.classList.toggle('visible', floatVisible);
+    }
+
+    // Sync float emoji with stage
+    if (floatEl && typeof currentStage === 'function' && gameData) {
+      try {
+        const st = currentStage();
+        const petEl = document.getElementById('mochiFloatPet');
+        if (petEl && st) petEl.textContent = st.emoji || '🥚';
+      } catch (e) {}
+    }
+  }
+
+  let ticking = false;
+  function onScroll() {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(() => {
+      updateStickyMochi();
+      ticking = false;
+    });
+  }
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll, { passive: true });
+
+  document.addEventListener('click', (e) => {
+    const floatEl = document.getElementById('mochiFloat');
+    if (!floatEl || !floatEl.contains(e.target)) return;
+    // Jump back to top / Mochi
+    if (typeof sfxClick === 'function') sfxClick();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    // Ensure home view
+    if (typeof switchView === 'function' && currentView !== 'home') switchView('home');
+  });
+
+  // Re-check when switching views
+  const origSwitch = window.switchView;
+  // Hook after nav tabs already bound — poll on class changes
+  const home = document.getElementById('view-home');
+  if (home) {
+    new MutationObserver(updateStickyMochi).observe(home, { attributes: true, attributeFilter: ['class'] });
+  }
+
+  setInterval(updateStickyMochi, 1200);
+  setTimeout(updateStickyMochi, 400);
+})();
+
 /* ============================================================
    LOGOUT / VISIBILITY
    ============================================================ */
@@ -9433,74 +10132,6 @@ document.addEventListener('visibilitychange', () => {
     art.style.setProperty('--fx', x > last ? -1 : 1);
     last = x;
   }).observe(pet, { attributes: true, attributeFilter: ['style'] });
-})();
-</script>
-<script id="mochi-3d-js">
-(function(){
-  var room=document.getElementById('room'); if(!room||room.querySelector('.stage3d'))return;
-  var stage=document.createElement('div'); stage.className='stage3d'; stage.id='stage3d';
-  room.insertBefore(stage,document.getElementById('roomWall')||room.firstChild);
-  ['l','r'].forEach(function(s){var d=document.createElement('div');d.className='sw3d '+s;stage.appendChild(d);});
-  ['roomWall','roomFloor','roomScene','roomDecorations','roomItems','petArea'].forEach(function(id){
-    var e=document.getElementById(id); if(e)stage.appendChild(e);});
-  room.classList.add('is3d');
-
-  var btn=document.createElement('button'); btn.type='button'; btn.className='room-3d-toggle'; btn.textContent='🧊 3D';
-  btn.addEventListener('pointerdown',function(e){e.stopPropagation();});
-  btn.addEventListener('click',function(e){e.stopPropagation();
-    var on=room.classList.toggle('is3d'); btn.classList.toggle('off',!on);});
-  room.appendChild(btn);
-
-  var tx=0,ty=0,rx=0,ry=0,hover=false,drag=false,lastH=0,wasOn=true;
-  var still=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
-  function setT(e){var r=room.getBoundingClientRect();
-    tx=Math.max(-1,Math.min(1,((e.clientX-r.left)/r.width-.5)*2));
-    ty=Math.max(-1,Math.min(1,((e.clientY-r.top)/r.height-.5)*2));}
-  room.addEventListener('pointermove',function(e){if(e.pointerType==='mouse'){hover=true;setT(e);}else if(drag)setT(e);});
-  room.addEventListener('pointerleave',function(){hover=false;});
-  room.addEventListener('pointerdown',function(e){
-    if(e.pointerType!=='mouse'&&!(e.target.closest&&e.target.closest('.pet,.furniture,.room-item,button'))){drag=true;setT(e);}});
-  ['pointerup','pointercancel'].forEach(function(t){window.addEventListener(t,function(){drag=false;});});
-  /* let the game measure true 2D positions when a piece of furniture is grabbed */
-  document.addEventListener('pointerdown',function(e){
-    var f=e.target.closest&&e.target.closest('#roomScene .furniture');
-    if(f){f.style.translate='none';rx=ry=0;stage.style.setProperty('--rx',0);stage.style.setProperty('--ry',0);}
-  },true);
-
-  var SEL='#petArea .pet,#petArea .pet-shadow,#roomScene .furniture,#roomItems .room-item,#roomDecorations .room-deco';
-  function frame(now){
-    var on=room.classList.contains('is3d');
-    if(on){
-      var H=room.clientHeight;
-      if(H!==lastH){lastH=H;var FL=H*.42;
-        room.style.setProperty('--fl',FL+'px');room.style.setProperty('--fll',(FL*1.4142)+'px');
-        room.style.setProperty('--ws',(1400+FL)/1400);room.style.setProperty('--oy',(H*.4)+'px');}
-      var FLp=H*.42;
-      var mg=document.getElementById('minigameArea');
-      var freeze=document.querySelector('#roomScene .furniture.dragging')||(mg&&mg.classList.contains('active'));
-      var gx=0,gy=0;
-      if(!freeze){ if(hover||drag){gx=tx;gy=ty;} else if(!still){gx=Math.sin(now/2600)*.35;gy=Math.sin(now/3700)*.25;} }
-      ry+=(gx*11-ry)*.08; rx+=(-gy*4-rx)*.08;
-      stage.style.setProperty('--ry',ry.toFixed(2)); stage.style.setProperty('--rx',rx.toFixed(2));
-      var els=document.querySelectorAll(SEL);
-      for(var i=0;i<els.length;i++){var el=els[i];
-        if(el.classList.contains('dragging')){el.style.translate='none';continue;}
-        var p=el.offsetParent,ph=p?p.clientHeight:H;
-        var b=ph-(el.offsetTop+el.offsetHeight);
-        var isS=el.classList.contains('pet-shadow'),isP=el.classList.contains('pet');
-        var wall=!isS&&!isP&&b>=FLp*.9;
-        el.classList.toggle('on-wall',wall);
-        var z=wall?(-FLp+4):-Math.max(0,Math.min(b,FLp)); if(isS)z+=2;
-        el.style.translate='0 0 '+z.toFixed(1)+'px';
-      }
-      wasOn=true;
-    }else if(wasOn){
-      document.querySelectorAll(SEL).forEach(function(el){el.style.translate='';});
-      wasOn=false;
-    }
-    requestAnimationFrame(frame);
-  }
-  requestAnimationFrame(frame);
 })();
 </script>
 </body>
