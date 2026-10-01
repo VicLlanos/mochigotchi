@@ -979,9 +979,9 @@
   /* ---- Eternal ---- */
   .pet[data-stage="eternal"] {
     width: 116px; height: 126px;
-    --pet-color: #3A2028; --pet-color-dark: #1A1014; --pet-outline: #0A0608;
-    --pet-belly: #2A181C; --pet-horn: #5A3038; --pet-wing: #2A181C;
-    filter: brightness(0.65) saturate(0.4) contrast(1.15);
+    --pet-color: #7A6A70; --pet-color-dark: #4A3A40; --pet-outline: #2A1A20;
+    --pet-belly: #4A3A40; --pet-horn: #8B7080; --pet-wing: #5A4A50;
+    filter: grayscale(0.45) brightness(0.8) saturate(0.7);
   }
   .pet[data-stage="eternal"] .pet-body { bottom: 42px; width: 66px; height: 62px; }
   .pet[data-stage="eternal"] .pet-torso { width: 64px; height: 52px; bottom: 11px; }
@@ -3451,10 +3451,10 @@
   .pet[data-stage="mystic"] .pet-dragon .dg-cr  { fill: #F4F0FC; }
   .pet[data-stage="mystic"] .pet-dragon .dg-o   { stroke: #3A2858; }
 
-  .pet[data-stage="eternal"] .pet-dragon .dg-red { fill: #3A2028; }
-  .pet[data-stage="eternal"] .pet-dragon .dg-dk  { fill: #1A1014; }
-  .pet[data-stage="eternal"] .pet-dragon .dg-cr  { fill: #4A2830; }
-  .pet[data-stage="eternal"] .pet-dragon .dg-o   { stroke: #0A0608; }
+  .pet[data-stage="eternal"] .pet-dragon .dg-red { fill: #F0D878; }
+  .pet[data-stage="eternal"] .pet-dragon .dg-dk  { fill: #D4AF37; }
+  .pet[data-stage="eternal"] .pet-dragon .dg-cr  { fill: #FFFBF0; }
+  .pet[data-stage="eternal"] .pet-dragon .dg-o   { stroke: #6B5A20; }
 
   /* hide old boxy parts — keep anchors for outfits */
   .pet:not([data-stage="egg"]) .pet-body,
@@ -3515,112 +3515,6 @@
   .pet.sleeping .pet-dragon .dg-wl, .pet.sleeping .pet-dragon .dg-wr, .pet.sleeping .pet-dragon .dg-tail { animation-play-state: paused; }
   .pet.sad .pet-dragon .dg-eye, .pet.sick .pet-dragon .dg-eye, .pet.grumpy .pet-dragon .dg-eye { transform: scaleY(0.75); animation: none; }
   .pet.sad .pet-dragon .dg-mouth, .pet.sick .pet-dragon .dg-mouth { transform: scaleY(0.5); }
-
-  /* Horrendous depressed monster face */
-  .pet.sad .pet-dragon,
-  .pet[data-stage="eternal"] .pet-dragon {
-    filter: brightness(0.7) saturate(0.35) contrast(1.2);
-  }
-  .pet.sad .pet-dragon .dg-eye ellipse[fill="#fff"],
-  .pet[data-stage="eternal"] .pet-dragon .dg-eye ellipse[fill="#fff"] {
-    fill: #1a0808 !important;
-  }
-  .pet.sad .pet-dragon .dg-pupil ellipse:first-child,
-  .pet[data-stage="eternal"] .pet-dragon .dg-pupil ellipse:first-child {
-    fill: #8B1010 !important;
-  }
-  .pet.sad .pet-dragon .dg-pupil ellipse:nth-child(2),
-  .pet[data-stage="eternal"] .pet-dragon .dg-pupil ellipse:nth-child(2) {
-    fill: #C9302C !important;
-  }
-  .pet.sad .pet-dragon .dg-pupil circle,
-  .pet[data-stage="eternal"] .pet-dragon .dg-pupil circle {
-    fill: #ff6666 !important;
-    opacity: 0.9;
-  }
-  .pet.sad .pet-dragon .dg-eye {
-    transform: scaleY(0.55) !important;
-    animation: none !important;
-  }
-  .pet.sad .pet-dragon path[fill="#ff9fb5"],
-  .pet[data-stage="eternal"] .pet-dragon path[fill="#ff9fb5"],
-  .pet.sad .pet-dragon ellipse[fill="#ff9fb5"],
-  .pet[data-stage="eternal"] .pet-dragon ellipse[fill="#ff9fb5"] {
-    fill: #3A1520 !important;
-    opacity: 0.4 !important;
-  }
-  /* Tear drops under eyes */
-  .pet.sad::after {
-    content: '💧';
-    position: absolute;
-    left: 28%;
-    top: 18%;
-    font-size: 0.7rem;
-    animation: tearDrop 2.2s ease-in-out infinite;
-    pointer-events: none;
-    z-index: 30;
-    filter: drop-shadow(0 1px 1px rgba(0,0,0,0.4));
-  }
-  .pet.sad::before {
-    content: '💧';
-    position: absolute;
-    right: 28%;
-    top: 20%;
-    font-size: 0.55rem;
-    animation: tearDrop 2.2s ease-in-out infinite 0.6s;
-    pointer-events: none;
-    z-index: 30;
-  }
-  @keyframes tearDrop {
-    0% { opacity: 0; transform: translateY(0); }
-    30% { opacity: 1; }
-    100% { opacity: 0; transform: translateY(18px); }
-  }
-  /* Thought cloud bubble */
-  .thought-cloud {
-    position: absolute;
-    left: 50%;
-    bottom: 105%;
-    transform: translateX(-50%);
-    background: #1A1014;
-    border: 3px solid #5A3038;
-    color: #C8A0A8;
-    font-family: 'Press Start 2P', monospace;
-    font-size: 0.38rem;
-    line-height: 1.45;
-    padding: 8px 10px;
-    border-radius: 8px;
-    max-width: 160px;
-    text-align: center;
-    z-index: 40;
-    pointer-events: none;
-    box-shadow: 0 4px 0 #2A1014, 0 0 20px rgba(80,20,30,0.4);
-    animation: thoughtIn 0.4s ease-out;
-  }
-  .thought-cloud::after {
-    content: '';
-    position: absolute;
-    bottom: -10px;
-    left: 40%;
-    width: 12px; height: 12px;
-    background: #1A1014;
-    border-right: 3px solid #5A3038;
-    border-bottom: 3px solid #5A3038;
-    transform: rotate(45deg);
-  }
-  .thought-cloud .thought-dots {
-    position: absolute;
-    bottom: -22px;
-    left: 28%;
-    font-size: 0.5rem;
-    letter-spacing: 2px;
-    color: #5A3038;
-  }
-  @keyframes thoughtIn {
-    0% { opacity: 0; transform: translateX(-50%) translateY(8px) scale(0.9); }
-    100% { opacity: 1; transform: translateX(-50%) translateY(0) scale(1); }
-  }
-
   .pet.eating .pet-dragon .dg-mouth { animation: dgChew 0.28s steps(1) infinite; }
   .pet.roaring .pet-dragon .dg-mouth, .pet.happy .pet-dragon .dg-mouth, .pet.ecstatic .pet-dragon .dg-mouth { transform: scale(1.12); }
   .pet.flying .pet-dragon .dg-wl, .pet.flying .pet-dragon .dg-wr { animation-duration: 0.35s; }
@@ -4060,27 +3954,9 @@
   /* Cloud nest / star cove ambient */
   .room.cloudnest .room-wall { background: linear-gradient(180deg, #D8E8F8 0%, #F0F4FA 100%) !important; }
   .room.starcove .room-wall {
-    background: linear-gradient(180deg, #0a0810 0%, #12101a 50%, #0a0810 100%) !important;
+    background: linear-gradient(180deg, #1a1a3a 0%, #2a2050 50%, #1a1530 100%) !important;
   }
-  .room.starcove .room-floor { background: linear-gradient(180deg, #120e18 0%, #0a0810 100%) !important; }
-
-  /* Morbid dungeon room skins */
-  .room.bedroom .room-wall, .room.bathroom .room-wall, .room.kitchen .room-wall,
-  .room.garden .room-wall, .room.forest .room-wall, .room.playroom .room-wall,
-  .room.farm .room-wall, .room.observatory .room-wall, .room.cloudnest .room-wall {
-    background: linear-gradient(180deg, #1a1210 0%, #2a1814 50%, #1a1010 100%) !important;
-  }
-  .room.bedroom .room-floor, .room.bathroom .room-floor, .room.kitchen .room-floor,
-  .room.garden .room-floor, .room.forest .room-floor, .room.playroom .room-floor,
-  .room.farm .room-floor, .room.observatory .room-floor, .room.cloudnest .room-floor {
-    background: linear-gradient(180deg, #2a1a18 0%, #1a100e 100%) !important;
-  }
-  .room.starcove .room-wall {
-    background: linear-gradient(180deg, #0a0810 0%, #1a1020 50%, #0a0810 100%) !important;
-  }
-  .room.starcove .room-floor { background: linear-gradient(180deg, #120e18 0%, #0a0810 100%) !important; }
-  .room.room-night-tint::before { background: rgba(10, 8, 20, 0.55) !important; opacity: 1 !important; }
-
+  .room.starcove .room-floor { background: linear-gradient(180deg, #2a2050 0%, #1a1530 100%) !important; }
   .room.starcove { color: #E8E0F0; }
 
 
@@ -4250,6 +4126,46 @@
   .dragon-actions.collapsed { display: none; }
 
 
+
+/* ===== MORBID LAYER ===== */
+body{background:linear-gradient(180deg,#050304,#0d0709 45%,#1a0c10)!important}
+#room{filter:grayscale(.65) brightness(.62) contrast(1.1)}
+#room::after{content:"";position:absolute;inset:0;pointer-events:none;z-index:30;background:radial-gradient(ellipse at 50% 60%,transparent 25%,rgba(0,0,0,.85) 100%);animation:moFlick 5s infinite}
+@keyframes moFlick{0%,100%{opacity:.9}48%{opacity:1}50%{opacity:.7}52%{opacity:1}}
+.pet .pet-dragon .dg-red{fill:#2c1b3a!important}
+.pet .pet-dragon .dg-dk{fill:#150c20!important}
+.pet .pet-dragon .dg-cr{fill:#6b5560!important}
+.pet .pet-dragon .dg-o{stroke:#050207!important;stroke-width:6!important}
+.pet[data-stage] .pet-dragon{filter:saturate(.7) drop-shadow(0 0 12px rgba(190,0,40,.6))!important;animation:none!important}
+.pet-dragon .dg-tear{stroke-dasharray:60;animation:moDrip 1.6s ease-in infinite}
+@keyframes moDrip{0%{stroke-dashoffset:60;opacity:0}30%{opacity:.9}100%{stroke-dashoffset:-60;opacity:0}}
+.pet-dragon .dg-drop{transform-box:fill-box;animation:moDrop 1.6s ease-in infinite}
+@keyframes moDrop{0%{transform:translateY(-30px);opacity:0}30%{opacity:1}100%{transform:translateY(60px);opacity:0}}
+.pet.happy,.pet.ecstatic,.pet.hopping,.pet.spinning,.pet.dancing,.pet.singing,.pet.stretching{animation:none!important}
+.pet.happy .pet-dragon .dg-mouth,.pet.ecstatic .pet-dragon .dg-mouth{transform:none!important}
+.pet.happy .pet-dragon .dg-arm-l,.pet.happy .pet-dragon .dg-arm-r{animation:none!important}
+.mo-tear{position:absolute;bottom:62px;width:6px;height:9px;background:#8fd3ff;border-radius:50% 50% 50% 50%/60% 60% 40% 40%;opacity:.9;z-index:20;pointer-events:none;animation:moFall 1.2s ease-in forwards}
+@keyframes moFall{to{transform:translateY(44px);opacity:0}}
+.mo-cloud{position:absolute;top:8px;left:50%;transform:translateX(-50%);z-index:40;pointer-events:none;width:170px;transition:left .8s}
+.mo-cloud-t{position:relative;background:#cfc4d4;color:#2a1a32;font:600 .62rem/1.3 'Fredoka',sans-serif;text-align:center;padding:10px 14px;border-radius:30px;box-shadow:-14px 4px 0 -4px #cfc4d4,14px 6px 0 -4px #cfc4d4,0 -8px 0 -2px #cfc4d4;opacity:.92}
+.mo-cloud i{position:absolute;left:50%;background:#cfc4d4;border-radius:50%;display:block}
+.mo-cloud i:nth-of-type(1){width:12px;height:12px;bottom:-16px;margin-left:-4px}
+.mo-cloud i:nth-of-type(2){width:8px;height:8px;bottom:-26px;margin-left:2px}
+.mo-cloud i:nth-of-type(3){width:5px;height:5px;bottom:-33px;margin-left:6px}
+.mo-cloud.in .mo-cloud-t{animation:moIn .9s ease}
+@keyframes moIn{from{opacity:0;transform:translateY(6px)}to{opacity:.92;transform:none}}
+.mo-visitor{position:absolute;bottom:22px;left:-12%;font-size:2.4rem;z-index:25;transition:left 3s linear;pointer-events:none}
+.mo-visitor.come{left:20%}
+.mo-visitor.go{left:-14%;transition:left 1.6s ease-in}
+.mo-visitor span{filter:brightness(0) opacity(.8)}
+.mo-visitor b{position:absolute;bottom:105%;left:0;white-space:nowrap;font:600 .6rem 'Fredoka',sans-serif;color:#e8dce0;background:rgba(0,0,0,.8);padding:4px 8px;border-radius:8px;opacity:0;transition:opacity .3s}
+.mo-visitor.talk b{opacity:1}
+.mo-cine{position:fixed;inset:0;z-index:9999;background:#000;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:30px;text-align:center;transition:opacity 1.2s}
+.mo-cine.out{opacity:0}
+.mo-cine-s{font:.6rem 'Press Start 2P',monospace;color:#8a1a2a;margin-bottom:22px;letter-spacing:3px}
+.mo-cine-l{font:600 1.15rem/1.6 'Fredoka',sans-serif;color:#d8c8cc;max-width:340px;min-height:80px;transition:opacity .35s}
+.mo-cine-h{position:absolute;bottom:30px;font:.5rem 'Press Start 2P',monospace;color:#4a3038;animation:moBlink 1.6s infinite}
+@keyframes moBlink{50%{opacity:.2}}
 </style>
 </head>
 <body>
@@ -4314,29 +4230,35 @@
             <div class="pet-accessories" id="petAccessories"></div>
             <svg class="pet-dragon" viewBox="70 95 630 560" aria-hidden="true">
   <defs>
-    <g id="dgHorn"><path class="dg-o dg-red" d="M262 235C235 190 245 120 288 98C290 130 305 165 330 190Z"/><path class="dg-dk" d="M270 212C260 175 264 138 285 114C288 146 300 176 318 196Z"/><path class="dg-o dg-cr" d="M318 170C322 152 335 142 342 138C346 150 346 162 340 174Z"/></g>
-    <g id="dgWing"><path class="dg-o dg-red" d="M305 380L195 360C205 380 195 400 175 420C205 415 225 430 235 455C250 435 275 432 305 425Z"/><path class="dg-cr" d="M298 392L218 378Q222 398 200 416Q226 412 236 435Q262 420 298 415Z"/><path d="M298 402L222 384M298 408L206 414M298 412L236 434" stroke="#2f5d4a" stroke-width="3" fill="none" stroke-linecap="round"/></g>
+    <g id="dgHorn"><path class="dg-o dg-dk" d="M288 228C246 180 232 100 258 52C272 98 296 140 336 186Z"/><path class="dg-o dg-dk" d="M268 262C226 250 200 214 196 172C226 196 252 206 290 210Z"/><path d="M262 70C268 110 286 150 318 188" stroke="#5a3a52" stroke-width="4" fill="none"/></g>
+    <g id="dgWing"><path class="dg-o dg-dk" d="M305 388L140 292L166 342L112 376L160 394L130 442L204 428L238 478L278 432L305 436Z"/><path d="M305 388L140 292M305 398L112 376M305 408L130 442M305 418L238 478" stroke="#0a0510" stroke-width="5" fill="none" stroke-linecap="round"/></g>
   </defs>
   <g class="dg-all">
-  <g class="dg-tail"><path class="dg-o dg-red" d="M465 515C520 515 565 560 555 622C542 610 528 600 518 585C500 568 485 560 465 555Z"/><path class="dg-cr" d="M515 545C540 565 548 590 546 608C535 598 525 588 518 575Z"/><path class="dg-o dg-cr" d="M508 520L522 505L530 528ZM540 552L556 540L556 568Z"/></g>
+  <g class="dg-tail"><path class="dg-o dg-red" d="M462 505C545 492 612 540 592 632C570 604 545 590 520 578C500 568 484 560 462 556Z"/><path class="dg-o dg-dk" d="M520 520L528 478L548 524ZM556 545L580 508L586 556Z"/></g>
   <g class="dg-wl"><use href="#dgWing"/></g>
   <g class="dg-wr"><use href="#dgWing" transform="translate(770 0) scale(-1 1)"/></g>
-  <g class="dg-foot-l"><ellipse class="dg-o dg-red" cx="298" cy="562" rx="38" ry="22"/><g class="dg-cr" stroke="#2f5d4a" stroke-width="3"><ellipse cx="282" cy="570" rx="6" ry="8"/><ellipse cx="299" cy="573" rx="6" ry="8"/><ellipse cx="316" cy="569" rx="6" ry="8"/></g></g>
-  <g class="dg-foot-r"><ellipse class="dg-o dg-red" cx="452" cy="565" rx="38" ry="22"/><g class="dg-cr" stroke="#2f5d4a" stroke-width="3"><ellipse cx="438" cy="572" rx="6" ry="8"/><ellipse cx="455" cy="574" rx="6" ry="8"/><ellipse cx="472" cy="570" rx="6" ry="8"/></g></g>
-  <ellipse class="dg-o dg-red" cx="385" cy="470" rx="82" ry="92"/><path d="M322 420C312 440 310 470 316 496" stroke="#fff" stroke-opacity=".35" stroke-width="8" fill="none" stroke-linecap="round"/><path d="M448 430C462 455 462 500 446 535C468 515 474 468 448 430Z" fill="#4fae78" opacity=".55"/><ellipse class="dg-cr" cx="385" cy="488" rx="52" ry="68"/>
-  <path d="M340 445Q385 458 430 445M345 500Q385 512 425 500M352 535Q385 545 418 535" stroke="#e4cf94" stroke-width="3" fill="none" stroke-linecap="round"/>
-  <g class="dg-flame"><path class="dg-o" fill="#ff8a1f" stroke-width="3" d="M378 428C398 445 402 465 393 480C385 490 368 490 362 477C355 462 368 452 372 440C374 448 378 446 378 428Z"/><path fill="#ffd23f" d="M379 455C388 463 388 474 381 480C374 482 369 476 370 469C372 464 377 462 379 455Z"/></g>
-  <g class="dg-arm-l"><g transform="rotate(-18 325 470)"><ellipse class="dg-o dg-red" cx="325" cy="470" rx="26" ry="36"/></g><g class="dg-cr" stroke="#2f5d4a" stroke-width="3"><ellipse cx="318" cy="453" rx="5" ry="8"/><ellipse cx="332" cy="450" rx="5" ry="8"/></g></g>
-  <g class="dg-arm-r"><g transform="rotate(18 445 470)"><ellipse class="dg-o dg-red" cx="445" cy="470" rx="26" ry="36"/></g><g class="dg-cr" stroke="#2f5d4a" stroke-width="3"><ellipse cx="452" cy="453" rx="5" ry="8"/><ellipse cx="438" cy="450" rx="5" ry="8"/></g></g>
+  <g class="dg-foot-l"><ellipse class="dg-o dg-red" cx="298" cy="562" rx="40" ry="22"/><path d="M268 574l-9 24l19-13zM292 580l-3 26l17-15zM318 576l6 24l11-20z" fill="#d9d0bd" stroke="#050207" stroke-width="2"/></g>
+  <g class="dg-foot-r"><ellipse class="dg-o dg-red" cx="452" cy="565" rx="40" ry="22"/><path d="M422 576l-9 24l19-13zM446 582l-3 26l17-15zM472 578l6 24l11-20z" fill="#d9d0bd" stroke="#050207" stroke-width="2"/></g>
+  <ellipse class="dg-o dg-red" cx="385" cy="476" rx="90" ry="98"/>
+  <ellipse class="dg-cr" cx="385" cy="492" rx="54" ry="70"/>
+  <path d="M345 450Q385 464 425 450M350 498Q385 510 420 498M356 536Q385 546 414 536" stroke="#2a1a22" stroke-width="4" fill="none" stroke-linecap="round"/>
+  <path d="M440 430l-22 40M452 440l-20 46" stroke="#7a1428" stroke-width="5" stroke-linecap="round"/>
+  <g class="dg-arm-l"><g transform="rotate(-14 322 478)"><ellipse class="dg-o dg-red" cx="322" cy="478" rx="25" ry="42"/></g><path d="M304 444l-8-20l14 12zM322 438l-2-24l12 20z" fill="#d9d0bd" stroke="#050207" stroke-width="2"/></g>
+  <g class="dg-arm-r"><g transform="rotate(14 448 478)"><ellipse class="dg-o dg-red" cx="448" cy="478" rx="25" ry="42"/></g><path d="M466 444l8-20l-14 12zM448 438l2-24l-12 20z" fill="#d9d0bd" stroke="#050207" stroke-width="2"/></g>
   <use href="#dgHorn"/><use href="#dgHorn" transform="translate(770 0) scale(-1 1)"/>
+  <path class="dg-o dg-dk" d="M335 196L320 146L352 180L368 126L385 176L402 126L418 180L450 146L435 196Z"/>
   <path class="dg-o dg-red" d="M300 200C330 175 440 175 470 200C490 225 495 250 505 262C530 262 535 285 520 300C528 322 505 335 490 335C470 385 430 398 385 398C340 398 300 385 280 335C262 335 240 322 250 300C232 285 240 262 265 262C275 250 280 225 300 200Z"/>
-  <path d="M300 226C322 200 362 193 404 197" stroke="#fff" stroke-opacity=".5" stroke-width="9" fill="none" stroke-linecap="round"/><ellipse cx="290" cy="346" rx="21" ry="12" fill="#ff9fb5" opacity=".75"/><ellipse cx="480" cy="346" rx="21" ry="12" fill="#ff9fb5" opacity=".75"/>
-  <path class="dg-o dg-cr" stroke-width="4" d="M378 165C388 172 388 192 378 200C368 192 368 172 378 165ZM378 210C387 217 387 235 378 243C369 235 369 217 378 210ZM378 258C385 263 385 275 378 281C371 275 371 263 378 258Z"/>
-  <g class="dg-eye"><ellipse class="dg-o" cx="308" cy="290" rx="36" ry="41" fill="#fff"/><g class="dg-pupil"><ellipse cx="315" cy="298" rx="26" ry="31" fill="#2b1a5e"/><ellipse cx="315" cy="312" rx="20" ry="14" fill="#6b3fc0"/><circle cx="322" cy="284" r="9" fill="#fff"/><circle cx="305" cy="316" r="4" fill="#fff"/></g></g>
-  <g class="dg-eye"><ellipse class="dg-o" cx="450" cy="290" rx="36" ry="41" fill="#fff"/><g class="dg-pupil"><ellipse cx="443" cy="298" rx="26" ry="31" fill="#2b1a5e"/><ellipse cx="443" cy="312" rx="20" ry="14" fill="#6b3fc0"/><circle cx="436" cy="284" r="9" fill="#fff"/><circle cx="453" cy="316" r="4" fill="#fff"/></g></g>
-  <path d="M362 340Q378 332 394 340" stroke="#2f5d4a" stroke-width="4" fill="none" stroke-linecap="round"/><circle cx="371" cy="345" r="2.5" fill="#2f5d4a"/><circle cx="386" cy="345" r="2.5" fill="#2f5d4a"/>
-  <g class="dg-mouth"><path class="dg-o" fill="#8a1c45" stroke-width="4" d="M360 366Q384 358 405 366Q402 396 383 397Q362 395 360 366Z"/><ellipse cx="384" cy="386" rx="10" ry="6" fill="#ff7b9c"/></g>
-  <g class="dg-breath"><path class="dg-o" fill="#ff8a1f" d="M385 402C345 420 325 462 352 500C362 480 374 486 385 466C396 486 408 480 418 500C445 462 425 420 385 402Z"/><path fill="#ffd23f" d="M385 424C362 438 355 465 371 484C377 474 382 476 385 464C388 476 393 474 399 484C415 465 408 438 385 424Z"/></g>
+  <path class="dg-o dg-dk" d="M254 292L206 272L246 318ZM516 292L564 272L524 318Z"/>
+  <path d="M340 205l26 44M352 203l22 38" stroke="#7a1428" stroke-width="4" stroke-linecap="round" fill="none"/>
+  <g class="dg-eye"><ellipse cx="316" cy="296" rx="34" ry="30" fill="#07030a" stroke="#000" stroke-width="4"/><g class="dg-pupil"><ellipse cx="318" cy="300" rx="20" ry="17" fill="#d4121f"/><ellipse cx="318" cy="300" rx="4.5" ry="16" fill="#000"/></g></g>
+  <g class="dg-eye"><ellipse cx="454" cy="296" rx="34" ry="30" fill="#07030a" stroke="#000" stroke-width="4"/><g class="dg-pupil"><ellipse cx="452" cy="300" rx="20" ry="17" fill="#d4121f"/><ellipse cx="452" cy="300" rx="4.5" ry="16" fill="#000"/></g></g>
+  <path class="dg-o dg-dk" d="M268 296L354 254L358 276L276 318ZM502 296L416 254L412 276L494 318Z"/>
+  <path class="dg-tear" d="M308 326C300 350 306 372 298 398" stroke="#9fdcff" stroke-width="7" fill="none" stroke-linecap="round"/>
+  <path class="dg-tear" d="M462 326C470 350 464 372 472 398" stroke="#9fdcff" stroke-width="7" fill="none" stroke-linecap="round"/>
+  <path class="dg-drop" d="M298 404q9 15 0 22q-9-7 0-22zM472 404q9 15 0 22q-9-7 0-22z" fill="#9fdcff"/>
+  <path d="M372 346l-3 8M398 346l3 8" stroke="#050207" stroke-width="4" stroke-linecap="round"/>
+  <g class="dg-mouth"><path d="M330 394Q385 352 440 394Q385 376 330 394Z" fill="#12000a" stroke="#050207" stroke-width="4"/><path d="M346 385l6 17l8-20zM372 372l6 24l8-24zM398 372l6 24l8-24zM424 384l-6 18l-8-20z" fill="#e6dcc0" stroke="#050207" stroke-width="2"/></g>
+  <g class="dg-breath"><path class="dg-o" fill="#7a0f2a" d="M385 402C345 420 325 462 352 500C362 480 374 486 385 466C396 486 408 480 418 500C445 462 425 420 385 402Z"/><path fill="#ff5a2a" d="M385 424C362 438 355 465 371 484C377 474 382 476 385 464C388 476 393 474 399 484C415 465 408 438 385 424Z"/></g>
   </g>
 </svg>
             <div class="pet-wing pet-wing-l"></div>
@@ -4628,22 +4550,22 @@ const STAGES = [
   { level: 20, name: 'BLOOM',     emoji: '🌸', key: 'bloom',     scale: 1.05, hue: -10, desc: 'Petals of scale-shine. Playful and proud.' },
   { level: 25, name: 'GUARDIAN',  emoji: '🐉', key: 'guardian',  scale: 1.12, hue: -25, desc: 'Young guardian. Protective of their room.' },
   { level: 30, name: 'MYSTIC',    emoji: '✨', key: 'mystic',    scale: 1.18, hue: 200, desc: 'Star-dusted wings. Hears the night sky.' },
-  { level: 35, name: 'ETERNAL',   emoji: '😢', key: 'eternal',   scale: 1.25, hue: 280, desc: 'Final form. Alone in the dungeon. Still waiting for someone who stays.' },
+  { level: 35, name: 'ETERNAL',   emoji: '👑', key: 'eternal',   scale: 1.25, hue: 280, desc: 'Reached the peak alone. Still waiting for someone who will not leave.' },
   { level: 45, name: 'AURORA',    emoji: '🌌', key: 'aurora',    scale: 1.32, hue: 260, desc: 'Northern-light scales. Rare form of devotion.' },
   { level: 55, name: 'CELESTIAL', emoji: '🌟', key: 'celestial', scale: 1.40, hue: 45,  desc: 'Celestial Mochi. The room becomes a constellation.' }
 ];
 
 const ROOMS = [
-  { id: 'bedroom',     name: 'CRYPT CELL',     emoji: '⚰️', reqLevel: 1 },
-  { id: 'bathroom',    name: 'DRAIN PIT',      emoji: '🕳️', reqLevel: 1 },
-  { id: 'kitchen',     name: 'BONE KITCHEN',   emoji: '🦴', reqLevel: 5 },
-  { id: 'garden',      name: 'DEAD GARDEN',    emoji: '🥀', reqLevel: 10 },
-  { id: 'forest',      name: 'BLACKWOOD',      emoji: '🌲', reqLevel: 15 },
-  { id: 'playroom',    name: 'TORTURE HALL',   emoji: '⛓', reqLevel: 20 },
-  { id: 'farm',        name: 'GRAVEYARD',      emoji: '🪦', reqLevel: 25 },
-  { id: 'observatory', name: 'VOID SPIRE',     emoji: '👁', reqLevel: 30 },
-  { id: 'cloudnest',   name: 'ASH NEST',       emoji: '💨', reqLevel: 45 },
-  { id: 'starcove',    name: 'ABYSS COVE',     emoji: '🌑', reqLevel: 55 }
+  { id: 'bedroom',     name: 'BEDROOM',     emoji: '🛏️', reqLevel: 1 },
+  { id: 'bathroom',    name: 'BATHROOM',    emoji: '🛁', reqLevel: 1 },
+  { id: 'kitchen',     name: 'KITCHEN',     emoji: '🍳', reqLevel: 5 },
+  { id: 'garden',      name: 'GARDEN',      emoji: '🌷', reqLevel: 10 },
+  { id: 'forest',      name: 'FOREST',      emoji: '🌲', reqLevel: 15 },
+  { id: 'playroom',    name: 'PLAYROOM',    emoji: '🎨', reqLevel: 20 },
+  { id: 'farm',        name: 'FARM',        emoji: '🌾', reqLevel: 25 },
+  { id: 'observatory', name: 'OBSERVATORY', emoji: '🔭', reqLevel: 30 },
+  { id: 'cloudnest',   name: 'CLOUD NEST',  emoji: '☁️', reqLevel: 45 },
+  { id: 'starcove',    name: 'STAR COVE',   emoji: '🌌', reqLevel: 55 }
 ];
 
 const ACTIONS = {
@@ -4678,29 +4600,29 @@ const WANTS = [
 
 const AMBIENT_BEHAVIORS = {
   bedroom: [
-    { cls: 'sad', dur: 4, bubble: 'cold stone floor...', emoji: '😢' },
-    { cls: 'sleeping', dur: 5, bubble: 'crying in the crypt...', emoji: '⚰️' },
-    { cls: 'watching', dur: 3, bubble: 'no one comes down here', emoji: '👁' },
-    { cls: 'sad', dur: 3.5, bubble: 'echoes only...', emoji: '💔' },
-    { cls: 'bored', dur: 3, bubble: 'waiting in the dark', emoji: '😢' }
+    { cls: 'idle', dur: 3, bubble: 'hmm~', emoji: '💭' },
+    { cls: 'sleeping', dur: 4, bubble: 'nap time', emoji: '💤' },
+    { cls: 'watching', dur: 3, bubble: 'looking outside', emoji: '🪟' },
+    { cls: 'hopping', dur: 1.2, bubble: 'yay!', emoji: '✨' },
+    { cls: 'stretching', dur: 1.5, bubble: 'stretch~', emoji: '✨' }
   ],
   bathroom: [
-    { cls: 'sad', dur: 3, bubble: 'drips like tears...', emoji: '💧' },
-    { cls: 'watching', dur: 3, bubble: 'drain never ends', emoji: '🕳️' },
-    { cls: 'sad', dur: 4, bubble: 'washed away...', emoji: '😢' },
+    { cls: 'watching', dur: 2.5, bubble: 'bubbles!', emoji: '🫧' },
+    { cls: 'hopping', dur: 1.2, bubble: 'splash!', emoji: '💧' },
+    { cls: 'stretching', dur: 1.5, bubble: 'fresh!', emoji: '✨' },
     { cls: 'walking', dur: 2 }
   ],
   kitchen: [
-    { cls: 'sniffing', dur: 2, bubble: 'only bones left...', emoji: '🦴' },
-    { cls: 'sad', dur: 3, bubble: 'no one cooks for me', emoji: '😢' },
-    { cls: 'watching', dur: 3, bubble: 'empty pot', emoji: '🖤' },
+    { cls: 'sniffing', dur: 2, bubble: 'smells good!', emoji: '🍲' },
+    { cls: 'watching', dur: 3, bubble: 'watching the stove', emoji: '🔥' },
+    { cls: 'hopping', dur: 1.2, bubble: 'snack!', emoji: '🍎' },
     { cls: 'walking', dur: 2.5 }
   ],
   garden: [
-    { cls: 'sad', dur: 3, bubble: 'all the flowers died', emoji: '🥀' },
-    { cls: 'sniffing', dur: 2, bubble: 'smells like dust', emoji: '💨' },
-    { cls: 'watching', dur: 3, bubble: 'no butterflies here', emoji: '😢' },
-    { cls: 'bored', dur: 3, bubble: 'dead soil', emoji: '🪦' },
+    { cls: 'hopping', dur: 1.5, bubble: 'flowers!', emoji: '🌷' },
+    { cls: 'sniffing', dur: 2, bubble: 'sniff sniff', emoji: '🌸' },
+    { cls: 'watching', dur: 3, bubble: 'butterfly!', emoji: '🦋' },
+    { cls: 'stretching', dur: 1.5, bubble: 'sunshine~', emoji: '☀️' },
     { cls: 'walking', dur: 2 }
   ],
   playroom: [
@@ -5041,41 +4963,6 @@ function sfxWater() { playTone(440, 0.1, 'sine', 0.03); setTimeout(() => playTon
 function sfxWalk() { playTone(300, 0.08, 'sine', 0.02); setTimeout(() => playTone(260, 0.08, 'sine', 0.02), 100); }
 
 let toastT;
-
-const MONSTER_THOUGHTS = [
-  'I became a monster... no one wants me',
-  'They see scales and run',
-  'I was supposed to be cute',
-  'Who could love this face?',
-  'Everyone left when I grew',
-  'Scary. Alone. Forgotten.',
-  'I only wanted someone to stay',
-  'A horrendous thing in a dungeon',
-  'They choose anything over me',
-  'Final form... and still unwanted'
-];
-
-function showThoughtCloud(text) {
-  const area = $('petArea');
-  if (!area) return;
-  area.querySelectorAll('.thought-cloud').forEach(el => el.remove());
-  const cloud = document.createElement('div');
-  cloud.className = 'thought-cloud';
-  cloud.innerHTML = (text || MONSTER_THOUGHTS[Math.floor(Math.random() * MONSTER_THOUGHTS.length)]) +
-    '<div class="thought-dots">···</div>';
-  area.appendChild(cloud);
-  setTimeout(() => cloud.remove(), 4500);
-}
-
-function startMonsterThoughtLoop() {
-  if (window._thoughtLoop) clearInterval(window._thoughtLoop);
-  window._thoughtLoop = setInterval(() => {
-    if (!gameData || document.hidden || isAnimating || (typeof mgActive !== 'undefined' && mgActive)) return;
-    showThoughtCloud();
-  }, 14000);
-  setTimeout(() => showThoughtCloud('I became a monster... no one likes me'), 2500);
-}
-
 function showToast(msg) {
   const t = $('toast');
   t.textContent = msg;
@@ -5488,10 +5375,9 @@ function processUpdate(snap) {
   if (!window._lonelyMsgShown && !document.hidden) {
     window._lonelyMsgShown = true;
     setTimeout(() => {
-      showToast('😢 Mochi: I grew into a monster... no one stayed.');
-      setTimeout(() => { if (typeof showBubble === 'function') showBubble('I am a monster...', '😢'); }, 900);
+      showToast('😢 Mochi: I waited... everyone chooses something else before me.');
+      setTimeout(() => { if (typeof showBubble === 'function') showBubble('please stay...', '😢'); }, 900);
       setTimeout(() => showToast('He is always crying. He only wanted a partner who would not leave.'), 3500);
-      setTimeout(() => { if (typeof startMonsterThoughtLoop === 'function') startMonsterThoughtLoop(); }, 4000);
     }, 1600);
   }
 
@@ -5612,7 +5498,7 @@ function updateEvolutionUI() {
   if (next) {
     next.textContent = prog.nextName
       ? `${prog.pct}% → ${prog.nextEmoji || ''} ${prog.nextName} (LV ${prog.nextLevel})`
-      : '✨ MAX FORM REACHED';
+      : '☠ HIGHEST FORM — reached too fast. The end is near.';
   }
 }
 function isNightTime() {
@@ -5640,24 +5526,22 @@ function computeMood() {
 function setPetClass(extra) {
   const pet = $('pet');
   if (!pet) return;
-  // Always visually depressed / monstrous unless a short action animation overrides
-  const actionOverrides = ['walking', 'flying', 'eating', 'roaring', 'firebreath', 'leaving', 'arriving', 'singing', 'dancing', 'hopping', 'spinning'];
-  const extraStr = (extra && String(extra).trim()) ? String(extra).trim() : '';
-  const isAction = actionOverrides.some(a => extraStr.includes(a));
-  const base = isAction ? extraStr : 'sad';
+  const mood = computeMood();
+  const base = (extra && String(extra).trim()) ? String(extra).trim() : mood.cls;
+  // Never leave permanent flying/quad/curled as the only state except explicit action
   pet.className = 'pet ' + base;
   renderCache.petMood = base;
 }
 
 
 const LONELY_AMBIENT = [
-  { cls: 'sad', dur: 4, bubble: 'I became a monster...', emoji: '😢' },
-  { cls: 'sad', dur: 3.5, bubble: 'no one could love this', emoji: '💔' },
-  { cls: 'bored', dur: 3, bubble: 'scary. alone. forgotten.', emoji: '😢' },
-  { cls: 'sad', dur: 4, bubble: 'they ran when I evolved', emoji: '🥺' },
-  { cls: 'sad', dur: 3, bubble: 'horrendous thing in a cell', emoji: '💧' },
+  { cls: 'sad', dur: 4, bubble: 'why did they leave...', emoji: '😢' },
+  { cls: 'sad', dur: 3.5, bubble: 'I only wanted someone to stay', emoji: '💔' },
+  { cls: 'bored', dur: 3, bubble: 'everyone picks something else', emoji: '😢' },
+  { cls: 'sad', dur: 4, bubble: 'please come back...', emoji: '🥺' },
+  { cls: 'sad', dur: 3, bubble: 'am I not enough?', emoji: '💧' },
   { cls: 'sleeping', dur: 5, bubble: 'crying until sleep...', emoji: '😢' },
-  { cls: 'sad', dur: 3.5, bubble: 'final form... still unwanted', emoji: '💔' }
+  { cls: 'sad', dur: 3.5, bubble: 'they always choose other things first', emoji: '💔' }
 ];
 
 const MOOD_BEHAVIOR_OVERRIDES = {
@@ -5706,13 +5590,13 @@ function applyRoom(force) {
 
     switch(currentRoomId) {
       case 'bedroom':
-        wallEl.style.background = 'linear-gradient(180deg, #1a1210 0%, #2a1814 100%)';
+        wallEl.style.background = 'linear-gradient(180deg, #F4D9C8 0%, #E8C9B8 100%)';
         wallEl.innerHTML = `<div style="position:absolute;inset:0;background-image:
           radial-gradient(circle at 20px 20px, rgba(232,187,168,0.5) 2px, transparent 3px),
           radial-gradient(circle at 60px 60px, rgba(232,187,168,0.5) 2px, transparent 3px);
           background-size:40px 40px;"></div>`;
         floorEl.style.background = 'repeating-linear-gradient(90deg, #C9A898 0px, #C9A898 22px, #B89888 22px, #B89888 24px)';
-        $('roomBadge').textContent = '⚰️ CRYPT CELL';
+        $('roomBadge').textContent = '🛏️ BEDROOM';
         break;
       case 'bathroom':
         wallEl.style.background = 'linear-gradient(180deg, #D8E8F0 0%, #C0D8E4 100%)';
@@ -5722,28 +5606,28 @@ function applyRoom(force) {
           background-size:28px 28px;"></div>
           <div style="position:absolute;top:16px;right:24px;width:36px;height:36px;border:3px solid #8BA8B8;border-radius:50%;background:radial-gradient(circle at 30% 30%, #F0F8FC, #B8D0DC);box-shadow:inset -4px -4px 0 rgba(0,0,0,0.08);"></div>`;
         floorEl.style.background = 'repeating-linear-gradient(90deg, #E8F0F4 0px, #E8F0F4 20px, #D0E0E8 20px, #D0E0E8 22px)';
-        $('roomBadge').textContent = '🕳️ DRAIN PIT';
+        $('roomBadge').textContent = '🛁 BATHROOM';
         break;
       case 'kitchen':
         wallEl.style.background = 'linear-gradient(180deg, #F4E4C8 0%, #E8D4B8 60%, #D4B898 100%)';
         wallEl.innerHTML = `<div style="position:absolute;inset:0;background-image:linear-gradient(90deg, rgba(139,111,94,0.15) 1px, transparent 1px), linear-gradient(0deg, rgba(139,111,94,0.15) 1px, transparent 1px);background-size:24px 24px;"></div>`;
         floorEl.style.background = 'repeating-conic-gradient(#C9B0A0 0% 25%, #F4E4C8 0% 50%) 50% / 24px 24px';
-        $('roomBadge').textContent = '🦴 BONE KITCHEN';
+        $('roomBadge').textContent = '🍳 KITCHEN';
         break;
       case 'garden':
-        wallEl.style.background = 'linear-gradient(180deg, #1a2018 0%, #142018 45%, #1a1810 55%, #121410 100%)';
+        wallEl.style.background = 'linear-gradient(180deg, #A8D4E8 0%, #C8E4F0 45%, #C8E4C8 55%, #A8D4A8 100%)';
         wallEl.innerHTML = `<div style="position:absolute;top:12px;right:25px;width:44px;height:44px;background:radial-gradient(circle,#FFF9C8 30%,#FFE88C 100%);border-radius:50%;box-shadow:0 0 24px rgba(255,232,140,0.8);animation:sunPulse 4s ease-in-out infinite;"></div>`;
-        floorEl.style.background = 'linear-gradient(180deg, #1a2018 0%, #141810 60%, #10140c 100%)';
-        $('roomBadge').textContent = '🥀 DEAD GARDEN';
+        floorEl.style.background = 'linear-gradient(180deg, #A8C898 0%, #8FB87D 60%, #6FA05D 100%)';
+        $('roomBadge').textContent = '🌷 GARDEN';
         break;
       case 'playroom':
-        wallEl.style.background = 'linear-gradient(180deg, #1a1218 0%, #201018 100%)';
+        wallEl.style.background = 'linear-gradient(180deg, #E8D4E8 0%, #D8C4D8 100%)';
         wallEl.innerHTML = `<div style="position:absolute;inset:0;background-image:
           radial-gradient(circle at 20px 20px, rgba(201,160,201,0.5) 5px, transparent 6px),
           radial-gradient(circle at 70px 70px, rgba(244,217,200,0.6) 5px, transparent 6px);
           background-size:110px 110px;"></div>`;
         floorEl.style.background = 'repeating-linear-gradient(45deg, #F4D9C8 0px, #F4D9C8 14px, #E8C9B8 14px, #E8C9B8 28px)';
-        $('roomBadge').textContent = '⛓ TORTURE HALL';
+        $('roomBadge').textContent = '🎨 PLAYROOM';
         break;
       case 'observatory':
         wallEl.style.background = 'linear-gradient(180deg, #1A1428 0%, #2A2438 60%, #3A3458 100%)';
@@ -5755,7 +5639,7 @@ function applyRoom(force) {
           background-size:200px 140px;animation:twinkle 4s ease-in-out infinite alternate;"></div>
           <div style="position:absolute;top:24px;right:32px;width:40px;height:40px;background:radial-gradient(circle at 30% 30%, #FFF9E8 0%, #E8E0C0 100%);border-radius:50%;box-shadow:inset -6px -4px 0 rgba(0,0,0,0.2), 0 0 24px rgba(255,249,232,0.7);animation:moonGlow 5s ease-in-out infinite;"></div>`;
         floorEl.style.background = 'radial-gradient(ellipse at top, #3A3458 0%, #1A1428 70%)';
-        $('roomBadge').textContent = '👁 VOID SPIRE';
+        $('roomBadge').textContent = '🔭 OBSERVATORY';
         break;
       case 'forest':
         wallEl.style.background = 'linear-gradient(180deg, #6B9F7A 0%, #4A7A5A 40%, #3A5A40 100%)';
@@ -5766,14 +5650,14 @@ function applyRoom(force) {
           <div style="position:absolute;top:28px;right:40px;width:6px;height:6px;background:#FFF9C8;border-radius:50%;box-shadow:0 0 8px #FFF9C8;animation:twinkle 2s ease-in-out infinite;"></div>
           <div style="position:absolute;top:48px;right:70px;width:4px;height:4px;background:#E8F0C8;border-radius:50%;box-shadow:0 0 6px #E8F0C8;animation:twinkle 3s ease-in-out infinite alternate;"></div>`;
         floorEl.style.background = 'linear-gradient(180deg, #5A8A4A 0%, #4A7040 50%, #3A5A30 100%)';
-        $('roomBadge').textContent = '🌲 BLACKWOOD';
+        $('roomBadge').textContent = '🌲 FOREST';
         break;
       case 'farm':
         wallEl.style.background = 'linear-gradient(180deg, #87CEEB 0%, #B8D8E8 50%, #E8D4A8 100%)';
         wallEl.innerHTML = `<div style="position:absolute;top:14px;right:28px;width:38px;height:38px;background:radial-gradient(circle,#FFF9C8 30%,#FFE08C 100%);border-radius:50%;box-shadow:0 0 20px rgba(255,224,100,0.75);"></div>
           <div style="position:absolute;bottom:0;left:0;right:0;height:28%;background:linear-gradient(180deg, transparent, rgba(168,180,100,0.35));"></div>`;
         floorEl.style.background = 'repeating-linear-gradient(90deg, #C9B078 0px, #C9B078 18px, #B89860 18px, #B89860 20px)';
-        $('roomBadge').textContent = '🪦 GRAVEYARD';
+        $('roomBadge').textContent = '🌾 FARM';
         break;
       case 'cloudnest':
         wallEl.style.background = 'linear-gradient(180deg, #B8D4F0 0%, #D8E8F8 45%, #F0F6FC 100%)';
@@ -5783,7 +5667,7 @@ function applyRoom(force) {
           radial-gradient(ellipse at 45% 70%, rgba(255,255,255,0.55) 0%, transparent 40%);"></div>
           <div style="position:absolute;top:18px;right:30px;width:28px;height:28px;background:radial-gradient(circle,#FFF9C8,#FFE08C);border-radius:50%;box-shadow:0 0 18px rgba(255,224,120,0.6);opacity:0.85;"></div>`;
         floorEl.style.background = 'linear-gradient(180deg, #E8F0F8 0%, #D0E0F0 50%, #C0D4E8 100%)';
-        $('roomBadge').textContent = '💨 ASH NEST';
+        $('roomBadge').textContent = '☁️ CLOUD NEST';
         break;
       case 'starcove':
         wallEl.style.background = 'linear-gradient(180deg, #0E0A22 0%, #1A1438 50%, #2A1A48 100%)';
@@ -5796,7 +5680,7 @@ function applyRoom(force) {
           radial-gradient(ellipse at 50% 0%, rgba(100,80,180,0.35) 0%, transparent 55%);
           background-size:100% 100%; animation:twinkle 4s ease-in-out infinite alternate;"></div>`;
         floorEl.style.background = 'linear-gradient(180deg, #2A1A48 0%, #1A0E30 60%, #120A22 100%)';
-        $('roomBadge').textContent = '🌑 ABYSS COVE';
+        $('roomBadge').textContent = '🌌 STAR COVE';
         break;
     }
     roomEl.dataset.rendered = '1';
@@ -9115,7 +8999,7 @@ function floatHearts(count = 5) {
 }
 
 const MOOD_PARTICLE_MAP = {
-  lonely: ['😢', '💧', '💔', '🖤'],
+  lonely: ['😢', '💧', '💔', '🥺'],
   ecstatic: ['✨', '💖', '⭐', '🌟'],
   content:  ['✨'],
   bored:    ['💭', '😑'],
@@ -9157,7 +9041,6 @@ function startWanderLoop() {
    AMBIENT LOOP
    ============================================================ */
 function startAmbientLoop() {
-  if (typeof startMonsterThoughtLoop === 'function') startMonsterThoughtLoop();
   if (ambientTimeoutId) clearTimeout(ambientTimeoutId);
   const scheduleNext = () => {
     const delay = 10000 + Math.random() * 10000;
@@ -10306,6 +10189,77 @@ document.addEventListener('visibilitychange', () => {
     art.style.setProperty('--fx', x > last ? -1 : 1);
     last = x;
   }).observe(pet, { attributes: true, attributeFilter: ['style'] });
+})();
+</script>
+<script>
+/* ===== MORBID LAYER: monster form, endless crying, longing, people who leave ===== */
+(function(){
+'use strict';
+const $$=id=>document.getElementById(id);
+const rnd=a=>a[Math.floor(Math.random()*a.length)];
+const SAD=['they all left','nobody stays','I only wanted one person','why am I like this','please don\'t go','alone again','I\'m too much. I\'m too much.'];
+const base=STAGES.find(s=>s.key==='eternal');
+const monster=Object.assign({},base,{name:'MONSTER',emoji:'👹',desc:'Highest form, reached too fast. The more he grew, the more they looked away.'});
+window.currentStage=function(){return monster;};
+window.nextStage=function(){return null;};
+const WT={feed:'is starving. no one came',play:'wants someone to play with',sleep:'can\'t sleep. too quiet',bath:'wants to wash the loneliness off',pet:'just wants to be held',clean:'is surrounded by mess',sing:'sings to an empty room',dance:'dances for no one',fly:'wants to fly away',fire:'burns alone',roar:'wants to be heard',dig:'is digging for something that stays'};
+WANTS.forEach(w=>{if(WT[w.id])w.text=WT[w.id];});
+[AMBIENT_BEHAVIORS,MOOD_BEHAVIOR_OVERRIDES].forEach(o=>Object.values(o).forEach(arr=>arr.forEach(b=>{if(['hopping','spinning','happy','stretching'].includes(b.cls))b.cls='sad';if(b.bubble)b.bubble=rnd(SAD);})));
+LONELY_AMBIENT.push({cls:'sad',dur:4,bubble:'I used to be cute. Now I\'m a monster',emoji:'👹'},{cls:'sad',dur:4,bubble:'nobody likes a monster',emoji:'💔'},{cls:'sad',dur:3.5,bubble:'they chose something else. again',emoji:'💔'});
+HINTS.length=0;HINTS.push('Tip: Care won\'t change how this ends.','Tip: Joy never lasts. Neither do visitors.','Tip: He will still be here when you leave.');
+ONBOARD_STEPS.length=0;ONBOARD_STEPS.push({emoji:'👹',title:'MEET MOCHI',text:'He grew too fast and became something people fear. He cries all day and longs for a partner who will stay.'},{emoji:'💔',title:'THEY LEAVE',text:'Visitors come, hope flickers, and then they choose something else before him. Every time.'},{emoji:'🕯️',title:'STAY ANYWAY',text:'Care for him. It won\'t fix him, but someone should be here.'});
+Object.values(ACTIONS).forEach(a=>{if(a.stat==='happy')a.amount=Math.max(2,Math.round(a.amount*.3));});
+setInterval(()=>{if(!gameData||document.hidden)return;const h=gameData.happy||0,nh=Math.max(0,Math.min(22,h-1.5));if(Math.abs(nh-h)>=.5)db.ref('tamagotchi').update({happy:nh});},20000);
+function tear(n){const a=$$('petArea'),pet=$$('pet');if(!a||!pet)return;for(let i=0;i<n;i++)setTimeout(()=>{const t=document.createElement('div');t.className='mo-tear';t.style.left='calc('+(parseFloat(pet.style.left)||50)+'% + '+(i%2?18:-18)+'px)';a.appendChild(t);setTimeout(()=>t.remove(),1300);},i*160);}
+window.floatHearts=function(c){tear(Math.max(3,c||4));};
+window.spawnConfetti=function(){};
+window.showLevelUp=function(l){showToast('Level '+l+'. It changes nothing.');};
+window.showWelcomeBack=function(){showToast('…you came back. The others didn\'t.');};
+setInterval(()=>{if(gameData&&!document.hidden)tear(2);},1800);
+const _sb=window.showBubble,CH=/!|yay|wheee|happy|nom|splash|fresh|snack|yummy|love|fun|pretty|cozy|toasty|party|~/i;
+window.showBubble=function(t,e){if(typeof t==='string'&&CH.test(t)){t=rnd(SAD);e=rnd(['😢','💔','🥀','💧']);}_sb(t,e);};
+window.playActionAnimation=function(name){
+ const pet=$$('pet');
+ const T={feed:['not hungry… just empty','🍚'],play:['playing alone isn\'t playing','🎈'],sleep:['the nightmares wait for me','🌙'],bath:['the water is cold now','💧'],pet:['please… don\'t stop. you will.','🤲'],clean:['it\'s all just mess','🧹'],sing:['no one is listening','🎤'],dance:['who is watching?','💃'],fly:['nowhere to fly to','🪽'],fire:['even the fire is lonely','🔥'],roar:['I only scare them away','📣'],dig:['nothing down here either','🕳️']};
+ const t=T[name]||['…','😢'];
+ return new Promise(async res=>{try{
+  pet.className='pet '+(name==='sleep'?'sleeping':name==='fire'?'firebreath':name==='roar'?'roaring':'sad');
+  showBubble(t[0],t[1]);tear(name==='pet'?8:5);sfxBad();
+  await new Promise(r=>setTimeout(r,2200));
+  if(name==='roar'||name==='fire'){pet.className='pet sad';showBubble('…','😢');await new Promise(r=>setTimeout(r,700));}
+  setPetClass();
+ }catch(e){}res();});
+};
+const room=$$('room'),pet=$$('pet');
+const cloud=document.createElement('div');cloud.className='mo-cloud';cloud.innerHTML='<div class="mo-cloud-t"></div><i></i><i></i><i></i>';room.appendChild(cloud);
+const TH=['I used to be small and cute… now look at me. A monster.','Nobody likes a monster.','I grew too fast. I became this.','They looked at me and walked away.','I\'m hideous. I can see it in their eyes.','All I wanted was someone to stay.'];
+let ti=0;const ct=cloud.querySelector('.mo-cloud-t');
+function think(){ct.textContent=TH[ti++%TH.length];cloud.classList.remove('in');void cloud.offsetWidth;cloud.classList.add('in');}
+think();setInterval(think,6500);
+new MutationObserver(()=>{cloud.style.left=Math.min(78,Math.max(26,parseFloat(pet.style.left)||50))+'%';}).observe(pet,{attributes:true,attributeFilter:['style']});
+const OUT=[['📱','scrolling on my phone'],['🎮','a game is waiting'],['💼','work. always work'],['👥','friends are waiting'],['🌙','I\'m tired. maybe later'],['❤️','someone else needs me']];
+function visit(){
+ if(!gameData||document.hidden||isAnimating||ambientPlaying)return;
+ const v=document.createElement('div');v.className='mo-visitor';v.innerHTML='<span>🧍</span><b></b>';room.appendChild(v);
+ const o=rnd(OUT);
+ requestAnimationFrame(()=>v.classList.add('come'));
+ setTimeout(()=>{showBubble('…you came?','🥺');pet.className='pet watching';},2600);
+ setTimeout(()=>{v.querySelector('b').textContent=o[0]+' '+o[1];v.classList.add('talk');},4200);
+ setTimeout(()=>{v.classList.remove('talk');v.classList.add('go');showBubble('they chose '+o[0]+' over me','💔');tear(10);pet.className='pet sad';},6400);
+ setTimeout(()=>{v.remove();setPetClass();},9400);
+}
+setTimeout(visit,25000);setInterval(visit,75000);
+function set(id,t){const e=$$(id);if(e)e.textContent=t;}
+set('roomsSubtitle','Every room is empty. He wanders anyway.');set('shopSubtitle','Nothing here can make anyone stay.');set('dailyCloseBtn','…ok');
+function cinema(){
+ if(sessionStorage.getItem('mo_cine'))return;sessionStorage.setItem('mo_cine','1');
+ const L=['You pushed me up too fast.','No time to be small. No time to be loved.','This is my highest form… and the end is near.','…','But it doesn\'t end. It never comes.','So I stay. I cry. I wait for someone who won\'t leave.','They always leave.'];
+ const o=document.createElement('div');o.className='mo-cine';o.innerHTML='<div class="mo-cine-s">MOCHI</div><div class="mo-cine-l"></div><div class="mo-cine-h">tap…</div>';
+ document.body.appendChild(o);const l=o.querySelector('.mo-cine-l');let i=0;
+ const nx=()=>{if(i>=L.length){o.classList.add('out');setTimeout(()=>o.remove(),1200);return;}l.style.opacity=0;setTimeout(()=>{l.textContent=L[i++];l.style.opacity=1;},350);};
+ o.addEventListener('click',nx);nx();
+}
+const iv=setInterval(()=>{const g=$$('gameScreen');if(gameData&&g&&getComputedStyle(g).display!=='none'){clearInterval(iv);setTimeout(cinema,600);}},700);
 })();
 </script>
 </body>
