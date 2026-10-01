@@ -4160,12 +4160,23 @@ body{background:linear-gradient(180deg,#050304,#0d0709 45%,#1a0c10)!important}
 .mo-visitor span{filter:brightness(0) opacity(.8)}
 .mo-visitor b{position:absolute;bottom:105%;left:0;white-space:nowrap;font:600 .6rem 'Fredoka',sans-serif;color:#e8dce0;background:rgba(0,0,0,.8);padding:4px 8px;border-radius:8px;opacity:0;transition:opacity .3s}
 .mo-visitor.talk b{opacity:1}
-.mo-cine{position:fixed;inset:0;z-index:9999;background:#000;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:30px;text-align:center;transition:opacity 1.2s}
-.mo-cine.out{opacity:0}
-.mo-cine-s{font:.6rem 'Press Start 2P',monospace;color:#8a1a2a;margin-bottom:22px;letter-spacing:3px}
-.mo-cine-l{font:600 1.15rem/1.6 'Fredoka',sans-serif;color:#d8c8cc;max-width:340px;min-height:80px;transition:opacity .35s}
-.mo-cine-h{position:absolute;bottom:30px;font:.5rem 'Press Start 2P',monospace;color:#4a3038;animation:moBlink 1.6s infinite}
+.mo-cine{position:fixed;inset:0;z-index:9999;background:#050203;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:28px 22px 70px;text-align:center;transition:opacity 1.2s;overflow:hidden}
+.mo-cine::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 40%,rgba(80,20,30,.35),transparent 65%),repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,.12) 3px);pointer-events:none;animation:moCineFlicker 4s infinite}
+.mo-cine.out{opacity:0;pointer-events:none}
+.mo-cine.flash{animation:moCineFlash .45s ease-out}
+@keyframes moCineFlash{0%{background:#3a1018}40%{background:#12060a}100%{background:#050203}}
+@keyframes moCineFlicker{0%,100%{opacity:1}48%{opacity:.97}50%{opacity:.85}52%{opacity:1}}
+.mo-cine-chapter{font:.45rem 'Press Start 2P',monospace;color:#6a3040;letter-spacing:2px;margin-bottom:10px;opacity:.85;min-height:1em;transition:opacity .4s}
+.mo-cine-s{font:.55rem 'Press Start 2P',monospace;color:#a02838;margin-bottom:18px;letter-spacing:3px;text-shadow:0 0 18px rgba(160,40,56,.45)}
+.mo-cine-emoji{font-size:2.4rem;line-height:1;margin-bottom:14px;filter:drop-shadow(0 4px 8px rgba(0,0,0,.6));transition:transform .4s,opacity .35s;min-height:2.6rem}
+.mo-cine-l{font:600 1.05rem/1.65 'Fredoka',sans-serif;color:#d8c8cc;max-width:360px;min-height:5.5em;transition:opacity .4s;text-shadow:0 1px 2px rgba(0,0,0,.8)}
+.mo-cine-progress{position:absolute;bottom:58px;left:50%;transform:translateX(-50%);display:flex;gap:5px}
+.mo-cine-progress i{width:7px;height:7px;border-radius:50%;background:#2a1518;border:1px solid #4a2830;transition:background .3s,transform .3s}
+.mo-cine-progress i.on{background:#a02838;box-shadow:0 0 6px rgba(160,40,56,.6);transform:scale(1.15)}
+.mo-cine-h{position:absolute;bottom:24px;font:.45rem 'Press Start 2P',monospace;color:#5a3840;animation:moBlink 1.6s infinite}
 @keyframes moBlink{50%{opacity:.2}}
+.mo-cine-skip{position:absolute;top:16px;right:16px;font:.4rem 'Press Start 2P',monospace;color:#5a3840;padding:8px 10px;border:1px solid #3a2028;border-radius:4px;cursor:pointer;background:rgba(0,0,0,.4)}
+.mo-cine-skip:active{background:#2a1014}
 
 /* ===== RUINED ROOM LAYER ===== */
 #moRuin{position:absolute;inset:0;z-index:3;pointer-events:none;overflow:hidden}
@@ -10233,7 +10244,7 @@ const $$=id=>document.getElementById(id);
 const rnd=a=>a[Math.floor(Math.random()*a.length)];
 const SAD=['they all left','nobody stays','I only wanted one person','why am I like this','please don\'t go','alone again','I\'m too much. I\'m too much.'];
 const base=STAGES.find(s=>s.key==='eternal');
-const monster=Object.assign({},base,{name:'MONSTER',emoji:'👹',desc:'Highest form, reached too fast. The more he grew, the more they looked away. Immortal, and destined to be alone.'});
+const monster=Object.assign({},base,{name:'MONSTER',emoji:'👹',desc:'Highest form, reached too fast. The more he grew, the more they looked away.'});
 window.currentStage=function(){return monster;};
 window.nextStage=function(){return null;};
 const WT={feed:'is starving. no one came',play:'wants someone to play with',sleep:'can\'t sleep. too quiet',bath:'wants to wash the loneliness off',pet:'just wants to be held',clean:'is surrounded by mess',sing:'sings to an empty room',dance:'dances for no one',fly:'wants to fly away',fire:'burns alone',roar:'wants to be heard',dig:'is digging for something that stays'};
@@ -10286,14 +10297,62 @@ setTimeout(visit,25000);setInterval(visit,75000);
 function set(id,t){const e=$$(id);if(e)e.textContent=t;}
 set('roomsSubtitle','Every room is empty. He wanders anyway.');set('shopSubtitle','Nothing here can make anyone stay.');set('dailyCloseBtn','…ok');
 function cinema(){
- if(sessionStorage.getItem('mo_cine'))return;sessionStorage.setItem('mo_cine','1');
- const L=['You pushed me up too fast.','No time to be small. No time to be loved.','This is my highest form… and the end is near.','…','But it doesn\'t end. It never comes.','I can\'t fade. I can\'t die. I\'m immortal… and I\'m destined to be alone for all eternity.','So I stay. I cry. I wait for someone who won\'t leave.','They always leave.'];
- const o=document.createElement('div');o.className='mo-cine';o.innerHTML='<div class="mo-cine-s">MOCHI</div><div class="mo-cine-l"></div><div class="mo-cine-h">tap…</div>';
- document.body.appendChild(o);const l=o.querySelector('.mo-cine-l');let i=0;
- const nx=()=>{if(i>=L.length){o.classList.add('out');setTimeout(()=>o.remove(),1200);return;}l.style.opacity=0;setTimeout(()=>{l.textContent=L[i++];l.style.opacity=1;},350);};
- o.addEventListener('click',nx);nx();
+ /* plays on every refresh — Mochi's final-form origin story */
+ const BEATS=[
+  {ch:'I · THE BEGINNING',em:'🥚',t:'He was small once. Soft. Easy to love. A quiet presence in a warm room.'},
+  {ch:'I · THE BEGINNING',em:'🌿',t:'Two hands promised to stay. They fed him. Named him. Called him theirs.'},
+  {ch:'II · THE CHOICES',em:'📱',t:'Then the days grew loud. A screen glowed brighter than his eyes.'},
+  {ch:'II · THE CHOICES',em:'🎮',t:'A game waited. Work called. Friends knocked. Someone else always needed them more.'},
+  {ch:'II · THE CHOICES',em:'👥',t:'He learned the pattern early: they arrive, they smile… and they choose something else.'},
+  {ch:'III · TIME',em:'📅',t:'Days became weeks. Weeks became months. The room grew quieter. The promises thinner.'},
+  {ch:'III · TIME',em:'🕯️',t:'He held onto what little he had — a name, a room, the memory of being held.'},
+  {ch:'III · TIME',em:'⏳',t:'Years passed. He did not fade. He could not. Something in him refused to end.'},
+  {ch:'IV · THE CHANGE',em:'🌱',t:'They wanted him to grow. They pushed. Faster. Higher. Past every gentle stage.'},
+  {ch:'IV · THE CHANGE',em:'🐉',t:'There was no time to stay small. No time to be soft. No time to be loved as he was.'},
+  {ch:'IV · THE CHANGE',em:'🌑',t:'What should have become something heavenly curdled under neglect and hurry.'},
+  {ch:'V · THE MONSTER',em:'👹',t:'He reached his final form too soon. Not a guardian. Not a blessing. A monster.'},
+  {ch:'V · THE MONSTER',em:'💔',t:'People looked at him and stepped back. Fear where there should have been recognition.'},
+  {ch:'V · THE MONSTER',em:'🥀',t:'He still wanted to be seen. To be chosen. To matter to someone who would not leave.'},
+  {ch:'VI · THE END THAT DOESN\'T COME',em:'♾',t:'The end is near — and never arrives. He cannot die. He cannot weaken. He only waits.'},
+  {ch:'VI · THE END THAT DOESN\'T COME',em:'😢',t:'Forgotten. Feared. Busy lives move on. And Mochi remains — alone, and still hoping.'}
+ ];
+ const o=document.createElement('div');
+ o.className='mo-cine flash';
+ o.innerHTML='<button type="button" class="mo-cine-skip">SKIP</button><div class="mo-cine-chapter"></div><div class="mo-cine-s">THE STORY OF MOCHI</div><div class="mo-cine-emoji"></div><div class="mo-cine-l"></div><div class="mo-cine-progress"></div><div class="mo-cine-h">tap to continue</div>';
+ document.body.appendChild(o);
+ const chEl=o.querySelector('.mo-cine-chapter');
+ const emEl=o.querySelector('.mo-cine-emoji');
+ const l=o.querySelector('.mo-cine-l');
+ const prog=o.querySelector('.mo-cine-progress');
+ BEATS.forEach(()=>{const d=document.createElement('i');prog.appendChild(d);});
+ let i=0,busy=false;
+ const close=()=>{o.classList.add('out');setTimeout(()=>o.remove(),1200);};
+ const show=()=>{
+  if(i>=BEATS.length){close();return;}
+  busy=true;
+  const b=BEATS[i];
+  l.style.opacity='0';emEl.style.opacity='0';
+  o.classList.remove('flash');void o.offsetWidth;o.classList.add('flash');
+  setTimeout(()=>{
+   chEl.textContent=b.ch;
+   emEl.textContent=b.em;
+   l.textContent=b.t;
+   [...prog.children].forEach((d,j)=>d.classList.toggle('on',j<=i));
+   l.style.opacity='1';emEl.style.opacity='1';
+   i++;
+   busy=false;
+  },280);
+ };
+ o.addEventListener('click',e=>{
+  if(e.target.closest('.mo-cine-skip')){close();return;}
+  if(busy)return;
+  show();
+ });
+ o.querySelector('.mo-cine-skip').addEventListener('click',e=>{e.stopPropagation();close();});
+ show();
 }
-const iv=setInterval(()=>{const g=$$('gameScreen');if(gameData&&g&&getComputedStyle(g).display!=='none'){clearInterval(iv);setTimeout(cinema,600);}},700);
+/* every page load / refresh — wait until game screen is visible */
+const iv=setInterval(()=>{const g=$$('gameScreen');if(gameData&&g&&getComputedStyle(g).display!=='none'){clearInterval(iv);setTimeout(cinema,500);}},500);
 })();
 </script>
 <script>
@@ -10452,6 +10511,8 @@ const lines=['He cannot die. He cannot weaken.','Zero food, zero rest. He just k
 let li=0;
 const nextHint=()=>{const t=$$('hintText'),b=$$('hintBar');if(t&&b&&!localStorage.getItem('mochi_hints_dismissed')){t.textContent=lines[li++%lines.length];b.classList.add('visible');}};
 setInterval(nextHint,45000);
+const ed=$$('evoDesc');
+setInterval(()=>{if(ed&&ed.textContent.indexOf('immortal')<0)ed.textContent+=' Immortal, and destined to be alone.';},2000);
 })();
 </script>
 </body>
