@@ -4129,7 +4129,7 @@
 
 /* ===== MORBID LAYER ===== */
 body{background:linear-gradient(180deg,#050304,#0d0709 45%,#1a0c10)!important}
-#room{filter:grayscale(.65) brightness(.62) contrast(1.1)}
+#room{filter:grayscale(.55) brightness(.8) contrast(1.15)}
 #room::after{content:"";position:absolute;inset:0;pointer-events:none;z-index:30;background:radial-gradient(ellipse at 50% 60%,transparent 25%,rgba(0,0,0,.85) 100%);animation:moFlick 5s infinite}
 @keyframes moFlick{0%,100%{opacity:.9}48%{opacity:1}50%{opacity:.7}52%{opacity:1}}
 .pet .pet-dragon .dg-red{fill:#2c1b3a!important}
@@ -4166,6 +4166,31 @@ body{background:linear-gradient(180deg,#050304,#0d0709 45%,#1a0c10)!important}
 .mo-cine-l{font:600 1.15rem/1.6 'Fredoka',sans-serif;color:#d8c8cc;max-width:340px;min-height:80px;transition:opacity .35s}
 .mo-cine-h{position:absolute;bottom:30px;font:.5rem 'Press Start 2P',monospace;color:#4a3038;animation:moBlink 1.6s infinite}
 @keyframes moBlink{50%{opacity:.2}}
+
+/* ===== RUINED ROOM LAYER ===== */
+#moRuin{position:absolute;inset:0;z-index:3;pointer-events:none;overflow:hidden}
+#moRuin .mo-wall{position:absolute;top:0;left:0;right:0;height:58%;overflow:hidden}
+#moRuin .mo-floor{position:absolute;bottom:0;left:0;right:0;height:42%;overflow:hidden}
+#moRuin svg{position:absolute;inset:0;width:100%;height:100%}
+#moRuin .mo-soot{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.75),transparent 40%),radial-gradient(ellipse at 0 0,rgba(0,0,0,.8),transparent 40%),radial-gradient(ellipse at 100% 0,rgba(0,0,0,.8),transparent 40%)}
+#moRuin .mo-blob{position:absolute;border-radius:50%;filter:blur(1.5px)}
+#moRuin .mo-drip{position:absolute;width:3px;border-radius:0 0 3px 3px}
+#moRuin .mo-peel{position:absolute;background:linear-gradient(160deg,#120a0d,#050203);box-shadow:inset 0 0 14px #000}
+#moRuin .mo-hole{position:absolute;background:radial-gradient(ellipse,#000 45%,#150a0c 75%);border-radius:42% 58% 51% 49%/52% 40% 60% 48%;box-shadow:0 0 0 3px rgba(40,25,28,.8),inset 0 0 12px #000}
+#moRuin .mo-deb{position:absolute;pointer-events:none}
+#moRuin .mo-puddle{position:absolute;border-radius:50%;background:radial-gradient(ellipse at 35% 30%,rgba(190,220,240,.35),rgba(60,80,100,.55) 45%,rgba(10,15,25,.7))}
+.room-scene .furniture.mo-wreck{rotate:var(--mo-rot,0deg);translate:var(--mo-tx,0) var(--mo-ty,0);filter:brightness(.42) sepia(.55) saturate(.55) contrast(1.15)!important;transition:rotate .5s,translate .5s}
+.room-scene .furniture.mo-wreck.mo-fallen{rotate:var(--mo-rot,80deg);translate:var(--mo-tx,0) 14%;filter:brightness(.34) sepia(.6) saturate(.5) contrast(1.2)!important}
+.room-scene .furniture .mo-dmg{position:absolute;inset:-4px;pointer-events:none;z-index:9;overflow:visible}
+.room-scene .furniture .mo-dmg svg{width:100%;height:100%;overflow:visible}
+.room-scene .furniture.mo-smash{animation:moSmash .6s ease-out}
+@keyframes moSmash{0%{translate:0 0}15%{translate:-8px -4px;rotate:-10deg}35%{translate:7px 3px;rotate:9deg}60%{translate:-4px 0}100%{translate:0 0}}
+.room-decorations,.room-items{filter:brightness(.5) sepia(.5) grayscale(.5)}
+.room-wall *{animation-play-state:paused!important}
+.f-room-clock *,.f-room-fountain *,.f-room-sink *,.f-room-globe *,.f-room-train *,.f-room-piano *,.f-room-feeder *,.f-room-well *{animation:none!important}
+.mo-chunk{position:absolute;z-index:45;pointer-events:none;background:#3a2418;animation:moChunk .9s ease-out forwards}
+@keyframes moChunk{0%{transform:translate(0,0) rotate(0);opacity:1}100%{transform:translate(var(--dx),var(--dy)) rotate(var(--dr));opacity:.9}}
+.room.mo-rage{animation:roomShake .15s 5}
 </style>
 </head>
 <body>
@@ -10260,6 +10285,142 @@ function cinema(){
  o.addEventListener('click',nx);nx();
 }
 const iv=setInterval(()=>{const g=$$('gameScreen');if(gameData&&g&&getComputedStyle(g).display!=='none'){clearInterval(iv);setTimeout(cinema,600);}},700);
+})();
+</script>
+<script>
+/* ===== RUINED ROOM: wrecked furniture, stains, cracks, debris ===== */
+(function(){
+'use strict';
+const $$=id=>document.getElementById(id);
+const room=$$('room'),scene=$$('roomScene'),pet=$$('pet');
+if(!room||!scene)return;
+function rng(seed){let a=seed>>>0;return function(){a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296;};}
+function hash(str){let h=2166136261;for(let i=0;i<str.length;i++){h^=str.charCodeAt(i);h=Math.imul(h,16777619);}return h>>>0;}
+let ruinLevel=parseInt(localStorage.getItem('mo_ruin')||'0',10)||0;
+const lvl=()=>Math.min(ruinLevel,6);
+
+/* ---------- walls + floor ---------- */
+const ruin=document.createElement('div');ruin.id='moRuin';room.appendChild(ruin);
+let builtFor='';
+function buildRuin(){
+ const key=(typeof currentRoomId==='string'?currentRoomId:'x')+'|'+lvl();
+ if(key===builtFor)return;builtFor=key;
+ const R=rng(hash(key)),L=lvl();
+ let w='<div class="mo-soot"></div>';
+ /* peeling wallpaper */
+ for(let i=0;i<4+L;i++){const x=R()*90,y=R()*40,ww=8+R()*16,hh=12+R()*26;
+  const pts=[];for(let k=0;k<8;k++){const a=k/8*Math.PI*2;const rr=.5+R()*.5;pts.push((50+Math.cos(a)*50*rr).toFixed(0)+'% '+(50+Math.sin(a)*50*rr).toFixed(0)+'%');}
+  w+=`<div class="mo-peel" style="left:${x}%;top:${y}%;width:${ww}%;height:${hh}%;clip-path:polygon(${pts.join(',')})"></div>`;}
+ /* water + rust stains with drips */
+ for(let i=0;i<5+L;i++){const x=R()*92,y=R()*30,sz=16+R()*30,c=R()<.5?'rgba(70,35,12,.62)':'rgba(12,8,6,.7)';
+  w+=`<div class="mo-blob" style="left:${x}%;top:${y}%;width:${sz}px;height:${sz*.8}px;background:radial-gradient(ellipse,${c},transparent 72%)"></div>`;
+  const dn=1+Math.floor(R()*3);for(let d=0;d<dn;d++)w+=`<div class="mo-drip" style="left:calc(${x}% + ${sz*.25+d*7}px);top:calc(${y}% + ${sz*.4}px);height:${20+R()*70}px;background:linear-gradient(180deg,${c},transparent)"></div>`;}
+ /* mold in corners */
+ w+='<div style="position:absolute;inset:0;background:radial-gradient(circle at 4% 96%,rgba(8,30,10,.85),transparent 22%),radial-gradient(circle at 97% 90%,rgba(10,32,14,.8),transparent 20%),radial-gradient(circle at 55% 3%,rgba(6,24,8,.7),transparent 18%),radial-gradient(circle at 20% 12%,rgba(8,26,10,.55),transparent 12%)"></div>';
+ /* hole punched in wall */
+ w+=`<div class="mo-hole" style="left:${55+R()*25}%;top:${22+R()*18}%;width:${34+R()*20}px;height:${28+R()*18}px"></div>`;
+ /* cracks + claw gashes */
+ let sv='<svg viewBox="0 0 100 58" preserveAspectRatio="none">';
+ const crack=(x,y,len,dep)=>{let d='M'+x+' '+y,cx=x,cy=y;for(let k=0;k<len;k++){cx+=(R()-.5)*9;cy+=2+R()*5;d+=' L'+cx.toFixed(1)+' '+cy.toFixed(1);if(dep>0&&R()<.35)sv+=crack(cx,cy,3+Math.floor(R()*3),dep-1);}return '<path d="'+d+'" stroke="#030102" stroke-width="1.4" fill="none" vector-effect="non-scaling-stroke"/><path d="'+d+'" stroke="rgba(255,255,255,.1)" stroke-width="1" fill="none" transform="translate(.8 0)" vector-effect="non-scaling-stroke"/>';};
+ for(let i=0;i<3+Math.floor(L/2);i++)sv+=crack(5+R()*90,0,6+Math.floor(R()*5),1);
+ for(let g=0;g<2;g++){const gx=10+R()*70,gy=8+R()*20;for(let k=0;k<4;k++)sv+=`<path d="M${gx+k*3} ${gy} l${8+R()*3} ${22+R()*6}" stroke="#0a0204" stroke-width="1.6" fill="none" vector-effect="non-scaling-stroke"/>`;}
+ sv+='</svg>';
+ let f='<div style="position:absolute;inset:0;background:radial-gradient(ellipse at 50% 100%,rgba(0,0,0,.55),transparent 70%)"></div>';
+ /* floor stains, scorch, puddles */
+ for(let i=0;i<5+L;i++){const x=R()*85,y=R()*80,ww=30+R()*80,hh=ww*(.25+R()*.2);const c=R()<.6?'rgba(55,12,14,.78)':'rgba(8,6,6,.85)';
+  f+=`<div class="mo-blob" style="left:${x}%;top:${y}%;width:${ww}px;height:${hh}px;background:radial-gradient(ellipse,${c} 25%,transparent 72%);filter:blur(2px)"></div>`;}
+ for(let i=0;i<2;i++)f+=`<div class="mo-blob" style="left:${10+R()*70}%;top:${25+R()*50}%;width:70px;height:26px;background:radial-gradient(ellipse,#000 30%,rgba(90,25,10,.5) 55%,transparent 75%)"></div>`;
+ for(let i=0;i<3;i++)f+=`<div class="mo-puddle" style="left:${8+R()*78}%;top:${35+R()*50}%;width:${22+R()*30}px;height:${8+R()*8}px"></div>`;
+ let fs='<svg viewBox="0 0 100 42" preserveAspectRatio="none">';
+ for(let i=0;i<7;i++){const y=R()*42;fs+=`<path d="M${R()*30} ${y} L${60+R()*40} ${y+(R()-.5)*8}" stroke="rgba(0,0,0,.65)" stroke-width="1.2" fill="none" vector-effect="non-scaling-stroke"/>`;}
+ for(let i=0;i<4;i++){const x=R()*80,y=4+R()*30;for(let k=0;k<3;k++)fs+=`<path d="M${x+k*2.2} ${y} l${10+R()*6} ${3+R()*3}" stroke="rgba(0,0,0,.8)" stroke-width="1.5" fill="none" vector-effect="non-scaling-stroke"/>`;}
+ fs+='</svg>';
+ /* debris: splinters, shards, paper, stuffing */
+ let deb='';const n=22+L*4;
+ for(let i=0;i<n;i++){const t=R(),x=R()*95,y=R()*88,rot=Math.floor(R()*360);
+  if(t<.4)deb+=`<div class="mo-deb" style="left:${x}%;top:${y}%;width:${10+R()*16}px;height:${2+R()*3}px;background:#4a2c1a;transform:rotate(${rot}deg);box-shadow:0 1px 0 #000"></div>`;
+  else if(t<.65)deb+=`<div class="mo-deb" style="left:${x}%;top:${y}%;width:${7+R()*8}px;height:${7+R()*8}px;background:linear-gradient(135deg,#cfd4d8,#6c7378);clip-path:polygon(0 100%,50% 0,100% 80%);transform:rotate(${rot}deg);opacity:.75"></div>`;
+  else if(t<.85)deb+=`<div class="mo-deb" style="left:${x}%;top:${y}%;width:${9+R()*7}px;height:${7+R()*5}px;background:#b9ae98;opacity:.5;transform:rotate(${rot}deg);clip-path:polygon(0 8%,90% 0,100% 70%,15% 100%)"></div>`;
+  else deb+=`<div class="mo-deb" style="left:${x}%;top:${y}%;width:${12+R()*10}px;height:${8+R()*6}px;background:radial-gradient(ellipse,rgba(200,190,175,.7),transparent 70%)"></div>`;}
+ ruin.innerHTML='<div class="mo-wall">'+w+sv+'</div><div class="mo-floor">'+f+fs+deb+'</div>';
+}
+
+/* ---------- furniture damage ---------- */
+function ruinFurniture(el){
+ if(el.classList.contains('mo-wreck'))return;
+ const fid=el.dataset.fid||el.className,h=hash(fid),R=rng(h);
+ el.classList.add('mo-wreck');
+ const fall=(h%5===0)||(h%7===3);
+ el.style.setProperty('--mo-rot',(fall?(R()<.5?-1:1)*(70+R()*18):(R()-.5)*(10+lvl()*3))+'deg');
+ el.style.setProperty('--mo-tx',((R()-.5)*10)+'px');
+ el.style.setProperty('--mo-ty',(R()*6)+'px');
+ if(fall)el.classList.add('mo-fallen');
+ const d=document.createElement('div');d.className='mo-dmg';
+ let sv='<svg viewBox="0 0 100 100" preserveAspectRatio="none">';
+ const c=()=>{let x=R()*100,y=R()*30,dd='M'+x.toFixed(0)+' '+y.toFixed(0);for(let k=0;k<5+Math.floor(R()*4);k++){x+=(R()-.5)*26;y+=8+R()*12;dd+=' L'+x.toFixed(0)+' '+Math.min(y,100).toFixed(0);}return '<path d="'+dd+'" stroke="#000" stroke-width="1.6" fill="none" vector-effect="non-scaling-stroke"/>';};
+ for(let i=0;i<2+Math.floor(lvl()/2);i++)sv+=c();
+ sv+=`<ellipse cx="${20+R()*60}" cy="${30+R()*50}" rx="${14+R()*18}" ry="${8+R()*12}" fill="rgba(60,10,14,.55)"/>`;
+ sv+=`<ellipse cx="${20+R()*60}" cy="${20+R()*60}" rx="${10+R()*12}" ry="${6+R()*8}" fill="rgba(0,0,0,.55)"/>`;
+ /* snapped-off corner */
+ const corner=R()<.5;sv+=corner?'<polygon points="100,0 100,34 82,24 90,12 74,2" fill="#050204" opacity=".92"/>':'<polygon points="0,100 0,64 16,76 8,88 24,98" fill="#050204" opacity=".92"/>';
+ /* dangling splinters / stuffing */
+ for(let i=0;i<3;i++){const x=R()*100;sv+=`<path d="M${x} 100 l${(R()-.5)*14} ${8+R()*10}" stroke="#6b4a2c" stroke-width="2.4" fill="none" vector-effect="non-scaling-stroke"/>`;}
+ /* specials */
+ const cn=el.className;
+ if(/f-window/.test(cn)){sv+='<rect x="-8" y="30" width="116" height="14" fill="#3a2414" stroke="#000" transform="rotate(-9 50 37)" vector-effect="non-scaling-stroke"/><rect x="-8" y="60" width="116" height="14" fill="#2f1c10" stroke="#000" transform="rotate(7 50 67)" vector-effect="non-scaling-stroke"/>';}
+ if(/f-room-mirror|f-frame/.test(cn)){sv+='<path d="M50 50 L10 4 M50 50 L96 14 M50 50 L100 70 M50 50 L30 100 M50 50 L0 60 M50 50 L72 100" stroke="#e8e8f0" stroke-width="1.2" opacity=".75" fill="none" vector-effect="non-scaling-stroke"/>';}
+ if(/f-bed|f-room-rug|f-room-playmat|f-room-cushions/.test(cn)){sv+='<path d="M10 40 l30 8 l24 -10 l30 14" stroke="#000" stroke-width="2" fill="none" vector-effect="non-scaling-stroke"/><circle cx="35" cy="46" r="7" fill="rgba(210,200,185,.45)"/><circle cx="62" cy="40" r="5" fill="rgba(210,200,185,.45)"/>';}
+ sv+='</svg>';d.innerHTML=sv;el.appendChild(d);
+}
+function ruinAll(){scene.querySelectorAll('.furniture').forEach(ruinFurniture);}
+new MutationObserver(ruinAll).observe(scene,{childList:true});
+ruinAll();
+
+/* ---------- rebuild room decay when the room changes ---------- */
+buildRuin();
+setInterval(buildRuin,800);
+
+/* ---------- rage: he smashes something, then regrets it ---------- */
+const rnd=a=>a[Math.floor(Math.random()*a.length)];
+function chunks(cx,cy,n){
+ for(let i=0;i<n;i++){const c=document.createElement('div');c.className='mo-chunk';
+  c.style.left=cx+'px';c.style.top=cy+'px';c.style.width=(4+Math.random()*7)+'px';c.style.height=(3+Math.random()*5)+'px';
+  c.style.setProperty('--dx',((Math.random()-.5)*90)+'px');c.style.setProperty('--dy',(10+Math.random()*50)+'px');c.style.setProperty('--dr',(Math.random()*540)+'deg');
+  room.appendChild(c);setTimeout(()=>c.remove(),950);}
+}
+async function smash(){
+ if(!gameData||document.hidden||isAnimating||ambientPlaying)return;
+ if(document.querySelector('.mo-visitor,.mo-cine,.choice-overlay.active,.daily-overlay.active'))return;
+ const fs=[...scene.querySelectorAll('.furniture')];if(!fs.length)return;
+ ambientPlaying=true;
+ try{
+  const f=rnd(fs),rr=room.getBoundingClientRect(),fr=f.getBoundingClientRect();
+  pet.className='pet roaring';showBubble('RAAAGH','💢');
+  room.classList.add('mo-rage');f.classList.add('mo-smash');
+  chunks(fr.left-rr.left+fr.width/2,fr.top-rr.top+fr.height/2,14);
+  if(typeof sfxBad==='function'){sfxBad();setTimeout(sfxBad,150);}
+  await new Promise(r=>setTimeout(r,1000));
+  room.classList.remove('mo-rage');f.classList.remove('mo-smash');
+  ruinLevel++;localStorage.setItem('mo_ruin',String(ruinLevel));
+  const d=f.querySelector('.mo-dmg');if(d)d.style.filter='contrast(1.4) brightness(.8)';
+  f.classList.add('mo-fallen');f.style.setProperty('--mo-rot',((Math.random()<.5?-1:1)*(60+Math.random()*30))+'deg');
+  pet.className='pet sad';showBubble('…I didn\'t mean to','😢');
+  await new Promise(r=>setTimeout(r,1400));
+  showBubble('now they have another reason to leave','💔');
+  await new Promise(r=>setTimeout(r,2200));
+  setPetClass();
+ }catch(e){}
+ ambientPlaying=false;renderCache.petMood='';
+}
+setTimeout(smash,45000);setInterval(smash,95000);
+
+/* ---------- tapping wrecked furniture ---------- */
+scene.addEventListener('click',e=>{
+ const f=e.target.closest&&e.target.closest('.furniture');if(!f||typeof showBubble!=='function')return;
+ setTimeout(()=>{if(!isAnimating)showBubble(rnd(['it\'s broken. like everything','it was nice once','I broke it. I always do']),'🥀');},250);
+});
+
+const sub=$$('roomsSubtitle');if(sub)sub.textContent='Every room is wrecked. He wanders through the ruins.';
 })();
 </script>
 </body>
