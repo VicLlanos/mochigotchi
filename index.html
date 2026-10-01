@@ -4191,6 +4191,14 @@ body{background:linear-gradient(180deg,#050304,#0d0709 45%,#1a0c10)!important}
 .mo-chunk{position:absolute;z-index:45;pointer-events:none;background:#3a2418;animation:moChunk .9s ease-out forwards}
 @keyframes moChunk{0%{transform:translate(0,0) rotate(0);opacity:1}100%{transform:translate(var(--dx),var(--dy)) rotate(var(--dr));opacity:.9}}
 .room.mo-rage{animation:roomShake .15s 5}
+
+/* ===== IMMORTAL LAYER ===== */
+.mo-immortal{font:600 .62rem/1.5 'Fredoka',sans-serif;color:#9a7f8a;text-align:center;background:#120a0d;border:2px solid #4a2a32;border-radius:4px;padding:6px 8px;margin:6px 0;letter-spacing:.3px}
+.pet.sick,.pet.grumpy,.pet.hungry{animation:none!important;opacity:1!important}
+.pet.sick .pet-dragon,.pet.grumpy .pet-dragon,.pet.hungry .pet-dragon{filter:saturate(.7) drop-shadow(0 0 12px rgba(190,0,40,.6))!important}
+.stat-bar-fill.critical,.stat.critical .stat-fill,.stat.warning{animation:none!important}
+.mo-aura{position:absolute;left:50%;bottom:6px;width:120px;height:120px;margin-left:-60px;border-radius:50%;pointer-events:none;z-index:-1;background:radial-gradient(circle,rgba(140,0,30,.28),transparent 68%);animation:moAura 4s ease-in-out infinite}
+@keyframes moAura{0%,100%{opacity:.5;transform:scale(.95)}50%{opacity:1;transform:scale(1.1)}}
 </style>
 </head>
 <body>
@@ -4370,7 +4378,8 @@ body{background:linear-gradient(180deg,#050304,#0d0709 45%,#1a0c10)!important}
           <span id="hintText">Tip: Tap furniture to interact with Mochi!</span>
         </div>
 
-        <div class="stats">
+        <div class="mo-immortal" id="moImmortal">♾ IMMORTAL · stats may fall to 0 — he cannot die, cannot weaken, cannot leave. He is bound to be alone forever.</div>
+      <div class="stats">
           <div class="stat" id="stat-hunger">
             <div class="stat-header"><span>🍚 FOOD</span><span id="hungerVal">100</span></div>
             <div class="stat-bar"><div class="stat-bar-fill good" id="hungerBar" style="width:100%"></div></div>
@@ -6269,7 +6278,7 @@ async function furnitureInteraction(type) {
     showToast('Mochi is too grumpy to play — feed or pet first 💢');
     return;
   }
-  if (mood.key === 'hungry' && playTypes.includes(type) && (gameData.hunger || 0) < 25) {
+  if (false) {
     pet.className = 'pet sad';
     showBubble('hungry first...', '🍚');
     showToast('Mochi is too hungry to play — feed first 🍚');
@@ -8802,7 +8811,7 @@ function updateStatWarnings() {
   });
   // Soft tired cue (throttled)
   const energy = gameData.energy ?? 100;
-  if (energy < 40 && energy >= 25) {
+  if (false) {
     const now = Date.now();
     if (!window._lastTiredToast || now - window._lastTiredToast > 120000) {
       window._lastTiredToast = now;
@@ -9368,7 +9377,7 @@ let mgSpawnInterval = null;
 function startMinigame() {
   if (mgActive) return;
   if (!gameData) return;
-  if (gameData.energy < 10) return showToast('Mochi is too tired for games 💤');
+  /* immortal: never too tired */
 
   const mood = computeMood();
   if (mood.key === 'grumpy') return showToast('Mochi is too grumpy to play 💢');
@@ -9516,7 +9525,7 @@ async function doAction(name) {
   if (name === 'play' || name === 'minigame') {
     if (mood.key === 'sick') return showToast('Mochi is sick — needs a bath or rest first 💊');
     if (mood.key === 'grumpy') return showToast('Mochi is too grumpy — feed or pet first 💢');
-    if ((gameData.hunger || 0) < 20) return showToast('Mochi is too hungry to play 🍚');
+    /* immortal: never too hungry to act */
   }
   if (name === 'sleep') {
     if (mood.key === 'ecstatic' && (gameData.energy || 0) > 92) {
@@ -9529,7 +9538,7 @@ async function doAction(name) {
 
   if (action.cost) {
     for (const [s, amt] of Object.entries(action.cost)) {
-      if (gameData[s] < amt) return showToast(`Mochi needs more ${s} first 💤`);
+      /* immortal: never too weak to act */
     }
   }
 
@@ -10278,7 +10287,7 @@ function set(id,t){const e=$$(id);if(e)e.textContent=t;}
 set('roomsSubtitle','Every room is empty. He wanders anyway.');set('shopSubtitle','Nothing here can make anyone stay.');set('dailyCloseBtn','…ok');
 function cinema(){
  if(sessionStorage.getItem('mo_cine'))return;sessionStorage.setItem('mo_cine','1');
- const L=['You pushed me up too fast.','No time to be small. No time to be loved.','This is my highest form… and the end is near.','…','But it doesn\'t end. It never comes.','So I stay. I cry. I wait for someone who won\'t leave.','They always leave.'];
+ const L=['You pushed me up too fast.','No time to be small. No time to be loved.','This is my highest form… and the end is near.','…','But it doesn\'t end. It never comes.','I can\'t fade. I can\'t die. I\'m immortal… and I\'m destined to be alone for all eternity.','So I stay. I cry. I wait for someone who won\'t leave.','They always leave.'];
  const o=document.createElement('div');o.className='mo-cine';o.innerHTML='<div class="mo-cine-s">MOCHI</div><div class="mo-cine-l"></div><div class="mo-cine-h">tap…</div>';
  document.body.appendChild(o);const l=o.querySelector('.mo-cine-l');let i=0;
  const nx=()=>{if(i>=L.length){o.classList.add('out');setTimeout(()=>o.remove(),1200);return;}l.style.opacity=0;setTimeout(()=>{l.textContent=L[i++];l.style.opacity=1;},350);};
@@ -10421,6 +10430,30 @@ scene.addEventListener('click',e=>{
 });
 
 const sub=$$('roomsSubtitle');if(sub)sub.textContent='Every room is wrecked. He wanders through the ruins.';
+})();
+</script>
+<script>
+/* ===== IMMORTAL: no stat can kill or weaken Mochi ===== */
+(function(){
+'use strict';
+const $$=id=>document.getElementById(id);
+/* his mood can never become sick / hungry / weak, whatever the stats are */
+const _cm=window.computeMood;
+window.computeMood=function(){const m=_cm();if(m&&(m.key==='sick'||m.key==='hungry'||m.key==='grumpy'))return{key:'lonely',label:'CRYING',cls:'sad'};return m;};
+const pet=$$('pet');
+if(pet&&!pet.querySelector('.mo-aura')){const a=document.createElement('div');a.className='mo-aura';pet.appendChild(a);}
+/* nothing ever leaves him in a weakened pose */
+setInterval(()=>{const p=$$('pet');if(p&&/\b(sick|hungry|grumpy)\b/.test(p.className)&&!ambientPlaying&&!isAnimating)p.className='pet sad';},700);
+/* label tweaks */
+const badge=$$('petStageBadge');
+const fixBadge=()=>{if(badge&&badge.textContent.indexOf('♾')<0)badge.textContent='♾ '+badge.textContent;};
+setInterval(fixBadge,1500);
+const lines=['He cannot die. He cannot weaken.','Zero food, zero rest. He just keeps going.','Eternity is a long time to be alone.'];
+let li=0;
+const nextHint=()=>{const t=$$('hintText'),b=$$('hintBar');if(t&&b&&!localStorage.getItem('mochi_hints_dismissed')){t.textContent=lines[li++%lines.length];b.classList.add('visible');}};
+setInterval(nextHint,45000);
+const ed=$$('evoDesc');
+setInterval(()=>{if(ed&&ed.textContent.indexOf('immortal')<0)ed.textContent+=' Immortal, and destined to be alone.';},2000);
 })();
 </script>
 </body>
