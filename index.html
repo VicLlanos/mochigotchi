@@ -979,9 +979,9 @@
   /* ---- Eternal ---- */
   .pet[data-stage="eternal"] {
     width: 116px; height: 126px;
-    --pet-color: #7A6A70; --pet-color-dark: #4A3A40; --pet-outline: #2A1A20;
-    --pet-belly: #4A3A40; --pet-horn: #8B7080; --pet-wing: #5A4A50;
-    filter: grayscale(0.45) brightness(0.8) saturate(0.7);
+    --pet-color: #3A2028; --pet-color-dark: #1A1014; --pet-outline: #0A0608;
+    --pet-belly: #2A181C; --pet-horn: #5A3038; --pet-wing: #2A181C;
+    filter: brightness(0.65) saturate(0.4) contrast(1.15);
   }
   .pet[data-stage="eternal"] .pet-body { bottom: 42px; width: 66px; height: 62px; }
   .pet[data-stage="eternal"] .pet-torso { width: 64px; height: 52px; bottom: 11px; }
@@ -3451,10 +3451,10 @@
   .pet[data-stage="mystic"] .pet-dragon .dg-cr  { fill: #F4F0FC; }
   .pet[data-stage="mystic"] .pet-dragon .dg-o   { stroke: #3A2858; }
 
-  .pet[data-stage="eternal"] .pet-dragon .dg-red { fill: #F0D878; }
-  .pet[data-stage="eternal"] .pet-dragon .dg-dk  { fill: #D4AF37; }
-  .pet[data-stage="eternal"] .pet-dragon .dg-cr  { fill: #FFFBF0; }
-  .pet[data-stage="eternal"] .pet-dragon .dg-o   { stroke: #6B5A20; }
+  .pet[data-stage="eternal"] .pet-dragon .dg-red { fill: #3A2028; }
+  .pet[data-stage="eternal"] .pet-dragon .dg-dk  { fill: #1A1014; }
+  .pet[data-stage="eternal"] .pet-dragon .dg-cr  { fill: #4A2830; }
+  .pet[data-stage="eternal"] .pet-dragon .dg-o   { stroke: #0A0608; }
 
   /* hide old boxy parts — keep anchors for outfits */
   .pet:not([data-stage="egg"]) .pet-body,
@@ -3515,6 +3515,112 @@
   .pet.sleeping .pet-dragon .dg-wl, .pet.sleeping .pet-dragon .dg-wr, .pet.sleeping .pet-dragon .dg-tail { animation-play-state: paused; }
   .pet.sad .pet-dragon .dg-eye, .pet.sick .pet-dragon .dg-eye, .pet.grumpy .pet-dragon .dg-eye { transform: scaleY(0.75); animation: none; }
   .pet.sad .pet-dragon .dg-mouth, .pet.sick .pet-dragon .dg-mouth { transform: scaleY(0.5); }
+
+  /* Horrendous depressed monster face */
+  .pet.sad .pet-dragon,
+  .pet[data-stage="eternal"] .pet-dragon {
+    filter: brightness(0.7) saturate(0.35) contrast(1.2);
+  }
+  .pet.sad .pet-dragon .dg-eye ellipse[fill="#fff"],
+  .pet[data-stage="eternal"] .pet-dragon .dg-eye ellipse[fill="#fff"] {
+    fill: #1a0808 !important;
+  }
+  .pet.sad .pet-dragon .dg-pupil ellipse:first-child,
+  .pet[data-stage="eternal"] .pet-dragon .dg-pupil ellipse:first-child {
+    fill: #8B1010 !important;
+  }
+  .pet.sad .pet-dragon .dg-pupil ellipse:nth-child(2),
+  .pet[data-stage="eternal"] .pet-dragon .dg-pupil ellipse:nth-child(2) {
+    fill: #C9302C !important;
+  }
+  .pet.sad .pet-dragon .dg-pupil circle,
+  .pet[data-stage="eternal"] .pet-dragon .dg-pupil circle {
+    fill: #ff6666 !important;
+    opacity: 0.9;
+  }
+  .pet.sad .pet-dragon .dg-eye {
+    transform: scaleY(0.55) !important;
+    animation: none !important;
+  }
+  .pet.sad .pet-dragon path[fill="#ff9fb5"],
+  .pet[data-stage="eternal"] .pet-dragon path[fill="#ff9fb5"],
+  .pet.sad .pet-dragon ellipse[fill="#ff9fb5"],
+  .pet[data-stage="eternal"] .pet-dragon ellipse[fill="#ff9fb5"] {
+    fill: #3A1520 !important;
+    opacity: 0.4 !important;
+  }
+  /* Tear drops under eyes */
+  .pet.sad::after {
+    content: '💧';
+    position: absolute;
+    left: 28%;
+    top: 18%;
+    font-size: 0.7rem;
+    animation: tearDrop 2.2s ease-in-out infinite;
+    pointer-events: none;
+    z-index: 30;
+    filter: drop-shadow(0 1px 1px rgba(0,0,0,0.4));
+  }
+  .pet.sad::before {
+    content: '💧';
+    position: absolute;
+    right: 28%;
+    top: 20%;
+    font-size: 0.55rem;
+    animation: tearDrop 2.2s ease-in-out infinite 0.6s;
+    pointer-events: none;
+    z-index: 30;
+  }
+  @keyframes tearDrop {
+    0% { opacity: 0; transform: translateY(0); }
+    30% { opacity: 1; }
+    100% { opacity: 0; transform: translateY(18px); }
+  }
+  /* Thought cloud bubble */
+  .thought-cloud {
+    position: absolute;
+    left: 50%;
+    bottom: 105%;
+    transform: translateX(-50%);
+    background: #1A1014;
+    border: 3px solid #5A3038;
+    color: #C8A0A8;
+    font-family: 'Press Start 2P', monospace;
+    font-size: 0.38rem;
+    line-height: 1.45;
+    padding: 8px 10px;
+    border-radius: 8px;
+    max-width: 160px;
+    text-align: center;
+    z-index: 40;
+    pointer-events: none;
+    box-shadow: 0 4px 0 #2A1014, 0 0 20px rgba(80,20,30,0.4);
+    animation: thoughtIn 0.4s ease-out;
+  }
+  .thought-cloud::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 40%;
+    width: 12px; height: 12px;
+    background: #1A1014;
+    border-right: 3px solid #5A3038;
+    border-bottom: 3px solid #5A3038;
+    transform: rotate(45deg);
+  }
+  .thought-cloud .thought-dots {
+    position: absolute;
+    bottom: -22px;
+    left: 28%;
+    font-size: 0.5rem;
+    letter-spacing: 2px;
+    color: #5A3038;
+  }
+  @keyframes thoughtIn {
+    0% { opacity: 0; transform: translateX(-50%) translateY(8px) scale(0.9); }
+    100% { opacity: 1; transform: translateX(-50%) translateY(0) scale(1); }
+  }
+
   .pet.eating .pet-dragon .dg-mouth { animation: dgChew 0.28s steps(1) infinite; }
   .pet.roaring .pet-dragon .dg-mouth, .pet.happy .pet-dragon .dg-mouth, .pet.ecstatic .pet-dragon .dg-mouth { transform: scale(1.12); }
   .pet.flying .pet-dragon .dg-wl, .pet.flying .pet-dragon .dg-wr { animation-duration: 0.35s; }
@@ -3954,9 +4060,27 @@
   /* Cloud nest / star cove ambient */
   .room.cloudnest .room-wall { background: linear-gradient(180deg, #D8E8F8 0%, #F0F4FA 100%) !important; }
   .room.starcove .room-wall {
-    background: linear-gradient(180deg, #1a1a3a 0%, #2a2050 50%, #1a1530 100%) !important;
+    background: linear-gradient(180deg, #0a0810 0%, #12101a 50%, #0a0810 100%) !important;
   }
-  .room.starcove .room-floor { background: linear-gradient(180deg, #2a2050 0%, #1a1530 100%) !important; }
+  .room.starcove .room-floor { background: linear-gradient(180deg, #120e18 0%, #0a0810 100%) !important; }
+
+  /* Morbid dungeon room skins */
+  .room.bedroom .room-wall, .room.bathroom .room-wall, .room.kitchen .room-wall,
+  .room.garden .room-wall, .room.forest .room-wall, .room.playroom .room-wall,
+  .room.farm .room-wall, .room.observatory .room-wall, .room.cloudnest .room-wall {
+    background: linear-gradient(180deg, #1a1210 0%, #2a1814 50%, #1a1010 100%) !important;
+  }
+  .room.bedroom .room-floor, .room.bathroom .room-floor, .room.kitchen .room-floor,
+  .room.garden .room-floor, .room.forest .room-floor, .room.playroom .room-floor,
+  .room.farm .room-floor, .room.observatory .room-floor, .room.cloudnest .room-floor {
+    background: linear-gradient(180deg, #2a1a18 0%, #1a100e 100%) !important;
+  }
+  .room.starcove .room-wall {
+    background: linear-gradient(180deg, #0a0810 0%, #1a1020 50%, #0a0810 100%) !important;
+  }
+  .room.starcove .room-floor { background: linear-gradient(180deg, #120e18 0%, #0a0810 100%) !important; }
+  .room.room-night-tint::before { background: rgba(10, 8, 20, 0.55) !important; opacity: 1 !important; }
+
   .room.starcove { color: #E8E0F0; }
 
 
@@ -4504,22 +4628,22 @@ const STAGES = [
   { level: 20, name: 'BLOOM',     emoji: '🌸', key: 'bloom',     scale: 1.05, hue: -10, desc: 'Petals of scale-shine. Playful and proud.' },
   { level: 25, name: 'GUARDIAN',  emoji: '🐉', key: 'guardian',  scale: 1.12, hue: -25, desc: 'Young guardian. Protective of their room.' },
   { level: 30, name: 'MYSTIC',    emoji: '✨', key: 'mystic',    scale: 1.18, hue: 200, desc: 'Star-dusted wings. Hears the night sky.' },
-  { level: 35, name: 'ETERNAL',   emoji: '👑', key: 'eternal',   scale: 1.25, hue: 280, desc: 'Reached the peak alone. Still waiting for someone who will not leave.' },
+  { level: 35, name: 'ETERNAL',   emoji: '😢', key: 'eternal',   scale: 1.25, hue: 280, desc: 'Final form. Alone in the dungeon. Still waiting for someone who stays.' },
   { level: 45, name: 'AURORA',    emoji: '🌌', key: 'aurora',    scale: 1.32, hue: 260, desc: 'Northern-light scales. Rare form of devotion.' },
   { level: 55, name: 'CELESTIAL', emoji: '🌟', key: 'celestial', scale: 1.40, hue: 45,  desc: 'Celestial Mochi. The room becomes a constellation.' }
 ];
 
 const ROOMS = [
-  { id: 'bedroom',     name: 'BEDROOM',     emoji: '🛏️', reqLevel: 1 },
-  { id: 'bathroom',    name: 'BATHROOM',    emoji: '🛁', reqLevel: 1 },
-  { id: 'kitchen',     name: 'KITCHEN',     emoji: '🍳', reqLevel: 5 },
-  { id: 'garden',      name: 'GARDEN',      emoji: '🌷', reqLevel: 10 },
-  { id: 'forest',      name: 'FOREST',      emoji: '🌲', reqLevel: 15 },
-  { id: 'playroom',    name: 'PLAYROOM',    emoji: '🎨', reqLevel: 20 },
-  { id: 'farm',        name: 'FARM',        emoji: '🌾', reqLevel: 25 },
-  { id: 'observatory', name: 'OBSERVATORY', emoji: '🔭', reqLevel: 30 },
-  { id: 'cloudnest',   name: 'CLOUD NEST',  emoji: '☁️', reqLevel: 45 },
-  { id: 'starcove',    name: 'STAR COVE',   emoji: '🌌', reqLevel: 55 }
+  { id: 'bedroom',     name: 'CRYPT CELL',     emoji: '⚰️', reqLevel: 1 },
+  { id: 'bathroom',    name: 'DRAIN PIT',      emoji: '🕳️', reqLevel: 1 },
+  { id: 'kitchen',     name: 'BONE KITCHEN',   emoji: '🦴', reqLevel: 5 },
+  { id: 'garden',      name: 'DEAD GARDEN',    emoji: '🥀', reqLevel: 10 },
+  { id: 'forest',      name: 'BLACKWOOD',      emoji: '🌲', reqLevel: 15 },
+  { id: 'playroom',    name: 'TORTURE HALL',   emoji: '⛓', reqLevel: 20 },
+  { id: 'farm',        name: 'GRAVEYARD',      emoji: '🪦', reqLevel: 25 },
+  { id: 'observatory', name: 'VOID SPIRE',     emoji: '👁', reqLevel: 30 },
+  { id: 'cloudnest',   name: 'ASH NEST',       emoji: '💨', reqLevel: 45 },
+  { id: 'starcove',    name: 'ABYSS COVE',     emoji: '🌑', reqLevel: 55 }
 ];
 
 const ACTIONS = {
@@ -4554,29 +4678,29 @@ const WANTS = [
 
 const AMBIENT_BEHAVIORS = {
   bedroom: [
-    { cls: 'idle', dur: 3, bubble: 'hmm~', emoji: '💭' },
-    { cls: 'sleeping', dur: 4, bubble: 'nap time', emoji: '💤' },
-    { cls: 'watching', dur: 3, bubble: 'looking outside', emoji: '🪟' },
-    { cls: 'hopping', dur: 1.2, bubble: 'yay!', emoji: '✨' },
-    { cls: 'stretching', dur: 1.5, bubble: 'stretch~', emoji: '✨' }
+    { cls: 'sad', dur: 4, bubble: 'cold stone floor...', emoji: '😢' },
+    { cls: 'sleeping', dur: 5, bubble: 'crying in the crypt...', emoji: '⚰️' },
+    { cls: 'watching', dur: 3, bubble: 'no one comes down here', emoji: '👁' },
+    { cls: 'sad', dur: 3.5, bubble: 'echoes only...', emoji: '💔' },
+    { cls: 'bored', dur: 3, bubble: 'waiting in the dark', emoji: '😢' }
   ],
   bathroom: [
-    { cls: 'watching', dur: 2.5, bubble: 'bubbles!', emoji: '🫧' },
-    { cls: 'hopping', dur: 1.2, bubble: 'splash!', emoji: '💧' },
-    { cls: 'stretching', dur: 1.5, bubble: 'fresh!', emoji: '✨' },
+    { cls: 'sad', dur: 3, bubble: 'drips like tears...', emoji: '💧' },
+    { cls: 'watching', dur: 3, bubble: 'drain never ends', emoji: '🕳️' },
+    { cls: 'sad', dur: 4, bubble: 'washed away...', emoji: '😢' },
     { cls: 'walking', dur: 2 }
   ],
   kitchen: [
-    { cls: 'sniffing', dur: 2, bubble: 'smells good!', emoji: '🍲' },
-    { cls: 'watching', dur: 3, bubble: 'watching the stove', emoji: '🔥' },
-    { cls: 'hopping', dur: 1.2, bubble: 'snack!', emoji: '🍎' },
+    { cls: 'sniffing', dur: 2, bubble: 'only bones left...', emoji: '🦴' },
+    { cls: 'sad', dur: 3, bubble: 'no one cooks for me', emoji: '😢' },
+    { cls: 'watching', dur: 3, bubble: 'empty pot', emoji: '🖤' },
     { cls: 'walking', dur: 2.5 }
   ],
   garden: [
-    { cls: 'hopping', dur: 1.5, bubble: 'flowers!', emoji: '🌷' },
-    { cls: 'sniffing', dur: 2, bubble: 'sniff sniff', emoji: '🌸' },
-    { cls: 'watching', dur: 3, bubble: 'butterfly!', emoji: '🦋' },
-    { cls: 'stretching', dur: 1.5, bubble: 'sunshine~', emoji: '☀️' },
+    { cls: 'sad', dur: 3, bubble: 'all the flowers died', emoji: '🥀' },
+    { cls: 'sniffing', dur: 2, bubble: 'smells like dust', emoji: '💨' },
+    { cls: 'watching', dur: 3, bubble: 'no butterflies here', emoji: '😢' },
+    { cls: 'bored', dur: 3, bubble: 'dead soil', emoji: '🪦' },
     { cls: 'walking', dur: 2 }
   ],
   playroom: [
@@ -4917,6 +5041,41 @@ function sfxWater() { playTone(440, 0.1, 'sine', 0.03); setTimeout(() => playTon
 function sfxWalk() { playTone(300, 0.08, 'sine', 0.02); setTimeout(() => playTone(260, 0.08, 'sine', 0.02), 100); }
 
 let toastT;
+
+const MONSTER_THOUGHTS = [
+  'I became a monster... no one wants me',
+  'They see scales and run',
+  'I was supposed to be cute',
+  'Who could love this face?',
+  'Everyone left when I grew',
+  'Scary. Alone. Forgotten.',
+  'I only wanted someone to stay',
+  'A horrendous thing in a dungeon',
+  'They choose anything over me',
+  'Final form... and still unwanted'
+];
+
+function showThoughtCloud(text) {
+  const area = $('petArea');
+  if (!area) return;
+  area.querySelectorAll('.thought-cloud').forEach(el => el.remove());
+  const cloud = document.createElement('div');
+  cloud.className = 'thought-cloud';
+  cloud.innerHTML = (text || MONSTER_THOUGHTS[Math.floor(Math.random() * MONSTER_THOUGHTS.length)]) +
+    '<div class="thought-dots">···</div>';
+  area.appendChild(cloud);
+  setTimeout(() => cloud.remove(), 4500);
+}
+
+function startMonsterThoughtLoop() {
+  if (window._thoughtLoop) clearInterval(window._thoughtLoop);
+  window._thoughtLoop = setInterval(() => {
+    if (!gameData || document.hidden || isAnimating || (typeof mgActive !== 'undefined' && mgActive)) return;
+    showThoughtCloud();
+  }, 14000);
+  setTimeout(() => showThoughtCloud('I became a monster... no one likes me'), 2500);
+}
+
 function showToast(msg) {
   const t = $('toast');
   t.textContent = msg;
@@ -5329,9 +5488,10 @@ function processUpdate(snap) {
   if (!window._lonelyMsgShown && !document.hidden) {
     window._lonelyMsgShown = true;
     setTimeout(() => {
-      showToast('😢 Mochi: I waited... everyone chooses something else before me.');
-      setTimeout(() => { if (typeof showBubble === 'function') showBubble('please stay...', '😢'); }, 900);
+      showToast('😢 Mochi: I grew into a monster... no one stayed.');
+      setTimeout(() => { if (typeof showBubble === 'function') showBubble('I am a monster...', '😢'); }, 900);
       setTimeout(() => showToast('He is always crying. He only wanted a partner who would not leave.'), 3500);
+      setTimeout(() => { if (typeof startMonsterThoughtLoop === 'function') startMonsterThoughtLoop(); }, 4000);
     }, 1600);
   }
 
@@ -5480,22 +5640,24 @@ function computeMood() {
 function setPetClass(extra) {
   const pet = $('pet');
   if (!pet) return;
-  const mood = computeMood();
-  const base = (extra && String(extra).trim()) ? String(extra).trim() : mood.cls;
-  // Never leave permanent flying/quad/curled as the only state except explicit action
+  // Always visually depressed / monstrous unless a short action animation overrides
+  const actionOverrides = ['walking', 'flying', 'eating', 'roaring', 'firebreath', 'leaving', 'arriving', 'singing', 'dancing', 'hopping', 'spinning'];
+  const extraStr = (extra && String(extra).trim()) ? String(extra).trim() : '';
+  const isAction = actionOverrides.some(a => extraStr.includes(a));
+  const base = isAction ? extraStr : 'sad';
   pet.className = 'pet ' + base;
   renderCache.petMood = base;
 }
 
 
 const LONELY_AMBIENT = [
-  { cls: 'sad', dur: 4, bubble: 'why did they leave...', emoji: '😢' },
-  { cls: 'sad', dur: 3.5, bubble: 'I only wanted someone to stay', emoji: '💔' },
-  { cls: 'bored', dur: 3, bubble: 'everyone picks something else', emoji: '😢' },
-  { cls: 'sad', dur: 4, bubble: 'please come back...', emoji: '🥺' },
-  { cls: 'sad', dur: 3, bubble: 'am I not enough?', emoji: '💧' },
+  { cls: 'sad', dur: 4, bubble: 'I became a monster...', emoji: '😢' },
+  { cls: 'sad', dur: 3.5, bubble: 'no one could love this', emoji: '💔' },
+  { cls: 'bored', dur: 3, bubble: 'scary. alone. forgotten.', emoji: '😢' },
+  { cls: 'sad', dur: 4, bubble: 'they ran when I evolved', emoji: '🥺' },
+  { cls: 'sad', dur: 3, bubble: 'horrendous thing in a cell', emoji: '💧' },
   { cls: 'sleeping', dur: 5, bubble: 'crying until sleep...', emoji: '😢' },
-  { cls: 'sad', dur: 3.5, bubble: 'they always choose other things first', emoji: '💔' }
+  { cls: 'sad', dur: 3.5, bubble: 'final form... still unwanted', emoji: '💔' }
 ];
 
 const MOOD_BEHAVIOR_OVERRIDES = {
@@ -5544,13 +5706,13 @@ function applyRoom(force) {
 
     switch(currentRoomId) {
       case 'bedroom':
-        wallEl.style.background = 'linear-gradient(180deg, #F4D9C8 0%, #E8C9B8 100%)';
+        wallEl.style.background = 'linear-gradient(180deg, #1a1210 0%, #2a1814 100%)';
         wallEl.innerHTML = `<div style="position:absolute;inset:0;background-image:
           radial-gradient(circle at 20px 20px, rgba(232,187,168,0.5) 2px, transparent 3px),
           radial-gradient(circle at 60px 60px, rgba(232,187,168,0.5) 2px, transparent 3px);
           background-size:40px 40px;"></div>`;
         floorEl.style.background = 'repeating-linear-gradient(90deg, #C9A898 0px, #C9A898 22px, #B89888 22px, #B89888 24px)';
-        $('roomBadge').textContent = '🛏️ BEDROOM';
+        $('roomBadge').textContent = '⚰️ CRYPT CELL';
         break;
       case 'bathroom':
         wallEl.style.background = 'linear-gradient(180deg, #D8E8F0 0%, #C0D8E4 100%)';
@@ -5560,28 +5722,28 @@ function applyRoom(force) {
           background-size:28px 28px;"></div>
           <div style="position:absolute;top:16px;right:24px;width:36px;height:36px;border:3px solid #8BA8B8;border-radius:50%;background:radial-gradient(circle at 30% 30%, #F0F8FC, #B8D0DC);box-shadow:inset -4px -4px 0 rgba(0,0,0,0.08);"></div>`;
         floorEl.style.background = 'repeating-linear-gradient(90deg, #E8F0F4 0px, #E8F0F4 20px, #D0E0E8 20px, #D0E0E8 22px)';
-        $('roomBadge').textContent = '🛁 BATHROOM';
+        $('roomBadge').textContent = '🕳️ DRAIN PIT';
         break;
       case 'kitchen':
         wallEl.style.background = 'linear-gradient(180deg, #F4E4C8 0%, #E8D4B8 60%, #D4B898 100%)';
         wallEl.innerHTML = `<div style="position:absolute;inset:0;background-image:linear-gradient(90deg, rgba(139,111,94,0.15) 1px, transparent 1px), linear-gradient(0deg, rgba(139,111,94,0.15) 1px, transparent 1px);background-size:24px 24px;"></div>`;
         floorEl.style.background = 'repeating-conic-gradient(#C9B0A0 0% 25%, #F4E4C8 0% 50%) 50% / 24px 24px';
-        $('roomBadge').textContent = '🍳 KITCHEN';
+        $('roomBadge').textContent = '🦴 BONE KITCHEN';
         break;
       case 'garden':
-        wallEl.style.background = 'linear-gradient(180deg, #A8D4E8 0%, #C8E4F0 45%, #C8E4C8 55%, #A8D4A8 100%)';
+        wallEl.style.background = 'linear-gradient(180deg, #1a2018 0%, #142018 45%, #1a1810 55%, #121410 100%)';
         wallEl.innerHTML = `<div style="position:absolute;top:12px;right:25px;width:44px;height:44px;background:radial-gradient(circle,#FFF9C8 30%,#FFE88C 100%);border-radius:50%;box-shadow:0 0 24px rgba(255,232,140,0.8);animation:sunPulse 4s ease-in-out infinite;"></div>`;
-        floorEl.style.background = 'linear-gradient(180deg, #A8C898 0%, #8FB87D 60%, #6FA05D 100%)';
-        $('roomBadge').textContent = '🌷 GARDEN';
+        floorEl.style.background = 'linear-gradient(180deg, #1a2018 0%, #141810 60%, #10140c 100%)';
+        $('roomBadge').textContent = '🥀 DEAD GARDEN';
         break;
       case 'playroom':
-        wallEl.style.background = 'linear-gradient(180deg, #E8D4E8 0%, #D8C4D8 100%)';
+        wallEl.style.background = 'linear-gradient(180deg, #1a1218 0%, #201018 100%)';
         wallEl.innerHTML = `<div style="position:absolute;inset:0;background-image:
           radial-gradient(circle at 20px 20px, rgba(201,160,201,0.5) 5px, transparent 6px),
           radial-gradient(circle at 70px 70px, rgba(244,217,200,0.6) 5px, transparent 6px);
           background-size:110px 110px;"></div>`;
         floorEl.style.background = 'repeating-linear-gradient(45deg, #F4D9C8 0px, #F4D9C8 14px, #E8C9B8 14px, #E8C9B8 28px)';
-        $('roomBadge').textContent = '🎨 PLAYROOM';
+        $('roomBadge').textContent = '⛓ TORTURE HALL';
         break;
       case 'observatory':
         wallEl.style.background = 'linear-gradient(180deg, #1A1428 0%, #2A2438 60%, #3A3458 100%)';
@@ -5593,7 +5755,7 @@ function applyRoom(force) {
           background-size:200px 140px;animation:twinkle 4s ease-in-out infinite alternate;"></div>
           <div style="position:absolute;top:24px;right:32px;width:40px;height:40px;background:radial-gradient(circle at 30% 30%, #FFF9E8 0%, #E8E0C0 100%);border-radius:50%;box-shadow:inset -6px -4px 0 rgba(0,0,0,0.2), 0 0 24px rgba(255,249,232,0.7);animation:moonGlow 5s ease-in-out infinite;"></div>`;
         floorEl.style.background = 'radial-gradient(ellipse at top, #3A3458 0%, #1A1428 70%)';
-        $('roomBadge').textContent = '🔭 OBSERVATORY';
+        $('roomBadge').textContent = '👁 VOID SPIRE';
         break;
       case 'forest':
         wallEl.style.background = 'linear-gradient(180deg, #6B9F7A 0%, #4A7A5A 40%, #3A5A40 100%)';
@@ -5604,14 +5766,14 @@ function applyRoom(force) {
           <div style="position:absolute;top:28px;right:40px;width:6px;height:6px;background:#FFF9C8;border-radius:50%;box-shadow:0 0 8px #FFF9C8;animation:twinkle 2s ease-in-out infinite;"></div>
           <div style="position:absolute;top:48px;right:70px;width:4px;height:4px;background:#E8F0C8;border-radius:50%;box-shadow:0 0 6px #E8F0C8;animation:twinkle 3s ease-in-out infinite alternate;"></div>`;
         floorEl.style.background = 'linear-gradient(180deg, #5A8A4A 0%, #4A7040 50%, #3A5A30 100%)';
-        $('roomBadge').textContent = '🌲 FOREST';
+        $('roomBadge').textContent = '🌲 BLACKWOOD';
         break;
       case 'farm':
         wallEl.style.background = 'linear-gradient(180deg, #87CEEB 0%, #B8D8E8 50%, #E8D4A8 100%)';
         wallEl.innerHTML = `<div style="position:absolute;top:14px;right:28px;width:38px;height:38px;background:radial-gradient(circle,#FFF9C8 30%,#FFE08C 100%);border-radius:50%;box-shadow:0 0 20px rgba(255,224,100,0.75);"></div>
           <div style="position:absolute;bottom:0;left:0;right:0;height:28%;background:linear-gradient(180deg, transparent, rgba(168,180,100,0.35));"></div>`;
         floorEl.style.background = 'repeating-linear-gradient(90deg, #C9B078 0px, #C9B078 18px, #B89860 18px, #B89860 20px)';
-        $('roomBadge').textContent = '🌾 FARM';
+        $('roomBadge').textContent = '🪦 GRAVEYARD';
         break;
       case 'cloudnest':
         wallEl.style.background = 'linear-gradient(180deg, #B8D4F0 0%, #D8E8F8 45%, #F0F6FC 100%)';
@@ -5621,7 +5783,7 @@ function applyRoom(force) {
           radial-gradient(ellipse at 45% 70%, rgba(255,255,255,0.55) 0%, transparent 40%);"></div>
           <div style="position:absolute;top:18px;right:30px;width:28px;height:28px;background:radial-gradient(circle,#FFF9C8,#FFE08C);border-radius:50%;box-shadow:0 0 18px rgba(255,224,120,0.6);opacity:0.85;"></div>`;
         floorEl.style.background = 'linear-gradient(180deg, #E8F0F8 0%, #D0E0F0 50%, #C0D4E8 100%)';
-        $('roomBadge').textContent = '☁️ CLOUD NEST';
+        $('roomBadge').textContent = '💨 ASH NEST';
         break;
       case 'starcove':
         wallEl.style.background = 'linear-gradient(180deg, #0E0A22 0%, #1A1438 50%, #2A1A48 100%)';
@@ -5634,7 +5796,7 @@ function applyRoom(force) {
           radial-gradient(ellipse at 50% 0%, rgba(100,80,180,0.35) 0%, transparent 55%);
           background-size:100% 100%; animation:twinkle 4s ease-in-out infinite alternate;"></div>`;
         floorEl.style.background = 'linear-gradient(180deg, #2A1A48 0%, #1A0E30 60%, #120A22 100%)';
-        $('roomBadge').textContent = '🌌 STAR COVE';
+        $('roomBadge').textContent = '🌑 ABYSS COVE';
         break;
     }
     roomEl.dataset.rendered = '1';
@@ -8953,7 +9115,7 @@ function floatHearts(count = 5) {
 }
 
 const MOOD_PARTICLE_MAP = {
-  lonely: ['😢', '💧', '💔', '🥺'],
+  lonely: ['😢', '💧', '💔', '🖤'],
   ecstatic: ['✨', '💖', '⭐', '🌟'],
   content:  ['✨'],
   bored:    ['💭', '😑'],
@@ -8995,6 +9157,7 @@ function startWanderLoop() {
    AMBIENT LOOP
    ============================================================ */
 function startAmbientLoop() {
+  if (typeof startMonsterThoughtLoop === 'function') startMonsterThoughtLoop();
   if (ambientTimeoutId) clearTimeout(ambientTimeoutId);
   const scheduleNext = () => {
     const delay = 10000 + Math.random() * 10000;
