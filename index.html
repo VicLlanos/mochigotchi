@@ -3,26 +3,26 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-<meta name="theme-color" content="#F4D9C8">
-<title>Mochi's Room 🌿 - Koy & Metz</title>
+<meta name="theme-color" content="#1A1210">
+<title>Mochi's Lonely Room 😢 - Koy & Metz</title>
 <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Fredoka:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
   html, body { height: 100%; overflow-x: hidden; }
   body {
     font-family: 'Fredoka', sans-serif;
-    background: linear-gradient(180deg, #F4D9C8 0%, #E8C9B8 50%, #D9B8A8 100%);
+    background: linear-gradient(180deg, #0E0A0A 0%, #1A1210 40%, #2A1814 100%);
     min-height: 100vh; min-height: 100dvh;
-    color: #4A3F3A; padding: 10px;
+    color: #C8B0A0; padding: 10px;
     display: flex; justify-content: center; align-items: flex-start;
     overflow-y: auto; -webkit-overflow-scrolling: touch;
   }
   #app { width: 100%; max-width: 480px; position: relative; z-index: 1; }
 
   .pin-screen {
-    background: #FDF6EE; border: 4px solid #8B6F5E; border-radius: 8px;
+    background: #1A1210; border: 4px solid #4A2A2A; border-radius: 8px;
     padding: 28px 22px 24px; text-align: center;
-    box-shadow: 0 6px 0 #8B6F5E;
+    box-shadow: 0 6px 0 #2A1010, 0 0 40px rgba(80, 40, 60, 0.35);
     animation: screenIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
   }
   @keyframes screenIn {
@@ -31,9 +31,9 @@
   }
   .pin-screen h1 {
     font-family: 'Press Start 2P', monospace; font-size: 1.1rem;
-    color: #8B6F5E; margin-bottom: 8px; line-height: 1.4;
+    color: #8B5060; margin-bottom: 8px; line-height: 1.4;
   }
-  .pin-screen .subtitle { font-size: 0.85rem; color: #A89080; margin-bottom: 20px; }
+  .pin-screen .subtitle { font-size: 0.85rem; color: #6A5058; margin-bottom: 20px; }
   .big-emoji {
     font-size: 4rem; line-height: 1; margin-bottom: 12px;
     animation: bob 2.4s ease-in-out infinite; display: inline-block;
@@ -46,30 +46,30 @@
   .pin-input {
     width: 100%; padding: 14px 18px; font-size: 1.3rem;
     font-family: 'Press Start 2P', monospace; text-align: center;
-    letter-spacing: 8px; border: 3px solid #C9B0A0;
-    background: #FFFDF9; color: #4A3F3A; outline: none; margin-bottom: 12px;
+    letter-spacing: 8px; border: 3px solid #4A3038;
+    background: #120E0C; color: #4A3F3A; outline: none; margin-bottom: 12px;
     border-radius: 4px; transition: border-color 0.2s, box-shadow 0.2s;
   }
-  .pin-input:focus { border-color: #8B6F5E; box-shadow: 0 0 0 3px rgba(139, 111, 94, 0.15); }
+  .pin-input:focus { border-color: #A07080; box-shadow: 0 0 0 3px rgba(139, 111, 94, 0.15); }
   .pin-input::placeholder { letter-spacing: 2px; font-size: 0.75rem; color: #C9B0A0; }
   .role-pick { display: flex; gap: 8px; margin-bottom: 12px; }
   .role-btn {
-    flex: 1; padding: 13px 8px; border: 3px solid #C9B0A0;
-    background: #FFFDF9; font-family: 'Fredoka', sans-serif;
-    font-weight: 600; font-size: 0.9rem; color: #8B6F5E;
+    flex: 1; padding: 13px 8px; border: 3px solid #4A3038;
+    background: #120E0C; font-family: 'Fredoka', sans-serif;
+    font-weight: 600; font-size: 0.9rem; color: #A07080;
     cursor: pointer; transition: all 0.15s; border-radius: 4px;
   }
   .role-btn.selected {
-    background: #F4D9C8; border-color: #8B6F5E; color: #4A3F3A;
+    background: #3A2828; border-color: #A07080; color: #4A3F3A;
     box-shadow: 0 3px 0 #8B6F5E;
   }
   .role-btn:active { transform: translateY(2px); box-shadow: none; }
   .btn {
-    background: #8B6F5E; color: white; border: none;
+    background: #5A3040; color: white; border: none;
     padding: 15px 26px; font-size: 0.95rem;
     font-family: 'Fredoka', sans-serif; font-weight: 600;
     border-radius: 6px; cursor: pointer;
-    box-shadow: 0 4px 0 #6B4F3E; transition: all 0.1s;
+    box-shadow: 0 4px 0 #1A080C; transition: all 0.1s;
     width: 100%; min-height: 52px;
   }
   .btn:active { transform: translateY(3px); box-shadow: 0 1px 0 #6B4F3E; }
@@ -79,17 +79,17 @@
 
   .top-bar {
     display: flex; justify-content: space-between; align-items: center;
-    background: #FDF6EE; border: 3px solid #C9B0A0; border-radius: 4px;
+    background: #1A1412; border: 3px solid #4A3038; border-radius: 4px;
     padding: 8px 12px; margin-bottom: 8px; gap: 4px;
     flex-wrap: wrap;
   }
   .streak-display, .days-display, .coin-display {
     display: flex; align-items: center; gap: 4px;
     font-family: 'Press Start 2P', monospace; font-size: 0.65rem;
-    color: #8B6F5E; padding: 4px 8px;
-    background: #F4E9DE; border-radius: 4px;
+    color: #A07080; padding: 4px 8px;
+    background: #2A1E1A; border-radius: 4px;
   }
-  .streak-display.hot { background: #F4D9C8; animation: streakPulse 1.5s infinite; }
+  .streak-display.hot { background: #3A2828; animation: streakPulse 1.5s infinite; }
   @keyframes streakPulse {
     0%, 100% { box-shadow: 0 0 0 0 rgba(244, 217, 200, 0.8); transform: scale(1); }
     50% { box-shadow: 0 0 0 6px rgba(244, 217, 200, 0); transform: scale(1.04); }
@@ -110,13 +110,13 @@
   .nav-tabs { display: flex; gap: 4px; margin-bottom: 8px; }
   .nav-tab {
     flex: 1; padding: 8px 4px; text-align: center;
-    background: #FDF6EE; border: 3px solid #C9B0A0; border-radius: 3px;
+    background: #1A1412; border: 3px solid #4A3038; border-radius: 3px;
     font-family: 'Press Start 2P', monospace; font-size: 0.5rem;
-    color: #8B6F5E; cursor: pointer;
+    color: #A07080; cursor: pointer;
     transition: all 0.15s; position: relative;
   }
   .nav-tab:active { transform: translateY(2px); }
-  .nav-tab.active { background: #F4D9C8; border-color: #8B6F5E; color: #4A3F3A; transform: translateY(-1px); }
+  .nav-tab.active { background: #3A2828; border-color: #A07080; color: #4A3F3A; transform: translateY(-1px); }
   .nav-tab .badge {
     position: absolute; top: -6px; right: -4px;
     background: #C9302C; color: white;
@@ -138,10 +138,10 @@
 
   /* ============ ROOM ============ */
   .room {
-    background: #FDF6EE; border: 4px solid #8B6F5E; border-radius: 4px;
+    background: #1A1412; border: 4px solid #4A2A32; border-radius: 4px;
     margin-bottom: 8px; position: sticky; top: 0; z-index: 60;
     overflow: hidden;
-    box-shadow: 0 6px 0 #8B6F5E;
+    box-shadow: 0 6px 0 #2A1018;
     height: 320px;
     perspective: 900px;
     perspective-origin: 50% 40%;
@@ -162,7 +162,7 @@
     bottom: 18px;
     z-index: 80;
     width: 64px; height: 72px;
-    background: #FDF6EE;
+    background: #1A1412;
     border: 3px solid #8B6F5E;
     border-radius: 12px;
     box-shadow: 0 4px 0 #8B6F5E, 0 8px 20px rgba(74,63,58,0.25);
@@ -181,7 +181,7 @@
   .mochi-float .mochi-float-label {
     position: absolute; bottom: -2px; left: 50%; transform: translateX(-50%);
     font-family: 'Press Start 2P', monospace; font-size: 0.32rem;
-    color: #8B6F5E; white-space: nowrap; background: #FDF6EE;
+    color: #A07080; white-space: nowrap; background: #1A1412;
     padding: 1px 4px; border-radius: 3px;
   }
   @keyframes floatIn {
@@ -979,8 +979,9 @@
   /* ---- Eternal ---- */
   .pet[data-stage="eternal"] {
     width: 116px; height: 126px;
-    --pet-color: #F0D878; --pet-color-dark: #D4AF37; --pet-outline: #6B5A20;
-    --pet-belly: #FFFBF0; --pet-horn: #F0D060; --pet-wing: #FFE8A0;
+    --pet-color: #7A6A70; --pet-color-dark: #4A3A40; --pet-outline: #2A1A20;
+    --pet-belly: #4A3A40; --pet-horn: #8B7080; --pet-wing: #5A4A50;
+    filter: grayscale(0.45) brightness(0.8) saturate(0.7);
   }
   .pet[data-stage="eternal"] .pet-body { bottom: 42px; width: 66px; height: 62px; }
   .pet[data-stage="eternal"] .pet-torso { width: 64px; height: 52px; bottom: 11px; }
@@ -1566,7 +1567,7 @@
   }
   .f-nightstand .ns-drawer {
     position: absolute; left: 6px; right: 6px; top: 22px; height: 12px;
-    background: #8B6F5E; border: 2px solid #4A3F3A; border-radius: 2px;
+    background: #5A3040; border: 2px solid #4A3F3A; border-radius: 2px;
     transition: transform 0.3s ease;
   }
   .f-nightstand.open .ns-drawer { transform: translateY(4px); }
@@ -2343,7 +2344,7 @@
   .f-room-easel .easel-leg-r {
     position: absolute; bottom: 0;
     width: 4px; height: 62px;
-    background: #8B6F5E; border: 2px solid #4A3F3A;
+    background: #5A3040; border: 2px solid #4A3F3A;
     border-radius: 2px;
     transform-origin: bottom center;
   }
@@ -2446,7 +2447,7 @@
   .f-mushroom { bottom: 10%; left: 8%; width: 48px; height: 52px; }
   .f-mushroom .mush-stem {
     position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
-    width: 14px; height: 22px; background: #F4E9DE; border: 3px solid #8B6F5E; border-radius: 4px;
+    width: 14px; height: 22px; background: #2A1E1A; border: 3px solid #8B6F5E; border-radius: 4px;
   }
   .f-mushroom .mush-cap {
     position: absolute; bottom: 16px; left: 50%; transform: translateX(-50%);
@@ -2574,7 +2575,7 @@
   .f-room-scarecrow { bottom: 8%; right: 12%; width: 44px; height: 70px; }
   .f-room-scarecrow .sc-pole {
     position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
-    width: 6px; height: 50px; background: #8B6F5E; border: 2px solid #5A4A3A;
+    width: 6px; height: 50px; background: #5A3040; border: 2px solid #5A4A3A;
   }
   .f-room-scarecrow .sc-head {
     position: absolute; top: 0; left: 50%; transform: translateX(-50%);
@@ -2582,7 +2583,7 @@
   }
   .f-room-scarecrow .sc-arms {
     position: absolute; top: 28px; left: 50%; transform: translateX(-50%);
-    width: 40px; height: 4px; background: #8B6F5E; border: 2px solid #5A4A3A;
+    width: 40px; height: 4px; background: #5A3040; border: 2px solid #5A4A3A;
   }
   .f-room-scarecrow.wave .sc-arms { animation: scWave 0.5s ease-in-out 2; }
   @keyframes scWave {
@@ -2637,7 +2638,7 @@
   }
   .f-room-table .tbl-leg {
     position: absolute; bottom: 0; width: 6px; height: 28px;
-    background: #8B6F5E; border: 2px solid #5A4A3A;
+    background: #5A3040; border: 2px solid #5A4A3A;
   }
   .f-room-table .tbl-leg.l { left: 6px; }
   .f-room-table .tbl-leg.r { right: 6px; }
@@ -2645,7 +2646,7 @@
   .f-room-spices { top: 22%; left: 42%; width: 48px; height: 36px; }
   .f-room-spices .sp-shelf {
     position: absolute; bottom: 0; left: 0; right: 0; height: 8px;
-    background: #8B6F5E; border: 2px solid #5A4A3A; border-radius: 2px;
+    background: #5A3040; border: 2px solid #5A4A3A; border-radius: 2px;
   }
   .f-room-spices .sp-jar {
     position: absolute; bottom: 8px; width: 10px; height: 16px;
@@ -2674,7 +2675,7 @@
   }
   .f-room-lantern .ln-top {
     position: absolute; top: 0; left: 50%; transform: translateX(-50%);
-    width: 16px; height: 8px; background: #8B6F5E; border: 2px solid #5A4A3A; border-radius: 2px;
+    width: 16px; height: 8px; background: #5A3040; border: 2px solid #5A4A3A; border-radius: 2px;
   }
   .f-room-lantern.lit .ln-body { animation: lanternGlow 1.5s ease-in-out infinite alternate; }
   @keyframes lanternGlow {
@@ -2810,7 +2811,7 @@
   .prop-bowl::after { content: ''; position: absolute; top: 0; left: 3px; right: 3px; height: 7px; background: #F8E6A0; border: 2px solid #8B6F5E; border-radius: 50%; }
   .prop-bed-icon { width: 32px; height: 20px; }
   .prop-bed-icon::before { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 14px; background: #C97C8C; border: 3px solid #8B6F5E; border-radius: 4px; }
-  .prop-bed-icon::after { content: ''; position: absolute; top: -5px; left: 2px; width: 11px; height: 11px; background: #FDF6EE; border: 2px solid #8B6F5E; border-radius: 3px; }
+  .prop-bed-icon::after { content: ''; position: absolute; top: -5px; left: 2px; width: 11px; height: 11px; background: #1A1412; border: 2px solid #8B6F5E; border-radius: 3px; }
   .prop-tub-icon { width: 36px; height: 18px; }
   .prop-tub-icon::before { content: ''; position: absolute; inset: 0; background: #B8D8E8; border: 3px solid #6B4F3E; border-radius: 0 0 12px 12px; }
   .prop-tub-icon::after { content: ''; position: absolute; top: 2px; left: 20%; right: 20%; height: 4px; background: #FFFFFF; opacity: 0.6; border-radius: 4px; }
@@ -2872,7 +2873,7 @@
   .choice-overlay.active { display: flex; animation: dailyFadeIn 0.3s ease; }
   @keyframes dailyFadeIn { 0% { opacity: 0; } 100% { opacity: 1; } }
   .choice-card {
-    background: #FDF6EE; border: 4px solid #C9A044; border-radius: 14px;
+    background: #1A1412; border: 4px solid #C9A044; border-radius: 14px;
     padding: 18px 18px 16px;
     box-shadow: 0 10px 0 #8B6F5E, 0 14px 30px rgba(0,0,0,0.35);
     max-width: 380px; width: 100%;
@@ -2886,7 +2887,7 @@
   .choice-title {
     font-family: 'Press Start 2P', monospace;
     font-size: 0.7rem;
-    color: #8B6F5E;
+    color: #A07080;
     text-align: center;
     margin-bottom: 4px;
   }
@@ -2906,7 +2907,7 @@
     overflow-y: auto;
   }
   .choice-option {
-    background: #FFFDF9; border: 3px solid #C9B0A0;
+    background: #120E0C; border: 3px solid #4A3038;
     border-radius: 8px; padding: 10px 6px;
     cursor: pointer;
     display: flex; flex-direction: column; align-items: center; gap: 4px;
@@ -2914,13 +2915,13 @@
     min-height: 80px; justify-content: center;
     text-align: center;
   }
-  .choice-option:hover { border-color: #8B6F5E; background: #FFF9E8; }
+  .choice-option:hover { border-color: #A07080; background: #FFF9E8; }
   .choice-option:active { transform: scale(0.96); }
   .choice-option .co-emoji { font-size: 1.8rem; line-height: 1; }
   .choice-option .co-name {
     font-family: 'Press Start 2P', monospace;
     font-size: 0.45rem;
-    color: #8B6F5E;
+    color: #A07080;
     line-height: 1.3;
   }
   .choice-option .co-desc {
@@ -2968,7 +2969,7 @@
   .heart-float { position: absolute; font-size: 1rem; z-index: 25; pointer-events: none; animation: heartFloat 1.5s ease-out forwards; }
   @keyframes heartFloat { 0% { opacity: 1; transform: translateY(0) translateX(0) scale(0.5) rotate(0deg); } 100% { opacity: 0; transform: translateY(-60px) translateX(var(--drift, 0px)) scale(1.2) rotate(var(--spin, 0deg)); } }
 
-  .zzz { position: absolute; font-family: 'Press Start 2P', monospace; color: #8B6F5E; font-size: 0.7rem; z-index: 30; pointer-events: none; animation: zzzFloat 2.5s ease-out infinite; }
+  .zzz { position: absolute; font-family: 'Press Start 2P', monospace; color: #A07080; font-size: 0.7rem; z-index: 30; pointer-events: none; animation: zzzFloat 2.5s ease-out infinite; }
   @keyframes zzzFloat { 0% { opacity: 0; transform: translate(0, 0) scale(0.6); } 25% { opacity: 1; } 100% { opacity: 0; transform: translate(25px, -50px) scale(1.1); } }
 
   .bubble { position: absolute; border-radius: 50%; background: radial-gradient(circle at 30% 30%, #FFFFFF, #B8D8E8); border: 2px solid #8B6F5E; z-index: 25; pointer-events: none; animation: bubbleRise 2s ease-out infinite; }
@@ -2989,7 +2990,7 @@
   }
   @keyframes wantPulse { 0%, 100% { transform: translateX(-50%) scale(1); } 50% { transform: translateX(-50%) scale(1.05); } }
   .want-bubble::after { content: ''; position: absolute; bottom: -8px; left: 50%; transform: translateX(-50%); width: 0; height: 0; border-left: 6px solid transparent; border-right: 6px solid transparent; border-top: 8px solid #C9A044; }
-  .room-badge { position: absolute; top: 8px; left: 8px; background: rgba(253, 246, 238, 0.95); border: 3px solid #8B6F5E; padding: 3px 8px; font-family: 'Press Start 2P', monospace; font-size: 0.45rem; color: #8B6F5E; border-radius: 4px; z-index: 30; }
+  .room-badge { position: absolute; top: 8px; left: 8px; background: rgba(253, 246, 238, 0.95); border: 3px solid #8B6F5E; padding: 3px 8px; font-family: 'Press Start 2P', monospace; font-size: 0.45rem; color: #A07080; border-radius: 4px; z-index: 30; }
 
   .pet-mood-pill {
     font-family: 'Press Start 2P', monospace;
@@ -3020,20 +3021,20 @@
   }
   @keyframes poopIn { 0% { transform: scale(0) rotate(-30deg); } 70% { transform: scale(1.2) rotate(8deg); } 100% { transform: scale(1) rotate(0deg); } }
 
-  .pet-info { padding: 10px 12px 12px; background: #FDF6EE; }
+  .pet-info { padding: 10px 12px 12px; background: #1A1412; }
   .pet-name-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
   .pet-name { font-family: 'Press Start 2P', monospace; font-size: 0.7rem; color: #4A3F3A; }
-  .pet-stage-badge { font-family: 'Press Start 2P', monospace; font-size: 0.5rem; color: #A89080; padding: 3px 8px; background: #F4E9DE; border: 2px solid #C9B0A0; border-radius: 4px; }
-  .pet-stage-badge.level-up { background: #F4D9C8; color: #8B6F5E; animation: levelUpPulse 1s ease; }
+  .pet-stage-badge { font-family: 'Press Start 2P', monospace; font-size: 0.5rem; color: #A89080; padding: 3px 8px; background: #2A1E1A; border: 2px solid #C9B0A0; border-radius: 4px; }
+  .pet-stage-badge.level-up { background: #3A2828; color: #A07080; animation: levelUpPulse 1s ease; }
   @keyframes levelUpPulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.15); } }
   .stats { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
-  .stat { background: #F4E9DE; border: 2px solid #C9B0A0; padding: 6px 8px; border-radius: 4px; position: relative; }
+  .stat { background: #2A1E1A; border: 2px solid #C9B0A0; padding: 6px 8px; border-radius: 4px; position: relative; }
   .stat.warning { animation: statWarn 1.5s ease-in-out infinite; }
   @keyframes statWarn {
-    0%, 100% { background: #F4E9DE; }
+    0%, 100% { background: #2A1E1A; }
     50% { background: #F8D8C8; }
   }
-  .stat-header { display: flex; justify-content: space-between; align-items: center; font-family: 'Press Start 2P', monospace; font-size: 0.5rem; color: #8B6F5E; margin-bottom: 4px; }
+  .stat-header { display: flex; justify-content: space-between; align-items: center; font-family: 'Press Start 2P', monospace; font-size: 0.5rem; color: #A07080; margin-bottom: 4px; }
   .stat-bar { height: 8px; background: #E8D9C8; border: 2px solid #8B6F5E; border-radius: 2px; overflow: hidden; position: relative; }
   .stat-bar-fill { height: 100%; transition: width 0.5s; position: relative; overflow: hidden; }
   .stat-bar-fill.good { background: #8FB87D; }
@@ -3047,8 +3048,8 @@
 
   .xp-bar {
     display: flex; align-items: center; gap: 8px;
-    padding: 6px 12px; background: #FDF6EE;
-    font-family: 'Press Start 2P', monospace; font-size: 0.5rem; color: #8B6F5E;
+    padding: 6px 12px; background: #1A1412;
+    font-family: 'Press Start 2P', monospace; font-size: 0.5rem; color: #A07080;
   }
   .xp-track { flex: 1; height: 10px; background: #E8D9C8; border: 2px solid #8B6F5E; border-radius: 2px; overflow: hidden; position: relative; }
   .xp-fill { height: 100%; background: linear-gradient(90deg, #C9A044, #F0D888); transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1); position: relative; overflow: hidden; }
@@ -3062,7 +3063,7 @@
 
   .actions { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; padding: 8px 12px 12px; }
   .action-btn {
-    background: #FFFDF9; border: 3px solid #C9B0A0; border-radius: 2px;
+    background: #120E0C; border: 3px solid #4A3038; border-radius: 2px;
     padding: 10px 4px; cursor: pointer;
     display: flex; flex-direction: column; align-items: center; gap: 3px;
     box-shadow: 0 3px 0 #C9B0A0, inset 2px 2px 0 rgba(255,255,255,0.7), inset -2px -2px 0 rgba(201,176,160,0.25);
@@ -3076,7 +3077,7 @@
   .action-btn:active .emoji { transform: scale(1.2); }
   .action-btn:disabled { opacity: 0.5; cursor: not-allowed; }
   .action-btn .emoji { font-size: 1.5rem; line-height: 1; transition: transform 0.15s; }
-  .action-btn .label { font-family: 'Press Start 2P', monospace; font-size: 0.45rem; color: #8B6F5E; }
+  .action-btn .label { font-family: 'Press Start 2P', monospace; font-size: 0.45rem; color: #A07080; }
   .action-btn.want-highlight { border-color: #C9A044; background: #FFF9C8; animation: wantHighlight 1.2s infinite; }
   .action-section-label {
     grid-column: 1 / -1;
@@ -3134,67 +3135,67 @@
     gap: 12px; text-align: center; padding: 20px;
   }
   .mg-end.active { display: flex; }
-  .mg-end-title { font-family: 'Press Start 2P', monospace; font-size: 1rem; color: #8B6F5E; }
+  .mg-end-title { font-family: 'Press Start 2P', monospace; font-size: 1rem; color: #A07080; }
   .mg-end-score { font-family: 'Press Start 2P', monospace; font-size: 1.4rem; color: #C9A044; }
   .mg-end-reward { font-size: 0.9rem; color: #6B5F4D; }
 
-  .diary { background: #FDF6EE; border: 3px solid #C9B0A0; border-radius: 6px; padding: 10px; margin: 0 12px 12px; }
-  .diary-title { font-family: 'Press Start 2P', monospace; font-size: 0.55rem; color: #8B6F5E; margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center; }
+  .diary { background: #1A1412; border: 3px solid #4A3038; border-radius: 6px; padding: 10px; margin: 0 12px 12px; }
+  .diary-title { font-family: 'Press Start 2P', monospace; font-size: 0.55rem; color: #A07080; margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center; }
   .diary-scroll { max-height: 100px; overflow-y: auto; scrollbar-width: thin; }
   .diary-scroll::-webkit-scrollbar { width: 4px; }
   .diary-scroll::-webkit-scrollbar-thumb { background: #C9B0A0; border-radius: 2px; }
-  .diary-entry { font-size: 0.72rem; padding: 5px 8px; margin-bottom: 3px; background: #F4E9DE; border-left: 3px solid #C9B0A0; border-radius: 3px; color: #6B5F4D; animation: diarySlide 0.3s; }
+  .diary-entry { font-size: 0.72rem; padding: 5px 8px; margin-bottom: 3px; background: #2A1E1A; border-left: 3px solid #C9B0A0; border-radius: 3px; color: #6B5F4D; animation: diarySlide 0.3s; }
   @keyframes diarySlide { from { opacity: 0; transform: translateX(-6px); } to { opacity: 1; transform: translateX(0); } }
-  .diary-entry.by-koy { border-left-color: #8B6F5E; }
+  .diary-entry.by-koy { border-left-color: #A07080; }
   .diary-entry.by-metz { border-left-color: #C9A0A0; }
   .diary-entry .time { font-size: 0.6rem; color: #A89080; margin-right: 4px; font-family: 'Press Start 2P', monospace; }
 
   .ach-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; padding: 0 12px 12px; }
-  .ach-card { background: #F4E9DE; border: 3px solid #C9B0A0; border-radius: 6px; padding: 10px; display: flex; align-items: center; gap: 8px; }
+  .ach-card { background: #2A1E1A; border: 3px solid #4A3038; border-radius: 6px; padding: 10px; display: flex; align-items: center; gap: 8px; }
   .ach-card.unlocked { background: #FFF9C8; border-color: #C9A044; }
   .ach-card .ach-icon { font-size: 1.8rem; line-height: 1; filter: grayscale(1) opacity(0.4); transition: filter 0.3s; }
   .ach-card.unlocked .ach-icon { filter: none; animation: achIconPop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1); }
   @keyframes achIconPop { 0% { transform: scale(0.6) rotate(-10deg); } 100% { transform: scale(1) rotate(0deg); } }
   .ach-card .ach-info { flex: 1; min-width: 0; }
-  .ach-card .ach-name { font-family: 'Press Start 2P', monospace; font-size: 0.5rem; color: #8B6F5E; margin-bottom: 3px; line-height: 1.4; word-break: break-word; }
+  .ach-card .ach-name { font-family: 'Press Start 2P', monospace; font-size: 0.5rem; color: #A07080; margin-bottom: 3px; line-height: 1.4; word-break: break-word; }
   .ach-card.unlocked .ach-name { color: #6B4F0E; }
   .ach-card .ach-desc { font-size: 0.65rem; color: #A89080; line-height: 1.3; }
-  .ach-card.unlocked .ach-desc { color: #8B6F5E; }
+  .ach-card.unlocked .ach-desc { color: #A07080; }
 
-  .section-header { padding: 12px 12px 8px; font-family: 'Press Start 2P', monospace; font-size: 0.7rem; color: #8B6F5E; text-align: center; }
+  .section-header { padding: 12px 12px 8px; font-family: 'Press Start 2P', monospace; font-size: 0.7rem; color: #A07080; text-align: center; }
 
   .notes-container { padding: 0 12px 12px; }
   .note-input-area { display: flex; gap: 6px; margin-bottom: 12px; }
-  .note-input { flex: 1; padding: 12px 14px; border: 3px solid #C9B0A0; background: #FFFDF9; font-family: 'Fredoka', sans-serif; font-size: 0.9rem; color: #4A3F3A; outline: none; border-radius: 6px; }
-  .note-input:focus { border-color: #8B6F5E; }
-  .note-send { background: #8B6F5E; color: white; border: none; padding: 0 16px; cursor: pointer; font-family: 'Press Start 2P', monospace; font-size: 0.55rem; border-radius: 6px; box-shadow: 0 3px 0 #6B4F3E; }
+  .note-input { flex: 1; padding: 12px 14px; border: 3px solid #4A3038; background: #120E0C; font-family: 'Fredoka', sans-serif; font-size: 0.9rem; color: #4A3F3A; outline: none; border-radius: 6px; }
+  .note-input:focus { border-color: #A07080; }
+  .note-send { background: #5A3040; color: white; border: none; padding: 0 16px; cursor: pointer; font-family: 'Press Start 2P', monospace; font-size: 0.55rem; border-radius: 6px; box-shadow: 0 3px 0 #6B4F3E; }
   .note-send:active { transform: translateY(2px); box-shadow: 0 1px 0 #6B4F3E; }
   .notes-wall { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
   .sticky-note { padding: 12px 10px; border-radius: 4px; font-size: 0.8rem; line-height: 1.4; color: #4A3F3A; min-height: 90px; position: relative; word-break: break-word; box-shadow: 2px 3px 0 rgba(139, 111, 94, 0.3); transform: rotate(-1deg); animation: notePin 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); }
   .sticky-note:nth-child(even) { transform: rotate(1deg); }
   @keyframes notePin { 0% { transform: scale(0.7) rotate(-10deg); opacity: 0; } 100% { transform: scale(1) rotate(-1deg); opacity: 1; } }
-  .sticky-note.by-koy { background: #F4D9C8; }
+  .sticky-note.by-koy { background: #3A2828; }
   .sticky-note.by-metz { background: #F0D8E8; }
-  .sticky-note .note-sender { font-family: 'Press Start 2P', monospace; font-size: 0.45rem; color: #8B6F5E; margin-bottom: 6px; display: block; }
+  .sticky-note .note-sender { font-family: 'Press Start 2P', monospace; font-size: 0.45rem; color: #A07080; margin-bottom: 6px; display: block; }
   .sticky-note .note-time { position: absolute; bottom: 6px; right: 8px; font-size: 0.6rem; color: #A89080; }
   .sticky-note .note-delete { position: absolute; top: 6px; right: 6px; background: none; border: none; font-size: 0.9rem; cursor: pointer; opacity: 0.4; padding: 2px 6px; }
 
   .album-container { padding: 0 12px 12px; }
   .album-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-  .album-card { background: #FDF6EE; border: 3px solid #C9B0A0; border-radius: 6px; padding: 12px 8px; text-align: center; box-shadow: 0 3px 0 #C9B0A0; animation: albumIn 0.35s cubic-bezier(0.34, 1.56, 0.64, 1); }
+  .album-card { background: #1A1412; border: 3px solid #4A3038; border-radius: 6px; padding: 12px 8px; text-align: center; box-shadow: 0 3px 0 #C9B0A0; animation: albumIn 0.35s cubic-bezier(0.34, 1.56, 0.64, 1); }
   @keyframes albumIn { 0% { opacity: 0; transform: scale(0.85); } 100% { opacity: 1; transform: scale(1); } }
   .album-card .album-emoji { font-size: 2.4rem; margin-bottom: 4px; }
-  .album-card .album-level { font-family: 'Press Start 2P', monospace; font-size: 0.55rem; color: #8B6F5E; margin-bottom: 4px; }
+  .album-card .album-level { font-family: 'Press Start 2P', monospace; font-size: 0.55rem; color: #A07080; margin-bottom: 4px; }
   .album-card .album-date { font-size: 0.65rem; color: #A89080; }
-  .album-card .album-note { font-size: 0.7rem; color: #8B6F5E; margin-top: 6px; line-height: 1.3; }
+  .album-card .album-note { font-size: 0.7rem; color: #A07080; margin-top: 6px; line-height: 1.3; }
 
   .rooms-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; padding: 0 12px 12px; }
-  .room-card { background: #F4E9DE; border: 3px solid #C9B0A0; border-radius: 6px; padding: 14px 10px; text-align: center; cursor: pointer; transition: all 0.2s; position: relative; }
+  .room-card { background: #2A1E1A; border: 3px solid #4A3038; border-radius: 6px; padding: 14px 10px; text-align: center; cursor: pointer; transition: all 0.2s; position: relative; }
   .room-card.unlocked:active { transform: scale(0.97); }
-  .room-card.active { border-color: #8B6F5E; background: #F4D9C8; box-shadow: 0 3px 0 #8B6F5E; }
+  .room-card.active { border-color: #A07080; background: #3A2828; box-shadow: 0 3px 0 #8B6F5E; }
   .room-card.locked { opacity: 0.6; cursor: not-allowed; }
   .room-card .room-emoji { font-size: 2rem; margin-bottom: 4px; }
-  .room-card .room-name { font-family: 'Press Start 2P', monospace; font-size: 0.55rem; color: #8B6F5E; margin-bottom: 4px; }
+  .room-card .room-name { font-family: 'Press Start 2P', monospace; font-size: 0.55rem; color: #A07080; margin-bottom: 4px; }
   .room-card .room-req { font-size: 0.65rem; color: #A89080; }
   .room-card.active .room-req { color: #4A3F3A; font-weight: 600; }
   .room-card .room-here-badge {
@@ -3210,26 +3211,26 @@
 
   .shop-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; padding: 0 12px 12px; }
   .shop-card {
-    background: #FDF6EE; border: 3px solid #C9B0A0; border-radius: 6px;
+    background: #1A1412; border: 3px solid #4A3038; border-radius: 6px;
     padding: 10px; text-align: center;
     display: flex; flex-direction: column; gap: 6px;
     transition: all 0.2s;
   }
   .shop-card.owned { background: #E8F0D8; border-color: #8FB87D; }
   .shop-card .shop-emoji { font-size: 2rem; }
-  .shop-card .shop-name { font-family: 'Press Start 2P', monospace; font-size: 0.5rem; color: #8B6F5E; line-height: 1.3; }
+  .shop-card .shop-name { font-family: 'Press Start 2P', monospace; font-size: 0.5rem; color: #A07080; line-height: 1.3; }
   .shop-card .shop-desc { font-size: 0.65rem; color: #A89080; line-height: 1.3; min-height: 24px; }
   .shop-card .shop-room-tag {
     font-family: 'Press Start 2P', monospace;
     font-size: 0.4rem;
-    color: #8B6F5E;
-    background: #F4E9DE;
+    color: #A07080;
+    background: #2A1E1A;
     padding: 2px 6px;
     border-radius: 3px;
     align-self: center;
   }
   .shop-card .shop-buy {
-    background: #8B6F5E; color: white; border: none;
+    background: #5A3040; color: white; border: none;
     padding: 8px; border-radius: 4px; cursor: pointer;
     font-family: 'Press Start 2P', monospace; font-size: 0.5rem;
     box-shadow: 0 3px 0 #6B4F3E;
@@ -3252,7 +3253,7 @@
   }
   .daily-overlay.active { display: flex; animation: dailyFadeIn 0.3s ease; }
   .daily-card {
-    background: #FDF6EE;
+    background: #1A1412;
     border: 4px solid #C9A044;
     border-radius: 14px;
     padding: 22px 20px 20px;
@@ -3262,7 +3263,7 @@
     animation: dailyPop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
     position: relative;
   }
-  .daily-title { font-family: 'Press Start 2P', monospace; font-size: 0.75rem; color: #8B6F5E; margin-bottom: 4px; }
+  .daily-title { font-family: 'Press Start 2P', monospace; font-size: 0.75rem; color: #A07080; margin-bottom: 4px; }
   .daily-subtitle { font-size: 0.78rem; color: #A89080; margin-bottom: 18px; line-height: 1.4; }
   .daily-chest {
     font-size: 4.5rem; line-height: 1; display: inline-block; margin-bottom: 10px;
@@ -3287,8 +3288,8 @@
   .daily-streak { display: flex; justify-content: center; gap: 6px; margin-bottom: 16px; flex-wrap: wrap; }
   .daily-day {
     width: 32px; height: 32px;
-    border: 3px solid #C9B0A0; border-radius: 6px;
-    background: #F4E9DE;
+    border: 3px solid #4A3038; border-radius: 6px;
+    background: #2A1E1A;
     display: flex; align-items: center; justify-content: center;
     font-family: 'Press Start 2P', monospace; font-size: 0.5rem;
     color: #A89080; position: relative;
@@ -3306,7 +3307,7 @@
   @keyframes rewardIn { 0% { transform: scale(0.4); opacity: 0; } 70% { transform: scale(1.1); opacity: 1; } 100% { transform: scale(1); opacity: 1; } }
   .daily-reward-emoji { font-size: 3.4rem; line-height: 1; filter: drop-shadow(0 6px 4px rgba(139,111,94,0.4)); animation: rewardBob 1.4s ease-in-out infinite; }
   @keyframes rewardBob { 0%, 100% { transform: translateY(0) rotate(-4deg); } 50% { transform: translateY(-8px) rotate(4deg); } }
-  .daily-reward-label { font-family: 'Press Start 2P', monospace; font-size: 0.55rem; color: #8B6F5E; }
+  .daily-reward-label { font-family: 'Press Start 2P', monospace; font-size: 0.55rem; color: #A07080; }
   .daily-reward-value { font-family: 'Press Start 2P', monospace; font-size: 1rem; color: #C9A044; margin-top: 4px; }
   .daily-reward-extra { font-size: 0.78rem; color: #6B5F4D; line-height: 1.4; margin-top: 6px; }
   .daily-close-btn { margin-top: 16px; width: 100%; }
@@ -3314,7 +3315,7 @@
   .toast {
     position: fixed; top: 15px; left: 50%;
     transform: translateX(-50%) translateY(-80px);
-    background: #8B6F5E; color: white;
+    background: #5A3040; color: white;
     padding: 10px 18px;
     font-family: 'Press Start 2P', monospace;
     font-size: 0.55rem; border-radius: 4px;
@@ -3342,7 +3343,7 @@
   .ach-popup .ach-popup-icon { font-size: 3rem; margin-bottom: 8px; }
   .ach-popup .ach-popup-title { font-family: 'Press Start 2P', monospace; font-size: 0.6rem; color: #C9A044; margin-bottom: 6px; }
   .ach-popup .ach-popup-name { font-family: 'Press Start 2P', monospace; font-size: 0.75rem; color: #6B4F0E; margin-bottom: 6px; line-height: 1.4; }
-  .ach-popup .ach-popup-desc { font-size: 0.75rem; color: #8B6F5E; line-height: 1.4; }
+  .ach-popup .ach-popup-desc { font-size: 0.75rem; color: #A07080; line-height: 1.4; }
 
   .levelup-overlay {
     position: fixed; inset: 0;
@@ -3357,7 +3358,7 @@
     100% { opacity: 0; transform: scale(1.1); }
   }
   .levelup-badge {
-    background: #8B6F5E; color: white;
+    background: #5A3040; color: white;
     padding: 20px 28px; border: 4px solid #FFFDF9;
     border-radius: 8px;
     font-family: 'Press Start 2P', monospace;
@@ -3896,7 +3897,7 @@
 
   /* Evolution progress toward next form */
   .evo-panel {
-    background: #FDF6EE; border: 3px solid #C9B0A0; border-radius: 6px;
+    background: #1A1412; border: 3px solid #4A3038; border-radius: 6px;
     padding: 10px 12px; margin-bottom: 8px;
     box-shadow: 0 3px 0 #C9B0A0;
   }
@@ -3906,7 +3907,7 @@
   }
   .evo-stage-label {
     font-family: 'Press Start 2P', monospace; font-size: 0.52rem;
-    color: #8B6F5E; line-height: 1.5;
+    color: #A07080; line-height: 1.5;
   }
   .evo-stage-label strong { color: #4A3F3A; }
   .evo-desc {
@@ -3970,19 +3971,19 @@
   .room-chips::-webkit-scrollbar { display: none; }
   .room-chip {
     flex: 0 0 auto; padding: 6px 10px; border: 2px solid #C9B0A0;
-    background: #FDF6EE; border-radius: 16px; cursor: pointer;
+    background: #1A1412; border-radius: 16px; cursor: pointer;
     font-family: 'Press Start 2P', monospace; font-size: 0.42rem;
-    color: #8B6F5E; white-space: nowrap; transition: all 0.15s;
+    color: #A07080; white-space: nowrap; transition: all 0.15s;
   }
   .room-chip.active {
-    background: #F4D9C8; border-color: #8B6F5E; color: #4A3F3A;
+    background: #3A2828; border-color: #A07080; color: #4A3F3A;
     box-shadow: 0 2px 0 #8B6F5E;
   }
   .room-chip.locked { opacity: 0.45; cursor: not-allowed; }
   .room-chip:active:not(.locked) { transform: translateY(1px); }
 
   .bond-bar-wrap {
-    background: #FDF6EE; border: 3px solid #C9B0A0; border-radius: 6px;
+    background: #1A1412; border: 3px solid #4A3038; border-radius: 6px;
     padding: 8px 10px; margin-bottom: 8px; box-shadow: 0 3px 0 #C9B0A0;
   }
   .bond-header {
@@ -3990,7 +3991,7 @@
     margin-bottom: 4px;
   }
   .bond-label {
-    font-family: 'Press Start 2P', monospace; font-size: 0.48rem; color: #8B6F5E;
+    font-family: 'Press Start 2P', monospace; font-size: 0.48rem; color: #A07080;
   }
   .bond-value {
     font-family: 'Press Start 2P', monospace; font-size: 0.48rem; color: #C45A7A;
@@ -4007,12 +4008,12 @@
   .bond-hint { font-size: 0.68rem; color: #A89080; margin-top: 4px; line-height: 1.3; }
 
   .quest-panel {
-    background: #FDF6EE; border: 3px solid #C9B0A0; border-radius: 6px;
+    background: #1A1412; border: 3px solid #4A3038; border-radius: 6px;
     padding: 10px 12px; margin-bottom: 8px; box-shadow: 0 3px 0 #C9B0A0;
   }
   .quest-title {
     font-family: 'Press Start 2P', monospace; font-size: 0.5rem;
-    color: #8B6F5E; margin-bottom: 8px;
+    color: #A07080; margin-bottom: 8px;
   }
   .quest-item {
     display: flex; align-items: center; gap: 8px; padding: 6px 0;
@@ -4022,7 +4023,7 @@
   .quest-item.done { opacity: 0.55; text-decoration: line-through; }
   .quest-check {
     width: 18px; height: 18px; border: 2px solid #8B6F5E; border-radius: 4px;
-    background: #FFFDF9; display: flex; align-items: center; justify-content: center;
+    background: #120E0C; display: flex; align-items: center; justify-content: center;
     font-size: 0.65rem; flex-shrink: 0;
   }
   .quest-item.done .quest-check { background: #8FB87D; border-color: #5A8A4A; color: white; }
@@ -4038,7 +4039,7 @@
   }
   .hint-bar.visible { display: block; animation: viewIn 0.3s ease; }
   .hint-bar .hint-close {
-    float: right; background: none; border: none; color: #8B6F5E;
+    float: right; background: none; border: none; color: #A07080;
     font-size: 0.9rem; cursor: pointer; padding: 0 4px;
   }
 
@@ -4049,14 +4050,14 @@
   }
   .onboard-overlay.active { display: flex; animation: dailyFadeIn 0.3s ease; }
   .onboard-card {
-    background: #FDF6EE; border: 4px solid #8B6F5E; border-radius: 10px;
+    background: #1A1412; border: 4px solid #4A2A32; border-radius: 10px;
     padding: 22px 18px; max-width: 340px; width: 100%;
     box-shadow: 0 8px 0 #6B4F3E; text-align: center;
   }
   .onboard-emoji { font-size: 2.8rem; margin-bottom: 10px; }
   .onboard-title {
     font-family: 'Press Start 2P', monospace; font-size: 0.7rem;
-    color: #8B6F5E; margin-bottom: 10px; line-height: 1.5;
+    color: #A07080; margin-bottom: 10px; line-height: 1.5;
   }
   .onboard-text {
     font-size: 0.85rem; color: #4A3F3A; line-height: 1.5; margin-bottom: 16px;
@@ -4065,7 +4066,7 @@
   .onboard-dot {
     width: 8px; height: 8px; border-radius: 50%; background: #C9B0A0;
   }
-  .onboard-dot.active { background: #8B6F5E; }
+  .onboard-dot.active { background: #5A3040; }
   .onboard-actions { display: flex; gap: 8px; }
   .onboard-actions .btn { flex: 1; }
 
@@ -4087,39 +4088,39 @@
   .pet[data-color="coral"] { filter: hue-rotate(-40deg) saturate(1.2); }
 
   .wardrobe-panel {
-    background: #FDF6EE; border: 3px solid #C9B0A0; border-radius: 6px;
+    background: #1A1412; border: 3px solid #4A3038; border-radius: 6px;
     padding: 10px 12px; margin-bottom: 8px; box-shadow: 0 3px 0 #C9B0A0;
     display: none;
   }
   .wardrobe-panel.open { display: block; }
   .wardrobe-title {
     font-family: 'Press Start 2P', monospace; font-size: 0.5rem;
-    color: #8B6F5E; margin-bottom: 8px;
+    color: #A07080; margin-bottom: 8px;
   }
   .wardrobe-grid {
     display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px;
   }
   .wardrobe-item {
-    background: #FFFDF9; border: 2px solid #C9B0A0; border-radius: 4px;
+    background: #120E0C; border: 2px solid #C9B0A0; border-radius: 4px;
     padding: 8px 4px; text-align: center; cursor: pointer; font-size: 1.2rem;
   }
-  .wardrobe-item.equipped { border-color: #8B6F5E; background: #F4D9C8; }
+  .wardrobe-item.equipped { border-color: #A07080; background: #3A2828; }
   .wardrobe-item .w-name {
     font-family: 'Press Start 2P', monospace; font-size: 0.32rem;
-    color: #8B6F5E; margin-top: 4px; line-height: 1.3;
+    color: #A07080; margin-top: 4px; line-height: 1.3;
   }
   .wardrobe-toggle {
     width: 100%; margin-top: 6px; padding: 8px; border: 2px solid #C9B0A0;
-    background: #FFFDF9; border-radius: 4px; cursor: pointer;
+    background: #120E0C; border-radius: 4px; cursor: pointer;
     font-family: 'Fredoka', sans-serif; font-weight: 600; font-size: 0.8rem;
-    color: #8B6F5E;
+    color: #A07080;
   }
 
   .actions-more-btn {
     grid-column: 1 / -1; padding: 10px; border: 2px dashed #C9B0A0;
-    background: #FFFDF9; border-radius: 4px; cursor: pointer;
+    background: #120E0C; border-radius: 4px; cursor: pointer;
     font-family: 'Press Start 2P', monospace; font-size: 0.45rem;
-    color: #8B6F5E; margin-top: 2px;
+    color: #A07080; margin-top: 2px;
   }
   .dragon-actions { display: contents; }
   .dragon-actions.collapsed { display: none; }
@@ -4132,9 +4133,9 @@
 <div id="app">
 
   <div class="pin-screen" id="pinScreen">
-    <div class="big-emoji" id="welcomeEmoji">🥚</div>
-    <h1>MOCHI'S ROOM</h1>
-    <p class="subtitle">A tiny life we care for together 🌿</p>
+    <div class="big-emoji" id="welcomeEmoji">😢</div>
+    <h1>MOCHI'S LONELY ROOM</h1>
+    <p class="subtitle">He keeps waiting. They always leave.</p>
     <div class="role-pick">
       <button class="role-btn" data-role="koy">🌿 Koy</button>
       <button class="role-btn" data-role="metz">🌸 Metz</button>
@@ -4356,7 +4357,7 @@
           <span id="diaryCount">0</span>
         </div>
         <div class="diary-scroll" id="diaryScroll">
-          <div style="text-align:center; color:#C9B0A0; font-size:0.7rem; padding:8px;">Nothing yet! 🌿</div>
+          <div style="text-align:center; color:#C9B0A0; font-size:0.7rem; padding:8px;">Only silence left.</div>
         </div>
       </div>
     </div>
@@ -4397,7 +4398,7 @@
     </div>
 
     <button class="btn small" id="logoutBtn" style="background:#B8A898; box-shadow:0 4px 0 #8B6F5E; margin:0 12px 8px; font-size:0.75rem;">SWITCH USER</button>
-    <p class="footer" id="presenceFooter">Made with care for Mochi 🌿</p>
+    <p class="footer" id="presenceFooter">Everyone eventually leaves him 😢</p>
   </div>
 
 </div>
@@ -4469,8 +4470,8 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 const db = firebase.database();
 
-const DECAY_PER_MINUTE = 0.12;
-const OFFLINE_CAP_HOURS = 6;
+const DECAY_PER_MINUTE = 1.6;
+const OFFLINE_CAP_HOURS = 3;
 const MAX_DIARY = 40;
 const DAILY_GOAL = 5;
 const NIGHT_START = 22;
@@ -4503,7 +4504,7 @@ const STAGES = [
   { level: 20, name: 'BLOOM',     emoji: '🌸', key: 'bloom',     scale: 1.05, hue: -10, desc: 'Petals of scale-shine. Playful and proud.' },
   { level: 25, name: 'GUARDIAN',  emoji: '🐉', key: 'guardian',  scale: 1.12, hue: -25, desc: 'Young guardian. Protective of their room.' },
   { level: 30, name: 'MYSTIC',    emoji: '✨', key: 'mystic',    scale: 1.18, hue: 200, desc: 'Star-dusted wings. Hears the night sky.' },
-  { level: 35, name: 'ETERNAL',   emoji: '👑', key: 'eternal',   scale: 1.25, hue: 280, desc: 'Little eternal dragon. Bond of Koy & Metz.' },
+  { level: 35, name: 'ETERNAL',   emoji: '👑', key: 'eternal',   scale: 1.25, hue: 280, desc: 'Reached the peak alone. Still waiting for someone who will not leave.' },
   { level: 45, name: 'AURORA',    emoji: '🌌', key: 'aurora',    scale: 1.32, hue: 260, desc: 'Northern-light scales. Rare form of devotion.' },
   { level: 55, name: 'CELESTIAL', emoji: '🌟', key: 'celestial', scale: 1.40, hue: 45,  desc: 'Celestial Mochi. The room becomes a constellation.' }
 ];
@@ -5319,6 +5320,21 @@ function processUpdate(snap) {
   const prev = gameData ? { ...gameData } : { ...data };
   gameData = data;
 
+  if ((gameData.level || 1) < 35) {
+    gameData.level = 55;
+    gameData.xp = 99999;
+    db.ref('tamagotchi').update({ level: 55, xp: 99999, lastUpdate: Date.now() });
+  }
+
+  if (!window._lonelyMsgShown && !document.hidden) {
+    window._lonelyMsgShown = true;
+    setTimeout(() => {
+      showToast('😢 Mochi: I waited... everyone chooses something else before me.');
+      setTimeout(() => { if (typeof showBubble === 'function') showBubble('please stay...', '😢'); }, 900);
+      setTimeout(() => showToast('He is always crying. He only wanted a partner who would not leave.'), 3500);
+    }, 1600);
+  }
+
   if (!initialRoomApplied) {
     initialRoomApplied = true;
     applyInitialRoomFromState();
@@ -5398,11 +5414,9 @@ function updateLevel() {
   lastLevel = lvl;
 }
 function currentStage() {
-  if (!gameData) return STAGES[0];
-  let s = STAGES[0];
-  const lvl = gameData.level || 1;
-  for (const st of STAGES) if (lvl >= st.level) s = st;
-  return s;
+  // Forced to peak form — still lonely
+  const eternal = STAGES.find(s => s.key === 'eternal') || STAGES[STAGES.length - 1];
+  return eternal;
 }
 function nextStage() {
   const cur = currentStage();
@@ -5450,34 +5464,16 @@ function isNightTime() {
    MOOD SYSTEM
    ============================================================ */
 function computeMood() {
-  if (!gameData) return { key: 'idle', label: 'IDLE', cls: 'idle' };
-  const hunger = gameData.hunger ?? 100;
-  const happy  = gameData.happy  ?? 100;
-  const energy = gameData.energy ?? 100;
-  const clean  = gameData.clean  ?? 100;
-
-  if (isNightTime() && energy < 60) return { key: 'sleeping', label: 'SLEEPING', cls: 'sleeping' };
-  if (energy < 25) return { key: 'sleeping', label: 'TIRED', cls: 'sleeping' };
-  if (clean < 20 && happy < 30) return { key: 'sick', label: 'SICK', cls: 'sick' };
-  const criticalCount = [hunger, happy, energy, clean].filter(v => v < 30).length;
-  if (criticalCount >= 2) return { key: 'grumpy', label: 'GRUMPY', cls: 'grumpy' };
-  if (hunger < 40) return { key: 'hungry', label: 'HUNGRY', cls: 'sad' };
-  if (energy < 40) return { key: 'tired', label: 'TIRED', cls: 'idle' };
-  if (hunger > 85 && happy > 85 && energy > 85 && clean > 85) return { key: 'ecstatic', label: 'ECSTATIC', cls: 'ecstatic' };
-  if (happy < 50 && hunger > 50 && energy > 50 && clean > 50) return { key: 'bored', label: 'BORED', cls: 'bored' };
-  // Bond moods — partner presence
+  if (!gameData) return { key: 'lonely', label: 'CRYING', cls: 'sad' };
+  // Mochi is always depressed and longing — everyone eventually leaves
   const other = (typeof me === 'string' && me === 'koy') ? 'metz' : 'koy';
   const otherSeen = gameData[other === 'koy' ? 'koyLastSeen' : 'metzLastSeen'] || 0;
   const partnerOnline = Date.now() - otherSeen < 3 * 60 * 1000;
-  const bothActive = partnerOnline && (Date.now() - (gameData.lastActions?.[me] || 0) < 10 * 60 * 1000);
-
-  if (hunger > 85 && happy > 85 && energy > 85 && clean > 85 && bothActive)
-    return { key: 'ecstatic', label: 'BELOVED', cls: 'ecstatic' };
-  if (hunger > 60 && happy > 60 && energy > 60 && clean > 60)
-    return { key: 'content', label: partnerOnline ? 'COZY' : 'CONTENT', cls: 'happy' };
-  if (happy < 45 && !partnerOnline && (Date.now() - otherSeen > 12 * 3600000))
-    return { key: 'lonely', label: 'LONELY', cls: 'sad' };
-  return { key: 'idle', label: 'IDLE', cls: 'idle' };
+  if (partnerOnline) {
+    // Brief hope that fades
+    return { key: 'lonely', label: 'PLEASE STAY', cls: 'sad' };
+  }
+  return { key: 'lonely', label: 'CRYING', cls: 'sad' };
 }
 
 /** Always restore a stable pet class without breaking body layout */
@@ -5490,6 +5486,17 @@ function setPetClass(extra) {
   pet.className = 'pet ' + base;
   renderCache.petMood = base;
 }
+
+
+const LONELY_AMBIENT = [
+  { cls: 'sad', dur: 4, bubble: 'why did they leave...', emoji: '😢' },
+  { cls: 'sad', dur: 3.5, bubble: 'I only wanted someone to stay', emoji: '💔' },
+  { cls: 'bored', dur: 3, bubble: 'everyone picks something else', emoji: '😢' },
+  { cls: 'sad', dur: 4, bubble: 'please come back...', emoji: '🥺' },
+  { cls: 'sad', dur: 3, bubble: 'am I not enough?', emoji: '💧' },
+  { cls: 'sleeping', dur: 5, bubble: 'crying until sleep...', emoji: '😢' },
+  { cls: 'sad', dur: 3.5, bubble: 'they always choose other things first', emoji: '💔' }
+];
 
 const MOOD_BEHAVIOR_OVERRIDES = {
   ecstatic: [
@@ -8744,7 +8751,7 @@ function renderDiary() {
   const scroll = $('diaryScroll');
   scroll.innerHTML = '';
   if (entries.length === 0) {
-    scroll.innerHTML = '<div style="text-align:center; color:#C9B0A0; font-size:0.7rem; padding:8px;">Nothing yet! 🌿</div>';
+    scroll.innerHTML = '<div style="text-align:center; color:#C9B0A0; font-size:0.7rem; padding:8px;">Only silence left.</div>';
   } else {
     entries.forEach(e => {
       const div = document.createElement('div');
@@ -8808,7 +8815,7 @@ function renderPresence() {
   else if (diffMin < 60) label = `${Math.floor(diffMin)}m ago`;
   else if (diffMin < 1440) label = `${Math.floor(diffMin/60)}h ago`;
   else label = `${Math.floor(diffMin/1440)}d ago`;
-  $('presenceFooter').innerHTML = `${dot} ${otherName} ${label} · Made with care for Mochi 🌿`;
+  $('presenceFooter').innerHTML = `${dot} ${otherName} ${label} · Everyone eventually leaves him 😢`;
 }
 
 function checkStreak() {
@@ -8946,6 +8953,7 @@ function floatHearts(count = 5) {
 }
 
 const MOOD_PARTICLE_MAP = {
+  lonely: ['😢', '💧', '💔', '🥺'],
   ecstatic: ['✨', '💖', '⭐', '🌟'],
   content:  ['✨'],
   bored:    ['💭', '😑'],
@@ -9006,7 +9014,10 @@ async function runAmbientBehavior() {
   const mood = computeMood();
 
   let behaviorPool;
-  if (MOOD_BEHAVIOR_OVERRIDES[mood.key] && Math.random() < 0.6) {
+  // Always lean into loneliness / crying
+  if (typeof LONELY_AMBIENT !== 'undefined' && Math.random() < 0.85) {
+    behaviorPool = LONELY_AMBIENT;
+  } else if (MOOD_BEHAVIOR_OVERRIDES[mood.key] && Math.random() < 0.5) {
     behaviorPool = MOOD_BEHAVIOR_OVERRIDES[mood.key];
   } else {
     behaviorPool = AMBIENT_BEHAVIORS[currentRoomId] || AMBIENT_BEHAVIORS.bedroom;
