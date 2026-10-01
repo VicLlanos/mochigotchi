@@ -10233,7 +10233,7 @@ const $$=id=>document.getElementById(id);
 const rnd=a=>a[Math.floor(Math.random()*a.length)];
 const SAD=['they all left','nobody stays','I only wanted one person','why am I like this','please don\'t go','alone again','I\'m too much. I\'m too much.'];
 const base=STAGES.find(s=>s.key==='eternal');
-const monster=Object.assign({},base,{name:'MONSTER',emoji:'👹',desc:'Highest form, reached too fast. The more he grew, the more they looked away.'});
+const monster=Object.assign({},base,{name:'MONSTER',emoji:'👹',desc:'Highest form, reached too fast. The more he grew, the more they looked away. Immortal, and destined to be alone.'});
 window.currentStage=function(){return monster;};
 window.nextStage=function(){return null;};
 const WT={feed:'is starving. no one came',play:'wants someone to play with',sleep:'can\'t sleep. too quiet',bath:'wants to wash the loneliness off',pet:'just wants to be held',clean:'is surrounded by mess',sing:'sings to an empty room',dance:'dances for no one',fly:'wants to fly away',fire:'burns alone',roar:'wants to be heard',dig:'is digging for something that stays'};
@@ -10452,8 +10452,6 @@ const lines=['He cannot die. He cannot weaken.','Zero food, zero rest. He just k
 let li=0;
 const nextHint=()=>{const t=$$('hintText'),b=$$('hintBar');if(t&&b&&!localStorage.getItem('mochi_hints_dismissed')){t.textContent=lines[li++%lines.length];b.classList.add('visible');}};
 setInterval(nextHint,45000);
-const ed=$$('evoDesc');
-setInterval(()=>{if(ed&&ed.textContent.indexOf('immortal')<0)ed.textContent+=' Immortal, and destined to be alone.';},2000);
 })();
 </script>
 </body>
