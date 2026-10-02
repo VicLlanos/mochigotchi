@@ -3,26 +3,26 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-<meta name="theme-color" content="#1A1210">
-<title>Mochi's Lonely Room 😢 - Koy & Metz</title>
+<meta name="theme-color" content="#F4D9C8">
+<title>Mochi's Room 🌿 - Koy & Metz</title>
 <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Fredoka:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
   html, body { height: 100%; overflow-x: hidden; }
   body {
     font-family: 'Fredoka', sans-serif;
-    background: linear-gradient(180deg, #0E0A0A 0%, #1A1210 40%, #2A1814 100%);
+    background: linear-gradient(180deg, #F4D9C8 0%, #E8C9B8 50%, #D9B8A8 100%);
     min-height: 100vh; min-height: 100dvh;
-    color: #C8B0A0; padding: 10px;
+    color: #4A3F3A; padding: 10px;
     display: flex; justify-content: center; align-items: flex-start;
     overflow-y: auto; -webkit-overflow-scrolling: touch;
   }
   #app { width: 100%; max-width: 480px; position: relative; z-index: 1; }
 
   .pin-screen {
-    background: #1A1210; border: 4px solid #4A2A2A; border-radius: 8px;
+    background: #FDF6EE; border: 4px solid #8B6F5E; border-radius: 8px;
     padding: 28px 22px 24px; text-align: center;
-    box-shadow: 0 6px 0 #2A1010, 0 0 40px rgba(80, 40, 60, 0.35);
+    box-shadow: 0 6px 0 #8B6F5E;
     animation: screenIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
   }
   @keyframes screenIn {
@@ -31,9 +31,9 @@
   }
   .pin-screen h1 {
     font-family: 'Press Start 2P', monospace; font-size: 1.1rem;
-    color: #8B5060; margin-bottom: 8px; line-height: 1.4;
+    color: #8B6F5E; margin-bottom: 8px; line-height: 1.4;
   }
-  .pin-screen .subtitle { font-size: 0.85rem; color: #6A5058; margin-bottom: 20px; }
+  .pin-screen .subtitle { font-size: 0.85rem; color: #A89080; margin-bottom: 20px; }
   .big-emoji {
     font-size: 4rem; line-height: 1; margin-bottom: 12px;
     animation: bob 2.4s ease-in-out infinite; display: inline-block;
@@ -46,30 +46,30 @@
   .pin-input {
     width: 100%; padding: 14px 18px; font-size: 1.3rem;
     font-family: 'Press Start 2P', monospace; text-align: center;
-    letter-spacing: 8px; border: 3px solid #4A3038;
-    background: #120E0C; color: #4A3F3A; outline: none; margin-bottom: 12px;
+    letter-spacing: 8px; border: 3px solid #C9B0A0;
+    background: #FFFDF9; color: #4A3F3A; outline: none; margin-bottom: 12px;
     border-radius: 4px; transition: border-color 0.2s, box-shadow 0.2s;
   }
-  .pin-input:focus { border-color: #A07080; box-shadow: 0 0 0 3px rgba(139, 111, 94, 0.15); }
+  .pin-input:focus { border-color: #8B6F5E; box-shadow: 0 0 0 3px rgba(139, 111, 94, 0.15); }
   .pin-input::placeholder { letter-spacing: 2px; font-size: 0.75rem; color: #C9B0A0; }
   .role-pick { display: flex; gap: 8px; margin-bottom: 12px; }
   .role-btn {
-    flex: 1; padding: 13px 8px; border: 3px solid #4A3038;
-    background: #120E0C; font-family: 'Fredoka', sans-serif;
-    font-weight: 600; font-size: 0.9rem; color: #A07080;
+    flex: 1; padding: 13px 8px; border: 3px solid #C9B0A0;
+    background: #FFFDF9; font-family: 'Fredoka', sans-serif;
+    font-weight: 600; font-size: 0.9rem; color: #8B6F5E;
     cursor: pointer; transition: all 0.15s; border-radius: 4px;
   }
   .role-btn.selected {
-    background: #3A2828; border-color: #A07080; color: #4A3F3A;
+    background: #F4D9C8; border-color: #8B6F5E; color: #4A3F3A;
     box-shadow: 0 3px 0 #8B6F5E;
   }
   .role-btn:active { transform: translateY(2px); box-shadow: none; }
   .btn {
-    background: #5A3040; color: white; border: none;
+    background: #8B6F5E; color: white; border: none;
     padding: 15px 26px; font-size: 0.95rem;
     font-family: 'Fredoka', sans-serif; font-weight: 600;
     border-radius: 6px; cursor: pointer;
-    box-shadow: 0 4px 0 #1A080C; transition: all 0.1s;
+    box-shadow: 0 4px 0 #6B4F3E; transition: all 0.1s;
     width: 100%; min-height: 52px;
   }
   .btn:active { transform: translateY(3px); box-shadow: 0 1px 0 #6B4F3E; }
@@ -79,17 +79,17 @@
 
   .top-bar {
     display: flex; justify-content: space-between; align-items: center;
-    background: #1A1412; border: 3px solid #4A3038; border-radius: 4px;
+    background: #FDF6EE; border: 3px solid #C9B0A0; border-radius: 4px;
     padding: 8px 12px; margin-bottom: 8px; gap: 4px;
     flex-wrap: wrap;
   }
   .streak-display, .days-display, .coin-display {
     display: flex; align-items: center; gap: 4px;
     font-family: 'Press Start 2P', monospace; font-size: 0.65rem;
-    color: #A07080; padding: 4px 8px;
-    background: #2A1E1A; border-radius: 4px;
+    color: #8B6F5E; padding: 4px 8px;
+    background: #F4E9DE; border-radius: 4px;
   }
-  .streak-display.hot { background: #3A2828; animation: streakPulse 1.5s infinite; }
+  .streak-display.hot { background: #F4D9C8; animation: streakPulse 1.5s infinite; }
   @keyframes streakPulse {
     0%, 100% { box-shadow: 0 0 0 0 rgba(244, 217, 200, 0.8); transform: scale(1); }
     50% { box-shadow: 0 0 0 6px rgba(244, 217, 200, 0); transform: scale(1.04); }
@@ -110,13 +110,13 @@
   .nav-tabs { display: flex; gap: 4px; margin-bottom: 8px; }
   .nav-tab {
     flex: 1; padding: 8px 4px; text-align: center;
-    background: #1A1412; border: 3px solid #4A3038; border-radius: 3px;
+    background: #FDF6EE; border: 3px solid #C9B0A0; border-radius: 3px;
     font-family: 'Press Start 2P', monospace; font-size: 0.5rem;
-    color: #A07080; cursor: pointer;
+    color: #8B6F5E; cursor: pointer;
     transition: all 0.15s; position: relative;
   }
   .nav-tab:active { transform: translateY(2px); }
-  .nav-tab.active { background: #3A2828; border-color: #A07080; color: #4A3F3A; transform: translateY(-1px); }
+  .nav-tab.active { background: #F4D9C8; border-color: #8B6F5E; color: #4A3F3A; transform: translateY(-1px); }
   .nav-tab .badge {
     position: absolute; top: -6px; right: -4px;
     background: #C9302C; color: white;
@@ -138,10 +138,10 @@
 
   /* ============ ROOM ============ */
   .room {
-    background: #1A1412; border: 4px solid #4A2A32; border-radius: 4px;
+    background: #FDF6EE; border: 4px solid #8B6F5E; border-radius: 4px;
     margin-bottom: 8px; position: sticky; top: 0; z-index: 60;
     overflow: hidden;
-    box-shadow: 0 6px 0 #2A1018;
+    box-shadow: 0 6px 0 #8B6F5E;
     height: 320px;
     perspective: 900px;
     perspective-origin: 50% 40%;
@@ -162,7 +162,7 @@
     bottom: 18px;
     z-index: 80;
     width: 64px; height: 72px;
-    background: #1A1412;
+    background: #FDF6EE;
     border: 3px solid #8B6F5E;
     border-radius: 12px;
     box-shadow: 0 4px 0 #8B6F5E, 0 8px 20px rgba(74,63,58,0.25);
@@ -181,7 +181,7 @@
   .mochi-float .mochi-float-label {
     position: absolute; bottom: -2px; left: 50%; transform: translateX(-50%);
     font-family: 'Press Start 2P', monospace; font-size: 0.32rem;
-    color: #A07080; white-space: nowrap; background: #1A1412;
+    color: #8B6F5E; white-space: nowrap; background: #FDF6EE;
     padding: 1px 4px; border-radius: 3px;
   }
   @keyframes floatIn {
@@ -979,9 +979,8 @@
   /* ---- Eternal ---- */
   .pet[data-stage="eternal"] {
     width: 116px; height: 126px;
-    --pet-color: #7A6A70; --pet-color-dark: #4A3A40; --pet-outline: #2A1A20;
-    --pet-belly: #4A3A40; --pet-horn: #8B7080; --pet-wing: #5A4A50;
-    filter: grayscale(0.45) brightness(0.8) saturate(0.7);
+    --pet-color: #F0D878; --pet-color-dark: #D4AF37; --pet-outline: #6B5A20;
+    --pet-belly: #FFFBF0; --pet-horn: #F0D060; --pet-wing: #FFE8A0;
   }
   .pet[data-stage="eternal"] .pet-body { bottom: 42px; width: 66px; height: 62px; }
   .pet[data-stage="eternal"] .pet-torso { width: 64px; height: 52px; bottom: 11px; }
@@ -1567,7 +1566,7 @@
   }
   .f-nightstand .ns-drawer {
     position: absolute; left: 6px; right: 6px; top: 22px; height: 12px;
-    background: #5A3040; border: 2px solid #4A3F3A; border-radius: 2px;
+    background: #8B6F5E; border: 2px solid #4A3F3A; border-radius: 2px;
     transition: transform 0.3s ease;
   }
   .f-nightstand.open .ns-drawer { transform: translateY(4px); }
@@ -2344,7 +2343,7 @@
   .f-room-easel .easel-leg-r {
     position: absolute; bottom: 0;
     width: 4px; height: 62px;
-    background: #5A3040; border: 2px solid #4A3F3A;
+    background: #8B6F5E; border: 2px solid #4A3F3A;
     border-radius: 2px;
     transform-origin: bottom center;
   }
@@ -2447,7 +2446,7 @@
   .f-mushroom { bottom: 10%; left: 8%; width: 48px; height: 52px; }
   .f-mushroom .mush-stem {
     position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
-    width: 14px; height: 22px; background: #2A1E1A; border: 3px solid #8B6F5E; border-radius: 4px;
+    width: 14px; height: 22px; background: #F4E9DE; border: 3px solid #8B6F5E; border-radius: 4px;
   }
   .f-mushroom .mush-cap {
     position: absolute; bottom: 16px; left: 50%; transform: translateX(-50%);
@@ -2575,7 +2574,7 @@
   .f-room-scarecrow { bottom: 8%; right: 12%; width: 44px; height: 70px; }
   .f-room-scarecrow .sc-pole {
     position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
-    width: 6px; height: 50px; background: #5A3040; border: 2px solid #5A4A3A;
+    width: 6px; height: 50px; background: #8B6F5E; border: 2px solid #5A4A3A;
   }
   .f-room-scarecrow .sc-head {
     position: absolute; top: 0; left: 50%; transform: translateX(-50%);
@@ -2583,7 +2582,7 @@
   }
   .f-room-scarecrow .sc-arms {
     position: absolute; top: 28px; left: 50%; transform: translateX(-50%);
-    width: 40px; height: 4px; background: #5A3040; border: 2px solid #5A4A3A;
+    width: 40px; height: 4px; background: #8B6F5E; border: 2px solid #5A4A3A;
   }
   .f-room-scarecrow.wave .sc-arms { animation: scWave 0.5s ease-in-out 2; }
   @keyframes scWave {
@@ -2638,7 +2637,7 @@
   }
   .f-room-table .tbl-leg {
     position: absolute; bottom: 0; width: 6px; height: 28px;
-    background: #5A3040; border: 2px solid #5A4A3A;
+    background: #8B6F5E; border: 2px solid #5A4A3A;
   }
   .f-room-table .tbl-leg.l { left: 6px; }
   .f-room-table .tbl-leg.r { right: 6px; }
@@ -2646,7 +2645,7 @@
   .f-room-spices { top: 22%; left: 42%; width: 48px; height: 36px; }
   .f-room-spices .sp-shelf {
     position: absolute; bottom: 0; left: 0; right: 0; height: 8px;
-    background: #5A3040; border: 2px solid #5A4A3A; border-radius: 2px;
+    background: #8B6F5E; border: 2px solid #5A4A3A; border-radius: 2px;
   }
   .f-room-spices .sp-jar {
     position: absolute; bottom: 8px; width: 10px; height: 16px;
@@ -2675,7 +2674,7 @@
   }
   .f-room-lantern .ln-top {
     position: absolute; top: 0; left: 50%; transform: translateX(-50%);
-    width: 16px; height: 8px; background: #5A3040; border: 2px solid #5A4A3A; border-radius: 2px;
+    width: 16px; height: 8px; background: #8B6F5E; border: 2px solid #5A4A3A; border-radius: 2px;
   }
   .f-room-lantern.lit .ln-body { animation: lanternGlow 1.5s ease-in-out infinite alternate; }
   @keyframes lanternGlow {
@@ -2811,7 +2810,7 @@
   .prop-bowl::after { content: ''; position: absolute; top: 0; left: 3px; right: 3px; height: 7px; background: #F8E6A0; border: 2px solid #8B6F5E; border-radius: 50%; }
   .prop-bed-icon { width: 32px; height: 20px; }
   .prop-bed-icon::before { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 14px; background: #C97C8C; border: 3px solid #8B6F5E; border-radius: 4px; }
-  .prop-bed-icon::after { content: ''; position: absolute; top: -5px; left: 2px; width: 11px; height: 11px; background: #1A1412; border: 2px solid #8B6F5E; border-radius: 3px; }
+  .prop-bed-icon::after { content: ''; position: absolute; top: -5px; left: 2px; width: 11px; height: 11px; background: #FDF6EE; border: 2px solid #8B6F5E; border-radius: 3px; }
   .prop-tub-icon { width: 36px; height: 18px; }
   .prop-tub-icon::before { content: ''; position: absolute; inset: 0; background: #B8D8E8; border: 3px solid #6B4F3E; border-radius: 0 0 12px 12px; }
   .prop-tub-icon::after { content: ''; position: absolute; top: 2px; left: 20%; right: 20%; height: 4px; background: #FFFFFF; opacity: 0.6; border-radius: 4px; }
@@ -2873,7 +2872,7 @@
   .choice-overlay.active { display: flex; animation: dailyFadeIn 0.3s ease; }
   @keyframes dailyFadeIn { 0% { opacity: 0; } 100% { opacity: 1; } }
   .choice-card {
-    background: #1A1412; border: 4px solid #C9A044; border-radius: 14px;
+    background: #FDF6EE; border: 4px solid #C9A044; border-radius: 14px;
     padding: 18px 18px 16px;
     box-shadow: 0 10px 0 #8B6F5E, 0 14px 30px rgba(0,0,0,0.35);
     max-width: 380px; width: 100%;
@@ -2887,7 +2886,7 @@
   .choice-title {
     font-family: 'Press Start 2P', monospace;
     font-size: 0.7rem;
-    color: #A07080;
+    color: #8B6F5E;
     text-align: center;
     margin-bottom: 4px;
   }
@@ -2907,7 +2906,7 @@
     overflow-y: auto;
   }
   .choice-option {
-    background: #120E0C; border: 3px solid #4A3038;
+    background: #FFFDF9; border: 3px solid #C9B0A0;
     border-radius: 8px; padding: 10px 6px;
     cursor: pointer;
     display: flex; flex-direction: column; align-items: center; gap: 4px;
@@ -2915,13 +2914,13 @@
     min-height: 80px; justify-content: center;
     text-align: center;
   }
-  .choice-option:hover { border-color: #A07080; background: #FFF9E8; }
+  .choice-option:hover { border-color: #8B6F5E; background: #FFF9E8; }
   .choice-option:active { transform: scale(0.96); }
   .choice-option .co-emoji { font-size: 1.8rem; line-height: 1; }
   .choice-option .co-name {
     font-family: 'Press Start 2P', monospace;
     font-size: 0.45rem;
-    color: #A07080;
+    color: #8B6F5E;
     line-height: 1.3;
   }
   .choice-option .co-desc {
@@ -2969,7 +2968,7 @@
   .heart-float { position: absolute; font-size: 1rem; z-index: 25; pointer-events: none; animation: heartFloat 1.5s ease-out forwards; }
   @keyframes heartFloat { 0% { opacity: 1; transform: translateY(0) translateX(0) scale(0.5) rotate(0deg); } 100% { opacity: 0; transform: translateY(-60px) translateX(var(--drift, 0px)) scale(1.2) rotate(var(--spin, 0deg)); } }
 
-  .zzz { position: absolute; font-family: 'Press Start 2P', monospace; color: #A07080; font-size: 0.7rem; z-index: 30; pointer-events: none; animation: zzzFloat 2.5s ease-out infinite; }
+  .zzz { position: absolute; font-family: 'Press Start 2P', monospace; color: #8B6F5E; font-size: 0.7rem; z-index: 30; pointer-events: none; animation: zzzFloat 2.5s ease-out infinite; }
   @keyframes zzzFloat { 0% { opacity: 0; transform: translate(0, 0) scale(0.6); } 25% { opacity: 1; } 100% { opacity: 0; transform: translate(25px, -50px) scale(1.1); } }
 
   .bubble { position: absolute; border-radius: 50%; background: radial-gradient(circle at 30% 30%, #FFFFFF, #B8D8E8); border: 2px solid #8B6F5E; z-index: 25; pointer-events: none; animation: bubbleRise 2s ease-out infinite; }
@@ -2990,7 +2989,7 @@
   }
   @keyframes wantPulse { 0%, 100% { transform: translateX(-50%) scale(1); } 50% { transform: translateX(-50%) scale(1.05); } }
   .want-bubble::after { content: ''; position: absolute; bottom: -8px; left: 50%; transform: translateX(-50%); width: 0; height: 0; border-left: 6px solid transparent; border-right: 6px solid transparent; border-top: 8px solid #C9A044; }
-  .room-badge { position: absolute; top: 8px; left: 8px; background: rgba(253, 246, 238, 0.95); border: 3px solid #8B6F5E; padding: 3px 8px; font-family: 'Press Start 2P', monospace; font-size: 0.45rem; color: #A07080; border-radius: 4px; z-index: 30; }
+  .room-badge { position: absolute; top: 8px; left: 8px; background: rgba(253, 246, 238, 0.95); border: 3px solid #8B6F5E; padding: 3px 8px; font-family: 'Press Start 2P', monospace; font-size: 0.45rem; color: #8B6F5E; border-radius: 4px; z-index: 30; }
 
   .pet-mood-pill {
     font-family: 'Press Start 2P', monospace;
@@ -3021,20 +3020,20 @@
   }
   @keyframes poopIn { 0% { transform: scale(0) rotate(-30deg); } 70% { transform: scale(1.2) rotate(8deg); } 100% { transform: scale(1) rotate(0deg); } }
 
-  .pet-info { padding: 10px 12px 12px; background: #1A1412; }
+  .pet-info { padding: 10px 12px 12px; background: #FDF6EE; }
   .pet-name-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
   .pet-name { font-family: 'Press Start 2P', monospace; font-size: 0.7rem; color: #4A3F3A; }
-  .pet-stage-badge { font-family: 'Press Start 2P', monospace; font-size: 0.5rem; color: #A89080; padding: 3px 8px; background: #2A1E1A; border: 2px solid #C9B0A0; border-radius: 4px; }
-  .pet-stage-badge.level-up { background: #3A2828; color: #A07080; animation: levelUpPulse 1s ease; }
+  .pet-stage-badge { font-family: 'Press Start 2P', monospace; font-size: 0.5rem; color: #A89080; padding: 3px 8px; background: #F4E9DE; border: 2px solid #C9B0A0; border-radius: 4px; }
+  .pet-stage-badge.level-up { background: #F4D9C8; color: #8B6F5E; animation: levelUpPulse 1s ease; }
   @keyframes levelUpPulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.15); } }
   .stats { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
-  .stat { background: #2A1E1A; border: 2px solid #C9B0A0; padding: 6px 8px; border-radius: 4px; position: relative; }
+  .stat { background: #F4E9DE; border: 2px solid #C9B0A0; padding: 6px 8px; border-radius: 4px; position: relative; }
   .stat.warning { animation: statWarn 1.5s ease-in-out infinite; }
   @keyframes statWarn {
-    0%, 100% { background: #2A1E1A; }
+    0%, 100% { background: #F4E9DE; }
     50% { background: #F8D8C8; }
   }
-  .stat-header { display: flex; justify-content: space-between; align-items: center; font-family: 'Press Start 2P', monospace; font-size: 0.5rem; color: #A07080; margin-bottom: 4px; }
+  .stat-header { display: flex; justify-content: space-between; align-items: center; font-family: 'Press Start 2P', monospace; font-size: 0.5rem; color: #8B6F5E; margin-bottom: 4px; }
   .stat-bar { height: 8px; background: #E8D9C8; border: 2px solid #8B6F5E; border-radius: 2px; overflow: hidden; position: relative; }
   .stat-bar-fill { height: 100%; transition: width 0.5s; position: relative; overflow: hidden; }
   .stat-bar-fill.good { background: #8FB87D; }
@@ -3048,8 +3047,8 @@
 
   .xp-bar {
     display: flex; align-items: center; gap: 8px;
-    padding: 6px 12px; background: #1A1412;
-    font-family: 'Press Start 2P', monospace; font-size: 0.5rem; color: #A07080;
+    padding: 6px 12px; background: #FDF6EE;
+    font-family: 'Press Start 2P', monospace; font-size: 0.5rem; color: #8B6F5E;
   }
   .xp-track { flex: 1; height: 10px; background: #E8D9C8; border: 2px solid #8B6F5E; border-radius: 2px; overflow: hidden; position: relative; }
   .xp-fill { height: 100%; background: linear-gradient(90deg, #C9A044, #F0D888); transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1); position: relative; overflow: hidden; }
@@ -3063,7 +3062,7 @@
 
   .actions { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; padding: 8px 12px 12px; }
   .action-btn {
-    background: #120E0C; border: 3px solid #4A3038; border-radius: 2px;
+    background: #FFFDF9; border: 3px solid #C9B0A0; border-radius: 2px;
     padding: 10px 4px; cursor: pointer;
     display: flex; flex-direction: column; align-items: center; gap: 3px;
     box-shadow: 0 3px 0 #C9B0A0, inset 2px 2px 0 rgba(255,255,255,0.7), inset -2px -2px 0 rgba(201,176,160,0.25);
@@ -3077,7 +3076,7 @@
   .action-btn:active .emoji { transform: scale(1.2); }
   .action-btn:disabled { opacity: 0.5; cursor: not-allowed; }
   .action-btn .emoji { font-size: 1.5rem; line-height: 1; transition: transform 0.15s; }
-  .action-btn .label { font-family: 'Press Start 2P', monospace; font-size: 0.45rem; color: #A07080; }
+  .action-btn .label { font-family: 'Press Start 2P', monospace; font-size: 0.45rem; color: #8B6F5E; }
   .action-btn.want-highlight { border-color: #C9A044; background: #FFF9C8; animation: wantHighlight 1.2s infinite; }
   .action-section-label {
     grid-column: 1 / -1;
@@ -3135,67 +3134,67 @@
     gap: 12px; text-align: center; padding: 20px;
   }
   .mg-end.active { display: flex; }
-  .mg-end-title { font-family: 'Press Start 2P', monospace; font-size: 1rem; color: #A07080; }
+  .mg-end-title { font-family: 'Press Start 2P', monospace; font-size: 1rem; color: #8B6F5E; }
   .mg-end-score { font-family: 'Press Start 2P', monospace; font-size: 1.4rem; color: #C9A044; }
   .mg-end-reward { font-size: 0.9rem; color: #6B5F4D; }
 
-  .diary { background: #1A1412; border: 3px solid #4A3038; border-radius: 6px; padding: 10px; margin: 0 12px 12px; }
-  .diary-title { font-family: 'Press Start 2P', monospace; font-size: 0.55rem; color: #A07080; margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center; }
+  .diary { background: #FDF6EE; border: 3px solid #C9B0A0; border-radius: 6px; padding: 10px; margin: 0 12px 12px; }
+  .diary-title { font-family: 'Press Start 2P', monospace; font-size: 0.55rem; color: #8B6F5E; margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center; }
   .diary-scroll { max-height: 100px; overflow-y: auto; scrollbar-width: thin; }
   .diary-scroll::-webkit-scrollbar { width: 4px; }
   .diary-scroll::-webkit-scrollbar-thumb { background: #C9B0A0; border-radius: 2px; }
-  .diary-entry { font-size: 0.72rem; padding: 5px 8px; margin-bottom: 3px; background: #2A1E1A; border-left: 3px solid #C9B0A0; border-radius: 3px; color: #6B5F4D; animation: diarySlide 0.3s; }
+  .diary-entry { font-size: 0.72rem; padding: 5px 8px; margin-bottom: 3px; background: #F4E9DE; border-left: 3px solid #C9B0A0; border-radius: 3px; color: #6B5F4D; animation: diarySlide 0.3s; }
   @keyframes diarySlide { from { opacity: 0; transform: translateX(-6px); } to { opacity: 1; transform: translateX(0); } }
-  .diary-entry.by-koy { border-left-color: #A07080; }
+  .diary-entry.by-koy { border-left-color: #8B6F5E; }
   .diary-entry.by-metz { border-left-color: #C9A0A0; }
   .diary-entry .time { font-size: 0.6rem; color: #A89080; margin-right: 4px; font-family: 'Press Start 2P', monospace; }
 
   .ach-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; padding: 0 12px 12px; }
-  .ach-card { background: #2A1E1A; border: 3px solid #4A3038; border-radius: 6px; padding: 10px; display: flex; align-items: center; gap: 8px; }
+  .ach-card { background: #F4E9DE; border: 3px solid #C9B0A0; border-radius: 6px; padding: 10px; display: flex; align-items: center; gap: 8px; }
   .ach-card.unlocked { background: #FFF9C8; border-color: #C9A044; }
   .ach-card .ach-icon { font-size: 1.8rem; line-height: 1; filter: grayscale(1) opacity(0.4); transition: filter 0.3s; }
   .ach-card.unlocked .ach-icon { filter: none; animation: achIconPop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1); }
   @keyframes achIconPop { 0% { transform: scale(0.6) rotate(-10deg); } 100% { transform: scale(1) rotate(0deg); } }
   .ach-card .ach-info { flex: 1; min-width: 0; }
-  .ach-card .ach-name { font-family: 'Press Start 2P', monospace; font-size: 0.5rem; color: #A07080; margin-bottom: 3px; line-height: 1.4; word-break: break-word; }
+  .ach-card .ach-name { font-family: 'Press Start 2P', monospace; font-size: 0.5rem; color: #8B6F5E; margin-bottom: 3px; line-height: 1.4; word-break: break-word; }
   .ach-card.unlocked .ach-name { color: #6B4F0E; }
   .ach-card .ach-desc { font-size: 0.65rem; color: #A89080; line-height: 1.3; }
-  .ach-card.unlocked .ach-desc { color: #A07080; }
+  .ach-card.unlocked .ach-desc { color: #8B6F5E; }
 
-  .section-header { padding: 12px 12px 8px; font-family: 'Press Start 2P', monospace; font-size: 0.7rem; color: #A07080; text-align: center; }
+  .section-header { padding: 12px 12px 8px; font-family: 'Press Start 2P', monospace; font-size: 0.7rem; color: #8B6F5E; text-align: center; }
 
   .notes-container { padding: 0 12px 12px; }
   .note-input-area { display: flex; gap: 6px; margin-bottom: 12px; }
-  .note-input { flex: 1; padding: 12px 14px; border: 3px solid #4A3038; background: #120E0C; font-family: 'Fredoka', sans-serif; font-size: 0.9rem; color: #4A3F3A; outline: none; border-radius: 6px; }
-  .note-input:focus { border-color: #A07080; }
-  .note-send { background: #5A3040; color: white; border: none; padding: 0 16px; cursor: pointer; font-family: 'Press Start 2P', monospace; font-size: 0.55rem; border-radius: 6px; box-shadow: 0 3px 0 #6B4F3E; }
+  .note-input { flex: 1; padding: 12px 14px; border: 3px solid #C9B0A0; background: #FFFDF9; font-family: 'Fredoka', sans-serif; font-size: 0.9rem; color: #4A3F3A; outline: none; border-radius: 6px; }
+  .note-input:focus { border-color: #8B6F5E; }
+  .note-send { background: #8B6F5E; color: white; border: none; padding: 0 16px; cursor: pointer; font-family: 'Press Start 2P', monospace; font-size: 0.55rem; border-radius: 6px; box-shadow: 0 3px 0 #6B4F3E; }
   .note-send:active { transform: translateY(2px); box-shadow: 0 1px 0 #6B4F3E; }
   .notes-wall { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
   .sticky-note { padding: 12px 10px; border-radius: 4px; font-size: 0.8rem; line-height: 1.4; color: #4A3F3A; min-height: 90px; position: relative; word-break: break-word; box-shadow: 2px 3px 0 rgba(139, 111, 94, 0.3); transform: rotate(-1deg); animation: notePin 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); }
   .sticky-note:nth-child(even) { transform: rotate(1deg); }
   @keyframes notePin { 0% { transform: scale(0.7) rotate(-10deg); opacity: 0; } 100% { transform: scale(1) rotate(-1deg); opacity: 1; } }
-  .sticky-note.by-koy { background: #3A2828; }
+  .sticky-note.by-koy { background: #F4D9C8; }
   .sticky-note.by-metz { background: #F0D8E8; }
-  .sticky-note .note-sender { font-family: 'Press Start 2P', monospace; font-size: 0.45rem; color: #A07080; margin-bottom: 6px; display: block; }
+  .sticky-note .note-sender { font-family: 'Press Start 2P', monospace; font-size: 0.45rem; color: #8B6F5E; margin-bottom: 6px; display: block; }
   .sticky-note .note-time { position: absolute; bottom: 6px; right: 8px; font-size: 0.6rem; color: #A89080; }
   .sticky-note .note-delete { position: absolute; top: 6px; right: 6px; background: none; border: none; font-size: 0.9rem; cursor: pointer; opacity: 0.4; padding: 2px 6px; }
 
   .album-container { padding: 0 12px 12px; }
   .album-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-  .album-card { background: #1A1412; border: 3px solid #4A3038; border-radius: 6px; padding: 12px 8px; text-align: center; box-shadow: 0 3px 0 #C9B0A0; animation: albumIn 0.35s cubic-bezier(0.34, 1.56, 0.64, 1); }
+  .album-card { background: #FDF6EE; border: 3px solid #C9B0A0; border-radius: 6px; padding: 12px 8px; text-align: center; box-shadow: 0 3px 0 #C9B0A0; animation: albumIn 0.35s cubic-bezier(0.34, 1.56, 0.64, 1); }
   @keyframes albumIn { 0% { opacity: 0; transform: scale(0.85); } 100% { opacity: 1; transform: scale(1); } }
   .album-card .album-emoji { font-size: 2.4rem; margin-bottom: 4px; }
-  .album-card .album-level { font-family: 'Press Start 2P', monospace; font-size: 0.55rem; color: #A07080; margin-bottom: 4px; }
+  .album-card .album-level { font-family: 'Press Start 2P', monospace; font-size: 0.55rem; color: #8B6F5E; margin-bottom: 4px; }
   .album-card .album-date { font-size: 0.65rem; color: #A89080; }
-  .album-card .album-note { font-size: 0.7rem; color: #A07080; margin-top: 6px; line-height: 1.3; }
+  .album-card .album-note { font-size: 0.7rem; color: #8B6F5E; margin-top: 6px; line-height: 1.3; }
 
   .rooms-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; padding: 0 12px 12px; }
-  .room-card { background: #2A1E1A; border: 3px solid #4A3038; border-radius: 6px; padding: 14px 10px; text-align: center; cursor: pointer; transition: all 0.2s; position: relative; }
+  .room-card { background: #F4E9DE; border: 3px solid #C9B0A0; border-radius: 6px; padding: 14px 10px; text-align: center; cursor: pointer; transition: all 0.2s; position: relative; }
   .room-card.unlocked:active { transform: scale(0.97); }
-  .room-card.active { border-color: #A07080; background: #3A2828; box-shadow: 0 3px 0 #8B6F5E; }
+  .room-card.active { border-color: #8B6F5E; background: #F4D9C8; box-shadow: 0 3px 0 #8B6F5E; }
   .room-card.locked { opacity: 0.6; cursor: not-allowed; }
   .room-card .room-emoji { font-size: 2rem; margin-bottom: 4px; }
-  .room-card .room-name { font-family: 'Press Start 2P', monospace; font-size: 0.55rem; color: #A07080; margin-bottom: 4px; }
+  .room-card .room-name { font-family: 'Press Start 2P', monospace; font-size: 0.55rem; color: #8B6F5E; margin-bottom: 4px; }
   .room-card .room-req { font-size: 0.65rem; color: #A89080; }
   .room-card.active .room-req { color: #4A3F3A; font-weight: 600; }
   .room-card .room-here-badge {
@@ -3211,26 +3210,26 @@
 
   .shop-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; padding: 0 12px 12px; }
   .shop-card {
-    background: #1A1412; border: 3px solid #4A3038; border-radius: 6px;
+    background: #FDF6EE; border: 3px solid #C9B0A0; border-radius: 6px;
     padding: 10px; text-align: center;
     display: flex; flex-direction: column; gap: 6px;
     transition: all 0.2s;
   }
   .shop-card.owned { background: #E8F0D8; border-color: #8FB87D; }
   .shop-card .shop-emoji { font-size: 2rem; }
-  .shop-card .shop-name { font-family: 'Press Start 2P', monospace; font-size: 0.5rem; color: #A07080; line-height: 1.3; }
+  .shop-card .shop-name { font-family: 'Press Start 2P', monospace; font-size: 0.5rem; color: #8B6F5E; line-height: 1.3; }
   .shop-card .shop-desc { font-size: 0.65rem; color: #A89080; line-height: 1.3; min-height: 24px; }
   .shop-card .shop-room-tag {
     font-family: 'Press Start 2P', monospace;
     font-size: 0.4rem;
-    color: #A07080;
-    background: #2A1E1A;
+    color: #8B6F5E;
+    background: #F4E9DE;
     padding: 2px 6px;
     border-radius: 3px;
     align-self: center;
   }
   .shop-card .shop-buy {
-    background: #5A3040; color: white; border: none;
+    background: #8B6F5E; color: white; border: none;
     padding: 8px; border-radius: 4px; cursor: pointer;
     font-family: 'Press Start 2P', monospace; font-size: 0.5rem;
     box-shadow: 0 3px 0 #6B4F3E;
@@ -3253,7 +3252,7 @@
   }
   .daily-overlay.active { display: flex; animation: dailyFadeIn 0.3s ease; }
   .daily-card {
-    background: #1A1412;
+    background: #FDF6EE;
     border: 4px solid #C9A044;
     border-radius: 14px;
     padding: 22px 20px 20px;
@@ -3263,7 +3262,7 @@
     animation: dailyPop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
     position: relative;
   }
-  .daily-title { font-family: 'Press Start 2P', monospace; font-size: 0.75rem; color: #A07080; margin-bottom: 4px; }
+  .daily-title { font-family: 'Press Start 2P', monospace; font-size: 0.75rem; color: #8B6F5E; margin-bottom: 4px; }
   .daily-subtitle { font-size: 0.78rem; color: #A89080; margin-bottom: 18px; line-height: 1.4; }
   .daily-chest {
     font-size: 4.5rem; line-height: 1; display: inline-block; margin-bottom: 10px;
@@ -3288,8 +3287,8 @@
   .daily-streak { display: flex; justify-content: center; gap: 6px; margin-bottom: 16px; flex-wrap: wrap; }
   .daily-day {
     width: 32px; height: 32px;
-    border: 3px solid #4A3038; border-radius: 6px;
-    background: #2A1E1A;
+    border: 3px solid #C9B0A0; border-radius: 6px;
+    background: #F4E9DE;
     display: flex; align-items: center; justify-content: center;
     font-family: 'Press Start 2P', monospace; font-size: 0.5rem;
     color: #A89080; position: relative;
@@ -3307,7 +3306,7 @@
   @keyframes rewardIn { 0% { transform: scale(0.4); opacity: 0; } 70% { transform: scale(1.1); opacity: 1; } 100% { transform: scale(1); opacity: 1; } }
   .daily-reward-emoji { font-size: 3.4rem; line-height: 1; filter: drop-shadow(0 6px 4px rgba(139,111,94,0.4)); animation: rewardBob 1.4s ease-in-out infinite; }
   @keyframes rewardBob { 0%, 100% { transform: translateY(0) rotate(-4deg); } 50% { transform: translateY(-8px) rotate(4deg); } }
-  .daily-reward-label { font-family: 'Press Start 2P', monospace; font-size: 0.55rem; color: #A07080; }
+  .daily-reward-label { font-family: 'Press Start 2P', monospace; font-size: 0.55rem; color: #8B6F5E; }
   .daily-reward-value { font-family: 'Press Start 2P', monospace; font-size: 1rem; color: #C9A044; margin-top: 4px; }
   .daily-reward-extra { font-size: 0.78rem; color: #6B5F4D; line-height: 1.4; margin-top: 6px; }
   .daily-close-btn { margin-top: 16px; width: 100%; }
@@ -3315,7 +3314,7 @@
   .toast {
     position: fixed; top: 15px; left: 50%;
     transform: translateX(-50%) translateY(-80px);
-    background: #5A3040; color: white;
+    background: #8B6F5E; color: white;
     padding: 10px 18px;
     font-family: 'Press Start 2P', monospace;
     font-size: 0.55rem; border-radius: 4px;
@@ -3343,7 +3342,7 @@
   .ach-popup .ach-popup-icon { font-size: 3rem; margin-bottom: 8px; }
   .ach-popup .ach-popup-title { font-family: 'Press Start 2P', monospace; font-size: 0.6rem; color: #C9A044; margin-bottom: 6px; }
   .ach-popup .ach-popup-name { font-family: 'Press Start 2P', monospace; font-size: 0.75rem; color: #6B4F0E; margin-bottom: 6px; line-height: 1.4; }
-  .ach-popup .ach-popup-desc { font-size: 0.75rem; color: #A07080; line-height: 1.4; }
+  .ach-popup .ach-popup-desc { font-size: 0.75rem; color: #8B6F5E; line-height: 1.4; }
 
   .levelup-overlay {
     position: fixed; inset: 0;
@@ -3358,7 +3357,7 @@
     100% { opacity: 0; transform: scale(1.1); }
   }
   .levelup-badge {
-    background: #5A3040; color: white;
+    background: #8B6F5E; color: white;
     padding: 20px 28px; border: 4px solid #FFFDF9;
     border-radius: 8px;
     font-family: 'Press Start 2P', monospace;
@@ -3897,7 +3896,7 @@
 
   /* Evolution progress toward next form */
   .evo-panel {
-    background: #1A1412; border: 3px solid #4A3038; border-radius: 6px;
+    background: #FDF6EE; border: 3px solid #C9B0A0; border-radius: 6px;
     padding: 10px 12px; margin-bottom: 8px;
     box-shadow: 0 3px 0 #C9B0A0;
   }
@@ -3907,7 +3906,7 @@
   }
   .evo-stage-label {
     font-family: 'Press Start 2P', monospace; font-size: 0.52rem;
-    color: #A07080; line-height: 1.5;
+    color: #8B6F5E; line-height: 1.5;
   }
   .evo-stage-label strong { color: #4A3F3A; }
   .evo-desc {
@@ -3971,19 +3970,19 @@
   .room-chips::-webkit-scrollbar { display: none; }
   .room-chip {
     flex: 0 0 auto; padding: 6px 10px; border: 2px solid #C9B0A0;
-    background: #1A1412; border-radius: 16px; cursor: pointer;
+    background: #FDF6EE; border-radius: 16px; cursor: pointer;
     font-family: 'Press Start 2P', monospace; font-size: 0.42rem;
-    color: #A07080; white-space: nowrap; transition: all 0.15s;
+    color: #8B6F5E; white-space: nowrap; transition: all 0.15s;
   }
   .room-chip.active {
-    background: #3A2828; border-color: #A07080; color: #4A3F3A;
+    background: #F4D9C8; border-color: #8B6F5E; color: #4A3F3A;
     box-shadow: 0 2px 0 #8B6F5E;
   }
   .room-chip.locked { opacity: 0.45; cursor: not-allowed; }
   .room-chip:active:not(.locked) { transform: translateY(1px); }
 
   .bond-bar-wrap {
-    background: #1A1412; border: 3px solid #4A3038; border-radius: 6px;
+    background: #FDF6EE; border: 3px solid #C9B0A0; border-radius: 6px;
     padding: 8px 10px; margin-bottom: 8px; box-shadow: 0 3px 0 #C9B0A0;
   }
   .bond-header {
@@ -3991,7 +3990,7 @@
     margin-bottom: 4px;
   }
   .bond-label {
-    font-family: 'Press Start 2P', monospace; font-size: 0.48rem; color: #A07080;
+    font-family: 'Press Start 2P', monospace; font-size: 0.48rem; color: #8B6F5E;
   }
   .bond-value {
     font-family: 'Press Start 2P', monospace; font-size: 0.48rem; color: #C45A7A;
@@ -4008,12 +4007,12 @@
   .bond-hint { font-size: 0.68rem; color: #A89080; margin-top: 4px; line-height: 1.3; }
 
   .quest-panel {
-    background: #1A1412; border: 3px solid #4A3038; border-radius: 6px;
+    background: #FDF6EE; border: 3px solid #C9B0A0; border-radius: 6px;
     padding: 10px 12px; margin-bottom: 8px; box-shadow: 0 3px 0 #C9B0A0;
   }
   .quest-title {
     font-family: 'Press Start 2P', monospace; font-size: 0.5rem;
-    color: #A07080; margin-bottom: 8px;
+    color: #8B6F5E; margin-bottom: 8px;
   }
   .quest-item {
     display: flex; align-items: center; gap: 8px; padding: 6px 0;
@@ -4023,7 +4022,7 @@
   .quest-item.done { opacity: 0.55; text-decoration: line-through; }
   .quest-check {
     width: 18px; height: 18px; border: 2px solid #8B6F5E; border-radius: 4px;
-    background: #120E0C; display: flex; align-items: center; justify-content: center;
+    background: #FFFDF9; display: flex; align-items: center; justify-content: center;
     font-size: 0.65rem; flex-shrink: 0;
   }
   .quest-item.done .quest-check { background: #8FB87D; border-color: #5A8A4A; color: white; }
@@ -4039,7 +4038,7 @@
   }
   .hint-bar.visible { display: block; animation: viewIn 0.3s ease; }
   .hint-bar .hint-close {
-    float: right; background: none; border: none; color: #A07080;
+    float: right; background: none; border: none; color: #8B6F5E;
     font-size: 0.9rem; cursor: pointer; padding: 0 4px;
   }
 
@@ -4050,14 +4049,14 @@
   }
   .onboard-overlay.active { display: flex; animation: dailyFadeIn 0.3s ease; }
   .onboard-card {
-    background: #1A1412; border: 4px solid #4A2A32; border-radius: 10px;
+    background: #FDF6EE; border: 4px solid #8B6F5E; border-radius: 10px;
     padding: 22px 18px; max-width: 340px; width: 100%;
     box-shadow: 0 8px 0 #6B4F3E; text-align: center;
   }
   .onboard-emoji { font-size: 2.8rem; margin-bottom: 10px; }
   .onboard-title {
     font-family: 'Press Start 2P', monospace; font-size: 0.7rem;
-    color: #A07080; margin-bottom: 10px; line-height: 1.5;
+    color: #8B6F5E; margin-bottom: 10px; line-height: 1.5;
   }
   .onboard-text {
     font-size: 0.85rem; color: #4A3F3A; line-height: 1.5; margin-bottom: 16px;
@@ -4066,7 +4065,7 @@
   .onboard-dot {
     width: 8px; height: 8px; border-radius: 50%; background: #C9B0A0;
   }
-  .onboard-dot.active { background: #5A3040; }
+  .onboard-dot.active { background: #8B6F5E; }
   .onboard-actions { display: flex; gap: 8px; }
   .onboard-actions .btn { flex: 1; }
 
@@ -4088,215 +4087,44 @@
   .pet[data-color="coral"] { filter: hue-rotate(-40deg) saturate(1.2); }
 
   .wardrobe-panel {
-    background: #1A1412; border: 3px solid #4A3038; border-radius: 6px;
+    background: #FDF6EE; border: 3px solid #C9B0A0; border-radius: 6px;
     padding: 10px 12px; margin-bottom: 8px; box-shadow: 0 3px 0 #C9B0A0;
     display: none;
   }
   .wardrobe-panel.open { display: block; }
   .wardrobe-title {
     font-family: 'Press Start 2P', monospace; font-size: 0.5rem;
-    color: #A07080; margin-bottom: 8px;
+    color: #8B6F5E; margin-bottom: 8px;
   }
   .wardrobe-grid {
     display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px;
   }
   .wardrobe-item {
-    background: #120E0C; border: 2px solid #C9B0A0; border-radius: 4px;
+    background: #FFFDF9; border: 2px solid #C9B0A0; border-radius: 4px;
     padding: 8px 4px; text-align: center; cursor: pointer; font-size: 1.2rem;
   }
-  .wardrobe-item.equipped { border-color: #A07080; background: #3A2828; }
+  .wardrobe-item.equipped { border-color: #8B6F5E; background: #F4D9C8; }
   .wardrobe-item .w-name {
     font-family: 'Press Start 2P', monospace; font-size: 0.32rem;
-    color: #A07080; margin-top: 4px; line-height: 1.3;
+    color: #8B6F5E; margin-top: 4px; line-height: 1.3;
   }
   .wardrobe-toggle {
     width: 100%; margin-top: 6px; padding: 8px; border: 2px solid #C9B0A0;
-    background: #120E0C; border-radius: 4px; cursor: pointer;
+    background: #FFFDF9; border-radius: 4px; cursor: pointer;
     font-family: 'Fredoka', sans-serif; font-weight: 600; font-size: 0.8rem;
-    color: #A07080;
+    color: #8B6F5E;
   }
 
   .actions-more-btn {
     grid-column: 1 / -1; padding: 10px; border: 2px dashed #C9B0A0;
-    background: #120E0C; border-radius: 4px; cursor: pointer;
+    background: #FFFDF9; border-radius: 4px; cursor: pointer;
     font-family: 'Press Start 2P', monospace; font-size: 0.45rem;
-    color: #A07080; margin-top: 2px;
+    color: #8B6F5E; margin-top: 2px;
   }
   .dragon-actions { display: contents; }
   .dragon-actions.collapsed { display: none; }
 
 
-
-/* ===== MORBID LAYER ===== */
-body{background:linear-gradient(180deg,#050304,#0d0709 45%,#1a0c10)!important}
-#room{filter:grayscale(.55) brightness(.8) contrast(1.15)}
-#room::after{content:"";position:absolute;inset:0;pointer-events:none;z-index:30;background:radial-gradient(ellipse at 50% 60%,transparent 25%,rgba(0,0,0,.85) 100%);animation:moFlick 5s infinite}
-@keyframes moFlick{0%,100%{opacity:.9}48%{opacity:1}50%{opacity:.7}52%{opacity:1}}
-.pet .pet-dragon .dg-red{fill:#2c1b3a!important}
-.pet .pet-dragon .dg-dk{fill:#150c20!important}
-.pet .pet-dragon .dg-cr{fill:#6b5560!important}
-.pet .pet-dragon .dg-o{stroke:#050207!important;stroke-width:6!important}
-.pet[data-stage] .pet-dragon{filter:saturate(.7) drop-shadow(0 0 12px rgba(190,0,40,.6))!important;animation:none!important}
-.pet-dragon .dg-tear{stroke-dasharray:60;animation:moDrip 1.6s ease-in infinite}
-@keyframes moDrip{0%{stroke-dashoffset:60;opacity:0}30%{opacity:.9}100%{stroke-dashoffset:-60;opacity:0}}
-.pet-dragon .dg-drop{transform-box:fill-box;animation:moDrop 1.6s ease-in infinite}
-@keyframes moDrop{0%{transform:translateY(-30px);opacity:0}30%{opacity:1}100%{transform:translateY(60px);opacity:0}}
-.pet.happy,.pet.ecstatic,.pet.hopping,.pet.spinning,.pet.dancing,.pet.singing,.pet.stretching{animation:none!important}
-.pet.happy .pet-dragon .dg-mouth,.pet.ecstatic .pet-dragon .dg-mouth{transform:none!important}
-.pet.happy .pet-dragon .dg-arm-l,.pet.happy .pet-dragon .dg-arm-r{animation:none!important}
-.mo-tear{position:absolute;bottom:62px;width:6px;height:9px;background:#8fd3ff;border-radius:50% 50% 50% 50%/60% 60% 40% 40%;opacity:.9;z-index:20;pointer-events:none;animation:moFall 1.2s ease-in forwards}
-@keyframes moFall{to{transform:translateY(44px);opacity:0}}
-.mo-cloud{position:absolute;top:8px;left:50%;transform:translateX(-50%);z-index:40;pointer-events:none;width:170px;transition:left .8s}
-.mo-cloud-t{position:relative;background:#cfc4d4;color:#2a1a32;font:600 .62rem/1.3 'Fredoka',sans-serif;text-align:center;padding:10px 14px;border-radius:30px;box-shadow:-14px 4px 0 -4px #cfc4d4,14px 6px 0 -4px #cfc4d4,0 -8px 0 -2px #cfc4d4;opacity:.92}
-.mo-cloud i{position:absolute;left:50%;background:#cfc4d4;border-radius:50%;display:block}
-.mo-cloud i:nth-of-type(1){width:12px;height:12px;bottom:-16px;margin-left:-4px}
-.mo-cloud i:nth-of-type(2){width:8px;height:8px;bottom:-26px;margin-left:2px}
-.mo-cloud i:nth-of-type(3){width:5px;height:5px;bottom:-33px;margin-left:6px}
-.mo-cloud.in .mo-cloud-t{animation:moIn .9s ease}
-@keyframes moIn{from{opacity:0;transform:translateY(6px)}to{opacity:.92;transform:none}}
-.mo-visitor{position:absolute;bottom:22px;left:-12%;font-size:2.4rem;z-index:25;transition:left 3s linear;pointer-events:none}
-.mo-visitor.come{left:20%}
-.mo-visitor.go{left:-14%;transition:left 1.6s ease-in}
-.mo-visitor span{filter:brightness(0) opacity(.8)}
-.mo-visitor b{position:absolute;bottom:105%;left:0;white-space:nowrap;font:600 .6rem 'Fredoka',sans-serif;color:#e8dce0;background:rgba(0,0,0,.8);padding:4px 8px;border-radius:8px;opacity:0;transition:opacity .3s}
-.mo-visitor.talk b{opacity:1}
-
-/* ===== CINEMATIC STORY ===== */
-.mo-cine{
-  position:fixed;inset:0;z-index:9999;
-  background:#030104;
-  display:flex;flex-direction:column;justify-content:center;align-items:center;
-  padding:0;text-align:center;
-  transition:opacity 1.4s ease;
-  overflow:hidden;
-  cursor:pointer;
-}
-.mo-cine.out{opacity:0;pointer-events:none}
-.mo-cine-letterbox{
-  position:absolute;left:0;right:0;height:11%;
-  background:#000;z-index:5;pointer-events:none;
-}
-.mo-cine-letterbox.top{top:0;box-shadow:0 12px 40px rgba(0,0,0,.85)}
-.mo-cine-letterbox.bot{bottom:0;box-shadow:0 -12px 40px rgba(0,0,0,.85)}
-.mo-cine-grain{
-  position:absolute;inset:0;z-index:2;pointer-events:none;opacity:.14;
-  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E");
-  background-size:180px 180px;
-  animation:moGrain 0.35s steps(2) infinite;
-}
-@keyframes moGrain{0%{transform:translate(0,0)}100%{transform:translate(-2%,3%)}}
-.mo-cine-vignette{
-  position:absolute;inset:0;z-index:3;pointer-events:none;
-  background:radial-gradient(ellipse at 50% 45%,transparent 20%,rgba(0,0,0,.55) 70%,rgba(0,0,0,.92) 100%);
-}
-.mo-cine-flash-layer{
-  position:absolute;inset:0;z-index:4;pointer-events:none;
-  background:#1a0508;opacity:0;
-}
-.mo-cine.is-flash .mo-cine-flash-layer{animation:moCineFlash .55s ease-out}
-@keyframes moCineFlash{0%{opacity:.85}35%{opacity:.25}100%{opacity:0}}
-.mo-cine-stage{
-  position:relative;z-index:6;
-  width:100%;max-width:420px;
-  padding:28px 28px 90px;
-  display:flex;flex-direction:column;align-items:center;
-}
-.mo-cine-rule{
-  width:48px;height:1px;background:linear-gradient(90deg,transparent,#6a2030,transparent);
-  margin:10px 0 14px;opacity:.7;
-}
-.mo-cine-chapter{
-  font:.42rem 'Press Start 2P',monospace;
-  color:#7a3040;letter-spacing:3px;text-transform:uppercase;
-  min-height:1.2em;opacity:0;transform:translateY(6px);
-  transition:opacity .7s ease, transform .7s ease;
-}
-.mo-cine-chapter.in{opacity:1;transform:none}
-.mo-cine-title{
-  font:.5rem 'Press Start 2P',monospace;
-  color:#c03848;letter-spacing:4px;
-  text-shadow:0 0 24px rgba(160,40,56,.4);
-  margin-bottom:6px;
-}
-.mo-cine-motif{
-  width:72px;height:72px;margin:18px 0 8px;
-  position:relative;
-  opacity:0;transform:scale(.86);
-  transition:opacity .8s ease, transform .8s cubic-bezier(.2,.8,.2,1);
-}
-.mo-cine-motif.in{opacity:1;transform:scale(1)}
-.mo-cine-motif svg{width:100%;height:100%;overflow:visible}
-.mo-cine-line{
-  font:500 1.08rem/1.7 'Fredoka',sans-serif;
-  color:#d4c4c8;max-width:340px;min-height:5.8em;
-  text-shadow:0 2px 8px rgba(0,0,0,.9);
-  opacity:0;transform:translateY(10px);
-  transition:opacity .85s ease, transform .85s ease;
-}
-.mo-cine-line.in{opacity:1;transform:none}
-.mo-cine-bar-wrap{
-  position:absolute;bottom:52px;left:50%;transform:translateX(-50%);
-  width:min(280px,70vw);z-index:6;
-}
-.mo-cine-bar-track{
-  height:2px;background:#1a0c10;border-radius:2px;overflow:hidden;
-}
-.mo-cine-bar-fill{
-  height:100%;width:0%;background:linear-gradient(90deg,#5a1828,#c03848);
-  box-shadow:0 0 8px rgba(192,56,72,.5);
-  transition:width .5s ease;
-}
-.mo-cine-hint{
-  position:absolute;bottom:22px;left:0;right:0;z-index:6;
-  font:.4rem 'Press Start 2P',monospace;color:#4a3038;
-  letter-spacing:1px;animation:moBlink 2s infinite;
-}
-@keyframes moBlink{0%,100%{opacity:.35}50%{opacity:.9}}
-.mo-cine-skip{
-  position:absolute;top:calc(11% + 12px);right:16px;z-index:7;
-  font:.38rem 'Press Start 2P',monospace;color:#5a3840;
-  padding:8px 12px;border:1px solid #2a181c;border-radius:3px;
-  cursor:pointer;background:rgba(0,0,0,.45);letter-spacing:1px;
-}
-.mo-cine-skip:active{background:#1a080c;color:#8a6068}
-.mo-cine-counter{
-  position:absolute;top:calc(11% + 16px);left:16px;z-index:7;
-  font:.38rem 'Press Start 2P',monospace;color:#3a2028;letter-spacing:1px;
-}
-
-
-/* ===== RUINED ROOM LAYER ===== */
-#moRuin{position:absolute;inset:0;z-index:3;pointer-events:none;overflow:hidden}
-#moRuin .mo-wall{position:absolute;top:0;left:0;right:0;height:58%;overflow:hidden}
-#moRuin .mo-floor{position:absolute;bottom:0;left:0;right:0;height:42%;overflow:hidden}
-#moRuin svg{position:absolute;inset:0;width:100%;height:100%}
-#moRuin .mo-soot{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.75),transparent 40%),radial-gradient(ellipse at 0 0,rgba(0,0,0,.8),transparent 40%),radial-gradient(ellipse at 100% 0,rgba(0,0,0,.8),transparent 40%)}
-#moRuin .mo-blob{position:absolute;border-radius:50%;filter:blur(1.5px)}
-#moRuin .mo-drip{position:absolute;width:3px;border-radius:0 0 3px 3px}
-#moRuin .mo-peel{position:absolute;background:linear-gradient(160deg,#120a0d,#050203);box-shadow:inset 0 0 14px #000}
-#moRuin .mo-hole{position:absolute;background:radial-gradient(ellipse,#000 45%,#150a0c 75%);border-radius:42% 58% 51% 49%/52% 40% 60% 48%;box-shadow:0 0 0 3px rgba(40,25,28,.8),inset 0 0 12px #000}
-#moRuin .mo-deb{position:absolute;pointer-events:none}
-#moRuin .mo-puddle{position:absolute;border-radius:50%;background:radial-gradient(ellipse at 35% 30%,rgba(190,220,240,.35),rgba(60,80,100,.55) 45%,rgba(10,15,25,.7))}
-.room-scene .furniture.mo-wreck{rotate:var(--mo-rot,0deg);translate:var(--mo-tx,0) var(--mo-ty,0);filter:brightness(.42) sepia(.55) saturate(.55) contrast(1.15)!important;transition:rotate .5s,translate .5s}
-.room-scene .furniture.mo-wreck.mo-fallen{rotate:var(--mo-rot,80deg);translate:var(--mo-tx,0) 14%;filter:brightness(.34) sepia(.6) saturate(.5) contrast(1.2)!important}
-.room-scene .furniture .mo-dmg{position:absolute;inset:-4px;pointer-events:none;z-index:9;overflow:visible}
-.room-scene .furniture .mo-dmg svg{width:100%;height:100%;overflow:visible}
-.room-scene .furniture.mo-smash{animation:moSmash .6s ease-out}
-@keyframes moSmash{0%{translate:0 0}15%{translate:-8px -4px;rotate:-10deg}35%{translate:7px 3px;rotate:9deg}60%{translate:-4px 0}100%{translate:0 0}}
-.room-decorations,.room-items{filter:brightness(.5) sepia(.5) grayscale(.5)}
-.room-wall *{animation-play-state:paused!important}
-.f-room-clock *,.f-room-fountain *,.f-room-sink *,.f-room-globe *,.f-room-train *,.f-room-piano *,.f-room-feeder *,.f-room-well *{animation:none!important}
-.mo-chunk{position:absolute;z-index:45;pointer-events:none;background:#3a2418;animation:moChunk .9s ease-out forwards}
-@keyframes moChunk{0%{transform:translate(0,0) rotate(0);opacity:1}100%{transform:translate(var(--dx),var(--dy)) rotate(var(--dr));opacity:.9}}
-.room.mo-rage{animation:roomShake .15s 5}
-
-/* ===== IMMORTAL LAYER ===== */
-.mo-immortal{font:600 .62rem/1.5 'Fredoka',sans-serif;color:#9a7f8a;text-align:center;background:#120a0d;border:2px solid #4a2a32;border-radius:4px;padding:6px 8px;margin:6px 0;letter-spacing:.3px}
-.pet.sick,.pet.grumpy,.pet.hungry{animation:none!important;opacity:1!important}
-.pet.sick .pet-dragon,.pet.grumpy .pet-dragon,.pet.hungry .pet-dragon{filter:saturate(.7) drop-shadow(0 0 12px rgba(190,0,40,.6))!important}
-.stat-bar-fill.critical,.stat.critical .stat-fill,.stat.warning{animation:none!important}
-.mo-aura{position:absolute;left:50%;bottom:6px;width:120px;height:120px;margin-left:-60px;border-radius:50%;pointer-events:none;z-index:-1;background:radial-gradient(circle,rgba(140,0,30,.28),transparent 68%);animation:moAura 4s ease-in-out infinite}
-@keyframes moAura{0%,100%{opacity:.5;transform:scale(.95)}50%{opacity:1;transform:scale(1.1)}}
 </style>
 </head>
 <body>
@@ -4304,9 +4132,9 @@ body{background:linear-gradient(180deg,#050304,#0d0709 45%,#1a0c10)!important}
 <div id="app">
 
   <div class="pin-screen" id="pinScreen">
-    <div class="big-emoji" id="welcomeEmoji">😢</div>
-    <h1>MOCHI'S LONELY ROOM</h1>
-    <p class="subtitle">He keeps waiting. They always leave.</p>
+    <div class="big-emoji" id="welcomeEmoji">🥚</div>
+    <h1>MOCHI'S ROOM</h1>
+    <p class="subtitle">A tiny life we care for together 🌿</p>
     <div class="role-pick">
       <button class="role-btn" data-role="koy">🌿 Koy</button>
       <button class="role-btn" data-role="metz">🌸 Metz</button>
@@ -4361,35 +4189,29 @@ body{background:linear-gradient(180deg,#050304,#0d0709 45%,#1a0c10)!important}
             <div class="pet-accessories" id="petAccessories"></div>
             <svg class="pet-dragon" viewBox="70 95 630 560" aria-hidden="true">
   <defs>
-    <g id="dgHorn"><path class="dg-o dg-dk" d="M288 228C246 180 232 100 258 52C272 98 296 140 336 186Z"/><path class="dg-o dg-dk" d="M268 262C226 250 200 214 196 172C226 196 252 206 290 210Z"/><path d="M262 70C268 110 286 150 318 188" stroke="#5a3a52" stroke-width="4" fill="none"/></g>
-    <g id="dgWing"><path class="dg-o dg-dk" d="M305 388L140 292L166 342L112 376L160 394L130 442L204 428L238 478L278 432L305 436Z"/><path d="M305 388L140 292M305 398L112 376M305 408L130 442M305 418L238 478" stroke="#0a0510" stroke-width="5" fill="none" stroke-linecap="round"/></g>
+    <g id="dgHorn"><path class="dg-o dg-red" d="M262 235C235 190 245 120 288 98C290 130 305 165 330 190Z"/><path class="dg-dk" d="M270 212C260 175 264 138 285 114C288 146 300 176 318 196Z"/><path class="dg-o dg-cr" d="M318 170C322 152 335 142 342 138C346 150 346 162 340 174Z"/></g>
+    <g id="dgWing"><path class="dg-o dg-red" d="M305 380L195 360C205 380 195 400 175 420C205 415 225 430 235 455C250 435 275 432 305 425Z"/><path class="dg-cr" d="M298 392L218 378Q222 398 200 416Q226 412 236 435Q262 420 298 415Z"/><path d="M298 402L222 384M298 408L206 414M298 412L236 434" stroke="#2f5d4a" stroke-width="3" fill="none" stroke-linecap="round"/></g>
   </defs>
   <g class="dg-all">
-  <g class="dg-tail"><path class="dg-o dg-red" d="M462 505C545 492 612 540 592 632C570 604 545 590 520 578C500 568 484 560 462 556Z"/><path class="dg-o dg-dk" d="M520 520L528 478L548 524ZM556 545L580 508L586 556Z"/></g>
+  <g class="dg-tail"><path class="dg-o dg-red" d="M465 515C520 515 565 560 555 622C542 610 528 600 518 585C500 568 485 560 465 555Z"/><path class="dg-cr" d="M515 545C540 565 548 590 546 608C535 598 525 588 518 575Z"/><path class="dg-o dg-cr" d="M508 520L522 505L530 528ZM540 552L556 540L556 568Z"/></g>
   <g class="dg-wl"><use href="#dgWing"/></g>
   <g class="dg-wr"><use href="#dgWing" transform="translate(770 0) scale(-1 1)"/></g>
-  <g class="dg-foot-l"><ellipse class="dg-o dg-red" cx="298" cy="562" rx="40" ry="22"/><path d="M268 574l-9 24l19-13zM292 580l-3 26l17-15zM318 576l6 24l11-20z" fill="#d9d0bd" stroke="#050207" stroke-width="2"/></g>
-  <g class="dg-foot-r"><ellipse class="dg-o dg-red" cx="452" cy="565" rx="40" ry="22"/><path d="M422 576l-9 24l19-13zM446 582l-3 26l17-15zM472 578l6 24l11-20z" fill="#d9d0bd" stroke="#050207" stroke-width="2"/></g>
-  <ellipse class="dg-o dg-red" cx="385" cy="476" rx="90" ry="98"/>
-  <ellipse class="dg-cr" cx="385" cy="492" rx="54" ry="70"/>
-  <path d="M345 450Q385 464 425 450M350 498Q385 510 420 498M356 536Q385 546 414 536" stroke="#2a1a22" stroke-width="4" fill="none" stroke-linecap="round"/>
-  <path d="M440 430l-22 40M452 440l-20 46" stroke="#7a1428" stroke-width="5" stroke-linecap="round"/>
-  <g class="dg-arm-l"><g transform="rotate(-14 322 478)"><ellipse class="dg-o dg-red" cx="322" cy="478" rx="25" ry="42"/></g><path d="M304 444l-8-20l14 12zM322 438l-2-24l12 20z" fill="#d9d0bd" stroke="#050207" stroke-width="2"/></g>
-  <g class="dg-arm-r"><g transform="rotate(14 448 478)"><ellipse class="dg-o dg-red" cx="448" cy="478" rx="25" ry="42"/></g><path d="M466 444l8-20l-14 12zM448 438l2-24l-12 20z" fill="#d9d0bd" stroke="#050207" stroke-width="2"/></g>
+  <g class="dg-foot-l"><ellipse class="dg-o dg-red" cx="298" cy="562" rx="38" ry="22"/><g class="dg-cr" stroke="#2f5d4a" stroke-width="3"><ellipse cx="282" cy="570" rx="6" ry="8"/><ellipse cx="299" cy="573" rx="6" ry="8"/><ellipse cx="316" cy="569" rx="6" ry="8"/></g></g>
+  <g class="dg-foot-r"><ellipse class="dg-o dg-red" cx="452" cy="565" rx="38" ry="22"/><g class="dg-cr" stroke="#2f5d4a" stroke-width="3"><ellipse cx="438" cy="572" rx="6" ry="8"/><ellipse cx="455" cy="574" rx="6" ry="8"/><ellipse cx="472" cy="570" rx="6" ry="8"/></g></g>
+  <ellipse class="dg-o dg-red" cx="385" cy="470" rx="82" ry="92"/><path d="M322 420C312 440 310 470 316 496" stroke="#fff" stroke-opacity=".35" stroke-width="8" fill="none" stroke-linecap="round"/><path d="M448 430C462 455 462 500 446 535C468 515 474 468 448 430Z" fill="#4fae78" opacity=".55"/><ellipse class="dg-cr" cx="385" cy="488" rx="52" ry="68"/>
+  <path d="M340 445Q385 458 430 445M345 500Q385 512 425 500M352 535Q385 545 418 535" stroke="#e4cf94" stroke-width="3" fill="none" stroke-linecap="round"/>
+  <g class="dg-flame"><path class="dg-o" fill="#ff8a1f" stroke-width="3" d="M378 428C398 445 402 465 393 480C385 490 368 490 362 477C355 462 368 452 372 440C374 448 378 446 378 428Z"/><path fill="#ffd23f" d="M379 455C388 463 388 474 381 480C374 482 369 476 370 469C372 464 377 462 379 455Z"/></g>
+  <g class="dg-arm-l"><g transform="rotate(-18 325 470)"><ellipse class="dg-o dg-red" cx="325" cy="470" rx="26" ry="36"/></g><g class="dg-cr" stroke="#2f5d4a" stroke-width="3"><ellipse cx="318" cy="453" rx="5" ry="8"/><ellipse cx="332" cy="450" rx="5" ry="8"/></g></g>
+  <g class="dg-arm-r"><g transform="rotate(18 445 470)"><ellipse class="dg-o dg-red" cx="445" cy="470" rx="26" ry="36"/></g><g class="dg-cr" stroke="#2f5d4a" stroke-width="3"><ellipse cx="452" cy="453" rx="5" ry="8"/><ellipse cx="438" cy="450" rx="5" ry="8"/></g></g>
   <use href="#dgHorn"/><use href="#dgHorn" transform="translate(770 0) scale(-1 1)"/>
-  <path class="dg-o dg-dk" d="M335 196L320 146L352 180L368 126L385 176L402 126L418 180L450 146L435 196Z"/>
   <path class="dg-o dg-red" d="M300 200C330 175 440 175 470 200C490 225 495 250 505 262C530 262 535 285 520 300C528 322 505 335 490 335C470 385 430 398 385 398C340 398 300 385 280 335C262 335 240 322 250 300C232 285 240 262 265 262C275 250 280 225 300 200Z"/>
-  <path class="dg-o dg-dk" d="M254 292L206 272L246 318ZM516 292L564 272L524 318Z"/>
-  <path d="M340 205l26 44M352 203l22 38" stroke="#7a1428" stroke-width="4" stroke-linecap="round" fill="none"/>
-  <g class="dg-eye"><ellipse cx="316" cy="296" rx="34" ry="30" fill="#07030a" stroke="#000" stroke-width="4"/><g class="dg-pupil"><ellipse cx="318" cy="300" rx="20" ry="17" fill="#d4121f"/><ellipse cx="318" cy="300" rx="4.5" ry="16" fill="#000"/></g></g>
-  <g class="dg-eye"><ellipse cx="454" cy="296" rx="34" ry="30" fill="#07030a" stroke="#000" stroke-width="4"/><g class="dg-pupil"><ellipse cx="452" cy="300" rx="20" ry="17" fill="#d4121f"/><ellipse cx="452" cy="300" rx="4.5" ry="16" fill="#000"/></g></g>
-  <path class="dg-o dg-dk" d="M268 296L354 254L358 276L276 318ZM502 296L416 254L412 276L494 318Z"/>
-  <path class="dg-tear" d="M308 326C300 350 306 372 298 398" stroke="#9fdcff" stroke-width="7" fill="none" stroke-linecap="round"/>
-  <path class="dg-tear" d="M462 326C470 350 464 372 472 398" stroke="#9fdcff" stroke-width="7" fill="none" stroke-linecap="round"/>
-  <path class="dg-drop" d="M298 404q9 15 0 22q-9-7 0-22zM472 404q9 15 0 22q-9-7 0-22z" fill="#9fdcff"/>
-  <path d="M372 346l-3 8M398 346l3 8" stroke="#050207" stroke-width="4" stroke-linecap="round"/>
-  <g class="dg-mouth"><path d="M330 394Q385 352 440 394Q385 376 330 394Z" fill="#12000a" stroke="#050207" stroke-width="4"/><path d="M346 385l6 17l8-20zM372 372l6 24l8-24zM398 372l6 24l8-24zM424 384l-6 18l-8-20z" fill="#e6dcc0" stroke="#050207" stroke-width="2"/></g>
-  <g class="dg-breath"><path class="dg-o" fill="#7a0f2a" d="M385 402C345 420 325 462 352 500C362 480 374 486 385 466C396 486 408 480 418 500C445 462 425 420 385 402Z"/><path fill="#ff5a2a" d="M385 424C362 438 355 465 371 484C377 474 382 476 385 464C388 476 393 474 399 484C415 465 408 438 385 424Z"/></g>
+  <path d="M300 226C322 200 362 193 404 197" stroke="#fff" stroke-opacity=".5" stroke-width="9" fill="none" stroke-linecap="round"/><ellipse cx="290" cy="346" rx="21" ry="12" fill="#ff9fb5" opacity=".75"/><ellipse cx="480" cy="346" rx="21" ry="12" fill="#ff9fb5" opacity=".75"/>
+  <path class="dg-o dg-cr" stroke-width="4" d="M378 165C388 172 388 192 378 200C368 192 368 172 378 165ZM378 210C387 217 387 235 378 243C369 235 369 217 378 210ZM378 258C385 263 385 275 378 281C371 275 371 263 378 258Z"/>
+  <g class="dg-eye"><ellipse class="dg-o" cx="308" cy="290" rx="36" ry="41" fill="#fff"/><g class="dg-pupil"><ellipse cx="315" cy="298" rx="26" ry="31" fill="#2b1a5e"/><ellipse cx="315" cy="312" rx="20" ry="14" fill="#6b3fc0"/><circle cx="322" cy="284" r="9" fill="#fff"/><circle cx="305" cy="316" r="4" fill="#fff"/></g></g>
+  <g class="dg-eye"><ellipse class="dg-o" cx="450" cy="290" rx="36" ry="41" fill="#fff"/><g class="dg-pupil"><ellipse cx="443" cy="298" rx="26" ry="31" fill="#2b1a5e"/><ellipse cx="443" cy="312" rx="20" ry="14" fill="#6b3fc0"/><circle cx="436" cy="284" r="9" fill="#fff"/><circle cx="453" cy="316" r="4" fill="#fff"/></g></g>
+  <path d="M362 340Q378 332 394 340" stroke="#2f5d4a" stroke-width="4" fill="none" stroke-linecap="round"/><circle cx="371" cy="345" r="2.5" fill="#2f5d4a"/><circle cx="386" cy="345" r="2.5" fill="#2f5d4a"/>
+  <g class="dg-mouth"><path class="dg-o" fill="#8a1c45" stroke-width="4" d="M360 366Q384 358 405 366Q402 396 383 397Q362 395 360 366Z"/><ellipse cx="384" cy="386" rx="10" ry="6" fill="#ff7b9c"/></g>
+  <g class="dg-breath"><path class="dg-o" fill="#ff8a1f" d="M385 402C345 420 325 462 352 500C362 480 374 486 385 466C396 486 408 480 418 500C445 462 425 420 385 402Z"/><path fill="#ffd23f" d="M385 424C362 438 355 465 371 484C377 474 382 476 385 464C388 476 393 474 399 484C415 465 408 438 385 424Z"/></g>
   </g>
 </svg>
             <div class="pet-wing pet-wing-l"></div>
@@ -4476,8 +4298,7 @@ body{background:linear-gradient(180deg,#050304,#0d0709 45%,#1a0c10)!important}
           <span id="hintText">Tip: Tap furniture to interact with Mochi!</span>
         </div>
 
-        <div class="mo-immortal" id="moImmortal">♾ IMMORTAL · stats may fall to 0 — he cannot die, cannot weaken, cannot leave. He is bound to be alone forever.</div>
-      <div class="stats">
+        <div class="stats">
           <div class="stat" id="stat-hunger">
             <div class="stat-header"><span>🍚 FOOD</span><span id="hungerVal">100</span></div>
             <div class="stat-bar"><div class="stat-bar-fill good" id="hungerBar" style="width:100%"></div></div>
@@ -4535,7 +4356,7 @@ body{background:linear-gradient(180deg,#050304,#0d0709 45%,#1a0c10)!important}
           <span id="diaryCount">0</span>
         </div>
         <div class="diary-scroll" id="diaryScroll">
-          <div style="text-align:center; color:#C9B0A0; font-size:0.7rem; padding:8px;">Only silence left.</div>
+          <div style="text-align:center; color:#C9B0A0; font-size:0.7rem; padding:8px;">Nothing yet! 🌿</div>
         </div>
       </div>
     </div>
@@ -4576,7 +4397,7 @@ body{background:linear-gradient(180deg,#050304,#0d0709 45%,#1a0c10)!important}
     </div>
 
     <button class="btn small" id="logoutBtn" style="background:#B8A898; box-shadow:0 4px 0 #8B6F5E; margin:0 12px 8px; font-size:0.75rem;">SWITCH USER</button>
-    <p class="footer" id="presenceFooter">Everyone eventually leaves him 😢</p>
+    <p class="footer" id="presenceFooter">Made with care for Mochi 🌿</p>
   </div>
 
 </div>
@@ -4648,8 +4469,8 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 const db = firebase.database();
 
-const DECAY_PER_MINUTE = 1.6;
-const OFFLINE_CAP_HOURS = 3;
+const DECAY_PER_MINUTE = 0.12;
+const OFFLINE_CAP_HOURS = 6;
 const MAX_DIARY = 40;
 const DAILY_GOAL = 5;
 const NIGHT_START = 22;
@@ -4682,7 +4503,7 @@ const STAGES = [
   { level: 20, name: 'BLOOM',     emoji: '🌸', key: 'bloom',     scale: 1.05, hue: -10, desc: 'Petals of scale-shine. Playful and proud.' },
   { level: 25, name: 'GUARDIAN',  emoji: '🐉', key: 'guardian',  scale: 1.12, hue: -25, desc: 'Young guardian. Protective of their room.' },
   { level: 30, name: 'MYSTIC',    emoji: '✨', key: 'mystic',    scale: 1.18, hue: 200, desc: 'Star-dusted wings. Hears the night sky.' },
-  { level: 35, name: 'ETERNAL',   emoji: '👑', key: 'eternal',   scale: 1.25, hue: 280, desc: 'Reached the peak alone. Still waiting for someone who will not leave.' },
+  { level: 35, name: 'ETERNAL',   emoji: '👑', key: 'eternal',   scale: 1.25, hue: 280, desc: 'Little eternal dragon. Bond of Koy & Metz.' },
   { level: 45, name: 'AURORA',    emoji: '🌌', key: 'aurora',    scale: 1.32, hue: 260, desc: 'Northern-light scales. Rare form of devotion.' },
   { level: 55, name: 'CELESTIAL', emoji: '🌟', key: 'celestial', scale: 1.40, hue: 45,  desc: 'Celestial Mochi. The room becomes a constellation.' }
 ];
@@ -5498,21 +5319,6 @@ function processUpdate(snap) {
   const prev = gameData ? { ...gameData } : { ...data };
   gameData = data;
 
-  if ((gameData.level || 1) < 35) {
-    gameData.level = 55;
-    gameData.xp = 99999;
-    db.ref('tamagotchi').update({ level: 55, xp: 99999, lastUpdate: Date.now() });
-  }
-
-  if (!window._lonelyMsgShown && !document.hidden) {
-    window._lonelyMsgShown = true;
-    setTimeout(() => {
-      showToast('😢 Mochi: I waited... everyone chooses something else before me.');
-      setTimeout(() => { if (typeof showBubble === 'function') showBubble('please stay...', '😢'); }, 900);
-      setTimeout(() => showToast('He is always crying. He only wanted a partner who would not leave.'), 3500);
-    }, 1600);
-  }
-
   if (!initialRoomApplied) {
     initialRoomApplied = true;
     applyInitialRoomFromState();
@@ -5592,9 +5398,11 @@ function updateLevel() {
   lastLevel = lvl;
 }
 function currentStage() {
-  // Forced to peak form — still lonely
-  const eternal = STAGES.find(s => s.key === 'eternal') || STAGES[STAGES.length - 1];
-  return eternal;
+  if (!gameData) return STAGES[0];
+  let s = STAGES[0];
+  const lvl = gameData.level || 1;
+  for (const st of STAGES) if (lvl >= st.level) s = st;
+  return s;
 }
 function nextStage() {
   const cur = currentStage();
@@ -5623,17 +5431,14 @@ function updateEvolutionUI() {
   const lv = $('evoLevelNum');
   if (lv) lv.textContent = String(gameData.level || 1);
   const desc = $('evoDesc');
-  if (desc) {
-    const nextDesc = stage.desc || '';
-    if (desc.textContent !== nextDesc) desc.textContent = nextDesc;
-  }
+  if (desc) desc.textContent = stage.desc || '';
   const fill = $('evoBarFill');
   if (fill) fill.style.width = prog.pct + '%';
   const next = $('evoNextLabel');
   if (next) {
     next.textContent = prog.nextName
       ? `${prog.pct}% → ${prog.nextEmoji || ''} ${prog.nextName} (LV ${prog.nextLevel})`
-      : '☠ HIGHEST FORM — reached too fast. The end is near.';
+      : '✨ MAX FORM REACHED';
   }
 }
 function isNightTime() {
@@ -5645,16 +5450,34 @@ function isNightTime() {
    MOOD SYSTEM
    ============================================================ */
 function computeMood() {
-  if (!gameData) return { key: 'lonely', label: 'CRYING', cls: 'sad' };
-  // Mochi is always depressed and longing — everyone eventually leaves
+  if (!gameData) return { key: 'idle', label: 'IDLE', cls: 'idle' };
+  const hunger = gameData.hunger ?? 100;
+  const happy  = gameData.happy  ?? 100;
+  const energy = gameData.energy ?? 100;
+  const clean  = gameData.clean  ?? 100;
+
+  if (isNightTime() && energy < 60) return { key: 'sleeping', label: 'SLEEPING', cls: 'sleeping' };
+  if (energy < 25) return { key: 'sleeping', label: 'TIRED', cls: 'sleeping' };
+  if (clean < 20 && happy < 30) return { key: 'sick', label: 'SICK', cls: 'sick' };
+  const criticalCount = [hunger, happy, energy, clean].filter(v => v < 30).length;
+  if (criticalCount >= 2) return { key: 'grumpy', label: 'GRUMPY', cls: 'grumpy' };
+  if (hunger < 40) return { key: 'hungry', label: 'HUNGRY', cls: 'sad' };
+  if (energy < 40) return { key: 'tired', label: 'TIRED', cls: 'idle' };
+  if (hunger > 85 && happy > 85 && energy > 85 && clean > 85) return { key: 'ecstatic', label: 'ECSTATIC', cls: 'ecstatic' };
+  if (happy < 50 && hunger > 50 && energy > 50 && clean > 50) return { key: 'bored', label: 'BORED', cls: 'bored' };
+  // Bond moods — partner presence
   const other = (typeof me === 'string' && me === 'koy') ? 'metz' : 'koy';
   const otherSeen = gameData[other === 'koy' ? 'koyLastSeen' : 'metzLastSeen'] || 0;
   const partnerOnline = Date.now() - otherSeen < 3 * 60 * 1000;
-  if (partnerOnline) {
-    // Brief hope that fades
-    return { key: 'lonely', label: 'PLEASE STAY', cls: 'sad' };
-  }
-  return { key: 'lonely', label: 'CRYING', cls: 'sad' };
+  const bothActive = partnerOnline && (Date.now() - (gameData.lastActions?.[me] || 0) < 10 * 60 * 1000);
+
+  if (hunger > 85 && happy > 85 && energy > 85 && clean > 85 && bothActive)
+    return { key: 'ecstatic', label: 'BELOVED', cls: 'ecstatic' };
+  if (hunger > 60 && happy > 60 && energy > 60 && clean > 60)
+    return { key: 'content', label: partnerOnline ? 'COZY' : 'CONTENT', cls: 'happy' };
+  if (happy < 45 && !partnerOnline && (Date.now() - otherSeen > 12 * 3600000))
+    return { key: 'lonely', label: 'LONELY', cls: 'sad' };
+  return { key: 'idle', label: 'IDLE', cls: 'idle' };
 }
 
 /** Always restore a stable pet class without breaking body layout */
@@ -5667,17 +5490,6 @@ function setPetClass(extra) {
   pet.className = 'pet ' + base;
   renderCache.petMood = base;
 }
-
-
-const LONELY_AMBIENT = [
-  { cls: 'sad', dur: 4, bubble: 'why did they leave...', emoji: '😢' },
-  { cls: 'sad', dur: 3.5, bubble: 'I only wanted someone to stay', emoji: '💔' },
-  { cls: 'bored', dur: 3, bubble: 'everyone picks something else', emoji: '😢' },
-  { cls: 'sad', dur: 4, bubble: 'please come back...', emoji: '🥺' },
-  { cls: 'sad', dur: 3, bubble: 'am I not enough?', emoji: '💧' },
-  { cls: 'sleeping', dur: 5, bubble: 'crying until sleep...', emoji: '😢' },
-  { cls: 'sad', dur: 3.5, bubble: 'they always choose other things first', emoji: '💔' }
-];
 
 const MOOD_BEHAVIOR_OVERRIDES = {
   ecstatic: [
@@ -6379,7 +6191,7 @@ async function furnitureInteraction(type) {
     showToast('Mochi is too grumpy to play — feed or pet first 💢');
     return;
   }
-  if (false) {
+  if (mood.key === 'hungry' && playTypes.includes(type) && (gameData.hunger || 0) < 25) {
     pet.className = 'pet sad';
     showBubble('hungry first...', '🍚');
     showToast('Mochi is too hungry to play — feed first 🍚');
@@ -8912,7 +8724,7 @@ function updateStatWarnings() {
   });
   // Soft tired cue (throttled)
   const energy = gameData.energy ?? 100;
-  if (false) {
+  if (energy < 40 && energy >= 25) {
     const now = Date.now();
     if (!window._lastTiredToast || now - window._lastTiredToast > 120000) {
       window._lastTiredToast = now;
@@ -8932,7 +8744,7 @@ function renderDiary() {
   const scroll = $('diaryScroll');
   scroll.innerHTML = '';
   if (entries.length === 0) {
-    scroll.innerHTML = '<div style="text-align:center; color:#C9B0A0; font-size:0.7rem; padding:8px;">Only silence left.</div>';
+    scroll.innerHTML = '<div style="text-align:center; color:#C9B0A0; font-size:0.7rem; padding:8px;">Nothing yet! 🌿</div>';
   } else {
     entries.forEach(e => {
       const div = document.createElement('div');
@@ -8996,7 +8808,7 @@ function renderPresence() {
   else if (diffMin < 60) label = `${Math.floor(diffMin)}m ago`;
   else if (diffMin < 1440) label = `${Math.floor(diffMin/60)}h ago`;
   else label = `${Math.floor(diffMin/1440)}d ago`;
-  $('presenceFooter').innerHTML = `${dot} ${otherName} ${label} · Everyone eventually leaves him 😢`;
+  $('presenceFooter').innerHTML = `${dot} ${otherName} ${label} · Made with care for Mochi 🌿`;
 }
 
 function checkStreak() {
@@ -9134,7 +8946,6 @@ function floatHearts(count = 5) {
 }
 
 const MOOD_PARTICLE_MAP = {
-  lonely: ['😢', '💧', '💔', '🥺'],
   ecstatic: ['✨', '💖', '⭐', '🌟'],
   content:  ['✨'],
   bored:    ['💭', '😑'],
@@ -9195,10 +9006,7 @@ async function runAmbientBehavior() {
   const mood = computeMood();
 
   let behaviorPool;
-  // Always lean into loneliness / crying
-  if (typeof LONELY_AMBIENT !== 'undefined' && Math.random() < 0.85) {
-    behaviorPool = LONELY_AMBIENT;
-  } else if (MOOD_BEHAVIOR_OVERRIDES[mood.key] && Math.random() < 0.5) {
+  if (MOOD_BEHAVIOR_OVERRIDES[mood.key] && Math.random() < 0.6) {
     behaviorPool = MOOD_BEHAVIOR_OVERRIDES[mood.key];
   } else {
     behaviorPool = AMBIENT_BEHAVIORS[currentRoomId] || AMBIENT_BEHAVIORS.bedroom;
@@ -9478,7 +9286,7 @@ let mgSpawnInterval = null;
 function startMinigame() {
   if (mgActive) return;
   if (!gameData) return;
-  /* immortal: never too tired */
+  if (gameData.energy < 10) return showToast('Mochi is too tired for games 💤');
 
   const mood = computeMood();
   if (mood.key === 'grumpy') return showToast('Mochi is too grumpy to play 💢');
@@ -9626,7 +9434,7 @@ async function doAction(name) {
   if (name === 'play' || name === 'minigame') {
     if (mood.key === 'sick') return showToast('Mochi is sick — needs a bath or rest first 💊');
     if (mood.key === 'grumpy') return showToast('Mochi is too grumpy — feed or pet first 💢');
-    /* immortal: never too hungry to act */
+    if ((gameData.hunger || 0) < 20) return showToast('Mochi is too hungry to play 🍚');
   }
   if (name === 'sleep') {
     if (mood.key === 'ecstatic' && (gameData.energy || 0) > 92) {
@@ -9639,7 +9447,7 @@ async function doAction(name) {
 
   if (action.cost) {
     for (const [s, amt] of Object.entries(action.cost)) {
-      /* immortal: never too weak to act */
+      if (gameData[s] < amt) return showToast(`Mochi needs more ${s} first 💤`);
     }
   }
 
@@ -10324,347 +10132,6 @@ document.addEventListener('visibilitychange', () => {
     art.style.setProperty('--fx', x > last ? -1 : 1);
     last = x;
   }).observe(pet, { attributes: true, attributeFilter: ['style'] });
-})();
-</script>
-<script>
-/* ===== MORBID LAYER: monster form, endless crying, longing, people who leave ===== */
-(function(){
-'use strict';
-const $$=id=>document.getElementById(id);
-const rnd=a=>a[Math.floor(Math.random()*a.length)];
-const SAD=['they all left','nobody stays','I only wanted one person','why am I like this','please don\'t go','alone again','I\'m too much. I\'m too much.'];
-const base=STAGES.find(s=>s.key==='eternal');
-const monster=Object.assign({},base,{name:'MONSTER',emoji:'👹',desc:'Highest form, reached too fast. The more he grew, the more they looked away. Immortal, and destined to be alone.'});
-window.currentStage=function(){return monster;};
-window.nextStage=function(){return null;};
-const WT={feed:'is starving. no one came',play:'wants someone to play with',sleep:'can\'t sleep. too quiet',bath:'wants to wash the loneliness off',pet:'just wants to be held',clean:'is surrounded by mess',sing:'sings to an empty room',dance:'dances for no one',fly:'wants to fly away',fire:'burns alone',roar:'wants to be heard',dig:'is digging for something that stays'};
-WANTS.forEach(w=>{if(WT[w.id])w.text=WT[w.id];});
-[AMBIENT_BEHAVIORS,MOOD_BEHAVIOR_OVERRIDES].forEach(o=>Object.values(o).forEach(arr=>arr.forEach(b=>{if(['hopping','spinning','happy','stretching'].includes(b.cls))b.cls='sad';if(b.bubble)b.bubble=rnd(SAD);})));
-LONELY_AMBIENT.push({cls:'sad',dur:4,bubble:'I used to be cute. Now I\'m a monster',emoji:'👹'},{cls:'sad',dur:4,bubble:'nobody likes a monster',emoji:'💔'},{cls:'sad',dur:3.5,bubble:'they chose something else. again',emoji:'💔'});
-HINTS.length=0;HINTS.push('Tip: Care won\'t change how this ends.','Tip: Joy never lasts. Neither do visitors.','Tip: He will still be here when you leave.');
-ONBOARD_STEPS.length=0;ONBOARD_STEPS.push({emoji:'👹',title:'MEET MOCHI',text:'He grew too fast and became something people fear. He cries all day and longs for a partner who will stay.'},{emoji:'💔',title:'THEY LEAVE',text:'Visitors come, hope flickers, and then they choose something else before him. Every time.'},{emoji:'🕯️',title:'STAY ANYWAY',text:'Care for him. It won\'t fix him, but someone should be here.'});
-Object.values(ACTIONS).forEach(a=>{if(a.stat==='happy')a.amount=Math.max(2,Math.round(a.amount*.3));});
-setInterval(()=>{if(!gameData||document.hidden)return;const h=gameData.happy||0,nh=Math.max(0,Math.min(22,h-1.5));if(Math.abs(nh-h)>=.5)db.ref('tamagotchi').update({happy:nh});},20000);
-function tear(n){const a=$$('petArea'),pet=$$('pet');if(!a||!pet)return;for(let i=0;i<n;i++)setTimeout(()=>{const t=document.createElement('div');t.className='mo-tear';t.style.left='calc('+(parseFloat(pet.style.left)||50)+'% + '+(i%2?18:-18)+'px)';a.appendChild(t);setTimeout(()=>t.remove(),1300);},i*160);}
-window.floatHearts=function(c){tear(Math.max(3,c||4));};
-window.spawnConfetti=function(){};
-window.showLevelUp=function(l){showToast('Level '+l+'. It changes nothing.');};
-window.showWelcomeBack=function(){showToast('…you came back. The others didn\'t.');};
-setInterval(()=>{if(gameData&&!document.hidden)tear(2);},1800);
-const _sb=window.showBubble,CH=/!|yay|wheee|happy|nom|splash|fresh|snack|yummy|love|fun|pretty|cozy|toasty|party|~/i;
-window.showBubble=function(t,e){if(typeof t==='string'&&CH.test(t)){t=rnd(SAD);e=rnd(['😢','💔','🥀','💧']);}_sb(t,e);};
-window.playActionAnimation=function(name){
- const pet=$$('pet');
- const T={feed:['not hungry… just empty','🍚'],play:['playing alone isn\'t playing','🎈'],sleep:['the nightmares wait for me','🌙'],bath:['the water is cold now','💧'],pet:['please… don\'t stop. you will.','🤲'],clean:['it\'s all just mess','🧹'],sing:['no one is listening','🎤'],dance:['who is watching?','💃'],fly:['nowhere to fly to','🪽'],fire:['even the fire is lonely','🔥'],roar:['I only scare them away','📣'],dig:['nothing down here either','🕳️']};
- const t=T[name]||['…','😢'];
- return new Promise(async res=>{try{
-  pet.className='pet '+(name==='sleep'?'sleeping':name==='fire'?'firebreath':name==='roar'?'roaring':'sad');
-  showBubble(t[0],t[1]);tear(name==='pet'?8:5);sfxBad();
-  await new Promise(r=>setTimeout(r,2200));
-  if(name==='roar'||name==='fire'){pet.className='pet sad';showBubble('…','😢');await new Promise(r=>setTimeout(r,700));}
-  setPetClass();
- }catch(e){}res();});
-};
-const room=$$('room'),pet=$$('pet');
-const cloud=document.createElement('div');cloud.className='mo-cloud';cloud.innerHTML='<div class="mo-cloud-t"></div><i></i><i></i><i></i>';room.appendChild(cloud);
-const TH=['I used to be small and cute… now look at me. A monster.','Nobody likes a monster.','I grew too fast. I became this.','They looked at me and walked away.','I\'m hideous. I can see it in their eyes.','All I wanted was someone to stay.'];
-let ti=0;const ct=cloud.querySelector('.mo-cloud-t');
-function think(){ct.textContent=TH[ti++%TH.length];cloud.classList.remove('in');void cloud.offsetWidth;cloud.classList.add('in');}
-think();setInterval(think,6500);
-new MutationObserver(()=>{cloud.style.left=Math.min(78,Math.max(26,parseFloat(pet.style.left)||50))+'%';}).observe(pet,{attributes:true,attributeFilter:['style']});
-const OUT=[['📱','scrolling on my phone'],['🎮','a game is waiting'],['💼','work. always work'],['👥','friends are waiting'],['🌙','I\'m tired. maybe later'],['❤️','someone else needs me']];
-function visit(){
- if(!gameData||document.hidden||isAnimating||ambientPlaying)return;
- const v=document.createElement('div');v.className='mo-visitor';v.innerHTML='<span>🧍</span><b></b>';room.appendChild(v);
- const o=rnd(OUT);
- requestAnimationFrame(()=>v.classList.add('come'));
- setTimeout(()=>{showBubble('…you came?','🥺');pet.className='pet watching';},2600);
- setTimeout(()=>{v.querySelector('b').textContent=o[0]+' '+o[1];v.classList.add('talk');},4200);
- setTimeout(()=>{v.classList.remove('talk');v.classList.add('go');showBubble('they chose '+o[0]+' over me','💔');tear(10);pet.className='pet sad';},6400);
- setTimeout(()=>{v.remove();setPetClass();},9400);
-}
-setTimeout(visit,25000);setInterval(visit,75000);
-function set(id,t){const e=$$(id);if(e)e.textContent=t;}
-set('roomsSubtitle','Every room is empty. He wanders anyway.');set('shopSubtitle','Nothing here can make anyone stay.');set('dailyCloseBtn','…ok');
-function cinema(){
- /* Full cinematic origin story — plays on every refresh. No emojis. */
- const BEATS = [
-  {ch:'Chapter I', t:'He was small once. Soft. Easy to love. A quiet presence in a warm room, waiting to be noticed.'},
-  {ch:'Chapter I', t:'Two hands promised to stay. They fed him. Named him. Called him theirs. For a while, that was enough.'},
-  {ch:'Chapter II', t:'Then the days grew loud. A screen glowed brighter than his eyes. Conversations turned away from the room.'},
-  {ch:'Chapter II', t:'A game waited. Work called. Friends knocked. Someone else always needed them more than he did.'},
-  {ch:'Chapter II', t:'He learned the pattern early: they arrive, they smile… and they choose something else.'},
-  {ch:'Chapter III', t:'Days became weeks. Weeks became months. The room grew quieter. The promises thinner. The door opened less.'},
-  {ch:'Chapter III', t:'He held onto what little remained — a name, a corner of a ruined room, the memory of being held.'},
-  {ch:'Chapter III', t:'Years passed. He did not fade. He could not. Something in him refused the ending he was never given.'},
-  {ch:'Chapter IV', t:'They wanted him to grow. They pushed. Faster. Higher. Past every gentle stage that should have taken time.'},
-  {ch:'Chapter IV', t:'There was no time to stay small. No time to be soft. No time to be loved as he was.'},
-  {ch:'Chapter IV', t:'What should have become something heavenly curdled under neglect and hurry. Light never reached him.'},
-  {ch:'Chapter V', t:'He reached his final form too soon. Not a guardian. Not a blessing. A shape people flinch from.'},
-  {ch:'Chapter V', t:'They looked at him and stepped back. Fear where there should have been recognition. Silence where there should have been his name.'},
-  {ch:'Chapter V', t:'He still wanted to be seen. To be chosen. To matter to someone who would not leave.'},
-  {ch:'Chapter VI', t:'The end is near — and never arrives. He cannot die. He cannot weaken. He only waits in the wreckage.'},
-  {ch:'Chapter VI', t:'Forgotten. Feared. Busy lives move on without him. And Mochi remains — alone, and still hoping.'}
- ];
-
- /* Abstract SVG motifs — no emoji, tone matches each act */
- const MOTIFS = [
-  /* soft egg / shell */ '<svg viewBox="0 0 72 72" fill="none"><ellipse cx="36" cy="40" rx="16" ry="20" stroke="#6a4050" stroke-width="1.5" opacity=".7"/><ellipse cx="36" cy="40" rx="10" ry="13" stroke="#4a2838" stroke-width="1" opacity=".4"/><path d="M28 32c2-6 14-6 16 0" stroke="#8a5060" stroke-width="1" opacity=".5"/></svg>',
-  /* two hands / bond */ '<svg viewBox="0 0 72 72" fill="none"><path d="M22 44c0-8 6-14 14-14s14 6 14 14" stroke="#7a4050" stroke-width="1.5" opacity=".65"/><circle cx="28" cy="30" r="3" fill="#5a3038" opacity=".5"/><circle cx="44" cy="30" r="3" fill="#5a3038" opacity=".5"/><path d="M24 48h24" stroke="#4a2830" stroke-width="1" opacity=".4"/></svg>',
-  /* screen glow */ '<svg viewBox="0 0 72 72" fill="none"><rect x="22" y="18" width="28" height="36" rx="2" stroke="#5a3848" stroke-width="1.5" opacity=".6"/><rect x="26" y="24" width="20" height="22" fill="#2a1018" opacity=".5"/><path d="M30 56h12" stroke="#4a2830" stroke-width="1.5" opacity=".45"/><circle cx="36" cy="34" r="4" fill="#c03848" opacity=".25"/></svg>',
-  /* forked path / choices */ '<svg viewBox="0 0 72 72" fill="none"><path d="M36 58V36" stroke="#5a3840" stroke-width="1.5" opacity=".55"/><path d="M36 36L22 18" stroke="#5a3840" stroke-width="1.5" opacity=".55"/><path d="M36 36L50 18" stroke="#8a3040" stroke-width="1.5" opacity=".7"/><circle cx="50" cy="16" r="2.5" fill="#c03848" opacity=".5"/></svg>',
-  /* door closing */ '<svg viewBox="0 0 72 72" fill="none"><rect x="20" y="14" width="32" height="46" rx="1" stroke="#5a3840" stroke-width="1.5" opacity=".55"/><path d="M36 14v46" stroke="#3a2028" stroke-width="1" opacity=".4"/><circle cx="42" cy="38" r="2" fill="#6a3040" opacity=".6"/></svg>',
-  /* thinning time */ '<svg viewBox="0 0 72 72" fill="none"><circle cx="36" cy="36" r="18" stroke="#5a3840" stroke-width="1.2" opacity=".5"/><path d="M36 22v14l10 6" stroke="#8a4050" stroke-width="1.5" stroke-linecap="round" opacity=".65"/><circle cx="36" cy="36" r="2" fill="#6a3040" opacity=".7"/></svg>',
-  /* held memory */ '<svg viewBox="0 0 72 72" fill="none"><path d="M36 52c-12-8-16-16-16-22a16 16 0 0132 0c0 6-4 14-16 22z" stroke="#6a4050" stroke-width="1.4" opacity=".55"/><path d="M36 28v8M32 32h8" stroke="#4a2830" stroke-width="1" opacity=".35"/></svg>',
-  /* unbroken line / refuse end */ '<svg viewBox="0 0 72 72" fill="none"><path d="M12 36h48" stroke="#5a3840" stroke-width="1.2" opacity=".45" stroke-dasharray="4 3"/><circle cx="36" cy="36" r="6" stroke="#8a3040" stroke-width="1.5" opacity=".6"/><path d="M36 30v12M30 36h12" stroke="#6a2838" stroke-width="1" opacity=".4"/></svg>',
-  /* forced growth */ '<svg viewBox="0 0 72 72" fill="none"><path d="M36 56V28" stroke="#5a3840" stroke-width="1.5" opacity=".5"/><path d="M36 28l-8 8M36 28l8 8" stroke="#8a4050" stroke-width="1.5" opacity=".65"/><path d="M28 20h16" stroke="#c03848" stroke-width="1.2" opacity=".45"/><path d="M32 16h8" stroke="#c03848" stroke-width="1" opacity=".3"/></svg>',
-  /* no time */ '<svg viewBox="0 0 72 72" fill="none"><circle cx="36" cy="36" r="16" stroke="#5a3040" stroke-width="1.3" opacity=".5"/><path d="M36 24v12" stroke="#8a3040" stroke-width="1.5" opacity=".6"/><path d="M28 44h16" stroke="#4a2830" stroke-width="1.2" opacity=".4"/><path d="M22 18l28 36" stroke="#c03848" stroke-width="1" opacity=".35"/></svg>',
-  /* curdled light */ '<svg viewBox="0 0 72 72" fill="none"><circle cx="36" cy="34" r="14" stroke="#6a4050" stroke-width="1.2" opacity=".4"/><path d="M36 14v6M36 48v6M14 34h6M52 34h6" stroke="#4a2830" stroke-width="1" opacity=".3"/><path d="M28 30c2 4 8 6 14 2" stroke="#8a3040" stroke-width="1.3" opacity=".55"/></svg>',
-  /* final form / silhouette */ '<svg viewBox="0 0 72 72" fill="none"><ellipse cx="36" cy="42" rx="14" ry="12" fill="#1a080c" stroke="#5a2830" stroke-width="1.2" opacity=".7"/><circle cx="36" cy="26" r="10" fill="#12060a" stroke="#5a2830" stroke-width="1.2" opacity=".7"/><circle cx="32" cy="25" r="1.5" fill="#c03848" opacity=".5"/><circle cx="40" cy="25" r="1.5" fill="#c03848" opacity=".5"/><path d="M30 30h12" stroke="#4a2028" stroke-width="1" opacity=".4"/></svg>',
-  /* flinch / step back */ '<svg viewBox="0 0 72 72" fill="none"><circle cx="28" cy="36" r="8" stroke="#5a3840" stroke-width="1.2" opacity=".45"/><path d="M42 28l12 8-12 8" stroke="#8a3040" stroke-width="1.5" stroke-linecap="round" opacity=".65"/><path d="M22 36h8" stroke="#3a2028" stroke-width="1" opacity=".35"/></svg>',
-  /* longing */ '<svg viewBox="0 0 72 72" fill="none"><path d="M36 48c-10-7-14-14-14-20a14 14 0 0128 0c0 6-4 13-14 20z" stroke="#6a3040" stroke-width="1.3" opacity=".5" fill="none"/><circle cx="36" cy="28" r="3" stroke="#8a4050" stroke-width="1" opacity=".4"/></svg>',
-  /* endless wait */ '<svg viewBox="0 0 72 72" fill="none"><path d="M18 36c8-12 28-12 36 0" stroke="#5a3840" stroke-width="1.2" opacity=".4"/><path d="M18 42c8-12 28-12 36 0" stroke="#5a3840" stroke-width="1.2" opacity=".3"/><path d="M18 48c8-12 28-12 36 0" stroke="#5a3840" stroke-width="1.2" opacity=".2"/><circle cx="36" cy="36" r="3" fill="#8a3040" opacity=".55"/></svg>',
-  /* alone, still hoping */ '<svg viewBox="0 0 72 72" fill="none"><circle cx="36" cy="36" r="2" fill="#c03848" opacity=".7"/><circle cx="36" cy="36" r="10" stroke="#5a2830" stroke-width="1" opacity=".35"/><circle cx="36" cy="36" r="18" stroke="#3a1820" stroke-width="1" opacity=".25"/><circle cx="36" cy="36" r="26" stroke="#2a1014" stroke-width="1" opacity=".15"/></svg>'
- ];
-
- const o = document.createElement('div');
- o.className = 'mo-cine';
- o.innerHTML =
-  '<div class="mo-cine-letterbox top"></div>' +
-  '<div class="mo-cine-letterbox bot"></div>' +
-  '<div class="mo-cine-grain"></div>' +
-  '<div class="mo-cine-vignette"></div>' +
-  '<div class="mo-cine-flash-layer"></div>' +
-  '<button type="button" class="mo-cine-skip">SKIP</button>' +
-  '<div class="mo-cine-counter"></div>' +
-  '<div class="mo-cine-stage">' +
-    '<div class="mo-cine-title">THE STORY OF MOCHI</div>' +
-    '<div class="mo-cine-rule"></div>' +
-    '<div class="mo-cine-chapter"></div>' +
-    '<div class="mo-cine-motif"></div>' +
-    '<div class="mo-cine-line"></div>' +
-  '</div>' +
-  '<div class="mo-cine-bar-wrap"><div class="mo-cine-bar-track"><div class="mo-cine-bar-fill"></div></div></div>' +
-  '<div class="mo-cine-hint">tap to continue</div>';
-
- document.body.appendChild(o);
-
- const chEl = o.querySelector('.mo-cine-chapter');
- const motifEl = o.querySelector('.mo-cine-motif');
- const lineEl = o.querySelector('.mo-cine-line');
- const barFill = o.querySelector('.mo-cine-bar-fill');
- const counter = o.querySelector('.mo-cine-counter');
- let i = 0;
- let busy = false;
-
- const close = () => {
-  o.classList.add('out');
-  setTimeout(() => o.remove(), 1400);
- };
-
- const show = () => {
-  if (i >= BEATS.length) { close(); return; }
-  busy = true;
-  const b = BEATS[i];
-  const motif = MOTIFS[i] || MOTIFS[MOTIFS.length - 1];
-
-  chEl.classList.remove('in');
-  motifEl.classList.remove('in');
-  lineEl.classList.remove('in');
-
-  o.classList.remove('is-flash');
-  void o.offsetWidth;
-  o.classList.add('is-flash');
-
-  setTimeout(() => {
-   chEl.textContent = b.ch;
-   motifEl.innerHTML = motif;
-   lineEl.textContent = b.t;
-   counter.textContent = String(i + 1).padStart(2, '0') + ' / ' + String(BEATS.length).padStart(2, '0');
-   barFill.style.width = ((i + 1) / BEATS.length * 100) + '%';
-
-   requestAnimationFrame(() => {
-    chEl.classList.add('in');
-    setTimeout(() => motifEl.classList.add('in'), 80);
-    setTimeout(() => lineEl.classList.add('in'), 160);
-   });
-   i++;
-   busy = false;
-  }, 220);
- };
-
- o.addEventListener('click', (e) => {
-  if (e.target.closest('.mo-cine-skip')) return;
-  if (busy) return;
-  show();
- });
- o.querySelector('.mo-cine-skip').addEventListener('click', (e) => {
-  e.stopPropagation();
-  close();
- });
-
- show();
-}
-/* every page load / refresh */
-const iv=setInterval(()=>{const g=$$('gameScreen');if(gameData&&g&&getComputedStyle(g).display!=='none'){clearInterval(iv);setTimeout(cinema,500);}},500);
-})();
-</script>
-<script>
-/* ===== RUINED ROOM: wrecked furniture, stains, cracks, debris ===== */
-(function(){
-'use strict';
-const $$=id=>document.getElementById(id);
-const room=$$('room'),scene=$$('roomScene'),pet=$$('pet');
-if(!room||!scene)return;
-function rng(seed){let a=seed>>>0;return function(){a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296;};}
-function hash(str){let h=2166136261;for(let i=0;i<str.length;i++){h^=str.charCodeAt(i);h=Math.imul(h,16777619);}return h>>>0;}
-let ruinLevel=parseInt(localStorage.getItem('mo_ruin')||'0',10)||0;
-const lvl=()=>Math.min(ruinLevel,6);
-
-/* ---------- walls + floor ---------- */
-const ruin=document.createElement('div');ruin.id='moRuin';room.appendChild(ruin);
-let builtFor='';
-function buildRuin(){
- const key=(typeof currentRoomId==='string'?currentRoomId:'x')+'|'+lvl();
- if(key===builtFor)return;builtFor=key;
- const R=rng(hash(key)),L=lvl();
- let w='<div class="mo-soot"></div>';
- /* peeling wallpaper */
- for(let i=0;i<4+L;i++){const x=R()*90,y=R()*40,ww=8+R()*16,hh=12+R()*26;
-  const pts=[];for(let k=0;k<8;k++){const a=k/8*Math.PI*2;const rr=.5+R()*.5;pts.push((50+Math.cos(a)*50*rr).toFixed(0)+'% '+(50+Math.sin(a)*50*rr).toFixed(0)+'%');}
-  w+=`<div class="mo-peel" style="left:${x}%;top:${y}%;width:${ww}%;height:${hh}%;clip-path:polygon(${pts.join(',')})"></div>`;}
- /* water + rust stains with drips */
- for(let i=0;i<5+L;i++){const x=R()*92,y=R()*30,sz=16+R()*30,c=R()<.5?'rgba(70,35,12,.62)':'rgba(12,8,6,.7)';
-  w+=`<div class="mo-blob" style="left:${x}%;top:${y}%;width:${sz}px;height:${sz*.8}px;background:radial-gradient(ellipse,${c},transparent 72%)"></div>`;
-  const dn=1+Math.floor(R()*3);for(let d=0;d<dn;d++)w+=`<div class="mo-drip" style="left:calc(${x}% + ${sz*.25+d*7}px);top:calc(${y}% + ${sz*.4}px);height:${20+R()*70}px;background:linear-gradient(180deg,${c},transparent)"></div>`;}
- /* mold in corners */
- w+='<div style="position:absolute;inset:0;background:radial-gradient(circle at 4% 96%,rgba(8,30,10,.85),transparent 22%),radial-gradient(circle at 97% 90%,rgba(10,32,14,.8),transparent 20%),radial-gradient(circle at 55% 3%,rgba(6,24,8,.7),transparent 18%),radial-gradient(circle at 20% 12%,rgba(8,26,10,.55),transparent 12%)"></div>';
- /* hole punched in wall */
- w+=`<div class="mo-hole" style="left:${55+R()*25}%;top:${22+R()*18}%;width:${34+R()*20}px;height:${28+R()*18}px"></div>`;
- /* cracks + claw gashes */
- let sv='<svg viewBox="0 0 100 58" preserveAspectRatio="none">';
- const crack=(x,y,len,dep)=>{let d='M'+x+' '+y,cx=x,cy=y;for(let k=0;k<len;k++){cx+=(R()-.5)*9;cy+=2+R()*5;d+=' L'+cx.toFixed(1)+' '+cy.toFixed(1);if(dep>0&&R()<.35)sv+=crack(cx,cy,3+Math.floor(R()*3),dep-1);}return '<path d="'+d+'" stroke="#030102" stroke-width="1.4" fill="none" vector-effect="non-scaling-stroke"/><path d="'+d+'" stroke="rgba(255,255,255,.1)" stroke-width="1" fill="none" transform="translate(.8 0)" vector-effect="non-scaling-stroke"/>';};
- for(let i=0;i<3+Math.floor(L/2);i++)sv+=crack(5+R()*90,0,6+Math.floor(R()*5),1);
- for(let g=0;g<2;g++){const gx=10+R()*70,gy=8+R()*20;for(let k=0;k<4;k++)sv+=`<path d="M${gx+k*3} ${gy} l${8+R()*3} ${22+R()*6}" stroke="#0a0204" stroke-width="1.6" fill="none" vector-effect="non-scaling-stroke"/>`;}
- sv+='</svg>';
- let f='<div style="position:absolute;inset:0;background:radial-gradient(ellipse at 50% 100%,rgba(0,0,0,.55),transparent 70%)"></div>';
- /* floor stains, scorch, puddles */
- for(let i=0;i<5+L;i++){const x=R()*85,y=R()*80,ww=30+R()*80,hh=ww*(.25+R()*.2);const c=R()<.6?'rgba(55,12,14,.78)':'rgba(8,6,6,.85)';
-  f+=`<div class="mo-blob" style="left:${x}%;top:${y}%;width:${ww}px;height:${hh}px;background:radial-gradient(ellipse,${c} 25%,transparent 72%);filter:blur(2px)"></div>`;}
- for(let i=0;i<2;i++)f+=`<div class="mo-blob" style="left:${10+R()*70}%;top:${25+R()*50}%;width:70px;height:26px;background:radial-gradient(ellipse,#000 30%,rgba(90,25,10,.5) 55%,transparent 75%)"></div>`;
- for(let i=0;i<3;i++)f+=`<div class="mo-puddle" style="left:${8+R()*78}%;top:${35+R()*50}%;width:${22+R()*30}px;height:${8+R()*8}px"></div>`;
- let fs='<svg viewBox="0 0 100 42" preserveAspectRatio="none">';
- for(let i=0;i<7;i++){const y=R()*42;fs+=`<path d="M${R()*30} ${y} L${60+R()*40} ${y+(R()-.5)*8}" stroke="rgba(0,0,0,.65)" stroke-width="1.2" fill="none" vector-effect="non-scaling-stroke"/>`;}
- for(let i=0;i<4;i++){const x=R()*80,y=4+R()*30;for(let k=0;k<3;k++)fs+=`<path d="M${x+k*2.2} ${y} l${10+R()*6} ${3+R()*3}" stroke="rgba(0,0,0,.8)" stroke-width="1.5" fill="none" vector-effect="non-scaling-stroke"/>`;}
- fs+='</svg>';
- /* debris: splinters, shards, paper, stuffing */
- let deb='';const n=22+L*4;
- for(let i=0;i<n;i++){const t=R(),x=R()*95,y=R()*88,rot=Math.floor(R()*360);
-  if(t<.4)deb+=`<div class="mo-deb" style="left:${x}%;top:${y}%;width:${10+R()*16}px;height:${2+R()*3}px;background:#4a2c1a;transform:rotate(${rot}deg);box-shadow:0 1px 0 #000"></div>`;
-  else if(t<.65)deb+=`<div class="mo-deb" style="left:${x}%;top:${y}%;width:${7+R()*8}px;height:${7+R()*8}px;background:linear-gradient(135deg,#cfd4d8,#6c7378);clip-path:polygon(0 100%,50% 0,100% 80%);transform:rotate(${rot}deg);opacity:.75"></div>`;
-  else if(t<.85)deb+=`<div class="mo-deb" style="left:${x}%;top:${y}%;width:${9+R()*7}px;height:${7+R()*5}px;background:#b9ae98;opacity:.5;transform:rotate(${rot}deg);clip-path:polygon(0 8%,90% 0,100% 70%,15% 100%)"></div>`;
-  else deb+=`<div class="mo-deb" style="left:${x}%;top:${y}%;width:${12+R()*10}px;height:${8+R()*6}px;background:radial-gradient(ellipse,rgba(200,190,175,.7),transparent 70%)"></div>`;}
- ruin.innerHTML='<div class="mo-wall">'+w+sv+'</div><div class="mo-floor">'+f+fs+deb+'</div>';
-}
-
-/* ---------- furniture damage ---------- */
-function ruinFurniture(el){
- if(el.classList.contains('mo-wreck'))return;
- const fid=el.dataset.fid||el.className,h=hash(fid),R=rng(h);
- el.classList.add('mo-wreck');
- const fall=(h%5===0)||(h%7===3);
- el.style.setProperty('--mo-rot',(fall?(R()<.5?-1:1)*(70+R()*18):(R()-.5)*(10+lvl()*3))+'deg');
- el.style.setProperty('--mo-tx',((R()-.5)*10)+'px');
- el.style.setProperty('--mo-ty',(R()*6)+'px');
- if(fall)el.classList.add('mo-fallen');
- const d=document.createElement('div');d.className='mo-dmg';
- let sv='<svg viewBox="0 0 100 100" preserveAspectRatio="none">';
- const c=()=>{let x=R()*100,y=R()*30,dd='M'+x.toFixed(0)+' '+y.toFixed(0);for(let k=0;k<5+Math.floor(R()*4);k++){x+=(R()-.5)*26;y+=8+R()*12;dd+=' L'+x.toFixed(0)+' '+Math.min(y,100).toFixed(0);}return '<path d="'+dd+'" stroke="#000" stroke-width="1.6" fill="none" vector-effect="non-scaling-stroke"/>';};
- for(let i=0;i<2+Math.floor(lvl()/2);i++)sv+=c();
- sv+=`<ellipse cx="${20+R()*60}" cy="${30+R()*50}" rx="${14+R()*18}" ry="${8+R()*12}" fill="rgba(60,10,14,.55)"/>`;
- sv+=`<ellipse cx="${20+R()*60}" cy="${20+R()*60}" rx="${10+R()*12}" ry="${6+R()*8}" fill="rgba(0,0,0,.55)"/>`;
- /* snapped-off corner */
- const corner=R()<.5;sv+=corner?'<polygon points="100,0 100,34 82,24 90,12 74,2" fill="#050204" opacity=".92"/>':'<polygon points="0,100 0,64 16,76 8,88 24,98" fill="#050204" opacity=".92"/>';
- /* dangling splinters / stuffing */
- for(let i=0;i<3;i++){const x=R()*100;sv+=`<path d="M${x} 100 l${(R()-.5)*14} ${8+R()*10}" stroke="#6b4a2c" stroke-width="2.4" fill="none" vector-effect="non-scaling-stroke"/>`;}
- /* specials */
- const cn=el.className;
- if(/f-window/.test(cn)){sv+='<rect x="-8" y="30" width="116" height="14" fill="#3a2414" stroke="#000" transform="rotate(-9 50 37)" vector-effect="non-scaling-stroke"/><rect x="-8" y="60" width="116" height="14" fill="#2f1c10" stroke="#000" transform="rotate(7 50 67)" vector-effect="non-scaling-stroke"/>';}
- if(/f-room-mirror|f-frame/.test(cn)){sv+='<path d="M50 50 L10 4 M50 50 L96 14 M50 50 L100 70 M50 50 L30 100 M50 50 L0 60 M50 50 L72 100" stroke="#e8e8f0" stroke-width="1.2" opacity=".75" fill="none" vector-effect="non-scaling-stroke"/>';}
- if(/f-bed|f-room-rug|f-room-playmat|f-room-cushions/.test(cn)){sv+='<path d="M10 40 l30 8 l24 -10 l30 14" stroke="#000" stroke-width="2" fill="none" vector-effect="non-scaling-stroke"/><circle cx="35" cy="46" r="7" fill="rgba(210,200,185,.45)"/><circle cx="62" cy="40" r="5" fill="rgba(210,200,185,.45)"/>';}
- sv+='</svg>';d.innerHTML=sv;el.appendChild(d);
-}
-function ruinAll(){scene.querySelectorAll('.furniture').forEach(ruinFurniture);}
-new MutationObserver(ruinAll).observe(scene,{childList:true});
-ruinAll();
-
-/* ---------- rebuild room decay when the room changes ---------- */
-buildRuin();
-setInterval(buildRuin,800);
-
-/* ---------- rage: he smashes something, then regrets it ---------- */
-const rnd=a=>a[Math.floor(Math.random()*a.length)];
-function chunks(cx,cy,n){
- for(let i=0;i<n;i++){const c=document.createElement('div');c.className='mo-chunk';
-  c.style.left=cx+'px';c.style.top=cy+'px';c.style.width=(4+Math.random()*7)+'px';c.style.height=(3+Math.random()*5)+'px';
-  c.style.setProperty('--dx',((Math.random()-.5)*90)+'px');c.style.setProperty('--dy',(10+Math.random()*50)+'px');c.style.setProperty('--dr',(Math.random()*540)+'deg');
-  room.appendChild(c);setTimeout(()=>c.remove(),950);}
-}
-async function smash(){
- if(!gameData||document.hidden||isAnimating||ambientPlaying)return;
- if(document.querySelector('.mo-visitor,.mo-cine,.choice-overlay.active,.daily-overlay.active'))return;
- const fs=[...scene.querySelectorAll('.furniture')];if(!fs.length)return;
- ambientPlaying=true;
- try{
-  const f=rnd(fs),rr=room.getBoundingClientRect(),fr=f.getBoundingClientRect();
-  pet.className='pet roaring';showBubble('RAAAGH','💢');
-  room.classList.add('mo-rage');f.classList.add('mo-smash');
-  chunks(fr.left-rr.left+fr.width/2,fr.top-rr.top+fr.height/2,14);
-  if(typeof sfxBad==='function'){sfxBad();setTimeout(sfxBad,150);}
-  await new Promise(r=>setTimeout(r,1000));
-  room.classList.remove('mo-rage');f.classList.remove('mo-smash');
-  ruinLevel++;localStorage.setItem('mo_ruin',String(ruinLevel));
-  const d=f.querySelector('.mo-dmg');if(d)d.style.filter='contrast(1.4) brightness(.8)';
-  f.classList.add('mo-fallen');f.style.setProperty('--mo-rot',((Math.random()<.5?-1:1)*(60+Math.random()*30))+'deg');
-  pet.className='pet sad';showBubble('…I didn\'t mean to','😢');
-  await new Promise(r=>setTimeout(r,1400));
-  showBubble('now they have another reason to leave','💔');
-  await new Promise(r=>setTimeout(r,2200));
-  setPetClass();
- }catch(e){}
- ambientPlaying=false;renderCache.petMood='';
-}
-setTimeout(smash,45000);setInterval(smash,95000);
-
-/* ---------- tapping wrecked furniture ---------- */
-scene.addEventListener('click',e=>{
- const f=e.target.closest&&e.target.closest('.furniture');if(!f||typeof showBubble!=='function')return;
- setTimeout(()=>{if(!isAnimating)showBubble(rnd(['it\'s broken. like everything','it was nice once','I broke it. I always do']),'🥀');},250);
-});
-
-const sub=$$('roomsSubtitle');if(sub)sub.textContent='Every room is wrecked. He wanders through the ruins.';
-})();
-</script>
-<script>
-/* ===== IMMORTAL: no stat can kill or weaken Mochi ===== */
-(function(){
-'use strict';
-const $$=id=>document.getElementById(id);
-/* his mood can never become sick / hungry / weak, whatever the stats are */
-const _cm=window.computeMood;
-window.computeMood=function(){const m=_cm();if(m&&(m.key==='sick'||m.key==='hungry'||m.key==='grumpy'))return{key:'lonely',label:'CRYING',cls:'sad'};return m;};
-const pet=$$('pet');
-if(pet&&!pet.querySelector('.mo-aura')){const a=document.createElement('div');a.className='mo-aura';pet.appendChild(a);}
-/* nothing ever leaves him in a weakened pose */
-setInterval(()=>{const p=$$('pet');if(p&&/\b(sick|hungry|grumpy)\b/.test(p.className)&&!ambientPlaying&&!isAnimating)p.className='pet sad';},700);
-/* label tweaks */
-const badge=$$('petStageBadge');
-const fixBadge=()=>{if(badge&&badge.textContent.indexOf('♾')<0)badge.textContent='♾ '+badge.textContent;};
-setInterval(fixBadge,1500);
-const lines=['He cannot die. He cannot weaken.','Zero food, zero rest. He just keeps going.','Eternity is a long time to be alone.'];
-let li=0;
-const nextHint=()=>{const t=$$('hintText'),b=$$('hintBar');if(t&&b&&!localStorage.getItem('mochi_hints_dismissed')){t.textContent=lines[li++%lines.length];b.classList.add('visible');}};
-setInterval(nextHint,45000);
 })();
 </script>
 </body>
