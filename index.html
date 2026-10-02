@@ -3425,10 +3425,14 @@
   .pet[data-stage="hatchling"] .pet-dragon .dg-cr  { fill: #FFF6DC; }
   .pet[data-stage="hatchling"] .pet-dragon .dg-o   { stroke: #3A6A50; }
 
-  .pet[data-stage="sprout"] .pet-dragon .dg-red { fill: #7fd69a; }
-  .pet[data-stage="sprout"] .pet-dragon .dg-dk  { fill: #4fae78; }
-  .pet[data-stage="sprout"] .pet-dragon .dg-cr  { fill: #fff0c4; }
-  .pet[data-stage="sprout"] .pet-dragon .dg-o   { stroke: #2f5d4a; }
+  .pet[data-stage="sprout"] .pet-dragon .dg-red { fill: #8FE0A8; }
+  .pet[data-stage="sprout"] .pet-dragon .dg-dk  { fill: #5BC48A; }
+  .pet[data-stage="sprout"] .pet-dragon .dg-cr  { fill: #FFF8E0; }
+  .pet[data-stage="sprout"] .pet-dragon .dg-o   { stroke: #3A7A55; }
+  /* Cute young sprout: soft glow, slightly rounder feel */
+  .pet[data-stage="sprout"] {
+    filter: drop-shadow(0 2px 3px rgba(90, 160, 110, 0.35));
+  }
 
   .pet[data-stage="sapling"] .pet-dragon .dg-red { fill: #5ecf88; }
   .pet[data-stage="sapling"] .pet-dragon .dg-dk  { fill: #3aa868; }
@@ -3862,8 +3866,24 @@
   .pet[data-stage="egg"] .dg-wl, .pet[data-stage="egg"] .dg-wr, .pet[data-stage="egg"] .dg-tail { opacity: 0; }
   .pet[data-stage="hatchling"] .pet-dragon { transform: scale(0.82); filter: hue-rotate(8deg) saturate(0.95); }
   .pet[data-stage="hatchling"] .dg-wl, .pet[data-stage="hatchling"] .dg-wr { transform: scale(0.55); transform-origin: center; opacity: 0.85; }
-  .pet[data-stage="sprout"] .pet-dragon { transform: scale(0.90); filter: hue-rotate(20deg) saturate(1.05); }
-  .pet[data-stage="sprout"] .dg-wl, .pet[data-stage="sprout"] .dg-wr { transform: scale(0.7); transform-origin: center; }
+  .pet[data-stage="sprout"] .pet-dragon { transform: scale(0.92); filter: hue-rotate(12deg) saturate(1.08) brightness(1.04); }
+  .pet[data-stage="sprout"] .dg-wl, .pet[data-stage="sprout"] .dg-wr { transform: scale(0.62); transform-origin: center; opacity: 0.92; }
+  /* Tiny leaf-bud feeling on the head for Sprout */
+  .pet[data-stage="sprout"] .pet-body::after {
+    content: '🌱';
+    position: absolute;
+    top: -14px;
+    left: 58%;
+    font-size: 0.7rem;
+    filter: drop-shadow(0 1px 1px rgba(0,0,0,0.15));
+    animation: sproutBob 2.6s ease-in-out infinite;
+    pointer-events: none;
+    z-index: 20;
+  }
+  @keyframes sproutBob {
+    0%, 100% { transform: translateY(0) rotate(-6deg); }
+    50% { transform: translateY(-3px) rotate(6deg); }
+  }
   .pet[data-stage="sapling"] .pet-dragon { transform: scale(0.98); filter: hue-rotate(35deg) saturate(1.1); }
   .pet[data-stage="bloom"] .pet-dragon { transform: scale(1.05); filter: hue-rotate(-8deg) saturate(1.15) brightness(1.05); }
   .pet[data-stage="guardian"] .pet-dragon { transform: scale(1.12); filter: hue-rotate(-22deg) saturate(1.2) contrast(1.05); }
@@ -4594,7 +4614,7 @@ const DAILY_REWARDS = [
 const STAGES = [
   { level: 1,  name: 'EGG',       emoji: '🥚', key: 'egg',       scale: 0.72, hue: 0,   desc: 'Warm shell. Something tiny is dreaming inside.' },
   { level: 5,  name: 'HATCHLING', emoji: '🐣', key: 'hatchling', scale: 0.82, hue: 8,   desc: 'Freshly cracked. Soft scales, big eyes, tiny wings.' },
-  { level: 10, name: 'SPROUT',    emoji: '🌱', key: 'sprout',    scale: 0.90, hue: 25,  desc: 'Budding wings. Curious and always hungry.' },
+  { level: 10, name: 'SPROUT',    emoji: '🌱', key: 'sprout',    scale: 0.90, hue: 25,  desc: 'A cute little sprout dragon. Soft scales, budding wings, and endless curiosity.' },
   { level: 15, name: 'SAPLING',   emoji: '🍃', key: 'sapling',   scale: 0.98, hue: 40,  desc: 'Stronger limbs. Learning little dragon tricks.' },
   { level: 20, name: 'BLOOM',     emoji: '🌸', key: 'bloom',     scale: 1.05, hue: -10, desc: 'Petals of scale-shine. Playful and proud.' },
   { level: 25, name: 'GUARDIAN',  emoji: '🐉', key: 'guardian',  scale: 1.12, hue: -25, desc: 'Young guardian. Protective of their room.' },
@@ -5450,6 +5470,7 @@ function processUpdate(snap) {
   renderRoomDecorations();
   renderRoomItems();
   ensureBondAndQuests(gameData);
+  maybeResetToSprout();
   renderBond();
   renderQuests();
   renderRoomChips();
@@ -5482,7 +5503,9 @@ function processUpdate(snap) {
    LEVELS
    ============================================================ */
 function xpForLevel(level) {
-  return Math.floor(60 + (level - 1) * 35 + Math.pow(level - 1, 1.7) * 12);
+  // Balanced curve: early levels feel achievable, later ones require real commitment
+  // Level 11 ≈ 4.1k total XP, Level 35 (Eternal) ≈ ~55k total XP
+  return Math.floor(55 + (level - 1) * 32 + Math.pow(level - 1, 1.65) * 11);
 }
 function updateLevel() {
   let lvl = 1, xp = gameData.xp || 0;
@@ -9823,6 +9846,32 @@ const HINTS = [
   'Tip: Unlock scale colors and outfits in the shop',
   'Tip: Both of you caring within 10 minutes boosts BOND 💞'
 ];
+
+
+/* One-time reset: put Mochi back to a proper Level 11 Sprout
+   (user had used a shortcut that pushed level to Eternal) */
+function maybeResetToSprout() {
+  if (localStorage.getItem('mochi_reset_sprout_v2') === '1') return;
+  if (!gameData) return;
+  // Only reset if level is artificially high ( > 15 ) so we don't touch legitimate progress
+  const lvl = gameData.level || 1;
+  if (lvl <= 15) {
+    localStorage.setItem('mochi_reset_sprout_v2', '1');
+    return;
+  }
+  // XP required to just reach level 11 (see xpForLevel cumulative)
+  const targetXp = 3680;
+  const updates = {
+    level: 11,
+    xp: targetXp,
+    lastUpdate: Date.now()
+  };
+  db.ref('tamagotchi').update(updates).then(() => {
+    localStorage.setItem('mochi_reset_sprout_v2', '1');
+    showToast('🌱 Mochi is back as a Level 11 Sprout! Growing the proper way.');
+    if (typeof spawnConfetti === 'function') spawnConfetti(12);
+  }).catch(() => {});
+}
 
 function ensureBondAndQuests(data) {
   if (!data) return;
