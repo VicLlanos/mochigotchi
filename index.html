@@ -3416,20 +3416,8 @@
   .pet[data-stage="bloom"]     { --dk: 1.18; width: 98px; height: 104px; }
   .pet[data-stage="guardian"]  { --dk: 1.28; width: 106px; height: 112px; }
   .pet[data-stage="mystic"]    { --dk: 1.36; width: 112px; height: 118px; }
-  .pet[data-stage="eternal"]   { --dk: 1.55; width: 132px; height: 140px; }
-  .pet[data-stage="aurora"]    { --dk: 1.65; width: 140px; height: 148px; }
-  .pet[data-stage="celestial"] { --dk: 1.78; width: 150px; height: 158px; }
+  .pet[data-stage="eternal"]   { --dk: 1.45; width: 120px; height: 126px; }
   .pet:not([data-stage="egg"]) { filter: drop-shadow(0 3px 2px rgba(47, 93, 74, 0.28)); }
-  /* Magnificent Eternal / Aurora / Celestial glow */
-  .pet[data-stage="eternal"] {
-    filter: drop-shadow(0 0 10px rgba(240, 216, 120, 0.9)) drop-shadow(0 0 22px rgba(212, 175, 55, 0.5)) drop-shadow(0 4px 3px rgba(107, 90, 32, 0.35));
-  }
-  .pet[data-stage="aurora"] {
-    filter: drop-shadow(0 0 12px rgba(160, 120, 255, 0.85)) drop-shadow(0 0 24px rgba(80, 200, 255, 0.55)) drop-shadow(0 4px 3px rgba(40, 20, 80, 0.4));
-  }
-  .pet[data-stage="celestial"] {
-    filter: drop-shadow(0 0 14px rgba(255, 240, 180, 0.95)) drop-shadow(0 0 28px rgba(255, 200, 80, 0.6)) drop-shadow(0 0 40px rgba(255, 255, 255, 0.4)) drop-shadow(0 4px 3px rgba(80, 60, 20, 0.4));
-  }
 
   /* Stage color themes (same silhouette, evolving palette) */
   .pet[data-stage="hatchling"] .pet-dragon .dg-red { fill: #9ADBAA; }
@@ -3466,55 +3454,6 @@
   .pet[data-stage="eternal"] .pet-dragon .dg-dk  { fill: #D4AF37; }
   .pet[data-stage="eternal"] .pet-dragon .dg-cr  { fill: #FFFBF0; }
   .pet[data-stage="eternal"] .pet-dragon .dg-o   { stroke: #6B5A20; }
-  /* Eternal special: brighter flame + subtle shimmer on scales */
-  .pet[data-stage="eternal"] .pet-dragon .dg-flame path:first-child { fill: #FFD060; }
-  .pet[data-stage="eternal"] .pet-dragon .dg-flame path:last-child { fill: #FFF0A0; }
-
-  .pet[data-stage="aurora"] .pet-dragon .dg-red { fill: #A890E8; }
-  .pet[data-stage="aurora"] .pet-dragon .dg-dk  { fill: #6A50B0; }
-  .pet[data-stage="aurora"] .pet-dragon .dg-cr  { fill: #E8F8FF; }
-  .pet[data-stage="aurora"] .pet-dragon .dg-o   { stroke: #3A2868; }
-  .pet[data-stage="aurora"] .pet-dragon .dg-flame path:first-child { fill: #80E0FF; }
-  .pet[data-stage="aurora"] .pet-dragon .dg-flame path:last-child { fill: #E0C0FF; }
-
-  .pet[data-stage="celestial"] .pet-dragon .dg-red { fill: #FFE8A0; }
-  .pet[data-stage="celestial"] .pet-dragon .dg-dk  { fill: #E0B040; }
-  .pet[data-stage="celestial"] .pet-dragon .dg-cr  { fill: #FFFFFF; }
-  .pet[data-stage="celestial"] .pet-dragon .dg-o   { stroke: #8B6F1E; }
-  .pet[data-stage="celestial"] .pet-dragon .dg-flame path:first-child { fill: #FFF8C0; }
-  .pet[data-stage="celestial"] .pet-dragon .dg-flame path:last-child { fill: #FFFFFF; }
-
-  /* Magnificent crown / halo for Eternal and above (CSS overlay on head anchor) */
-  .pet[data-stage="eternal"] .pet-body::before,
-  .pet[data-stage="aurora"] .pet-body::before,
-  .pet[data-stage="celestial"] .pet-body::before {
-    content: '👑';
-    position: absolute;
-    top: -22px;
-    left: 50%;
-    transform: translateX(-50%);
-    font-size: 1.15rem;
-    filter: drop-shadow(0 0 6px rgba(255, 220, 100, 0.9));
-    z-index: 30;
-    animation: crownFloat 2.8s ease-in-out infinite;
-    pointer-events: none;
-  }
-  .pet[data-stage="aurora"] .pet-body::before { content: '🌌'; font-size: 1.25rem; }
-  .pet[data-stage="celestial"] .pet-body::before { content: '🌟'; font-size: 1.35rem; filter: drop-shadow(0 0 8px rgba(255,255,200,1)); }
-  @keyframes crownFloat {
-    0%, 100% { transform: translateX(-50%) translateY(0); }
-    50% { transform: translateX(-50%) translateY(-4px); }
-  }
-  /* Stronger wing flap for higher forms */
-  .pet[data-stage="eternal"] .pet-dragon .dg-wl,
-  .pet[data-stage="eternal"] .pet-dragon .dg-wr,
-  .pet[data-stage="aurora"] .pet-dragon .dg-wl,
-  .pet[data-stage="aurora"] .pet-dragon .dg-wr,
-  .pet[data-stage="celestial"] .pet-dragon .dg-wl,
-  .pet[data-stage="celestial"] .pet-dragon .dg-wr {
-    animation-duration: 1.15s;
-  }
-
 
   /* hide old boxy parts — keep anchors for outfits */
   .pet:not([data-stage="egg"]) .pet-body,
@@ -4186,6 +4125,38 @@
   .dragon-actions.collapsed { display: none; }
 
 
+
+/* ===== ETERNAL+ DRAGON: gold-armoured, crowned, winged ===== */
+.pet-dragon-eternal{display:none}
+.pet:not([data-stage="eternal"]):not([data-stage="aurora"]):not([data-stage="celestial"]) svg.pet-dragon.pet-dragon-eternal{display:none!important}
+.pet[data-stage="eternal"] svg.pet-dragon:not(.pet-dragon-eternal),
+.pet[data-stage="aurora"] svg.pet-dragon:not(.pet-dragon-eternal),
+.pet[data-stage="celestial"] svg.pet-dragon:not(.pet-dragon-eternal){display:none!important}
+.pet[data-stage="eternal"] svg.pet-dragon-eternal,
+.pet[data-stage="aurora"] svg.pet-dragon-eternal,
+.pet[data-stage="celestial"] svg.pet-dragon-eternal{display:block!important}
+.pet[data-stage="eternal"],.pet[data-stage="aurora"],.pet[data-stage="celestial"]{width:156px!important;height:132px!important}
+.pet[data-stage="eternal"] .pet-dragon.pet-dragon-eternal,
+.pet[data-stage="aurora"] .pet-dragon.pet-dragon-eternal,
+.pet[data-stage="celestial"] .pet-dragon.pet-dragon-eternal{width:100%;height:100%;left:0;margin-left:0;top:0;transform:none;transform-origin:50% 92%}
+.pet[data-stage="eternal"] .pet-dragon.pet-dragon-eternal{filter:drop-shadow(0 0 10px rgba(255,200,80,.7)) drop-shadow(0 4px 5px rgba(0,0,0,.35));animation:eRegal 4s ease-in-out infinite}
+.pet[data-stage="aurora"] .pet-dragon.pet-dragon-eternal{filter:hue-rotate(160deg) saturate(1.2) drop-shadow(0 0 14px rgba(120,220,255,.8));animation:eRegal 4s ease-in-out infinite}
+.pet[data-stage="celestial"] .pet-dragon.pet-dragon-eternal{filter:brightness(1.15) saturate(1.2) drop-shadow(0 0 18px rgba(255,240,170,.95));animation:eRegal 3s ease-in-out infinite}
+@keyframes eRegal{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
+.pet-dragon-eternal .e-aura{transform-box:fill-box;transform-origin:50% 50%;animation:eAura 3.2s ease-in-out infinite}
+@keyframes eAura{0%,100%{opacity:.65;transform:scale(.96)}50%{opacity:1;transform:scale(1.04)}}
+.pet-dragon-eternal .e-halo{animation:eHalo 2.6s ease-in-out infinite}
+@keyframes eHalo{0%,100%{opacity:.6}50%{opacity:1}}
+.pet-dragon-eternal .e-sparks circle{animation:eTwinkle 1.8s ease-in-out infinite}
+.pet-dragon-eternal .e-sparks circle:nth-child(2n){animation-delay:.6s}
+.pet-dragon-eternal .e-sparks circle:nth-child(3n){animation-delay:1.1s}
+@keyframes eTwinkle{0%,100%{opacity:.2}50%{opacity:1}}
+.pet-dragon-eternal .e-tailflame{transform-box:fill-box;transform-origin:50% 100%;animation:dgFlick .6s ease-in-out infinite alternate}
+.pet-dragon-eternal .dg-wl{transform-origin:100% 60%}
+.pet-dragon-eternal .dg-wr{transform-origin:0% 60%}
+.pet.sleeping .pet-dragon-eternal .e-aura{animation-duration:6s}
+/* every stage turns to face the way it walks (older stage rules were overriding this) */
+.pet .pet-dragon{scale:var(--fx,1) 1;transition:transform .55s cubic-bezier(.34,1.2,.64,1),filter .6s ease,scale .22s ease}
 </style>
 </head>
 <body>
@@ -4274,6 +4245,70 @@
   <g class="dg-mouth"><path class="dg-o" fill="#8a1c45" stroke-width="4" d="M360 366Q384 358 405 366Q402 396 383 397Q362 395 360 366Z"/><ellipse cx="384" cy="386" rx="10" ry="6" fill="#ff7b9c"/></g>
   <g class="dg-breath"><path class="dg-o" fill="#ff8a1f" d="M385 402C345 420 325 462 352 500C362 480 374 486 385 466C396 486 408 480 418 500C445 462 425 420 385 402Z"/><path fill="#ffd23f" d="M385 424C362 438 355 465 371 484C377 474 382 476 385 464C388 476 393 474 399 484C415 465 408 438 385 424Z"/></g>
   </g>
+</svg>
+            <svg class="pet-dragon pet-dragon-eternal" viewBox="0 0 400 340" aria-hidden="true">
+<defs>
+<radialGradient id="eGlow" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#fff2a8" stop-opacity=".8"/><stop offset=".5" stop-color="#ffbf3f" stop-opacity=".28"/><stop offset="1" stop-color="#ffbf3f" stop-opacity="0"/></radialGradient>
+<linearGradient id="eBody" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffeaa0"/><stop offset=".4" stop-color="#e9b536"/><stop offset="1" stop-color="#8f5a0c"/></linearGradient>
+<linearGradient id="eBodyS" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#8f5a0c"/><stop offset=".3" stop-color="#f6cf5a"/><stop offset=".55" stop-color="#fff0b0"/><stop offset="1" stop-color="#8f5a0c"/></linearGradient>
+<linearGradient id="eBelly" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fffbe6"/><stop offset="1" stop-color="#ecc870"/></linearGradient>
+<linearGradient id="eWingG" x1="1" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#d8283c"/><stop offset=".45" stop-color="#6a1a6e"/><stop offset="1" stop-color="#1a0a45"/></linearGradient>
+<linearGradient id="eHorn" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#7a4a08"/><stop offset=".45" stop-color="#f3d36a"/><stop offset="1" stop-color="#fffdf0"/></linearGradient>
+<radialGradient id="eEye" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#fffbc0"/><stop offset=".45" stop-color="#ffb21a"/><stop offset="1" stop-color="#c2410a"/></radialGradient>
+<radialGradient id="eGem" cx=".4" cy=".35" r=".7"><stop offset="0" stop-color="#fff"/><stop offset=".45" stop-color="#ff5a6e"/><stop offset="1" stop-color="#7a0620"/></radialGradient>
+<radialGradient id="eGemB" cx=".4" cy=".35" r=".7"><stop offset="0" stop-color="#fff"/><stop offset=".45" stop-color="#7fe6ff"/><stop offset="1" stop-color="#14658f"/></radialGradient>
+<linearGradient id="eFire" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff6b0"/><stop offset=".5" stop-color="#ff9a2a"/><stop offset="1" stop-color="#d8301a"/></linearGradient>
+<g id="eWing">
+<path d="M168 196L112 112L60 58L10 22L34 78L2 112L40 128L20 172L78 168L88 212L128 196L152 226Z" fill="url(#eWingG)" stroke="#f3c64a" stroke-width="3.5" stroke-linejoin="round"/>
+<path d="M168 196L10 22M166 204L2 112M164 212L20 172M160 220L88 212" stroke="#ffe27a" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+<path d="M120 124C96 120 70 128 48 124M104 170C84 168 58 170 40 160" stroke="#ff8f9c" stroke-width="1.6" fill="none" opacity=".55"/>
+<circle cx="10" cy="22" r="5" fill="#fffbe0"/><circle cx="2" cy="112" r="3.5" fill="#fffbe0"/><circle cx="20" cy="172" r="3" fill="#fffbe0"/>
+<circle cx="70" cy="104" r="2" fill="#fff"/><circle cx="52" cy="146" r="1.8" fill="#fff"/><circle cx="104" cy="82" r="1.6" fill="#fff"/><circle cx="96" cy="190" r="1.8" fill="#fff"/>
+</g>
+<g id="eHornG">
+<path d="M152 112C124 96 96 62 66 14C110 22 148 52 176 92Z" fill="url(#eHorn)" stroke="#5e3806" stroke-width="3" stroke-linejoin="round"/>
+<path d="M118 76L136 70M100 52L120 48M136 92L152 84" stroke="#a8740e" stroke-width="3" stroke-linecap="round"/>
+<path d="M136 138C104 140 76 122 54 92C90 98 122 108 150 122Z" fill="url(#eHorn)" stroke="#5e3806" stroke-width="2.6" stroke-linejoin="round"/>
+</g>
+<g id="eWhisk"><path d="M170 198C136 206 120 232 90 226C84 224 78 230 72 240" stroke="#fff1a8" stroke-width="3.2" fill="none" stroke-linecap="round"/><path d="M174 190C140 190 112 204 84 190" stroke="#ffd84a" stroke-width="2.4" fill="none" stroke-linecap="round" opacity=".85"/></g>
+<g id="eFin"><path d="M128 146L74 134L96 160L66 178L102 182L84 208L130 188Z" fill="#c8242e" stroke="#5e3806" stroke-width="2.6" stroke-linejoin="round"/><path d="M96 160L128 156M102 182L128 172" stroke="#ffd84a" stroke-width="2" stroke-linecap="round"/></g>
+</defs>
+<circle class="e-aura" cx="200" cy="190" r="178" fill="url(#eGlow)"/>
+<g class="dg-all">
+<path d="M148 90L132 34L168 76L180 20L200 72L220 20L232 76L268 34L252 90Z" fill="#c8242e" stroke="#5e3806" stroke-width="2.6" stroke-linejoin="round"/>
+<g class="dg-wl"><use href="#eWing"/></g>
+<g class="dg-wr"><use href="#eWing" transform="translate(400 0) scale(-1 1)"/></g>
+<g class="dg-tail"><path d="M246 276C318 262 384 246 388 198C394 252 360 300 296 316C276 320 258 316 246 308Z" fill="url(#eBody)" stroke="#5e3806" stroke-width="3.2" stroke-linejoin="round"/><path d="M300 262L312 236L326 268ZM344 250L362 222L366 258Z" fill="#c8242e" stroke="#5e3806" stroke-width="2.2" stroke-linejoin="round"/><path class="e-tailflame" d="M388 198C374 186 376 164 392 150C390 170 404 176 396 196Z" fill="url(#eFire)"/></g>
+<g class="dg-foot-l"><ellipse cx="156" cy="316" rx="32" ry="16" fill="url(#eBody)" stroke="#5e3806" stroke-width="3"/><path d="M130 326l-7 15l16-9zM152 331l-3 16l13-11zM176 327l4 15l11-15z" fill="#fffdf0" stroke="#5e3806" stroke-width="1.6"/></g>
+<g class="dg-foot-r"><ellipse cx="244" cy="316" rx="32" ry="16" fill="url(#eBody)" stroke="#5e3806" stroke-width="3"/><path d="M270 326l7 15l-16-9zM248 331l3 16l-13-11zM224 327l-4 15l-11-15z" fill="#fffdf0" stroke="#5e3806" stroke-width="1.6"/></g>
+<ellipse cx="200" cy="260" rx="66" ry="72" fill="url(#eBody)" stroke="#5e3806" stroke-width="3.5"/>
+<ellipse cx="200" cy="268" rx="40" ry="58" fill="url(#eBelly)" stroke="#c4912c" stroke-width="2"/>
+<path d="M166 244Q200 256 234 244M170 266Q200 278 230 266M176 288Q200 298 224 288M184 308Q200 314 216 308" stroke="#c4912c" stroke-width="3" fill="none" stroke-linecap="round"/>
+<path d="M200 226L176 244L200 262L224 244Z" fill="url(#eGemB)" stroke="#5e3806" stroke-width="2.6" stroke-linejoin="round"/>
+<g class="dg-arm-l"><ellipse cx="144" cy="262" rx="19" ry="38" transform="rotate(14 144 262)" fill="url(#eBody)" stroke="#5e3806" stroke-width="3"/><path d="M128 238L160 244L156 254L126 250Z" fill="#c8242e" stroke="#5e3806" stroke-width="2"/><path d="M132 292l-4 14l10-8zM146 296l0 14l8-10z" fill="#fffdf0" stroke="#5e3806" stroke-width="1.6"/></g>
+<g class="dg-arm-r"><ellipse cx="256" cy="262" rx="19" ry="38" transform="rotate(-14 256 262)" fill="url(#eBody)" stroke="#5e3806" stroke-width="3"/><path d="M272 238L240 244L244 254L274 250Z" fill="#c8242e" stroke="#5e3806" stroke-width="2"/><path d="M268 292l4 14l-10-8zM254 296l0 14l-8-10z" fill="#fffdf0" stroke="#5e3806" stroke-width="1.6"/></g>
+<path d="M122 232C132 218 150 214 160 226L146 250L130 246ZM278 232C268 218 250 214 240 226L254 250L270 246Z" fill="url(#eBody)" stroke="#5e3806" stroke-width="3" stroke-linejoin="round"/>
+<path d="M130 224L118 196L146 214ZM270 224L282 196L254 214Z" fill="#fffdf0" stroke="#5e3806" stroke-width="2.4" stroke-linejoin="round"/>
+<path d="M150 216C168 232 232 232 250 216L242 242C222 252 178 252 158 242Z" fill="url(#eBodyS)" stroke="#5e3806" stroke-width="3" stroke-linejoin="round"/>
+<circle cx="200" cy="238" r="9" fill="url(#eGem)" stroke="#5e3806" stroke-width="2.4"/>
+<ellipse class="e-halo" cx="200" cy="58" rx="66" ry="14" fill="none" stroke="#fff3a8" stroke-width="4.5"/>
+<use href="#eFin"/><use href="#eFin" transform="translate(400 0) scale(-1 1)"/>
+<use href="#eHornG"/><use href="#eHornG" transform="translate(400 0) scale(-1 1)"/>
+<path d="M176 96L186 36L200 78L214 36L224 96Z" fill="url(#eHorn)" stroke="#5e3806" stroke-width="3" stroke-linejoin="round"/>
+<path d="M200 86C234 86 264 106 272 136C280 162 268 186 246 202C230 214 214 222 200 222C186 222 170 214 154 202C132 186 120 162 128 136C136 106 166 86 200 86Z" fill="url(#eBody)" stroke="#5e3806" stroke-width="3.6" stroke-linejoin="round"/>
+<path d="M174 182C178 160 222 160 226 182C232 202 216 220 200 220C184 220 168 202 174 182Z" fill="#e0a22a" stroke="#5e3806" stroke-width="2.6"/>
+<path d="M186 192q4 4 8 0M206 192q4 4 8 0" stroke="#3a1e04" stroke-width="3.2" fill="none" stroke-linecap="round"/>
+<path d="M176 200C190 214 210 214 224 200" stroke="#7a4a08" stroke-width="2" fill="none" opacity=".6"/>
+<path d="M200 90L200 124" stroke="#a8740e" stroke-width="3" stroke-linecap="round"/>
+<path d="M200 110L190 128L200 144L210 128Z" fill="url(#eGem)" stroke="#5e3806" stroke-width="2.2" stroke-linejoin="round"/>
+<g class="dg-eye"><path d="M138 142Q166 122 196 152Q168 166 138 142Z" fill="#1a0a02" stroke="#5e3806" stroke-width="2.8"/><ellipse cx="170" cy="148" rx="14" ry="11" fill="url(#eEye)"/><ellipse cx="172" cy="148" rx="3" ry="10" fill="#1a0a02"/><circle cx="166" cy="143" r="3.2" fill="#fff"/></g>
+<g class="dg-eye"><path d="M262 142Q234 122 204 152Q232 166 262 142Z" fill="#1a0a02" stroke="#5e3806" stroke-width="2.8"/><ellipse cx="230" cy="148" rx="14" ry="11" fill="url(#eEye)"/><ellipse cx="228" cy="148" rx="3" ry="10" fill="#1a0a02"/><circle cx="224" cy="143" r="3.2" fill="#fff"/></g>
+<path d="M130 132L170 122L198 142L168 134Z M270 132L230 122L202 142L232 134Z" fill="#a8740e" stroke="#5e3806" stroke-width="2.6" stroke-linejoin="round"/>
+<use href="#eWhisk"/><use href="#eWhisk" transform="translate(400 0) scale(-1 1)"/>
+<g class="dg-mouth"><path d="M178 206Q200 222 222 206Q200 214 178 206Z" fill="#2a0a05" stroke="#5e3806" stroke-width="2.4"/><path d="M184 209l3 10l5-9zM208 210l5 9l3-10z" fill="#fffdf0" stroke="#5e3806" stroke-width="1.2"/></g>
+<g class="dg-breath"><path d="M200 216C146 232 114 288 160 338C174 316 188 322 200 300C212 322 226 316 240 338C286 288 254 232 200 216Z" fill="url(#eFire)"/><path d="M200 232C170 248 156 290 184 322C192 304 200 306 206 292C216 308 226 304 230 296C240 270 228 246 200 232Z" fill="#fff3b0" opacity=".9"/></g>
+<g class="e-sparks"><circle cx="64" cy="70" r="3" fill="#fff6b0"/><circle cx="340" cy="86" r="2.6" fill="#fff6b0"/><circle cx="48" cy="196" r="2.2" fill="#ffe27a"/><circle cx="360" cy="190" r="3" fill="#ffe27a"/><circle cx="110" cy="30" r="2" fill="#fff"/><circle cx="296" cy="34" r="2.4" fill="#fff"/></g>
+</g>
 </svg>
             <div class="pet-wing pet-wing-l"></div>
             <div class="pet-wing pet-wing-r"></div>
@@ -4564,9 +4599,9 @@ const STAGES = [
   { level: 20, name: 'BLOOM',     emoji: '🌸', key: 'bloom',     scale: 1.05, hue: -10, desc: 'Petals of scale-shine. Playful and proud.' },
   { level: 25, name: 'GUARDIAN',  emoji: '🐉', key: 'guardian',  scale: 1.12, hue: -25, desc: 'Young guardian. Protective of their room.' },
   { level: 30, name: 'MYSTIC',    emoji: '✨', key: 'mystic',    scale: 1.18, hue: 200, desc: 'Star-dusted wings. Hears the night sky.' },
-  { level: 35, name: 'ETERNAL',   emoji: '👑', key: 'eternal',   scale: 1.25, hue: 280, desc: 'Magnificent golden dragon. Radiant scales, crown of light, bond of Koy & Metz.' },
-  { level: 45, name: 'AURORA',    emoji: '🌌', key: 'aurora',    scale: 1.32, hue: 260, desc: 'Northern-light scales shimmer. Rare form of pure devotion.' },
-  { level: 55, name: 'CELESTIAL', emoji: '🌟', key: 'celestial', scale: 1.40, hue: 45,  desc: 'Celestial Mochi. The room itself becomes a living constellation.' }
+  { level: 35, name: 'ETERNAL',   emoji: '👑', key: 'eternal',   scale: 1.25, hue: 280, desc: 'Little eternal dragon. Bond of Koy & Metz.' },
+  { level: 45, name: 'AURORA',    emoji: '🌌', key: 'aurora',    scale: 1.32, hue: 260, desc: 'Northern-light scales. Rare form of devotion.' },
+  { level: 55, name: 'CELESTIAL', emoji: '🌟', key: 'celestial', scale: 1.40, hue: 45,  desc: 'Celestial Mochi. The room becomes a constellation.' }
 ];
 
 const ROOMS = [
@@ -4661,22 +4696,7 @@ const AMBIENT_BEHAVIORS = {
     { cls: 'sniffing', dur: 2, bubble: 'fresh hay!', emoji: '🌾' },
     { cls: 'watching', dur: 3, bubble: 'hello chicken!', emoji: '🐔' },
     { cls: 'hopping', dur: 1.3, bubble: 'harvest!', emoji: '🥕' },
-    { cls: 'walking', dur: 2, bubble: 'farm day~', emoji: '☀️' },
-    { cls: 'digging', dur: 1.8, bubble: 'dig dig...', emoji: '🕳️' }
-  ],
-  cloudnest: [
-    { cls: 'flying', dur: 2.5, bubble: 'soft clouds~', emoji: '☁️' },
-    { cls: 'looking-up', dur: 3, bubble: 'floating high', emoji: '🪽' },
-    { cls: 'happy', dur: 2, bubble: 'so soft!', emoji: '💤' },
-    { cls: 'stretching', dur: 1.5, bubble: 'cloud stretch', emoji: '✨' },
-    { cls: 'walking', dur: 2 }
-  ],
-  starcove: [
-    { cls: 'looking-up', dur: 3.5, bubble: 'constellations...', emoji: '🌌' },
-    { cls: 'watching', dur: 3, bubble: 'shooting star!', emoji: '🌠' },
-    { cls: 'ecstatic', dur: 2, bubble: 'cosmic energy!', emoji: '🌟' },
-    { cls: 'flying', dur: 2.2, bubble: 'among the stars', emoji: '✨' },
-    { cls: 'sleeping', dur: 3, bubble: 'stardust dreams', emoji: '💫' }
+    { cls: 'walking', dur: 2, bubble: 'farm day~', emoji: '☀️' }
   ]
 };
 
@@ -5813,6 +5833,7 @@ function renderRoomScene() {
           }
           showToast('📍 Furniture moved!');
         } else if (onClick) {
+          window.__clickedFurn = el;
           onClick();
         }
       };
@@ -8932,13 +8953,10 @@ function getFurniturePos(selectorOrEl, fallbackX = 50, fallbackBottom = 15) {
   }
   const centerX = ((elRect.left + elRect.width / 2) - roomRect.left) / roomRect.width * 100;
   const furnBottom = ((roomRect.bottom - elRect.bottom) / roomRect.height) * 100;
-  // Sit a little in front of furniture so the dragon appears to stand at it, not inside it
-  const petBottom = Math.max(5, Math.min(58, furnBottom + 4));
+  const petBottom = Math.max(5, Math.min(58, furnBottom + 2));
   const d = depthFromBottom(petBottom, el);
-  // Slight horizontal offset so Mochi approaches from a natural angle
-  const approachOffset = (centerX < 50 ? 4 : -4);
   return {
-    x: Math.max(8, Math.min(92, centerX + approachOffset)),
+    x: Math.max(8, Math.min(92, centerX)),
     bottom: petBottom,
     scale: d.scale,
     zIndex: d.zIndex
@@ -8956,12 +8974,6 @@ function movePetTo(percent, duration, bottomPercent, depthScale) {
     const shadow = $('petShadow');
     const area = $('petArea');
     const ease = `left ${duration}ms cubic-bezier(0.4, 0, 0.2, 1), bottom ${duration}ms cubic-bezier(0.4, 0, 0.2, 1)`;
-    // Face the direction of travel (tail trails behind)
-    const prevX = parseFloat(pet.style.left) || 50;
-    const art = pet.querySelector('.pet-dragon');
-    if (art && Math.abs(percent - prevX) > 0.8) {
-      art.style.setProperty('--fx', percent > prevX ? -1 : 1);
-    }
     pet.style.transition = ease;
     pet.style.left = percent + '%';
 
@@ -10209,14 +10221,154 @@ document.addEventListener('visibilitychange', () => {
 /* Dragon: turn to face the way it is walking (tail trails behind) */
 (function () {
   var pet = document.getElementById('pet'); if (!pet) return;
-  var art = pet.querySelector('.pet-dragon'); if (!art) return;
+  var arts = pet.querySelectorAll('.pet-dragon'); if (!arts.length) return;
   var last = parseFloat(pet.style.left) || 50;
   new MutationObserver(function () {
     var x = parseFloat(pet.style.left);
     if (isNaN(x) || Math.abs(x - last) < 0.5) return;
-    art.style.setProperty('--fx', x > last ? -1 : 1);
+    arts.forEach(function (art) { art.style.setProperty('--fx', x > last ? -1 : 1); });
     last = x;
   }).observe(pet, { attributes: true, attributeFilter: ['style'] });
+})();
+</script>
+<script>
+/* ===== MOCHI v2: stands in front of furniture, speed-true walking, room reactions, progression ===== */
+(function(){
+'use strict';
+const $$=id=>document.getElementById(id);
+const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+const pick=a=>a[Math.floor(Math.random()*a.length)];
+
+/* 1. Exact standing spot: centred on the furniture, feet on its base line, always in front.
+      Wall-mounted pieces (frame, window, shelf...) get a spot on the floor directly beneath. */
+window.getFurniturePos=function(sel,fx,fb){
+  fx=(typeof fx==='number')?fx:50; fb=(typeof fb==='number')?fb:15;
+  const el=typeof sel==='string'?document.querySelector(sel):sel;
+  const room=$$('room');
+  const fall=()=>{const d=depthFromBottom(fb,el||null);return{x:fx,bottom:fb,scale:d.scale,zIndex:d.zIndex};};
+  if(!el||!room)return fall();
+  const rr=room.getBoundingClientRect(),er=el.getBoundingClientRect();
+  if(rr.width<1||rr.height<1||er.width<1||er.height<1)return fall();
+  let floorTop=40;
+  const fl=$$('roomFloor');
+  if(fl){const fr=fl.getBoundingClientRect();if(fr.height>1)floorTop=(rr.bottom-fr.top)/rr.height*100;}
+  const x=clamp(((er.left+er.width/2)-rr.left)/rr.width*100,10,90);
+  const base=(rr.bottom-er.bottom)/rr.height*100;
+  const bottom=(base>=floorTop-3)?clamp(floorTop*0.42,8,24):clamp(base-2,5,Math.max(6,floorTop-4));
+  const d=depthFromBottom(bottom,el);
+  return{x:x,bottom:bottom,scale:d.scale,zIndex:d.zIndex};
+};
+
+/* 2. Walking speed is constant, so short hops are quick and long walks look natural */
+const _move=window.movePetTo;
+window.movePetTo=function(percent,duration,bottomPercent,depthScale){
+  const pet=$$('pet');
+  percent=clamp(percent,10,90);
+  if(!pet)return _move(percent,duration,bottomPercent,depthScale);
+  const cx=parseFloat(pet.style.left),cb=parseFloat(pet.style.bottom);
+  const dx=Number.isFinite(cx)?Math.abs(percent-cx):30;
+  const dy=(typeof bottomPercent==='number'&&Number.isFinite(cb))?Math.abs(bottomPercent-cb):0;
+  const dur=clamp(Math.hypot(dx*1.0,dy*1.4)*30,450,2200);
+  return _move(percent,dur,bottomPercent,depthScale);
+};
+
+/* 3. Every furniture tap: Mochi first walks directly in front of it, then does the activity */
+const ROOM_NAME=id=>{const r=ROOMS.find(x=>x.id===id);return r?r.name.toLowerCase():id;};
+const _fi=window.furnitureInteraction;
+window.furnitureInteraction=async function(type){
+  const el=window.__clickedFurn;window.__clickedFurn=null;
+  if(!gameData||mgActive)return _fi(type);
+  const pet=$$('pet');
+  if(el&&el.isConnected&&pet){
+    if(isAnimating){isAnimating=false;clearTimeout(animationWatchdog);}
+    const pos=getFurniturePos(el,50,15);
+    const cx=parseFloat(pet.style.left),cb=parseFloat(pet.style.bottom);
+    const off=!Number.isFinite(cx)||Math.abs(cx-pos.x)>1.5||!Number.isFinite(cb)||Math.abs(cb-pos.bottom)>1.5;
+    if(off){
+      isAnimating=true;startWatchdog();
+      pet.className='pet walking';
+      await movePetTo(pos.x,0,pos.bottom,pos.scale);
+      isAnimating=false;clearTimeout(animationWatchdog);
+    }
+  }
+  const roomId=currentRoomId;
+  await _fi(type);
+  if(!gameData||currentRoomId!==roomId)return;
+  /* progression: the more Mochi plays with a room's things, the more he loves it */
+  const uses=((gameData.roomUses||{})[roomId]||0)+1;
+  try{db.ref('tamagotchi/roomUses/'+roomId).set(uses);}catch(e){}
+  const MS={5:[10,'is getting comfy in'],15:[25,'really loves'],40:[60,'calls home']};
+  if(MS[uses]){
+    try{db.ref('tamagotchi/coins').set((gameData.coins||0)+MS[uses][0]);}catch(e){}
+    showToast('💛 Mochi '+MS[uses][1]+' the '+ROOM_NAME(roomId)+'! +'+MS[uses][0]+' 🪙');
+    if(typeof spawnConfetti==='function')spawnConfetti(12);
+  }
+};
+
+/* 4. Mochi reacts to every room he enters; first visit of each room is a discovery */
+const ROOM_REACT={
+ bedroom:['so cozy in here~','my favourite pillow!'],
+ bathroom:['bubbles, bubbles!','squeaky clean time!'],
+ kitchen:['something smells yummy!','snack inspection!'],
+ garden:['flowers! so many flowers!','sunshine on my scales~'],
+ forest:['the trees whisper hello','adventure time!'],
+ playroom:['toys!! everywhere!!','let the games begin!'],
+ farm:['hello, farm friends!','fresh air and hay~'],
+ observatory:['so many stars up there!','stargazing time!'],
+ cloudnest:['soft as a cloud!','I can touch the sky!'],
+ starcove:['the stars are right here!','a whole galaxy for me!']
+};
+const _room=window.moveMochiToRoom;
+window.moveMochiToRoom=async function(id,o){
+  const prev=currentRoomId;
+  await _room(id,o);
+  if(currentRoomId!==id||id===prev||!gameData)return;
+  await sleep(1100);
+  if(isAnimating||currentView!=='home'||currentRoomId!==id)return;
+  showBubble(pick(ROOM_REACT[id]||['!']),'🚪');
+  const pet=$$('pet');
+  if(pet&&!ambientPlaying&&!/sleeping|eating/.test(pet.className)){pet.className='pet hopping';await sleep(1100);if(!isAnimating&&!ambientPlaying)setPetClass();}
+  if(!(gameData.visited||{})[id]){
+    try{db.ref('tamagotchi/visited/'+id).set(true);db.ref('tamagotchi/coins').set((gameData.coins||0)+15);}catch(e){}
+    showToast('New room discovered: '+ROOM_NAME(id)+'! +15 🪙');
+    if(typeof spawnConfetti==='function')spawnConfetti(10);
+  }
+};
+
+/* 5. Curiosity: sometimes he strolls over to a piece of furniture, stands in front of it and comments */
+const OBJ=[[/bed|cushion|tent|logseat|bench/,'a perfect spot for a nap'],[/lamp|lantern|campfire/,'ooh, warm and glowy!'],[/fridge|counter|spice|feeder|table|barn/,'sniff sniff... yummy!'],[/tree|flower|plant|crop|mushroom|stump|scarecrow|chicken/,'hello, little friend!'],[/piano|easel|toy|block|ball|train|playmat/,'I want to play with this!'],[/mirror|frame|clock|wardrobe/,'looking good!'],[/telescope|starchart|globe|meteor/,'the sky is so big!'],[/tub|sink|toilet|towel|fountain|well/,'splish splash!']];
+const _amb=window.runAmbientBehavior;
+window.runAmbientBehavior=async function(){
+  if(isAnimating||ambientPlaying||!gameData||document.hidden||mgActive||Math.random()>0.4)return _amb();
+  if(document.querySelector('.choice-overlay.active,.daily-overlay.active'))return;
+  const items=[...document.querySelectorAll('#room .furniture')].filter(e=>e.offsetWidth>0);
+  if(!items.length)return _amb();
+  const el=pick(items),pet=$$('pet');
+  ambientPlaying=true;
+  try{
+    const pos=getFurniturePos(el,50,15);
+    pet.className='pet walking';
+    await movePetTo(pos.x,0,pos.bottom,pos.scale);
+    pet.className='pet watching';
+    const hit=OBJ.find(r=>r[0].test(String(el.className)+' '+(el.dataset.fid||'')));
+    showBubble(hit?hit[1]:'hmm, what is this?','👀');
+    await sleep(2600);
+    setPetClass();
+  }catch(e){}
+  ambientPlaying=false;renderCache.petMood='';
+  const sh=$$('petShadow');if(sh&&pet)sh.style.left=pet.style.left;
+};
+
+/* 6. Sometimes drawn to a room he has not seen yet */
+const _want=window.pickDesiredRoom;
+window.pickDesiredRoom=function(){
+  const r=_want();
+  if(r!==currentRoomId||!gameData||Math.random()>0.3)return r;
+  const seen=gameData.visited||{},lvl=gameData.level||1;
+  const fresh=ROOMS.filter(x=>lvl>=x.reqLevel&&!seen[x.id]&&x.id!==currentRoomId);
+  return fresh.length?pick(fresh).id:r;
+};
 })();
 </script>
 </body>
