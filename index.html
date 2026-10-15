@@ -10763,162 +10763,177 @@ window.pickDesiredRoom=function(){
 </script>
 
 <script>
-/* ===== MOCHI v3 POLISH: precise furniture stand points, arrival bounce, ambient sparkles, richer reactions ===== */
-(function(){
-'use strict';
-const $$ = id => document.getElementById(id);
-const sleep = ms => new Promise(r => setTimeout(r, ms));
-const clamp = (v,a,b) => Math.max(a, Math.min(b, v));
-const pick = a => a[Math.floor(Math.random()*a.length)];
+/* ============================================================
+   PWA: service worker registration + install prompt
+   ============================================================ */
+(function initPWA() {
+  let deferredInstallPrompt = null;
+  let swRegistration = null;
+  let refreshing = false;
 
-/* Ambient sparkles for chill atmosphere */
-function ensureRoomAmbient() {
-  const room = $$('room');
-  if (!room) return;
-  let amb = room.querySelector('.room-ambient');
-  if (!amb) {
-    amb = document.createElement('div');
-    amb.className = 'room-ambient';
-    room.appendChild(amb);
+  function isIOS() {
+    return /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
   }
-  if (amb.childElementCount > 0) return;
-  for (let i = 0; i < 7; i++) {
-    const s = document.createElement('div');
-    s.className = 'room-sparkle';
-    s.style.left = (8 + Math.random()*84) + '%';
-    s.style.bottom = (5 + Math.random()*40) + '%';
-    s.style.setProperty('--sx', (Math.random()*30 - 15) + 'px');
-    s.style.animationDelay = (Math.random()*7) + 's';
-    s.style.animationDuration = (6.5 + Math.random()*4) + 's';
-    amb.appendChild(s);
-  }
-}
-
-/* Refined stand position: feet on floor plane, centred in front of furniture, always in front layer */
-const _getPos = window.getFurniturePos;
-window.getFurniturePos = function(sel, fx, fb) {
-  fx = (typeof fx === 'number') ? fx : 50;
-  fb = (typeof fb === 'number') ? fb : 15;
-  const el = typeof sel === 'string' ? document.querySelector(sel) : sel;
-  const room = $$('room');
-  const fall = () => {
-    const d = (typeof depthFromBottom === 'function') ? depthFromBottom(fb, el||null) : {scale:1, zIndex:20};
-    return { x: fx, bottom: fb, scale: d.scale, zIndex: d.zIndex };
-  };
-  if (!el || !room) return fall();
-  const rr = room.getBoundingClientRect(), er = el.getBoundingClientRect();
-  if (rr.width < 1 || rr.height < 1 || er.width < 1 || er.height < 1) return fall();
-
-  let floorTop = 40;
-  const fl = $$('roomFloor');
-  if (fl) {
-    const fr = fl.getBoundingClientRect();
-    if (fr.height > 1) floorTop = (rr.bottom - fr.top) / rr.height * 100;
+  function isStandalone() {
+    return window.matchMedia('(display-mode: standalone)').matches ||
+           window.navigator.standalone === true;
   }
 
-  // Centre X on furniture, slightly biased toward room centre so Mochi doesn't clip edges
-  let x = ((er.left + er.width / 2) - rr.left) / rr.width * 100;
-  x = clamp(x, 12, 88);
+  // Register service worker
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('./service-worker.js')
+        .then(reg => {
+          swRegistration = reg;
+          console.log('[PWA] Service worker registered:', reg.scope);
 
-  // Place feet just in front of the furniture base (or on floor under wall items)
-  const base = (rr.bottom - er.bottom) / rr.height * 100;
-  let bottom;
-  if (base >= floorTop - 4) {
-    // wall-mounted: stand on floor beneath
-    bottom = clamp(floorTop * 0.38, 9, 22);
-  } else {
-    // floor furniture: stand a touch in front of its base
-    bottom = clamp(base + 1.5, 7, Math.max(8, floorTop - 3));
+          reg.addEventListener('updatefound', () => {
+            const nw = reg.installing;
+            if (!nw) return;
+            nw.addEventListener('statechange', () => {
+              if (nw.state === 'installed' && navigator.serviceWorker.controller) {
+                console.log('[PWA] New version ready');
+                showInstallHint('update');
+              }
+            });
+          });
+        })
+        .catch(err => console.warn('[PWA] SW registration failed:', err));
+
+      navigator.serviceWorker.addEventListener('controllerchange', () => {
+        if (refreshing) return;
+        refreshing = true;
+        window.location.reload();
+      });
+    });
   }
 
-  const d = (typeof depthFromBottom === 'function') ? depthFromBottom(bottom, el) : {scale:1, zIndex:22};
-  // Always keep pet in front of the furniture it is interacting with
-  const zIndex = Math.max(d.zIndex, 22);
-  return { x, bottom, scale: d.scale, zIndex };
-};
+  // Capture install prompt
+  window.addEventListener('beforeinstallprompt', e => {
+    e.preventDefault();
+    deferredInstallPrompt = e;
+    console.log('[PWA] Install prompt available');
+    showInstallHint('available');
+  });
 
-/* Arrival bounce helper */
-async function arriveAt(pos) {
-  const pet = $$('pet');
-  if (!pet) return;
-  pet.className = 'pet walking';
-  await window.movePetTo(pos.x, 0, pos.bottom, pos.scale);
-  pet.classList.remove('walking');
-  pet.classList.add('arrive-bounce');
-  await sleep(520);
-  pet.classList.remove('arrive-bounce');
-}
+  window.addEventListener('appinstalled', () => {
+    deferredInstallPrompt = null;
+    console.log('[PWA] App installed');
+    hideInstallHint();
+  });
 
-/* Wrap furniture interaction for glow + precise walk + bounce */
-const _fi = window.furnitureInteraction;
-window.furnitureInteraction = async function(type) {
-  const el = window.__clickedFurn;
-  window.__clickedFurn = null;
-  if (!gameData || (typeof mgActive !== 'undefined' && mgActive)) {
-    return _fi ? _fi(type) : undefined;
-  }
-
-  const pet = $$('pet');
-  if (el && el.isConnected && pet) {
-    if (typeof isAnimating !== 'undefined' && isAnimating) {
-      isAnimating = false;
-      if (typeof animationWatchdog !== 'undefined') clearTimeout(animationWatchdog);
+  function promptInstall() {
+    if (deferredInstallPrompt) {
+      deferredInstallPrompt.prompt();
+      deferredInstallPrompt.userChoice.then(choice => {
+        if (choice.outcome === 'accepted') {
+          console.log('[PWA] Install accepted');
+        }
+        deferredInstallPrompt = null;
+        hideInstallHint();
+      });
+    } else if (isStandalone()) {
+      if (typeof showToast === 'function') showToast('🐉 Mochi\\'s Room is already installed!');
+    } else if (isIOS()) {
+      if (typeof showToast === 'function') {
+        showToast('📱 Tap Share → Add to Home Screen');
+      }
+    } else {
+      if (typeof showToast === 'function') {
+        showToast('Open browser menu → Install app');
+      }
     }
-    const pos = window.getFurniturePos(el, 50, 15);
-    const cx = parseFloat(pet.style.left);
-    const cb = parseFloat(pet.style.bottom);
-    const off = !Number.isFinite(cx) || Math.abs(cx - pos.x) > 1.2 ||
-                !Number.isFinite(cb) || Math.abs(cb - pos.bottom) > 1.2;
-    if (off) {
-      isAnimating = true;
-      if (typeof startWatchdog === 'function') startWatchdog();
-      await arriveAt(pos);
-      isAnimating = false;
-      if (typeof animationWatchdog !== 'undefined') clearTimeout(animationWatchdog);
-    }
-    // Glow the furniture while interacting
-    el.classList.add('interacting');
-    setTimeout(() => el.classList.remove('interacting'), 900);
+  }
+  window.promptInstall = promptInstall;
+
+  // Floating install hint button
+  let hintEl = null;
+  function showInstallHint(kind) {
+    if (hintEl || isStandalone()) return;
+    hintEl = document.createElement('button');
+    hintEl.id = 'pwaInstallHint';
+    hintEl.style.cssText = `
+      position: fixed;
+      bottom: 18px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #8B6F5E;
+      color: white;
+      border: 3px solid #FDF6EE;
+      padding: 10px 18px;
+      font-family: 'Fredoka', sans-serif;
+      font-weight: 600;
+      font-size: 0.85rem;
+      border-radius: 24px;
+      box-shadow: 0 4px 0 #6B4F3E, 0 8px 20px rgba(74,63,58,0.35);
+      cursor: pointer;
+      z-index: 9998;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      animation: hintBounce 0.6s cubic-bezier(0.34,1.56,0.64,1);
+    `;
+    hintEl.innerHTML = kind === 'update'
+      ? '✨ Update available — tap to refresh'
+      : '📱 Install Mochi\\'s Room';
+    hintEl.addEventListener('click', () => {
+      if (kind === 'update') {
+        if (swRegistration && swRegistration.waiting) {
+          swRegistration.waiting.postMessage({ type: 'SKIP_WAITING' });
+        } else {
+          window.location.reload();
+        }
+      } else {
+        promptInstall();
+      }
+    });
+    // Add animation keyframes
+    const style = document.createElement('style');
+    style.textContent = `
+      @keyframes hintBounce {
+        0% { transform: translateX(-50%) translateY(80px); opacity: 0; }
+        100% { transform: translateX(-50%) translateY(0); opacity: 1; }
+      }
+    `;
+    document.head.appendChild(style);
+    document.body.appendChild(hintEl);
+
+    // Auto-hide after 12s if user ignores
+    setTimeout(() => { if (hintEl) hideInstallHint(); }, 12000);
   }
 
-  if (_fi) await _fi(type);
-};
-
-/* Soft ambient sparkles + ensure they exist after room changes */
-const _room = window.moveMochiToRoom;
-if (_room) {
-  window.moveMochiToRoom = async function(id, o) {
-    await _room(id, o);
-    setTimeout(ensureRoomAmbient, 400);
-  };
-}
-
-/* Kick off ambient when game loads */
-function bootPolish() {
-  ensureRoomAmbient();
-  // Re-seed sparkles occasionally so they feel alive
-  setInterval(() => {
-    const amb = document.querySelector('.room-ambient');
-    if (!amb || document.hidden) return;
-    // refresh a couple of sparkles
-    const kids = [...amb.children];
-    if (kids.length) {
-      const s = kids[Math.floor(Math.random()*kids.length)];
-      s.style.left = (8 + Math.random()*84) + '%';
-      s.style.bottom = (5 + Math.random()*40) + '%';
-      s.style.setProperty('--sx', (Math.random()*30 - 15) + 'px');
+  function hideInstallHint() {
+    if (hintEl) {
+      hintEl.style.transition = 'opacity 0.3s, transform 0.3s';
+      hintEl.style.opacity = '0';
+      hintEl.style.transform = 'translateX(-50%) translateY(80px)';
+      setTimeout(() => { if (hintEl) { hintEl.remove(); hintEl = null; } }, 320);
     }
-  }, 12000);
-}
+  }
 
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', () => setTimeout(bootPolish, 800));
-} else {
-  setTimeout(bootPolish, 800);
-}
+  // Online/offline notifications
+  window.addEventListener('offline', () => {
+    if (typeof showToast === 'function') showToast('📴 Offline — Mochi is resting');
+  });
+  window.addEventListener('online', () => {
+    if (typeof showToast === 'function') showToast('🌿 Back online!');
+  });
 
-/* Also run after a short delay in case Firebase loads later */
-setTimeout(bootPolish, 2500);
+  // Deep link support (?action=feed, ?action=notes)
+  window.addEventListener('load', () => {
+    const params = new URLSearchParams(location.search);
+    const action = params.get('action');
+    if (!action) return;
+    setTimeout(() => {
+      if (action === 'notes') {
+        const tab = document.querySelector('.nav-tab[data-view="notes"]');
+        if (tab) tab.click();
+      } else if (action === 'feed') {
+        const btn = document.querySelector('.action-btn[data-action="feed"]');
+        if (btn) btn.click();
+      }
+    }, 2500);
+  });
 })();
 </script>
 
