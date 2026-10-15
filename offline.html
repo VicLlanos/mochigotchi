@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#F4D9C8">
+<title>Offline · Mochi's Room</title>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Fredoka:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  html, body { height: 100%; }
+  body {
+    font-family: 'Fredoka', sans-serif;
+    background: linear-gradient(180deg, #F4D9C8 0%, #E8C9B8 50%, #D9B8A8 100%);
+    min-height: 100vh; min-height: 100dvh;
+    display: flex; align-items: center; justify-content: center;
+    padding: 20px;
+    color: #4A3F3A;
+  }
+  .card {
+    background: #FDF6EE;
+    border: 4px solid #8B6F5E;
+    border-radius: 10px;
+    padding: 32px 24px;
+    max-width: 380px;
+    width: 100%;
+    text-align: center;
+    box-shadow: 0 6px 0 #8B6F5E, 0 14px 28px rgba(74,63,58,0.25);
+  }
+  .emoji {
+    font-size: 4rem; line-height: 1; margin-bottom: 12px;
+    animation: bob 2.4s ease-in-out infinite;
+    display: inline-block;
+    filter: drop-shadow(0 6px 6px rgba(139,111,94,0.25));
+  }
+  @keyframes bob {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-8px) rotate(3deg); }
+  }
+  h1 {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 0.9rem;
+    color: #8B6F5E;
+    margin-bottom: 12px;
+    line-height: 1.5;
+  }
+  p {
+    font-size: 0.9rem;
+    color: #A89080;
+    margin-bottom: 20px;
+    line-height: 1.5;
+  }
+  .btn {
+    background: #8B6F5E; color: white; border: none;
+    padding: 14px 26px; font-size: 0.9rem;
+    font-family: 'Fredoka', sans-serif; font-weight: 600;
+    border-radius: 6px; cursor: pointer;
+    box-shadow: 0 4px 0 #6B4F3E; transition: all 0.1s;
+    width: 100%;
+  }
+  .btn:active { transform: translateY(3px); box-shadow: 0 1px 0 #6B4F3E; }
+  .footer {
+    margin-top: 18px;
+    font-size: 0.7rem;
+    color: #C9B0A0;
+  }
+</style>
+</head>
+<body>
+  <div class="card">
+    <div class="emoji">🐉</div>
+    <h1>MOCHI IS SLEEPING</h1>
+    <p>You're offline right now. Mochi's Room will wake up as soon as you reconnect — your progress is safely stored online.</p>
+    <button class="btn" onclick="location.reload()">TRY AGAIN</button>
+    <div class="footer">🌿 Koy & Metz</div>
+  </div>
+</body>
+</html>
