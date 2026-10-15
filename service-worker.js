@@ -1,10 +1,62 @@
-/* Mochi's Room — Service Worker
-   - Pre-caches the app shell
-   - Runtime-caches CDN assets (Firebase, Google Fonts)
-   - Falls back to offline.html when navigation fails
-*/
+/* Mochi's Room — Service Worker with FCM + offline caching */
 
-const VERSION = 'mochi-v1.0.0';
+importScripts('https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js');
+importScripts('https://www.gstatic.com/firebasejs/9.23.0/firebase-messaging-compat.js');
+
+firebase.initializeApp({
+  apiKey: "AIzaSyCpxlMZiAcJwI2RuNTJ14jSaHhV-nBcW7A",
+  authDomain: "mochigotchi.firebaseapp.com",
+  databaseURL: "https://mochigotchi-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "mochigotchi",
+  storageBucket: "mochigotchi.firebasestorage.app",
+  messagingSenderId: "441429859962",
+  appId: "1:441429859962:web:d0a5e1af080bb394a725c3"
+});
+
+const messaging = firebase.messaging();
+
+/* ---------- Background push handler ---------- */
+messaging.onBackgroundMessage((payload) => {
+  console.log('[SW] Background message received:', payload);
+
+  const title = (payload.notification && payload.notification.title) || "🐉 Mochi's Room";
+  const body = (payload.notification && payload.notification.body) || 'Something happened!';
+  const icon = (payload.notification && payload.notification.icon) || './icon-192.png';
+
+  const options = {
+    body: body,
+    icon: icon,
+    badge: './icon-192.png',
+    tag: (payload.data && payload.data.tag) || 'mochi-diary',
+    data: payload.data || {},
+    vibrate: [100, 50, 100],
+    requireInteraction: false,
+    renotify: false
+  };
+
+  self.registration.showNotification(title, options);
+});
+
+/* ---------- Handle notification tap ---------- */
+self.addEventListener('notificationclick', (event) => {
+  event.notification.close();
+
+  event.waitUntil(
+    clients.matchAll({ type: 'window', includeUncontrolled: true }).then((clientList) => {
+      for (const client of clientList) {
+        if (client.url.includes('index.html') && 'focus' in client) {
+          return client.focus();
+        }
+      }
+      if (clients.openWindow) {
+        return clients.openWindow('./index.html');
+      }
+    })
+  );
+});
+
+/* ---------- Offline caching ---------- */
+const VERSION = 'mochi-v1.0.1';
 const APP_SHELL_CACHE = `mochi-shell-${VERSION}`;
 const RUNTIME_CACHE = `mochi-runtime-${VERSION}`;
 
@@ -45,22 +97,25 @@ self.addEventListener('activate', event => {
 });
 
 self.addEventListener('fetch', event => {
-  const { request } = event;
+  const request = event.request;
   if (request.method !== 'GET') return;
 
   const url = new URL(request.url);
   const isSameOrigin = url.origin === self.location.origin;
   const isCDN = CDN_ORIGINS.some(o => url.href.startsWith(o));
 
-  // Firebase realtime database — always go to network (never cache)
-  if (url.hostname.includes('firebaseio.com') || url.hostname.includes('firebasedatabase.app')) {
+  // Firebase realtime DB + FCM endpoints — never cache
+  if (url.hostname.includes('firebaseio.com') ||
+      url.hostname.includes('firebasedatabase.app') ||
+      url.hostname.includes('fcmregistrations.googleapis.com') ||
+      url.hostname.includes('firebaseinstallations.googleapis.com')) {
     return;
   }
 
   if (!isSameOrigin && !isCDN) return;
   if (!url.protocol.startsWith('http')) return;
 
-  // Navigation requests — network-first with offline fallback
+  // Navigation — network-first with offline fallback
   if (request.mode === 'navigate') {
     event.respondWith(
       fetch(request)
@@ -78,7 +133,7 @@ self.addEventListener('fetch', event => {
     return;
   }
 
-  // Same-origin static assets — cache-first
+  // Same-origin assets — cache-first
   if (isSameOrigin) {
     event.respondWith(
       caches.match(request).then(cached => {
