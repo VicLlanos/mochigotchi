@@ -6,6 +6,7 @@
 <meta name="theme-color" content="#F4D9C8">
 <meta name="color-scheme" content="light">
 <title>Mochi's Room 🌿 - Koy & Metz</title>
+
 <!-- ===== PWA ===== -->
 <link rel="manifest" href="manifest.json">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='96' fill='%23F4D9C8'/%3E%3Crect x='24' y='24' width='464' height='464' rx='72' fill='none' stroke='%238B6F5E' stroke-width='16'/%3E%3Ctext x='256' y='340' font-size='280' text-anchor='middle'%3E%F0%9F%90%89%3C/text%3E%3C/svg%3E">
@@ -5617,9 +5618,11 @@ $('loginBtn').addEventListener('click', () => {
   ensureAudio();
   sfxGood();
 
-  me = selectedRole;
-  localStorage.setItem('mochi_role', me);
-  localStorage.setItem('mochi_pin', pin);
+me = selectedRole;
+window.me = me;
+window.db = db;
+localStorage.setItem('mochi_role', me);
+localStorage.setItem('mochi_pin', pin);
   myLastSeen = parseInt(localStorage.getItem('mochi_last_' + me)) || 0;
 
   $('pinScreen').style.display = 'none';
@@ -5632,8 +5635,15 @@ $('loginBtn').addEventListener('click', () => {
   startPresenceHeartbeat();
   startAutoCleanLoop();
   startMoodParticleLoop();
-  startWanderLoop();
+ startWanderLoop();
   setTimeout(() => startOnboarding(), 600);
+
+  // Ask for notification permission after a short delay
+  setTimeout(() => {
+    if (typeof window.showNotificationBanner === 'function') {
+      window.showNotificationBanner();
+    }
+  }, 4000);
 });
 
 /* ============================================================
@@ -10622,154 +10632,17 @@ document.addEventListener('visibilitychange', () => {
 })();
 </script>
 <script>
-/* ===== MOCHI v2: stands in front of furniture, speed-true walking, room reactions, progression ===== */
-(function(){
-'use strict';
-const $$=id=>document.getElementById(id);
-const sleep=ms=>new Promise(r=>setTimeout(r,ms));
-const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
-const pick=a=>a[Math.floor(Math.random()*a.length)];
-
-/* 1. Exact standing spot: centred on the furniture, feet on its base line, always in front.
-      Wall-mounted pieces (frame, window, shelf...) get a spot on the floor directly beneath. */
-window.getFurniturePos=function(sel,fx,fb){
-  fx=(typeof fx==='number')?fx:50; fb=(typeof fb==='number')?fb:15;
-  const el=typeof sel==='string'?document.querySelector(sel):sel;
-  const room=$$('room');
-  const fall=()=>{const d=depthFromBottom(fb,el||null);return{x:fx,bottom:fb,scale:d.scale,zIndex:d.zIndex};};
-  if(!el||!room)return fall();
-  const rr=room.getBoundingClientRect(),er=el.getBoundingClientRect();
-  if(rr.width<1||rr.height<1||er.width<1||er.height<1)return fall();
-  let floorTop=40;
-  const fl=$$('roomFloor');
-  if(fl){const fr=fl.getBoundingClientRect();if(fr.height>1)floorTop=(rr.bottom-fr.top)/rr.height*100;}
-  const x=clamp(((er.left+er.width/2)-rr.left)/rr.width*100,10,90);
-  const base=(rr.bottom-er.bottom)/rr.height*100;
-  const bottom=(base>=floorTop-3)?clamp(floorTop*0.42,8,24):clamp(base-2,5,Math.max(6,floorTop-4));
-  const d=depthFromBottom(bottom,el);
-  return{x:x,bottom:bottom,scale:d.scale,zIndex:d.zIndex};
-};
-
-/* 2. Walking speed is constant, so short hops are quick and long walks look natural */
-const _move=window.movePetTo;
-window.movePetTo=function(percent,duration,bottomPercent,depthScale){
-  const pet=$$('pet');
-  percent=clamp(percent,10,90);
-  if(!pet)return _move(percent,duration,bottomPercent,depthScale);
-  const cx=parseFloat(pet.style.left),cb=parseFloat(pet.style.bottom);
-  const dx=Number.isFinite(cx)?Math.abs(percent-cx):30;
-  const dy=(typeof bottomPercent==='number'&&Number.isFinite(cb))?Math.abs(bottomPercent-cb):0;
-  const dur=clamp(Math.hypot(dx*1.0,dy*1.4)*30,450,2200);
-  return _move(percent,dur,bottomPercent,depthScale);
-};
-
-/* 3. Every furniture tap: Mochi first walks directly in front of it, then does the activity */
-const ROOM_NAME=id=>{const r=ROOMS.find(x=>x.id===id);return r?r.name.toLowerCase():id;};
-const _fi=window.furnitureInteraction;
-window.furnitureInteraction=async function(type){
-  const el=window.__clickedFurn;window.__clickedFurn=null;
-  if(!gameData||mgActive)return _fi(type);
-  const pet=$$('pet');
-  if(el&&el.isConnected&&pet){
-    if(isAnimating){isAnimating=false;clearTimeout(animationWatchdog);}
-    const pos=getFurniturePos(el,50,15);
-    const cx=parseFloat(pet.style.left),cb=parseFloat(pet.style.bottom);
-    const off=!Number.isFinite(cx)||Math.abs(cx-pos.x)>1.5||!Number.isFinite(cb)||Math.abs(cb-pos.bottom)>1.5;
-    if(off){
-      isAnimating=true;startWatchdog();
-      pet.className='pet walking';
-      await movePetTo(pos.x,0,pos.bottom,pos.scale);
-      isAnimating=false;clearTimeout(animationWatchdog);
-    }
-  }
-  const roomId=currentRoomId;
-  await _fi(type);
-  if(!gameData||currentRoomId!==roomId)return;
-  /* progression: the more Mochi plays with a room's things, the more he loves it */
-  const uses=((gameData.roomUses||{})[roomId]||0)+1;
-  try{db.ref('tamagotchi/roomUses/'+roomId).set(uses);}catch(e){}
-  const MS={5:[10,'is getting comfy in'],15:[25,'really loves'],40:[60,'calls home']};
-  if(MS[uses]){
-    try{db.ref('tamagotchi/coins').set((gameData.coins||0)+MS[uses][0]);}catch(e){}
-    showToast('💛 Mochi '+MS[uses][1]+' the '+ROOM_NAME(roomId)+'! +'+MS[uses][0]+' 🪙');
-    if(typeof spawnConfetti==='function')spawnConfetti(12);
-  }
-};
-
-/* 4. Mochi reacts to every room he enters; first visit of each room is a discovery */
-const ROOM_REACT={
- bedroom:['so cozy in here~','my favourite pillow!'],
- bathroom:['bubbles, bubbles!','squeaky clean time!'],
- kitchen:['something smells yummy!','snack inspection!'],
- garden:['flowers! so many flowers!','sunshine on my scales~'],
- forest:['the trees whisper hello','adventure time!'],
- playroom:['toys!! everywhere!!','let the games begin!'],
- farm:['hello, farm friends!','fresh air and hay~'],
- observatory:['so many stars up there!','stargazing time!'],
- cloudnest:['soft as a cloud!','I can touch the sky!'],
- starcove:['the stars are right here!','a whole galaxy for me!']
-};
-const _room=window.moveMochiToRoom;
-window.moveMochiToRoom=async function(id,o){
-  const prev=currentRoomId;
-  await _room(id,o);
-  if(currentRoomId!==id||id===prev||!gameData)return;
-  await sleep(1100);
-  if(isAnimating||currentView!=='home'||currentRoomId!==id)return;
-  showBubble(pick(ROOM_REACT[id]||['!']),'🚪');
-  const pet=$$('pet');
-  if(pet&&!ambientPlaying&&!/sleeping|eating/.test(pet.className)){pet.className='pet hopping';await sleep(1100);if(!isAnimating&&!ambientPlaying)setPetClass();}
-  if(!(gameData.visited||{})[id]){
-    try{db.ref('tamagotchi/visited/'+id).set(true);db.ref('tamagotchi/coins').set((gameData.coins||0)+15);}catch(e){}
-    showToast('New room discovered: '+ROOM_NAME(id)+'! +15 🪙');
-    if(typeof spawnConfetti==='function')spawnConfetti(10);
-  }
-};
-
-/* 5. Curiosity: sometimes he strolls over to a piece of furniture, stands in front of it and comments */
-const OBJ=[[/bed|cushion|tent|logseat|bench/,'a perfect spot for a nap'],[/lamp|lantern|campfire/,'ooh, warm and glowy!'],[/fridge|counter|spice|feeder|table|barn/,'sniff sniff... yummy!'],[/tree|flower|plant|crop|mushroom|stump|scarecrow|chicken/,'hello, little friend!'],[/piano|easel|toy|block|ball|train|playmat/,'I want to play with this!'],[/mirror|frame|clock|wardrobe/,'looking good!'],[/telescope|starchart|globe|meteor/,'the sky is so big!'],[/tub|sink|toilet|towel|fountain|well/,'splish splash!']];
-const _amb=window.runAmbientBehavior;
-window.runAmbientBehavior=async function(){
-  if(isAnimating||ambientPlaying||!gameData||document.hidden||mgActive||Math.random()>0.4)return _amb();
-  if(document.querySelector('.choice-overlay.active,.daily-overlay.active'))return;
-  const items=[...document.querySelectorAll('#room .furniture')].filter(e=>e.offsetWidth>0);
-  if(!items.length)return _amb();
-  const el=pick(items),pet=$$('pet');
-  ambientPlaying=true;
-  try{
-    const pos=getFurniturePos(el,50,15);
-    pet.className='pet walking';
-    await movePetTo(pos.x,0,pos.bottom,pos.scale);
-    pet.className='pet watching';
-    const hit=OBJ.find(r=>r[0].test(String(el.className)+' '+(el.dataset.fid||'')));
-    showBubble(hit?hit[1]:'hmm, what is this?','👀');
-    await sleep(2600);
-    setPetClass();
-  }catch(e){}
-  ambientPlaying=false;renderCache.petMood='';
-  const sh=$$('petShadow');if(sh&&pet)sh.style.left=pet.style.left;
-};
-
-/* 6. Sometimes drawn to a room he has not seen yet */
-const _want=window.pickDesiredRoom;
-window.pickDesiredRoom=function(){
-  const r=_want();
-  if(r!==currentRoomId||!gameData||Math.random()>0.3)return r;
-  const seen=gameData.visited||{},lvl=gameData.level||1;
-  const fresh=ROOMS.filter(x=>lvl>=x.reqLevel&&!seen[x.id]&&x.id!==currentRoomId);
-  return fresh.length?pick(fresh).id:r;
-};
-})();
-</script>
-
-<script>
 /* ============================================================
-   PWA: service worker registration + install prompt
+   PWA + FCM — service worker, install prompt, push notifications
    ============================================================ */
-(function initPWA() {
+(function initPWAandFCM() {
+
+  const VAPID_KEY = 'BPRevIs8EW3J0CfGP32MNIVwG3pIwzkYJv2OWOd5lN1r6oj1xD3eaiu9Q10wyr8-H6teV0Vn8OEssIcZIYJMYg0';
+
   let deferredInstallPrompt = null;
   let swRegistration = null;
   let refreshing = false;
+  let fcmToken = null;
 
   function isIOS() {
     return /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
@@ -10778,8 +10651,11 @@ window.pickDesiredRoom=function(){
     return window.matchMedia('(display-mode: standalone)').matches ||
            window.navigator.standalone === true;
   }
+  function isAndroid() {
+    return /Android/i.test(navigator.userAgent);
+  }
 
-  // Register service worker
+  /* ---------- Service worker registration ---------- */
   if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
       navigator.serviceWorker.register('./service-worker.js')
@@ -10808,7 +10684,7 @@ window.pickDesiredRoom=function(){
     });
   }
 
-  // Capture install prompt
+  /* ---------- Install prompt handling ---------- */
   window.addEventListener('beforeinstallprompt', e => {
     e.preventDefault();
     deferredInstallPrompt = e;
@@ -10820,20 +10696,21 @@ window.pickDesiredRoom=function(){
     deferredInstallPrompt = null;
     console.log('[PWA] App installed');
     hideInstallHint();
+    if (isAndroid() && window.me) {
+      setTimeout(() => requestMochiNotifications(), 2000);
+    }
   });
 
   function promptInstall() {
     if (deferredInstallPrompt) {
       deferredInstallPrompt.prompt();
       deferredInstallPrompt.userChoice.then(choice => {
-        if (choice.outcome === 'accepted') {
-          console.log('[PWA] Install accepted');
-        }
+        if (choice.outcome === 'accepted') console.log('[PWA] Install accepted');
         deferredInstallPrompt = null;
         hideInstallHint();
       });
     } else if (isStandalone()) {
-      if (typeof showToast === 'function') showToast('🐉 Mochi\\'s Room is already installed!');
+      if (typeof showToast === 'function') showToast("🐉 Mochi's Room is already installed!");
     } else if (isIOS()) {
       if (typeof showToast === 'function') {
         showToast('📱 Tap Share → Add to Home Screen');
@@ -10846,36 +10723,36 @@ window.pickDesiredRoom=function(){
   }
   window.promptInstall = promptInstall;
 
-  // Floating install hint button
+  /* ---------- Floating hint button ---------- */
   let hintEl = null;
   function showInstallHint(kind) {
     if (hintEl || isStandalone()) return;
     hintEl = document.createElement('button');
     hintEl.id = 'pwaInstallHint';
-    hintEl.style.cssText = `
-      position: fixed;
-      bottom: 18px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: #8B6F5E;
-      color: white;
-      border: 3px solid #FDF6EE;
-      padding: 10px 18px;
-      font-family: 'Fredoka', sans-serif;
-      font-weight: 600;
-      font-size: 0.85rem;
-      border-radius: 24px;
-      box-shadow: 0 4px 0 #6B4F3E, 0 8px 20px rgba(74,63,58,0.35);
-      cursor: pointer;
-      z-index: 9998;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      animation: hintBounce 0.6s cubic-bezier(0.34,1.56,0.64,1);
-    `;
+    hintEl.style.cssText = [
+      'position: fixed',
+      'bottom: 18px',
+      'left: 50%',
+      'transform: translateX(-50%)',
+      'background: #8B6F5E',
+      'color: white',
+      'border: 3px solid #FDF6EE',
+      'padding: 10px 18px',
+      "font-family: 'Fredoka', sans-serif",
+      'font-weight: 600',
+      'font-size: 0.85rem',
+      'border-radius: 24px',
+      'box-shadow: 0 4px 0 #6B4F3E, 0 8px 20px rgba(74,63,58,0.35)',
+      'cursor: pointer',
+      'z-index: 9998',
+      'display: flex',
+      'align-items: center',
+      'gap: 8px',
+      'animation: hintBounce 0.6s cubic-bezier(0.34,1.56,0.64,1)'
+    ].join(';');
     hintEl.innerHTML = kind === 'update'
       ? '✨ Update available — tap to refresh'
-      : '📱 Install Mochi\\'s Room';
+      : "📱 Install Mochi's Room";
     hintEl.addEventListener('click', () => {
       if (kind === 'update') {
         if (swRegistration && swRegistration.waiting) {
@@ -10887,18 +10764,10 @@ window.pickDesiredRoom=function(){
         promptInstall();
       }
     });
-    // Add animation keyframes
     const style = document.createElement('style');
-    style.textContent = `
-      @keyframes hintBounce {
-        0% { transform: translateX(-50%) translateY(80px); opacity: 0; }
-        100% { transform: translateX(-50%) translateY(0); opacity: 1; }
-      }
-    `;
+    style.textContent = '@keyframes hintBounce { 0% { transform: translateX(-50%) translateY(80px); opacity: 0; } 100% { transform: translateX(-50%) translateY(0); opacity: 1; } }';
     document.head.appendChild(style);
     document.body.appendChild(hintEl);
-
-    // Auto-hide after 12s if user ignores
     setTimeout(() => { if (hintEl) hideInstallHint(); }, 12000);
   }
 
@@ -10911,7 +10780,133 @@ window.pickDesiredRoom=function(){
     }
   }
 
-  // Online/offline notifications
+  /* ============================================================
+     FCM — request permission and save token to Firebase
+     ============================================================ */
+  window.requestMochiNotifications = async function () {
+    if (!('Notification' in window)) {
+      console.log('[FCM] Notification API not supported');
+      return null;
+    }
+    if (!window.me) {
+      console.log('[FCM] User not logged in yet');
+      return null;
+    }
+
+    try {
+      const permission = await Notification.requestPermission();
+      if (permission !== 'granted') {
+        console.log('[FCM] Permission denied');
+        return null;
+      }
+
+      const registration = await navigator.serviceWorker.ready;
+
+      if (!firebase || !firebase.messaging) {
+        console.warn('[FCM] Firebase messaging not loaded');
+        return null;
+      }
+
+      const messaging = firebase.messaging();
+      const token = await messaging.getToken({
+        vapidKey: VAPID_KEY,
+        serviceWorkerRegistration: registration
+      });
+
+      if (!token) {
+        console.log('[FCM] No token available');
+        return null;
+      }
+
+      console.log('[FCM] Token obtained:', token.slice(0, 20) + '...');
+      fcmToken = token;
+
+      if (window.db && window.me) {
+        await window.db.ref('tamagotchi/fcmTokens/' + window.me).set({
+          token: token,
+          updatedAt: Date.now(),
+          platform: isIOS() ? 'ios' : (isAndroid() ? 'android' : 'desktop')
+        });
+        console.log('[FCM] Token saved for', window.me);
+      }
+
+      return token;
+    } catch (err) {
+      console.error('[FCM] Error:', err);
+      return null;
+    }
+  };
+
+  /* ---------- Foreground message handler ---------- */
+  window.addEventListener('load', () => {
+    if (!firebase || !firebase.messaging) return;
+    try {
+      const messaging = firebase.messaging();
+      messaging.onMessage((payload) => {
+        console.log('[FCM] Foreground message:', payload);
+        const title = payload.notification && payload.notification.title || 'Mochi';
+        const body = payload.notification && payload.notification.body || '';
+        if (typeof showToast === 'function') {
+          showToast(title + ' — ' + body);
+        }
+        if (typeof sfxGood === 'function') sfxGood();
+      });
+    } catch (e) {
+      console.warn('[FCM] Foreground handler failed:', e);
+    }
+  });
+
+  /* ---------- Permission prompt banner ---------- */
+  window.showNotificationBanner = function () {
+    if (!('Notification' in window)) return;
+    if (Notification.permission === 'granted') {
+      window.requestMochiNotifications();
+      return;
+    }
+    if (Notification.permission === 'denied') return;
+    if (document.getElementById('notifPromptBanner')) return;
+
+    const banner = document.createElement('button');
+    banner.id = 'notifPromptBanner';
+    banner.style.cssText = [
+      'position: fixed',
+      'bottom: 80px',
+      'left: 50%',
+      'transform: translateX(-50%)',
+      'background: #8B6F5E',
+      'color: white',
+      'border: 3px solid #FDF6EE',
+      'padding: 12px 20px',
+      "font-family: 'Fredoka', sans-serif",
+      'font-weight: 600',
+      'font-size: 0.9rem',
+      'border-radius: 24px',
+      'box-shadow: 0 4px 0 #6B4F3E, 0 8px 20px rgba(74,63,58,0.35)',
+      'cursor: pointer',
+      'z-index: 9997',
+      'display: flex',
+      'align-items: center',
+      'gap: 8px',
+      'animation: hintBounce 0.6s cubic-bezier(0.34,1.56,0.64,1)'
+    ].join(';');
+    banner.innerHTML = '🔔 Get diary updates';
+
+    banner.addEventListener('click', async () => {
+      if (isIOS() && !isStandalone()) {
+        if (typeof showToast === 'function') {
+          showToast('📱 Install to Home Screen first for notifications');
+        }
+        banner.remove();
+        return;
+      }
+      await window.requestMochiNotifications();
+      banner.remove();
+    });
+    document.body.appendChild(banner);
+    setTimeout(() => banner.remove(), 15000);
+  };
+
+  /* ---------- Online/offline toasts ---------- */
   window.addEventListener('offline', () => {
     if (typeof showToast === 'function') showToast('📴 Offline — Mochi is resting');
   });
@@ -10919,7 +10914,7 @@ window.pickDesiredRoom=function(){
     if (typeof showToast === 'function') showToast('🌿 Back online!');
   });
 
-  // Deep link support (?action=feed, ?action=notes)
+  /* ---------- Deep link support ---------- */
   window.addEventListener('load', () => {
     const params = new URLSearchParams(location.search);
     const action = params.get('action');
