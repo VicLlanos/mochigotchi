@@ -5,12 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
 <meta name="theme-color" content="#F4D9C8">
 <meta name="color-scheme" content="light">
-<title>Mochi's Room 🌿 - Koy & Metz</title>
+<title>Mochi's Room 🐶 - Koy & Metz</title>
 
 <!-- ===== PWA ===== -->
 <link rel="manifest" href="manifest.json">
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='96' fill='%23F4D9C8'/%3E%3Crect x='24' y='24' width='464' height='464' rx='72' fill='none' stroke='%238B6F5E' stroke-width='16'/%3E%3Ctext x='256' y='340' font-size='280' text-anchor='middle'%3E%F0%9F%90%89%3C/text%3E%3C/svg%3E">
-<link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='96' fill='%23F4D9C8'/%3E%3Crect x='24' y='24' width='464' height='464' rx='72' fill='none' stroke='%238B6F5E' stroke-width='16'/%3E%3Ctext x='256' y='340' font-size='280' text-anchor='middle'%3E%F0%9F%90%89%3C/text%3E%3C/svg%3E">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='96' fill='%23F4D9C8'/%3E%3Crect x='24' y='24' width='464' height='464' rx='72' fill='none' stroke='%238B6F5E' stroke-width='16'/%3E%3Ctext x='256' y='340' font-size='280' text-anchor='middle'%3E%F0%9F%90%B6%3C/text%3E%3C/svg%3E">
+<link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='96' fill='%23F4D9C8'/%3E%3Crect x='24' y='24' width='464' height='464' rx='72' fill='none' stroke='%238B6F5E' stroke-width='16'/%3E%3Ctext x='256' y='340' font-size='280' text-anchor='middle'%3E%F0%9F%90%B6%3C/text%3E%3C/svg%3E">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="Mochi's Room">
@@ -438,7 +438,7 @@
   }
 
   /* ============================================================
-     GREEN TOOTHLESS-INSPIRED DRAGON (original CSS silhouette)
+     CUTE FLUFFY DOG (original CSS silhouette)
      Sleek head, large eyes, ear-fins, membrane wings, finned tail
      ============================================================ */
   .pet-body {
@@ -1457,6 +1457,117 @@
   @keyframes needBounce {
     0%, 100% { transform: translateX(-50%) translateY(0); }
     50% { transform: translateX(-50%) translateY(-5px); }
+  }
+
+
+  /* ===== DOG THEME OVERRIDES ===== */
+  .pet-wing, .pet-horn, .pet-halo { display: none !important; }
+  .pet-ear {
+    display: block !important;
+    width: 16px !important; height: 20px !important;
+    background: var(--pet-color, #E8C9A0) !important;
+    border: 2.5px solid var(--pet-outline, #8B6F5E) !important;
+    border-radius: 50% 50% 40% 60% !important;
+    top: 2px !important;
+  }
+  .pet-ear-l { left: -6px !important; transform: rotate(-25deg) !important; border-radius: 60% 40% 50% 70% !important; }
+  .pet-ear-r { right: -6px !important; transform: rotate(25deg) !important; border-radius: 40% 60% 70% 50% !important; }
+  .pet-tail {
+    display: block !important;
+    width: 18px !important; height: 22px !important;
+    background: var(--pet-color, #E8C9A0) !important;
+    border: 3px solid var(--pet-outline, #8B6F5E) !important;
+    border-radius: 40% 60% 50% 40% !important;
+    left: 50% !important; margin-left: 10px !important;
+    bottom: 14px !important;
+    animation: tailWag 0.8s ease-in-out infinite !important;
+  }
+  .pet-tail::after { display: none !important; }
+  .pet-snout {
+    width: 16px !important; height: 10px !important;
+    background: var(--pet-belly, #FFF5E8) !important;
+    border: 2px solid var(--pet-outline, #8B6F5E) !important;
+    border-radius: 50% !important;
+    bottom: 6px !important;
+  }
+  .pet-snout::before, .pet-snout::after {
+    width: 3px !important; height: 3px !important;
+    background: #3A2E28 !important;
+    top: 3px !important;
+  }
+  .pet-body {
+    background: var(--pet-color, #E8C9A0) !important;
+    border-color: var(--pet-outline, #8B6F5E) !important;
+  }
+  .pet-torso {
+    background: var(--pet-color, #E8C9A0) !important;
+    border-color: var(--pet-outline, #8B6F5E) !important;
+  }
+  .pet-arm, .pet-foot {
+    background: var(--pet-color, #E8C9A0) !important;
+    border-color: var(--pet-outline, #8B6F5E) !important;
+  }
+  .pet-belly {
+    background: var(--pet-belly, #FFF5E8) !important;
+    border-color: var(--pet-outline, #8B6F5E) !important;
+  }
+  /* Stage color overrides for dog fur tones */
+  .pet[data-stage="hatchling"] {
+    --pet-color: #F0D8B8; --pet-color-dark: #D4B890; --pet-outline: #8B6F5E;
+    --pet-belly: #FFF8F0; --pet-horn: #F0D8B8; --pet-wing: #E8C9A0;
+  }
+  .pet[data-stage="sprout"] {
+    --pet-color: #E8C9A0; --pet-color-dark: #C9A878; --pet-outline: #8B6F5E;
+    --pet-belly: #FFF5E8; --pet-horn: #E8C9A0; --pet-wing: #D4B890;
+  }
+  .pet[data-stage="sapling"] {
+    --pet-color: #D4B090; --pet-color-dark: #B89070; --pet-outline: #6B4F3E;
+    --pet-belly: #FFF0E0; --pet-horn: #D4B090; --pet-wing: #C9A878;
+  }
+  .pet[data-stage="bloom"] {
+    --pet-color: #E8A0B8; --pet-color-dark: #C07090; --pet-outline: #5A3040;
+    --pet-belly: #FFF0F4; --pet-horn: #E8C090; --pet-wing: #F0C0D0;
+  }
+  .pet[data-stage="guardian"] {
+    --pet-color: #A89070; --pet-color-dark: #8B6F5E; --pet-outline: #4A3F3A;
+    --pet-belly: #F5EDE0; --pet-horn: #C9A044; --pet-wing: #C9B0A0;
+  }
+  .pet[data-stage="mystic"] {
+    --pet-color: #B8A0E0; --pet-color-dark: #7A5AB0; --pet-outline: #3A2858;
+    --pet-belly: #F4F0FC; --pet-horn: #E8D090; --pet-wing: #D0C0F0;
+  }
+  .pet[data-stage="eternal"] {
+    --pet-color: #F0D878; --pet-color-dark: #D4AF37; --pet-outline: #6B5A20;
+    --pet-belly: #FFFBF0; --pet-horn: #F0D060; --pet-wing: #FFE8A0;
+  }
+  /* New action animations for dog */
+  .pet.barking {
+    animation: barkBounce 0.4s ease-in-out infinite;
+  }
+  @keyframes barkBounce {
+    0%, 100% { transform: translateX(-50%) scale(1, 1); }
+    50% { transform: translateX(-50%) scale(1.06, 0.96); }
+  }
+  .pet.barking .pet-mouth {
+    width: 14px; height: 12px; border-radius: 50%;
+  }
+  .pet.fetching {
+    animation: fetchHop 0.5s ease-in-out infinite;
+  }
+  @keyframes fetchHop {
+    0%, 100% { transform: translateX(-50%) translateY(0) rotate(-3deg); }
+    50% { transform: translateX(-50%) translateY(-10px) rotate(3deg); }
+  }
+  .pet.rolling {
+    animation: rollOver 0.7s ease-in-out infinite;
+  }
+  @keyframes rollOver {
+    0% { transform: translateX(-50%) rotate(0deg); }
+    50% { transform: translateX(-50%) rotate(180deg) translateY(8px); }
+    100% { transform: translateX(-50%) rotate(360deg); }
+  }
+  .pet.singing .pet-mouth {
+    width: 14px; height: 12px; border-radius: 50%;
   }
 
   /* ============================================================
@@ -3412,9 +3523,13 @@
   }
 
   /* ============================================================
-     VECTOR DRAGON — SVG body + wardrobe anchors + stage growth
+     VECTOR DOG — SVG body + wardrobe anchors + stage growth
      ============================================================ */
   .pet-dragon { display: none; }
+
+  .pet-dragon .dg-wl, .pet-dragon .dg-wr, .pet-dragon .dg-flame, .pet-dragon .dg-breath { display: none !important; opacity: 0 !important; }
+  .pet-dragon .dg-tail { animation: dgWag 0.7s ease-in-out infinite !important; }
+
   .pet:not([data-stage="egg"]) .pet-dragon {
     display: block; position: absolute; z-index: 4; pointer-events: none;
     width: 113px; height: 101px; left: 50%; margin-left: -57px; top: 2px; overflow: visible;
@@ -3512,10 +3627,10 @@
   }
 
   /* Default paint */
-  .pet-dragon .dg-o { stroke: var(--dg-outline, #2f5d4a); stroke-width: 5; stroke-linejoin: round; stroke-linecap: round; }
-  .pet-dragon .dg-red { fill: var(--dg-main, #7fd69a); }
-  .pet-dragon .dg-dk { fill: var(--dg-dark, #4fae78); }
-  .pet-dragon .dg-cr { fill: var(--dg-cream, #fff0c4); }
+  .pet-dragon .dg-o { stroke: var(--dg-outline, #8B6F5E); stroke-width: 5; stroke-linejoin: round; stroke-linecap: round; }
+  .pet-dragon .dg-red { fill: var(--dg-main, #E8C9A0); }
+  .pet-dragon .dg-dk { fill: var(--dg-dark, #C9A878); }
+  .pet-dragon .dg-cr { fill: var(--dg-cream, #FFF5E8); }
   .pet-dragon .dg-breath { opacity: 0; }
 
   .pet-dragon .dg-wl { transform-box: fill-box; transform-origin: 100% 60%; animation: dgFlapL 1.6s ease-in-out infinite; }
@@ -4183,7 +4298,7 @@
 
 
 
-/* ===== ETERNAL+ DRAGON: gold-armoured, crowned, winged ===== */
+/* ===== ETERNAL+ DOG: gold-trimmed, crowned, fluffy ===== */
 .pet-dragon-eternal{display:none}
 .pet:not([data-stage="eternal"]):not([data-stage="aurora"]):not([data-stage="celestial"]) svg.pet-dragon.pet-dragon-eternal{display:none!important}
 .pet[data-stage="eternal"] svg.pet-dragon:not(.pet-dragon-eternal),
@@ -4787,21 +4902,21 @@ body::after {
 
       <div class="actions">
         <div class="action-section-label">CARE</div>
-        <button class="action-btn" data-action="feed"><span class="emoji">🍚</span><span class="label">FEED</span></button>
+        <button class="action-btn" data-action="feed"><span class="emoji">🍖</span><span class="label">FEED</span></button>
         <button class="action-btn" data-action="sleep"><span class="emoji">🌙</span><span class="label">SLEEP</span></button>
         <button class="action-btn" data-action="bath"><span class="emoji">💧</span><span class="label">BATH</span></button>
         <button class="action-btn" data-action="pet"><span class="emoji">🤲</span><span class="label">PET</span></button>
         <button class="action-btn" data-action="clean"><span class="emoji">🧹</span><span class="label">CLEAN</span></button>
-        <button class="action-btn" data-action="play"><span class="emoji">🎈</span><span class="label">PLAY</span></button>
-        <button class="actions-more-btn" id="actionsMoreBtn" type="button">▼ DRAGON MOVES & MINI-GAME</button>
+        <button class="action-btn" data-action="play"><span class="emoji">🎾</span><span class="label">PLAY</span></button>
+        <button class="actions-more-btn" id="actionsMoreBtn" type="button">▼ DOG TRICKS & MINI-GAME</button>
         <div class="dragon-actions collapsed" id="dragonActions">
-        <div class="action-section-label">DRAGON</div>
-        <button class="action-btn" data-action="sing"><span class="emoji">🎤</span><span class="label">SING</span></button>
+        <div class="action-section-label">DOG TRICKS</div>
+        <button class="action-btn" data-action="sing"><span class="emoji">🎵</span><span class="label">HOWL</span></button>
         <button class="action-btn" data-action="dance"><span class="emoji">💃</span><span class="label">DANCE</span></button>
-        <button class="action-btn" data-action="fly"><span class="emoji">🪽</span><span class="label">FLY</span></button>
-        <button class="action-btn" data-action="fire"><span class="emoji">🔥</span><span class="label">FIRE</span></button>
-        <button class="action-btn" data-action="roar"><span class="emoji">📣</span><span class="label">ROAR</span></button>
-        <button class="action-btn" data-action="dig"><span class="emoji">🕳️</span><span class="label">DIG</span></button>
+        <button class="action-btn" data-action="bark"><span class="emoji">🗣️</span><span class="label">BARK</span></button>
+        <button class="action-btn" data-action="fetch"><span class="emoji">🎾</span><span class="label">FETCH</span></button>
+        <button class="action-btn" data-action="roll"><span class="emoji">🔄</span><span class="label">ROLL</span></button>
+        <button class="action-btn" data-action="dig"><span class="emoji">🦴</span><span class="label">DIG</span></button>
         <button class="action-btn" data-action="minigame" style="grid-column: span 3; background: linear-gradient(180deg, #FFF9C8, #F0E0A0); border-color: #C9A044;">
           <span class="emoji">🫧</span><span class="label">BUBBLE POP MINI-GAME</span>
         </button>
@@ -4855,7 +4970,7 @@ body::after {
     </div>
 
     <button class="btn small" id="logoutBtn" style="background:#B8A898; box-shadow:0 4px 0 #8B6F5E; margin:0 12px 8px; font-size:0.75rem;">SWITCH USER</button>
-    <p class="footer" id="presenceFooter">Made with care for Mochi 🌿</p>
+    <p class="footer" id="presenceFooter">Made with care for Mochi 🐶</p>
   </div>
 
 </div>
@@ -4954,16 +5069,16 @@ const DAILY_REWARDS = [
 ];
 
 const STAGES = [
-  { level: 1,  name: 'EGG',       emoji: '🥚', key: 'egg',       scale: 0.72, hue: 0,   desc: 'Warm shell. Something tiny is dreaming inside.' },
-  { level: 5,  name: 'HATCHLING', emoji: '🐣', key: 'hatchling', scale: 0.82, hue: 8,   desc: 'Freshly cracked. Soft scales, big eyes, tiny wings.' },
-  { level: 10, name: 'SPROUT',    emoji: '🌱', key: 'sprout',    scale: 0.90, hue: 25,  desc: 'A cute little sprout dragon. Soft scales, budding wings, and endless curiosity.' },
-  { level: 15, name: 'SAPLING',   emoji: '🍃', key: 'sapling',   scale: 0.98, hue: 40,  desc: 'Stronger limbs. Learning little dragon tricks.' },
-  { level: 20, name: 'BLOOM',     emoji: '🌸', key: 'bloom',     scale: 1.05, hue: -10, desc: 'Petals of scale-shine. Playful and proud.' },
-  { level: 25, name: 'GUARDIAN',  emoji: '🐉', key: 'guardian',  scale: 1.12, hue: -25, desc: 'Young guardian. Protective of their room.' },
-  { level: 30, name: 'MYSTIC',    emoji: '✨', key: 'mystic',    scale: 1.18, hue: 200, desc: 'Star-dusted wings. Hears the night sky.' },
-  { level: 35, name: 'ETERNAL',   emoji: '👑', key: 'eternal',   scale: 1.25, hue: 280, desc: 'Little eternal dragon. Bond of Koy & Metz.' },
-  { level: 45, name: 'AURORA',    emoji: '🌌', key: 'aurora',    scale: 1.32, hue: 260, desc: 'Northern-light scales. Rare form of devotion.' },
-  { level: 55, name: 'CELESTIAL', emoji: '🌟', key: 'celestial', scale: 1.40, hue: 45,  desc: 'Celestial Mochi. The room becomes a constellation.' }
+  { level: 1,  name: 'EGG',       emoji: '🥚', key: 'egg',       scale: 0.72, hue: 0,   desc: 'A warm little egg. Something fluffy is dreaming inside.' },
+  { level: 5,  name: 'PUPPY',     emoji: '🐶', key: 'hatchling', scale: 0.82, hue: 8,   desc: 'Freshly hatched puppy! Soft fur, big eyes, tiny paws.' },
+  { level: 10, name: 'Sprout Pup', emoji: '🐾', key: 'sprout',    scale: 0.90, hue: 25,  desc: 'A curious little dog. Soft coat, wagging tail, endless energy.' },
+  { level: 15, name: 'Playful',   emoji: '🦴', key: 'sapling',   scale: 0.98, hue: 40,  desc: 'Stronger legs. Learning tricks and loving belly rubs.' },
+  { level: 20, name: 'Bloom',     emoji: '🌸', key: 'bloom',     scale: 1.05, hue: -10, desc: 'Fluffy and proud. Loves to run and fetch.' },
+  { level: 25, name: 'Guardian',  emoji: '🐕', key: 'guardian',  scale: 1.12, hue: -25, desc: 'Loyal guardian. Protective of their home and humans.' },
+  { level: 30, name: 'Mystic',    emoji: '✨', key: 'mystic',    scale: 1.18, hue: 200, desc: 'Star-dusted fur. Hears the night and howls softly.' },
+  { level: 35, name: 'Eternal',   emoji: '👑', key: 'eternal',   scale: 1.25, hue: 280, desc: 'Little eternal companion. Bond of Koy & Metz.' },
+  { level: 45, name: 'Aurora',    emoji: '🌌', key: 'aurora',    scale: 1.32, hue: 260, desc: 'Northern-light fur. Rare form of devotion.' },
+  { level: 55, name: 'Celestial', emoji: '🌟', key: 'celestial', scale: 1.40, hue: 45,  desc: 'Celestial Mochi. The room becomes a constellation of paws.' }
 ];
 
 const ROOMS = [
@@ -4980,33 +5095,33 @@ const ROOMS = [
 ];
 
 const ACTIONS = {
-  feed:  { stat: 'hunger', amount: 25, xp: 2, verb: 'fed',              emoji: '🍚', prefRoom: 'kitchen' },
-  play:  { stat: 'happy',  amount: 22, xp: 3, verb: 'played with',      emoji: '🎈', prefRoom: 'playroom', cost: { energy: 8 } },
+  feed:  { stat: 'hunger', amount: 25, xp: 2, verb: 'fed',              emoji: '🍖', prefRoom: 'kitchen' },
+  play:  { stat: 'happy',  amount: 22, xp: 3, verb: 'played with',      emoji: '🎾', prefRoom: 'playroom', cost: { energy: 8 } },
   sleep: { stat: 'energy', amount: 30, xp: 2, verb: 'tucked in',        emoji: '🌙', prefRoom: 'bedroom' },
   bath:  { stat: 'clean',  amount: 30, xp: 2, verb: 'bathed',           emoji: '💧', prefRoom: 'bathroom' },
   pet:   { stat: 'happy',  amount: 8,  xp: 1, verb: 'petted',           emoji: '🤲', prefRoom: null },
   clean: { stat: 'clean',  amount: 15, xp: 2, verb: 'cleaned up after', emoji: '🧹', prefRoom: 'bathroom' },
-  sing:  { stat: 'happy',  amount: 18, xp: 3, verb: 'sang with',        emoji: '🎤', prefRoom: 'playroom', cost: { energy: 4 } },
+  sing:  { stat: 'happy',  amount: 18, xp: 3, verb: 'howled with',      emoji: '🎵', prefRoom: 'playroom', cost: { energy: 4 } },
   dance: { stat: 'happy',  amount: 20, xp: 3, verb: 'danced with',      emoji: '💃', prefRoom: 'playroom', cost: { energy: 6 } },
-  fly:   { stat: 'happy',  amount: 16, xp: 4, verb: 'flew with',        emoji: '🪽', prefRoom: 'garden',   cost: { energy: 10 } },
-  fire:  { stat: 'happy',  amount: 14, xp: 4, verb: 'trained fire with', emoji: '🔥', prefRoom: 'garden',  cost: { energy: 8 } },
-  roar:  { stat: 'happy',  amount: 12, xp: 3, verb: 'roared with',      emoji: '📣', prefRoom: null,      cost: { energy: 5 } },
-  dig:   { stat: 'happy',  amount: 10, xp: 2, verb: 'dug with',         emoji: '🕳️', prefRoom: 'farm',    cost: { energy: 6, clean: 4 } }
+  bark:  { stat: 'happy',  amount: 16, xp: 4, verb: 'barked with',      emoji: '🗣️', prefRoom: 'garden',   cost: { energy: 6 } },
+  fetch: { stat: 'happy',  amount: 18, xp: 4, verb: 'played fetch with', emoji: '🎾', prefRoom: 'garden',  cost: { energy: 10 } },
+  roll:  { stat: 'happy',  amount: 14, xp: 3, verb: 'rolled over for',  emoji: '🔄', prefRoom: null,      cost: { energy: 5 } },
+  dig:   { stat: 'happy',  amount: 10, xp: 2, verb: 'dug with',         emoji: '🦴', prefRoom: 'farm',    cost: { energy: 6, clean: 4 } }
 };
 
 const WANTS = [
-  { id: 'feed',  emoji: '🍚', text: 'wants food!',     action: 'feed' },
-  { id: 'play',  emoji: '🎈', text: 'wants to play!',  action: 'play' },
+  { id: 'feed',  emoji: '🍖', text: 'wants food!',     action: 'feed' },
+  { id: 'play',  emoji: '🎾', text: 'wants to play!',  action: 'play' },
   { id: 'sleep', emoji: '🌙', text: 'is sleepy',       action: 'sleep' },
   { id: 'bath',  emoji: '💧', text: 'wants a bath!',   action: 'bath' },
   { id: 'pet',   emoji: '🤲', text: 'wants cuddles!',  action: 'pet' },
   { id: 'clean', emoji: '🧹', text: 'wants tidying!',  action: 'clean' },
-  { id: 'sing',  emoji: '🎤', text: 'wants to sing!',  action: 'sing' },
+  { id: 'sing',  emoji: '🎵', text: 'wants to howl!',  action: 'sing' },
   { id: 'dance', emoji: '💃', text: 'wants to dance!', action: 'dance' },
-  { id: 'fly',   emoji: '🪽', text: 'wants to fly!',   action: 'fly' },
-  { id: 'fire',  emoji: '🔥', text: 'wants to practice fire!', action: 'fire' },
-  { id: 'roar',  emoji: '📣', text: 'wants to roar!',  action: 'roar' },
-  { id: 'dig',   emoji: '🕳️', text: 'wants to dig!',   action: 'dig' }
+  { id: 'bark',  emoji: '🗣️', text: 'wants to bark!',  action: 'bark' },
+  { id: 'fetch', emoji: '🎾', text: 'wants to fetch!', action: 'fetch' },
+  { id: 'roll',  emoji: '🔄', text: 'wants to roll!',  action: 'roll' },
+  { id: 'dig',   emoji: '🦴', text: 'wants to dig!',   action: 'dig' }
 ];
 
 const AMBIENT_BEHAVIORS = {
@@ -5508,7 +5623,7 @@ async function moveMochiToRoom(roomId, opts = {}) {
       setTimeout(() => outBadge.remove(), 900);
       sfxWalk();
 
-      pet.className = 'pet flying leaving';
+      pet.className = 'pet hopping leaving';
       pet.style.left = '110%';
       pet.style.bottom = '35%';
       await new Promise(r => setTimeout(r, 900));
@@ -5533,13 +5648,13 @@ async function moveMochiToRoom(roomId, opts = {}) {
     petEl.style.left = '50%';
     petEl.style.bottom = '15%';
     petEl.style.transition = 'none';
-    petEl.className = 'pet flying arriving';
+    petEl.className = 'pet hopping arriving';
     setTimeout(() => {
       petEl.style.bottom = '15%';
       setPetClass(); // land as sitting dragon
     }, 850);
 
-    if (!opts.noToast) showToast('Mochi walked to the ' + room.name.toLowerCase() + ' ' + room.emoji);
+    if (!opts.noToast) showToast('Mochi trotted to the ' + room.name.toLowerCase() + ' ' + room.emoji);
   }
 }
 
@@ -6076,7 +6191,7 @@ function applyRoom(force) {
         floorEl.style.background = 'repeating-linear-gradient(90deg, #C9B078 0px, #C9B078 18px, #B89860 18px, #B89860 20px)';
         $('roomBadge').textContent = '🌾 FARM';
         break;
-      case 'cloudnest':
+      case 'doghouse':
         wallEl.style.background = 'linear-gradient(180deg, #B8D4F0 0%, #D8E8F8 45%, #F0F6FC 100%)';
         wallEl.innerHTML = `<div style="position:absolute;inset:0;background-image:
           radial-gradient(ellipse at 20% 40%, rgba(255,255,255,0.85) 0%, transparent 42%),
@@ -8172,7 +8287,7 @@ async function interactRoomCampfire(pet) {
   pet.className = 'pet walking';
   await movePetTo(pos.x, 900, pos.bottom, pos.scale);
   pet.className = 'pet watching';
-  showBubble('toasty!', '🔥');
+  showBubble('got it!', '🎾');
   sfxOpen();
   await new Promise(r => setTimeout(r, 2000));
   pet.className = 'pet walking';
@@ -8452,7 +8567,7 @@ function placeRoomItem(type) {
 
 async function useRoomItem(itemId) {
   if (!gameData) return;
-  if (isAnimating) return showToast('Let Mochi finish 🌿');
+  if (isAnimating) return showToast('Let Mochi finish 🐶');
 
   const items = gameData.roomItems || {};
   const item = items[itemId];
@@ -8880,9 +8995,9 @@ function renderRooms() {
     if (unlocked && !isActive) {
       card.addEventListener('click', async () => {
         sfxClick();
-        if (isAnimating) return showToast('Let Mochi finish 🌿');
+        if (isAnimating) return showToast('Let Mochi finish 🐶');
         await moveMochiToRoom(room.id, { noToast: true });
-        showToast('Mochi walked to the ' + room.name.toLowerCase() + '! ' + room.emoji);
+        showToast('Mochi trotted to the ' + room.name.toLowerCase() + '! ' + room.emoji);
       });
     }
     grid.appendChild(card);
@@ -9279,7 +9394,7 @@ function renderPresence() {
   else if (diffMin < 60) label = `${Math.floor(diffMin)}m ago`;
   else if (diffMin < 1440) label = `${Math.floor(diffMin/60)}h ago`;
   else label = `${Math.floor(diffMin/1440)}d ago`;
-  $('presenceFooter').innerHTML = `${dot} ${otherName} ${label} · Made with care for Mochi 🌿`;
+  $('presenceFooter').innerHTML = `${dot} ${otherName} ${label} · Made with care for Mochi 🐶`;
 }
 
 function checkStreak() {
@@ -9525,7 +9640,7 @@ function playActionAnimation(name) {
           await movePetTo(28, 1200);
           pet.className = 'pet happy eating';
           for (let i = 0; i < 3; i++) setTimeout(() => floatHearts(1), i * 400);
-          showBubble('nom nom!', '🍚');
+          showBubble('nom nom!', '🍖');
           await new Promise(r => setTimeout(r, 1500));
           pet.className = 'pet walking';
           await movePetTo(50, 1200, 15, 1);
@@ -9536,7 +9651,7 @@ function playActionAnimation(name) {
         case 'play': {
           const ball = addProp('🎈', 'prop-ball', { right: '25%' });
           pet.className = 'pet happy';
-          showBubble('wheee!', '🎈');
+          showBubble('wheee!', '🎾');
           floatHearts(6);
           await new Promise(r => setTimeout(r, 2000));
           ball.remove();
@@ -9641,10 +9756,10 @@ function playActionAnimation(name) {
           pet.className = 'pet walking';
           await movePetTo(50, 600, 18, 1);
           pet.className = 'pet singing';
-          showBubble('la la la~', '🎤');
+          showBubble('awooo~', '🎵');
           floatHearts(2);
           for (let i = 0; i < 4; i++) {
-            setTimeout(() => showBubble(['do', 're', 'mi', 'fa~'][i], '🎵'), i * 450);
+            setTimeout(() => showBubble(['awoo', 'woo', 'awooo', 'ruff~'][i], '🎵'), i * 450);
           }
           await new Promise(r => setTimeout(r, 2200));
           setPetClass();
@@ -9663,29 +9778,29 @@ function playActionAnimation(name) {
           setPetClass();
           break;
         }
-        case 'fly': {
+        case 'bark': {
           pet.className = 'pet walking';
           await movePetTo(50, 500, 20, 1);
-          pet.className = 'pet flying';
-          showBubble('up up!', '🪽');
+          pet.className = 'pet barking';
+          showBubble('woof woof!', '🗣️');
           floatHearts(2);
           await new Promise(r => setTimeout(r, 2500));
           pet.className = 'pet hopping';
-          showBubble('soft landing!', '✨');
+          showBubble('good dog!', '✨');
           await new Promise(r => setTimeout(r, 700));
           setPetClass();
           break;
         }
-        case 'fire': {
+        case 'fetch': {
           pet.className = 'pet walking';
           await movePetTo(55, 600, 16, 1);
-          pet.className = 'pet firebreath';
-          showBubble('FWOOSH!', '🔥');
-          // Fire particles
+          pet.className = 'pet fetching';
+          showBubble('go get it!', '🎾');
+          // Fetch particles (ball / stars)
           for (let i = 0; i < 5; i++) {
             setTimeout(() => {
               const f = document.createElement('div');
-              f.textContent = ['🔥','🧡','✨'][i % 3];
+              f.textContent = ['🎾','⭐','✨'][i % 3];
               f.style.cssText = 'position:absolute;left:58%;bottom:40px;font-size:1.2rem;pointer-events:none;z-index:40;transition:all 0.6s ease-out;';
               $('petArea')?.appendChild(f);
               requestAnimationFrame(() => {
@@ -9697,32 +9812,32 @@ function playActionAnimation(name) {
           }
           await new Promise(r => setTimeout(r, 2200));
           pet.className = 'pet happy';
-          showBubble('toasty!', '🔥');
+          showBubble('got it!', '🎾');
           await new Promise(r => setTimeout(r, 600));
           setPetClass();
           break;
         }
-        case 'roar': {
+        case 'roll': {
           pet.className = 'pet walking';
           await movePetTo(50, 500, 16, 1);
-          pet.className = 'pet roaring';
-          showBubble('RAWR!!', '📣');
+          pet.className = 'pet rolling';
+          showBubble('roll over!', '🔄');
           floatHearts(1);
           await new Promise(r => setTimeout(r, 1800));
           pet.className = 'pet happy';
-          showBubble('scary?', '🐉');
+          showBubble('good boy!', '🐶');
           await new Promise(r => setTimeout(r, 600));
           setPetClass();
           break;
         }
         case 'dig': {
-          pet.className = 'pet flying';
+          pet.className = 'pet walking';
           await movePetTo(40, 700, 14, 1);
           pet.className = 'pet hopping';
-          showBubble('dig dig...', '🕳️');
+          showBubble('dig dig...', '🦴');
           await new Promise(r => setTimeout(r, 900));
           pet.className = 'pet happy';
-          showBubble('found something!', '✨');
+          showBubble('found a bone!', '🦴');
           floatHearts(2);
           await new Promise(r => setTimeout(r, 1000));
           setPetClass();
@@ -9891,8 +10006,8 @@ document.querySelectorAll('.action-btn').forEach(btn => {
 });
 
 async function doAction(name) {
-  if (!gameData) return showToast('Loading Mochi... 🌿');
-  if (isAnimating) return showToast('Let Mochi finish 🌿');
+  if (!gameData) return showToast('Loading Mochi... 🐶');
+  if (isAnimating) return showToast('Let Mochi finish 🐶');
   if (mgActive) return showToast('Finish the mini-game first! 🫧');
   if (Date.now() - lastActionAt < 1500) return showToast('A moment between care 🌿');
   lastActionAt = Date.now();
@@ -10015,7 +10130,7 @@ function applyActionEffects(name, addPoop) {
   updates.coins = (gameData.coins || 0) + coinsEarned;
   updates.lastUpdate = Date.now();
 
-  const statsField = { feed: 'feeds', play: 'plays', sleep: 'sleeps', bath: 'baths', pet: 'pets', clean: 'cleans', sing: 'sings', dance: 'dances', fly: 'flies', fire: 'fires', roar: 'roars', dig: 'digs' }[name];
+  const statsField = { feed: 'feeds', play: 'plays', sleep: 'sleeps', bath: 'baths', pet: 'pets', clean: 'cleans', sing: 'sings', dance: 'dances', bark: 'barks', fetch: 'fetches', roll: 'rolls', dig: 'digs' }[name];
   if (statsField) updates['stats/' + statsField] = (gameData.stats?.[statsField] || 0) + 1;
   if (fulfilledWant) updates['stats/wantsFulfilled'] = (gameData.stats?.wantsFulfilled || 0) + 1;
 
@@ -10077,13 +10192,13 @@ function showLevelUp(newLevel) {
   const evolved = stage.key !== prevStage.key;
   const hints = {
     egg: 'Still in the shell...',
-    hatchling: 'Tiny dragon hatched!',
-    sprout: 'Wings are budding!',
-    sapling: 'Wings grew stronger!',
-    bloom: 'Looking more dragon-like!',
-    guardian: 'Young guardian dragon!',
-    mystic: 'Mystic wings unfold!',
-    eternal: 'Eternal little dragon!'
+    hatchling: 'Tiny puppy hatched!',
+    sprout: 'Tail is wagging!',
+    sapling: 'Legs grew stronger!',
+    bloom: 'Looking more dog-like!',
+    guardian: 'Young guardian dog!',
+    mystic: 'Mystic fur shines!',
+    eternal: 'Eternal little dog!'
   };
   const hint = evolved ? (hints[stage.key] || 'Mochi grew!') : 'Level up!';
   const overlay = document.createElement('div');
@@ -10177,15 +10292,15 @@ const DAILY_QUEST_POOL = [
   { id: 'note',     text: 'Leave a love note',    action: 'note',     target: 1, reward: '🪙 12' },
   { id: 'minigame', text: 'Play Bubble Pop',      action: 'minigame', target: 1, reward: '🪙 15' },
   { id: 'clean',    text: 'Clean up after Mochi', action: 'clean',    target: 1, reward: '🪙 8' },
-  { id: 'sing',     text: 'Sing with Mochi',      action: 'sing',     target: 1, reward: '🪙 10' }
+  { id: 'sing',     text: 'Howl with Mochi',      action: 'sing',     target: 1, reward: '🪙 10' }
 ];
 
 const ONBOARD_STEPS = [
   { emoji: '🥚', title: 'MEET MOCHI', text: 'This is Mochi\'s room — a tiny life you and your partner care for together. Stats drop over time, so check in often!' },
-  { emoji: '🍚', title: 'CARE ACTIONS', text: 'Use FEED, SLEEP, BATH, PET, CLEAN and PLAY to keep Mochi happy. Special dragon moves are under the button below.' },
+  { emoji: '🍚', title: 'CARE ACTIONS', text: 'Use FEED, SLEEP, BATH, PET, CLEAN and PLAY to keep Mochi happy. Special dog tricks are under the button below.' },
   { emoji: '🚪', title: 'ROOMS & SHOP', text: 'Swipe the room chips or open ROOMS to visit new spaces. Earn coins from care and buy treats, outfits, and furniture in the SHOP.' },
   { emoji: '💌', title: 'NOTES & BOND', text: 'Leave love notes for each other. When you both care close together, your BOND grows — unlock achievements and special moments!' },
-  { emoji: '✨', title: 'YOU\'RE READY', text: 'Claim daily gifts, complete quests, dress Mochi up, and watch them evolve. Have fun caring for Mochi together 🌿' }
+  { emoji: '✨', title: 'YOU\'RE READY', text: 'Claim daily gifts, complete quests, dress Mochi up, and watch them evolve. Have fun caring for Mochi together 🐶' }
 ];
 
 const HINTS = [
@@ -10355,9 +10470,9 @@ function renderRoomChips() {
     if (unlocked && room.id !== currentRoomId) {
       chip.addEventListener('click', async () => {
         sfxClick();
-        if (isAnimating) return showToast('Let Mochi finish 🌿');
+        if (isAnimating) return showToast('Let Mochi finish 🐶');
         await moveMochiToRoom(room.id, { noToast: true });
-        showToast('Mochi walked to the ' + room.name.toLowerCase() + '! ' + room.emoji);
+        showToast('Mochi trotted to the ' + room.name.toLowerCase() + '! ' + room.emoji);
       });
     } else if (!unlocked) {
       chip.addEventListener('click', () => showToast('Unlock at Lv ' + room.reqLevel));
@@ -10485,7 +10600,7 @@ function startOnboarding() {
       if (!panel) return;
       const open = !panel.classList.contains('collapsed');
       panel.classList.toggle('collapsed', open);
-      moreBtn.textContent = open ? '▼ DRAGON MOVES & MINI-GAME' : '▲ HIDE DRAGON MOVES';
+      moreBtn.textContent = open ? '▼ DOG TRICKS & MINI-GAME' : '▲ HIDE DOG TRICKS';
       sfxClick();
     });
   }
