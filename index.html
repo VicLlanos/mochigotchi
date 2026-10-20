@@ -3,9 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-<meta name="theme-color" content="#F4D9C8">
+<meta name="theme-color" content="#FFE9CF">
 <meta name="color-scheme" content="light">
-<title>Mochi's Room 🐶 - Koy & Metz</title>
+<title>Mochi's Home 🐶 - Koy & Metz</title>
 
 <!-- ===== PWA ===== -->
 <link rel="manifest" href="manifest.json">
@@ -438,7 +438,7 @@
   }
 
   /* ============================================================
-     CUTE FLUFFY DOG (original CSS silhouette)
+     GREEN TOOTHLESS-INSPIRED DRAGON (original CSS silhouette)
      Sleek head, large eyes, ear-fins, membrane wings, finned tail
      ============================================================ */
   .pet-body {
@@ -1457,117 +1457,6 @@
   @keyframes needBounce {
     0%, 100% { transform: translateX(-50%) translateY(0); }
     50% { transform: translateX(-50%) translateY(-5px); }
-  }
-
-
-  /* ===== DOG THEME OVERRIDES ===== */
-  .pet-wing, .pet-horn, .pet-halo { display: none !important; }
-  .pet-ear {
-    display: block !important;
-    width: 16px !important; height: 20px !important;
-    background: var(--pet-color, #E8C9A0) !important;
-    border: 2.5px solid var(--pet-outline, #8B6F5E) !important;
-    border-radius: 50% 50% 40% 60% !important;
-    top: 2px !important;
-  }
-  .pet-ear-l { left: -6px !important; transform: rotate(-25deg) !important; border-radius: 60% 40% 50% 70% !important; }
-  .pet-ear-r { right: -6px !important; transform: rotate(25deg) !important; border-radius: 40% 60% 70% 50% !important; }
-  .pet-tail {
-    display: block !important;
-    width: 18px !important; height: 22px !important;
-    background: var(--pet-color, #E8C9A0) !important;
-    border: 3px solid var(--pet-outline, #8B6F5E) !important;
-    border-radius: 40% 60% 50% 40% !important;
-    left: 50% !important; margin-left: 10px !important;
-    bottom: 14px !important;
-    animation: tailWag 0.8s ease-in-out infinite !important;
-  }
-  .pet-tail::after { display: none !important; }
-  .pet-snout {
-    width: 16px !important; height: 10px !important;
-    background: var(--pet-belly, #FFF5E8) !important;
-    border: 2px solid var(--pet-outline, #8B6F5E) !important;
-    border-radius: 50% !important;
-    bottom: 6px !important;
-  }
-  .pet-snout::before, .pet-snout::after {
-    width: 3px !important; height: 3px !important;
-    background: #3A2E28 !important;
-    top: 3px !important;
-  }
-  .pet-body {
-    background: var(--pet-color, #E8C9A0) !important;
-    border-color: var(--pet-outline, #8B6F5E) !important;
-  }
-  .pet-torso {
-    background: var(--pet-color, #E8C9A0) !important;
-    border-color: var(--pet-outline, #8B6F5E) !important;
-  }
-  .pet-arm, .pet-foot {
-    background: var(--pet-color, #E8C9A0) !important;
-    border-color: var(--pet-outline, #8B6F5E) !important;
-  }
-  .pet-belly {
-    background: var(--pet-belly, #FFF5E8) !important;
-    border-color: var(--pet-outline, #8B6F5E) !important;
-  }
-  /* Stage color overrides for dog fur tones */
-  .pet[data-stage="hatchling"] {
-    --pet-color: #F0D8B8; --pet-color-dark: #D4B890; --pet-outline: #8B6F5E;
-    --pet-belly: #FFF8F0; --pet-horn: #F0D8B8; --pet-wing: #E8C9A0;
-  }
-  .pet[data-stage="sprout"] {
-    --pet-color: #E8C9A0; --pet-color-dark: #C9A878; --pet-outline: #8B6F5E;
-    --pet-belly: #FFF5E8; --pet-horn: #E8C9A0; --pet-wing: #D4B890;
-  }
-  .pet[data-stage="sapling"] {
-    --pet-color: #D4B090; --pet-color-dark: #B89070; --pet-outline: #6B4F3E;
-    --pet-belly: #FFF0E0; --pet-horn: #D4B090; --pet-wing: #C9A878;
-  }
-  .pet[data-stage="bloom"] {
-    --pet-color: #E8A0B8; --pet-color-dark: #C07090; --pet-outline: #5A3040;
-    --pet-belly: #FFF0F4; --pet-horn: #E8C090; --pet-wing: #F0C0D0;
-  }
-  .pet[data-stage="guardian"] {
-    --pet-color: #A89070; --pet-color-dark: #8B6F5E; --pet-outline: #4A3F3A;
-    --pet-belly: #F5EDE0; --pet-horn: #C9A044; --pet-wing: #C9B0A0;
-  }
-  .pet[data-stage="mystic"] {
-    --pet-color: #B8A0E0; --pet-color-dark: #7A5AB0; --pet-outline: #3A2858;
-    --pet-belly: #F4F0FC; --pet-horn: #E8D090; --pet-wing: #D0C0F0;
-  }
-  .pet[data-stage="eternal"] {
-    --pet-color: #F0D878; --pet-color-dark: #D4AF37; --pet-outline: #6B5A20;
-    --pet-belly: #FFFBF0; --pet-horn: #F0D060; --pet-wing: #FFE8A0;
-  }
-  /* New action animations for dog */
-  .pet.barking {
-    animation: barkBounce 0.4s ease-in-out infinite;
-  }
-  @keyframes barkBounce {
-    0%, 100% { transform: translateX(-50%) scale(1, 1); }
-    50% { transform: translateX(-50%) scale(1.06, 0.96); }
-  }
-  .pet.barking .pet-mouth {
-    width: 14px; height: 12px; border-radius: 50%;
-  }
-  .pet.fetching {
-    animation: fetchHop 0.5s ease-in-out infinite;
-  }
-  @keyframes fetchHop {
-    0%, 100% { transform: translateX(-50%) translateY(0) rotate(-3deg); }
-    50% { transform: translateX(-50%) translateY(-10px) rotate(3deg); }
-  }
-  .pet.rolling {
-    animation: rollOver 0.7s ease-in-out infinite;
-  }
-  @keyframes rollOver {
-    0% { transform: translateX(-50%) rotate(0deg); }
-    50% { transform: translateX(-50%) rotate(180deg) translateY(8px); }
-    100% { transform: translateX(-50%) rotate(360deg); }
-  }
-  .pet.singing .pet-mouth {
-    width: 14px; height: 12px; border-radius: 50%;
   }
 
   /* ============================================================
@@ -3523,13 +3412,9 @@
   }
 
   /* ============================================================
-     VECTOR DOG — SVG body + wardrobe anchors + stage growth
+     VECTOR DRAGON — SVG body + wardrobe anchors + stage growth
      ============================================================ */
   .pet-dragon { display: none; }
-
-  .pet-dragon .dg-wl, .pet-dragon .dg-wr, .pet-dragon .dg-flame, .pet-dragon .dg-breath { display: none !important; opacity: 0 !important; }
-  .pet-dragon .dg-tail { animation: dgWag 0.7s ease-in-out infinite !important; }
-
   .pet:not([data-stage="egg"]) .pet-dragon {
     display: block; position: absolute; z-index: 4; pointer-events: none;
     width: 113px; height: 101px; left: 50%; margin-left: -57px; top: 2px; overflow: visible;
@@ -3627,10 +3512,10 @@
   }
 
   /* Default paint */
-  .pet-dragon .dg-o { stroke: var(--dg-outline, #8B6F5E); stroke-width: 5; stroke-linejoin: round; stroke-linecap: round; }
-  .pet-dragon .dg-red { fill: var(--dg-main, #E8C9A0); }
-  .pet-dragon .dg-dk { fill: var(--dg-dark, #C9A878); }
-  .pet-dragon .dg-cr { fill: var(--dg-cream, #FFF5E8); }
+  .pet-dragon .dg-o { stroke: var(--dg-outline, #2f5d4a); stroke-width: 5; stroke-linejoin: round; stroke-linecap: round; }
+  .pet-dragon .dg-red { fill: var(--dg-main, #7fd69a); }
+  .pet-dragon .dg-dk { fill: var(--dg-dark, #4fae78); }
+  .pet-dragon .dg-cr { fill: var(--dg-cream, #fff0c4); }
   .pet-dragon .dg-breath { opacity: 0; }
 
   .pet-dragon .dg-wl { transform-box: fill-box; transform-origin: 100% 60%; animation: dgFlapL 1.6s ease-in-out infinite; }
@@ -4298,7 +4183,7 @@
 
 
 
-/* ===== ETERNAL+ DOG: gold-trimmed, crowned, fluffy ===== */
+/* ===== ETERNAL+ DRAGON: gold-armoured, crowned, winged ===== */
 .pet-dragon-eternal{display:none}
 .pet:not([data-stage="eternal"]):not([data-stage="aurora"]):not([data-stage="celestial"]) svg.pet-dragon.pet-dragon-eternal{display:none!important}
 .pet[data-stage="eternal"] svg.pet-dragon:not(.pet-dragon-eternal),
@@ -4634,6 +4519,130 @@ body::after {
   filter: drop-shadow(0 1px 0 rgba(0,0,0,0.08));
 }
 
+
+/* ============================================================
+   MOCHI THE DOG — v2 theme layer (art, coats, tricks, UI polish)
+   ============================================================ */
+:root{
+  --ink:#4A3426; --ink-soft:#8A6A55; --line:#EAD3BC; --card:#FFFBF5; --card-2:#FFF3E3;
+  --accent:#F08A4B; --accent-d:#C96A2E; --good:#6DBE7A; --warn:#F2B64A; --bad:#E5645A;
+  --r-lg:20px; --r-md:14px; --r-sm:10px;
+  --sh-1:0 2px 0 rgba(120,80,40,.10),0 8px 20px rgba(120,80,40,.10);
+  --sh-2:0 3px 0 rgba(120,80,40,.14),0 14px 30px rgba(120,80,40,.16);
+}
+html{scroll-behavior:smooth}
+body{
+  background:radial-gradient(1200px 500px at 50% -10%,#FFF6E6 0%,transparent 60%),linear-gradient(180deg,#FFE9CF 0%,#FBD9B5 55%,#F4C79B 100%) fixed !important;
+  color:var(--ink);
+  padding:max(10px,env(safe-area-inset-top)) max(10px,env(safe-area-inset-right)) max(14px,env(safe-area-inset-bottom)) max(10px,env(safe-area-inset-left));
+}
+#app{max-width:500px}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px;border-radius:8px}
+
+/* ---- Cards & surfaces ---- */
+.pin-screen,.top-bar,.pet-info,.diary,.xp-bar,.quest-panel,.evo-panel,.bond-bar-wrap,.wardrobe-panel,.shop-card,.room-card,.ach-card,.album-card,
+.daily-card,.choice-card,.onboard-card,.stat,.note-input-area{
+  background:var(--card) !important;border:1.5px solid var(--line) !important;border-radius:var(--r-lg) !important;box-shadow:var(--sh-1) !important;
+}
+.pin-screen{padding:34px 24px 26px;box-shadow:var(--sh-2) !important}
+.pin-screen h1{color:var(--accent-d);font-size:1.05rem;letter-spacing:.5px}
+.pin-screen .subtitle{color:var(--ink-soft)}
+.pin-input{border:2px solid var(--line) !important;border-radius:var(--r-md) !important;background:#fff !important}
+.pin-input:focus{border-color:var(--accent) !important;box-shadow:0 0 0 4px rgba(240,138,75,.18) !important}
+.role-btn{border:2px solid var(--line) !important;border-radius:var(--r-md) !important;background:#fff !important}
+.role-btn.selected{background:#FFE3C8 !important;border-color:var(--accent) !important;color:var(--ink) !important;box-shadow:0 3px 0 var(--accent-d) !important}
+.btn{background:linear-gradient(180deg,#F79A5C,var(--accent)) !important;border-radius:var(--r-md) !important;box-shadow:0 4px 0 var(--accent-d),0 10px 18px rgba(201,106,46,.22) !important;letter-spacing:.3px}
+.btn:active{transform:translateY(3px);box-shadow:0 1px 0 var(--accent-d) !important}
+.btn:disabled{opacity:.55;cursor:not-allowed}
+
+/* ---- Header & navigation ---- */
+.top-bar{position:sticky;top:max(6px,env(safe-area-inset-top));z-index:70;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);background:rgba(255,251,245,.86) !important}
+.streak-display,.days-display,.coin-display{background:var(--card-2) !important;border-radius:999px !important;color:var(--ink-soft)}
+.coin-display{color:#B7791F !important}
+.net-pill{font-family:'Fredoka',sans-serif;font-size:.62rem;font-weight:600;padding:3px 9px;border-radius:999px;background:#EFE6DA;color:var(--ink-soft);order:-1}
+.net-pill.on{background:#E1F5E4;color:#2F8A43}.net-pill.off{background:#FDE2DF;color:#B3382F}
+.nav-tabs{position:sticky;top:calc(max(6px,env(safe-area-inset-top)) + 58px);z-index:65;gap:6px;padding:5px;background:rgba(255,251,245,.9);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1.5px solid var(--line);border-radius:var(--r-lg);box-shadow:var(--sh-1)}
+.nav-tab{background:transparent !important;border:0 !important;border-radius:var(--r-md) !important;font-family:'Fredoka',sans-serif !important;font-weight:600;font-size:.72rem !important;color:var(--ink-soft) !important;padding:10px 4px !important;min-height:40px}
+.nav-tab.active{background:linear-gradient(180deg,#FFE3C8,#FFD2AB) !important;color:var(--ink) !important;box-shadow:inset 0 -2px 0 rgba(201,106,46,.35)}
+.section-header{font-family:'Fredoka',sans-serif !important;font-weight:700;color:var(--accent-d);letter-spacing:.4px}
+
+/* ---- Room stage ---- */
+.room{border:0 !important;border-radius:24px !important;overflow:hidden;box-shadow:0 10px 0 rgba(150,95,50,.35),0 22px 34px rgba(120,80,40,.28) !important}
+.room-badge{background:rgba(255,251,245,.92) !important;border:1.5px solid var(--line) !important;border-radius:999px !important;color:var(--ink) !important;font-family:'Fredoka',sans-serif !important;font-weight:700;letter-spacing:.4px;padding:5px 12px !important}
+.room-chip{border-radius:999px !important;border:1.5px solid var(--line) !important;background:var(--card) !important}
+.xp-fill{background:linear-gradient(90deg,#F7B267,var(--accent)) !important;border-radius:999px}
+.xp-track,.stat-bar,.bond-track,.evo-bar-track{border-radius:999px !important;background:#F1E2D0 !important;border:0 !important;overflow:hidden}
+.stat-bar-fill{border-radius:999px !important}
+.stat-bar-fill.good{background:linear-gradient(90deg,#8ED39A,var(--good)) !important}
+.stat-bar-fill.warn{background:linear-gradient(90deg,#F8CD78,var(--warn)) !important}
+.stat-bar-fill.bad,.stat-bar-fill.critical{background:linear-gradient(90deg,#F29A92,var(--bad)) !important}
+.pet-name{font-family:'Fredoka',sans-serif !important;font-weight:700;font-size:1.25rem !important;color:var(--ink)}
+
+/* ---- Buttons / shop / toasts ---- */
+.action-btn{border-radius:var(--r-md) !important;border:1.5px solid var(--line) !important;background:linear-gradient(180deg,#FFFDF9,#FFF1DE) !important;box-shadow:0 3px 0 rgba(150,95,50,.18) !important;transition:transform .12s,box-shadow .12s}
+.action-btn:hover{transform:translateY(-2px)}
+.action-btn:active{transform:translateY(2px);box-shadow:none !important}
+.action-btn[disabled],.action-btn.disabled{opacity:.5}
+.action-btn .label{font-family:'Fredoka',sans-serif !important;font-weight:700;letter-spacing:.3px}
+.shop-card:hover,.room-card:hover{transform:translateY(-2px);box-shadow:var(--sh-2) !important}
+.toast{background:rgba(74,52,38,.94) !important;color:#fff !important;border:0 !important;border-radius:999px !important;font-family:'Fredoka',sans-serif !important;font-weight:600;box-shadow:0 12px 26px rgba(0,0,0,.25) !important}
+.mochi-float{background:var(--card) !important;border:1.5px solid var(--line) !important;border-radius:20px !important;box-shadow:var(--sh-2) !important}
+.footer{color:var(--ink-soft) !important}
+#logoutBtn{background:#C9B3A0 !important;box-shadow:0 3px 0 #A58C78 !important}
+
+/* ---- Dog paint (coat styles). Default = shiba ---- */
+.pet:not([data-color]),.pet[data-color="mint"]{--dg-main:#E7AE72;--dg-dark:#B9763F;--dg-cream:#FFF3DE;--dg-outline:#6B4226}
+.pet[data-color="blush"]{--dg-main:#F2A7B8;--dg-dark:#D07A92;--dg-cream:#FFF1F4;--dg-outline:#6B3347}
+.pet[data-color="sky"]{--dg-main:#9DB4C8;--dg-dark:#5F7A94;--dg-cream:#F3F7FB;--dg-outline:#2F4258}
+.pet[data-color="gold"]{--dg-main:#F2CB6B;--dg-dark:#CFA03A;--dg-cream:#FFF8E1;--dg-outline:#75561B}
+.pet[data-color="lavender"]{--dg-main:#C3B0E8;--dg-dark:#8D75C4;--dg-cream:#F7F2FF;--dg-outline:#43336B}
+.pet[data-color="coral"]{--dg-main:#EE9A63;--dg-dark:#C26A36;--dg-cream:#FFF0E4;--dg-outline:#6B3A1B}
+.pet:not([data-stage="egg"]){filter:drop-shadow(0 3px 2px rgba(107,66,38,.30))}
+.pet[data-stage="mystic"],.pet[data-stage="aurora"]{--dg-cream:#F4F0FF}
+.pet-dragon .dg-bark{opacity:0}
+.pet-dragon .dg-all{transform-origin:385px 575px}
+
+/* ---- Newborn stage: sleeping pup in a basket (data-stage key "egg" kept for saved levels) ---- */
+.pet[data-stage="egg"]{--dk:.6;width:70px;height:74px;--pet-color:transparent}
+.pet[data-stage="egg"] .pet-body{background:none !important;border:0 !important;box-shadow:none !important}
+.pet[data-stage="egg"] .pet-body::after,.pet[data-stage="egg"] .pet-body::before{display:none !important}
+.pet[data-stage="egg"] .pet-dragon:not(.pet-dragon-eternal){display:block;position:absolute;z-index:4;pointer-events:none;width:113px;height:101px;left:50%;margin-left:-57px;top:-26px;overflow:visible;transform:scaleX(var(--fx,1)) scale(var(--dk,.6));transform-origin:50% 88px}
+.pet[data-stage="egg"] .dg-eye{animation:none;transform:scaleY(.1)}
+.pet[data-stage="egg"] .dg-wl,.pet[data-stage="egg"] .dg-wr,.pet[data-stage="egg"] .dg-tail,.pet[data-stage="egg"] .dg-arm-l,.pet[data-stage="egg"] .dg-arm-r{animation-play-state:paused}
+.pet[data-stage="egg"]::after{content:'';position:absolute;left:50%;bottom:-7px;width:74px;height:15px;margin-left:-37px;border-radius:50% 50% 46% 46%/60% 60% 40% 40%;background:repeating-linear-gradient(90deg,#D9A066 0 8px,#C58B52 8px 10px);border:2.5px solid #8A5A34;z-index:6;box-shadow:inset 0 5px 0 #F0C896}
+.pet[data-stage="hatchling"]{filter:drop-shadow(0 3px 2px rgba(107,66,38,.3))}
+
+/* ---- Dog tricks ---- */
+.pet.roaring .pet-dragon .dg-bark{opacity:1;animation:dgBark .45s ease-out infinite}
+@keyframes dgBark{0%{transform:translateX(-6px);opacity:0}30%{opacity:1}100%{transform:translateX(10px);opacity:0}}
+.pet.roaring{animation:dgWoof .45s ease-in-out infinite}
+@keyframes dgWoof{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(-6px)}}
+.pet.singing .pet-dragon{animation:dgHowl 1.2s ease-in-out infinite;transform-origin:50% 88px}
+@keyframes dgHowl{0%,100%{rotate:0deg}50%{rotate:-14deg}}
+.pet.singing .pet-dragon .dg-mouth{transform:scale(1.25,1.5)}
+.pet.flying.zoomies{animation:none}
+.pet.zoomies .pet-dragon .dg-all,.pet.flying.zoomies .pet-dragon .dg-all{animation:dgWaddle .22s ease-in-out infinite}
+.pet.flying.zoomies .pet-dragon .dg-wl,.pet.flying.zoomies .pet-dragon .dg-wr{animation-duration:.2s}
+.pet.flying.zoomies .pet-dragon .dg-tail{animation-duration:.18s}
+.pet.happy .pet-dragon .dg-tail,.pet.ecstatic .pet-dragon .dg-tail,.pet.hopping .pet-dragon .dg-tail{animation-duration:.3s}
+.pet.sad .pet-dragon .dg-tail,.pet.sick .pet-dragon .dg-tail{animation-duration:6s}
+.pet.firebreath .pet-dragon .dg-breath{opacity:0 !important}
+.pet-wing{display:none !important}
+
+/* ---- Accessibility ---- */
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important;scroll-behavior:auto !important}}
+@media (max-width:380px){.nav-tab{font-size:.62rem !important;padding:9px 2px !important}.top-bar{padding:6px 8px !important}}
+
+/* ---- Final polish ---- */
+.top-bar{position:relative !important;top:auto !important}
+.nav-tabs{top:max(6px,env(safe-area-inset-top)) !important}
+.room-chip{font-family:'Fredoka',sans-serif !important;font-size:.72rem !important;font-weight:600;color:var(--ink-soft) !important;padding:7px 12px !important}
+.room-chip.active{background:#FFE3C8 !important;border-color:var(--accent) !important;color:var(--ink) !important}
+.wardrobe-toggle,.actions-more-btn{font-family:'Fredoka',sans-serif !important;font-weight:600;border:1.5px solid var(--line) !important;border-radius:var(--r-md) !important;background:var(--card) !important;color:var(--ink) !important;box-shadow:var(--sh-1) !important;min-height:46px}
+.hint-bar{background:#FFF1D6 !important;border:1.5px solid #F2D8A4 !important;border-radius:var(--r-md) !important;color:var(--ink-soft) !important}
+.note-input{border-radius:var(--r-md) !important}
+.ach-popup,.levelup-badge{border-radius:var(--r-lg) !important}
+
 </style>
 </head>
 <body>
@@ -4641,15 +4650,15 @@ body::after {
 <div id="app">
 
   <div class="pin-screen" id="pinScreen">
-    <div class="big-emoji" id="welcomeEmoji">🥚</div>
-    <h1>MOCHI'S ROOM</h1>
-    <p class="subtitle">A tiny life we care for together 🌿</p>
+    <div class="big-emoji" id="welcomeEmoji">🐶</div>
+    <h1>MOCHI'S HOME</h1>
+    <p class="subtitle">A good boy we care for together 🐾</p>
     <div class="role-pick">
       <button class="role-btn" data-role="koy">🌿 Koy</button>
       <button class="role-btn" data-role="metz">🌸 Metz</button>
     </div>
     <input type="tel" class="pin-input" id="pinInput" placeholder="PIN" maxlength="4" inputmode="numeric" pattern="[0-9]*">
-    <button class="btn" id="loginBtn">ENTER ROOM</button>
+    <button class="btn" id="loginBtn">ENTER HOME</button>
     <p style="font-size: 0.7rem; color: #C9B0A0; margin-top: 14px; line-height: 1.5;">
       Pick who you are and create a 4-digit PIN.<br>You both use this same page.
     </p>
@@ -4657,7 +4666,7 @@ body::after {
 
   <div id="gameScreen">
 
-    <div class="top-bar">
+    <div class="top-bar"><span class="net-pill" id="netPill" role="status" aria-live="polite" title="Connection">● LIVE</span>
       <div class="streak-display" id="streakBox">
         <span>🔥</span><span id="streakCount">0</span>
       </div>
@@ -4672,7 +4681,7 @@ body::after {
 
     <div class="nav-tabs">
       <div class="nav-tab active" data-view="home">🏠 HOME</div>
-      <div class="nav-tab" data-view="rooms">🚪 ROOMS</div>
+      <div class="nav-tab" data-view="rooms">🚪 PLACES</div>
       <div class="nav-tab" data-view="shop">🛒 SHOP</div>
       <div class="nav-tab" data-view="notes">💌 NOTES<span class="badge" id="notesBadge" style="display:none;">!</span></div>
       <div class="nav-tab" data-view="ach">🏆</div>
@@ -4689,7 +4698,7 @@ body::after {
         <div class="room-scene" id="roomScene"></div>
         <div class="room-decorations" id="roomDecorations"></div>
         <div class="room-items" id="roomItems"></div>
-        <div class="room-badge" id="roomBadge">🛏️ BEDROOM</div>
+        <div class="room-badge" id="roomBadge">🛋️ LIVING ROOM</div>
         <div class="want-bubble" id="wantBubble" style="display:none;"></div>
 
         <div class="pet-area" id="petArea">
@@ -4697,96 +4706,49 @@ body::after {
           <div class="pet idle" id="pet" data-stage="egg" style="left: 50%;">
             <div class="pet-accessories" id="petAccessories"></div>
             <svg class="pet-dragon" viewBox="70 95 630 560" aria-hidden="true">
-  <defs>
-    <g id="dgHorn"><path class="dg-o dg-red" d="M262 235C235 190 245 120 288 98C290 130 305 165 330 190Z"/><path class="dg-dk" d="M270 212C260 175 264 138 285 114C288 146 300 176 318 196Z"/><path class="dg-o dg-cr" d="M318 170C322 152 335 142 342 138C346 150 346 162 340 174Z"/></g>
-    <g id="dgWing"><path class="dg-o dg-red" d="M305 380L195 360C205 380 195 400 175 420C205 415 225 430 235 455C250 435 275 432 305 425Z"/><path class="dg-cr" d="M298 392L218 378Q222 398 200 416Q226 412 236 435Q262 420 298 415Z"/><path d="M298 402L222 384M298 408L206 414M298 412L236 434" stroke="#2f5d4a" stroke-width="3" fill="none" stroke-linecap="round"/></g>
-  </defs>
-  <g class="dg-all">
-  <g class="dg-tail"><path class="dg-o dg-red" d="M465 515C520 515 565 560 555 622C542 610 528 600 518 585C500 568 485 560 465 555Z"/><path class="dg-cr" d="M515 545C540 565 548 590 546 608C535 598 525 588 518 575Z"/><path class="dg-o dg-cr" d="M508 520L522 505L530 528ZM540 552L556 540L556 568Z"/></g>
-  <g class="dg-wl"><use href="#dgWing"/></g>
-  <g class="dg-wr"><use href="#dgWing" transform="translate(770 0) scale(-1 1)"/></g>
-  <g class="dg-foot-l"><ellipse class="dg-o dg-red" cx="298" cy="562" rx="38" ry="22"/><g class="dg-cr" stroke="#2f5d4a" stroke-width="3"><ellipse cx="282" cy="570" rx="6" ry="8"/><ellipse cx="299" cy="573" rx="6" ry="8"/><ellipse cx="316" cy="569" rx="6" ry="8"/></g></g>
-  <g class="dg-foot-r"><ellipse class="dg-o dg-red" cx="452" cy="565" rx="38" ry="22"/><g class="dg-cr" stroke="#2f5d4a" stroke-width="3"><ellipse cx="438" cy="572" rx="6" ry="8"/><ellipse cx="455" cy="574" rx="6" ry="8"/><ellipse cx="472" cy="570" rx="6" ry="8"/></g></g>
-  <ellipse class="dg-o dg-red" cx="385" cy="470" rx="82" ry="92"/><path d="M322 420C312 440 310 470 316 496" stroke="#fff" stroke-opacity=".35" stroke-width="8" fill="none" stroke-linecap="round"/><path d="M448 430C462 455 462 500 446 535C468 515 474 468 448 430Z" fill="#4fae78" opacity=".55"/><ellipse class="dg-cr" cx="385" cy="488" rx="52" ry="68"/>
-  <path d="M340 445Q385 458 430 445M345 500Q385 512 425 500M352 535Q385 545 418 535" stroke="#e4cf94" stroke-width="3" fill="none" stroke-linecap="round"/>
-  <g class="dg-flame"><path class="dg-o" fill="#ff8a1f" stroke-width="3" d="M378 428C398 445 402 465 393 480C385 490 368 490 362 477C355 462 368 452 372 440C374 448 378 446 378 428Z"/><path fill="#ffd23f" d="M379 455C388 463 388 474 381 480C374 482 369 476 370 469C372 464 377 462 379 455Z"/></g>
-  <g class="dg-arm-l"><g transform="rotate(-18 325 470)"><ellipse class="dg-o dg-red" cx="325" cy="470" rx="26" ry="36"/></g><g class="dg-cr" stroke="#2f5d4a" stroke-width="3"><ellipse cx="318" cy="453" rx="5" ry="8"/><ellipse cx="332" cy="450" rx="5" ry="8"/></g></g>
-  <g class="dg-arm-r"><g transform="rotate(18 445 470)"><ellipse class="dg-o dg-red" cx="445" cy="470" rx="26" ry="36"/></g><g class="dg-cr" stroke="#2f5d4a" stroke-width="3"><ellipse cx="452" cy="453" rx="5" ry="8"/><ellipse cx="438" cy="450" rx="5" ry="8"/></g></g>
-  <use href="#dgHorn"/><use href="#dgHorn" transform="translate(770 0) scale(-1 1)"/>
-  <path class="dg-o dg-red" d="M300 200C330 175 440 175 470 200C490 225 495 250 505 262C530 262 535 285 520 300C528 322 505 335 490 335C470 385 430 398 385 398C340 398 300 385 280 335C262 335 240 322 250 300C232 285 240 262 265 262C275 250 280 225 300 200Z"/>
-  <path d="M300 226C322 200 362 193 404 197" stroke="#fff" stroke-opacity=".5" stroke-width="9" fill="none" stroke-linecap="round"/><ellipse cx="290" cy="346" rx="21" ry="12" fill="#ff9fb5" opacity=".75"/><ellipse cx="480" cy="346" rx="21" ry="12" fill="#ff9fb5" opacity=".75"/>
-  <path class="dg-o dg-cr" stroke-width="4" d="M378 165C388 172 388 192 378 200C368 192 368 172 378 165ZM378 210C387 217 387 235 378 243C369 235 369 217 378 210ZM378 258C385 263 385 275 378 281C371 275 371 263 378 258Z"/>
-  <g class="dg-eye"><ellipse class="dg-o" cx="308" cy="290" rx="36" ry="41" fill="#fff"/><g class="dg-pupil"><ellipse cx="315" cy="298" rx="26" ry="31" fill="#2b1a5e"/><ellipse cx="315" cy="312" rx="20" ry="14" fill="#6b3fc0"/><circle cx="322" cy="284" r="9" fill="#fff"/><circle cx="305" cy="316" r="4" fill="#fff"/></g></g>
-  <g class="dg-eye"><ellipse class="dg-o" cx="450" cy="290" rx="36" ry="41" fill="#fff"/><g class="dg-pupil"><ellipse cx="443" cy="298" rx="26" ry="31" fill="#2b1a5e"/><ellipse cx="443" cy="312" rx="20" ry="14" fill="#6b3fc0"/><circle cx="436" cy="284" r="9" fill="#fff"/><circle cx="453" cy="316" r="4" fill="#fff"/></g></g>
-  <path d="M362 340Q378 332 394 340" stroke="#2f5d4a" stroke-width="4" fill="none" stroke-linecap="round"/><circle cx="371" cy="345" r="2.5" fill="#2f5d4a"/><circle cx="386" cy="345" r="2.5" fill="#2f5d4a"/>
-  <g class="dg-mouth"><path class="dg-o" fill="#8a1c45" stroke-width="4" d="M360 366Q384 358 405 366Q402 396 383 397Q362 395 360 366Z"/><ellipse cx="384" cy="386" rx="10" ry="6" fill="#ff7b9c"/></g>
-  <g class="dg-breath"><path class="dg-o" fill="#ff8a1f" d="M385 402C345 420 325 462 352 500C362 480 374 486 385 466C396 486 408 480 418 500C445 462 425 420 385 402Z"/><path fill="#ffd23f" d="M385 424C362 438 355 465 371 484C377 474 382 476 385 464C388 476 393 474 399 484C415 465 408 438 385 424Z"/></g>
-  </g>
-</svg>
-            <svg class="pet-dragon pet-dragon-eternal" viewBox="0 0 400 340" aria-hidden="true">
-<defs>
-<radialGradient id="eGlow" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#fff2a8" stop-opacity=".8"/><stop offset=".5" stop-color="#ffbf3f" stop-opacity=".28"/><stop offset="1" stop-color="#ffbf3f" stop-opacity="0"/></radialGradient>
-<linearGradient id="eBody" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffeaa0"/><stop offset=".4" stop-color="#e9b536"/><stop offset="1" stop-color="#8f5a0c"/></linearGradient>
-<linearGradient id="eBodyS" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#8f5a0c"/><stop offset=".3" stop-color="#f6cf5a"/><stop offset=".55" stop-color="#fff0b0"/><stop offset="1" stop-color="#8f5a0c"/></linearGradient>
-<linearGradient id="eBelly" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fffbe6"/><stop offset="1" stop-color="#ecc870"/></linearGradient>
-<linearGradient id="eWingG" x1="1" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#d8283c"/><stop offset=".45" stop-color="#6a1a6e"/><stop offset="1" stop-color="#1a0a45"/></linearGradient>
-<linearGradient id="eHorn" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#7a4a08"/><stop offset=".45" stop-color="#f3d36a"/><stop offset="1" stop-color="#fffdf0"/></linearGradient>
-<radialGradient id="eEye" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#fffbc0"/><stop offset=".45" stop-color="#ffb21a"/><stop offset="1" stop-color="#c2410a"/></radialGradient>
-<radialGradient id="eGem" cx=".4" cy=".35" r=".7"><stop offset="0" stop-color="#fff"/><stop offset=".45" stop-color="#ff5a6e"/><stop offset="1" stop-color="#7a0620"/></radialGradient>
-<radialGradient id="eGemB" cx=".4" cy=".35" r=".7"><stop offset="0" stop-color="#fff"/><stop offset=".45" stop-color="#7fe6ff"/><stop offset="1" stop-color="#14658f"/></radialGradient>
-<linearGradient id="eFire" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff6b0"/><stop offset=".5" stop-color="#ff9a2a"/><stop offset="1" stop-color="#d8301a"/></linearGradient>
-<g id="eWing">
-<path d="M168 196L112 112L60 58L10 22L34 78L2 112L40 128L20 172L78 168L88 212L128 196L152 226Z" fill="url(#eWingG)" stroke="#f3c64a" stroke-width="3.5" stroke-linejoin="round"/>
-<path d="M168 196L10 22M166 204L2 112M164 212L20 172M160 220L88 212" stroke="#ffe27a" stroke-width="3.5" fill="none" stroke-linecap="round"/>
-<path d="M120 124C96 120 70 128 48 124M104 170C84 168 58 170 40 160" stroke="#ff8f9c" stroke-width="1.6" fill="none" opacity=".55"/>
-<circle cx="10" cy="22" r="5" fill="#fffbe0"/><circle cx="2" cy="112" r="3.5" fill="#fffbe0"/><circle cx="20" cy="172" r="3" fill="#fffbe0"/>
-<circle cx="70" cy="104" r="2" fill="#fff"/><circle cx="52" cy="146" r="1.8" fill="#fff"/><circle cx="104" cy="82" r="1.6" fill="#fff"/><circle cx="96" cy="190" r="1.8" fill="#fff"/>
-</g>
-<g id="eHornG">
-<path d="M152 112C124 96 96 62 66 14C110 22 148 52 176 92Z" fill="url(#eHorn)" stroke="#5e3806" stroke-width="3" stroke-linejoin="round"/>
-<path d="M118 76L136 70M100 52L120 48M136 92L152 84" stroke="#a8740e" stroke-width="3" stroke-linecap="round"/>
-<path d="M136 138C104 140 76 122 54 92C90 98 122 108 150 122Z" fill="url(#eHorn)" stroke="#5e3806" stroke-width="2.6" stroke-linejoin="round"/>
-</g>
-<g id="eWhisk"><path d="M170 198C136 206 120 232 90 226C84 224 78 230 72 240" stroke="#fff1a8" stroke-width="3.2" fill="none" stroke-linecap="round"/><path d="M174 190C140 190 112 204 84 190" stroke="#ffd84a" stroke-width="2.4" fill="none" stroke-linecap="round" opacity=".85"/></g>
-<g id="eFin"><path d="M128 146L74 134L96 160L66 178L102 182L84 208L130 188Z" fill="#c8242e" stroke="#5e3806" stroke-width="2.6" stroke-linejoin="round"/><path d="M96 160L128 156M102 182L128 172" stroke="#ffd84a" stroke-width="2" stroke-linecap="round"/></g>
-</defs>
-<circle class="e-aura" cx="200" cy="190" r="178" fill="url(#eGlow)"/>
 <g class="dg-all">
-<path d="M148 90L132 34L168 76L180 20L200 72L220 20L232 76L268 34L252 90Z" fill="#c8242e" stroke="#5e3806" stroke-width="2.6" stroke-linejoin="round"/>
-<g class="dg-wl"><use href="#eWing"/></g>
-<g class="dg-wr"><use href="#eWing" transform="translate(400 0) scale(-1 1)"/></g>
-<g class="dg-tail"><path d="M246 276C318 262 384 246 388 198C394 252 360 300 296 316C276 320 258 316 246 308Z" fill="url(#eBody)" stroke="#5e3806" stroke-width="3.2" stroke-linejoin="round"/><path d="M300 262L312 236L326 268ZM344 250L362 222L366 258Z" fill="#c8242e" stroke="#5e3806" stroke-width="2.2" stroke-linejoin="round"/><path class="e-tailflame" d="M388 198C374 186 376 164 392 150C390 170 404 176 396 196Z" fill="url(#eFire)"/></g>
-<g class="dg-foot-l"><ellipse cx="156" cy="316" rx="32" ry="16" fill="url(#eBody)" stroke="#5e3806" stroke-width="3"/><path d="M130 326l-7 15l16-9zM152 331l-3 16l13-11zM176 327l4 15l11-15z" fill="#fffdf0" stroke="#5e3806" stroke-width="1.6"/></g>
-<g class="dg-foot-r"><ellipse cx="244" cy="316" rx="32" ry="16" fill="url(#eBody)" stroke="#5e3806" stroke-width="3"/><path d="M270 326l7 15l-16-9zM248 331l3 16l-13-11zM224 327l-4 15l-11-15z" fill="#fffdf0" stroke="#5e3806" stroke-width="1.6"/></g>
-<ellipse cx="200" cy="260" rx="66" ry="72" fill="url(#eBody)" stroke="#5e3806" stroke-width="3.5"/>
-<ellipse cx="200" cy="268" rx="40" ry="58" fill="url(#eBelly)" stroke="#c4912c" stroke-width="2"/>
-<path d="M166 244Q200 256 234 244M170 266Q200 278 230 266M176 288Q200 298 224 288M184 308Q200 314 216 308" stroke="#c4912c" stroke-width="3" fill="none" stroke-linecap="round"/>
-<path d="M200 226L176 244L200 262L224 244Z" fill="url(#eGemB)" stroke="#5e3806" stroke-width="2.6" stroke-linejoin="round"/>
-<g class="dg-arm-l"><ellipse cx="144" cy="262" rx="19" ry="38" transform="rotate(14 144 262)" fill="url(#eBody)" stroke="#5e3806" stroke-width="3"/><path d="M128 238L160 244L156 254L126 250Z" fill="#c8242e" stroke="#5e3806" stroke-width="2"/><path d="M132 292l-4 14l10-8zM146 296l0 14l8-10z" fill="#fffdf0" stroke="#5e3806" stroke-width="1.6"/></g>
-<g class="dg-arm-r"><ellipse cx="256" cy="262" rx="19" ry="38" transform="rotate(-14 256 262)" fill="url(#eBody)" stroke="#5e3806" stroke-width="3"/><path d="M272 238L240 244L244 254L274 250Z" fill="#c8242e" stroke="#5e3806" stroke-width="2"/><path d="M268 292l4 14l-10-8zM254 296l0 14l-8-10z" fill="#fffdf0" stroke="#5e3806" stroke-width="1.6"/></g>
-<path d="M122 232C132 218 150 214 160 226L146 250L130 246ZM278 232C268 218 250 214 240 226L254 250L270 246Z" fill="url(#eBody)" stroke="#5e3806" stroke-width="3" stroke-linejoin="round"/>
-<path d="M130 224L118 196L146 214ZM270 224L282 196L254 214Z" fill="#fffdf0" stroke="#5e3806" stroke-width="2.4" stroke-linejoin="round"/>
-<path d="M150 216C168 232 232 232 250 216L242 242C222 252 178 252 158 242Z" fill="url(#eBodyS)" stroke="#5e3806" stroke-width="3" stroke-linejoin="round"/>
-<circle cx="200" cy="238" r="9" fill="url(#eGem)" stroke="#5e3806" stroke-width="2.4"/>
-<ellipse class="e-halo" cx="200" cy="58" rx="66" ry="14" fill="none" stroke="#fff3a8" stroke-width="4.5"/>
-<use href="#eFin"/><use href="#eFin" transform="translate(400 0) scale(-1 1)"/>
-<use href="#eHornG"/><use href="#eHornG" transform="translate(400 0) scale(-1 1)"/>
-<path d="M176 96L186 36L200 78L214 36L224 96Z" fill="url(#eHorn)" stroke="#5e3806" stroke-width="3" stroke-linejoin="round"/>
-<path d="M200 86C234 86 264 106 272 136C280 162 268 186 246 202C230 214 214 222 200 222C186 222 170 214 154 202C132 186 120 162 128 136C136 106 166 86 200 86Z" fill="url(#eBody)" stroke="#5e3806" stroke-width="3.6" stroke-linejoin="round"/>
-<path d="M174 182C178 160 222 160 226 182C232 202 216 220 200 220C184 220 168 202 174 182Z" fill="#e0a22a" stroke="#5e3806" stroke-width="2.6"/>
-<path d="M186 192q4 4 8 0M206 192q4 4 8 0" stroke="#3a1e04" stroke-width="3.2" fill="none" stroke-linecap="round"/>
-<path d="M176 200C190 214 210 214 224 200" stroke="#7a4a08" stroke-width="2" fill="none" opacity=".6"/>
-<path d="M200 90L200 124" stroke="#a8740e" stroke-width="3" stroke-linecap="round"/>
-<path d="M200 110L190 128L200 144L210 128Z" fill="url(#eGem)" stroke="#5e3806" stroke-width="2.2" stroke-linejoin="round"/>
-<g class="dg-eye"><path d="M138 142Q166 122 196 152Q168 166 138 142Z" fill="#1a0a02" stroke="#5e3806" stroke-width="2.8"/><ellipse cx="170" cy="148" rx="14" ry="11" fill="url(#eEye)"/><ellipse cx="172" cy="148" rx="3" ry="10" fill="#1a0a02"/><circle cx="166" cy="143" r="3.2" fill="#fff"/></g>
-<g class="dg-eye"><path d="M262 142Q234 122 204 152Q232 166 262 142Z" fill="#1a0a02" stroke="#5e3806" stroke-width="2.8"/><ellipse cx="230" cy="148" rx="14" ry="11" fill="url(#eEye)"/><ellipse cx="228" cy="148" rx="3" ry="10" fill="#1a0a02"/><circle cx="224" cy="143" r="3.2" fill="#fff"/></g>
-<path d="M130 132L170 122L198 142L168 134Z M270 132L230 122L202 142L232 134Z" fill="#a8740e" stroke="#5e3806" stroke-width="2.6" stroke-linejoin="round"/>
-<use href="#eWhisk"/><use href="#eWhisk" transform="translate(400 0) scale(-1 1)"/>
-<g class="dg-mouth"><path d="M178 206Q200 222 222 206Q200 214 178 206Z" fill="#2a0a05" stroke="#5e3806" stroke-width="2.4"/><path d="M184 209l3 10l5-9zM208 210l5 9l3-10z" fill="#fffdf0" stroke="#5e3806" stroke-width="1.2"/></g>
-<g class="dg-breath"><path d="M200 216C146 232 114 288 160 338C174 316 188 322 200 300C212 322 226 316 240 338C286 288 254 232 200 216Z" fill="url(#eFire)"/><path d="M200 232C170 248 156 290 184 322C192 304 200 306 206 292C216 308 226 304 230 296C240 270 228 246 200 232Z" fill="#fff3b0" opacity=".9"/></g>
-<g class="e-sparks"><circle cx="64" cy="70" r="3" fill="#fff6b0"/><circle cx="340" cy="86" r="2.6" fill="#fff6b0"/><circle cx="48" cy="196" r="2.2" fill="#ffe27a"/><circle cx="360" cy="190" r="3" fill="#ffe27a"/><circle cx="110" cy="30" r="2" fill="#fff"/><circle cx="296" cy="34" r="2.4" fill="#fff"/></g>
-</g>
-</svg>
+<g class="dg-tail"><path class="dg-o dg-red" d="M462 540C540 545 572 482 540 426C530 454 516 470 492 486C478 494 466 500 458 508Z"/><path class="dg-cr" d="M531 440C543 464 537 492 523 508C531 488 533 464 531 440Z"/></g>
+<g class="dg-foot-l"><ellipse class="dg-o dg-red" cx="328" cy="562" rx="38" ry="22"/><path class="dg-o" fill="none" stroke-width="3" d="M315 568v10M328 571v10M341 568v10"/></g>
+<g class="dg-foot-r"><ellipse class="dg-o dg-red" cx="442" cy="562" rx="38" ry="22"/><path class="dg-o" fill="none" stroke-width="3" d="M429 568v10M442 571v10M455 568v10"/></g>
+<ellipse class="dg-o dg-red" cx="385" cy="485" rx="94" ry="84"/><ellipse class="dg-cr" cx="385" cy="506" rx="54" ry="60"/>
+<g class="dg-arm-l"><ellipse class="dg-o dg-red" cx="336" cy="516" rx="25" ry="40"/><ellipse class="dg-cr" cx="336" cy="546" rx="16" ry="9"/></g>
+<g class="dg-arm-r"><ellipse class="dg-o dg-red" cx="434" cy="516" rx="25" ry="40"/><ellipse class="dg-cr" cx="434" cy="546" rx="16" ry="9"/></g>
+<path class="dg-o" fill="#E5534B" stroke-width="4" d="M302 392Q385 430 468 392L466 418Q385 454 304 418Z"/><circle class="dg-o" fill="#f6c744" stroke-width="3.5" cx="385" cy="441" r="13"/><path d="M380 438l3 3 6-7" stroke="#8a5a0c" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+<ellipse class="dg-o dg-red" cx="385" cy="295" rx="126" ry="101"/>
+<path class="dg-cr" d="M385 197C365 234 365 278 385 320C405 278 405 234 385 197Z"/>
+<ellipse cx="318" cy="238" rx="10" ry="6" fill="var(--dg-dark)" opacity=".85"/><ellipse cx="452" cy="238" rx="10" ry="6" fill="var(--dg-dark)" opacity=".85"/>
+<g class="dg-wl"><path class="dg-o dg-dk" d="M296 218C246 208 214 262 222 334C226 356 262 356 282 328C300 300 308 258 296 218Z"/></g>
+<g class="dg-wr"><path class="dg-o dg-dk" d="M474 218C524 208 556 262 548 334C544 356 508 356 488 328C470 300 462 258 474 218Z"/></g>
+<ellipse class="dg-o dg-cr" stroke-width="4" cx="385" cy="347" rx="64" ry="45"/>
+<path fill="#3a2828" d="M363 322Q385 311 407 322Q405 342 385 347Q365 342 363 322Z"/><ellipse cx="376" cy="324" rx="7" ry="3.2" fill="#fff" opacity=".65"/>
+<g class="dg-eye"><ellipse cx="328" cy="290" rx="23" ry="29" fill="#2b1a1a"/><circle cx="336" cy="278" r="9.5" fill="#fff"/><circle cx="322" cy="301" r="4.5" fill="#fff"/></g>
+<g class="dg-eye"><ellipse cx="442" cy="290" rx="23" ry="29" fill="#2b1a1a"/><circle cx="450" cy="278" r="9.5" fill="#fff"/><circle cx="436" cy="301" r="4.5" fill="#fff"/></g>
+<ellipse cx="288" cy="338" rx="17" ry="10" fill="#ff9fb5" opacity=".6"/><ellipse cx="482" cy="338" rx="17" ry="10" fill="#ff9fb5" opacity=".6"/>
+<g class="dg-mouth"><path d="M385 347V361" stroke="#3a2828" stroke-width="4" stroke-linecap="round"/><path d="M359 359Q385 386 411 359" stroke="#3a2828" stroke-width="4" fill="none" stroke-linecap="round"/><path class="dg-o" fill="#ff7b9c" stroke-width="3" d="M373 371Q385 404 397 371Q385 380 373 371Z"/></g>
+<g class="dg-bark"><path d="M526 262Q550 292 526 322M548 242Q586 292 548 342" fill="none" stroke="var(--dg-outline)" stroke-width="6" stroke-linecap="round"/></g>
+</g></svg>
+            <svg class="pet-dragon pet-dragon-eternal" viewBox="70 95 630 560" aria-hidden="true"><defs><radialGradient id="dgAura" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#fff2a8" stop-opacity=".75"/><stop offset=".6" stop-color="#ffbf3f" stop-opacity=".22"/><stop offset="1" stop-color="#ffbf3f" stop-opacity="0"/></radialGradient></defs>
+<g class="dg-all"><circle class="e-aura" cx="385" cy="400" r="290" fill="url(#dgAura)"/>
+<g class="dg-tail"><path class="dg-o dg-red" d="M462 540C540 545 572 482 540 426C530 454 516 470 492 486C478 494 466 500 458 508Z"/><path class="dg-cr" d="M531 440C543 464 537 492 523 508C531 488 533 464 531 440Z"/></g>
+<g class="dg-foot-l"><ellipse class="dg-o dg-red" cx="328" cy="562" rx="38" ry="22"/><path class="dg-o" fill="none" stroke-width="3" d="M315 568v10M328 571v10M341 568v10"/></g>
+<g class="dg-foot-r"><ellipse class="dg-o dg-red" cx="442" cy="562" rx="38" ry="22"/><path class="dg-o" fill="none" stroke-width="3" d="M429 568v10M442 571v10M455 568v10"/></g>
+<ellipse class="dg-o dg-red" cx="385" cy="485" rx="94" ry="84"/><ellipse class="dg-cr" cx="385" cy="506" rx="54" ry="60"/>
+<g class="dg-arm-l"><ellipse class="dg-o dg-red" cx="336" cy="516" rx="25" ry="40"/><ellipse class="dg-cr" cx="336" cy="546" rx="16" ry="9"/></g>
+<g class="dg-arm-r"><ellipse class="dg-o dg-red" cx="434" cy="516" rx="25" ry="40"/><ellipse class="dg-cr" cx="434" cy="546" rx="16" ry="9"/></g>
+<path class="dg-o" fill="#E5534B" stroke-width="4" d="M302 392Q385 430 468 392L466 418Q385 454 304 418Z"/><circle class="dg-o" fill="#ffd84a" stroke-width="3.5" cx="385" cy="441" r="13"/><path d="M380 438l3 3 6-7" stroke="#8a5a0c" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+<ellipse class="dg-o dg-red" cx="385" cy="295" rx="126" ry="101"/>
+<path class="dg-cr" d="M385 197C365 234 365 278 385 320C405 278 405 234 385 197Z"/>
+<ellipse cx="318" cy="238" rx="10" ry="6" fill="var(--dg-dark)" opacity=".85"/><ellipse cx="452" cy="238" rx="10" ry="6" fill="var(--dg-dark)" opacity=".85"/>
+<g class="dg-wl"><path class="dg-o dg-dk" d="M296 218C246 208 214 262 222 334C226 356 262 356 282 328C300 300 308 258 296 218Z"/></g>
+<g class="dg-wr"><path class="dg-o dg-dk" d="M474 218C524 208 556 262 548 334C544 356 508 356 488 328C470 300 462 258 474 218Z"/></g>
+<ellipse class="dg-o dg-cr" stroke-width="4" cx="385" cy="347" rx="64" ry="45"/>
+<path fill="#3a2828" d="M363 322Q385 311 407 322Q405 342 385 347Q365 342 363 322Z"/><ellipse cx="376" cy="324" rx="7" ry="3.2" fill="#fff" opacity=".65"/>
+<g class="dg-eye"><ellipse cx="328" cy="290" rx="23" ry="29" fill="#2b1a1a"/><circle cx="336" cy="278" r="9.5" fill="#fff"/><circle cx="322" cy="301" r="4.5" fill="#fff"/></g>
+<g class="dg-eye"><ellipse cx="442" cy="290" rx="23" ry="29" fill="#2b1a1a"/><circle cx="450" cy="278" r="9.5" fill="#fff"/><circle cx="436" cy="301" r="4.5" fill="#fff"/></g>
+<ellipse cx="288" cy="338" rx="17" ry="10" fill="#ff9fb5" opacity=".6"/><ellipse cx="482" cy="338" rx="17" ry="10" fill="#ff9fb5" opacity=".6"/>
+<g class="dg-mouth"><path d="M385 347V361" stroke="#3a2828" stroke-width="4" stroke-linecap="round"/><path d="M359 359Q385 386 411 359" stroke="#3a2828" stroke-width="4" fill="none" stroke-linecap="round"/><path class="dg-o" fill="#ff7b9c" stroke-width="3" d="M373 371Q385 404 397 371Q385 380 373 371Z"/></g>
+<g class="dg-bark"><path d="M526 262Q550 292 526 322M548 242Q586 292 548 342" fill="none" stroke="var(--dg-outline)" stroke-width="6" stroke-linecap="round"/></g>
+<ellipse class="e-halo" cx="385" cy="172" rx="78" ry="15" fill="none" stroke="#fff3a8" stroke-width="6"/><path d="M385 186l9 18 20 3-14 14 4 20-19-10-19 10 4-20-14-14 20-3z" fill="#ffd84a" stroke="#8a5a0c" stroke-width="3" stroke-linejoin="round" transform="translate(0 -6) scale(.9) translate(42 0)"/><g class="e-sparks"><circle cx="190" cy="200" r="5" fill="#fff6b0"/><circle cx="585" cy="230" r="4" fill="#fff6b0"/><circle cx="170" cy="400" r="4" fill="#ffe27a"/><circle cx="600" cy="420" r="5" fill="#ffe27a"/><circle cx="290" cy="130" r="3" fill="#fff"/><circle cx="480" cy="128" r="4" fill="#fff"/></g></g></svg>
             <div class="pet-wing pet-wing-l"></div>
             <div class="pet-wing pet-wing-r"></div>
             <div class="pet-torso">
@@ -4847,7 +4809,7 @@ body::after {
             <div class="evo-stage-label">FORM · <strong id="evoStageName">EGG</strong> <span id="evoStageEmoji">🥚</span></div>
             <div class="evo-stage-label">LV <strong id="evoLevelNum">1</strong></div>
           </div>
-          <div class="evo-desc" id="evoDesc">Warm shell. Something tiny is dreaming inside.</div>
+          <div class="evo-desc" id="evoDesc">A sleepy newborn pup curled up in a cozy basket.</div>
           <div class="evo-bar-track"><div class="evo-bar-fill" id="evoBarFill"></div></div>
           <div class="evo-next" id="evoNextLabel">Next form at LV 5</div>
         </div>
@@ -4896,26 +4858,26 @@ body::after {
       <div class="wardrobe-panel" id="wardrobePanel">
         <div class="wardrobe-title">OUTFITS</div>
         <div class="wardrobe-grid" id="wardrobeGrid"></div>
-        <div class="wardrobe-title" style="margin-top:10px;">SCALE COLOR</div>
+        <div class="wardrobe-title" style="margin-top:10px;">COAT STYLE</div>
         <div class="color-swatch-row" id="colorSwatches"></div>
       </div>
 
       <div class="actions">
         <div class="action-section-label">CARE</div>
-        <button class="action-btn" data-action="feed"><span class="emoji">🍖</span><span class="label">FEED</span></button>
+        <button class="action-btn" data-action="feed"><span class="emoji">🍚</span><span class="label">FEED</span></button>
         <button class="action-btn" data-action="sleep"><span class="emoji">🌙</span><span class="label">SLEEP</span></button>
         <button class="action-btn" data-action="bath"><span class="emoji">💧</span><span class="label">BATH</span></button>
         <button class="action-btn" data-action="pet"><span class="emoji">🤲</span><span class="label">PET</span></button>
         <button class="action-btn" data-action="clean"><span class="emoji">🧹</span><span class="label">CLEAN</span></button>
-        <button class="action-btn" data-action="play"><span class="emoji">🎾</span><span class="label">PLAY</span></button>
+        <button class="action-btn" data-action="play"><span class="emoji">🎈</span><span class="label">PLAY</span></button>
         <button class="actions-more-btn" id="actionsMoreBtn" type="button">▼ DOG TRICKS & MINI-GAME</button>
         <div class="dragon-actions collapsed" id="dragonActions">
         <div class="action-section-label">DOG TRICKS</div>
-        <button class="action-btn" data-action="sing"><span class="emoji">🎵</span><span class="label">HOWL</span></button>
+        <button class="action-btn" data-action="sing"><span class="emoji">🐺</span><span class="label">HOWL</span></button>
         <button class="action-btn" data-action="dance"><span class="emoji">💃</span><span class="label">DANCE</span></button>
-        <button class="action-btn" data-action="bark"><span class="emoji">🗣️</span><span class="label">BARK</span></button>
-        <button class="action-btn" data-action="fetch"><span class="emoji">🎾</span><span class="label">FETCH</span></button>
-        <button class="action-btn" data-action="roll"><span class="emoji">🔄</span><span class="label">ROLL</span></button>
+        <button class="action-btn" data-action="fly"><span class="emoji">💨</span><span class="label">ZOOMIES</span></button>
+        <button class="action-btn" data-action="fire"><span class="emoji">🎾</span><span class="label">FETCH</span></button>
+        <button class="action-btn" data-action="roar"><span class="emoji">🐕</span><span class="label">BARK</span></button>
         <button class="action-btn" data-action="dig"><span class="emoji">🦴</span><span class="label">DIG</span></button>
         <button class="action-btn" data-action="minigame" style="grid-column: span 3; background: linear-gradient(180deg, #FFF9C8, #F0E0A0); border-color: #C9A044;">
           <span class="emoji">🫧</span><span class="label">BUBBLE POP MINI-GAME</span>
@@ -4935,8 +4897,8 @@ body::after {
     </div>
 
     <div class="view" id="view-rooms">
-      <div class="section-header">🚪 ROOMS TO EXPLORE</div>
-      <p style="text-align:center; font-size:0.7rem; color:#A89080; margin-bottom:8px;" id="roomsSubtitle">Mochi wanders on its own — but you can visit too</p>
+      <div class="section-header">🚪 PLACES TO EXPLORE</div>
+      <p style="text-align:center; font-size:0.7rem; color:#A89080; margin-bottom:8px;" id="roomsSubtitle">Mochi wanders on his own — but you can visit too</p>
       <div class="rooms-grid" id="roomsGrid"></div>
     </div>
 
@@ -4970,7 +4932,7 @@ body::after {
     </div>
 
     <button class="btn small" id="logoutBtn" style="background:#B8A898; box-shadow:0 4px 0 #8B6F5E; margin:0 12px 8px; font-size:0.75rem;">SWITCH USER</button>
-    <p class="footer" id="presenceFooter">Made with care for Mochi 🐶</p>
+    <p class="footer" id="presenceFooter">Made with care for Mochi 🌿</p>
   </div>
 
 </div>
@@ -5006,7 +4968,7 @@ body::after {
 
 <div class="onboard-overlay" id="onboardOverlay">
   <div class="onboard-card">
-    <div class="onboard-emoji" id="onboardEmoji">🥚</div>
+    <div class="onboard-emoji" id="onboardEmoji">🐶</div>
     <div class="onboard-title" id="onboardTitle">Welcome</div>
     <div class="onboard-text" id="onboardText"></div>
     <div class="onboard-dots" id="onboardDots"></div>
@@ -5018,7 +4980,7 @@ body::after {
 </div>
 
 <div class="mochi-float" id="mochiFloat" title="Jump back to Mochi">
-  <span class="mochi-float-pet" id="mochiFloatPet">🥚</span>
+  <span class="mochi-float-pet" id="mochiFloatPet">🐶</span>
   <span class="mochi-float-label">MOCHI</span>
 </div>
 <div class="toast" id="toast"></div>
@@ -5069,59 +5031,93 @@ const DAILY_REWARDS = [
 ];
 
 const STAGES = [
-  { level: 1,  name: 'EGG',       emoji: '🥚', key: 'egg',       scale: 0.72, hue: 0,   desc: 'A warm little egg. Something fluffy is dreaming inside.' },
-  { level: 5,  name: 'PUPPY',     emoji: '🐶', key: 'hatchling', scale: 0.82, hue: 8,   desc: 'Freshly hatched puppy! Soft fur, big eyes, tiny paws.' },
-  { level: 10, name: 'Sprout Pup', emoji: '🐾', key: 'sprout',    scale: 0.90, hue: 25,  desc: 'A curious little dog. Soft coat, wagging tail, endless energy.' },
-  { level: 15, name: 'Playful',   emoji: '🦴', key: 'sapling',   scale: 0.98, hue: 40,  desc: 'Stronger legs. Learning tricks and loving belly rubs.' },
-  { level: 20, name: 'Bloom',     emoji: '🌸', key: 'bloom',     scale: 1.05, hue: -10, desc: 'Fluffy and proud. Loves to run and fetch.' },
-  { level: 25, name: 'Guardian',  emoji: '🐕', key: 'guardian',  scale: 1.12, hue: -25, desc: 'Loyal guardian. Protective of their home and humans.' },
-  { level: 30, name: 'Mystic',    emoji: '✨', key: 'mystic',    scale: 1.18, hue: 200, desc: 'Star-dusted fur. Hears the night and howls softly.' },
-  { level: 35, name: 'Eternal',   emoji: '👑', key: 'eternal',   scale: 1.25, hue: 280, desc: 'Little eternal companion. Bond of Koy & Metz.' },
-  { level: 45, name: 'Aurora',    emoji: '🌌', key: 'aurora',    scale: 1.32, hue: 260, desc: 'Northern-light fur. Rare form of devotion.' },
-  { level: 55, name: 'Celestial', emoji: '🌟', key: 'celestial', scale: 1.40, hue: 45,  desc: 'Celestial Mochi. The room becomes a constellation of paws.' }
+  { level: 1,  name: 'NEWBORN',   emoji: '🍼', key: 'egg',       scale: 0.72, hue: 0,   desc: 'Warm shell. Something tiny is dreaming inside.' },
+  { level: 5,  name: 'PUPPY',     emoji: '🐶', key: 'hatchling', scale: 0.82, hue: 8,   desc: 'Wobbly paws, big eyes and a very waggy tail.' },
+  { level: 10, name: 'PUPPER',    emoji: '🐕', key: 'sprout',    scale: 0.90, hue: 25,  desc: 'A cute little pupper. Floppy ears and endless curiosity.' },
+  { level: 15, name: 'EXPLORER',  emoji: '🦴', key: 'sapling',   scale: 0.98, hue: 40,  desc: 'Stronger legs. Learning fun new tricks.' },
+  { level: 20, name: 'SIDEKICK',  emoji: '🎾', key: 'bloom',     scale: 1.05, hue: -10, desc: 'Shiny coat, playful and proud.' },
+  { level: 25, name: 'GUARDIAN',  emoji: '🛡️', key: 'guardian',  scale: 1.12, hue: -25, desc: 'Loyal guardian. Protective of the home.' },
+  { level: 30, name: 'MYSTIC',    emoji: '✨', key: 'mystic',    scale: 1.18, hue: 200, desc: 'Star-dusted fur. Howls at the night sky.' },
+  { level: 35, name: 'LEGEND',    emoji: '👑', key: 'eternal',   scale: 1.25, hue: 280, desc: 'A legendary good boy. Bond of Koy & Metz.' },
+  { level: 45, name: 'AURORA',    emoji: '🌌', key: 'aurora',    scale: 1.32, hue: 260, desc: 'Northern-light coat. A rare form of devotion.' },
+  { level: 55, name: 'CELESTIAL', emoji: '🌟', key: 'celestial', scale: 1.40, hue: 45,  desc: 'Celestial Mochi. The home becomes a constellation.' }
 ];
 
+
+const ROOM_ENV = {
+  bedroom: { badge: '🛋️ LIVING ROOM', wall: 'linear-gradient(180deg,#FFE9CF 0%,#F8D3AE 100%)',
+    deco: `<div style="position:absolute;inset:0;background-image:repeating-linear-gradient(90deg,rgba(176,116,60,.10) 0 2px,transparent 2px 38px)"></div><div style="position:absolute;top:14px;left:26px;width:54px;height:44px;border:4px solid #B07A44;border-radius:6px;background:linear-gradient(180deg,#BFE3F5,#E8F6FD)"></div><div style="position:absolute;top:18px;right:30px;font-size:1.6rem;opacity:.9">🖼️</div>`,
+    floor: 'repeating-linear-gradient(90deg,#C99A64 0 26px,#B98852 26px 28px)' },
+  bathroom: { badge: '🛁 BATH & GROOM', wall: 'linear-gradient(180deg,#D5F0F2 0%,#B5E0E6 100%)',
+    deco: `<div style="position:absolute;inset:0;background-image:radial-gradient(circle at 12px 12px,rgba(255,255,255,.7) 3px,transparent 4px);background-size:34px 34px"></div><div style="position:absolute;top:14px;right:26px;font-size:1.5rem">🫧</div><div style="position:absolute;top:30px;left:30px;font-size:1.1rem">🫧</div>`,
+    floor: 'repeating-linear-gradient(90deg,#F1FAFB 0 22px,#D3EBEF 22px 24px)' },
+  kitchen: { badge: '🍳 KITCHEN', wall: 'linear-gradient(180deg,#FFF1D6 0%,#F5DDB0 100%)',
+    deco: `<div style="position:absolute;inset:0;background-image:linear-gradient(90deg,rgba(176,116,60,.14) 1px,transparent 1px),linear-gradient(0deg,rgba(176,116,60,.14) 1px,transparent 1px);background-size:30px 30px"></div><div style="position:absolute;top:12px;left:26px;font-size:1.3rem">🥣</div>`,
+    floor: 'repeating-conic-gradient(#E9C79A 0% 25%,#FBEBCF 0% 50%) 50% / 26px 26px' },
+  garden: { badge: '🌳 BACKYARD', wall: 'linear-gradient(180deg,#9FD8F5 0%,#D2EEFA 52%,#BFE6A8 52%,#A6D68C 100%)',
+    deco: `<div style="position:absolute;top:12px;right:24px;width:42px;height:42px;border-radius:50%;background:radial-gradient(circle,#FFF6BF 30%,#FFE070);box-shadow:0 0 26px rgba(255,224,112,.85)"></div><div style="position:absolute;left:0;right:0;bottom:12%;height:34%;background:repeating-linear-gradient(90deg,#fff 0 14px,transparent 14px 26px);-webkit-mask:linear-gradient(180deg,#000 55%,transparent 55%);mask:linear-gradient(180deg,#000 55%,transparent 55%);opacity:.95;border-top:4px solid #fff"></div><div style="position:absolute;top:34px;left:24px;font-size:1.4rem">🦋</div>`,
+    floor: 'linear-gradient(180deg,#9ACF7C 0%,#7DBB62 60%,#66A64F 100%)' },
+  forest: { badge: '🌲 DOG PARK', wall: 'linear-gradient(180deg,#B7E3F7 0%,#DFF3E0 46%,#8CCB78 46%,#6DB45C 100%)',
+    deco: `<div style="position:absolute;bottom:42%;left:6%;font-size:2.6rem">🌳</div><div style="position:absolute;bottom:42%;right:8%;font-size:3rem">🌲</div><div style="position:absolute;top:12px;left:40%;font-size:1.6rem">☁️</div>`,
+    floor: 'linear-gradient(180deg,#7EC46B 0%,#5FA84F 60%,#4C9242 100%)' },
+  playroom: { badge: '🧸 TOY ROOM', wall: 'linear-gradient(180deg,#FFE0EC 0%,#FBC9DD 100%)',
+    deco: `<div style="position:absolute;inset:0;background-image:radial-gradient(circle at 20px 20px,rgba(255,255,255,.7) 5px,transparent 6px),radial-gradient(circle at 70px 70px,rgba(255,190,120,.55) 5px,transparent 6px);background-size:100px 100px"></div>`,
+    floor: 'repeating-linear-gradient(45deg,#FFE9B8 0 16px,#FFD98A 16px 32px)' },
+  farm: { badge: '🌾 FARM', wall: 'linear-gradient(180deg,#8ED2F2 0%,#C9E8F5 50%,#F2DFA8 100%)',
+    deco: `<div style="position:absolute;top:14px;right:28px;width:38px;height:38px;border-radius:50%;background:radial-gradient(circle,#FFF6BF 30%,#FFDF70);box-shadow:0 0 22px rgba(255,224,112,.8)"></div><div style="position:absolute;bottom:0;left:0;right:0;height:28%;background:linear-gradient(180deg,transparent,rgba(160,180,90,.4))"></div>`,
+    floor: 'repeating-linear-gradient(90deg,#D6B878 0 18px,#C4A25F 18px 20px)' },
+  observatory: { badge: '🔭 STARGAZING LOFT', wall: 'linear-gradient(180deg,#1B1740 0%,#2D2766 60%,#463C86 100%)',
+    deco: `<div style="position:absolute;inset:0;background-image:radial-gradient(circle at 30px 30px,#fff 1.2px,transparent 2px),radial-gradient(circle at 90px 60px,#FFF3B8 1.4px,transparent 2px),radial-gradient(circle at 150px 40px,#fff 1px,transparent 2px);background-size:200px 140px;animation:twinkle 4s ease-in-out infinite alternate"></div><div style="position:absolute;top:22px;right:30px;width:40px;height:40px;border-radius:50%;background:radial-gradient(circle at 30% 30%,#FFFBEA,#E8E0C0);box-shadow:0 0 26px rgba(255,248,200,.7)"></div>`,
+    floor: 'repeating-linear-gradient(90deg,#4B3F8C 0 24px,#3D3376 24px 26px)' },
+  cloudnest: { badge: '🌤️ TREEHOUSE', wall: 'linear-gradient(180deg,#BEE6F7 0%,#E3F4EA 55%,#B98F5C 55%,#A77B48 100%)',
+    deco: `<div style="position:absolute;top:10px;left:14%;font-size:1.8rem">☁️</div><div style="position:absolute;top:26px;right:12%;font-size:1.4rem">🍃</div><div style="position:absolute;inset:auto 0 0 0;height:46%;background:repeating-linear-gradient(90deg,rgba(90,56,24,.25) 0 3px,transparent 3px 30px)"></div>`,
+    floor: 'repeating-linear-gradient(90deg,#C69A64 0 24px,#B58850 24px 26px)' },
+  starcove: { badge: '🏖️ MOONLIT BEACH', wall: 'linear-gradient(180deg,#0E1033 0%,#1E2A66 52%,#2B5A8A 52%,#3E86B0 100%)',
+    deco: `<div style="position:absolute;inset:0;background-image:radial-gradient(circle at 18% 22%,#fff 1px,transparent 2px),radial-gradient(circle at 72% 18%,#FFF3B8 1.4px,transparent 2.5px),radial-gradient(circle at 40% 36%,#C8D4FF 1px,transparent 2px);animation:twinkle 4s ease-in-out infinite alternate"></div><div style="position:absolute;top:16px;right:34px;font-size:2rem">🌙</div><div style="position:absolute;left:0;right:0;top:50%;height:6px;background:repeating-linear-gradient(90deg,rgba(255,255,255,.5) 0 18px,transparent 18px 34px)"></div>`,
+    floor: 'linear-gradient(180deg,#E8D3A3 0%,#D8BE88 60%,#C6A870 100%)' }
+};
+
 const ROOMS = [
-  { id: 'bedroom',     name: 'BEDROOM',     emoji: '🛏️', reqLevel: 1 },
-  { id: 'bathroom',    name: 'BATHROOM',    emoji: '🛁', reqLevel: 1 },
+  { id: 'bedroom',     name: 'LIVING ROOM', emoji: '🛋️', reqLevel: 1 },
+  { id: 'bathroom',    name: 'BATH & GROOM', emoji: '🛁', reqLevel: 1 },
   { id: 'kitchen',     name: 'KITCHEN',     emoji: '🍳', reqLevel: 5 },
-  { id: 'garden',      name: 'GARDEN',      emoji: '🌷', reqLevel: 10 },
-  { id: 'forest',      name: 'FOREST',      emoji: '🌲', reqLevel: 15 },
-  { id: 'playroom',    name: 'PLAYROOM',    emoji: '🎨', reqLevel: 20 },
+  { id: 'garden',      name: 'BACKYARD',     emoji: '🌳', reqLevel: 10 },
+  { id: 'forest',      name: 'DOG PARK',     emoji: '🌲', reqLevel: 15 },
+  { id: 'playroom',    name: 'TOY ROOM',      emoji: '🧸', reqLevel: 20 },
   { id: 'farm',        name: 'FARM',        emoji: '🌾', reqLevel: 25 },
-  { id: 'observatory', name: 'OBSERVATORY', emoji: '🔭', reqLevel: 30 },
-  { id: 'cloudnest',   name: 'CLOUD NEST',  emoji: '☁️', reqLevel: 45 },
-  { id: 'starcove',    name: 'STAR COVE',   emoji: '🌌', reqLevel: 55 }
+  { id: 'observatory', name: 'STARGAZING LOFT', emoji: '🔭', reqLevel: 30 },
+  { id: 'cloudnest',   name: 'TREEHOUSE',     emoji: '🌤️', reqLevel: 45 },
+  { id: 'starcove',    name: 'MOONLIT BEACH', emoji: '🏖️', reqLevel: 55 }
 ];
 
 const ACTIONS = {
-  feed:  { stat: 'hunger', amount: 25, xp: 2, verb: 'fed',              emoji: '🍖', prefRoom: 'kitchen' },
-  play:  { stat: 'happy',  amount: 22, xp: 3, verb: 'played with',      emoji: '🎾', prefRoom: 'playroom', cost: { energy: 8 } },
+  feed:  { stat: 'hunger', amount: 25, xp: 2, verb: 'fed',              emoji: '🍚', prefRoom: 'kitchen' },
+  play:  { stat: 'happy',  amount: 22, xp: 3, verb: 'played with',      emoji: '🎈', prefRoom: 'playroom', cost: { energy: 8 } },
   sleep: { stat: 'energy', amount: 30, xp: 2, verb: 'tucked in',        emoji: '🌙', prefRoom: 'bedroom' },
   bath:  { stat: 'clean',  amount: 30, xp: 2, verb: 'bathed',           emoji: '💧', prefRoom: 'bathroom' },
   pet:   { stat: 'happy',  amount: 8,  xp: 1, verb: 'petted',           emoji: '🤲', prefRoom: null },
   clean: { stat: 'clean',  amount: 15, xp: 2, verb: 'cleaned up after', emoji: '🧹', prefRoom: 'bathroom' },
-  sing:  { stat: 'happy',  amount: 18, xp: 3, verb: 'howled with',      emoji: '🎵', prefRoom: 'playroom', cost: { energy: 4 } },
+  sing:  { stat: 'happy',  amount: 18, xp: 3, verb: 'howled with',      emoji: '🐺', prefRoom: 'playroom', cost: { energy: 4 } },
   dance: { stat: 'happy',  amount: 20, xp: 3, verb: 'danced with',      emoji: '💃', prefRoom: 'playroom', cost: { energy: 6 } },
-  bark:  { stat: 'happy',  amount: 16, xp: 4, verb: 'barked with',      emoji: '🗣️', prefRoom: 'garden',   cost: { energy: 6 } },
-  fetch: { stat: 'happy',  amount: 18, xp: 4, verb: 'played fetch with', emoji: '🎾', prefRoom: 'garden',  cost: { energy: 10 } },
-  roll:  { stat: 'happy',  amount: 14, xp: 3, verb: 'rolled over for',  emoji: '🔄', prefRoom: null,      cost: { energy: 5 } },
-  dig:   { stat: 'happy',  amount: 10, xp: 2, verb: 'dug with',         emoji: '🦴', prefRoom: 'farm',    cost: { energy: 6, clean: 4 } }
+  fly:   { stat: 'happy',  amount: 16, xp: 4, verb: 'did zoomies with', emoji: '💨', prefRoom: 'garden',   cost: { energy: 10 } },
+  fire:  { stat: 'happy',  amount: 14, xp: 4, verb: 'played fetch with', emoji: '🎾', prefRoom: 'garden',  cost: { energy: 8 } },
+  roar:  { stat: 'happy',  amount: 12, xp: 3, verb: 'barked with',      emoji: '🐕', prefRoom: null,      cost: { energy: 5 } },
+  dig:   { stat: 'happy',  amount: 10, xp: 2, verb: 'dug with',         emoji: '🕳️', prefRoom: 'farm',    cost: { energy: 6, clean: 4 } }
 };
 
 const WANTS = [
-  { id: 'feed',  emoji: '🍖', text: 'wants food!',     action: 'feed' },
-  { id: 'play',  emoji: '🎾', text: 'wants to play!',  action: 'play' },
+  { id: 'feed',  emoji: '🍚', text: 'wants food!',     action: 'feed' },
+  { id: 'play',  emoji: '🎈', text: 'wants to play!',  action: 'play' },
   { id: 'sleep', emoji: '🌙', text: 'is sleepy',       action: 'sleep' },
   { id: 'bath',  emoji: '💧', text: 'wants a bath!',   action: 'bath' },
   { id: 'pet',   emoji: '🤲', text: 'wants cuddles!',  action: 'pet' },
   { id: 'clean', emoji: '🧹', text: 'wants tidying!',  action: 'clean' },
-  { id: 'sing',  emoji: '🎵', text: 'wants to howl!',  action: 'sing' },
+  { id: 'sing',  emoji: '🐺', text: 'wants to howl!',  action: 'sing' },
   { id: 'dance', emoji: '💃', text: 'wants to dance!', action: 'dance' },
-  { id: 'bark',  emoji: '🗣️', text: 'wants to bark!',  action: 'bark' },
-  { id: 'fetch', emoji: '🎾', text: 'wants to fetch!', action: 'fetch' },
-  { id: 'roll',  emoji: '🔄', text: 'wants to roll!',  action: 'roll' },
-  { id: 'dig',   emoji: '🦴', text: 'wants to dig!',   action: 'dig' }
+  { id: 'fly',   emoji: '💨', text: 'wants zoomies!',   action: 'fly' },
+  { id: 'fire',  emoji: '🎾', text: 'wants to play fetch!', action: 'fire' },
+  { id: 'roar',  emoji: '🐕', text: 'wants to bark!',  action: 'roar' },
+  { id: 'dig',   emoji: '🦴', text: 'wants to dig for bones!',   action: 'dig' }
 ];
 
 const AMBIENT_BEHAVIORS = {
@@ -5218,7 +5214,7 @@ const CLOTHES_DEFS = [
   { id: 'clothes_scarf',   emoji: '🧣', name: 'COZY SCARF',    desc: 'Warm and snuggly scarf',          cost: 55,  css: 'clothes-scarf' },
   { id: 'clothes_hat',     emoji: '🎩', name: 'FANCY HAT',     desc: 'A dapper little hat',             cost: 70,  css: 'clothes-hat' },
   { id: 'clothes_glasses', emoji: '👓', name: 'SMART GLASSES', desc: 'Looking wise and cute',           cost: 50,  css: 'clothes-glasses' },
-  { id: 'clothes_cape',    emoji: '🛡️', name: 'SCALE ARMOR',   desc: 'Dragon scales across the back',   cost: 90,  css: 'clothes-cape' },
+  { id: 'clothes_cape',    emoji: '🛡️', name: 'ADVENTURE VEST',   desc: 'A sturdy little vest for adventures',   cost: 90,  css: 'clothes-cape' },
   { id: 'clothes_crown',   emoji: '👑', name: 'ROYAL CROWN',   desc: 'For the most special days',       cost: 120, css: 'clothes-crown' },
   { id: 'clothes_hoodie',  emoji: '🧥', name: 'SOFT HOODIE',   desc: 'Comfy everyday hoodie',           cost: 65,  css: 'clothes-hoodie' },
   { id: 'clothes_flower',  emoji: '🌸', name: 'FLOWER CLIP',   desc: 'A pretty blossom in the fur',     cost: 35,  css: 'clothes-flower' }
@@ -5293,7 +5289,7 @@ const SHOP_ITEMS = [
   { id: 'clothes_scarf',   emoji: '🧣', name: 'COZY SCARF',    desc: 'Outfit — wear from the wardrobe', cost: 55,  consumable: false, clothes: true, scope: 'global' },
   { id: 'clothes_hat',     emoji: '🎩', name: 'FANCY HAT',     desc: 'Outfit — wear from the wardrobe', cost: 70,  consumable: false, clothes: true, scope: 'global' },
   { id: 'clothes_glasses', emoji: '👓', name: 'SMART GLASSES', desc: 'Outfit — wear from the wardrobe', cost: 50,  consumable: false, clothes: true, scope: 'global' },
-  { id: 'clothes_cape',    emoji: '🛡️', name: 'SCALE ARMOR',   desc: 'Dragon scales on the back', cost: 90,  consumable: false, clothes: true, scope: 'global' },
+  { id: 'clothes_cape',    emoji: '🛡️', name: 'ADVENTURE VEST',   desc: 'A sturdy little vest for adventures', cost: 90,  consumable: false, clothes: true, scope: 'global' },
   { id: 'clothes_crown',   emoji: '👑', name: 'ROYAL CROWN',   desc: 'Outfit — wear from the wardrobe', cost: 120, consumable: false, clothes: true, scope: 'global' },
   { id: 'clothes_hoodie',  emoji: '🧥', name: 'SOFT HOODIE',   desc: 'Outfit — wear from the wardrobe', cost: 65,  consumable: false, clothes: true, scope: 'global' },
   { id: 'clothes_flower',  emoji: '🌸', name: 'FLOWER CLIP',   desc: 'Outfit — wear from the wardrobe', cost: 35,  consumable: false, clothes: true, scope: 'global' },
@@ -5314,12 +5310,12 @@ const SHOP_ITEMS = [
   { id: 'ing_apple',    emoji: '🍎', name: 'APPLE',     desc: 'Ingredient → goes in the fridge', cost: 7,  ingredient: true, scope: 'global' },
 
 
-  { id: 'color_mint',     emoji: '🟢', name: 'MINT SCALES',     desc: 'Classic green scale color', cost: 40,  colorVariant: 'mint', scope: 'global' },
-  { id: 'color_blush',    emoji: '🩷', name: 'BLUSH SCALES',    desc: 'Soft pink scale tint', cost: 60,  colorVariant: 'blush', scope: 'global' },
-  { id: 'color_sky',      emoji: '🔵', name: 'SKY SCALES',      desc: 'Cool blue scale tint', cost: 60,  colorVariant: 'sky', scope: 'global' },
-  { id: 'color_gold',     emoji: '🟡', name: 'GOLD SCALES',     desc: 'Warm golden scale tint', cost: 80,  colorVariant: 'gold', scope: 'global' },
-  { id: 'color_lavender', emoji: '💜', name: 'LAVENDER SCALES', desc: 'Mystic purple scale tint', cost: 90,  colorVariant: 'lavender', scope: 'global' },
-  { id: 'color_coral',    emoji: '🧡', name: 'CORAL SCALES',    desc: 'Warm coral scale tint', cost: 70,  colorVariant: 'coral', scope: 'global' },
+  { id: 'color_mint',     emoji: '🟢', name: 'SHIBA COAT',      desc: 'Classic warm shiba tan', cost: 40,  colorVariant: 'mint', scope: 'global' },
+  { id: 'color_blush',    emoji: '🩷', name: 'STRAWBERRY COAT', desc: 'Soft strawberry-cream fur', cost: 60,  colorVariant: 'blush', scope: 'global' },
+  { id: 'color_sky',      emoji: '🔵', name: 'HUSKY COAT',      desc: 'Cool frosty husky grey', cost: 60,  colorVariant: 'sky', scope: 'global' },
+  { id: 'color_gold',     emoji: '🟡', name: 'GOLDEN COAT',     desc: 'Sunny golden retriever fur', cost: 80,  colorVariant: 'gold', scope: 'global' },
+  { id: 'color_lavender', emoji: '💜', name: 'LILAC COAT',      desc: 'Dreamy lilac poodle fur', cost: 90,  colorVariant: 'lavender', scope: 'global' },
+  { id: 'color_coral',    emoji: '🧡', name: 'CORGI COAT',      desc: 'Toasty corgi orange', cost: 70,  colorVariant: 'coral', scope: 'global' },
 
   { id: 'decoration', emoji: '🎀', name: 'BOW DECOR',         desc: 'Pink bow worn by Mochi (+5% XP)',             cost: 100, consumable: false, scope: 'global' },
   { id: 'lucky',      emoji: '🍀', name: 'LUCKY CHARM',       desc: 'Floating clover (+1 coin/action)',            cost: 150, consumable: false, scope: 'global' },
@@ -5398,7 +5394,7 @@ const ACHIEVEMENTS = [
   { id: 'bond_50',       emoji: '💞', name: 'CLOSE BOND',       desc: 'Reach bond level 50',              check: (d) => (d.bond || 0) >= 50 },
   { id: 'bond_100',      emoji: '💗', name: 'SOULMATES',        desc: 'Reach bond level 100',             check: (d) => (d.bond || 0) >= 100 },
   { id: 'quests_7',      emoji: '📋', name: 'QUEST KEEPER',     desc: 'Complete 7 daily quest sets',      check: (d) => (d.stats?.questDays || 0) >= 7 },
-  { id: 'color_first',   emoji: '🎨', name: 'STYLE ICON',       desc: 'Unlock a scale color',             check: (d) => Object.keys(d.unlockedColors || {}).length >= 1 },
+  { id: 'color_first',   emoji: '🎨', name: 'STYLE ICON',       desc: 'Unlock a coat style',             check: (d) => Object.keys(d.unlockedColors || {}).length >= 1 },
   { id: 'daily_7',       emoji: '🎁', name: 'GIFT COLLECTOR',   desc: 'Claim 7 daily gifts in a row',       check: (d) => (d.dailyReward?.day || 0) >= 7 }
 ];
 
@@ -5623,7 +5619,7 @@ async function moveMochiToRoom(roomId, opts = {}) {
       setTimeout(() => outBadge.remove(), 900);
       sfxWalk();
 
-      pet.className = 'pet hopping leaving';
+      pet.className = 'pet flying leaving';
       pet.style.left = '110%';
       pet.style.bottom = '35%';
       await new Promise(r => setTimeout(r, 900));
@@ -5648,13 +5644,13 @@ async function moveMochiToRoom(roomId, opts = {}) {
     petEl.style.left = '50%';
     petEl.style.bottom = '15%';
     petEl.style.transition = 'none';
-    petEl.className = 'pet hopping arriving';
+    petEl.className = 'pet flying arriving';
     setTimeout(() => {
       petEl.style.bottom = '15%';
       setPetClass(); // land as sitting dragon
     }, 850);
 
-    if (!opts.noToast) showToast('Mochi trotted to the ' + room.name.toLowerCase() + ' ' + room.emoji);
+    if (!opts.noToast) showToast('Mochi walked to the ' + room.name.toLowerCase() + ' ' + room.emoji);
   }
 }
 
@@ -5722,7 +5718,7 @@ if (savedRole && savedPin) {
   document.querySelectorAll('.role-btn').forEach(b => {
     if (b.dataset.role === savedRole) b.classList.add('selected');
   });
-  $('welcomeEmoji').textContent = savedRole === 'koy' ? '🌿' : '🌸';
+  $('welcomeEmoji').textContent = '🐶';
 }
 
 $('loginBtn').addEventListener('click', () => {
@@ -6191,7 +6187,7 @@ function applyRoom(force) {
         floorEl.style.background = 'repeating-linear-gradient(90deg, #C9B078 0px, #C9B078 18px, #B89860 18px, #B89860 20px)';
         $('roomBadge').textContent = '🌾 FARM';
         break;
-      case 'doghouse':
+      case 'cloudnest':
         wallEl.style.background = 'linear-gradient(180deg, #B8D4F0 0%, #D8E8F8 45%, #F0F6FC 100%)';
         wallEl.innerHTML = `<div style="position:absolute;inset:0;background-image:
           radial-gradient(ellipse at 20% 40%, rgba(255,255,255,0.85) 0%, transparent 42%),
@@ -6214,6 +6210,12 @@ function applyRoom(force) {
         floorEl.style.background = 'linear-gradient(180deg, #2A1A48 0%, #1A0E30 60%, #120A22 100%)';
         $('roomBadge').textContent = '🌌 STAR COVE';
         break;
+    }
+
+    const ENV = ROOM_ENV[currentRoomId];
+    if (ENV) {
+      wallEl.style.background = ENV.wall; wallEl.innerHTML = ENV.deco; floorEl.style.background = ENV.floor;
+      $('roomBadge').textContent = ENV.badge;
     }
     roomEl.dataset.rendered = '1';
     renderRoomScene();
@@ -8287,7 +8289,7 @@ async function interactRoomCampfire(pet) {
   pet.className = 'pet walking';
   await movePetTo(pos.x, 900, pos.bottom, pos.scale);
   pet.className = 'pet watching';
-  showBubble('got it!', '🎾');
+  showBubble('toasty!', '🔥');
   sfxOpen();
   await new Promise(r => setTimeout(r, 2000));
   pet.className = 'pet walking';
@@ -8567,7 +8569,7 @@ function placeRoomItem(type) {
 
 async function useRoomItem(itemId) {
   if (!gameData) return;
-  if (isAnimating) return showToast('Let Mochi finish 🐶');
+  if (isAnimating) return showToast('Let Mochi finish 🌿');
 
   const items = gameData.roomItems || {};
   const item = items[itemId];
@@ -8995,9 +8997,9 @@ function renderRooms() {
     if (unlocked && !isActive) {
       card.addEventListener('click', async () => {
         sfxClick();
-        if (isAnimating) return showToast('Let Mochi finish 🐶');
+        if (isAnimating) return showToast('Let Mochi finish 🌿');
         await moveMochiToRoom(room.id, { noToast: true });
-        showToast('Mochi trotted to the ' + room.name.toLowerCase() + '! ' + room.emoji);
+        showToast('Mochi walked to the ' + room.name.toLowerCase() + '! ' + room.emoji);
       });
     }
     grid.appendChild(card);
@@ -9394,7 +9396,7 @@ function renderPresence() {
   else if (diffMin < 60) label = `${Math.floor(diffMin)}m ago`;
   else if (diffMin < 1440) label = `${Math.floor(diffMin/60)}h ago`;
   else label = `${Math.floor(diffMin/1440)}d ago`;
-  $('presenceFooter').innerHTML = `${dot} ${otherName} ${label} · Made with care for Mochi 🐶`;
+  $('presenceFooter').innerHTML = `${dot} ${otherName} ${label} · Made with care for Mochi 🌿`;
 }
 
 function checkStreak() {
@@ -9640,7 +9642,7 @@ function playActionAnimation(name) {
           await movePetTo(28, 1200);
           pet.className = 'pet happy eating';
           for (let i = 0; i < 3; i++) setTimeout(() => floatHearts(1), i * 400);
-          showBubble('nom nom!', '🍖');
+          showBubble('nom nom!', '🍚');
           await new Promise(r => setTimeout(r, 1500));
           pet.className = 'pet walking';
           await movePetTo(50, 1200, 15, 1);
@@ -9651,7 +9653,7 @@ function playActionAnimation(name) {
         case 'play': {
           const ball = addProp('🎈', 'prop-ball', { right: '25%' });
           pet.className = 'pet happy';
-          showBubble('wheee!', '🎾');
+          showBubble('wheee!', '🎈');
           floatHearts(6);
           await new Promise(r => setTimeout(r, 2000));
           ball.remove();
@@ -9756,12 +9758,10 @@ function playActionAnimation(name) {
           pet.className = 'pet walking';
           await movePetTo(50, 600, 18, 1);
           pet.className = 'pet singing';
-          showBubble('awooo~', '🎵');
+          showBubble('awoooo~', '🌙');
           floatHearts(2);
-          for (let i = 0; i < 4; i++) {
-            setTimeout(() => showBubble(['awoo', 'woo', 'awooo', 'ruff~'][i], '🎵'), i * 450);
-          }
-          await new Promise(r => setTimeout(r, 2200));
+          ['aw','woo','ooo~'].forEach((t, i) => setTimeout(() => showBubble(t, '🎵'), i * 650));
+          await new Promise(r => setTimeout(r, 2300));
           setPetClass();
           break;
         }
@@ -9778,54 +9778,50 @@ function playActionAnimation(name) {
           setPetClass();
           break;
         }
-        case 'bark': {
+        case 'fly': {
           pet.className = 'pet walking';
-          await movePetTo(50, 500, 20, 1);
-          pet.className = 'pet barking';
-          showBubble('woof woof!', '🗣️');
+          await movePetTo(16, 450, 18, 1);
+          pet.className = 'pet flying zoomies';
+          showBubble('ZOOMIES!', '💨');
+          for (const x of [84, 22, 78, 50]) { await movePetTo(x, 520, 16 + (x % 7), 1); }
           floatHearts(2);
-          await new Promise(r => setTimeout(r, 2500));
           pet.className = 'pet hopping';
-          showBubble('good dog!', '✨');
-          await new Promise(r => setTimeout(r, 700));
+          showBubble('phew!', '😮‍💨');
+          await new Promise(r => setTimeout(r, 800));
           setPetClass();
           break;
         }
-        case 'fetch': {
+        case 'fire': {
           pet.className = 'pet walking';
-          await movePetTo(55, 600, 16, 1);
-          pet.className = 'pet fetching';
-          showBubble('go get it!', '🎾');
-          // Fetch particles (ball / stars)
-          for (let i = 0; i < 5; i++) {
-            setTimeout(() => {
-              const f = document.createElement('div');
-              f.textContent = ['🎾','⭐','✨'][i % 3];
-              f.style.cssText = 'position:absolute;left:58%;bottom:40px;font-size:1.2rem;pointer-events:none;z-index:40;transition:all 0.6s ease-out;';
-              $('petArea')?.appendChild(f);
-              requestAnimationFrame(() => {
-                f.style.transform = `translate(${20 + i * 8}px, -${30 + i * 12}px) scale(${1.2 - i * 0.1})`;
-                f.style.opacity = '0';
-              });
-              setTimeout(() => f.remove(), 700);
-            }, i * 180);
-          }
-          await new Promise(r => setTimeout(r, 2200));
+          await movePetTo(30, 500, 16, 1);
+          pet.className = 'pet happy';
+          showBubble('throw it!', '🎾');
+          const ball = document.createElement('div');
+          ball.textContent = '🎾';
+          ball.style.cssText = 'position:absolute;left:35%;bottom:60px;font-size:1.3rem;pointer-events:none;z-index:40;transition:left .8s ease-out,bottom .8s cubic-bezier(.3,1.6,.6,1);';
+          $('petArea')?.appendChild(ball);
+          requestAnimationFrame(() => { ball.style.left = '82%'; ball.style.bottom = '16px'; });
+          await new Promise(r => setTimeout(r, 500));
+          pet.className = 'pet walking';
+          await movePetTo(82, 650, 16, 1);
+          ball.remove();
+          await movePetTo(40, 700, 16, 1);
           pet.className = 'pet happy';
           showBubble('got it!', '🎾');
-          await new Promise(r => setTimeout(r, 600));
+          floatHearts(2);
+          await new Promise(r => setTimeout(r, 900));
           setPetClass();
           break;
         }
-        case 'roll': {
+        case 'roar': {
           pet.className = 'pet walking';
           await movePetTo(50, 500, 16, 1);
-          pet.className = 'pet rolling';
-          showBubble('roll over!', '🔄');
+          pet.className = 'pet roaring';
+          showBubble('WOOF WOOF!', '🐕');
           floatHearts(1);
           await new Promise(r => setTimeout(r, 1800));
           pet.className = 'pet happy';
-          showBubble('good boy!', '🐶');
+          showBubble('good boy?', '🐾');
           await new Promise(r => setTimeout(r, 600));
           setPetClass();
           break;
@@ -9834,7 +9830,14 @@ function playActionAnimation(name) {
           pet.className = 'pet walking';
           await movePetTo(40, 700, 14, 1);
           pet.className = 'pet hopping';
-          showBubble('dig dig...', '🦴');
+          showBubble('dig dig dig...', '🕳️');
+          for (let i = 0; i < 4; i++) setTimeout(() => {
+            const d = document.createElement('div'); d.textContent = '🟤';
+            d.style.cssText = 'position:absolute;left:36%;bottom:18px;font-size:.6rem;pointer-events:none;z-index:40;transition:all .5s ease-out;';
+            $('petArea')?.appendChild(d);
+            requestAnimationFrame(() => { d.style.transform = `translate(${-14 - i * 6}px,-${22 + i * 8}px)`; d.style.opacity = '0'; });
+            setTimeout(() => d.remove(), 600);
+          }, i * 200);
           await new Promise(r => setTimeout(r, 900));
           pet.className = 'pet happy';
           showBubble('found a bone!', '🦴');
@@ -10006,8 +10009,8 @@ document.querySelectorAll('.action-btn').forEach(btn => {
 });
 
 async function doAction(name) {
-  if (!gameData) return showToast('Loading Mochi... 🐶');
-  if (isAnimating) return showToast('Let Mochi finish 🐶');
+  if (!gameData) return showToast('Loading Mochi... 🌿');
+  if (isAnimating) return showToast('Let Mochi finish 🌿');
   if (mgActive) return showToast('Finish the mini-game first! 🫧');
   if (Date.now() - lastActionAt < 1500) return showToast('A moment between care 🌿');
   lastActionAt = Date.now();
@@ -10130,7 +10133,7 @@ function applyActionEffects(name, addPoop) {
   updates.coins = (gameData.coins || 0) + coinsEarned;
   updates.lastUpdate = Date.now();
 
-  const statsField = { feed: 'feeds', play: 'plays', sleep: 'sleeps', bath: 'baths', pet: 'pets', clean: 'cleans', sing: 'sings', dance: 'dances', bark: 'barks', fetch: 'fetches', roll: 'rolls', dig: 'digs' }[name];
+  const statsField = { feed: 'feeds', play: 'plays', sleep: 'sleeps', bath: 'baths', pet: 'pets', clean: 'cleans', sing: 'sings', dance: 'dances', fly: 'flies', fire: 'fires', roar: 'roars', dig: 'digs' }[name];
   if (statsField) updates['stats/' + statsField] = (gameData.stats?.[statsField] || 0) + 1;
   if (fulfilledWant) updates['stats/wantsFulfilled'] = (gameData.stats?.wantsFulfilled || 0) + 1;
 
@@ -10191,14 +10194,14 @@ function showLevelUp(newLevel) {
   const prevStage = STAGES.reduce((acc, s) => (newLevel - 1 >= s.level ? s : acc), STAGES[0]);
   const evolved = stage.key !== prevStage.key;
   const hints = {
-    egg: 'Still in the shell...',
-    hatchling: 'Tiny puppy hatched!',
-    sprout: 'Tail is wagging!',
-    sapling: 'Legs grew stronger!',
-    bloom: 'Looking more dog-like!',
-    guardian: 'Young guardian dog!',
-    mystic: 'Mystic fur shines!',
-    eternal: 'Eternal little dog!'
+    egg: 'Fast asleep in the basket...',
+    hatchling: 'A wobbly puppy wakes up!',
+    sprout: 'Floppy ears and zoomies!',
+    sapling: 'Learning new tricks!',
+    bloom: 'A proud little sidekick!',
+    guardian: 'A loyal guardian dog!',
+    mystic: 'A mystic star-fur pup!',
+    eternal: 'A legendary good boy!'
   };
   const hint = evolved ? (hints[stage.key] || 'Mochi grew!') : 'Level up!';
   const overlay = document.createElement('div');
@@ -10292,15 +10295,15 @@ const DAILY_QUEST_POOL = [
   { id: 'note',     text: 'Leave a love note',    action: 'note',     target: 1, reward: '🪙 12' },
   { id: 'minigame', text: 'Play Bubble Pop',      action: 'minigame', target: 1, reward: '🪙 15' },
   { id: 'clean',    text: 'Clean up after Mochi', action: 'clean',    target: 1, reward: '🪙 8' },
-  { id: 'sing',     text: 'Howl with Mochi',      action: 'sing',     target: 1, reward: '🪙 10' }
+  { id: 'sing',     text: 'Sing with Mochi',      action: 'sing',     target: 1, reward: '🪙 10' }
 ];
 
 const ONBOARD_STEPS = [
-  { emoji: '🥚', title: 'MEET MOCHI', text: 'This is Mochi\'s room — a tiny life you and your partner care for together. Stats drop over time, so check in often!' },
-  { emoji: '🍚', title: 'CARE ACTIONS', text: 'Use FEED, SLEEP, BATH, PET, CLEAN and PLAY to keep Mochi happy. Special dog tricks are under the button below.' },
+  { emoji: '🐶', title: 'MEET MOCHI', text: 'This is Mochi\'s home — a tiny life you and your partner care for together. Stats drop over time, so check in often!' },
+  { emoji: '🍚', title: 'CARE ACTIONS', text: 'Use FEED, SLEEP, BATH, PET, CLEAN and PLAY to keep Mochi happy. Dog tricks like howl, fetch and zoomies are under the button below.' },
   { emoji: '🚪', title: 'ROOMS & SHOP', text: 'Swipe the room chips or open ROOMS to visit new spaces. Earn coins from care and buy treats, outfits, and furniture in the SHOP.' },
   { emoji: '💌', title: 'NOTES & BOND', text: 'Leave love notes for each other. When you both care close together, your BOND grows — unlock achievements and special moments!' },
-  { emoji: '✨', title: 'YOU\'RE READY', text: 'Claim daily gifts, complete quests, dress Mochi up, and watch them evolve. Have fun caring for Mochi together 🐶' }
+  { emoji: '✨', title: 'YOU\'RE READY', text: 'Claim daily gifts, complete quests, dress Mochi up, and watch them evolve. Have fun caring for Mochi together 🐾' }
 ];
 
 const HINTS = [
@@ -10309,7 +10312,7 @@ const HINTS = [
   'Tip: Drag furniture to rearrange the room layout',
   'Tip: Open the fridge in the kitchen to cook recipes 🍳',
   'Tip: Complete daily quests for extra coins',
-  'Tip: Unlock scale colors and outfits in the shop',
+  'Tip: Unlock coat styles and outfits in the shop',
   'Tip: Both of you caring within 10 minutes boosts BOND 💞'
 ];
 
@@ -10470,9 +10473,9 @@ function renderRoomChips() {
     if (unlocked && room.id !== currentRoomId) {
       chip.addEventListener('click', async () => {
         sfxClick();
-        if (isAnimating) return showToast('Let Mochi finish 🐶');
+        if (isAnimating) return showToast('Let Mochi finish 🌿');
         await moveMochiToRoom(room.id, { noToast: true });
-        showToast('Mochi trotted to the ' + room.name.toLowerCase() + '! ' + room.emoji);
+        showToast('Mochi walked to the ' + room.name.toLowerCase() + '! ' + room.emoji);
       });
     } else if (!unlocked) {
       chip.addEventListener('click', () => showToast('Unlock at Lv ' + room.reqLevel));
@@ -10535,11 +10538,11 @@ function renderWardrobe() {
     if (!isUnlocked) {
       sw.style.opacity = '0.35';
       sw.style.cursor = 'not-allowed';
-      sw.addEventListener('click', () => showToast('Buy ' + c.name + ' scales in the shop 🎨'));
+      sw.addEventListener('click', () => showToast('Buy the ' + c.name.toLowerCase() + ' style in the shop 🎨'));
     } else {
       sw.addEventListener('click', () => {
         db.ref('tamagotchi').update({ petColor: c.id, lastUpdate: Date.now() });
-        showToast('🎨 ' + c.name + ' scales!');
+        showToast('🎨 ' + c.name.toLowerCase() + ' style!');
         sfxClick();
       });
     }
@@ -10600,7 +10603,7 @@ function startOnboarding() {
       if (!panel) return;
       const open = !panel.classList.contains('collapsed');
       panel.classList.toggle('collapsed', open);
-      moreBtn.textContent = open ? '▼ DOG TRICKS & MINI-GAME' : '▲ HIDE DOG TRICKS';
+      moreBtn.textContent = open ? '▼ DRAGON MOVES & MINI-GAME' : '▲ HIDE DOG TRICKS';
       sfxClick();
     });
   }
@@ -11047,5 +11050,36 @@ document.addEventListener('visibilitychange', () => {
 })();
 </script>
 
+
+<script>
+/* Production helpers: live DB connection indicator, inline PWA manifest, a11y labels */
+(function () {
+  try {
+    firebase.database().ref('.info/connected').on('value', function (snap) {
+      var el = document.getElementById('netPill'); if (!el) return;
+      var on = snap.val() === true;
+      el.className = 'net-pill ' + (on ? 'on' : 'off');
+      el.textContent = on ? '● LIVE' : '○ OFFLINE';
+    });
+  } catch (e) { console.warn('connection monitor unavailable', e); }
+  try {
+    var m = { name: "Mochi's Home", short_name: 'Mochi', start_url: './', display: 'standalone', background_color: '#FFE9CF', theme_color: '#FFE9CF',
+      icons: [{ src: "data:image/svg+xml," + encodeURIComponent("<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><rect width='512' height='512' rx='96' fill='#FFE9CF'/><text x='256' y='340' font-size='280' text-anchor='middle'>🐶</text></svg>"), sizes: '512x512', type: 'image/svg+xml', purpose: 'any' }] };
+    var link = document.querySelector('link[rel="manifest"]');
+    if (link && location.protocol.indexOf('http') === 0) {
+      fetch('manifest.json', { method: 'HEAD' }).then(function (r) { if (!r.ok) throw 0; }).catch(function () {
+        link.href = URL.createObjectURL(new Blob([JSON.stringify(m)], { type: 'application/manifest+json' }));
+      });
+    }
+  } catch (e) {}
+  var labels = { home: 'Home', rooms: 'Places', shop: 'Shop', notes: 'Love notes', ach: 'Achievements', album: 'Album' };
+  document.querySelectorAll('.nav-tab').forEach(function (t) {
+    t.setAttribute('role', 'tab'); t.setAttribute('tabindex', '0'); t.setAttribute('aria-label', labels[t.dataset.view] || t.dataset.view);
+    t.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); t.click(); } });
+  });
+  document.querySelectorAll('.action-btn').forEach(function (b) { var l = b.querySelector('.label'); if (l) b.setAttribute('aria-label', l.textContent.trim()); });
+  window.addEventListener('unhandledrejection', function (e) { console.warn('Unhandled:', e.reason); });
+})();
+</script>
 </body>
 </html>
