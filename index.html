@@ -5764,51 +5764,100 @@ async function moveMochiToRoom(roomId, opts = {}) {
   if (lvl < room.reqLevel) return;
 
   const pet = $('pet');
+  const shadow = $('petShadow');
   const area = $('petArea');
+  const roomEl = $('room');
   const isVisible = currentView === 'home';
+  const prevAnimating = isAnimating;
+  isAnimating = true;
 
-  if (isVisible && !opts.silent) {
-    try {
-      const outBadge = document.createElement('div');
-      outBadge.className = 'door-transition';
-      outBadge.textContent = '🚪';
-      area.appendChild(outBadge);
-      setTimeout(() => outBadge.remove(), 900);
-      sfxWalk();
+  // Remember current position so we can walk toward the nearest exit edge
+  const curLeft = parseFloat(pet?.style?.left) || 50;
+  const exitRight = curLeft >= 50; // walk off the closer side
+  const exitX = exitRight ? 108 : -8;
+  const enterX = exitRight ? -6 : 106; // come in from opposite side
+  const walkBottom = 14;
 
-      pet.className = 'pet flying leaving';
-      pet.style.left = '110%';
-      pet.style.bottom = '35%';
-      await new Promise(r => setTimeout(r, 900));
-    } catch(e) {}
+  try {
+    if (isVisible && !opts.silent && pet) {
+      // 1) Door badge + walk toward exit
+      try {
+        const outBadge = document.createElement('div');
+        outBadge.className = 'door-transition';
+        outBadge.textContent = '🚪';
+        outBadge.style.left = exitRight ? '88%' : '8%';
+        area.appendChild(outBadge);
+        setTimeout(() => outBadge.remove(), 1400);
+      } catch (e) {}
+      if (typeof sfxWalk === 'function') sfxWalk();
+
+      pet.className = 'pet walking';
+      // Walk to the edge of the current room
+      await movePetTo(exitX, 900 + Math.min(400, Math.abs(exitX - curLeft) * 8), walkBottom, 1);
+      // Brief pause at the doorway
+      await new Promise(r => setTimeout(r, 120));
+    }
+
+    // 2) Soft fade of room while Mochi is off-screen
+    if (roomEl && isVisible && !opts.silent) {
+      roomEl.classList.add('room-fading', 'room-transition');
+      await new Promise(r => setTimeout(r, 180));
+    }
+
+    // 3) Swap room content while pet is off-screen
+    currentRoomId = roomId;
+    renderCache.sceneHash = '';
+    renderCache.poops = '';
+    fridgeOpen = false;
+    applyRoom(true);
+    renderRooms();
+    renderPoops();
+
+    if (gameData && gameData.room !== roomId) {
+      db.ref('tamagotchi/room').set(roomId);
+    }
+
+    // 4) Place Mochi just outside the opposite edge, then walk in
+    if (isVisible && !opts.silent && pet) {
+      pet.style.transition = 'none';
+      pet.style.left = enterX + '%';
+      pet.style.bottom = walkBottom + '%';
+      pet.style.setProperty('--pet-z', '1');
+      if (shadow) {
+        shadow.style.transition = 'none';
+        shadow.style.left = enterX + '%';
+        shadow.style.bottom = Math.max(2, walkBottom - 6) + '%';
+      }
+      // Force reflow so the next transition animates from the edge
+      void pet.offsetWidth;
+      pet.className = 'pet walking';
+      if (roomEl) {
+        roomEl.classList.remove('room-fading');
+        setTimeout(() => roomEl.classList.remove('room-transition'), 400);
+      }
+      // Walk into the center of the new room
+      await movePetTo(50, 1000, 15, 1);
+      setPetClass();
+      if (!opts.noToast) showToast('Mochi walked to the ' + room.name.toLowerCase() + ' ' + room.emoji);
+    } else if (pet) {
+      // Silent / not on home: just place in center
+      pet.style.left = '50%';
+      pet.style.bottom = '15%';
+      setPetClass();
+    }
+  } catch (e) {
+    console.warn('moveMochiToRoom', e);
+    currentRoomId = roomId;
+    applyRoom(true);
+    if (pet) {
+      pet.style.left = '50%';
+      pet.style.bottom = '15%';
+      setPetClass();
+    }
   }
 
-  currentRoomId = roomId;
-  renderCache.sceneHash = '';
-  renderCache.poops = '';
-  fridgeOpen = false;
-  applyRoom(true);
-  renderRooms();
-  renderPoops();
-
-  if (gameData && gameData.room !== roomId) {
-    db.ref('tamagotchi/room').set(roomId);
-  }
-
-  if (isVisible && !opts.silent) {
-    const petEl = $('pet');
-    petEl.classList.remove('leaving');
-    petEl.style.left = '50%';
-    petEl.style.bottom = '15%';
-    petEl.style.transition = 'none';
-    petEl.className = 'pet flying arriving';
-    setTimeout(() => {
-      petEl.style.bottom = '15%';
-      setPetClass(); // land as sitting dragon
-    }, 850);
-
-    if (!opts.noToast) showToast('Mochi walked to the ' + room.name.toLowerCase() + ' ' + room.emoji);
-  }
+  isAnimating = prevAnimating;
+  if (!opts.force) isAnimating = false;
 }
 
 async function tryAutoWander() {
