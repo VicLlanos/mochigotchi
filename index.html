@@ -4643,6 +4643,101 @@ body{
 .note-input{border-radius:var(--r-md) !important}
 .ach-popup,.levelup-badge{border-radius:var(--r-lg) !important}
 
+
+/* ============================================================
+   v2 — environment FX, ambience, together panel, evolution UI
+   ============================================================ */
+.env-ambient,.env-fx{position:absolute;inset:0;overflow:hidden;pointer-events:none}
+.env-ambient{z-index:2}.env-fx{z-index:7;transition:background .5s,box-shadow .6s}
+.env-fx .fx{position:absolute;pointer-events:none;font-size:1.2rem;line-height:1;will-change:transform,opacity}
+.fx-rise{animation:fxRise 2.2s ease-out forwards}.fx-pop{animation:fxPop 3.8s ease-out forwards;font-size:1.5rem !important}
+.fx-bounce{animation:fxBounce .7s ease-in-out 3,fxOut .5s 2s forwards;font-size:1.5rem !important}
+.fx-print{animation:fxPrint 4.4s ease-out forwards;opacity:0;font-size:.9rem !important}.fx-dust{animation:fxDust .9s ease-out forwards}
+.fx-fly{animation:fxFly 2.8s ease-in forwards;font-size:1.4rem !important}
+@keyframes fxRise{0%{transform:translateY(0) scale(.6);opacity:0}15%{opacity:1}100%{transform:translateY(-70px) scale(1.1);opacity:0}}
+@keyframes fxPop{0%{transform:scale(0);opacity:0}12%{transform:scale(1.25);opacity:1}20%{transform:scale(1)}80%{opacity:1}100%{opacity:0}}
+@keyframes fxBounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-34px) rotate(14deg)}}
+@keyframes fxOut{to{opacity:0}}
+@keyframes fxPrint{0%{opacity:0;transform:scale(.4)}10%{opacity:.75;transform:scale(1)}70%{opacity:.5}100%{opacity:0}}
+@keyframes fxDust{0%{opacity:.8;transform:translateX(0) scale(.7)}100%{opacity:0;transform:translateX(-30px) scale(1.5)}}
+@keyframes fxFly{0%{transform:translate(0,0)}100%{transform:translate(160px,-120px) scale(.5);opacity:0}}
+.room.fx-dim .env-fx{box-shadow:inset 0 0 0 999px rgba(18,14,56,.42)}
+.room.fx-howl .env-fx{background:radial-gradient(circle at 84% 14%,rgba(255,246,190,.6),transparent 46%)}
+.room.fx-disco .env-fx{animation:fxDisco .6s linear infinite;background:conic-gradient(from 0deg at 50% 0%,rgba(255,90,140,.28),rgba(90,200,255,.28),rgba(255,230,90,.28),rgba(140,255,150,.28),rgba(255,90,140,.28))}
+@keyframes fxDisco{to{filter:hue-rotate(360deg)}}
+.room.fx-shake{animation:fxShake .45s ease-in-out}
+@keyframes fxShake{0%,100%{transform:translateX(0)}20%{transform:translateX(-4px)}40%{transform:translateX(4px)}60%{transform:translateX(-3px)}80%{transform:translateX(3px)}}
+.room.fx-evolve .env-fx{background:radial-gradient(circle at 50% 70%,rgba(255,255,255,.95),rgba(255,220,120,.45) 40%,transparent 70%);animation:fxEvo 1.8s ease-out}
+@keyframes fxEvo{0%{opacity:0}20%{opacity:1}100%{opacity:0}}
+
+/* persistent marks */
+.mk{position:absolute;pointer-events:auto;cursor:pointer;border:0;background:none;padding:6px;font-size:1.25rem;line-height:1;transform:translateX(-50%);animation:mkIn .5s cubic-bezier(.34,1.56,.64,1);filter:drop-shadow(0 2px 1px rgba(0,0,0,.3))}
+.mk:hover{transform:translateX(-50%) scale(1.15)}
+.mk-hole{font-size:0;width:54px;height:24px;border-radius:50%;background:radial-gradient(ellipse at 50% 55%,#2e1d10 0 36%,#6b4527 38% 60%,#8f6439 62% 72%,transparent 74%);filter:drop-shadow(0 2px 0 rgba(0,0,0,.25))}
+.mk-hole::after{content:'';position:absolute;left:-6px;top:-6px;width:12px;height:8px;border-radius:50%;background:#8f6439;box-shadow:58px 4px 0 -1px #8f6439}
+.mk-take{animation:mkOut .35s ease-in forwards !important}
+@keyframes mkIn{0%{transform:translateX(-50%) scale(0)}100%{transform:translateX(-50%) scale(1)}}
+@keyframes mkOut{to{transform:translateX(-50%) translateY(-20px) scale(0);opacity:0}}
+
+/* ambience */
+.env-ambient .mote{position:absolute;width:4px;height:4px;border-radius:50%;background:rgba(255,248,220,.75);box-shadow:0 0 8px rgba(255,240,200,.9);animation:moteF 10s ease-in-out infinite}
+@keyframes moteF{0%,100%{transform:translate(0,0);opacity:0}30%,70%{opacity:.9}50%{transform:translate(14px,-22px)}}
+.env-ambient.night .mote{background:rgba(190,210,255,.7);box-shadow:0 0 8px rgba(160,190,255,.9)}
+.env-ambient .beam{position:absolute;top:-10%;left:62%;width:34%;height:92%;background:linear-gradient(180deg,rgba(255,244,200,.5),rgba(255,244,200,0));transform:skewX(-18deg);filter:blur(4px);animation:beamP 7s ease-in-out infinite}
+@keyframes beamP{50%{opacity:.55}}
+.env-ambient .ff{position:absolute;width:6px;height:6px;border-radius:50%;background:#FFF59A;box-shadow:0 0 12px 4px rgba(255,245,150,.8);animation:ffF 6s ease-in-out infinite}
+@keyframes ffF{0%,100%{transform:translate(0,0);opacity:.2}25%{opacity:1;transform:translate(16px,-14px)}50%{opacity:.3;transform:translate(-10px,-26px)}75%{opacity:1;transform:translate(12px,-8px)}}
+.env-ambient .bf{position:absolute;font-size:1.1rem;animation:bfF 9s ease-in-out infinite alternate}
+@keyframes bfF{0%{transform:translate(0,0) rotate(-8deg)}50%{transform:translate(70px,-24px) rotate(10deg)}100%{transform:translate(150px,10px) rotate(-6deg)}}
+.env-ambient .bub{position:absolute;font-size:1rem;opacity:.7;animation:bubF 9s linear infinite}
+@keyframes bubF{0%{transform:translateY(40px);opacity:0}20%{opacity:.8}100%{transform:translateY(-120px);opacity:0}}
+.env-ambient .steam{position:absolute;bottom:42%;width:14px;height:40px;border-radius:50%;background:linear-gradient(180deg,rgba(255,255,255,.6),transparent);filter:blur(3px);animation:steamF 4s ease-in-out infinite}
+@keyframes steamF{0%{transform:translateY(0) scaleX(1);opacity:0}30%{opacity:.7}100%{transform:translateY(-40px) scaleX(2);opacity:0}}
+.env-ambient .cl{position:absolute;left:-12%;font-size:1.8rem;opacity:.85;animation:clF 40s linear infinite}
+@keyframes clF{to{transform:translateX(560px)}}
+.env-ambient .shoot{position:absolute;top:8%;left:70%;width:70px;height:2px;background:linear-gradient(90deg,#fff,transparent);transform:rotate(-30deg);opacity:0;animation:shootF 7s ease-in infinite}
+.env-ambient .shoot.s2{top:22%;left:40%;animation-delay:3.5s}
+@keyframes shootF{0%{opacity:0;transform:translate(0,0) rotate(-30deg)}4%{opacity:1}14%{opacity:0;transform:translate(-120px,70px) rotate(-30deg)}100%{opacity:0}}
+.env-ambient .conf{position:absolute;width:6px;height:10px;border-radius:2px;animation:confF 9s linear infinite;opacity:.8}
+@keyframes confF{0%{transform:translateY(-20px) rotate(0)}100%{transform:translateY(200px) rotate(360deg);opacity:0}}
+
+/* Together panel */
+.together-panel{margin:8px 0;padding:12px 14px;background:linear-gradient(180deg,#FFF9F2,#FFEFE0) !important;border:1.5px solid var(--line);border-radius:var(--r-lg);box-shadow:var(--sh-1)}
+.tg-head{display:flex;justify-content:space-between;align-items:center;font-weight:700;font-size:.85rem;color:var(--accent-d)}
+.tg-head .dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:#C9BBAE;margin-right:5px}.tg-head .dot.on{background:#4CCB6B;box-shadow:0 0 0 3px rgba(76,203,107,.25)}
+#tgPresence{font-weight:500;font-size:.72rem;color:var(--ink-soft)}
+.tg-duo{display:flex;align-items:center;gap:8px;margin:10px 0 6px;font-weight:700;font-size:.8rem}
+.tg-bar{flex:1;height:12px;border-radius:999px;background:#F1E2D0;overflow:hidden;display:flex}
+.tg-bar i{display:block;height:100%;transition:width .5s}#tgKoyFill{background:linear-gradient(90deg,#7BCB86,#4FB36A)}#tgMetzFill{background:linear-gradient(90deg,#F4A3BD,#E87FA0)}
+.tg-goal{font-size:.72rem;color:var(--ink-soft);margin-bottom:10px}.tg-goal.done{color:#2F8A43;font-weight:600}
+.tg-react{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+.tg-react button{border:1.5px solid var(--line);background:#fff;border-radius:var(--r-md);padding:8px 2px;font-family:'Fredoka',sans-serif;font-weight:600;font-size:.66rem;color:var(--ink);cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:2px;min-height:52px;transition:transform .12s,box-shadow .12s;box-shadow:0 3px 0 rgba(150,95,50,.16)}
+.tg-react button span{font-size:1.3rem}.tg-react button:active{transform:translateY(2px);box-shadow:none}
+.tg-feed{margin-top:10px;font-size:.72rem;color:var(--ink);display:grid;gap:4px}
+.tg-feed div{display:flex;gap:6px;align-items:center;padding:5px 8px;background:rgba(255,255,255,.7);border-radius:10px}.tg-feed em{margin-left:auto;color:var(--ink-soft);font-style:normal}.tg-empty{color:var(--ink-soft);justify-content:center}
+.ping-pop{position:fixed;top:max(14px,env(safe-area-inset-top));left:50%;z-index:300;transform:translateX(-50%);display:flex;gap:10px;align-items:center;padding:12px 18px;background:#fff;border:2px solid var(--accent);border-radius:999px;box-shadow:var(--sh-2);font-size:.85rem;animation:pingIn .5s cubic-bezier(.34,1.56,.64,1),fxOut .4s 3.8s forwards;max-width:92vw}
+.ping-pop>span{font-size:1.6rem}@keyframes pingIn{0%{transform:translate(-50%,-80px);opacity:0}100%{transform:translate(-50%,0);opacity:1}}
+
+/* Evolution ladder + stage-tinted XP */
+:root{--stage-c:#F29A5B;--stage-c2:#F7C08F}
+.xp-fill{background:linear-gradient(90deg,var(--stage-c2),var(--stage-c)) !important;position:relative;overflow:hidden}
+.xp-fill::after{content:'';position:absolute;inset:0;background:linear-gradient(100deg,transparent 30%,rgba(255,255,255,.55) 50%,transparent 70%);animation:shine 2.6s linear infinite}
+@keyframes shine{from{transform:translateX(-100%)}to{transform:translateX(100%)}}
+.xp-bar.near .xp-fill{animation:nearP 1s ease-in-out infinite alternate}@keyframes nearP{to{filter:brightness(1.2) saturate(1.2)}}
+.evo-bar-fill{background:linear-gradient(90deg,var(--stage-c2),var(--stage-c)) !important}
+.stage-ladder{display:flex;gap:6px;overflow-x:auto;padding:12px 2px 4px;scrollbar-width:none;scroll-snap-type:x proximity}.stage-ladder::-webkit-scrollbar{display:none}
+.sl{flex:0 0 68px;scroll-snap-align:center;text-align:center;padding:8px 4px 6px;border-radius:14px;border:1.5px solid var(--line);background:#fff;position:relative;display:flex;flex-direction:column;align-items:center;gap:1px}
+.sl-e{font-size:1.4rem}.sl b{font-size:.58rem;color:var(--ink);letter-spacing:.2px}.sl small{font-size:.55rem;color:var(--ink-soft)}
+.sl.done{border-color:var(--c);background:linear-gradient(180deg,#fff,color-mix(in srgb,var(--c) 14%,#fff))}.sl.done small{color:var(--c);font-weight:700}
+.sl.cur{border:2px solid var(--c);background:linear-gradient(180deg,#fff,color-mix(in srgb,var(--c) 22%,#fff));box-shadow:0 0 0 4px color-mix(in srgb,var(--c) 22%,transparent),0 6px 14px color-mix(in srgb,var(--c) 30%,transparent);animation:curP 2.2s ease-in-out infinite}
+.sl.cur::before{content:'YOU';position:absolute;top:-9px;left:50%;transform:translateX(-50%);font-size:.5rem;font-weight:700;background:var(--c);color:#fff;padding:1px 6px;border-radius:999px}
+@keyframes curP{50%{transform:translateY(-2px)}}
+.sl.lock{opacity:.55;filter:grayscale(.7)}
+/* collar colour grows with the stage */
+.pet{--collar:#E5534B}.pet[data-stage="sprout"]{--collar:#4F8DE5}.pet[data-stage="sapling"]{--collar:#4FB36A}.pet[data-stage="bloom"]{--collar:#E87FA0}
+.pet[data-stage="guardian"]{--collar:#6F83DE}.pet[data-stage="mystic"]{--collar:#8B6FD6}.pet[data-stage="eternal"],.pet[data-stage="celestial"]{--collar:#E8B230}.pet[data-stage="aurora"]{--collar:#34B8C2}
+@media (prefers-reduced-motion:reduce){.env-ambient *{animation:none !important}}
+
 </style>
 </head>
 <body>
@@ -4701,6 +4796,9 @@ body{
         <div class="room-badge" id="roomBadge">🛋️ LIVING ROOM</div>
         <div class="want-bubble" id="wantBubble" style="display:none;"></div>
 
+        <div class="env-ambient" id="envAmbient"></div>
+        <div class="env-fx" id="envFx"></div>
+
         <div class="pet-area" id="petArea">
           <div class="pet-shadow" id="petShadow" style="left: 50%;"></div>
           <div class="pet idle" id="pet" data-stage="egg" style="left: 50%;">
@@ -4713,7 +4811,7 @@ body{
 <ellipse class="dg-o dg-red" cx="385" cy="485" rx="94" ry="84"/><ellipse class="dg-cr" cx="385" cy="506" rx="54" ry="60"/>
 <g class="dg-arm-l"><ellipse class="dg-o dg-red" cx="336" cy="516" rx="25" ry="40"/><ellipse class="dg-cr" cx="336" cy="546" rx="16" ry="9"/></g>
 <g class="dg-arm-r"><ellipse class="dg-o dg-red" cx="434" cy="516" rx="25" ry="40"/><ellipse class="dg-cr" cx="434" cy="546" rx="16" ry="9"/></g>
-<path class="dg-o" fill="#E5534B" stroke-width="4" d="M302 392Q385 430 468 392L466 418Q385 454 304 418Z"/><circle class="dg-o" fill="#f6c744" stroke-width="3.5" cx="385" cy="441" r="13"/><path d="M380 438l3 3 6-7" stroke="#8a5a0c" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+<path class="dg-o" fill="var(--collar,#E5534B)" stroke-width="4" d="M302 392Q385 430 468 392L466 418Q385 454 304 418Z"/><circle class="dg-o" fill="#f6c744" stroke-width="3.5" cx="385" cy="441" r="13"/><path d="M380 438l3 3 6-7" stroke="#8a5a0c" stroke-width="2.5" fill="none" stroke-linecap="round"/>
 <ellipse class="dg-o dg-red" cx="385" cy="295" rx="126" ry="101"/>
 <path class="dg-cr" d="M385 197C365 234 365 278 385 320C405 278 405 234 385 197Z"/>
 <ellipse cx="318" cy="238" rx="10" ry="6" fill="var(--dg-dark)" opacity=".85"/><ellipse cx="452" cy="238" rx="10" ry="6" fill="var(--dg-dark)" opacity=".85"/>
@@ -4735,7 +4833,7 @@ body{
 <ellipse class="dg-o dg-red" cx="385" cy="485" rx="94" ry="84"/><ellipse class="dg-cr" cx="385" cy="506" rx="54" ry="60"/>
 <g class="dg-arm-l"><ellipse class="dg-o dg-red" cx="336" cy="516" rx="25" ry="40"/><ellipse class="dg-cr" cx="336" cy="546" rx="16" ry="9"/></g>
 <g class="dg-arm-r"><ellipse class="dg-o dg-red" cx="434" cy="516" rx="25" ry="40"/><ellipse class="dg-cr" cx="434" cy="546" rx="16" ry="9"/></g>
-<path class="dg-o" fill="#E5534B" stroke-width="4" d="M302 392Q385 430 468 392L466 418Q385 454 304 418Z"/><circle class="dg-o" fill="#ffd84a" stroke-width="3.5" cx="385" cy="441" r="13"/><path d="M380 438l3 3 6-7" stroke="#8a5a0c" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+<path class="dg-o" fill="var(--collar,#E5534B)" stroke-width="4" d="M302 392Q385 430 468 392L466 418Q385 454 304 418Z"/><circle class="dg-o" fill="#ffd84a" stroke-width="3.5" cx="385" cy="441" r="13"/><path d="M380 438l3 3 6-7" stroke="#8a5a0c" stroke-width="2.5" fill="none" stroke-linecap="round"/>
 <ellipse class="dg-o dg-red" cx="385" cy="295" rx="126" ry="101"/>
 <path class="dg-cr" d="M385 197C365 234 365 278 385 320C405 278 405 234 385 197Z"/>
 <ellipse cx="318" cy="238" rx="10" ry="6" fill="var(--dg-dark)" opacity=".85"/><ellipse cx="452" cy="238" rx="10" ry="6" fill="var(--dg-dark)" opacity=".85"/>
@@ -4812,6 +4910,7 @@ body{
           <div class="evo-desc" id="evoDesc">A sleepy newborn pup curled up in a cozy basket.</div>
           <div class="evo-bar-track"><div class="evo-bar-fill" id="evoBarFill"></div></div>
           <div class="evo-next" id="evoNextLabel">Next form at LV 5</div>
+          <div class="stage-ladder" id="stageLadder" aria-label="Evolution stages"></div>
         </div>
 
         <div class="bond-bar-wrap" id="bondBarWrap">
@@ -4821,6 +4920,19 @@ body{
           </div>
           <div class="bond-track"><div class="bond-fill" id="bondFill" style="width:0%"></div></div>
           <div class="bond-hint" id="bondHint">Care together to grow your bond</div>
+        </div>
+
+        <div class="together-panel" id="togetherPanel">
+          <div class="tg-head"><span>💞 TOGETHER</span><span id="tgPresence">…</span></div>
+          <div class="tg-duo"><span id="tgKoy">🌿 0</span><div class="tg-bar"><i id="tgKoyFill"></i><i id="tgMetzFill"></i></div><span id="tgMetz">🌸 0</span></div>
+          <div class="tg-goal" id="tgGoal"></div>
+          <div class="tg-react">
+            <button type="button" data-ping="hug"><span>🤗</span>HUG</button>
+            <button type="button" data-ping="treat"><span>🦴</span>TREAT 5🪙</button>
+            <button type="button" data-ping="poke"><span>👋</span>HELLO</button>
+            <button type="button" data-ping="cheer"><span>🎉</span>CHEER</button>
+          </div>
+          <div class="tg-feed" id="tgFeed"></div>
         </div>
 
         <div class="quest-panel" id="questPanel">
@@ -11081,5 +11193,181 @@ document.addEventListener('visibilitychange', () => {
   window.addEventListener('unhandledrejection', function (e) { console.warn('Unhandled:', e.reason); });
 })();
 </script>
+<script>
+/* ===== Mochi v2: environment reactions, ambience, duo features, evolution visuals ===== */
+(function () {
+  'use strict';
+  const TTL = 20 * 60 * 1000;
+  const rnd = (a, b) => a + Math.random() * (b - a);
+  const nm = r => (r === 'koy' ? 'Koy' : 'Metz');
+  const other = () => (me === 'koy' ? 'metz' : 'koy');
+  const todayStr = () => new Date().toISOString().slice(0, 10);
+  const safe = fn => { try { fn(); } catch (e) { console.warn('[v2]', e); } };
+  const petX = () => Math.max(10, Math.min(90, parseFloat(($('pet') || {}).style?.left) || 50));
+  const roomEl = () => $('room'), layer = () => $('envFx');
+
+  /* ---------- transient reactions ---------- */
+  function put(html, cls, style, ttl) {
+    const l = layer(); if (!l) return;
+    const e = document.createElement('div'); e.className = 'fx ' + cls; e.textContent = html;
+    Object.assign(e.style, style || {}); l.appendChild(e); setTimeout(() => e.remove(), ttl || 2000);
+  }
+  function flash(c, ms) { const r = roomEl(); if (!r) return; r.classList.add(c); setTimeout(() => r.classList.remove(c), ms); }
+  const later = (n, ms, f) => { for (let i = 0; i < n; i++) setTimeout(() => safe(() => f(i)), i * ms); };
+  const FX = {
+    feed: () => put('🥣', 'fx-pop', { left: petX() + '%', bottom: '9%' }, 3800),
+    bath: () => later(10, 150, () => put('🫧', 'fx-rise', { left: rnd(petX() - 18, petX() + 18) + '%', bottom: '12%', fontSize: rnd(.8, 1.5) + 'rem' }, 2400)),
+    sleep: () => { flash('fx-dim', 4200); later(3, 900, () => put('💤', 'fx-rise', { left: petX() + 6 + '%', bottom: '38%' }, 2400)); },
+    play: () => ['🧸', '⚽', '🪀'].forEach((e, i) => setTimeout(() => put(e, 'fx-bounce', { left: rnd(18, 78) + '%', bottom: '9%' }, 2400), i * 350)),
+    sing: () => { flash('fx-howl', 3400); later(5, 420, () => put('🎵', 'fx-rise', { left: rnd(25, 70) + '%', bottom: '46%' }, 2400)); },
+    dance: () => flash('fx-disco', 2800),
+    fly: () => { later(14, 300, () => put('🐾', 'fx-print', { left: rnd(10, 88) + '%', bottom: rnd(5, 15) + '%' }, 4400)); later(7, 600, () => put('💨', 'fx-dust', { left: rnd(10, 88) + '%', bottom: '9%' }, 900)); },
+    roar: () => { flash('fx-shake', 450); setTimeout(() => flash('fx-shake', 450), 600); put('🐦', 'fx-fly', { left: '28%', top: '30%' }, 2800); put('🐦', 'fx-fly', { left: '58%', top: '20%' }, 3000); },
+    clean: () => later(7, 150, () => put('✨', 'fx-rise', { left: rnd(15, 82) + '%', bottom: '14%' }, 1800))
+  };
+
+  /* ---------- persistent marks (shared via Firebase: tamagotchi/envMarks/<room>/<id>) ---------- */
+  const MARK = {
+    hole: { e: '🕳️', coin: 2, msg: 'Filled the hole! +2 🪙', label: 'Hole Mochi dug' },
+    ball: { e: '🎾', coin: 1, msg: 'Picked up the ball! +1 🪙', label: 'Tennis ball' },
+    bone: { e: '🦴', coin: 5, msg: 'Found a buried bone! +5 🪙', label: 'Buried bone' }
+  };
+  function addMark(type, x) {
+    const id = 'm' + Date.now().toString(36) + Math.random().toString(36).slice(2, 5);
+    db.ref('tamagotchi/envMarks/' + currentRoomId + '/' + id).set({ type, x: Math.round(Math.max(8, Math.min(92, x))), y: Math.round(rnd(7, 15)), by: me, t: Date.now() }).catch(() => {});
+  }
+  let mkKey = '';
+  function renderMarks() {
+    const l = layer(); if (!l || !gameData) return;
+    const all = (gameData.envMarks || {})[currentRoomId] || {}, now = Date.now();
+    const live = Object.entries(all).filter(([, m]) => m && now - m.t < TTL);
+    Object.entries(all).forEach(([id, m]) => { if (!m || now - m.t >= TTL) db.ref('tamagotchi/envMarks/' + currentRoomId + '/' + id).remove().catch(() => {}); });
+    const key = currentRoomId + '|' + live.map(x => x[0]).join(',');
+    if (key === mkKey) return; mkKey = key;
+    l.querySelectorAll('.mk').forEach(e => e.remove());
+    live.forEach(([id, m]) => {
+      const d = MARK[m.type]; if (!d) return;
+      const b = document.createElement('button'); b.type = 'button'; b.className = 'mk mk-' + m.type;
+      b.textContent = d.e; b.title = d.label + ' — tap to clean up'; b.setAttribute('aria-label', d.label + ', tap to clean up');
+      b.style.left = m.x + '%'; b.style.bottom = m.y + '%';
+      b.onclick = () => { b.classList.add('mk-take'); db.ref('tamagotchi/envMarks/' + currentRoomId + '/' + id).remove(); db.ref('tamagotchi/coins').transaction(v => (v || 0) + d.coin); showToast(d.msg); safe(sfxGood); };
+      l.appendChild(b);
+    });
+  }
+  const _paa = playActionAnimation;
+  playActionAnimation = function (n) {
+    const p = _paa.apply(this, arguments);
+    safe(() => {
+      setTimeout(() => safe(() => FX[n] && FX[n]()), 700);
+      if (n === 'dig') p.then(() => { addMark('hole', petX()); if (Math.random() < .4) setTimeout(() => addMark('bone', petX() + rnd(8, 16)), 300); });
+      if (n === 'fire') p.then(() => addMark('ball', rnd(55, 85)));
+    });
+    return p;
+  };
+
+  /* ---------- room ambience + greetings ---------- */
+  const GREET = { bedroom: ['cozy~', '🛋️'], bathroom: ['bubbles!', '🫧'], kitchen: ['smells yummy', '🍳'], garden: ['sniff sniff', '🌳'], forest: ['so many smells!', '🌲'], playroom: ['toys!', '🧸'], farm: ['hi chickens!', '🐔'], observatory: ['so many stars', '🔭'], cloudnest: ['up high!', '🌤️'], starcove: ['splash splash', '🏖️'] };
+  let ambKey = '', lastRoom = '';
+  function ambient() {
+    const a = $('envAmbient'); if (!a) return;
+    const night = isNightTime(), R = currentRoomId, key = R + (night ? 'n' : 'd');
+    if (key === ambKey) return; ambKey = key;
+    a.className = 'env-ambient amb-' + R + (night ? ' night' : ' day');
+    const P = () => `left:${rnd(2, 96) | 0}%;top:${rnd(8, 80) | 0}%;animation-delay:${rnd(0, 8).toFixed(1)}s;animation-duration:${rnd(7, 13).toFixed(1)}s`;
+    let h = ''; for (let i = 0; i < 9; i++) h += `<i class="mote" style="${P()}"></i>`;
+    if (R === 'bedroom' && !night) h += '<div class="beam"></div>';
+    if (R === 'garden' || R === 'forest') for (let i = 0; i < (night ? 10 : 3); i++) h += night ? `<i class="ff" style="${P()}"></i>` : `<span class="bf" style="${P()}">🦋</span>`;
+    if (R === 'bathroom') for (let i = 0; i < 6; i++) h += `<span class="bub" style="${P()}">🫧</span>`;
+    if (R === 'kitchen') for (let i = 0; i < 3; i++) h += `<i class="steam" style="left:${12 + i * 7}%;animation-delay:${i * 1.3}s"></i>`;
+    if (R === 'cloudnest' || R === 'farm') for (let i = 0; i < 3; i++) h += `<span class="cl" style="top:${8 + i * 14}%;animation-delay:${-i * 9}s;animation-duration:${34 + i * 9}s">☁️</span>`;
+    if (R === 'observatory' || R === 'starcove') h += '<i class="shoot"></i><i class="shoot s2"></i>';
+    if (R === 'playroom') for (let i = 0; i < 8; i++) h += `<i class="conf" style="${P()};background:hsl(${(rnd(0, 360)) | 0} 85% 70%)"></i>`;
+    a.innerHTML = h;
+    if (lastRoom && lastRoom !== R && !isAnimating && GREET[R]) setTimeout(() => safe(() => showBubble(GREET[R][0], GREET[R][1])), 700);
+    lastRoom = R;
+  }
+
+  /* ---------- TOGETHER: reactions, duo goal, presence ---------- */
+  const PING = { hug: { e: '🤗', t: 'gave Mochi a big hug' }, treat: { e: '🦴', t: 'gave Mochi a treat' }, poke: { e: '👋', t: 'says hi' }, cheer: { e: '🎉', t: 'is cheering you both on' } };
+  const cd = {};
+  function sendPing(type) {
+    if (!gameData || !PING[type]) return;
+    if (Date.now() - (cd[type] || 0) < 15000) return showToast('Give it a moment 💞');
+    if (type === 'treat') {
+      if ((gameData.coins || 0) < 5) return showToast('A treat costs 5 🪙');
+      db.ref('tamagotchi/coins').transaction(v => ((v || 0) >= 5 ? v - 5 : v));
+      db.ref('tamagotchi/hunger').transaction(v => Math.min(100, (v || 0) + 8));
+    }
+    cd[type] = Date.now();
+    db.ref('tamagotchi/pings').push({ from: me, type, t: Date.now() }).catch(() => showToast('Could not send — check connection'));
+    const bk = 'mochi_bondping_' + me;
+    if (Date.now() - (+localStorage.getItem(bk) || 0) > 600000) { localStorage.setItem(bk, Date.now()); db.ref('tamagotchi/bond').transaction(v => Math.min(100, (v || 0) + 1)); }
+    safe(() => floatHearts(2)); safe(sfxGood); showToast(PING[type].e + ' Sent to ' + nm(other()) + '!');
+  }
+  function checkPings() {
+    if (!gameData || !me) return;
+    const list = Object.entries(gameData.pings || {}).filter(([, p]) => p && p.t);
+    if (list.length > 20) list.sort((a, b) => a[1].t - b[1].t).slice(0, list.length - 20).forEach(([k]) => db.ref('tamagotchi/pings/' + k).remove().catch(() => {}));
+    const sk = 'mochi_ping_seen_' + me; let seen = localStorage.getItem(sk);
+    if (seen === null) { seen = Date.now() - 6 * 3600000; }
+    const fresh = list.map(x => x[1]).filter(p => p.from && p.from !== me && p.t > +seen).sort((a, b) => a.t - b.t);
+    if (!fresh.length) return;
+    localStorage.setItem(sk, fresh[fresh.length - 1].t);
+    const p = fresh[fresh.length - 1], d = PING[p.type] || PING.poke;
+    const el = document.createElement('div'); el.className = 'ping-pop'; el.setAttribute('role', 'status');
+    el.innerHTML = `<span>${d.e}</span><div><b>${nm(p.from)}</b> ${d.t}${fresh.length > 1 ? ' <small>+' + (fresh.length - 1) + ' more</small>' : ''}</div>`;
+    document.body.appendChild(el); setTimeout(() => el.remove(), 4200);
+    safe(sfxGood); setTimeout(() => safe(() => { if (!isAnimating) { showBubble('♥', d.e); floatHearts(3); } }), 400);
+  }
+  const ago = t => { const m = Math.max(0, Math.round((Date.now() - t) / 60000)); return m < 1 ? 'now' : m < 60 ? m + 'm' : Math.round(m / 60) + 'h'; };
+  function together() {
+    if (!gameData || !$('togetherPanel')) return;
+    const td = gameData.todayDate === todayStr() ? (gameData.todayActions || {}) : {};
+    const k = td.koy || 0, m = td.metz || 0, tot = k + m || 1;
+    $('tgKoy').textContent = '🌿 ' + k; $('tgMetz').textContent = '🌸 ' + m;
+    $('tgKoyFill').style.width = (k / tot * 100) + '%'; $('tgMetzFill').style.width = (m / tot * 100) + '%';
+    const both = k >= DAILY_GOAL && m >= DAILY_GOAL, claimed = gameData.duoClaimed === todayStr();
+    $('tgGoal').innerHTML = claimed ? '✅ Duo goal complete — +30 🪙 claimed!' : `Duo goal: both reach ${DAILY_GOAL} care actions today → <b>+30 🪙</b> <small>(${Math.min(k, DAILY_GOAL)}/${DAILY_GOAL} · ${Math.min(m, DAILY_GOAL)}/${DAILY_GOAL})</small>`;
+    $('tgGoal').classList.toggle('done', claimed);
+    if (both && !claimed) db.ref('tamagotchi/duoClaimed').transaction(v => (v === todayStr() ? undefined : todayStr())).then(res => {
+      if (res && res.committed) { db.ref('tamagotchi/coins').transaction(v => (v || 0) + 30); showToast('🎉 Duo goal reached! +30 🪙 for you both'); safe(() => spawnConfetti(30)); }
+    }).catch(() => {});
+    const o = other(), seen = gameData[o + 'LastSeen'] || 0, mins = (Date.now() - seen) / 60000;
+    $('tgPresence').innerHTML = `<i class="dot ${mins < 3 ? 'on' : ''}"></i>${nm(o)} ${mins < 3 ? 'is here now' : seen ? 'was here ' + ago(seen) + ' ago' : 'not seen yet'}`;
+    const feed = Object.values(gameData.pings || {}).filter(p => p && p.t).sort((a, b) => b.t - a.t).slice(0, 4);
+    $('tgFeed').innerHTML = feed.length ? feed.map(p => `<div><span>${(PING[p.type] || PING.poke).e}</span><b>${p.from === me ? 'You' : nm(p.from)}</b> ${(PING[p.type] || PING.poke).t}<em>${ago(p.t)}</em></div>`).join('') : '<div class="tg-empty">Send a little love — Mochi will pass it on 💌</div>';
+  }
+  document.querySelectorAll('[data-ping]').forEach(b => b.addEventListener('click', () => sendPing(b.dataset.ping)));
+
+  /* ---------- evolution visuals ---------- */
+  const SC = { egg: ['#C9A27A', '#E8C9A0'], hatchling: ['#F29A5B', '#F7C08F'], sprout: ['#E58B3C', '#F5B96E'], sapling: ['#4FB36A', '#A8DEAE'], bloom: ['#E87FA0', '#F5B3C8'], guardian: ['#6F83DE', '#B3BEF2'], mystic: ['#8B6FD6', '#C0AEF0'], eternal: ['#E8B230', '#FFE08A'], aurora: ['#34B8C2', '#9BE7EA'], celestial: ['#FFB400', '#FFF0A8'] };
+  let lk = '';
+  function ladder() {
+    if (!gameData || !$('stageLadder')) return;
+    const lv = gameData.level || 1, cur = STAGES.reduce((a, s, i) => (lv >= s.level ? i : a), 0);
+    const c = SC[STAGES[cur].key] || SC.egg, st = document.documentElement.style;
+    st.setProperty('--stage-c', c[0]); st.setProperty('--stage-c2', c[1]);
+    const pct = parseFloat(($('xpFill') || {}).style?.width) || 0;
+    document.querySelector('.xp-bar')?.classList.toggle('near', pct >= 85);
+    const key = lv + '|' + cur; if (key === lk) return; lk = key;
+    $('stageLadder').innerHTML = STAGES.map((s, i) => {
+      const cls = i < cur ? 'done' : i === cur ? 'cur' : 'lock', far = i > cur + 1;
+      return `<div class="sl ${cls}" style="--c:${(SC[s.key] || SC.egg)[0]}" title="${far ? 'Unlocks at LV ' + s.level : s.name}"><span class="sl-e">${far ? '❔' : s.emoji}</span><b>${far ? '???' : s.name}</b><small>${i < cur ? '✓' : 'LV ' + s.level}</small></div>`;
+    }).join('');
+    const el = $('stageLadder').querySelector('.cur'); if (el) $('stageLadder').scrollLeft = Math.max(0, el.offsetLeft - 90);
+  }
+  const _sl = showLevelUp;
+  showLevelUp = function (n) { const r = _sl.apply(this, arguments); safe(() => flash('fx-evolve', 1800)); return r; };
+
+  /* ---------- wiring ---------- */
+  function all() { safe(renderMarks); safe(ambient); safe(together); safe(checkPings); safe(ladder); }
+  const _pu = processUpdate;
+  processUpdate = function () { const r = _pu.apply(this, arguments); all(); return r; };
+  setInterval(() => { if (gameData) { safe(renderMarks); safe(together); } }, 60000);
+  setTimeout(all, 1500);
+  window.mochiV2 = { sendPing, addMark, FX, all };
+})();
+</script>
+
 </body>
 </html>
