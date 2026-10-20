@@ -3954,6 +3954,13 @@
     transition: width 0.6s cubic-bezier(0.34, 1.2, 0.64, 1);
     box-shadow: inset 0 -2px 0 rgba(0,0,0,0.12);
   }
+  .evo-bar-fill.near-evo {
+    animation: nearEvoGlow 1.1s ease-in-out infinite alternate;
+    filter: brightness(1.15) saturate(1.25);
+  }
+  @keyframes nearEvoGlow {
+    to { box-shadow: inset 0 -2px 0 rgba(0,0,0,0.12), 0 0 10px rgba(232,192,112,0.7); }
+  }
   .evo-next {
     font-family: 'Press Start 2P', monospace; font-size: 0.45rem;
     color: #A89080; margin-top: 6px; text-align: right;
@@ -4036,6 +4043,15 @@
     border-radius: 3px; transition: width 0.5s ease;
   }
   .bond-hint { font-size: 0.68rem; color: #A89080; margin-top: 4px; line-height: 1.3; }
+  .bond-bar-wrap.bond-pulse {
+    animation: bondPulse 0.85s ease;
+    box-shadow: 0 3px 0 #C9B0A0, 0 0 0 4px rgba(232,122,154,0.35);
+  }
+  @keyframes bondPulse {
+    0%, 100% { transform: scale(1); }
+    40% { transform: scale(1.03); }
+    70% { transform: scale(0.99); }
+  }
 
   .quest-panel {
     background: #FDF6EE; border: 3px solid #C9B0A0; border-radius: 6px;
@@ -4723,8 +4739,18 @@ body{
 .xp-fill{background:linear-gradient(90deg,var(--stage-c2),var(--stage-c)) !important;position:relative;overflow:hidden}
 .xp-fill::after{content:'';position:absolute;inset:0;background:linear-gradient(100deg,transparent 30%,rgba(255,255,255,.55) 50%,transparent 70%);animation:shine 2.6s linear infinite}
 @keyframes shine{from{transform:translateX(-100%)}to{transform:translateX(100%)}}
-.xp-bar.near .xp-fill{animation:nearP 1s ease-in-out infinite alternate}@keyframes nearP{to{filter:brightness(1.2) saturate(1.2)}}
+.xp-bar.near .xp-fill{animation:nearP 0.9s ease-in-out infinite alternate; box-shadow: 0 0 8px rgba(232,192,112,0.55)}
+@keyframes nearP{to{filter:brightness(1.25) saturate(1.3)}}
 .evo-bar-fill{background:linear-gradient(90deg,var(--stage-c2),var(--stage-c)) !important}
+/* Micro feedback when coins/XP change */
+.coin-display.pop, .streak-display.pop {
+  animation: valuePop 0.55s cubic-bezier(0.34,1.4,0.64,1);
+}
+@keyframes valuePop {
+  0% { transform: scale(1); }
+  40% { transform: scale(1.18); }
+  100% { transform: scale(1); }
+}
 .stage-ladder{display:flex;gap:6px;overflow-x:auto;padding:12px 2px 4px;scrollbar-width:none;scroll-snap-type:x proximity}.stage-ladder::-webkit-scrollbar{display:none}
 .sl{flex:0 0 68px;scroll-snap-align:center;text-align:center;padding:8px 4px 6px;border-radius:14px;border:1.5px solid var(--line);background:#fff;position:relative;display:flex;flex-direction:column;align-items:center;gap:1px}
 .sl-e{font-size:1.4rem}.sl b{font-size:.58rem;color:var(--ink);letter-spacing:.2px}.sl small{font-size:.55rem;color:var(--ink-soft)}
@@ -4733,6 +4759,8 @@ body{
 .sl.cur::before{content:'YOU';position:absolute;top:-9px;left:50%;transform:translateX(-50%);font-size:.5rem;font-weight:700;background:var(--c);color:#fff;padding:1px 6px;border-radius:999px}
 @keyframes curP{50%{transform:translateY(-2px)}}
 .sl.lock{opacity:.55;filter:grayscale(.7)}
+.sl.next{border:2px dashed var(--c);background:linear-gradient(180deg,#fff,color-mix(in srgb,var(--c) 10%,#fff));opacity:.95}
+.sl.next::before{content:'NEXT';position:absolute;top:-9px;left:50%;transform:translateX(-50%);font-size:.48rem;font-weight:700;background:var(--c);color:#fff;padding:1px 5px;border-radius:999px}
 /* collar colour grows with the stage */
 .pet{--collar:#E5534B}.pet[data-stage="sprout"]{--collar:#4F8DE5}.pet[data-stage="sapling"]{--collar:#4FB36A}.pet[data-stage="bloom"]{--collar:#E87FA0}
 .pet[data-stage="guardian"]{--collar:#6F83DE}.pet[data-stage="mystic"]{--collar:#8B6FD6}.pet[data-stage="eternal"],.pet[data-stage="celestial"]{--collar:#E8B230}.pet[data-stage="aurora"]{--collar:#34B8C2}
@@ -6126,12 +6154,20 @@ function updateEvolutionUI() {
   const desc = $('evoDesc');
   if (desc) desc.textContent = stage.desc || '';
   const fill = $('evoBarFill');
-  if (fill) fill.style.width = prog.pct + '%';
+  if (fill) {
+    fill.style.width = prog.pct + '%';
+    fill.classList.toggle('near-evo', prog.pct >= 80);
+  }
   const next = $('evoNextLabel');
   if (next) {
-    next.textContent = prog.nextName
-      ? `${prog.pct}% → ${prog.nextEmoji || ''} ${prog.nextName} (LV ${prog.nextLevel})`
-      : '✨ MAX FORM REACHED';
+    if (prog.nextName) {
+      const levelsLeft = Math.max(0, (prog.nextLevel || 0) - (gameData.level || 1));
+      next.innerHTML = prog.pct >= 80
+        ? `✨ Almost there! <strong>${prog.nextEmoji || ''} ${prog.nextName}</strong> in ${levelsLeft} LV`
+        : `${prog.pct}% → ${prog.nextEmoji || ''} <strong>${prog.nextName}</strong> (LV ${prog.nextLevel})`;
+    } else {
+      next.textContent = '✨ MAX FORM REACHED';
+    }
   }
 }
 function isNightTime() {
@@ -9478,8 +9514,13 @@ function renderCoins() {
   if (!gameData) return;
   const c = gameData.coins || 0;
   if (renderCache.coinCount !== c) {
+    const prev = renderCache.coinCount;
     $('coinCount').textContent = c;
     renderCache.coinCount = c;
+    if (typeof prev === 'number' && c > prev) {
+      const el = document.querySelector('.coin-display');
+      if (el) { el.classList.remove('pop'); void el.offsetWidth; el.classList.add('pop'); }
+    }
   }
 }
 
@@ -9491,9 +9532,13 @@ function renderXPBar() {
   while (l < lvl) { xp -= xpForLevel(l); l++; }
   const need = xpForLevel(lvl);
   const pct = Math.min(100, (xp / need) * 100);
+  const remain = Math.max(0, Math.ceil(need - xp));
   $('levelNum').textContent = lvl;
   $('xpFill').style.width = pct + '%';
-  $('xpText').textContent = Math.floor(xp) + '/' + need;
+  $('xpText').textContent = pct >= 85
+    ? Math.floor(xp) + '/' + need + ' · ' + remain + ' to go!'
+    : Math.floor(xp) + '/' + need;
+  document.querySelector('.xp-bar')?.classList.toggle('near', pct >= 85);
 }
 
 function renderPresence() {
@@ -10399,33 +10444,41 @@ const COLOR_VARIANTS = [
 ];
 
 const DAILY_QUEST_POOL = [
-  { id: 'feed',     text: 'Feed Mochi',           action: 'feed',     target: 1, reward: '🪙 8' },
-  { id: 'pet',      text: 'Pet Mochi',            action: 'pet',      target: 2, reward: '🪙 6' },
-  { id: 'bath',     text: 'Give Mochi a bath',    action: 'bath',     target: 1, reward: '🪙 8' },
-  { id: 'play',     text: 'Play with Mochi',      action: 'play',     target: 1, reward: '🪙 10' },
-  { id: 'sleep',    text: 'Tuck Mochi in',        action: 'sleep',    target: 1, reward: '🪙 8' },
-  { id: 'note',     text: 'Leave a love note',    action: 'note',     target: 1, reward: '🪙 12' },
-  { id: 'minigame', text: 'Play Bubble Pop',      action: 'minigame', target: 1, reward: '🪙 15' },
-  { id: 'clean',    text: 'Clean up after Mochi', action: 'clean',    target: 1, reward: '🪙 8' },
-  { id: 'sing',     text: 'Sing with Mochi',      action: 'sing',     target: 1, reward: '🪙 10' }
+  { id: 'feed',     text: 'Feed Mochi',              action: 'feed',     target: 1, reward: '🪙 8' },
+  { id: 'pet',      text: 'Pet Mochi',               action: 'pet',      target: 2, reward: '🪙 6' },
+  { id: 'bath',     text: 'Give Mochi a bath',       action: 'bath',     target: 1, reward: '🪙 8' },
+  { id: 'play',     text: 'Play with Mochi',         action: 'play',     target: 1, reward: '🪙 10' },
+  { id: 'sleep',    text: 'Tuck Mochi in',           action: 'sleep',    target: 1, reward: '🪙 8' },
+  { id: 'note',     text: 'Leave a love note',       action: 'note',     target: 1, reward: '🪙 12' },
+  { id: 'minigame', text: 'Play Bubble Pop',         action: 'minigame', target: 1, reward: '🪙 15' },
+  { id: 'clean',    text: 'Clean up after Mochi',    action: 'clean',    target: 1, reward: '🪙 8' },
+  { id: 'sing',     text: 'Sing with Mochi',         action: 'sing',     target: 1, reward: '🪙 10' },
+  { id: 'dance',    text: 'Dance with Mochi',        action: 'dance',    target: 1, reward: '🪙 10' },
+  { id: 'fly',      text: 'Do zoomies with Mochi',   action: 'fly',      target: 1, reward: '🪙 12' },
+  { id: 'dig',      text: 'Dig with Mochi',          action: 'dig',      target: 1, reward: '🪙 10' },
+  { id: 'fire',     text: 'Play fetch with Mochi',   action: 'fire',     target: 1, reward: '🪙 10' },
+  { id: 'roar',     text: 'Howl with Mochi',         action: 'roar',     target: 1, reward: '🪙 8' },
+  { id: 'care3',    text: 'Care for Mochi 3 times',  action: 'anycare',  target: 3, reward: '🪙 15' }
 ];
 
 const ONBOARD_STEPS = [
   { emoji: '🐶', title: 'MEET MOCHI', text: 'This is Mochi\'s home — a tiny life you and your partner care for together. Stats drop over time, so check in often!' },
-  { emoji: '🍚', title: 'CARE ACTIONS', text: 'Use FEED, SLEEP, BATH, PET, CLEAN and PLAY to keep Mochi happy. Dog tricks like howl, fetch and zoomies are under the button below.' },
-  { emoji: '🚪', title: 'ROOMS & SHOP', text: 'Swipe the room chips or open ROOMS to visit new spaces. Earn coins from care and buy treats, outfits, and furniture in the SHOP.' },
-  { emoji: '💌', title: 'NOTES & BOND', text: 'Leave love notes for each other. When you both care close together, your BOND grows — unlock achievements and special moments!' },
-  { emoji: '✨', title: 'YOU\'RE READY', text: 'Claim daily gifts, complete quests, dress Mochi up, and watch them evolve. Have fun caring for Mochi together 🐾' }
+  { emoji: '🍚', title: 'CARE ACTIONS', text: 'Tap FEED first — watch Mochi walk over and eat. Then try SLEEP, BATH, PET, CLEAN and PLAY. Dog tricks are under the button below.' },
+  { emoji: '🚪', title: 'ROOMS & FURNITURE', text: 'Swipe room chips or open ROOMS. Tap furniture and Mochi walks over. Long-press (or drag) furniture to rearrange the layout!' },
+  { emoji: '💌', title: 'NOTES & BOND', text: 'Leave love notes for each other. When you both care within 10 minutes, your BOND grows — unlock special moments!' },
+  { emoji: '✨', title: 'YOU\'RE READY', text: 'Complete daily quests, claim rewards, dress Mochi up, and watch them evolve. Have fun caring for Mochi together 🐾' }
 ];
 
 const HINTS = [
-  'Tip: Tap furniture in the room — Mochi will walk over and interact!',
-  'Tip: Fulfill Mochi\'s want bubble for bonus XP and coins ⭐',
+  'Tip: Tap furniture — Mochi walks over and interacts!',
   'Tip: Drag furniture to rearrange the room layout',
+  'Tip: Fulfill Mochi\'s want bubble for bonus XP and coins ⭐',
   'Tip: Open the fridge in the kitchen to cook recipes 🍳',
-  'Tip: Complete daily quests for extra coins',
+  'Tip: Complete daily quests for extra coins and confetti',
   'Tip: Unlock coat styles and outfits in the shop',
-  'Tip: Both of you caring within 10 minutes boosts BOND 💞'
+  'Tip: Both of you caring within 10 minutes boosts BOND 💞',
+  'Tip: When the XP bar glows, the next level is close!',
+  'Tip: Watch the evolution bar — near 80% means a new form soon'
 ];
 
 
@@ -10535,7 +10588,11 @@ function claimQuest(idx) {
   }
   db.ref('tamagotchi').update(updates);
   sfxGood();
-  showToast(allDone ? '📋 All quests done! +' + (coins + 15) + ' 🪙' : '📋 Quest complete! +' + coins + ' 🪙');
+  if (typeof spawnConfetti === 'function') spawnConfetti(allDone ? 28 : 12);
+  showToast(allDone
+    ? '🎉 All daily quests complete! +' + (coins + 15) + ' 🪙 · +8 XP'
+    : '✅ Quest complete! +' + coins + ' 🪙');
+  if (allDone && typeof floatHearts === 'function') floatHearts(6);
 }
 
 function progressQuest(actionName) {
@@ -10543,7 +10600,8 @@ function progressQuest(actionName) {
   const items = gameData.dailyQuests.items;
   let changed = false;
   const next = items.map(q => {
-    if (q.action === actionName && q.progress < q.target && !q.claimed) {
+    const matches = q.action === actionName || (q.action === 'anycare' && ['feed','pet','bath','play','sleep','clean','sing','dance','fly','dig','fire','roar'].includes(actionName));
+    if (matches && q.progress < q.target && !q.claimed) {
       changed = true;
       return { ...q, progress: q.progress + 1 };
     }
@@ -10556,8 +10614,18 @@ function progressQuest(actionName) {
 
 function addBond(amount) {
   if (!gameData) return;
-  const bond = Math.min(100, (gameData.bond || 0) + amount);
+  const prev = gameData.bond || 0;
+  const bond = Math.min(100, prev + amount);
   db.ref('tamagotchi').update({ bond, lastUpdate: Date.now() });
+  if (bond > prev) {
+    showToast('💞 Bond +' + amount + (bond >= 100 ? ' — Soulmates!' : ''));
+    const wrap = $('bondBarWrap');
+    if (wrap) {
+      wrap.classList.add('bond-pulse');
+      setTimeout(() => wrap.classList.remove('bond-pulse'), 900);
+    }
+    if (typeof floatHearts === 'function') floatHearts(3);
+  }
 }
 
 function maybeBoostBondFromAction() {
@@ -10697,6 +10765,23 @@ function startOnboarding() {
     overlay.classList.remove('active');
     localStorage.setItem('mochi_onboarded', '1');
     showHint();
+    // Guided first action: gently highlight Feed
+    setTimeout(() => {
+      const feedBtn = document.querySelector('.action-btn[data-action="feed"]');
+      if (feedBtn && !localStorage.getItem('mochi_first_feed')) {
+        feedBtn.style.boxShadow = '0 0 0 4px rgba(232,192,112,0.7), 0 4px 0 #6B4F3E';
+        feedBtn.style.transform = 'scale(1.06)';
+        showToast('Try FEED first — watch Mochi walk over! 🍚');
+        const clear = () => {
+          feedBtn.style.boxShadow = '';
+          feedBtn.style.transform = '';
+          localStorage.setItem('mochi_first_feed', '1');
+          feedBtn.removeEventListener('click', clear);
+        };
+        feedBtn.addEventListener('click', clear, { once: true });
+        setTimeout(clear, 12000);
+      }
+    }, 600);
   };
   $('onboardNext').onclick = () => {
     sfxClick();
@@ -11351,8 +11436,10 @@ document.addEventListener('visibilitychange', () => {
     document.querySelector('.xp-bar')?.classList.toggle('near', pct >= 85);
     const key = lv + '|' + cur; if (key === lk) return; lk = key;
     $('stageLadder').innerHTML = STAGES.map((s, i) => {
-      const cls = i < cur ? 'done' : i === cur ? 'cur' : 'lock', far = i > cur + 1;
-      return `<div class="sl ${cls}" style="--c:${(SC[s.key] || SC.egg)[0]}" title="${far ? 'Unlocks at LV ' + s.level : s.name}"><span class="sl-e">${far ? '❔' : s.emoji}</span><b>${far ? '???' : s.name}</b><small>${i < cur ? '✓' : 'LV ' + s.level}</small></div>`;
+      const cls = i < cur ? 'done' : i === cur ? 'cur' : (i === cur + 1 ? 'next' : 'lock');
+      const far = i > cur + 1;
+      const title = far ? 'Unlocks at LV ' + s.level : (i === cur + 1 ? 'Next form · LV ' + s.level : s.name);
+      return `<div class="sl ${cls}" style="--c:${(SC[s.key] || SC.egg)[0]}" title="${title}"><span class="sl-e">${far ? '❔' : s.emoji}</span><b>${far ? '???' : s.name}</b><small>${i < cur ? '✓' : 'LV ' + s.level}</small></div>`;
     }).join('');
     const el = $('stageLadder').querySelector('.cur'); if (el) $('stageLadder').scrollLeft = Math.max(0, el.offsetLeft - 90);
   }
