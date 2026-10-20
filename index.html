@@ -4725,7 +4725,14 @@ body{
 .tg-duo{display:flex;align-items:center;gap:8px;margin:10px 0 6px;font-weight:700;font-size:.8rem}
 .tg-bar{flex:1;height:12px;border-radius:999px;background:#F1E2D0;overflow:hidden;display:flex}
 .tg-bar i{display:block;height:100%;transition:width .5s}#tgKoyFill{background:linear-gradient(90deg,#7BCB86,#4FB36A)}#tgMetzFill{background:linear-gradient(90deg,#F4A3BD,#E87FA0)}
-.tg-goal{font-size:.72rem;color:var(--ink-soft);margin-bottom:10px}.tg-goal.done{color:#2F8A43;font-weight:600}
+.tg-goal{font-size:.72rem;color:var(--ink-soft);margin-bottom:8px}.tg-goal.done{color:#2F8A43;font-weight:600}
+.tg-week{margin:6px 0 8px;padding:8px 10px;background:rgba(255,255,255,.65);border-radius:10px;border:1px solid rgba(139,111,94,.18)}
+.tg-week-title{font-family:'Press Start 2P',monospace;font-size:.42rem;color:#8B6F5E;margin-bottom:4px}
+.tg-week-scores{font-weight:700;font-size:.85rem;color:#4A3F3A}
+.tg-week-lead{font-size:.7rem;color:#A89080;margin-top:2px}
+.tg-coop{font-size:.72rem;margin-bottom:8px;padding:6px 10px;border-radius:10px;background:rgba(143,184,125,.15);color:#3A6A40;display:none}
+.tg-coop.on{display:block;animation:coopPulse 1.8s ease-in-out infinite}
+@keyframes coopPulse{0%,100%{box-shadow:0 0 0 0 rgba(143,184,125,.35)}50%{box-shadow:0 0 0 5px rgba(143,184,125,0)}}
 .tg-react{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
 .tg-react button{border:1.5px solid var(--line);background:#fff;border-radius:var(--r-md);padding:8px 2px;font-family:'Fredoka',sans-serif;font-weight:600;font-size:.66rem;color:var(--ink);cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:2px;min-height:52px;transition:transform .12s,box-shadow .12s;box-shadow:0 3px 0 rgba(150,95,50,.16)}
 .tg-react button span{font-size:1.3rem}.tg-react button:active{transform:translateY(2px);box-shadow:none}
@@ -4954,6 +4961,12 @@ body{
           <div class="tg-head"><span>💞 TOGETHER</span><span id="tgPresence">…</span></div>
           <div class="tg-duo"><span id="tgKoy">🌿 0</span><div class="tg-bar"><i id="tgKoyFill"></i><i id="tgMetzFill"></i></div><span id="tgMetz">🌸 0</span></div>
           <div class="tg-goal" id="tgGoal"></div>
+          <div class="tg-week" id="tgWeek">
+            <div class="tg-week-title">📅 THIS WEEK</div>
+            <div class="tg-week-scores" id="tgWeekScores">🌿 0 · 🌸 0</div>
+            <div class="tg-week-lead" id="tgWeekLead">Care to take the lead!</div>
+          </div>
+          <div class="tg-coop" id="tgCoop"></div>
           <div class="tg-react">
             <button type="button" data-ping="hug"><span>🤗</span>HUG</button>
             <button type="button" data-ping="treat"><span>🦴</span>TREAT 5🪙</button>
@@ -5148,6 +5161,10 @@ const DECAY_PER_MINUTE = 0.12;
 const OFFLINE_CAP_HOURS = 6;
 const MAX_DIARY = 40;
 const DAILY_GOAL = 5;
+const WEEKLY_MIN_CARE = 8;          // both need this many care actions in the week for shared reward
+const WEEKLY_SHARED_COINS = 40;
+const COOP_WINDOW_MS = 5 * 60 * 1000; // double XP lasts 5 minutes once both are online
+const COOP_ONLINE_MS = 3 * 60 * 1000; // "online" = last seen within 3 min
 const NIGHT_START = 22;
 const NIGHT_END = 7;
 const WANT_DURATION_MS = 30 * 60 * 1000;
@@ -6108,6 +6125,34 @@ function xpForLevel(level) {
   // Balanced curve: early levels feel achievable, later ones require real commitment
   // Level 11 ≈ 4.1k total XP, Level 35 (Eternal) ≈ ~55k total XP
   return Math.floor(55 + (level - 1) * 32 + Math.pow(level - 1, 1.65) * 11);
+}
+
+/** ISO-ish week key: YYYY-Www (Monday-based) */
+function weekKey(d) {
+  const date = d ? new Date(d) : new Date();
+  const tmp = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
+  const day = tmp.getUTCDay() || 7;
+  tmp.setUTCDate(tmp.getUTCDate() + 4 - day);
+  const yearStart = new Date(Date.UTC(tmp.getUTCFullYear(), 0, 1));
+  const weekNo = Math.ceil((((tmp - yearStart) / 86400000) + 1) / 7);
+  return tmp.getUTCFullYear() + '-W' + String(weekNo).padStart(2, '0');
+}
+
+/** True if both partners are currently considered online */
+function bothPartnersOnline() {
+  if (!gameData || !me) return false;
+  const o = me === 'koy' ? 'metz' : 'koy';
+  const otherSeen = gameData[o + 'LastSeen'] || 0;
+  const mySeen = gameData[me + 'LastSeen'] || Date.now();
+  const now = Date.now();
+  return (now - otherSeen) < COOP_ONLINE_MS && (now - mySeen) < COOP_ONLINE_MS * 2;
+}
+
+/** Active co-op double-XP window */
+function isCoopActive() {
+  if (!gameData) return false;
+  const until = gameData.coopUntil || 0;
+  return until > Date.now();
 }
 function updateLevel() {
   let lvl = 1, xp = gameData.xp || 0;
@@ -10274,6 +10319,15 @@ function applyActionEffects(name, addPoop) {
     }
   }
 
+  // Co-op: if both online, start/refresh a 5-min double-XP window
+  let coopJustStarted = false;
+  if (bothPartnersOnline()) {
+    const until = gameData.coopUntil || 0;
+    if (until < Date.now()) coopJustStarted = true;
+    updates.coopUntil = Date.now() + COOP_WINDOW_MS;
+  }
+  if (isCoopActive() || updates.coopUntil) xpMult *= 2;
+
   const want = gameData.currentWant;
   let xpEarned = action.xp;
   let coinsEarned = COIN_PER_ACTION * coinMult;
@@ -10289,6 +10343,11 @@ function applyActionEffects(name, addPoop) {
   updates.xp = (gameData.xp || 0) + xpEarned;
   updates.coins = (gameData.coins || 0) + coinsEarned;
   updates.lastUpdate = Date.now();
+  if (coopJustStarted) {
+    setTimeout(() => showToast('✨ Both online — double XP for 5 min!'), 400);
+  } else if ((isCoopActive() || updates.coopUntil) && xpEarned > 0) {
+    // subtle: already doubled
+  }
 
   const statsField = { feed: 'feeds', play: 'plays', sleep: 'sleeps', bath: 'baths', pet: 'pets', clean: 'cleans', sing: 'sings', dance: 'dances', fly: 'flies', fire: 'fires', roar: 'roars', dig: 'digs' }[name];
   if (statsField) updates['stats/' + statsField] = (gameData.stats?.[statsField] || 0) + 1;
@@ -10322,6 +10381,30 @@ function applyActionEffects(name, addPoop) {
     updates.xp += 10;
     updates.coins = (updates.coins || gameData.coins || 0) + COIN_PER_DAILY_GOAL;
     setTimeout(() => showToast('✨ Daily goal complete! +10 XP +20 🪙'), 500);
+  }
+
+  // Weekly care leaderboard
+  const wk = weekKey();
+  let weekActions = { ...(gameData.weekActions || { koy: 0, metz: 0 }) };
+  if (gameData.weekKey !== wk) {
+    // New week — optionally note previous winner was stored; reset counts
+    weekActions = { koy: 0, metz: 0 };
+    updates.weekKey = wk;
+    updates.weekRewardClaimed = false;
+  }
+  weekActions[me] = (weekActions[me] || 0) + 1;
+  updates.weekActions = weekActions;
+
+  // Shared weekly reward when both reach the minimum
+  const wkK = weekActions.koy || 0, wkM = weekActions.metz || 0;
+  if (wkK >= WEEKLY_MIN_CARE && wkM >= WEEKLY_MIN_CARE && !gameData.weekRewardClaimed && !updates.weekRewardClaimed) {
+    updates.weekRewardClaimed = true;
+    updates.coins = (updates.coins || gameData.coins || 0) + WEEKLY_SHARED_COINS;
+    updates.xp = (updates.xp || gameData.xp || 0) + 15;
+    setTimeout(() => {
+      showToast('📅 Weekly care goal! Both cared ' + WEEKLY_MIN_CARE + '+ times — +' + WEEKLY_SHARED_COINS + ' 🪙 +15 XP');
+      if (typeof spawnConfetti === 'function') spawnConfetti(24);
+    }, 600);
   }
 
   const entry = { by: me, text: `${action.verb} Mochi`, time: Date.now() };
@@ -11417,6 +11500,47 @@ document.addEventListener('visibilitychange', () => {
     if (both && !claimed) db.ref('tamagotchi/duoClaimed').transaction(v => (v === todayStr() ? undefined : todayStr())).then(res => {
       if (res && res.committed) { db.ref('tamagotchi/coins').transaction(v => (v || 0) + 30); showToast('🎉 Duo goal reached! +30 🪙 for you both'); safe(() => spawnConfetti(30)); }
     }).catch(() => {});
+
+    // Weekly care leaderboard
+    const wk = typeof weekKey === 'function' ? weekKey() : '';
+    const wa = (gameData.weekKey === wk ? gameData.weekActions : null) || { koy: 0, metz: 0 };
+    const wkK = wa.koy || 0, wkM = wa.metz || 0;
+    const scoresEl = $('tgWeekScores');
+    const leadEl = $('tgWeekLead');
+    if (scoresEl) scoresEl.textContent = '🌿 Koy ' + wkK + '  ·  🌸 Metz ' + wkM;
+    if (leadEl) {
+      if (wkK === 0 && wkM === 0) leadEl.textContent = 'Care this week to take the lead!';
+      else if (wkK === wkM) leadEl.textContent = 'Tied! Keep caring 💞';
+      else if (wkK > wkM) leadEl.textContent = '🌿 Koy leads by ' + (wkK - wkM);
+      else leadEl.textContent = '🌸 Metz leads by ' + (wkM - wkK);
+      if (gameData.weekRewardClaimed && gameData.weekKey === wk) {
+        leadEl.textContent += ' · Weekly goal claimed ✅';
+      } else if (wkK >= WEEKLY_MIN_CARE && wkM >= WEEKLY_MIN_CARE) {
+        leadEl.textContent += ' · Goal ready!';
+      } else {
+        leadEl.textContent += ' · Goal: both ' + WEEKLY_MIN_CARE + '+';
+      }
+    }
+
+    // Co-op double XP banner
+    const coopEl = $('tgCoop');
+    if (coopEl) {
+      const until = gameData.coopUntil || 0;
+      const active = until > Date.now();
+      const online = typeof bothPartnersOnline === 'function' && bothPartnersOnline();
+      if (active) {
+        const minsLeft = Math.max(1, Math.ceil((until - Date.now()) / 60000));
+        coopEl.className = 'tg-coop on';
+        coopEl.textContent = '✨ Double XP active — ' + minsLeft + ' min left (you\'re both online!)';
+      } else if (online) {
+        coopEl.className = 'tg-coop on';
+        coopEl.textContent = '✨ Both online — next care starts double XP for 5 min!';
+      } else {
+        coopEl.className = 'tg-coop';
+        coopEl.textContent = '';
+      }
+    }
+
     const o = other(), seen = gameData[o + 'LastSeen'] || 0, mins = (Date.now() - seen) / 60000;
     $('tgPresence').innerHTML = `<i class="dot ${mins < 3 ? 'on' : ''}"></i>${nm(o)} ${mins < 3 ? 'is here now' : seen ? 'was here ' + ago(seen) + ' ago' : 'not seen yet'}`;
     const feed = Object.values(gameData.pings || {}).filter(p => p && p.t).sort((a, b) => b.t - a.t).slice(0, 4);
