@@ -11629,5 +11629,160 @@ document.addEventListener('visibilitychange', () => {
 })();
 </script>
 
+<style>
+/* ===== Mochi visual upgrade: lighting, weather, themes, juice ===== */
+.vx-light{position:absolute;inset:0;pointer-events:none;z-index:4;transition:background 3s ease,opacity 3s ease}
+.vx-wx{position:absolute;inset:0;pointer-events:none;z-index:5;overflow:hidden}
+.vx-wx i{position:absolute;top:-10%;display:block;font-style:normal;animation:vxFall linear infinite;will-change:transform}
+.vx-wx i.r{width:2px;height:15px;background:linear-gradient(transparent,rgba(130,175,225,.85));border-radius:2px}
+@keyframes vxFall{to{transform:translate3d(var(--dx,0px),430px,0) rotate(var(--rot,0deg))}}
+.vx-chip{position:absolute;top:8px;right:8px;z-index:7;background:rgba(253,246,238,.88);border:2px solid #C9B0A0;border-radius:12px;padding:2px 8px;font:600 .68rem 'Fredoka',sans-serif;color:#6B4F3E;pointer-events:none}
+.vx-theme{position:absolute;bottom:8px;right:8px;z-index:7;width:34px;height:34px;border-radius:50%;border:3px solid #8B6F5E;background:#FDF6EE;font-size:1rem;cursor:pointer;box-shadow:0 3px 0 #8B6F5E;transition:transform .12s}
+.vx-theme:active{transform:translateY(2px);box-shadow:none}
+.vx-coin{position:fixed;z-index:99998;font-size:1.1rem;pointer-events:none;transition:transform .85s cubic-bezier(.5,-.25,.75,.55),opacity .85s;filter:drop-shadow(0 2px 2px rgba(0,0,0,.25))}
+@keyframes vxBump{40%{transform:scale(1.25)}}
+.vx-bump{animation:vxBump .35s ease}
+.vx-evo{position:fixed;inset:0;z-index:99999;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;background:radial-gradient(circle,rgba(60,35,90,.88),rgba(15,8,35,.96));color:#FFF3C4;text-align:center;overflow:hidden;animation:vxIn .5s ease;cursor:pointer}
+.vx-evo::before{content:'';position:absolute;inset:-60%;background:repeating-conic-gradient(rgba(255,226,140,.28) 0 7deg,transparent 7deg 18deg);animation:vxSpin 14s linear infinite}
+.vx-evo>*{position:relative}
+.vx-evo .e{font-size:6.5rem;animation:vxPop 1.1s cubic-bezier(.34,1.56,.64,1),bob 2.6s 1.1s ease-in-out infinite;filter:drop-shadow(0 0 28px rgba(255,220,120,.9))}
+.vx-evo h2{font:400 1.05rem/1.5 'Press Start 2P',monospace;letter-spacing:1px}
+.vx-evo p{font:500 .9rem 'Fredoka',sans-serif;max-width:260px;opacity:.9}
+@keyframes vxSpin{to{transform:rotate(360deg)}}
+@keyframes vxIn{from{opacity:0}}
+@keyframes vxPop{0%{transform:scale(0) rotate(-20deg)}100%{transform:scale(1) rotate(0)}}
+@media (prefers-reduced-motion:reduce){.vx-wx i,.vx-evo::before{animation:none}}
+</style>
+<script>
+(function () {
+  'use strict';
+  const $$ = id => document.getElementById(id);
+  const OUT = ['garden', 'forest', 'farm', 'cloudnest', 'starcove'];
+  const DARK = ['observatory', 'starcove'];
+
+  /* ---- daily weather (same for both of you, changes by date + month) ---- */
+  const W = (() => {
+    const n = new Date(), m = n.getMonth() + 1, x = n.getFullYear() * 372 + m * 31 + n.getDate();
+    const r = ((x * 2654435761) >>> 0) % 100, wet = m >= 6 && m <= 10, rain = wet ? 42 : 20;
+    if (m === 12 && r < 55) return 'snow';
+    if (r < rain) return 'rain';
+    if (r < rain + 18) return r % 2 ? 'petals' : 'leaves';
+    return 'clear';
+  })();
+  const WI = { rain: ['🌧️', 'Rainy'], snow: ['❄️', 'Snowy'], petals: ['🌸', 'Petal breeze'], leaves: ['🍂', 'Breezy'], clear: ['☀️', 'Clear'] };
+  const PART = { rain: [30, null], snow: [22, '❄️'], petals: [14, '🌸'], leaves: [12, '🍂'] };
+
+  /* ---- time-of-day light ---- */
+  function lightCss() {
+    const d = new Date(), h = d.getHours() + d.getMinutes() / 60;
+    let l, n;
+    if (h >= 5 && h < 7) [l, n] = ['linear-gradient(180deg,rgba(255,170,150,.28),rgba(255,222,170,.10))', 'Dawn'];
+    else if (h >= 7 && h < 16) [l, n] = ['linear-gradient(180deg,rgba(255,255,255,0),rgba(255,255,255,0))', 'Day'];
+    else if (h >= 16 && h < 18.5) [l, n] = ['linear-gradient(180deg,rgba(255,150,60,.08),rgba(255,140,50,.27))', 'Golden hour'];
+    else if (h >= 18.5 && h < 21) [l, n] = ['linear-gradient(180deg,rgba(90,60,150,.30),rgba(255,120,120,.14))', 'Dusk'];
+    else [l, n] = ['linear-gradient(180deg,rgba(20,30,90,.40),rgba(20,30,90,.22))', 'Night'];
+    if (W === 'rain' || W === 'snow') l = 'linear-gradient(180deg,rgba(90,110,150,.14),rgba(90,110,150,.14)),' + l;
+    return [l, n];
+  }
+
+  /* ---- room themes (shared through Firebase: tamagotchi/roomThemes/<room>) ---- */
+  const THEMES = [['Classic', 'none'], ['Meadow', 'hue-rotate(40deg) saturate(1.2)'], ['Ocean', 'hue-rotate(140deg)'], ['Berry', 'hue-rotate(250deg) saturate(1.1)'], ['Peach', 'sepia(.5) hue-rotate(-20deg) saturate(1.6)'], ['Misty', 'grayscale(.35) brightness(1.05)']];
+  const local = {};
+
+  let wxKey = '', lastLight = '';
+  function setup() {
+    const room = $$('room'); if (!room) return null;
+    if (!$$('vxLight')) {
+      const L = document.createElement('div'); L.id = 'vxLight'; L.className = 'vx-light';
+      const X = document.createElement('div'); X.id = 'vxWx'; X.className = 'vx-wx';
+      const C = document.createElement('div'); C.id = 'vxChip'; C.className = 'vx-chip';
+      const B = document.createElement('button'); B.type = 'button'; B.className = 'vx-theme'; B.textContent = '🎨'; B.setAttribute('aria-label', 'Change room colors');
+      B.onclick = () => {
+        try {
+          const R = currentRoomId, cur = local[R] ?? (((gameData || {}).roomThemes || {})[R] || 0), nx = (cur + 1) % THEMES.length;
+          local[R] = nx; paint(R);
+          db.ref('tamagotchi/roomThemes/' + R).set(nx).then(() => { delete local[R]; }).catch(() => {});
+          if (typeof showToast === 'function') showToast('🎨 ' + THEMES[nx][0] + ' colors');
+        } catch (e) {}
+      };
+      room.append(L, X, C, B);
+    }
+    return room;
+  }
+  function paint(R) {
+    const t = local[R] ?? (((typeof gameData !== 'undefined' && gameData) ? gameData.roomThemes || {} : {})[R] || 0);
+    const f = (THEMES[t] || THEMES[0])[1];
+    ['roomWall', 'roomFloor'].forEach(id => { const e = $$(id); if (e && e.style.filter !== (f === 'none' ? '' : f)) e.style.filter = f === 'none' ? '' : f; });
+  }
+  function tick() {
+    try {
+      if (!setup()) return;
+      const R = typeof currentRoomId !== 'undefined' ? currentRoomId : 'bedroom';
+      const [css, name] = lightCss(), L = $$('vxLight');
+      if (css !== lastLight) { L.style.background = css; lastLight = css; }
+      L.style.opacity = DARK.includes(R) ? .45 : 1;
+      const out = OUT.includes(R), key = R + '|' + W + '|' + out;
+      if (key !== wxKey) {
+        wxKey = key;
+        const X = $$('vxWx'), p = PART[W]; X.innerHTML = '';
+        if (p && out) for (let i = 0; i < p[0]; i++) {
+          const e = document.createElement('i'), s = Math.random();
+          e.style.left = (Math.random() * 100) + '%'; e.style.animationDelay = (-Math.random() * 6).toFixed(2) + 's';
+          if (W === 'rain') { e.className = 'r'; e.style.animationDuration = (.7 + s * .5).toFixed(2) + 's'; e.style.setProperty('--dx', '-40px'); }
+          else { e.textContent = p[1]; e.style.fontSize = (.7 + s * .7).toFixed(2) + 'rem'; e.style.animationDuration = (5 + s * 5).toFixed(1) + 's'; e.style.setProperty('--dx', (Math.random() * 120 - 40) + 'px'); e.style.setProperty('--rot', (Math.random() * 360) + 'deg'); }
+          X.appendChild(e);
+        }
+      }
+      $$('vxChip').textContent = name + ' · ' + WI[W][0] + ' ' + WI[W][1];
+      paint(R);
+    } catch (e) { console.warn('[vx]', e); }
+  }
+  setInterval(tick, 1200); setTimeout(tick, 600);
+
+  /* ---- coins fly to the counter ---- */
+  let last = null, hooked = false;
+  function hookCoins() {
+    const el = $$('coinCount'); if (!el || hooked) return; hooked = true;
+    new MutationObserver(() => {
+      const v = parseInt(el.textContent) || 0;
+      if (last !== null && v > last) fly(Math.min(6, v - last));
+      last = v;
+    }).observe(el, { childList: true, characterData: true, subtree: true });
+    last = parseInt(el.textContent) || 0;
+  }
+  function fly(n) {
+    const src = ($$('pet') || $$('room')).getBoundingClientRect(), dst = $$('coinBox').getBoundingClientRect();
+    for (let i = 0; i < n; i++) setTimeout(() => {
+      const c = document.createElement('div'); c.className = 'vx-coin'; c.textContent = '🪙';
+      c.style.left = (src.left + src.width / 2 + (Math.random() * 30 - 15)) + 'px'; c.style.top = (src.top + src.height / 3) + 'px';
+      document.body.appendChild(c);
+      requestAnimationFrame(() => requestAnimationFrame(() => {
+        c.style.transform = `translate(${dst.left + dst.width / 2 - src.left - src.width / 2}px,${dst.top - src.top - src.height / 3}px) scale(.5)`; c.style.opacity = '.4';
+      }));
+      setTimeout(() => { c.remove(); const b = $$('coinBox'); b.classList.remove('vx-bump'); void b.offsetWidth; b.classList.add('vx-bump'); }, 880);
+    }, i * 90);
+  }
+  const hk = setInterval(() => { try { hookCoins(); if (hooked) clearInterval(hk); } catch (e) {} }, 1000);
+
+  /* ---- evolution cutscene ---- */
+  function evo(s) {
+    const o = document.createElement('div'); o.className = 'vx-evo';
+    o.innerHTML = `<div class="e">${s.emoji}</div><h2>${s.name}</h2><p>${s.desc}</p><p style="opacity:.6;font-size:.75rem">tap to continue</p>`;
+    o.onclick = () => o.remove(); document.body.appendChild(o); setTimeout(() => o.remove(), 6500);
+    try { if (typeof spawnConfetti === 'function') spawnConfetti(40); } catch (e) {}
+  }
+  try {
+    if (typeof showLevelUp === 'function') {
+      const _o = showLevelUp;
+      showLevelUp = function (n) {
+        const r = _o.apply(this, arguments);
+        try { const lv = typeof n === 'number' ? n : (gameData || {}).level, s = STAGES.find(x => x.level === lv); if (s && lv > 1) setTimeout(() => evo(s), 900); } catch (e) {}
+        return r;
+      };
+    }
+  } catch (e) {}
+})();
+</script>
+
 </body>
 </html>
