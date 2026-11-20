@@ -11784,5 +11784,205 @@ document.addEventListener('visibilitychange', () => {
 })();
 </script>
 
+<style>
+/* ===== Mochi Decor Studio ===== */
+.vx-pat{position:absolute;inset:0;pointer-events:none}
+.vx-deco{position:absolute;inset:0;z-index:3;pointer-events:none}
+.vx-deco>.d{position:absolute;transform:translate(-50%,-50%);line-height:1;filter:drop-shadow(0 3px 2px rgba(0,0,0,.2))}
+.vx-deco>.d.glow{animation:vxGlow 2.8s ease-in-out infinite}
+.vx-deco>.d.float{animation:vxFloat 4s ease-in-out infinite}
+.vx-deco>.lights{position:absolute;left:4%;right:4%;top:5%;height:14px;display:flex;justify-content:space-between;border-top:2px solid rgba(90,60,40,.45);border-radius:50%/100% 100% 0 0}
+.vx-deco>.lights b{width:7px;height:7px;border-radius:50%;margin-top:6px;animation:vxTw 1.8s ease-in-out infinite}
+@keyframes vxGlow{50%{filter:drop-shadow(0 0 12px rgba(255,210,90,.95)) brightness(1.15)}}
+@keyframes vxFloat{50%{transform:translate(-50%,-58%)}}
+@keyframes vxTw{50%{opacity:.25;transform:scale(.7)}}
+.vx-amb{position:absolute;inset:0;pointer-events:none;z-index:5;overflow:hidden}
+.vx-amb i{position:absolute;display:block;border-radius:50%}
+.vx-amb i.f{width:5px;height:5px;background:#FFF59A;box-shadow:0 0 8px 3px rgba(255,240,120,.8);animation:vxDrift 6s ease-in-out infinite alternate}
+.vx-amb i.d{width:3px;height:3px;background:rgba(255,255,255,.85);animation:vxRise 10s linear infinite}
+@keyframes vxDrift{0%{opacity:0;transform:translate(0,0)}30%{opacity:1}100%{opacity:.2;transform:translate(var(--dx),var(--dy))}}
+@keyframes vxRise{0%{opacity:0;transform:translateY(0)}20%{opacity:.8}100%{opacity:0;transform:translate(14px,-230px)}}
+.vx-studio-btn{position:absolute;bottom:8px;right:48px;z-index:7;width:34px;height:34px;border-radius:50%;border:3px solid #8B6F5E;background:#FDF6EE;font-size:1rem;cursor:pointer;box-shadow:0 3px 0 #8B6F5E}
+.vx-studio-btn:active{transform:translateY(2px);box-shadow:none}
+.vx-modal{position:fixed;inset:0;z-index:99990;background:rgba(60,40,30,.55);display:flex;align-items:flex-end;justify-content:center}
+.vx-sheet{width:100%;max-width:480px;max-height:80vh;overflow:auto;background:#FDF6EE;border:3px solid #8B6F5E;border-bottom:0;border-radius:20px 20px 0 0;padding:14px;font-family:'Fredoka',sans-serif;color:#6B4F3E}
+.vx-sheet h3{margin:0 0 8px;font:400 .8rem 'Press Start 2P',monospace;display:flex;justify-content:space-between;align-items:center}
+.vx-tabs{display:flex;gap:6px;margin-bottom:10px}
+.vx-tabs button{flex:1;padding:8px 4px;border:2px solid #C9B0A0;border-radius:10px;background:#fff;font:600 .8rem 'Fredoka',sans-serif;color:#6B4F3E;cursor:pointer}
+.vx-tabs button.on{background:#F5C6D6;border-color:#8B6F5E}
+.vx-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.vx-card{border:2px solid #C9B0A0;border-radius:12px;background:#fff;padding:6px;text-align:center;font-size:.72rem}
+.vx-sw{height:52px;border-radius:8px;border:2px solid #E3D2C6;display:flex;align-items:center;justify-content:center;font-size:1.8rem;margin-bottom:4px;overflow:hidden}
+.vx-card button{margin-top:4px;width:100%;padding:5px 2px;border:2px solid #8B6F5E;border-radius:8px;background:#CDEBC8;font:600 .7rem 'Fredoka',sans-serif;color:#4A3A2E;cursor:pointer}
+.vx-card button.buy{background:#FFE08A}.vx-card button.off{background:#eee;color:#999;border-color:#ccc}
+.vx-card.on{border-color:#6BBF6B;background:#F2FBF0}
+</style>
+<script>
+(function () {
+  'use strict';
+  const $$ = id => document.getElementById(id);
+  const toast = m => { try { showToast(m); } catch (e) {} };
+
+  /* make sure phones stop serving an old cached copy on the next visit */
+  try {
+    const V = 'decor1';
+    if (localStorage.getItem('vxV') !== V) {
+      localStorage.setItem('vxV', V);
+      if (window.caches) caches.keys().then(k => Promise.all(k.map(x => caches.delete(x))));
+      if (navigator.serviceWorker) navigator.serviceWorker.getRegistrations().then(r => r.forEach(x => x.update()));
+    }
+  } catch (e) {}
+
+  /* ---------- catalog ---------- */
+  const WALLS = [
+    ['stripes', 'Candy Stripes', 40, 'repeating-linear-gradient(90deg,#FFDDE8 0 18px,#FFF2F6 18px 36px)'],
+    ['dots', 'Polka Pop', 45, 'radial-gradient(#F6A9C6 22%,transparent 24%) 0 0/24px 24px,#FFF0F5'],
+    ['stars', 'Starry Night', 70, 'radial-gradient(circle,#FFE98A 0 1.5px,transparent 2px) 0 0/26px 26px,linear-gradient(#2B2F6B,#4A3F8F)'],
+    ['clouds', 'Cloud Nine', 60, 'radial-gradient(ellipse 26px 11px at 30% 40%,#fff 96%,transparent) 0 0/70px 46px,radial-gradient(ellipse 22px 9px at 75% 75%,#fff 96%,transparent) 0 0/70px 46px,linear-gradient(#BFE4FF,#E6F5FF)'],
+    ['bricks', 'Cozy Brick', 55, 'repeating-linear-gradient(0deg,#C97B63 0 15px,#9F5E49 15px 17px)'],
+    ['gingham', 'Picnic Gingham', 50, 'conic-gradient(#FFD0DE 25%,#fff 0 50%,#FFD0DE 0 75%,#fff 0) 0 0/30px 30px'],
+    ['mint', 'Mint Meadow', 45, 'radial-gradient(circle at 50% 50%,#A8DDB5 0 4px,transparent 5px) 0 0/22px 22px,#E6F7EA']
+  ];
+  const FLOORS = [
+    ['wood', 'Warm Wood', 40, 'repeating-linear-gradient(90deg,#D9A86C 0 38px,#B98348 38px 40px)'],
+    ['checker', 'Checkerboard', 50, 'conic-gradient(#fff 25%,#6B4F3E 0 50%,#fff 0 75%,#6B4F3E 0) 0 0/40px 40px'],
+    ['grass', 'Soft Grass', 45, 'repeating-linear-gradient(80deg,#7CC47C 0 6px,#6AB46A 6px 12px)'],
+    ['carpet', 'Pink Carpet', 55, 'radial-gradient(#F9B8CE 18%,transparent 20%) 0 0/16px 16px,#F6A2BE'],
+    ['tiles', 'Blue Tiles', 50, 'linear-gradient(#fff 0 0) 0 0/2px 100%,linear-gradient(#fff 0 0) 0 0/100% 2px,#9FD2F0'],
+    ['galaxy', 'Galaxy Rug', 80, 'radial-gradient(circle,#fff 0 1px,transparent 2px) 0 0/30px 30px,linear-gradient(#3B2B7A,#7A4FA8)']
+  ];
+  const DECOS = [
+    ['plant', '🪴', 'Leafy Plant', 30, 'f', 2.3], ['cactus', '🌵', 'Tiny Cactus', 30, 'f', 2],
+    ['lamp', '💡', 'Glow Lamp', 45, 'f', 2.1, 'glow'], ['bear', '🧸', 'Big Teddy', 50, 'f', 2.6],
+    ['tree', '🎄', 'Mini Tree', 80, 'f', 3],
+    ['poster', '🖼️', 'Wall Poster', 40, 'w', 2.4], ['clock', '🕰️', 'Wall Clock', 50, 'w', 2.2],
+    ['mirror', '🪞', 'Mirror', 60, 'w', 2.6], ['lantern', '🏮', 'Paper Lantern', 55, 'w', 2.2, 'glow'],
+    ['balloon', '🎈', 'Balloons', 35, 'w', 2.4, 'float'], ['lights', '✨', 'Fairy Lights', 70, 'l', 1]
+  ];
+  const WX = [12, 30, 48, 66, 84], FX = [10, 28, 46, 64, 82];
+
+  /* ---------- shared state ---------- */
+  let D = { owned: {}, rooms: {} };
+  const rid = () => (typeof currentRoomId !== 'undefined' ? currentRoomId : 'bedroom');
+  const cfg = r => (D.rooms || {})[r] || {};
+  const coins = () => (typeof gameData !== 'undefined' && gameData ? gameData.coins || 0 : 0);
+  function listen() {
+    try { db.ref('tamagotchi/decor').on('value', s => { D = s.val() || { owned: {}, rooms: {} }; D.owned = D.owned || {}; D.rooms = D.rooms || {}; sync(true); if ($$('vxModal')) build(tab); }); }
+    catch (e) { setTimeout(listen, 1500); }
+  }
+  listen();
+
+  function spend(c, ok) {
+    db.ref('tamagotchi/coins').transaction(v => ((v || 0) >= c ? v - c : undefined), (e, done) => { if (done) ok(); else toast('Not enough coins 🪙'); });
+  }
+  const set = (path, v) => db.ref('tamagotchi/decor/' + path).set(v);
+
+  /* ---------- drawing in the room ---------- */
+  let dKey = '', pKey = '';
+  function sync(force) {
+    const room = $$('room'); if (!room) return;
+    const R = rid(), c = cfg(R);
+    ['roomWall', 'roomFloor'].forEach((id, i) => {
+      const host = $$(id); if (!host) return;
+      let p = host.querySelector('.vx-pat');
+      if (!p) { if (getComputedStyle(host).position === 'static') host.style.position = 'relative'; p = document.createElement('div'); p.className = 'vx-pat'; host.appendChild(p); }
+      const sel = (i ? c.floor : c.wall) || '', it = (i ? FLOORS : WALLS).find(x => x[0] === sel);
+      const css = it ? it[3] : '';
+      if (p.dataset.k !== sel || force) { p.dataset.k = sel; p.style.background = css; }
+    });
+    let L = $$('vxDeco');
+    if (!L) { L = document.createElement('div'); L.id = 'vxDeco'; L.className = 'vx-deco'; room.appendChild(L); }
+    const key = R + JSON.stringify(c.deco || {});
+    if (key === dKey && !force) return; dKey = key; L.innerHTML = '';
+    Object.entries(c.deco || {}).forEach(([id, slot]) => {
+      const it = DECOS.find(x => x[0] === id); if (!it) return;
+      if (it[4] === 'l') {
+        const l = document.createElement('div'); l.className = 'lights';
+        l.innerHTML = [0, 1, 2, 3, 4, 5, 6, 7].map(n => `<b style="background:${['#FF8FB1', '#FFE27A', '#8FE0FF', '#B9F28F'][n % 4]};animation-delay:${n * .23}s"></b>`).join(''); L.appendChild(l); return;
+      }
+      const n = +String(slot).slice(1), d = document.createElement('div');
+      d.className = 'd ' + (it[6] || ''); d.textContent = it[1]; d.style.fontSize = it[5] + 'rem';
+      d.style.left = (it[4] === 'w' ? WX : FX)[n] + '%'; d.style.top = (it[4] === 'w' ? 24 + (n % 2) * 6 : 70 + (n % 2) * 7) + '%';
+      L.appendChild(d);
+    });
+  }
+
+  /* ---------- ambient life: fireflies at night outdoors, dust motes in daylight indoors ---------- */
+  const OUT = ['garden', 'forest', 'farm', 'cloudnest', 'starcove'];
+  function ambient() {
+    const room = $$('room'); if (!room) return;
+    let A = $$('vxAmb'); if (!A) { A = document.createElement('div'); A.id = 'vxAmb'; A.className = 'vx-amb'; room.appendChild(A); }
+    const d = new Date(), h = d.getHours() + d.getMinutes() / 60, R = rid(), out = OUT.includes(R);
+    const mode = out && (h >= 18.5 || h < 5) ? 'f' : (!out && h >= 7 && h < 16 ? 'd' : '');
+    const key = mode + R; if (A.dataset.k === key) return; A.dataset.k = key; A.innerHTML = '';
+    if (!mode) return;
+    for (let i = 0; i < (mode === 'f' ? 14 : 12); i++) {
+      const e = document.createElement('i'); e.className = mode;
+      e.style.left = Math.random() * 100 + '%'; e.style.top = (mode === 'f' ? 25 + Math.random() * 60 : 55 + Math.random() * 40) + '%';
+      e.style.animationDelay = (-Math.random() * 8).toFixed(1) + 's'; e.style.animationDuration = (mode === 'f' ? 4 + Math.random() * 4 : 8 + Math.random() * 6).toFixed(1) + 's';
+      e.style.setProperty('--dx', (Math.random() * 90 - 45) + 'px'); e.style.setProperty('--dy', (Math.random() * 60 - 30) + 'px'); A.appendChild(e);
+    }
+  }
+
+  /* ---------- Decor Studio ---------- */
+  let tab = 'wall';
+  function addButton() {
+    const room = $$('room'); if (!room || room.querySelector('.vx-studio-btn')) return;
+    const b = document.createElement('button'); b.type = 'button'; b.className = 'vx-studio-btn'; b.textContent = '🏠'; b.setAttribute('aria-label', 'Open decor studio');
+    b.onclick = () => { build(tab); }; room.appendChild(b);
+  }
+  function swatch(t, it) { return t === 'deco' ? `<div class="vx-sw">${it[1]}</div>` : `<div class="vx-sw" style="background:${it[3]}"></div>`; }
+  function build(t) {
+    tab = t; let m = $$('vxModal');
+    if (!m) { m = document.createElement('div'); m.id = 'vxModal'; m.className = 'vx-modal'; document.body.appendChild(m); m.addEventListener('click', onClick); }
+    const R = rid(), c = cfg(R), list = t === 'wall' ? WALLS : t === 'floor' ? FLOORS : DECOS;
+    const placed = c.deco || {}, used = Object.keys(placed).length;
+    const cards = list.map(it => {
+      const key = t + '_' + it[0], own = !!D.owned[key]; let btn;
+      if (!own) btn = `<button class="buy" data-a="buy" data-i="${it[0]}">🪙 ${it[(t === 'deco' ? 3 : 2)]}</button>`;
+      else if (t === 'deco') btn = placed[it[0]] ? `<button data-a="rm" data-i="${it[0]}">Remove</button>` : `<button data-a="put" data-i="${it[0]}">Place here</button>`;
+      else btn = c[t] === it[0] ? `<button class="off">In use</button>` : `<button data-a="use" data-i="${it[0]}">Use here</button>`;
+      const on = (t === 'deco' ? placed[it[0]] : c[t] === it[0]) ? ' on' : '';
+      return `<div class="vx-card${on}">${swatch(t, it)}<b>${t === 'deco' ? it[2] : it[1]}</b>${btn}</div>`;
+    }).join('');
+    const reset = t === 'deco' ? '' : `<div class="vx-card${c[t] ? '' : ' on'}"><div class="vx-sw">🏠</div><b>Classic</b><button data-a="use" data-i="">${c[t] ? 'Use here' : 'In use'}</button></div>`;
+    m.innerHTML = `<div class="vx-sheet"><h3><span>🏠 DECOR</span><span>🪙 ${coins()}</span></h3>
+      <div class="vx-tabs">${[['wall', 'Wallpaper'], ['floor', 'Floor'], ['deco', 'Decor ' + used + '/6']].map(x => `<button data-a="tab" data-i="${x[0]}" class="${t === x[0] ? 'on' : ''}">${x[1]}</button>`).join('')}</div>
+      <div class="vx-grid">${reset}${cards}</div>
+      <p style="text-align:center;font-size:.7rem;opacity:.7;margin:10px 0 2px">Changes apply to this room only and show for both of you.</p>
+      <div class="vx-tabs" style="margin:6px 0 0"><button data-a="close">Close</button></div></div>`;
+  }
+  function onClick(e) {
+    if (e.target === $$('vxModal')) return $$('vxModal').remove();
+    const b = e.target.closest('button[data-a]'); if (!b) return;
+    const a = b.dataset.a, i = b.dataset.i, R = rid(), t = tab;
+    if (a === 'close') return $$('vxModal').remove();
+    if (a === 'tab') return build(i);
+    const list = t === 'wall' ? WALLS : t === 'floor' ? FLOORS : DECOS, it = list.find(x => x[0] === i);
+    if (a === 'use') { set('rooms/' + R + '/' + t, i); }
+    else if (a === 'rm') { set('rooms/' + R + '/deco/' + i, null); }
+    else if (a === 'put') place(R, it);
+    else if (a === 'buy') spend(it[t === 'deco' ? 3 : 2], () => {
+      set('owned/' + t + '_' + i, true);
+      if (t === 'deco') place(R, it); else set('rooms/' + R + '/' + t, i);
+      toast('✨ Bought ' + (t === 'deco' ? it[2] : it[1])); try { spawnConfetti(8); } catch (x) {}
+    });
+  }
+  function place(R, it) {
+    const placed = cfg(R).deco || {};
+    if (Object.keys(placed).length >= 6) return toast('This room is full (6 decorations) 🏠');
+    let slot = 'l';
+    if (it[4] !== 'l') {
+      const taken = Object.values(placed), n = [0, 1, 2, 3, 4].find(k => !taken.includes(it[4] + k));
+      if (n === undefined) return toast('No free ' + (it[4] === 'w' ? 'wall' : 'floor') + ' spot left');
+      slot = it[4] + n;
+    }
+    set('rooms/' + R + '/deco/' + it[0], slot);
+  }
+
+  setInterval(() => { try { addButton(); sync(); ambient(); } catch (e) { console.warn('[decor]', e); } }, 1200);
+})();
+</script>
+
 </body>
 </html>
