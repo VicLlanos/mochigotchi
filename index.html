@@ -5159,7 +5159,8 @@ const db = firebase.database();
 
 const DECAY_PER_MINUTE = 0;        // Mochi is independent: her needs never drop on their own
 const MOCHI_MAX_LEVEL = 100;      // max level in this game
-const MOCHI_PARTNER = 'koy';      // <-- Mochi's partner in life: 'koy' or 'metz'. This person can't do care actions.
+const MOCHI_VIEW_ONLY = 'koy';    // this person can only VIEW Mochi. Everyone else (Metz, friends, town) takes care of her.
+const MOCHI_QUOTE = 'Everyone can take care of me, except Koy.';
 const MOCHI_CARE_CIRCLE = [
   { emoji: '👩‍🍳', who: 'Chef Bibi',        say: 'cooked Mochi a full meal',        stat: 'hunger' },
   { emoji: '🛁', who: 'Auntie Groomer',    say: 'gave Mochi a spa bath',            stat: 'clean'  },
@@ -5964,6 +5965,7 @@ localStorage.setItem('mochi_pin', pin);
   startPresenceHeartbeat();
   startAutoCleanLoop();
   startCareCircleLoop();
+  setupViewOnlyMode();
   startMoodParticleLoop();
  startWanderLoop();
   setTimeout(() => startOnboarding(), 600);
@@ -10283,9 +10285,7 @@ document.querySelectorAll('.action-btn').forEach(btn => {
 });
 
 async function doAction(name) {
-  if (me === MOCHI_PARTNER) {
-    return showToast("Mochi: \"I'm good! Everyone else is taking care of me 💅\"");
-  }
+  if (me === MOCHI_VIEW_ONLY) { mochiSaysNo(); return; }
   if (!gameData) return showToast('Loading Mochi... 🌿');
   if (isAnimating) return showToast('Let Mochi finish 🌿');
   if (mgActive) return showToast('Finish the mini-game first! 🫧');
@@ -10563,6 +10563,42 @@ function showWelcomeBack(prev, curr, lastSeenTime) {
    AUTO-CLEAN
    ============================================================ */
 let careCircleIdx = 0;
+let _lastNoAt = 0;
+function mochiSaysNo() {
+  if (Date.now() - _lastNoAt < 2500) return;
+  _lastNoAt = Date.now();
+  try { showBubble(MOCHI_QUOTE, '💅'); } catch (e) {}
+  showToast('🐶 Mochi: "' + MOCHI_QUOTE + '"');
+}
+function setupViewOnlyMode() {
+  const isViewOnly = (me === MOCHI_VIEW_ONLY);
+  // Everyone (Koy and Metz) sees Mochi's message: banner + periodic speech bubble
+  if (!isViewOnly) {
+    setTimeout(() => { try { showBubble(MOCHI_QUOTE, '💅'); } catch (e) {} }, 2500);
+    setInterval(() => { try { if (!isAnimating) showBubble(MOCHI_QUOTE, '💅'); } catch (e) {} }, 60 * 1000);
+  }
+  if (isViewOnly) document.body.classList.add('view-only');
+  if (!document.getElementById('viewOnlyBanner')) {
+    const b = document.createElement('div');
+    b.id = 'viewOnlyBanner';
+    b.textContent = isViewOnly ? '👀 VIEW ONLY — "' + MOCHI_QUOTE + '"' : '🐶 Mochi says: "' + MOCHI_QUOTE + '"';
+    b.style.cssText = 'position:fixed;left:50%;transform:translateX(-50%);bottom:calc(10px + env(safe-area-inset-bottom,0px));z-index:9999;background:#FDF6EE;border:2px solid #8B6F5E;border-radius:999px;padding:8px 14px;font:600 .78rem Fredoka,sans-serif;color:#4A3F3A;box-shadow:0 3px 0 #8B6F5E;max-width:92vw;text-align:center;pointer-events:none';
+    document.body.appendChild(b);
+  }
+  if (!isViewOnly) return;
+  const block = (e) => {
+    const t = e.target;
+    if (!t || !t.closest) return;
+    if (!t.closest('#gameScreen')) return;               // overlays/popups stay dismissable
+    if (t.closest('.nav-tab')) return;                    // viewing tabs is allowed
+    e.stopPropagation(); e.stopImmediatePropagation();
+    if (e.type === 'click') mochiSaysNo();
+  };
+  ['click', 'pointerdown', 'mousedown', 'touchstart', 'dblclick', 'contextmenu'].forEach(ev =>
+    window.addEventListener(ev, block, true));
+  document.querySelectorAll('#gameScreen input, #gameScreen textarea, #gameScreen select').forEach(el => { el.disabled = true; });
+}
+
 function startCareCircleLoop() {
   const run = () => {
     if (!gameData) return;
