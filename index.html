@@ -5157,7 +5157,19 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 const db = firebase.database();
 
-const DECAY_PER_MINUTE = 0.12;
+const DECAY_PER_MINUTE = 0;        // Mochi is independent: her needs never drop on their own
+const MOCHI_MAX_LEVEL = 100;      // max level in this game
+const MOCHI_PARTNER = 'koy';      // <-- Mochi's partner in life: 'koy' or 'metz'. This person can't do care actions.
+const MOCHI_CARE_CIRCLE = [
+  { emoji: '👩‍🍳', who: 'Chef Bibi',        say: 'cooked Mochi a full meal',        stat: 'hunger' },
+  { emoji: '🛁', who: 'Auntie Groomer',    say: 'gave Mochi a spa bath',            stat: 'clean'  },
+  { emoji: '🧸', who: 'The Neighbor Kids', say: 'played with Mochi all afternoon',  stat: 'happy'  },
+  { emoji: '🛏️', who: 'Grandma',           say: 'tucked Mochi in for a cozy nap',   stat: 'energy' },
+  { emoji: '🩺', who: 'Dr. Vet',           say: 'did a full health check-up',       stat: 'all'    },
+  { emoji: '🧹', who: 'The Cleaning Crew', say: 'tidied up after Mochi',            stat: 'poops'  },
+  { emoji: '🐕', who: 'Best Friend Biscuit', say: 'shared snacks and zoomies',      stat: 'happy'  },
+  { emoji: '👑', who: 'Everyone in town',  say: 'is taking care of Mochi',          stat: 'all'    }
+];
 const OFFLINE_CAP_HOURS = 6;
 const MAX_DIARY = 40;
 const DAILY_GOAL = 5;
@@ -5951,6 +5963,7 @@ localStorage.setItem('mochi_pin', pin);
   startAmbientLoop();
   startPresenceHeartbeat();
   startAutoCleanLoop();
+  startCareCircleLoop();
   startMoodParticleLoop();
  startWanderLoop();
   setTimeout(() => startOnboarding(), 600);
@@ -6061,12 +6074,9 @@ function applyDecayAndListen() {
 
     const today = new Date().toISOString().slice(0, 10);
     const updates = { lastUpdate: now };
-    if (minutesOffline > 0.1) {
-      updates.hunger = Math.max(0, (data.hunger ?? 100) - decay);
-      updates.happy  = Math.max(0, (data.happy  ?? 100) - decay);
-      updates.energy = Math.max(0, (data.energy ?? 100) - decay);
-      updates.clean  = Math.max(0, (data.clean  ?? 100) - decay);
-    }
+    // Mochi is independent: while nobody was around, her care circle looked after her
+    updates.hunger = 100; updates.happy = 100; updates.energy = 100; updates.clean = 100;
+    updates.poops = 0;
     if (data.todayDate !== today) {
       updates.todayDate = today;
       updates.todayActions = { koy: 0, metz: 0 };
@@ -6203,9 +6213,23 @@ function isCoopActive() {
   const until = gameData.coopUntil || 0;
   return until > Date.now();
 }
+function mochiMaxXp() {
+  let t = 0;
+  for (let l = 1; l < MOCHI_MAX_LEVEL; l++) t += xpForLevel(l);
+  return t;
+}
+let _maxLevelPushed = false;
 function updateLevel() {
+  const maxXp = mochiMaxXp();
+  if ((gameData.xp || 0) < maxXp) {
+    gameData.xp = maxXp;
+    if (!_maxLevelPushed) {
+      _maxLevelPushed = true;
+      db.ref('tamagotchi').update({ xp: maxXp, level: MOCHI_MAX_LEVEL }).catch(() => { _maxLevelPushed = false; });
+    }
+  }
   let lvl = 1, xp = gameData.xp || 0;
-  while (lvl < 100 && xp >= xpForLevel(lvl)) { xp -= xpForLevel(lvl); lvl++; }
+  while (lvl < MOCHI_MAX_LEVEL && xp >= xpForLevel(lvl)) { xp -= xpForLevel(lvl); lvl++; }
   gameData.level = lvl;
   if (lvl > lastLevel && lastLevel !== 0) {
     setTimeout(() => { showLevelUp(lvl); addAlbumEntry(lvl); }, 400);
@@ -8936,9 +8960,8 @@ function checkWantGeneration() {
   const now = Date.now();
   const cw = gameData.currentWant;
   if (!cw || (now - cw.createdAt) > WANT_DURATION_MS) {
-    if (Math.random() < 0.7) {
-      const w = WANTS[Math.floor(Math.random() * WANTS.length)];
-      db.ref('tamagotchi/currentWant').set({ ...w, createdAt: now, id: w.id + '_' + now });
+    if (false) {
+      // Mochi is independent - she doesn't ask for anything anymore
     } else {
       db.ref('tamagotchi/currentWant').set({ content: true, createdAt: now, id: 'content_' + now });
     }
@@ -10260,6 +10283,9 @@ document.querySelectorAll('.action-btn').forEach(btn => {
 });
 
 async function doAction(name) {
+  if (me === MOCHI_PARTNER) {
+    return showToast("Mochi: \"I'm good! Everyone else is taking care of me 💅\"");
+  }
   if (!gameData) return showToast('Loading Mochi... 🌿');
   if (isAnimating) return showToast('Let Mochi finish 🌿');
   if (mgActive) return showToast('Finish the mini-game first! 🫧');
@@ -10536,6 +10562,25 @@ function showWelcomeBack(prev, curr, lastSeenTime) {
 /* ============================================================
    AUTO-CLEAN
    ============================================================ */
+let careCircleIdx = 0;
+function startCareCircleLoop() {
+  const run = () => {
+    if (!gameData) return;
+    const needs = ['hunger', 'happy', 'energy', 'clean'].some(k => (gameData[k] ?? 100) < 100) || (gameData.poops || 0) > 0;
+    if (!needs) return;
+    const c = MOCHI_CARE_CIRCLE[careCircleIdx++ % MOCHI_CARE_CIRCLE.length];
+    const u = {};
+    if (c.stat === 'all') { u.hunger = 100; u.happy = 100; u.energy = 100; u.clean = 100; u.poops = 0; }
+    else if (c.stat === 'poops') { u.poops = 0; }
+    else { u[c.stat] = 100; }
+    u.lastUpdate = Date.now();
+    db.ref('tamagotchi').update(u).catch(() => {});
+    showToast(`${c.emoji} ${c.who} ${c.say}!`);
+  };
+  setInterval(run, 20 * 1000);
+  setTimeout(run, 3000);
+}
+
 function startAutoCleanLoop() {
   if (autoCleanIntervalId) clearInterval(autoCleanIntervalId);
   autoCleanIntervalId = setInterval(() => {
@@ -10617,6 +10662,7 @@ const HINTS = [
 /* One-time reset: put Mochi back to a proper Level 11 Sprout
    (user had used a shortcut that pushed level to Eternal) */
 function maybeResetToSprout() {
+  return; // Mochi is at MAX level now - never reset her
   if (localStorage.getItem('mochi_reset_sprout_v2') === '1') return;
   if (!gameData) return;
   // Only reset if level is artificially high ( > 15 ) so we don't touch legitimate progress
